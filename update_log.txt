@@ -3,10 +3,11 @@
 
 
 2025-06-04 12:50:22 changes made and pushed to origin main
+
  2025-06-04 12:50:49: Log Update
 - Right now the data scrapping script scrapes wikipedia only. Future work can be paid services for Google API as we have tried to use python library but the error 429.2025-06-04 13:23:04 changes made and pushed to origin main
 - Finished with the data chunking code and analysis and is ready for use 
-- Next to work on the Vector DB code 2025-06-04 13:24:12 changes made and pushed to origin main
+- Next to work on the Vector DB code 
+2025-06-04 13:24:12 changes made and pushed to origin main
+ 2025-06-04 13:25:48 changes made and pushed to origin main
 
- 
- 2025-06-04 13:24:46 changes made and pushed to origin main
