@@ -3,3 +3,5 @@
 
 
 2025-06-04 12:50:22 changes made and pushed to origin main
+ 2025-06-04 12:50:49: Log Update
+Right now the data scrapping script scrapes wikipedia only. Future work can be paid services for Google API as we have tried to use python library but the error 429.2025-06-04 13:23:04 changes made and pushed to origin main
