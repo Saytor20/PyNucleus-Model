@@ -1,0 +1,1085 @@
+Modular design - Wikipedia 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Jump to content 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Main menu 
+ 
+ 
+ 
+ 
+ 
+ Main menu 
+ move to sidebar 
+ hide 
+ 
+ 
+ 
+		Navigation
+	 
+ 
+ 
+ Main page Contents Current events Random article About Wikipedia Contact us 
+ 
+ 
+ 
+ 
+ 
+		Contribute
+	 
+ 
+ 
+ Help Learn to edit Community portal Recent changes Upload file Special pages 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Search 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Search 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Appearance 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Donate 
+ 
+ Create account 
+ 
+ Log in 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Personal tools 
+ 
+ 
+ 
+ 
+ 
+ Donate   Create account   Log in 
+ 
+ 
+ 
+ 
+ 
+		Pages for logged out editors  learn more 
+ 
+ 
+ 
+ Contributions Talk 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Contents 
+ move to sidebar 
+ hide 
+ 
+ 
+ 
+ 
+ (Top) 
+ 
+ 
+ 
+ 
+ 
+ 1 
+ Overview 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2 
+ Applications 
+ 
+ 
+ 
+ 
+ Toggle Applications subsection 
+ 
+ 
+ 
+ 
+ 
+ 2.1 
+ In vehicles 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2.2 
+ In machines and architecture 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2.3 
+ In computer hardware 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2.4 
+ In smartphones 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2.5 
+ In televisions 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2.6 
+ In weaponry 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2.7 
+ In trade show exhibits and retail displays 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3 
+ Integrating the digital twin into modular design 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 4 
+ Integrating life-cycle and energy assessments into modular design 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5 
+ See also 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 6 
+ References 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 7 
+ Further reading 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Toggle the table of contents 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Modular design 
+ 
+ 
+ 
+ 13 languages 
+ 
+ 
+ 
+ 
+ العربية Català Deutsch Español فارسی 한국어 Magyar Nederlands 日本語 Русский Suomi Українська 中文 
+ 
+ Edit links 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Article Talk 
+ 
+ 
+ 
+ 
+ 
+ English 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Read Edit View history 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Tools 
+ 
+ 
+ 
+ 
+ 
+ Tools 
+ move to sidebar 
+ hide 
+ 
+ 
+ 
+		Actions
+	 
+ 
+ 
+ Read Edit View history 
+ 
+ 
+ 
+ 
+ 
+		General
+	 
+ 
+ 
+ What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Download QR code 
+ 
+ 
+ 
+ 
+ 
+		Print/export
+	 
+ 
+ 
+ Download as PDF Printable version 
+ 
+ 
+ 
+ 
+ 
+		In other projects
+	 
+ 
+ 
+ Wikimedia Commons Wikidata item 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Appearance 
+ move to sidebar 
+ hide 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ From Wikipedia, the free encyclopedia 
+ 
+ 
+ Design approach 
+ This article is about a design approach. For factory built structures moved in modules, see  Modular building . 
+ A  laptop  that is designed to be modular 
+ Modular design , or modularity in design, is a design principle that subdivides a system into smaller parts called  modules  (such as modular process skids), which can be independently created, modified, replaced, or exchanged with other modules or between different systems.
+ 
+ 
+ Overview [ edit ] 
+ This section includes a  list of references ,  related reading , or  external links ,  but its sources remain unclear because it lacks  inline citations .  Please help  improve  this section by  introducing  more precise citations.   ( December 2019 )  ( Learn how and when to remove this message ) 
+ A modular design can be characterized by functional partitioning into discrete scalable and reusable modules, rigorous use of well-defined modular interfaces, and making use of industry standards for interfaces. In this context modularity is at the component level, and has a single dimension, component slottability. A modular system with this limited modularity is generally known as a platform system that uses modular components. Examples are  car platforms  or the  USB  port in  computer engineering  platforms.
+ In design theory this is distinct from a modular system which has higher dimensional modularity and degrees of freedom. A modular system design has no distinct lifetime and exhibits flexibility in at least three dimensions. In this respect modular systems are very rare in markets. Mero architectural systems are the closest example to a modular system in terms of hard products in markets.  Weapons platforms, especially in aerospace, tend to be modular systems, wherein the airframe is designed to be upgraded multiple times during its lifetime, without the purchase of a completely new system. Modularity is best defined by the dimensions effected or the degrees of freedom in form, cost, or operation.
+ Modularity offers benefits such as reduction in cost (customization can be limited to a portion of the system, rather than needing an overhaul of the entire system), interoperability, shorter learning time, flexibility in design, non-generationally constrained augmentation or updating (adding new solution by merely plugging in a new module), and exclusion.  Modularity in platform systems, offer benefits in returning margins to scale, reduced product development cost, reduced O&M costs, and time to market.  Platform systems have enabled the wide use of system design in markets and the ability for product companies to separate the rate of the product cycle from the R&D paths. The biggest drawback with modular systems is the designer or engineer.  Most designers are poorly trained in  systems analysis  and most engineers are poorly trained in design. The design complexity of a modular system is significantly higher than a platform system and requires experts in design and product strategy during the conception phase of system development. That phase must anticipate the directions and levels of flexibility necessary in the system to deliver the modular benefits. Modular systems could be viewed as more complete or holistic design whereas platforms systems are more reductionist, limiting modularity to components.  Complete or holistic modular design requires a much higher level of design skill and sophistication than the more common platform system.
+ Cars ,  computers ,  process systems ,  solar panels ,  wind turbines ,  elevators ,  furniture ,  looms ,  railroad signaling  systems,  telephone exchanges ,  pipe organs ,  synthesizers ,  electric power distribution  systems and modular buildings are examples of platform systems using various levels of component modularity.  For example, one cannot assemble a solar cube from extant solar components or easily replace the engine on a truck or rearrange a modular housing unit into a different configuration after a few years, as would be the case in a modular system. These key characteristics make modular furniture incredibly versatile and adaptable. [ 1 ]  The only extant examples of modular systems in today's market are some software systems that have shifted away from versioning into a completely networked paradigm.
+ Modular design inherently combines the  mass production  advantages of  standardization  with those of  customization . The degree of modularity, dimensionally, determines the degree of customization possible. For example, solar panel systems have 2-dimensional modularity which allows adjustment of an array in the x and y dimensions.  Further dimensions of modularity would be introduced by making the panel itself and its auxiliary systems modular. Dimensions in modular systems are defined as the effected  parameter  such as shape or cost or lifecycle. Mero systems have 4-dimensional modularity, x, y, z, and structural load capacity. As can be seen in any modern convention space, the space frame's extra two dimensions of modularity allows far greater flexibility in form and function than solar's 2-d modularity. If modularity is properly defined and conceived in the design strategy, modular systems can create significant competitive advantage in markets.  A true modular system does not need to rely on product cycles to adapt its functionality to the current market state.  Properly designed modular systems also introduce the economic advantage of not carrying dead capacity, increasing the capacity utilization rate and its effect on cost and pricing flexibility.
+ 
+ Applications [ edit ] 
+ In vehicles [ edit ] 
+ See also:  Electric vehicle ,  Wikispeed , and  open-source vehicle 
+ The modular design of the  Unimog  offers attachment capabilities for various different  implements . 
+ Aspects of modular design can be seen in cars or other  vehicles  to the extent of there being certain parts to the car that can be added or removed without altering the rest of the car.
+ A simple example of modular design in cars is the fact that, while many cars come as a basic model, paying extra will allow for "snap in" upgrades such as a more powerful engine,  vehicle audio ,  ventilated seats , or seasonal tires; these do not require any change to other units of the car such as the  chassis , steering,  electric motor  or battery systems.
+ 
+ In machines and architecture [ edit ] 
+ Main article:  Modular building 
+ Modular design can be seen in certain buildings. Modular buildings (and also modular homes) generally consist of universal parts (or modules) that are manufactured in a  factory  and then shipped to a build site where they are assembled into a variety of arrangements. [ 2 ] 
+ Modular buildings can be added to or reduced in size by adding or removing certain components. This can be done without altering larger portions of the building. Modular buildings can also undergo changes in functionality using the same process of adding or removing components.
+ 
+ Modular workstations 
+ For example, an  office  building can be built using modular parts such as walls, frames, doors, ceilings, and windows. The interior can then be partitioned (or divided) with more walls and furnished with desks, computers, and whatever else is needed for a functioning workspace. If the office needs to be expanded or redivided to accommodate employees, modular components such as wall panels can be added or relocated to make the necessary changes without altering the whole building. Later, this same office can be broken down and rearranged to form a  retail  space,  conference hall  or another type of building, using the same modular components that originally formed the office building. The new building can then be refurnished with whatever items are needed to carry out its desired functions.
+ Other types of modular buildings that are offered from a company like Allied Modular include a  guardhouse , machine enclosure,  press box ,  conference room , two-story building,  clean room  and many more applications. [ 3 ] 
+ Many misconceptions are held regarding modular buildings. [ 4 ]  In reality modular construction is a viable method of construction for quick turnaround and fast growing companies. Industries that would benefit from this include healthcare, commercial, retail, military, and multi-family/student housing.
+ 
+ In computer hardware [ edit ] 
+ Modular computer design 
+ Modular design in computer hardware is the same as in other things (e.g. cars, refrigerators, and furniture). The idea is to build computers with easily replaceable parts that use standardized  interfaces . This technique allows a user to upgrade certain aspects of the computer easily without having to buy another computer altogether.
+ A computer is one of the best examples of modular design. Typical  computer modules  include a  computer chassis ,  power supply units ,  processors ,  mainboards ,  graphics cards ,  hard drives , and  optical drives . All of these parts should be easily  interchangeable  as long as the user uses parts that support the same standard interface.
+ 
+ In smartphones [ edit ] 
+ Further information:  Modular smartphone 
+ The idea of a modular  smartphone  was explored in  Project Ara , which provided a platform for manufactures to create modules for a smartphone which could then be customised by the end user. The  Fairphone  uses a similar principle, where the user can purchase individual parts to repair or upgrade the phone.
+ 
+ In televisions [ edit ] 
+ In 1963  Motorola  introduced the first rectangular color picture tube, and in 1967 introduced the modular  Quasar  brand. In 1964 it opened its first research and development branch outside of the United States, in Israel under the management of Moses Basin. In 1974  Motorola  sold its television business to the Japan-based Matsushita, the parent company of  Panasonic .
+ 
+ In weaponry [ edit ] 
+ Main article:  Modular weapon system 
+ Some firearms and weaponry use a modular design to make maintenance and operation easier and more familiar. For instance, German  firearms manufacturer   Heckler & Koch  produces several weapons that, while being different types, are visually and, in many instances, internally similar. These are the  G3   battle rifle ,  HK21   general-purpose machine gun ,  MP5   submachine gun ,  HK33  and  G41   assault rifles , and  PSG1   sniper rifle .
+ 
+ In trade show exhibits and retail displays [ edit ] 
+ The concept of modular design has become popular with  trade show  exhibits and  retail promotional displays . These kind of promotional displays involve creative custom designs but need a temporary structure that can be reusable. Thus many companies are adapting to the Modular way of exhibit design. In this they can use pre engineered modular systems that act as building blocks to creative a custom design. These can then be reconfigured to another layout and reused for a future show. This enables the user to reduce cost of manufacturing and labor (for set up and transport) and is a more sustainable way of creating experiential set ups.
+ 
+ Integrating the digital twin into modular design [ edit ] 
+ See also:  Digital twin § Modularity 
+ This section  needs expansion . You can help by  adding to it .   ( December 2019 ) 
+ Product lifecycle management  is a strategy for efficiently managing information about a  product  (and product families, platforms, modules, and parts) during its  product lifecycle . [ 5 ]  Researchers have described how integrating a  digital twin —a digital representation of a physical product—with modular design can improve product lifecycle management. [ 6 ] [ 7 ] 
+ 
+ Integrating life-cycle and energy assessments into modular design [ edit ] 
+ See also:  Life-cycle assessment 
+ Some authors observe that modular design has generated in the vehicle industry a constant increase of weight over time. Trancossi advanced the hypothesis that modular design can be coupled by some optimization criteria derived from the  constructal law . [ 8 ]  In fact, the constructal law is modular for his nature and can apply with interesting results in engineering simple systems. [ 9 ]  It applies with a typical bottom-up optimization schema: 
+ 
+ a system can be divided into subsystems (elemental parts) using tree models; 
+ any complex system can be represented in a modular way and it is possible to describe how different physical magnitudes flow through the system; 
+ analyzing the different flowpaths it is possible to identify the critical components that affect the performance of the system; 
+ by optimizing those components and substituting them with more performing ones, it is possible to improve the performances of the system. 
+ A better formulation has been produced during the MAAT EU FP7 Project. [ 10 ]  A new design method that couples the above bottom-up optimization with a preliminary system level top-down design has been formulated. [ 11 ]  The two step design process has been motivated by considering that constructal and modular design does not refer to any objective to be reached in the design process. A theoretical formulation has been provided in a recent paper, [ 8 ]  and applied with success to the design of a small aircraft, [ 12 ]  the conceptual design of innovative commuter aircraft, [ 13 ] [ 14 ]  the design of a new entropic wall, [ 15 ]  and an innovative off-road vehicle designed for  energy efficiency . [ 16 ] 
+ 
+ See also [ edit ] 
+ 
+ 3D printing 
+ Cellular automaton 
+ Configuration design 
+ Holarchy 
+ Holism 
+ Kraftei 
+ Modular building 
+ Modular construction systems 
+ Modular function deployment  (MFD) 
+ Modular programming 
+ Modular smartphone 
+ Modular weapon system 
+ Modularity 
+ Open-design movement 
+ Open-source hardware 
+ OpenStructures 
+ Pattern language 
+ Reconfigurable manufacturing system 
+ Separation of concerns 
+ Systems design 
+ Systems engineering 
+ System integration 
+ 
+ References [ edit ] 
+ 
+ 
+ ^   S, Rob (May 6, 2023).  "What Is Modular Furniture: A Comprehensive Guide" .  SitBackLounge . Retrieved  July 25,  2023 . 
+ 
+ ^   "Modular home definition" . Archived from  the original  on 2011-08-08 . Retrieved  2010-08-19 . 
+ 
+ ^   Allied Modular Products  Allied Modular. Retrieved March 27, 2012 
+ 
+ ^   "modular building" . Archived from  the original  on 2014-09-17. 
+ 
+ ^   Stark, John (2015) [2005].  Product Lifecycle Management (Volume 1): 21st Century Paradigm for Product Realisation . Decision Engineering (3rd ed.). Cham:  Springer-Verlag . pp.  1– 20.  doi : 10.1007/978-3-319-17440-2 .  ISBN   978-3-319-17439-6 .  OCLC   907289028 . 
+ 
+ ^   Schleich, Benjamin; Anwer, Nabil; Mathieu, Luc; Wartzack, Sandro (January 2017).  "Shaping the digital twin for design and production engineering"   (PDF) .  CIRP Annals .  66  (1):  141– 144.  doi : 10.1016/j.cirp.2017.04.040 . 
+ 
+ ^   Grieves, Michael; Vickers, John (2017). "Digital twin: mitigating unpredictable, undesirable emergent behavior in complex systems". In Kahlen, Franz-Josef; Flumerfelt, Shannon; Alves, Anabela (eds.).  Transdisciplinary perspectives on complex systems: new findings and approaches . Cham:  Springer-Verlag . pp.  85– 113.  doi : 10.1007/978-3-319-38756-7 .  ISBN   9783319387543 . 
+ 
+ ^  a   b   Trancossi, M.  A response to industrial maturity and energetic issues: a possible solution based on constructal law . Eur. Transp. Res. Rev. (2015) 7: 2.  doi : 10.1007/s12544-014-0150-4 
+ 
+ ^   Bejan A. , and  Lorente S. , "Constructal theory of generation of configuration in nature and engineering", J. Appl. Phys., 100, 2006,  doi : 10.1063/1.2221896 
+ 
+ ^   "Multibody Advanced Airship for Transport | Projects | FP7-TRANSPORT" . 
+ 
+ ^   Dumas A, Madonia M, Trancossi M, Vucinic D (2013)  "Propulsion of photovoltaic cruiser-feeder airships dimensioning by constructal design for efficiency method" [ dead link ] . SAE Int J Aerosp 6(1):273–285.  doi : 10.4271/2013-01-2303 
+ 
+ ^   Trancossi, M., Bingham, C., Capuani, A., Das, S. et al.,  "Multifunctional unmanned reconnaissance aircraft for low-speed and STOL operations" [ dead link ] , SAE Technical Paper 2015-01-2465, 2015.  doi : 10.4271/2015-01-2465 
+ 
+ ^   Trancossi, M., Madonia, M., Dumas, A. et al.  "A new aircraft architecture based on the ACHEON Coanda effect nozzle: flight model and energy evaluation" .  Eur. Transp. Res. Rev.  (2016) 8: 11.  doi : 10.1007/s12544-016-0198-4 
+ 
+ ^   Trancossi, M., Dumas, A., Madonia, M., Subhash, M. et al.,  "Preliminary implementation study of ACHEON thrust and vector electrical propulsion on a STOL light utility aircraft" , SAE Technical Paper 2015-01-2422, 2015.  doi : 10.4271/2015-01-2422 
+ 
+ ^   Trancossi, M., et al.  "Constructal design of an entropic wall with circulating water inside" .  Journal of Heat Transfer , 2016, 138.8: 082801. 
+ 
+ ^   Trancossi M., Pascoa J,  "Design of an innovative off road hybrid vehicle by energy efficiency criteria" ,  International Journal of Heat and Technology , 2016. 
+ 
+ 
+ Further reading [ edit ] 
+ Schilling, MA., "Toward a general modular systems theory and its application to interfirm product modularity" Academy of Management Review, 2000, Vol 25(2):312-334.  [1] 
+ Erixon, O.G. and Ericsson, A., " Controlling Design Variants " USA: Society of Manufacturing Engineers 1999  [2]   ISBN   0-87263-514-7   [3] 
+ Clark, K.B. and Baldwin, C.Y., " Design Rules. Vol. 1: The Power of Modularity " Cambridge, Massachusetts: MIT Press 2000  ISBN   0-262-02466-7 
+ Baldwin, C.Y., Clark, K.B., " The Option Value of Modularity in Design " Harvard Business School, 2002  [4] 
+ Levin, Mark Sh. " Modular systems design and evaluation ". Springer, 2015. 
+ Modularity in Design Formal Modeling & Automated Analysis 
+ "Modularity: upgrading to the next generation design architecture"   Archived  2019-07-19 at the  Wayback Machine , an interview 
+ v t e Design 
+ Outline 
+ Designer 
+ Disciplines Communication design 
+ Advertising 
+ Book design 
+ Brand design 
+ Exhibit design 
+ Film title design 
+ Graphic design 
+ Motion 
+ Postage stamp design 
+ Print design 
+ Illustration 
+ Information design 
+ Instructional design 
+ News design 
+ Photography 
+ Retail design 
+ Signage  /  Traffic sign design 
+ Typography  /  Type design 
+ Video design 
+ Visual merchandising 
+ Environmental design 
+ Architecture 
+ Architectural lighting design 
+ Building design 
+ Passive solar 
+ Ecological design 
+ Environmental impact design 
+ Garden design 
+ Computer-aided 
+ Healthy community design 
+ Hotel design 
+ Interior architecture 
+ Interior design 
+ EID 
+ Keyline design 
+ Landscape architecture 
+ Sustainable 
+ Landscape design 
+ Spatial design 
+ Urban design 
+ Industrial design 
+ Automotive design 
+ Automotive suspension design 
+ CMF design 
+ Corrugated box design 
+ Electric guitar design 
+ Furniture design 
+ Sustainable 
+ Hardware interface design 
+ Motorcycle design 
+ Packaging and labeling 
+ Photographic lens design 
+ Product design 
+ Production design 
+ Sensory design 
+ Service design 
+ Interaction design 
+ Experience design 
+ EED 
+ Game design 
+ Level design 
+ Video game design 
+ Hardware interface design 
+ Icon design 
+ Immersive design 
+ Information design 
+ Interactive design 
+ Sonic interaction design 
+ User experience design 
+ User interface design 
+ Web design 
+ Other applied arts 
+ Public art design 
+ Ceramic  /  glass design 
+ Fashion design 
+ Costume design 
+ Jewellery design 
+ Floral design 
+ Game art design 
+ Property design 
+ Scenic design 
+ Sound design 
+ Stage/set lighting design 
+ Textile design 
+ Other design &  engineering 
+ Algorithm design 
+ Behavioural design 
+ Boiler design 
+ Database design 
+ Drug design 
+ Electrical system design 
+ Experimental design 
+ Filter design 
+ Geometric design 
+ Work design 
+ Integrated circuit design 
+ Circuit design 
+ Physical design 
+ Power network design 
+ Mechanism design 
+ Nuclear weapon design 
+ Nucleic acid design 
+ Organization design 
+ Process design 
+ Processor design 
+ Protein design 
+ Research design 
+ Social design 
+ Software design 
+ Spacecraft design 
+ Strategic design 
+ Systems design 
+ Test design 
+ Approaches 
+ Active 
+ Activity-centered 
+ Adaptive web 
+ Affective 
+ Brainstorming 
+ By committee 
+ By contract 
+ C-K theory 
+ Closure 
+ Configuration 
+ Contextual 
+ Continuous 
+ Cradle-to-cradle 
+ Creative problem-solving 
+ Creativity techniques 
+ Critical 
+ Design fiction 
+ Defensive 
+ Design–bid–build 
+ Design–build 
+ architect-led 
+ Diffuse 
+ Domain-driven 
+ Ecological design 
+ Energy neutral 
+ Engineering design process 
+ Probabilistic design 
+ Ergonomic 
+ Error-tolerant 
+ Evidence-based 
+ Fault-tolerant 
+ Feminist 
+ For assembly 
+ For behaviour change 
+ For manufacturability 
+ For Six Sigma 
+ For testing 
+ For the environment 
+ For X 
+ Framework-oriented 
+ Functional 
+ Generative 
+ Geodesign 
+ HCD 
+ High-level 
+ Hostile 
+ Inclusive 
+ Integrated 
+ Integrated topside 
+ Intelligence-based 
+ Iterative 
+ KISS principle 
+ Low-level 
+ Metadesign 
+ Mind mapping 
+ Modular 
+ New Wave 
+ Object-oriented 
+ Open 
+ Over 
+ Parametric 
+ Participatory 
+ Platform-based 
+ Policy-based 
+ Prevention through 
+ Process-centered 
+ Public interest 
+ Opinion poll 
+ Public opinion 
+ Rational 
+ Regenerative 
+ Reliability engineering 
+ Research-based 
+ Responsibility-driven 
+ RWD 
+ Safe-life 
+ Speculative 
+ Sustainable 
+ Systemic 
+ SOD 
+ Tableless web 
+ Theory of constraints 
+ Top-down and bottom-up 
+ Transformation 
+ Transgenerational 
+ TRIZ 
+ Universal 
+ Design for All 
+ Usage-centered 
+ Use-centered 
+ User-centered 
+ Empathic 
+ User innovation 
+ Value-driven 
+ Value sensitive 
+ Privacy by 
+ Quality by 
+ Secure by 
+ Design  choice 
+ computing 
+ controls 
+ culture 
+ flow 
+ justice 
+ leadership 
+ management 
+ marker 
+ methods 
+ pattern 
+ research 
+ science 
+ sprint 
+ strategy 
+ theory 
+ thinking 
+ Tools Intellectual property Organizations Awards Tools 
+ AAD 
+ Architectural model 
+ Blueprint 
+ Comprehensive layout 
+ CAD 
+ CAID 
+ Virtual home design software 
+ CAutoD 
+ Design quality indicator 
+ Electronic design automation 
+ Flowchart 
+ Mockup 
+ Design specification 
+ Design system 
+ Prototype 
+ Sketch 
+ Storyboard 
+ Technical drawing 
+ HTML editor 
+ Website wireframe 
+ Intellectual property 
+ Clean-room design 
+ Community design 
+ Design around 
+ Design infringement 
+ Design patent 
+ Fashion design copyright 
+ Geschmacksmuster 
+ Industrial design rights 
+ European Union 
+ Organizations 
+ American Institute of Graphic Arts 
+ Chartered Society of Designers 
+ Design and Industries Association 
+ Design Council 
+ International Forum Design 
+ Design Research Society 
+ Awards 
+ European Design Award 
+ German Design Award 
+ Good Design Award (Museum of Modern Art) 
+ Good Design Award (Chicago Athenaeum) 
+ Graphex 
+ IF Product Design Award 
+ James Dyson Award 
+ Prince Philip Designers Prize 
+ Related topics 
+ Agile 
+ Concept art 
+ Conceptual design 
+ Creative industries 
+ Cultural icon 
+ .design 
+ Dominant design 
+ Enterprise architecture 
+ Form factor 
+ Futures studies 
+ Indie design 
+ Innovation management 
+ Intelligent design 
+ Lean startup 
+ New product development 
+ OODA loop 
+ Philosophy of design 
+ Process simulation 
+ Reference design 
+ Slow design 
+ STEAM fields 
+ Unintelligent design 
+ Visualization 
+ Wicked problem 
+ Design  attributes 
+ brief 
+ change 
+ classic 
+ competition 
+ architectural 
+ student 
+ director 
+ education 
+ elements 
+ engineer 
+ firm 
+ history 
+ knowledge 
+ language 
+ life 
+ load 
+ museum 
+ optimization 
+ paradigm 
+ principles 
+ rationale 
+ review 
+ specification 
+ studies 
+ studio 
+ technology 
+ 
+ 
+ 
+ 
+ 
+ Retrieved from " https://en.wikipedia.org/w/index.php?title=Modular_design&oldid=1270676344 " 
+ Categories :  Modular design Systems engineering Engineering concepts Design Holism Decomposition methods Open-source hardware Hidden categories:  All articles with dead external links Articles with dead external links from July 2022 Articles with short description Short description matches Wikidata Articles lacking in-text citations from December 2019 All articles lacking in-text citations Articles to be expanded from December 2019 All articles to be expanded Webarchive template wayback links 
+ 
+ 
+ 
+ 
+ 
+ 
+  This page was last edited on 20 January 2025, at 18:16  (UTC) . 
+ Text is available under the  Creative Commons Attribution-ShareAlike 4.0 License ;
+additional terms may apply. By using this site, you agree to the  Terms of Use  and  Privacy Policy . Wikipedia® is a registered trademark of the  Wikimedia Foundation, Inc. , a non-profit organization. 
+ 
+ 
+ Privacy policy 
+ About Wikipedia 
+ Disclaimers 
+ Contact Wikipedia 
+ Code of Conduct 
+ Developers 
+ Statistics 
+ Cookie statement 
+ Mobile view 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Search 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Search 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Toggle the table of contents 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Modular design 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 13 languages 
+ 
+ 
+ Add topic
