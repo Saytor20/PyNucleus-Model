@@ -22,3 +22,5 @@
 - Output files are now saved in vectordb_outputs directory with timestamps
 
  2025-06-04 14:10:37 changes made and pushed to origin main
+
+ 2025-06-04 15:58:48 changes made and pushed to origin main
