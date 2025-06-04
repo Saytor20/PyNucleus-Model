@@ -1,0 +1,2652 @@
+ 
+  
+ 
+ 
+ 
+ 
+ 
+Madan Kumar Bist  
+RISK MANAGEMENT IN L ARGE -SCALE 
+CONSTRUCTION PROJECT S: IDENTIFYING KEY 
+CHALLENGES AND EFFEC TIVE MITIGATION 
+STRATEGIES  
+ 
+ 
+ 
+ 
+ 
+  
+Project Management, Engineering  
+2025 
+
+   2 
+VAASAN AMMATTIKORKEAKOULU  
+UNIVERSITY OF APPLIED SCIENCES  
+Project Management, Engineering  
+ABSTRACT  
+Author  Madan Kumar Bist  
+Title Risk Management in Large -Scale Construction  
+Projects:  Identifying Key Challenges and Effective  
+Mitigation Strategies   
+Year 2025 
+Language  English  
+Pages  68 + 11 Appendices  
+Name of Supervisor  Kai Hänninen  
+ 
+The economic need for m ega-construction works including highways and 
+airports results in multiple types of risks that produce both cost 
+increases and construction delays with safety hazards.  Despite 
+frameworks like ISO 31000 and PMBOK, implementation challenges, 
+stakeholder misalignment, and emerging risks persist. The research 
+develops improvements in risk management by identifying fundamental 
+risk types while analyzing project implementation  obstacles and 
+evaluating defense measures used in big construction projects. Using a 
+qualitative approach grounded in constructivism, the research reviewed 
+38 empirical sources (2017 –2025), including journals, case studies, and 
+industry reports. Thematic analysis, supported by Python tools, was 
+used to analyze 107 risk descriptions, 76 challenge descriptions, and 82 
+mitigation strategy descriptions. Findings indicate that "Other Risks" 
+(29.0%) and Operational Risks (17.8%) dominate, with Technical Risks 
+(10.3%) and Financial Risks (9.3%) interconnected, and Environmental 
+Risks (7.5%) emphasizing sustainability. Challenges like poor 
+coordination and complexity, marked by "hinder" (25 instances) and 
+"complicate" (23 instances), impede risk management. Effecti ve 
+strategies include contingency planning, risk identification, systematic 
+frameworks, and technology adoption (e.g., Building Information 
+Modeling), addressing financial, operational, and technical risks while 
+promoting sustainability. This study advocat es for integrated risk 
+management to enhance coordination and risk awareness. The findings 
+might not apply to specific region projects or small projects because the 
+research relied on literature -based data and lacked stakeholder 
+feedback while also having a wide geographical scope.  Future research 
+should incorporate real -time data, conduct region -specific analyses, and 
+use advanced NLP to capture emerging risks and refine strategies. This 
+study offers actionable insights for resilient and sustainable constr uction 
+project outcomes.  
+ 
+ 
+Keywords  large-scale construction projects, mitigation strategies, risk    
+   categories, risk management, thematic analysis   
+
+   3 
+ACKNOWLEDGEMENT  
+My sincere gratitude extends to all those who helped me finish this 
+thesis. I express m y deep gratitude to Supervisor Kai Hänninen who 
+provided essential advice together with continual support during my 
+academic path.  I am also immensely thankful to the Project 
+Management Department at the School of Technology , VAASAN 
+AMMATTIKORKEAKOULU, Uni versity of Applied Sciences, for their 
+continuous assistance and resources. The Research Committee deserves 
+special recognition for providing valuable design and methodology 
+instructions that enhanced the quality of this project.  
+I am truly grateful to my peers, especially Rakesh Dhungal  for his 
+collaboration and support, durin g the data analysis phase. His 
+contributions are invaluable to the progress of this work. I also want to 
+express my sincere gratitude to my family for their unwavering support 
+and tolerance during this journey. Their unwavering assistance has been 
+a source of inspiration and fortitude.  
+Lastly, I would like to thank the researchers whose work served as a 
+solid basis for my investigation and informed this study.  I am grateful 
+to everyone who helped make this thesis possible.  
+  
+
+   4 
+CONTENTS  
+ABSTRACT  ................................ ................................ ................... 2 
+ACKNOWLEDGEMENT  ................................ ................................ ....3 
+1 INTRODUCTION  ................................ ................................ ......8 
+1.1 Research Problem  ................................ .............................. 9 
+1.2 Research Objectives  ................................ ........................... 9 
+1.3 Re search Questions  ................................ .........................  10 
+1.4 Significance of the Research  ................................ .............  10 
+1.5 Limitations of the Study  ................................ ...................  10 
+1.6 Report Organization  ................................ .........................  11 
+2 THEORETICAL FRAMEWOR K ................................ ...................  13 
+2.1 Project Management  ................................ ........................  13 
+2.2 Risk Management Theories for Construction Endeavors  ........  15 
+2.3 The Risk Management Process  ................................ ..........  15 
+2.4 Frameworks in Risk Management  ................................ ....... 16 
+2.5 Key Risk Categories in Construction Projects  .......................  17 
+2.6 Challenges in Risk Management Implementati on .................  18 
+2.7 Risk Mitigation Strategies in Construction  ...........................  18 
+3 METHODOLOGY  ................................ ................................ .... 20 
+3.1 Research Type  ................................ ................................  20 
+3.2 Data Collection Methods  ................................ ...................  21 
+3.3 Data Analysis Techniques  ................................ .................  22 
+4 LITERATURE REVIEW  ................................ .............................  26 
+4.1 Literature Search Strategy  ................................ ................  26 
+4.2 Empirical Studies  ................................ .............................  27 
+5 RESULTS  ................................ ................................ ..............  35 
+5.1 Identification of Key Risk Categories  ................................ .. 35 
+5.2 Insights into Common Challenges  ................................ ...... 38 
+5.3 Evaluation of Effective Mitigation Strategies  ........................  41 
+6 DISCUSSION  ................................ ................................ ........  44 
+6.1 Primary Risk Categories: Implications and Insights  ..............  44 
+6.2 Common Challenges: Barriers to Effective Risk Management  . 45 
+6.3 Risk Mitigation Strategies: Effectiveness and Applicability  ..... 45 
+
+   5 
+6.4 Interconnections Between Risks, Challenges, and Mitigation 
+Strategies  ................................ ................................ ............  46 
+6.5 Broader Implications for Risk Management  .........................  46 
+7 CONCLUSION  ................................ ................................ ....... 48 
+7.1 Summary of Key Findings  ................................ .................  48 
+7.2 Addressing Research Goals  ................................ ...............  50 
+7.3 Implications for Risk Management  ................................ ..... 50 
+7.4 Final Remarks  ................................ ................................ . 51 
+7.5 Limita tions ................................ ................................ ...... 52 
+7.6 Recommendations for Future Works  ................................ ... 53 
+REFERENCES  ................................ ................................ .............  55 
+APPENDICES  ................................ ................................ ..............  69 
+Appendix 1. Summar y of Literature Sources Based on Results  .... 69 
+Appendix 2. Word Clouds by Risk Categories  ............................  74 
+Appendix 3. Word Clouds by Common Challenges  .....................  78 
+Appendix 4. Word Clouds by Mitigation Strategies  .....................  78 
+ 
+  
+
+   6 
+Figures  
+Figure 1. Block diagram  of research methodology  ...........................  20 
+Figure 2.  Distribution of risk categories across 107 risk descriptions . 37 
+Figure 3. Top 10 frequent terms in challenges across 76 challenge 
+descriptions.  ................................ ................................ ..............  39 
+Figure 4. Network of top 5 central challenges based on shared terms.
+ ................................ ................................ ................................  40 
+Figure 5. Top 10 frequent terms in mitigation strategies across 82 
+descriptions.  ................................ ................................ ..............  42 
+Figure 6. Contractual risks word clouds  ................................ .........  74 
+Figure 7. Environmental risks word  clouds  ................................ ..... 75 
+Figure 8. Financial risks word clouds  ................................ .............  75 
+Figure 9. Operational risks word clouds  ................................ .........  75 
+Figure 10. Other risks word clouds  ................................ ................  76 
+Figure 11. Political risks word clouds  ................................ .............  76 
+Figure 12. Safety risks word clouds  ................................ ...............  76 
+Figure 13. Supply chain risks word clouds  ................................ ...... 77 
+Figure 14. Technical risks word clouds  ................................ ...........  77 
+Figure 15. Management challenges word clouds  .............................  78 
+Figure 16. Contingency planning word clouds  ................................ . 78 
+Figure 17. Systematic frameworks word clouds  ..............................  79 
+Figure 18. Other mitigation strategy word clouds  ............................  79 
+Figure 19. Risk identification word clouds  ................................ ...... 79 
+ 
+Tables  
+Table 1. Description of datasets  ................................ ....................  22 
+Table 2. Documents from search results  ................................ ........  26 
+Table 3. Source impact  ................................ ................................  27 
+Table 4. Summary of literature sources based on results, organized 
+chronologically by publication year (2017 –2025) and alphabetically by 
+first author’s last name within each year  ................................ ....... 69 
+  
+
+   7 
+ABBREVIATIONS  
+Abbreviation  Full Form  
+AHP Analytic Hierarchy Process  
+ANP Analytic Network Process  
+BERT Bidirectional Encoder Representations from 
+Transformers  
+BIM Building Information Modeling  
+CMCPs  Cross -Regional Mega Construction Projects  
+CRM Construction Risk Management  
+CSCRM  Construction Supply Chain Risk Management  
+ERM Enterprise Risk Management  
+EWM Entropy Weight Method  
+FMEA  Failure Mode and Effect Analysis  
+ISO International Organization for Standardization  
+LCSA Life Cycle Sustainability Assessment  
+LDA Latent Dirichlet Allocation  
+MCDM  Multicriteria Decision -Making  
+MCRI  Multi-sentence Context -aware Risk Identification  
+MCRI  Multi-sentence Context -aware Risk Identification  
+MIPs Megha Infrastructure Projects  
+NLP Natural Language Processing  
+NLTK Natural Language Toolkit  
+PMBOK  Project Management Body of Knowledge  
+PMI Project Management Institute  
+RAKE  Rapid Automatic Keyword Extraction  
+SMEs  Small and Medium -sized Enterprises  
+TF-IDF Term Frequency -Inverse Document Frequency  
+ 
+  
+
+   8 
+1 INTRODUCTION  
+Airports alongside bridges and highways define essential elements for 
+modern economies and social advancement according to Mok et al. 
+(2015). These nationwide projects demand considerable capital 
+injections while involving intricate design work along with protracted 
+construction periods as well as essential coordination between officials 
+and construction firms and residential groups (Mok et al., 2015). The 
+Burj Khalifa reached its position as the world's tallest bu ilding by 
+consuming more than $1.5 billion in funds with advanced engineering 
+involved (Flyvbjerg, 2017). The historical project of Channel Tunnel 
+serves as evidence for why proper risk management techniques must be 
+combined with effective stakeholder coor dination (Ametller et al., 2017). 
+The successful completion of projects depends on effective management 
+of economic interests along with social effects and regulatory 
+requirements and high -quality construction practices (Mok et al., 2015).  
+Nevertheless, th ey still face financial unstable (e.g. budget overruns), 
+operational inefficiency (e.g. delays), regulatory change, environmental 
+uncertainty, and socio-political  challenges (Zou et al., 2007; Dirampaten 
+& Griño, 2024). Cost overruns, delays and safety haz ards occur from 
+inadequate risk management.  
+While ISO 31000 as well as PMBOK frameworks exist, the insufficient 
+implementation from practices such as resource constraint along 
+liabilities of expertise ‘balloon’ projects to the deep end (Vargas & 
+Campos, 20 22; Kumar & Kumar, 2024). Innovative solutions are 
+required for emerging risks including technological disruptions and 
+climate change (Dirampaten & Griño, 2024). This paper adopts a 
+qualitative approach where the empirical studies and case studies (e.g., 
+Burj Khalifa) and industry reports from the Project Management 
+Institute (PMI) on the subject are reviewed grounded in constructivist 
+and interpretivism. Evidence based findings are provided using thematic 
+analysis rooted with python libraries such as (NLTK , pandas) (Braun & 
+Clarke, 2006; Loper & Bird, 2002; McKinney, 2010).  
+
+   9 
+This study finds main hazards, makes implementation difficulties, and 
+evaluates mitigation in large scale building projects. Previous works tend 
+to pay less attention to environmental ri sks as well as issues such as 
+stakeholder misalignment (Zou et al., 2007).  
+1.1 Research Problem  
+Risk management in major infrastructure developments remains 
+problematic despite guidelines like PMBOK (Project Management 
+Institute, 2021; Mansour et al., 2023 ), ISO 31000 (Abuyassin et al., 
+2018; Sousa et al., 2012). Guidelines can prove ineffective in handling 
+actual issues in various project environments (Hillson & Murray -
+Webster, 2017).  Unforeseen weather conditions, supply chain 
+interruptions, and political  unrest can influence timeliness and costs 
+(Hillson & Murray -Webster, 2017). Poor stakeholder coordination and 
+ineffective mitigation result in increased risks, such as cost overruns, 
+delays, and safety issues (Hillson & Murray -Webster, 2017). Though 
+widely reported risk avoidance, transfer, mitigation, and acceptance 
+techniques (Project Management Institute, 2021), their efficacy is 
+heterogeneous owing to situational limitations, particularly in low -
+income nations with weak countries (Flyvbjerg, 2017; Nawa z et al., 
+2019). The present study aims for risk management techniques custom -
+made for diverse project environments.  
+1.2 Research Objectives  
+The aims are: 
+ To identify important risk categories for large -scale building 
+projects.  
+ To analyze challenges in ris k management implementation.  
+ To evaluate effective risk mitigation strategies from the literature.  
+
+   10 
+1.3 Research Questions  
+This study addresses:  
+ Which risk categories are most important for major building 
+projects?  
+ What obstacles exist for efficient risk ma nagement?  
+ Which risk reduction techniques, according to the literature, are 
+the most successful?  
+1.4 Significance of the Research  
+The significan ces are : 
+ Advancing Knowledge:  Enhancing understanding of financial, 
+operational, and environmental risks (Flyvbjerg, 2017).  
+ Practical Impact:  providing direction to improve risk 
+management practices and project efficacy (Osei -Kyei et al., 
+2022).  
+ Improving Risk reduction Strategies:  Providing suggestions 
+based on research to maximize risk reduction (Project 
+Management Institute, 2021).  
+1.5 Limitations of the Study  
+The limitations  are: 
+ Methodological Constraints : Relies on existing literature, 
+lacking real -time data.  
+ Geographical Focus : Lacks a specific regional focus, limiting 
+applicability.  
+ Risk Categories:  New hazards, such technology disruptions, 
+could not be adequately covered.  
+
+   11 
+ Generalizability: Smaller projects might not be able to use the 
+results.  
+ Excludes stakeholder feedback, thereby restricting practical 
+findings.  
+1.6 Report Organization  
+This thesis comprises seven chapters : 
+Chapter 1: Introduction  
+Introduces the research problem,  aims, questions, significance, scope, 
+limitations, and report structure (Sections 1.1 to 1.6).  
+Chapter 2: Theoretical Framework  
+Explores project and risk management theories, focusing on 
+construction projects, risk processes, categories, challenges, and 
+mitigation strategies (Sections 2.1 to 2.7).  
+Chapter 3: Methodology  
+explains the qualitative resear ch type , data collection  methods 
+(empirical studies, case studies, industry reports), and Python -based 
+theme analysis (Sections 3.1 to 3.3).  
+Chapter 4: Literature Review  
+Reviews empirical studies on risk management in construction, outlining 
+the search str ategy and findings (Sections 4.1 to 4.2).  
+Chapter 5: Results  
+summarizes the search approach and results of empirical research on 
+risk management in the construction industry (Sections 4.1 to 4.2).  
+ 
+
+   12 
+Chapter 6: Discussion  
+discusses the findings' ramification s, including risk categories, obstacles, 
+ways to mitigate them, links, and wider effects (Sections 6.1 to 6.5).  
+Chapter 7: Conclusion  
+Summarizes findings, contributions, implications, limitations, and future 
+research recommendations (Sections 7.1 to 7.6).  
+  
+
+   13 
+2 THEORETICAL FRAMEWORK  
+This chapter examines theoretical and empirical foundation of risk 
+management in major building projects. First, we cover project 
+management principles, then theories and procedures of risk 
+management, the framework analysis, identification of important risk 
+categories, implementation issues and research holes.  
+2.1 Project Management  
+Project  
+A project  is “a temporary endeavor undertaken to create a unique 
+product, service, or result ” (Project Management Institute, 2017, p. 32)  
+and it sizes range from little attempts like advertising campaigns to 
+massive undertakings like the Burj Khalifa, which need careful planning 
+(Mok et al., 2015). The distinct nature of each project brings 
+uncertainties, requiring customized approaches to manage risks such as 
+financial instability, changes in regulations, and conflicts among 
+stakeholders (Kerzner, 2022; Malsam, 2024). Proper management 
+ensures that projects achieve their goals while staying within limitations 
+(Kerzner, 2022).  
+Project Manage ment  
+According to (Project Management Institute, 2017, p. 570), "Project 
+management is the application of knowledge, skills, tools, and 
+techniques to project activities to meet project requirements". Large 
+scale construction projects are often managed thro ugh this process of 
+constraints including scope, time, cost and quality, thus in arising 
+projects risks (Project Management Institute,  2017,  p. 36). It uses 
+methodologies like Agile and Waterfall, and frameworks like PMBOK and 
+ISO 21500, to standardize processes ( Project Management Institute , 
+2021).  
+
+   14 
+The Project Triangle  
+"The project management triangle is made up of three variables that 
+determine the quality of the project: scope, cost, and time" (Asana, 
+2025, para. 2). These factors are interconnected,  meaning a change in 
+one can impact the others (for example, reducing the timeline might 
+raise costs) (Morris, 2013). Project management tries to achieve 
+reduction of risks, satisfy stakeholder, use the resources efficiently, and 
+follow the legality standa rds (Morris, 2013; Project Management 
+Institute, 2017, p. 36).  
+Role of Project Manager  
+The project manager oversees the project’s entire lifecycle and serves 
+as the main point of contact for stakeholders (Schwartz, 2024; Bornman 
+& Frisa, 2024). Their dutie s include:  
+ Planning:  Writing a great project plan that covers requirements, 
+estimates, budgets, and risk management plans (Schwartz, 2024; 
+LetsBuild, 2023).  
+ Resource Management:  Ensuring resources are allocated 
+efficiently to prevent delays or bottlenecks (Bika, 2022).  
+ Risk Management:  Potential risks identification, assessment of 
+impact and mitigation of such risks (Bornman & Frisa, 2024; 
+LetsBuild, 2023b).  
+ Communication:  Facilitating clear and consistent 
+communication with stakeholders to avoid misunderst andings and 
+conflicts (Bornman & Frisa, 2024; Bika, 2022).  
+ Monitoring and Control:  Keeping track of progress and making 
+adjustments to address any deviations from the plan (Bornman & 
+Frisa, 2024; RIB Software, 2024).  
+ Leadership:  Inspiring teams, encouragin g collaboration, and 
+maintaining morale (Bika, 2022).  
+
+   15 
+2.2 Risk Management Theories for Construction Endeavors  
+In fact, it is risk management, as a very important aspect of the 
+construction project management, as it seeks to identify, assess and 
+manage risk s that may act negatively towards the project outcomes. 
+Sound risk management practices are essential to large scale 
+construction projects in order to be cost effective, completed on time 
+and in compliance with safety (Zou et al., 2007; Guevara, 2023; Shah , 
+2025).  Theories on risk management highlight the importance of 
+identifying risks early, systematically assessing their probability and 
+potential impact, and developing customized strategies to address them 
+(Cochrane, 2024; Ellis, 2024).   
+“ISO 31000 ” and “PMBOK ” offer standardized approaches, promoting 
+ongoing monitoring throughout the project’s lifecycle (Project 
+Management Institute, 2021; Malsam, 2024). Tools like Project 
+Management Information Systems (PMIS) streamline risk management 
+tasks, enhancing decision -making and improving project outcomes 
+(Shah, 2025). By effectively managing risks, projects can reduce cost 
+overruns, ensure timely delivery, improve safety, use resources 
+efficiently, and boost stakeholder trust (Guevara, 2023; Cochrane, 
+2024; El lis, 2024).  
+2.3 The Risk Management Process  
+Five steps make up the organized method to risk identification, 
+assessment, and mitigation used in construction projects:  
+ Risk Identification:  This step identifies possible hazards by 
+using brainstorming, techniq ues such as checklists, historical data 
+analysis, and so forth and identifies those hazards based on the 
+operational, financial, environmental and the safety threats 
+(Osipova, 2007; McKinnon, 2024).  
+
+   16 
+ Risk Assessment:  Likelihood and impact of risks are analy zed 
+via qualitative methodology  and quantitative methodology to 
+prioritize them (Vincent, 2025).  
+ Risk Mitigation:  Strategies like avoidance, reduction, transfer 
+(e.g., via insurance), or acceptance are developed, tailored to the 
+project’s context (Jones, 2024).  
+ Risk Monitoring:  Continuous tracking of risks via the risk 
+register ensures timely intervention and evaluat es mitigation 
+effectiveness (Cochrane, 2024).  
+ Risk Control:  Corrective actions are implemented to address 
+emerging risks, refining strategies based on monitoring to keep 
+the project aligned with objectives (Graham, 2023).  
+2.4 Frameworks in Risk Management  
+Risk management i n large-scale construction projects addresses 
+uncertainties through structured theories and frameworks, crucial for 
+managing complex, multi -stakeholder projects.  
+ISO 31000  Framework  
+The ISO 31000 provides the standardized approach of risk management 
+which can be put to good use in the construction industry. Based on 
+Abuyassin et al. (2018) and Sousa et al. (2012), it prioritizes early 
+identification of risk, inclusion and consistency with decision making 
+processes through inclusion of risk management. In construction, the 
+use of ISO 31000 helps risk awareness due to which risk practices are 
+matched with organizational objectives and thus delays and budget 
+overrun are reduced (Alfreahat & Sebestyén, 2022; SMuthuveeran et 
+al., 2019).  
+Enterpris e Risk Management  Framework  
+This approach is organization wide and addresses risk on an 
+organizational level which includes financial, strategic, operational and 
+
+   17 
+compliance risk.  It improves both internal (e.g., resources related 
+problems) and external (e. g., regulatory changes) risks and enhances 
+resilience and supports the long -term growth in construction (Alfreahat 
+& Sebestyén, 2022; Bachtiar & Prasetya, 2024; Mansour et al., 2023).  
+Project Risk Management (PMBOK Guidelines)  
+These project risk management  guidelines don’t just offer a framework 
+but they are also quite detailed as far as how to manage the identified 
+risk, this includes identification, analysis, response planning and 
+monitoring. They are widely used in the construction business and they 
+bring the continuous risk reassessment and stake holder behavior to 
+ensure timely delivery, continuous delivery with no disturbances (Kara 
+et al., 2023; Bachtiar & Prasetya, 2024; Bepari et al., 2022).  
+2.5 Key Risk Categories in Construction Projects  
+Large con struction projects suffer from many risks that can threaten the 
+success of such projects, and will be classified in terms of financial, 
+operational, environmental and regulatory/legal.  
+ Financial Risks:  They are because of budgeting errors, inflation 
+or unexpected expenses that are soaring, it will kill the project’s 
+viability. Such examples include inaccurate budget estimate, 
+increasing material price and unexpected site conditions (Hou, 
+2024; Naik & Balapgol, 2019). There are such risks that lead to 
+delays and lower profitability (Shibani et al., 2022).  
+ Operational Risks : Daily challenges in execution add to the 
+operational risks, and what results is a delay and inefficiency. 
+Included are material shortages, equipment failure, workforce 
+ineffeciencies th at lead to the reduction in productivity and 
+timeline extension (Naik & SBalapgol, 2019; Khatleli, 2019).  
+ Environmental Risks : The risks implicit in environmental are 
+natural disaster, changes in climate, and ecologic issues in their 
+
+   18 
+ways affect the timeli ne and sustainability. Sites can be damaged 
+by floods, extreme weather or regulatory compliance issues and 
+progress is stymied (Naik & SBalapgol, 2019).  
+ Regulatory and Legal Risks : Such risks include complying with 
+building codes, settling contractual disp utes and adjusting to 
+changes in policy that might result in legal disputes and project 
+delay. Penalties and litigation can also occur due to non -
+compliance, contractual conflicts and policy shift (Khatleli, 2019).  
+2.6 Challenges in Risk Management Impleme ntation  
+Implementing risk management in faces several challenges:  
+ Stakeholder Misalignment:  Conflicting priorities among 
+owners, contractors, and regulators hinder coordinated risk 
+management, leading to inconsistent strategies (Gharaibeh, 
+2019).  
+ Difficult ies in Communicating and Making Decisions:  
+Coordinated risk management not only requires coordination 
+among owners, contractors, and regulators, conflicting priorities 
+among owners, contractors, and regulators make it difficult to 
+implement a coordinated strategy (Gharaibeh, 2019).  
+ Resource Constraints:  It is important because, if there is 
+ineffective communication and delayed decision making this may 
+damage risk management and may also delay the project 
+(Gharaibeh 2019; Construction Link 2025).  
+2.7 Risk Mitigation Strategies in Construction  
+Various strategies to mitigate risks:  
+ Contingency Planning:  Allocating reserves and resources to 
+handle unforeseen risks ensures adaptability without major 
+
+   19 
+disruptions, often through a risk budget (Malsam, 2024; 
+LetsBu ild, 2023a).  
+ Proactive Risk Management:  Identifying risks early and 
+maintaining ongoing monitoring help reduce their effects, with 
+success depending on strong collaboration among stakeholders 
+(Lokeshwaran & Bharath, 2023; Malsam, 2024).  
+ Technology Integrat ion: Technologies like BIM, AI, and IoT 
+enhance risk prediction and monitoring. BIM aids in analyzing 
+models, while AI automates tasks, keeping projects on track 
+(Ishak et al., 2023; Aladayleh & Aladaileh, 2024; Manu, 2024).  
+  
+
+   20 
+3 METHODOLOGY  
+In this chapter t he procedures used in carrying out this study are 
+described.  The figure below shows an outline of the research procedure 
+that describes the methodical approach that was taken in this study.  
+These procedures are frequently used by researchers in various d omains 
+to guarantee an organized inquiry.  
+ 
+Figure 1. Block diagram of research methodology  
+3.1 Research Type  
+The approach used in this research is qualitative in nature which is used 
+to explore the factors that influence the success or failure of risk 
+management in large scale construction projects. It is grounded in 
+constructivism and interpretivism (Creswell, 2 007) and it looks at risks 
+from the stakeholder perspective of project managers and contractors.  
+Data Analysis Techniques  
+Thematic Analysis using Python  
+Research Type  
+Qualitative  
+ 
+Data Collection Methods  
+Literature Review  
+Results  
+Identification of key risk categories  
+Insights into common challenges  
+Effective mitigation strategies  
+
+   21 
+The contextual analysis, narrative inquiry and thematic exploration 
+approaches (Braun & Clarke, 2006) are used to develop a detailed 
+investigation of human, e nvironmental and organizational factors. This 
+is consistent with the study’s aim of identifying risk types, assessing 
+implementation challenges and assessing mitigation strategies, 
+providing a more nuanced alternative to quantitative methods (Denzin 
+& Linc oln, 2011).  
+3.2 Data Collection Methods  
+Data collection is done by reviewing the empirical study case studies and 
+industry reports from peer -reviewed journals. Financial, operational, 
+and mitigation focused risks are looked at from the peer reviewed 
+articles such as Ramadhan and Waty (2025) on cost overruns and Hatefi 
+et al. (2025) on fuzzy logic-based  risk assessment. Case studies, such 
+as "the Probolinggo -Banyuwangi Toll Road Project" (Amin et al., 2025) 
+and "the Jragung Dam Construction" (Adriantama et a l., 2025), offer 
+practical, real -world insights. Industry reports of Vargas and Campos 
+(2022) and Project Management Institute (2021) also offer up to date 
+trends and better practices.  
+For relevance, empirical rigor, and agreement with study aims, 38 
+sourc es from 2017 to 2025 were chosen (see Table 1) . Recent works 
+ensure contemporary relevance, while foundational studies like Ahmed 
+(2017) offer historical context. Data preparation involved three steps: 
+First, sources were selected based on criteria like pu blication in 
+reputable journals and focus on large -scale projects. Second, textual 
+data on risk categories, challenges, and strategies were extracted from 
+abstracts, findings, and discussions. Third, data was organized into a 
+coded dataset using a thematic  framework, with codes refined iteratively 
+during analysis. An in -depth, fact -based investigation of construction 
+risk management is supported by this multi -source methodology.  
+ 
+
+   22 
+Table 1. Description of datasets 
+Dataset  (CSV file)  Purpose  No of 
+Instances  Variables  Example  
+risk_categories  Identifies 
+primary risk 
+categories in 
+construction 
+projects  107 Source, 
+Text "Ramadhan & 
+Waty, 
+2025","Design 
+changes 
+contribute to 
+56.5% of cost 
+overruns in 
+large-scale 
+projects."  
+common_challenges  Documents risk 
+management 
+implementation 
+challenges  76 Source, 
+Text "Amin et al., 
+2025","Improved 
+logistics 
+coordination 
+reduced delays in 
+material supply."  
+mitigation_strategies  Records risk 
+mitigation 
+strategies  82 Source, 
+Text "Implementing 
+BIM enhances 
+planning 
+accuracy" 
+(Ramadhan & 
+Waty, 2025)  
+Note.  Dataset compilation and analysis conducted by the authors.  
+3.3 Data Analysis Techniques  
+The process entailed a thorough literature review, coding of relevant 
+excerpts, and theme generation (financial risks due to budget overruns, 
+barriers to implementation, and risk management strategies) that were 
+subsequently refined for a better understand ing of the implementation 
+of risk management strategies in the major construction initiatives 
+(Braun & Clarke, 2006). The themes were then iteratively refined based 
+on the Braun and Clarke’s (2006) methodology in order to align with the 
+objectives of the s tudy, for example obstacles to implementation of risk 
+management.  
+For handling large datasets, libraries such as “scikit-learn” (Pedregosa 
+et al., 2011), “pandas ” (McKinney, 2010), “NLTK” (Loper & Bird, 2002) 
+
+   23 
+and “matplotlib/seaborn ” (Hunter, 2007; Waskom,  2021) could be easily 
+used to spot trends in the data. Python’s scripted workflows ensured 
+reproducibility (Wilson et al., 2014), while its flexibility integrated 
+qualitative insights with quantitative techniques (Guest et al., 2012). As 
+an open -source la nguage under permissive licenses, Python enabled 
+accessible use (van Rossum & Drake, 2009).  
+3.3.1 Python for Thematic Analysis: Meeting Research Objectives  
+The study topics and objectives in Sections 1.2 and 1.3 were addressed 
+using Python.  The following subsections detail techniques used to 
+identify risk categories, analyze challenges, and evaluate mitigation 
+strategies.  
+Identification of Key Risk Categories  
+Using 107 risk descriptions from 38 research (2017 –2025), Python 
+expedited the proc ess of identifying the main risk categories:  
+ Text Preprocessing : NLTK preprocessed text by lowercasing, 
+tokenizing, removing stopwords (e.g., "and," "the," custom terms 
+like "in," "of"), eliminating punctuation, and lemmatizing. For 
+example, “Construction cost overruns threaten economic 
+sustainability”  became ['construction', 'cost', 'overrun', 'threaten', 
+'economic', 'sustainability'] .  
+ Keyword -Based Categorization : A dictionary linked keywords 
+to eight categories —Financial (e.g., "cost"), Operational (e.g ., 
+"delay"), Safety (e.g., "accident"), Technical (e.g., "design"), 
+Environmental (e.g., "geological"), Political (e.g., "instability"), 
+Contractual (e.g., "dispute"), and Supply Chain (e.g., "delivery"). 
+Risks were assigned to categories by keyword matchi ng, with 
+unmatched risks labeled "Other Risks." For example, "Inflation 
+rate volatility was identified as a critical risk" was classified as 
+Political Risks due to "volatility."  
+
+   24 
+ Analysis and Visualization : Risks were analyzed for 
+distribution, visualized via a bar chart, and word clouds per 
+category using Matplotlib and WordCloud, with a summary of 
+distributions.  
+Insights into Common Challenges  
+Python analyzed 76 challenge descriptions from 38 studies (2017 –2025) 
+to explore risk management challenges (e.g. , stakeholder misalignment, 
+poor communication):  
+ Frequency Analysis:  NLTK preprocessed text to lowercase, 
+tokenize, stopwords  (e.g., "the," custom terms like "risk"), and 
+lemmatizing (e.g., "hinders" to "hinder"). Pandas computed term 
+frequencies, and Matp lotlib plotted the top 10 terms (e.g., 
+"hinder" (25), "complicate" (23)) in a bar chart, uncovering 
+barriers like resource constraints ("lack") and complexity.  
+ Network Analysis:  NetworkX created a graph with challenges as 
+nodes, linking those with shared terms (e.g., "complexity").  
+Degree centrality identified systemic challenges, like "Poor 
+understanding of new risks hinders safety management" 
+(centrality: 0. 987). A graph visual ized the top 5 central 
+challenges, showing interconnections.  
+ Word Cloud Visualization:  WordCloud displayed frequent terms 
+(e.g., "hinder," "complicate"), emphasizing prevalent themes.  
+Effective Mitigation Strategies  
+Python evaluated 82 mitigation strategie s from 38 sources (2017 –2025) 
+to identify effective approaches (e.g., contingency planning, technology 
+adoption):  
+ Text Preprocessing and Topic Modeling:  NLTK preprocessed 
+text—lowercase conversion, tokenizing, removing stopwords 
+(e.g., "the," custom terms like "mitigate"), and lemmatizing. 
+
+   25 
+Scikit -learn’s LDA identified 5 topics using a TF -IDF matrix (300 
+features).  
+ Keyword Extraction:  RAKE extracted phrases like "building 
+information modeling," cross -referenced with examples like 
+Adriantama et al. (2025), where technology mitigated operational 
+risks.  
+ Frequency Analysis:  Pandas identified frequent terms (e.g., 
+"planning," "bim"), aligning with the question’s examples of 
+contingency planning and technology adoption.  
+ Visualization:  A bar chart displayed the to p 10 terms; word 
+clouds per topic emphasized key terms (e.g., "cost" in 
+Contingency Planning).  
+  
+
+   26 
+4 LITERATURE R EVIEW  
+The literature reviewed here establishes a foundation for understanding 
+risk management in construction projects, employing a variety of 
+research approaches and settings . These research, which range from 
+2017 to 2025, include quantitative analyses, mixed -method studies, 
+systematic reviews, and case studies which focus on identifying, 
+evaluating, and mitigating risks in major construction in itiatives (e.g., 
+Zou et al., 2007; Guevara, 2023; Shah, 2025).  
+4.1 Literature Search Strategy  
+This literature review searches the academic databases and industry 
+sources to identify studies on risk management in construction project 
+from 2017 to 2025. Search was done on the databases like Scopus, Web 
+of Science, Google Scholar, and the website of PMI from where peer 
+reviewed publications, case studies, and industry reports are available. 
+Total and qualifying publications per source are summarized in Table 2  
+by criteria of relevance, empirical evidence and recent publication.  Table 
+3 details the selected sources’ impact, journal metrics, and geographical 
+focus, showing the literature’s quality and diversity. Section 3.2 contains 
+data collection details.  
+Table 2. Documents from search results  
+Database/Platform  Total Publications  Qualifying Publications  
+Scopus  450 20 
+Web of Science  300 10 
+Google Scholar  600 5 
+PMI (Industry Reports)  50 4 
+ 
+ 
+
+   27 
+ 
+Table 3. Source  impact   
+Source Type/  
+Journal Name  H-Index  Articles  Publication 
+Period  Geographical 
+Areas  
+Journal of Construction 
+Engineering and 
+Management  85 12 2017–2025 Global, North 
+America, Asia  
+International Journal 
+of Project Management  92 8 2017–2024 Europe, Asia, 
+Australia  
+Construction 
+Management and 
+Economics  67 6 2018–2025 Global, Middle 
+East, Europe  
+Engineering, 
+Construction and 
+Architectural 
+Management  55 5 2017–2023 Asia, Africa, 
+Europe  
+Industry Reports (e.g., 
+PMI) N/A 4 2021–2022 Global  
+Case Studies  (e.g., 
+Probolinggo -
+Banyuwangi Project)  N/A 4 2025 Asia 
+(Indonesia)  
+4.2 Empirical Studies  
+A chronological analysis of empirical studies emerges from the literature 
+search starting from 2025 up to 2017.   
+Ramadhan and Waty’s (2025) study surveyed 120 profe ssionals on the 
+risk faced to the cost overrun on major Indonesian construction projects 
+and used project data to examine the problems. The methods and 
+simulations were used to identify design and planning errors as the main 
+causers of cost overrun and sho wed that Building Information Modeling 
+(BIM) and structured change protocols reduced those risks largely, 
+proving a practical and data driven strategy to improve cost 
+management in such projects.  
+Hatefi et al. (2025) used mixed methodology to acquire data and use 
+sophisticated analytics to assess associated risks in mass housing 
+
+   28 
+projects. The study used fuzzy ranked as risks such as import/export 
+limitations, changes in the inflation rate. Results of these empirical data 
+showed that they were substantive fa ctors affecting the costs and 
+deadlines, and fuzzy logic afforded a quantifiable framework improving 
+allocation efficiency of resources to high volume building situations.  
+In an extensive review and analysis of the existing literature for 
+considering the s upply chain challenges faced by small and medium 
+sized enterprises (SME) in construction projects, Chen et al, (2025) 
+observed that there are multiple risks in the domain of management, 
+operations and sustainability, including delays in materials, budget 
+constraint. It provided a tool for assessing the level of risk and to 
+highlight the gaps for next research, which improve SME project's 
+resilience level.  
+Amin et al. (2025) used surveys, document analysis, and interviews to 
+look into the dangers associated with Indonesia's Probolinggo -
+Banyuwangi Toll Road Project Package 2.  The assessment of risks 
+targeting delayed delivery together with rising material prices relied on 
+probability and impact assessment to develop mitigation strategies 
+which stakeholders val idated through feedback monitoring systems.  
+Results demonstrate that the focus mitigation is vital in the sustainable 
+way of managing complex infrastructure projects.  
+Ahmad et al. (2025) presented a bridge project sustainability risk 
+assessment framework w hich united risk analysis and BIM together with 
+Life Cycle Sustainability Assessment (LCSA). The Pareto Principle helped 
+identify 38 out of 55 risks that were responsible for 80% of lifecycle 
+impact through survey results. The framework achieved effective 
+implementation during real -world application on a bridge project which 
+demonstrated that supervision and construction phases will be key to 
+sustainable development compliance with ISO guidelines.  
+In Senić et al. (2025), the Delphi method was used as a tool  for soliciting 
+37 multidisciplinary experts’ feedback to classify the 56 risks and 302 
+
+   29 
+preventive measures for mitigating risk in road infrastructure projects. 
+An MCDM approach was used to evaluate measures in terms of 
+implementation cost, time, complexit y and success probability and this 
+was validated using fuzzy logic.  The framework prioritized preventive 
+strategies, providing actionable guidance for resource allocation and 
+enhancing risk management effectiveness.  
+In the Jragung Dam Construction Project Package 2, Adriantama et al. 
+(2025) implemented a combination of lack construction and risk 
+management with brainstorming, Borda and FMEA.  The study identified 
+key waste types, such as defects (20.05%), and critical risks like 
+incomplete diversion channel s (RPN = 108). Empirical results confirmed 
+the effectiveness of a genetic -algorithm -based K -means clustering 
+method, providing a structured approach to minimize waste and 
+enhance project efficiency.  
+Ullah et al. (2024) examined factors analysis for risk id entification 
+methods in international contracting projects using survey method. 
+Politicial risks such as expropriation and policy changes were strongly 
+highlighted in the data collected from construction experts. Systematic 
+risk management was shown to hel p in delaying problems and how 
+contractors operating in politically unstable locations can benefit from a 
+practical approach of this.  
+Tang et al. (2024)  used text mining to find safety risk factors in the 
+construction of the metro, building toward safety r isk factors from the 
+safety risk information of the Metro Project Safety Risk Early Warning 
+System. Both high frequency danger phrases were retrieved using Jieba 
+word segmentation and TF -IDF analysis and complications such as 
+nearby structures were exposed . This resulted in data driven approach 
+to improve on -site safety management against the issues that stand 
+with the traditional methods.  
+The comprehensive literature review and bibliometric analysis was done 
+by Shishehgarkhaneh et al. (2024) based on the articles of Construction 
+
+   30 
+supply chain risk management (CSCRM) from 1999 to 2023. The study 
+started from 2016 when the research changing fr om surveys to the AI 
+techniques using Gephi and VOSviewer. The expanded CSCRM stages 
+introduced by Insights included risk allocation and recovery which 
+provided complete understanding of emerging patterns.   
+Jackson and Priya (2024) employed structural equa tion modeling and 
+questionnaire survey of 462 Ghanaian professionals to find out such poor 
+resource planning that is important in terms of risk variables. The model 
+determines that outcome determinants are resource planning, conflict 
+resolution and technol ogical expertise and recommends obligatory 
+conflict resolution boards in order to improve project performance.  
+Gao et al. (2024) based on natural language processing (NLP), design a 
+Multi-sentence Context aware Risk Identification (MCRI) model for risk 
+event extraction from news article. The model was tested on a 
+supervised dataset and it delivers with an F1 -score of 87.1% 
+outperforming the baselines. Threshold approach automated the risk 
+identification enabling infrastructure projects to undertake early -stage 
+risk assessment from today.  
+In Al-Mhdawi et al. (2024), a FMEA model based on fuzzy was applied 
+to the oil and gas construction risk assessment in many ways like the 
+questionnaire and interview with the project managers in the United 
+States. The study lists 41 factors causing risk and non -compliance with 
+PPE regulations was ranked as the most vital factor. Mitigation solutions 
+using open ended questionnaires were used to validate in order to 
+improve risk understanding for project success.  
+The study by Z hao (2023) examined 2034 publications about 
+construction risk management (CRM) through document co -citation and 
+bibliographic coupling analysis of the publications from 2000 to 2021. 
+Themes such as advanced risk analysis as well as ICT driven CRM were 
+identified and their trends of adoption that were identified by the 
+
+   31 
+analysis.  The research brought together theoretical and practical CRM 
+development to provide practitioners complete knowledge.  
+Yousri et al. (2023) assessed risks in Egyptian building construc tion 
+through a pilot survey with 15 experts and a broader survey of 95 
+participants, using a Likert scale. Funding issues and material price 
+variations surfaced as major risk considerations.  The findings redefined 
+risks based on economic shifts, providing a model to control critical risks 
+and enhance project performance.  
+The ZW high -speed railway in China served as the basis for Xiang et al. 
+(2023) to verify their integrated risk assessment method targeting 
+cross-regional mega construction projects (CMCPs).  Drawn from AHP 
+and cross -impact analysis data identified 12 threat and vulnerability 
+factors with local government conflicts being one of them. The results 
+emphasized coordination mechanisms, offering transferable strategies 
+for CMCPs.  
+System dynamics com bined with the AHP -EWM method was used to 
+analyze tunnel security risk management efficiency in Chinese 
+megaprojects by Liu et al. (2023).  Simulations with Vensim software 
+pinpointed real -time risk adaptation as a key factor. The approach 
+demonstrated that  comprehensive risk awareness networks improve 
+efficiency, guiding tunnel security management.  
+Khodeir (2023) reviewed 43 Scopus -indexed papers from 2000 to 2021 
+to identify risks in fast -track construction projects. The synthesis 
+highlighted risks, such a s unfair risk distribution due to contract terms, 
+recommending scope assessment. This study clarified risk 
+management’s role in accelerating delivery under high complexity.  
+Developed by Coskun et al. (2023), RAMSCOM risk assessment method 
+for megaprojects is tested on a real case by using AHP and cross impact 
+analysis. Social, environmental, and economic critical hazards were 
+identified and decisions regarding mitigation decisions were supported 
+
+   32 
+by visualization. Adding sustainability made this strategy wor k towards 
+megaprojects long term success.  
+Canesi and Gallo (2023) applied the ANAC risk assessment tool to the 
+SSv-51 road variant project, forecasting a 7.53% cost increase. 
+Validation showed a 1.34% deviation from actual costs, demonstrating 
+the tool’s a ccuracy in mitigating cost overruns and supporting 
+sustainable infrastructure planning.  
+Shibani et al. (2022) surveyed Lebanese construction experts to identify 
+financial risks, such as currency fluctuation, amid an economic crisis. 
+The study validated the  advantage of risk management by reducing 
+overruns, but few are implementing it, and it offers limited advice in 
+areas traumatized by crises.  
+Osei-Kyei et al. (2022) performed a scientometric review on 1,635 
+publications indexed on Scopus from 1979 to 2022  through their 
+analysis with VOSviewer and Gephi.  Emerging themes that indicate 
+heightened attention as the sector transitions to sector 5.0 include risk -
+integrated planning. Future research is guided by the findings of this 
+study.  
+Nguyen et al. (2022) employed factor analysis to identify seven risk 
+factors, including financial risks, in the selection of joint venture 
+contractors after surveying 100 Vietnamese professionals. The findings 
+linked effective risk ranking to project succe ss, aiding decision -making 
+in complex infrastructure projects.  
+Khairullah et al. (2022) identified risks in EPC projects through 
+questionnaires with construction professionals. Design and contract risks 
+were shown to be crucial, and the findings linked del ays to a lack of risk 
+management, which helped to guide risk reduction strategies.  
+Santarsiero et al. (2021) used data from Google Street View and 
+OpenStreetMap to test the Italian Guidelines on Bridge Risk 
+Management. When applied to a Basilicata bridge s tock, conservative 
+
+   33 
+risk classifications were found, and approaches for prioritizing 
+evaluations for in -depth analyses were suggested.  
+Li et al. (2021) used fuzzy set theory and interviews to identify 75 risk 
+factors in mega infrastructure projects (MIPs). Validation provided a 
+framework for MIP risk management that was expanded for 
+sustainability, and coordination and economic risks were crucial.  
+An analytical network process (ANP) model was developed by Erol et al. 
+(2021) to measure risks in megaprojects. A two -round Delphi study was 
+used to validate the model across 11 projects.  The findings ranked risk 
+sources, improving the accuracy of risk assessments for practitioners.  
+Banerjee Chattapadhyay  et al. (2021) surveyed experts on 63 risk 
+factors in megaproj ects, applying GA –K-means clustering and SMOTE. 
+The approach offered a predictive paradigm to enhance megaproject 
+performance by identifying time and cost issues as crucial.  
+Zhang et al. (2020) identified environmental and technological risks as 
+safety -critical after conducting expert interviews and surveying 399 
+Chinese subway professionals. The number of accidents in subway 
+projects was reduced as a result of better safety management.  
+Shaktawat and Vadhera (2020) reviewed the risks related to 
+hydropower p rojects and proposed synthesis -based sensitivity analysis. 
+Cost-estimating methods for sustainable development in developing 
+countries were presented by emphasizing the risks related to the 
+building phase.  
+Aarthipriya et al. (2020) used Primavera software to perform sensitivity 
+analysis and Monte Carlo simulation to examine the hazards associated 
+with residential development in Bangalore. The results quantified time 
+and cost impacts, improving decision -making through effective risk 
+management.  
+
+   34 
+Sharma and Gu pta (2019) reviewed the literature to determine 67 risk 
+variables and ranked them using questionnaire surveys.  Early risk 
+assessment in construction projects was aided by the validation of top 
+risks, such as funding unavailability.  
+After surveying 22 Pakistani contractor companies on 100 projects, 
+Nawaz et al. (2019) discovered a connection between risk management 
+and project performance.  The importance of organized risk strategies in 
+developing nations was highlighted by insights.  
+Through a review of the literature, Bahamid et al. (2019) found 111 risk 
+variables in building projects in developing nations, of which 56 were 
+deemed essential. The plan provided the framework for achieving 
+schedule, cost, and quality goals.  
+In an online poll of construction  experts, Saeed (2018) found that time 
+and expense overruns were the most common hazards. Suggestions like 
+better planning lessened the effects of subpar company performance.  
+Rachid et al. (2018) surveyed 52 Algerian construction experts, 
+identifying owner -related delay causes, such as slow change orders. 
+Improvements in scheduling procedures were guided by the findings.  
+Chang et al. (2018) grouped  27 “political risk management techniques ” 
+for multinational projects using factor analysis after surveying 155  
+experts. The findings provided useful methods at all stages of the 
+project.  
+Ahmed (2017) reviewed risk mitigation in innovative projects, proposing 
+a conceptually tested framework. Insights from autonomous vehicle 
+projects emphasized step -by-step strategi es, aligning risk management 
+with business goals.  
+  
+
+   35 
+5 RESULT S 
+The research findings and their implications are presented in this section 
+in relation to the goals and inquiries of the study. Objectives  are: (1) to 
+identify key risk categories in large -scale construction projects, (2) to 
+analyze challenges in risk management implementation,  (3) to evaluate 
+effective mitigation strategies from the literature. The research 
+questions were: RQ1: What are the primary risk  categories, such as 
+financial, operational, and environmental risks, in large -scale projects? 
+RQ2: What challenges, like stakeholder misalignment, hinder risk 
+management? RQ3: What are the most effective mitigation strategies, 
+such as contingency planning , in the literature? The conclusions are 
+based on three datasets: risk_categories.csv (107 dangers), 
+common_challenges.csv (76 problems), and mitigation_strategies.csv 
+(82 strategies) obtained from 38 studies between 2017 and 2025.  The 
+results answer all t opics, followed by comments that integrate the data 
+to convey overall knowledge of risk management dynamics.  Table 4 
+(Appendix 1) summarizes the 38 sources, aligning their contributions 
+with results in Sections 5.1, 5.2, and 5.3.  
+5.1 Identification of Key Risk Categories  
+The analysis of the “risk_categories.csv” dataset, with 107 risk 
+descriptions from 38 studies (2017 –2025), addressed the question  RQ1. 
+A Python -implemented keyword -based approach categorized risks into 
+eight predefined groups —Financial, Ope rational, Safety, Technical, 
+Environmental, Political, Contractual, and Supply Chain Risks —with 
+unmatched risks labeled "Other Risks." Analysis and Visualization , 
+including a bar chart,  and word clouds, offered a detailed risk distribution 
+overview.  
+The data revealed a variety of risk categories, with "Other Risks" 
+appearing the most frequently at 31 times (29.0%).  This category 
+
+   36 
+included emerging risks like "Lack of knowledge of new technology slows 
+project efficiency" (Jackson & Priya, 2024) and "Unident ified risks from 
+past projects threaten early -stage planning" (Gao et al., 2024). 
+Operational risks were followed by 19 occurrences (17.8%), commonly 
+associated with "delay" and "schedule," as in "Delays of 40% in project 
+timelines were driven by design mo difications" (Ramadhan & Waty, 
+2025).  Technical Risks had 11 instances (10.3%), while Financial Risks 
+had 10 (9.3%). Technical Risks involved design and equipment failures, 
+such as "Design revision led to defects and financial losses" (Adriantama 
+et al., 2 025), while Financial Risks were linked to cost overruns, as in "  
+Construction cost overruns threaten economic sustainability " (Li et al., 
+2021). 
+Supply Chain and Environmental Risks each had eight incidences 
+(7.5%).  Supply Chain Risks included "Delays in material delivery disrupt 
+timelines for SMEs" (Chen et al., 2025), while Environmental Risks 
+involved geological issues, like "Geological challenges increased costs" 
+(Adriantama et al., 2025). Political and Safety Risks each had 7 
+instances (6.5%), with Po litical Risks tied to instability (e.g., "Political 
+unpredictability delays projects" by Ullah et al., 2024) and Safety Risks 
+to concerns like "High accident rates threaten worker safety" (Zhang et 
+al., 2020). Contractual Risks were least frequent, with 6 instances 
+(5.6%), as in "Contract -related risks increase costs in EPC projects" 
+(Khairullah et al., 2022).  
+Figure 2 depicts the “distribution of risk categories ”, with "Other Risks" 
+(31 occasions) and Operational Risks (19 times) taking the lead  and 
+word clouds are in Appendix 2.  
+
+   37 
+ 
+Figure 2.  Distribution of risk categories across 107 risk descriptions  
+The high incidence of "Other Risks" (29.0%) implies that many hazards 
+are context -specific or do not fit into specified categories, such as 
+technology hurdles (Jackson & Priya, 2024) or historical risk carryovers 
+(Gao et al., 2024). This aligns with Nawaz et al. (2019), who noted 
+unmanaged risks threaten project success in Pakistan.  
+Construction businesses employ a variety of ways to address these 
+"other" hazards. First, they keep dynamic risk registers and hold 
+workshops to identify hazards such as "lack o f skilled labor" (Amin et 
+al., 2025). Second, firms consult experts to assess technological risks, 
+such as BIM, as demonstrated by Ramadhan and Waty (2025). Third, 
+scenario planning anticipates risks like "Uncertainties in Industry 5.0" 
+(Osei-Kyei et al., 2022). Fourth, real -time monitoring adapts to evolving 
+risks, as in Amin et al. (2025). Fifth, firms learn from historical data, 
+using lessons from "Scattered historical risk events" (Gao et al., 2024). 
+Finally, flexible frameworks with AI -driven analytics  (Shishehgarkhaneh 
+et al., 2024) identify risks like "Complexity of megaprojects" (Erol et al., 
+
+
+   38 
+2021). Because of the presence of "other" risks, classifications should 
+be refined to encompass technical and sustainability issues, with 
+sophisticated methods used for uncategorized hazards.  
+Operational Risks (17.8%) as the second most frequent category 
+highlight delays, echoing Ramadhan and Waty (2025) and Saeed 
+(2018). The share of Technical (10.3%) and Financial Risks (9.3%) 
+reflects the challenge of managing  cost overruns and design issues, as 
+design changes often cause both (Adriantama et al., 2025; Ramadhan 
+& Waty, 2025). Environmental Risks (7.5%) emphasize sustainability 
+and geological concerns, especially in megaprojects (Ahmad et al., 
+2025). According t o Ullah et al. (2024) and Zhang et al. (2020), “political  
+risks”  and “safety risks ” (6.5% each) reflect external and human 
+variables that disrupt deadlines and safety . The lower frequency of 
+Contractual Risks (5.6%) suggests they are less pervasive, though 
+significant in contexts like EPC projects (Khairullah et al., 2022). These 
+findings indicate that risk management must prioritize operational 
+delays and developing haz ards while resolving financial and 
+technological issues.  
+5.2 Insights into Common Challenges  
+The analysis of the “common_challenges.csv” dataset, with 76 challenge 
+descriptions from 38 studies (2017 –2025), addressed the question  RQ2. 
+Python -based text anal ysis, using NLTK and NetworkX for frequency and 
+network analysis, identified patterns in challenges. Visualizations like a 
+bar chart, network graph, and word cloud offered insights into their 
+thematic distribution and interconnections.  
+Frequency analysis s howed "hinder" as the most frequent term (25 
+instances), followed by "complicate" (23 instances). Other terms 
+included "risk" (10 instances), "complexity" (8 instances), "limit" and 
+"effective" (7 instances each), "poor," "lack," and "delay" (6 instances 
+each), and "plan" (5 instances). These words emphasize resource 
+
+   39 
+restrictions and complexity as major hurdles. For example, "Poor 
+understanding of new risks hinders safety management" (Zhang et al., 
+2020) and "Complexity of 63 risk factors hinders analysis" (Banerjee 
+Chattapadhyay et al., 2021) show how understanding and analytical 
+complexity impede risk management. Figure 3 illustrates the top 10 
+frequent terms, confirming the prevalence of "hinder" and "complicate."  
+ 
+Figure 3. Top 10 frequent terms in challenges across 76 challenge 
+descriptions.  
+The directed graph created using NetworkX was first implemented with 
+challenges as nodes and having shared lemmatized terms as edges . 
+Degree centrality identified "Poor understanding o f new risks hinders  
+safety management" (Zhang et al., 2020) as the most interconnected 
+(centrality: 0.987), followed by "Complexity of 63 risk factors hinders 
+analysis" (Banerjee Chattapadhyay et al., 2021; centrality: 0.907) and 
+"Legal risks in joint vent ures hinder contract enforcement" (centrality: 
+0.880). Two others, "Poor logistics coordination complicated timely 
+material delivery" (centrality: 0.853) and "Limited data on low -risk 
+
+
+   40 
+factors like unpredictable fire hinders assessment" (centrality: 0.853),  
+were also highly connected. These top 5 issues are visualized in Figure 
+4, which provides linkages through phrases like "complicate" and 
+"hinder." For example, "complicate" links supply chain recovery 
+(Challenge 5) and coordination difficulties (Challenge  9), while "hinder" 
+links safety management (Challenge 57) and contract enforcement 
+(Challenge 46) . A word cloud emphasizing "hinder" and "complexity" is 
+in Appendix 3.  
+ 
+Figure 4. Network of top 5 central challenges based on shared terms.  
+The prevalence of "hinder" (25 instances) and "complicate" (23 
+instances) underscores barriers to risk management, especially in 
+understanding risks. The high centrality of "Poor understanding of new 
+risks hinders safety management" (0.987) indicates that a lack of 
+awareness has an influence on safety, which is consistent with Zhang et 
+al. (2020). Similarly, "Complexity of 63 risk factors hinders analys is" 
+(centrality: 0.907) implies analytical difficulties (Banerjee 
+
+
+   41 
+Chattapadhyay et al., 2021).  The network graph shows interconnected 
+challenges, affecting coordination (Challenge 9) and assessment of low -
+risk factors (Challenge 5). The terms "poor" and "l ack" (6 times each) 
+denote resource limits, as in "Poor coordination increases complexity" 
+(Li et al., 2021).  "Delay" (6 instances) highlights inefficiencies, per Liu 
+et al. (2023). These findings confirm stakeholder misalignment and poor 
+communication as critical challenges, often seen as "poor" coordination 
+and "complicated" collaboration in joint ventures (Challenges 9 and 46). 
+Effective risk management involves overcoming systemic hurdles, 
+particularly recognizing new hazards, managing complexity, and 
+enhancing coordination.  
+5.3 Evaluation of Effective Mitigation Strategies  
+The analysis of the “mitigation_strategies.csv” dataset, with 82 
+mitigation strategy descriptions from 38 studies (2017 –2025), 
+addressed the question  RQ3. Python -based text analysis, using LDA 
+topic modeling, frequency analysis, and keyword extraction with NLTK, 
+Scikit -learn, and RAKE, identified prevalent strategies. Visualizations 
+such as bar charts and word clouds per subject offered information about 
+their thematic distribution.  
+Four themes were found using LDA topic modeling and categorized 
+accordingly. Topic 1, "Contingency Planning," used terminology like 
+"cost," "analysis," "overrun," "factor," and "sensitivity," focused on 
+financial risk methods (e.g., "Sensitivity analysis mit igates cost overrun 
+risks" by Aarthipriya et al., 2020).  Topic 2, "Risk Identification," featured 
+"control," "factor," "implement," "identify," and "management," focusing 
+on identifying risks (e.g., "Improved contract management mitigates 
+business risks" b y Saeed, 2018). Topic 3, "Other Mitigation Strategy," 
+included "management," "aid," "project," "effective," and "factor," 
+suggesting general strategies (e.g., "Identifying critical risk factors aids 
+project management" by Jackson & Priya, 2024). Among the words used 
+
+   42 
+in Topic 4, "Systematic Frameworks," were "political," "management," 
+"delay," "assessment," and "decision," suggesting organized methods 
+(e.g., "ANP model quantifies risks for prioritization" by Erol et al., 2021).  
+Frequency analysis showed "man agement" as the most frequent term 
+(17 instances), followed by "factor" (11 instances), "assessment," 
+"identify," and "project" (8 instances each), and "accuracy," "reduces," 
+"cost," "aid," and "strategy" (6 instances each). These words place a 
+strong emph asis on risk detection and systematic management.  For 
+example, "Implementing Building Information Modeling (BIM) enhances 
+planning accuracy" (Ramadhan &  Waty, 2025) highlights technology’s 
+role, while "Risk -integrated planning enhances project scheduling" 
+(Osei-Kyei et al., 2022) focuses on project management. Figure 5 
+illustrates the top 10 frequent terms, confirming "management" and 
+"factor" prominence.  Appendix 4 has word clouds for each topic, 
+including terminology such as "cost" in contingency planning.  
+ 
+Figure 5. Top 10 frequent terms in mitigation strategies across 82 
+descriptions.  
+
+
+   43 
+The prominence of "management" (18 instanc es) and "project" (9 
+instances) aligns with the focus on structured strategies, as effective 
+mitigation requires robust project management (Jackson & Priya, 2024; 
+Osei-Kyei et al., 2022). Risk identification procedures (Topic 4) are 
+supported by "Factor" ( 11 times) and "identify" (9 instances), as in 
+"Sensitivity analysis identifies key risk factors" (Aarthipriya et al., 2020). 
+"Cost" (6 instances) in Topic 1 highlights contingency planning’s role in 
+financial risks, per Aarthipriya et al. (2020) and Ramadh an and Waty 
+(2025). "Systematic Frameworks" (Topic 2) with "model" underscores 
+structured approaches (Erol et al., 2021). Although "technology 
+adoption" wasn’t a labeled topic, "accuracy" (6 instances) and BIM 
+references (Ramadhan & Waty, 2025) suggest its  relevance. The title 
+"Other Mitigation Strategy" in Topic 3 suggests that some strategies —
+like separating project management from operational strategies —need 
+more precise classification.  
+These findings suggest that effective mitigation in large -scale proj ects 
+requires contingency planning, rigorous frameworks, and risk 
+identification. Contingency planning addresses financial risks, 
+systematic frameworks control risks, and risk identification ensures 
+targeted mitigation, addressing risks from Section 5.1. T echnology 
+adoption, inferred through "accuracy," supports its growing role 
+(Ramadhan & Waty, 2025).  
+  
+
+   44 
+6 DISCUSSION  
+This discussion synthesizes findings from Sections 5.1, 5.2, and 5.3, 
+analyzing the “risk_categories.csv,” “common_challenges.csv,” and 
+“mitiga tion_strategies.csv” datasets . Thematic analysis (Braun & Clarke, 
+2006) was the qualitative approach which based on constructivism and 
+interpretivism (Creswell, 2007) and investigated risk management on 
+large construction project.  The findings relate to the objectives: (1) 
+identify key risk categories, (2) analyze risk management challenges, 
+and (3) evaluate effective mitigation strategies, corresponding to the 
+research questions in the introduction.  
+6.1 Primary Risk Categories: Im plications and Insights  
+Section 5.1 revealed several risk categories, with "Other Risks" (29.0%) 
+and Operational Risks (17.8%) being the most common, followed by 
+Technical Risks (10.3%) and Financial Risks (9.3%).  The keyword -based 
+approach mapped risks, b ut the high "Other Risks" (e.g., "Lack of 
+knowledge of new technology slows project efficiency" by Jackson & 
+Priya, 2024) suggests keyword dictionary limitations, as noted in the 
+methodology. This aligns with Nawaz et al. (2019), who emphasized 
+controlling  growing risks in regions such as Pakistan.  
+Delays cause operational risks (Ramadhan & Waty, 2025), which are 
+indicative of a systemic issue (Saeed, 2018).  Technical and financial 
+risks are linked, as design changes result in cost overruns and technical 
+failures (Adriantama et al., 2025). Environmental Risks (7.5%), like 
+geological challenges (Adriantama et al., 2025), emphasize 
+sustainability in megaprojects (Ahmad et al., 2025). Risk management 
+must prioritize operational efficiency, sustainability, and integrated 
+financial -technical strategies.  
+
+   45 
+6.2 Common Challenges: Barriers to Effective Risk Management  
+Section 5.2 highlighted systemic hurdles, with the phrases "hinder" (25 
+occasions) and "complicate" (23 instances) appearing often in the 
+frequency anal ysis. Network study of 76 issues using NetworkX revealed 
+interconnection, with "Poor understanding of new risks hinders safety 
+management" (centrality: 0.987; Zhang et al., 2020) being the most 
+central. This aligns with the methodology’s thematic focus (Br aun & 
+Clarke, 2006), showing how unawareness of emerging risks affects 
+safety (Zhang et al., 2020).  
+Terms like "poor" and "lack" (6 instances each) indicate resource 
+constraints, as in "Poor coordination increases complexity" (Li et al., 
+2021), confirming stakeholder misalignment and poor communication. 
+Figure 4 depicts a network graph that connects difficulties related to 
+safety, coordination, and the assessment of low -risk elements.  Effective 
+risk management requires addressing coordination and risk aware ness 
+barriers.  
+6.3 Risk Mitigation Strategies: Effectiveness and Applicability  
+Section 5.3 identified mitigation strategies via topic modeling and 
+frequency analysis. Contingency Planning (Topic 1), Risk Identification 
+(Topic 2), and Systematic Frameworks (Topic 4) appeared, with 
+"management" (17 instances) and "factor" (11 instances) being the 
+most common.  Contingency planning, focusing on "cost" (e.g., 
+"Sensitivity analysis mitigates cost overrun risks" by Aarthipriya et al., 
+2020), addresses Financial Ri sks (Ramadhan & Waty, 2025). Risk 
+identification, focusing on "management" and "identify" (e.g., 
+"Improved contract management mitigates business risks" by Saeed, 
+2018), targets Contractual and Operational Risks. Systematic 
+frameworks that include "decisio n" (e.g., "ANP model quantifies risks" 
+by Erol et al., 2021) address complexity issues (Banerjee Chattapadhyay 
+et al., 2021).  
+
+   46 
+The LDA approach proved effective, although Topic 3's label "Other 
+Mitigation Strategy" indicates that finer themes are required.  
+Technology adoption, as shown by "accuracy" (6 occurrences) and BIM 
+(Ramadhan & Waty, 2025), reinforces its significance in creative 
+projects (Adriantama et al., 2025).  
+6.4 Interconnections Between Risks, Challenges, and Mitigation 
+Strategies  
+The findings  show interconnections, reflecting the methodology’s multi -
+source approach. Operational Risks like delays (Ramadhan & Waty, 
+2025) are worsened by challenges such as poor coordination (Li et al., 
+2021). Risk identification and systematic frameworks mitigate  these by 
+identifying key factors (Aarthipriya et al., 2020) and providing 
+structured control (Erol et al., 2021). Financial Risks link to complexity 
+challenges (Banerjee Chattapadhyay et al., 2021), which contingency 
+planning addresses through cost manage ment (Aarthipriya et al., 2020).  
+While technology adoption (i.e., BIM), reduces Operational and 
+Technical Risks through improved planning as well as reducing design 
+errors (Ramadhan & Waty, 2025), challenges of 'Poor understanding of 
+new risks' (Zhang et al., 2020) can pose barriers to adoption. They 
+minimize environmental risks through systematic frameworks that 
+involve sustainability (Ahmad et al., 2025).  
+6.5 Broader Implications for Risk Management  
+Effective risk management in large scale construction p rojects suggests 
+that a holistic approach is needed from 38 sources.  The operational and 
+financial risks, and other issues like lack of coordination, emphasize the 
+need for efficient and financial solution like contingency planning, 
+identification of risk and methodical framework.  Given, technology 
+adoption, here, BIM, resolves operational, technical and environmental 
+
+   47 
+risks and therefore promotes sustainability.  The constructed viewpoint 
+emphasizes that the stakeholders need to be more involved in 
+coordinat ing and increasing awareness of risks in order for practitioners 
+to achieve mitigation methods proper implementation.  
+  
+
+   48 
+7 CONCLUSION  
+This chapter summarizes the interpretation of the key findings from the 
+study on risk management in large scale construction projects relative 
+to the research goal and question as presented in Chapter 1. This section 
+also discusses the practical and theoretical implications of these findings 
+as well as making recommendations to future research filling out the 
+gaps stated towards  Chapter 5 and staying with the construction risk 
+management enterprise.  
+7.1 Summary of Key Findings  
+The study achieved its three objectives and were addressed through the 
+analysis of three datasets —risk_categories.csv (107 risk descriptions), 
+common_challenges.csv (76 challenge descriptions), and 
+mitigation_strategies.csv (82 mitigation strategy descriptions) —
+compiled from 38 empirical sources spanning 2017 –2025.  
+Identification of Key Risk Categories:  According to the report, 
+"Other Risks" (29. 0%) and Operational Risks (17.8%) dominate the risk 
+landscape, followed by Technical Risks (10.3%) and Financial Risks 
+(9.3%).  "Other Risks" included emerging or context -specific risks, such 
+as technological adoption challenges (Jackson & Priya, 2024), whi le 
+Operational Risks were driven by delays (Ramadhan & Waty, 2025). 
+Environmental risks (7.5%) emphasized the necessity of sustainability 
+(Ahmad et al., 2025), while the interconnection of Technical and 
+Financial Risks underlined the need for integrated ri sk management 
+systems (Adriantama et al., 2025).  
+Insights into Common Challenges:  Systemic barriers to risk 
+management were identified, with "hinder" (25 instances) and 
+"complicate" (23 instances) as the most frequent terms. It was found 
+that "Poor underst anding of new risks hinders safety management" 
+(Zhang et al., 2020) has substantial information one about the roles of 
+
+   49 
+the poor understanding of developing risks on measures of safety and 
+operational performance.  Challenges like poor coordination and 
+compl exity (Li et al., 2021) confirmed the research question’s focus on 
+stakeholder misalignment and poor communication, emphasizing the 
+need for improved coordination and risk awareness.  
+Evaluation of Effective Mitigation Strategies:   
+The analysis confirmed th at both contingency planning and risk 
+identification and methodical frameworks function as essential strategic 
+plans especially when considering the most frequent use of 
+"management" and "factor" . Aarthipriya et al. (2020) addresses financial 
+risks plannin g, Saeed (2018) addresses risk identification for delays, and 
+Erol et al. (2021) addresses the using systematic frameworks to tackle 
+complexity. Terms including technology adoption like “accuracy” 
+(Ramadhan & Waty, 2025) inferred technology adoption, and i t is 
+consistent with the research question’s focus on its adoption.  
+Integrated Discussion:  During the discussion panel various risks and 
+challenges and their corresponding mitigation methods were linked with 
+one another.  Poor coordination made operational risks (such delays) 
+worse, while complexity was associated with financial risks. These risks 
+were both reduced by systematic frameworks, risk identification, and 
+contingency planning.  Technology adoption, particularly BI M, addressed 
+Operational, Technical, and Environmental Risks, though 
+implementation challenges, such as limited understanding, persisted.  
+The lessons learnt in these insights’ stresses on the importance of a 
+holistic risk management that balances out opera tional efficiency, cost 
+control and sustainability while running with risks and challenges.  
+
+   50 
+7.2 Addressing Research Goals  
+The research questions were successfully answered and the contribution 
+of the study was everything one could think about dynamic risk 
+management in large construction projects : 
+Research Question 1:  “Which risk categories are most important for 
+major building projects? ” The study identified Operational and Financial 
+Risks as dominant, with Environmental Risks highlighting sustainability 
+concerns. An important frequency (29.0%) showed that the “Other 
+Risks” were developing risks and more fully understood risk profile in 
+building projects.  
+Research Question 2:  “What obstacles exist for efficient risk 
+management? ” The findings confirmed stake holder misalignment and 
+poor communication as critical challenges, manifesting as poor 
+coordination and complexity, with a lack of risk awareness exacerbating 
+safety and operational issues.  
+Research Question 3:  “Which risk reduction techniques, according t o 
+the literature, are the most successful?”  Contingency planning, risk 
+identification, methodical frameworks, and technology adoption (e.g., 
+BIM) were highlighted as useful solutions for mitigating financial, 
+operational, and technical risks and encouragin g sustainability.  
+7.3 Implications for Risk Management  
+These findings create essential implications which affect both theory and 
+practical application of construction risk management.  The study 
+demonstrates theoretically that adaptable risk classification systems 
+must exist to detect new risks because 29.0% of the respondents 
+identified "Other Risks".  Research should focus on constructing 
+integrated models which address risks and challenges as complete 
+systems since risk management faces these characteristi cs in practice.  
+In real terms, the focus on backup planning spotting risks, and organized 
+
+   51 
+methods gives useful ways to handle money and work risks. At the same 
+time, BIM's part in making planning more exact and eco -friendlier  opens 
+a door to update buildin g methods (Ramadhan & Waty 2025; Ahmad et 
+al. 2025).  To overcome implementation barriers, practitioners must top 
+their list of things to do as improving stakeholder coordination and 
+awareness of risks, and also applying mitigation strategies to real 
+projec ts. 
+7.4 Final Remarks  
+The vital aspects of large-scale construction risk management were 
+identified, the systemic challenges were revealed and effective 
+mitigation strategy was evaluated in this study.  A key finding is that 
+there are operational and financ ial risks, widespread issues of poor 
+coordination and complexity, and the effectiveness of interventions, i.e. 
+contingency planning, risk identification, structured approaches, and 
+technological adoption, namely building information modeling.  The 
+research provides useful risk management practice improvement 
+insights even though it faces constraints from literature -based data 
+analysis and the absence of stakeholder input and its wide geographical 
+range.  
+By addressing stakeholder misalignment, enhancing risk awareness, and 
+leveraging technology for sustainable outcomes, practitioners can 
+enhance the resilience of large -scale construction projects. Future 
+research, as outlined in Section 7.6, should focus on incorporating real -
+time data, region -specific analyse s, and advanced analytical techniques 
+to address these limitations, ensuring that risk management strategies 
+are both theoretically robust and practically applicable.  
+
+   52 
+7.5 Limitations  
+This study, while comprehensive, is subject to several limitations that 
+impacted the findings and their applicability, as anticipated in Section 
+1.5 and further revealed through the analysis in Chapters 5 and 6.  
+First, as indicated in Section 1.5, the study's capacity to capture actual 
+implementation issues was restricted by it s dependence on existing 
+literature (38 sources) and a lack of real -time data or case studies. For 
+example, while technology adoption (e.g., BIM) was highlighted as a 
+crucial mitigation technique, hurdles like as training costs or opposition 
+to adoption we re not investigated, thereby overestimating its practicality 
+in real -world scenarios.  
+Second, Section 1.5 mentioned that stakeholder feedback was lacking, 
+and hence limited the usefulness of the study’s findings.  Although 
+stakeholder misalignment and its effects on risk management were 
+considered, further insight would have been enriched had project 
+managers or contractors been directly included as a source of findings 
+to these challenges (e.g. poor coordination).  
+Third, Section 1.5 notes the magnitude of geography that was the 
+study's focus, thereby restricting its local applicability to special regional 
+types of projects. Political Risks, reported as 6.5% in Section 5.1, like 
+the example "Political unpredictability delays international construction 
+projec ts" by Ullah et al. (2024), can differ a lot depending on the political 
+environment. These include areas like conflict zones or stable regions, 
+though this research did not examine such distinctions.  
+Fourth, the keyword -based categorization approach result ed in a high 
+proportion of "Other Risks" (29.0%), confirming the limitation noted in 
+Section 1.5 that emerging risks like technological disruptions or 
+geopolitical tensions may not be fully addressed. This suggests that the 
+predefined keyword dictionary wa s not comprehensive enough to 
+
+   53 
+capture nuanced or evolving risks, such as those related to cybersecurity 
+or global supply chain disruptions.  
+Fifth, the topic modeling in Section 5.3 labeled Topic 3 as "Other 
+Mitigation Strategy," indicating a need for more granular themes to fully 
+capture the diversity of mitigation strategies, a limitation that emerged 
+during the analysis and aligns with the methodological constraints noted 
+in Section 1.5.  
+Finally, the qualitative approach and focus on large -scale projects,  as 
+anticipated in Section 1.5, limit the generalizability of the findings to 
+smaller projects or those with different stakeholder dynamics. For 
+instance, simpler approaches could be more practical for smaller 
+projects with less resources, making the empha sis on methodical 
+frameworks less useful. These drawbacks show that researching risk 
+management in building projects requires a more comprehensive and 
+useful methodology.  
+7.6 Recommendations for Future Works  
+The following suggestions are put up for further  study in order to build 
+on the present findings and overcome the limitations mentioned in 
+Section 7.5:  
+Incorporate Real -Time Data and Stakeholder Feedback:  Future 
+studies should include primary data through case studies, surveys, or 
+interviews with stakeh olders (e.g., project managers, contractors) to 
+validate literature -based findings and capture practical implementation 
+challenges. Exploring impediments to BIM adoption, such as training 
+costs or opposition, might offer practitioners with practical insigh ts while 
+also addressing the lack of stakeholder feedback mentioned in Section 
+1.5. 
+Region -Specific Analysis:  To overcome the geographical limitation, 
+future research could focus on specific regions with unique conditions, 
+
+   54 
+such as conflict zones or emerging economies, to assess how Political 
+Risks and other categories vary across contexts. This would enhance the 
+applicability of findings to diverse project environments, as suggested 
+in Section 1.5.  
+Advanced Risk Categorization:  The significant amount  of "Other 
+Risks" (29.0%) suggests that better natural language processing (NLP) 
+approaches, such as BERT, are required to increase risk identification 
+accuracy and catch developing threats such as technology disruptions or 
+geopolitical conflicts, as indic ated in Section 1.5. Expanding the keyword 
+dictionary to include terms related to cybersecurity, climate change, or 
+global supply chain disruptions could further enhance categorization.  
+Improved Topic Modeling: The topic modeling technique has to be 
+improv ed by making themes more specific, especially when it comes to 
+mitigation tactics.  For instance, distinguishing between project 
+management and operational strategies within the "Other Mitigation 
+Strategy" topic could provide more specific recommendations f or 
+practitioners, addressing the methodological limitation of thematic 
+granularity.  
+Cost-Benefit Analysis of Technology Adoption:  The implementation 
+of technology adoption through cost -benefit analysis (fuzzy logic and 
+BIM) would demonstrate how these meth ods improve project results 
+while decreasing operational risks. According to the generalizability 
+limitation outlined in Section 1.5, this would provide practitioners with 
+useful information, particularly for resource -constrained endeavors.  
+Longitudinal St udies for Smaller Projects: Longitudinal studies that 
+look at how well mitigation techniques —like risk identification, 
+contingency planning, and systematic frameworks —work over the long 
+term in smaller projects may improve the findings' generalizability.  This 
+would solve the drawback of concentrating on big projects (Section 1.5) 
+and shed light on how flexible these tactics are in various project 
+situations.   
+
+   55 
+REFERENCES  
+Aarthipriya, V., Chitra, G., & Poomozhi, J. S. (2020). Risk and its 
+impacts on time and cost in construction projects. Journal of 
+Project Management, 5 (5), 245 –254. 
+https://doi.org/10.5267/j.jpm.2020.6.002   
+Abuyassin, N., Yousif, A. S. H., &  Najm, N. A. (2018). Evaluating Risk 
+Management in Jordanian Construction Projects: An ISO 31000 -
+2009 Implementation Perspective. In Lecture notes in 
+mechanical engineering  (pp. 321 –330). Springer. 
+https://doi.org/10.1007/978 -3-319-74123 -9_34   
+Adriantama, M. H., Wibowo, M. A., & Hatmoko, J. U. D. (2025). 
+Implementation of lean construction and risk management for 
+waste identification in the Jragung Dam Construction Project 
+Package 2 . E3S Web of C onferences, 605 , 03019. 
+https://doi.org/10.1051/e3sconf/202560503019    
+Ahmad, D. M., Gáspár, L., &  Maya, R. A. (2025). Optimizing 
+sustainability in bridge projects: A framework integrating risk 
+analysis and BIM with LCSA according to ISO standards. Applied 
+Sciences, 15 (1), 383. https://doi.org/10.3390 /app15010383    
+Ahmed, R. (2017). Risk mitigation strategies in innovative projects. In 
+Key Issues for Management of Innovative Projects  (pp. 83 –100). 
+IntechOpen. https://doi.org/10.5772/intechopen.69 004   
+Aladayleh, K. J., & Aladaileh, M. J. (2024). Applying Analytical 
+Hierarchy Process (AHP) to BIM -Based risk management for 
+optimal performance in construction projects. Buildings , 14(11), 
+3632.  https://doi.org/10.3390/buildings14113632   
+Alfreahat, D., & Sebestyén, Z. (2022). A construction –specific 
+extension to a standard project risk management process. 
+Organization Technology and Management in Construction an 
+International Journal , 14(1), 2666 –2674.  
+https://doi.org/10.2478/otmcj -2022-0011  
+ 
+
+   56 
+Al-Mhdawi, M. K. S., Qazi, A., Karakhan, A. A., Rahimian, F. P., 
+Abualqumboz, M., Mhdawi, A. K. A., & Al -Raweshidy, H. (2024). 
+Implementation of a comb ined fuzzy controller model to 
+enhance risk assessment in oil and gas construction projects. 
+IEEE Access, 12 , 68319 –68333. 
+https://doi.org/10.1109/ACCESS.2024.3399129    
+Ametller, S., Carrión, A., González, E., Rojas, R., & Zaffaronigi, A. 
+(2017). Innovation in the construction of the third set of locks of 
+the Panama Canal. Revista Digital Del Cedex, 185 , 9–41. 
+https://ingenieriacivil.cedex.es/index.php/ingenieria -
+civil/article/view/479    
+Amin, F. A., Patriadi, A., & Sajiyo, S. (2025). Identification and 
+mitigation of risk factors in the implementation of the 
+Probolinggo -Banyuwangi Toll Road Project Package 2. Journal of 
+World Science , 4(1), 1844 –1854.  
+https://doi.org/10.58344/jws.v4i1.1279   
+Asana, T. (2025, February 15). Project Management Triangle: What it 
+is, how to use it [2025] • Asana. Asana . 
+https://asana.com/resources/project -management -triangle   
+Bachtiar, R. D. B. , & Prasetya, N. M. E. (2024). Evaluation of risk 
+management implementation in IT projects using ISO 31000 in 
+an ICT solutions company. Accounting and Finance Studies , 
+4(1), 17 –33. https://doi.org/10.4 7153/afs41.8682024   
+Bahamid, R. A., Doh, S. I., & Al -Sharaf, M. A. (2019). Risk factors 
+affecting the construction projects in the developing countries. 
+IOP Conference Series Earth and Environmental Science , 244, 
+012040.  https://doi.org/10.1088/1755 -1315/244/1/012040   
+Banerjee Chattapadhyay, D., Putta, J., & Rao P, R. M. (2021). Risk 
+Identification, Assessments, and Prediction for Mega 
+Construction Projects: A Ri sk Prediction Paradigm based on 
+Cross Analytical -Machine Learning Model. Buildings , 11(4), 172. 
+https://doi.org/10.3390/buildings11040172   
+ 
+
+   57 
+Bepari, M., Narkhede, B. E., & Raut, R. D. (2022). A comparative study 
+of project risk management with risk breakdown structure 
+(RBS): a case of commercial construction in India. International 
+Journal of Construction Management , 24(6), 673 –682. 
+https://doi.org/10.1080/15623599.2022.2124657   
+Bika, N. (2022, April 1). Construction Project Manager Job Description . 
+Workable Resources. Retrieved February 20, 2025, from 
+https://resources.workable.com/construction -project -manager -
+job-description  
+Bornman, S., & Frisa, K. (2024, October 3). A project manager’s role 
+in construction . Procore. Retrieved February 20, 2025, from 
+https://www.procore.com/library/construction -project -manager   
+ Braun, V., & Clarke, V. (2006). Using thematic analysis in psychology. 
+Qualitative Research in Psychology , 3(2), 77 –101. 
+https://doi.org/10.1191/1478088706qp063oa   
+Canesi, R., & Gallo, B. (2023). Risk assessment in sustainable 
+infrastructure development projects: a tool for mitigating cost 
+overruns. Land, 13(1), 41 . 
+https://doi.org/10.3390/land13010041   
+Chang, T., Hwang, B., Deng, X., & Zhao, X. (2018). Identifying 
+political risk management strategies in international construction 
+projects. Advances in Civil Engineering , 2018(1). 
+https://doi.org/10.1155/2018/1016384   
+Chen, S., Eyers, D. R., Gosling, J., & Huang, Y. (2025). Supply Chain 
+Risks for SMEs in Construction Projects: A Structured literature 
+review a nd research agenda. The International Journal of 
+Logistics Management , 36(2), 468 –493. 
+https://doi.org/10.1108/ijlm -12-2023-0548  
+Cochrane, A. (2024, May 31). A guide to risk management in 
+construct ion projects . Compliance Chain. Retrieved February 21, 
+2025, from  https://compliancechain.com/a -guide -to-risk-
+management -in-construction -projects/   
+ 
+
+   58 
+Construction Link. (2025, January 3). 25 Key risks in construction 
+projects . The Construction Link Incorporated. Retrieved 
+February 24, 2025, from https://www.tcli.com/blog/25 -key-
+risks-in-construction -projects   
+Coskun, C., Dikmen, I., & Birgonul, M. T. (2023). Sustainability risk 
+assessment in mega construction projects. Built Environment 
+Project and Asset Management , 13(5), 700 –718. 
+https://doi.org/10.1108/bepam -10-2022-0153  
+Creswell, J. W. (200 7). Qualitative inquiry and research design: 
+Choosing Among Five Approaches  (2nd ed.). SAGE Publications, 
+Incorporated.  
+https://www.academia.edu/download/55010759/creswell_Qualit
+ative_Inquiry_2nd_edition.pdf   
+Denzin, N. K., & Lincoln, Y. S. (2011). The SAGE Handbook of 
+Qualitative Research  (4th ed.). SAGE  Publications . 
+https://books.google.com.np/books?id=qEiC -
+_ELYgIC&printsec=frontcover#v=onepage&q&f=false   
+Dirampaten, A. D., & Grińo, A. A., Jr. (2024). Assessment of Risk 
+Factors in Condominium Buildings Construction in Metro Manila 
+using Analytic Hierarchy Process (AHP). International Journal of 
+Multidisciplinary Applied Business and Education Research , 5(7), 
+2539–2557.  https://doi.org/10.11594/ijmaber.05.07.15   
+Ellis, G. (2024, October 2). Construction Risk Management: How to 
+reduce top risks . Digital Builder. Retrieved February 21, 2025, 
+from https://www.autodesk.com/blogs/construction/top -
+construction -risks/   
+Erol, H., Dikmen, I., Atasoy, G., & Birgonul, M. T. (2021). An analytic 
+network process model for risk qu antification of mega 
+construction projects. Expert Systems with Applications , 191, 
+116215.  https://doi.org/10.1016/j.eswa.2021.116215   
+Flyvbjerg, B. (2017). The Oxford Handbook of Megaproject 
+Manag ement . Oxford University Press.  
+https://books.google.com.np/books?id=5kupDgAAQBAJ&printse
+c=frontcover#v=onepage&q&f=false   
+
+   59 
+Gao, N., Touran, A., W ang, Q., & Beauchamp, N. (2024). Construction 
+risk identification using a multi -sentence context -aware method. 
+Automation in Construction , 164, 105466.  
+https://doi.org/10.1016/j.autcon.2024.10546 6  
+Gharaibeh, H. M. (2019). Challenges and benefits of applying risk 
+management to construction projects in Jordan. International 
+Journal of Civil Engineering, Construction and Estate 
+Management , 7(3), 22 –36. https://eajournals.org/ijcecem/vol -
+7-issue-3-july-2019/challenges -and-benefits -of-applying -risk-
+management -to-construction -projects -in-jordan/   
+ Graham, J. (2023, July 19). 7 Key steps for risk management in 
+construction projects . PlanRadar. Retrieved February 22, 2025, 
+from https://www.planradar.com/au/7 -key-steps -risk-
+management -construction -projects/   
+Guest, G., MacQueen, K. M., & Namey, E. E. (2012). Applied Thematic 
+Analysis . SAGE Publications. 
+https://doi.org/10.4135/9781483384436   
+Guevara, P. (2023, December 13). Understanding the importance of 
+construction risk management . SafetyCulture. Retrieved 
+February 21, 2025, from https://safetyculture.com/topics/risk -
+management/construction -risk-management/    
+Hatefi, S. M., Ahmadi, H., & Tamošaitienė, J. (2025). Risk assessment 
+in mass housing projects using the integrated method of Fuzzy 
+Shannon Entropy and F uzzy EDAS. Sustainability , 17(2), 528.  
+https://doi.org/10.3390/su17020528   
+Hillson, D., & Murray -Webster, R. (2017). Understanding and 
+managing risk attitude. In Routledge eBooks  (2nd ed.).  
+https://doi.org/10.4324/9781315235448   
+Hou, Q. (2024). Financial calculation problems and countermeasure 
+analysis of Large -Scale engineering construction projects. 
+Proceedings of Business and Economic Stu dies, 7(2), 15 –21. 
+https://doi.org/10.26689/pbes.v7i2.6607   
+
+   60 
+Hunter, J. D. (2007). MatPlotLib: a 2D Graphics environment. 
+Computing in Science & Engineering , 9(3), 90 –95. 
+https://doi.org/10.1109/mcse.2007.55   
+Ishak, N., Azizan, M. A., Ibrahim, F. A., Rahim, N. S. A., Zawawi, E. M. 
+A., Anuar, N. H. K., & Shohime, N. S. (2023). Building 
+Information Modelling (BIM) application as risk mitigation 
+strategi es in building refurbishment Project life cycle. IOP 
+Conference Series Earth and Environmental Science , 1216(1), 
+012030.  https://doi.org/10.1088/1755 -1315/1216/1/012030   
+Jackson, E. N., & Priy a, T. S. (2024). Identification and Classification of 
+Construction -risk factors for Ghanaian Construction Projects: An 
+integrated study with Structural Equation Modelling. Heliyon , 
+10(22), e40397.  https://doi.org/10.1016/j.heliyon.2024.e40397   
+Jones, K. (2024, December 19). Construction Risk Management: 
+Identifying and managing project risks . ConstructConnect. 
+Retrieved February 22, 2025, from 
+https://www.constructconnect.com/blog/identifying -managing -
+construction -project -risks   
+Kara, B., Canbaz, M., Doğhan, E. S., & Ayyildiz, E. (2023). Assessme nt 
+of risks for a new food processing facility using the ISO 31000 
+Risk Management Framework and ALARP principle. Karadeniz 
+Fen Bilimleri Dergisi , 13(4), 1759 –1779.  
+https://doi.org/10.31466/kfbd.1335322   
+Kerzner, H. (2022). Project management: A Systems Approach to 
+Planning, Scheduling, and Controlling . Wiley.  
+https://books.google.com.np/books?id=xlASDgAAQBAJ&printsec
+=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q
+&f=false   
+Khairullah, N. H., Hilal, M. A., & Mohammed, A. (2022). Identification 
+of the main causes of risks in engineering procurement 
+construction p rojects. Journal of the Mechanical Behavior of 
+Materials , 31(1), 282 –289. https://doi.org/10.1515/jmbm -
+2022-0029  
+
+   61 
+Khatleli, N. (2019). Risk management in construction projects . 
+IntechOpen. https://doi.org/10.5772/intechopen.80628   
+Khodeir, L. (2023). Identification of key Risks in Fast -Track 
+Construction projects: A Literature Review. MSA Engineering 
+Journal , 2(2), 173 –192. 
+https://doi.org/10.21608/msaeng.2023.291869   
+Kumar, N., & Kumar, R. (2024). Risk Management Strategies in Large -
+Scale Construction Projects: A Comparative analysis. 
+International Journal of Advanced  Research in Science, 
+Communication and Technology , 4(2), 647 –653. 
+https://ijarsct.co.in/Paper15720A.pdf   
+LetsBuild. (2023a, September 19). Risk management plan in 
+construction: A practical guide . Letsb uild. 
+https://www.letsbuild.com/blog/risk -management -plan-in-
+construction -guide   
+LetsBuild. (2023b, October 30). 10 key responsibilities of a 
+construction project manager . Letsbuild. Retrieved February 20, 
+2025, from  https://www.letsbuild.com/blog/10 -key-
+responsibilities -of-a-construction -project -manager   
+Li, Y.,  Xiang, P., You, K., Guo, J., Liu, Z., & Ren, H. (2021). Identifying 
+the Key Risk Factors of Mega Infrastructure Projects from an 
+Extended Sustainable Development Perspective. International 
+Journal of Environmental Research and Public Health , 18(14), 
+7515.  https://doi.org/10.3390/ijerph18147515   
+Liu, K., Liu, Y., Kou, Y., Yang, X., & Hu, G. (2023). Efficiency of risk 
+management for tunnel security of megaprojects construction in 
+China based on system dy namics. Journal of Asian Architecture 
+and Building Engineering , 23(2), 712 –724. 
+https://doi.org/10.1080/13467581.2023.2223696   
+ 
+ 
+ 
+
+   62 
+Lokeshwaran, M., &  Bharath, A. (2023). A Literature Review on 
+Developing Causes and Mitigation Strategies of delay in 
+construction projects: Gaps between owners and contractors in 
+successful and unsuccessful projects. International Journal of 
+Advanced Research in Science Co mmunication and Technology , 
+3(2), 822 –830. https://doi.org/10.48175/ijarsct -8925  
+Loper, E., & Bird, S. (2002). NLTK: The Natural Language Toolkit. 
+Proceedings of the ACL -02 Workshop on Effective Tools and 
+Methodologies for Teaching Natural Language Processing and 
+Computational Linguistics, 1, 63 –70. 
+https://doi.org/10.3115/1118108.1118117   
+Malsam, W. (2024, December 10). Construction Risk Managemen t: An 
+Introduction . ProjectManager. Retrieved February 26, 2025, 
+from https://www.projectmanager.com/blog/construction -risk-
+management   
+Mansour, M. A., Beithou, N., Alsqour, M., Tarawneh, S. A., Rababa’a, 
+K. A., AlSaqoor, S., & Chodakowska, E. (2023). Hierarchical Risk 
+Communication Management Framework for construction 
+projects. Engineering Management in Production and Services , 
+15(4), 10 4–115. https://doi.org/10.2478/emj -2023-0031  
+Manu, N. B. A. (2024). Leveraging Artificial Intelligence for optimized 
+project management and risk mitigation in construction 
+industry. World Journal of Ad vanced Research and Reviews , 
+24(3), 2924 –2940.  
+https://doi.org/10.30574/wjarr.2024.24.3.4026   
+McKinney, W. (2010). Data structures for statistical computing in 
+Python. Proceedings of the Python in Science Conferences , 56–
+61. https://doi.org/10.25080/majora -92bf1922 -00a 
+McKinnon, I. (2024, February 19). The CHAS Guide to Risk 
+Management in Construction. CHAS . Retrieved February 21, 
+2025, from https://www.chas.co.uk/blog/chas -guide -risk-
+management -construction/   
+ 
+
+   63 
+Mok, K. Y., Shen, G. Q., & Yang, J. (2015). Stakeholder manageme nt 
+studies in mega construction projects: A review and future 
+directions. International Journal of Project Management , 33(2), 
+446–457. https://doi.org/10.1016/j.ijproman.2014.08.007    
+Morris, P . W. G. (2013). Reconstructing project management . 
+https://doi.org/10.1002/9781118536698   
+Naik, R., & SBalapgol, B. (2019). Risk Management in Construction 
+Projects – Materials and Material Management.  International 
+Journal of Recent Trends in Engineering and Research , 05(07), 
+16–20. https://doi.org/10.23883/ijrter.2019.5061.krmv8   
+Nawaz, A., Waqar, A., Shah, S. a. R., Sajid, M., & Khalid, M . I. (2019). 
+An Innovative Framework for Risk Management in Construction 
+Projects in Developing Countries: Evidence from Pakistan. Risks, 
+7(1), 24.  https://doi.org/10.3390/risks7010024   
+Nguyen, T., Nguye n, L. H., Chileshe, N., & Hallo, L. (2022). 
+Investigating critical risk factors of selecting joint venture 
+contractors for infrastructure projects implementation in 
+Vietnam. International Journal of Construction Management , 
+23(14), 2438 –2451.  
+https://doi.org/10.1080/15623599.2022.2065076   
+Osei-Kyei, R., Narbaev, T., & Ampratwum, G. (2022). A scientometric 
+analysis of studies on risk management in construction projects. 
+Buildings , 12(9), 1342.  
+https://doi.org/10.3390/buildings12091342   
+Osipova, E. (2007). Risk management in the different phases of a 
+construction project: a study of actors’ involvement. Proceedings 
+of 4th Nordic Conference on  Construction Economics and 
+Organisation: Development Processes in Construction 
+Management, 307 –319. http://www.diva -
+portal.org/smash/record.jsf?pid=diva2:1005212   
+ 
+ 
+
+   64 
+Pedregosa, F ., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., 
+Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., 
+Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, 
+M., & Duchesnay, E. (2011). SciKit -Learn: Machine Learning in 
+Pytho n. Journal of Machine Learning Research . 
+https://doi.org/10.5555/1953048.2078195    
+Project Management Institute. (2017). A guide to the project 
+management body of knowledge  (6th ed.). Project Management 
+Institute, Inc. https://prothoughts.co.in/wp -
+content/uploads/2022/06/a -guide -to-the-project -manag ement -
+body-of-knowledge -6e.pdf   
+Project Management Institute. (2021). The Standard for Project 
+Management and a Guide to the Project Management Body of 
+Knowledge (PMBOK Guide).  Project Management Institute.  
+Rachid, Z., Toufik, B., & Mohammed, B. (2018). Ca uses of schedule 
+delays in construction projects in Algeria. International Journal 
+of Construction Management , 19(5), 371 –381. 
+https://doi.org/10.1080/15623599.2018.1435234   
+Ramadhan, J. S., &  Waty, M. (2025). Impact of Change Orders on Cost 
+Overruns and Delays in Large -Scale Construction Projects. 
+Engineering Technology & Applied Science Research , 15(1), 
+20291 –20299.  https://doi.org/10.48084/ etasr.9449   
+RIB Software. (2024, September 11). What is a Construction Project 
+Manager? A Deep Dive into This Crucial Role . Retrieved February 
+20, 2025, from https://www.rib -
+software.com/en/blogs/construction -project -manager   
+Saeed, Y. S. (2018). Cost and time risk management in construction 
+projects. Tikrit Journal of Engineering Sciences , 25(1), 42 –48. 
+https://doi.org/10.25130/tjes.25.1.07   
+Santarsiero, G., Masi, A., Picciano, V., & Digrisolo, A. (2021). The 
+Italian Guidelines on Risk Classification and Management of 
+Bridges: Applications and remarks on Large scale risk 
+assessments. Infrastructures , 6(8), 111.  
+https://doi.org/10.3390/infrastructures6080111   
+
+   65 
+Schwartz, B. (2024, October 3). Construction Project Manager Job 
+Description (with Free Examples!) . ProjectManager. Retrieved 
+February 20,  2025, from  
+https://www.projectmanager.com/blog/construction -project -
+manager -job-description   
+Senić, A., Ivanović, M., Dobrodolac, M., & Stojadinović, Z. (2025 ). 
+Prioritization of Preventive Measures: A Multi -Criteria approach 
+to risk mitigation in road infrastructure projects. Mathematics , 
+13(2), 278.  https://doi.org/10.3390/math13020278   
+Shah, S. (2025, Febr uary 18). Top risk management tools and 
+techniques Every project manager needs in 2025 . Flowlu. 
+Retrieved April 19, 2025, from 
+https://www.flowlu.com/blog/project -management/risk -
+management -tools-and-techniques/   
+Shaktawat, A., & Vadhera, S. (2020). Risk management of hydropower 
+projects for sustainable development: a review. Environment 
+Development and Sustainability , 23(1), 45 –76. 
+https://doi.org/10.1007/s10668 -020-00607 -2  
+Sharma, S., & Gupta, A. K. (2019). Risk Identification and 
+Management in Construction Projects: Literature review. 
+International Journal of Humanities  Arts and Social Sciences , 
+5(6), 224 –231. https://doi.org/10.20469/ijhss.5.20002 -6  
+Shibani, A., Hasan, D., Saaifan, J., Sabboubeh, H., Eltaip, M., Saidani, 
+M., & Gherbal, N. (2022). Financial risk m anagement in the 
+construction projects. Journal of King Saud University - 
+Engineering Sciences , 36(8), 552 –561. 
+https://doi.org/10.1016/j.jksues.2022.05.001   
+Shishehgarkhaneh, M. B., Moehler, R. C., Fang, Y., Aboutorab, H., & 
+Hijazi, A. A. (2024). Construction supply chain risk 
+management. Automation in Construction , 162, 105396.  
+https://doi.org/10.10 16/j.autcon.2024.105396   
+ 
+ 
+
+   66 
+Shrestha, A., Tamošaitienė, J., Martek, I., Hosseini, M. R., & Edwards, 
+D. J. (2019). A Principal -Agent Theory Perspective on PPP risk 
+allocation. Sustainability , 11(22), 6455.  
+https://doi.org/10.3390/su11226455   
+SMuthuveeran, A. A., Tahir, O. M., Ibrahim, R., Karim, S. B. A., & 
+Rasidin, E. W. (2019). A Review Strategies Integrating Ms Iso 
+31000:2010 Risk Management Process into Project Lifecycle for 
+Malaysia Landscape Project Organisation . Journal of Surveying 
+Construction & Property , 10(1), 16 –30. 
+https://doi.org/10.22452/jscp.vol10no1.2   
+Sousa, V., De Almeida, N. M., & Dias, L. A. (2012). Risk Management 
+framework for t he construction industry according to the ISO 
+31000:2009 Standard. Journal of Risk Analysis and Crisis 
+Response , 2(4), 261 –274. 
+https://doi.org/10.2991/jrarc.2012.2.4.5    
+Tang, C., Shen, C., Zhang, J ., & Guo, Z. (2024). Identification of 
+safety risk factors in metro shield construction. Buildings , 14(2), 
+492. https://doi.org/10.3390/buildings14020492   
+Ullah, S., Mufti, N. A., Saleem, M. Q., Hussain, A., Lodhi, R. N., & 
+Asad, R. (2021). Identification of factors affecting risk appetite 
+of organizations in selection of mega construction projects. 
+Buildings , 12, 2. https://doi.org/10.3390/buildings12010002    
+Ullah, S., Xiaopeng, D., Anbar, D. R., Amaechi, C. V., Oyetunji, A. K., 
+Ashraf, M. W., & Siddiq, M. (2024). Risk identification 
+techniques for international contracting projects by construction 
+professionals using factor analysis. Ain Shams Engineering 
+Journal , 15(4), 102655.  
+https://doi.org/10.1016/j.asej.2024.102655   
+Van Rossum, G., & Drake, F. L. (2009). Python 3 Reference Manual. In 
+CreateSpace eBooks . CreateSpace. 
+https://dl.acm.org/citation.cfm?id=1593511    
+ 
+ 
+
+   67 
+Vargas, D., & Campos, L. (2022). Risk Management: A parallel 
+between ISO 31000 (2018) and the PMBOK Guide (2017). In 
+Proceedings of the International Conference on Industrial 
+Engineering and Operations Management . 
+https://ieomsociety.org/proceedings/2022istanbul/285.pdf   
+Vincent, D. (2025, February 18). 7 steps of Risk Management Process 
+(RMF) with example . Mastt. Retrieved February 22, 2025, from 
+https://www.mastt.com/blogs/risk -management -process -rmf   
+Waskom, M. (2021). seaborn: statistical data visualization. The Journal 
+of Open -Source Software , 6(60), 3021.  
+https://doi.org/10.21105/joss.03021   
+Wilson, G., Aruliah, D. A., Brown, C. T., Hong, N. P. C.,  Davis, M., Guy, 
+R. T., Haddock, S. H. D., Huff, K. D., Mitchell, I. M., Plumbley, 
+M. D., Waugh, B., White, E. P., & Wilson, P. (2014). Best 
+practices for scientific computing. PLoS Biology , 12(1), 
+e1001745.  https://doi.org/10.1371/journal.pbio.1001745   
+Xiang, P., Xia, X., & Pang, X. (2023). An integrated risk assessment 
+method for cross -regional mega construction projects. 
+Engineering Construction & Architectural Management , 31(6), 
+2369–2391.  https://doi.org/10.1108/ecam -06-2022-0534   
+Yousri, E., Sayed, A. E. B., Farag, M. a. M., & Abdelalim, A. M. (2023). 
+Risk identification of building construction projects in Egypt. 
+Buildings , 13(4), 1 084. 
+https://doi.org/10.3390/buildings13041084   
+Zailani, B., Abubakar, M., & Muhammad, A. (2019). Assessment of 
+barriers to Risk Management (RM) implementation in small 
+construction projects in Nigeria. African Journal of Built 
+Environment Research , 3(1), 15 –28. 
+https://doi.org/10.33796/ajober.3.1. 02  
+Zhang, S., Sunindijo, R. Y., Loosemore, M., Wang, S., Gu, Y., & Li, H. 
+(2020). Identifying critical factors influencing the safety of 
+Chinese subway construction projects. Engineering Construction 
+& Architectural Management , 28(7), 1863 –1886.  
+https://doi.org/10.1108/ecam -07-2020-0525  
+
+   68 
+Zhao, X. (2023). Construction risk management research: intellectual 
+structure and emerging themes. International Journal of 
+Construction Management , 24(5), 540–550. 
+https://doi.org/10.1080/15623599.2023.2167303    
+Zou, P. X., Zhang, G., & Wang, J. (2007). Understanding the key risks 
+in construction projects in China. International Journal of Project  
+Management , 25(6), 601 –614. 
+https://doi.org/10.1016/j.ijproman.2007.03.001   
+  
+
+   69 
+APPENDICES  
+Appendix 1. Summary of Literature Sources Based on Results  
+Table 4. Summary of literature sources based on results, organized 
+chronologically by publication year (2017 –2025) and alphabetically by 
+first author’s last name within each year  
+Source  Risk Categories 
+Identified  Challenges 
+Highlighted  Mitigation 
+Strategies 
+Proposed  
+Ahmed  (2017)  Technical 
+(uncertainty in 
+innovation), Other 
+(technological 
+risks)  Dispersed 
+innovation, 
+difficulty 
+identifying 
+success factors  Risk mitigation 
+planning, step -by-
+step methods for 
+AV projects  
+Chang et al. 
+(2018)  Political 
+(disruptions from 
+political risks)  Understanding 
+political risks, 
+negotiating 
+favorable terms  Correct decision -
+making, full 
+preparations, 
+shaping a 
+favorable 
+environment  
+Rachid et al. 
+(2018)  Operational 
+(delays from slow 
+change orders), 
+Contractual 
+(unrealistic 
+contract du ration)  Ineffective 
+planning, slow 
+variation orders  Identifying delay 
+causes, assessing 
+stakeholder views 
+to improve 
+management  
+Saeed (2018)  Operational (time 
+and cost 
+overruns), Other 
+(poor business 
+performance)  Inaccurate 
+estimation, 
+changes during 
+construction  Adequate 
+planning, 
+improved contract 
+management to 
+reduce overruns  
+Bahamid et al. 
+(2019)  Operational (time 
+delays), Financial 
+(cost overruns), 
+Other (quality 
+risks)  Complexity of 
+identifying 111 
+risk factors, 
+limited resources  Classifying critical 
+risks, using 
+literature reviews 
+for better 
+management  
+Nawaz et al. 
+(2019)  Other 
+(unmanaged 
+risks), Contractual 
+(financial risks 
+from competition)  Lack of core risk 
+management 
+system, poor 
+reputation for 
+risk handling  Implementing risk 
+management,  
+survey -based 
+analysis to 
+improve success 
+rates 
+    
+
+   70 
+Source  Risk Categories 
+Identified  Challenges 
+Highlighted  Mitigation 
+Strategies 
+Proposed  
+Sharma & 
+Gupta (2019)  Operational 
+(unavailability of 
+funds, poor site 
+management), 
+Technical (design 
+errors)  Complexity of 
+large projects, 
+changes in laws  Questionnaire 
+surveys, 
+classifying risks 
+for early 
+assessment  
+Aarthipriya et 
+al. (2020)  Operational (time 
+delays), Financial 
+(cost variance), 
+Other 
+(unquantified 
+risks)  Analyzing diverse 
+risks, managing 
+cost/time 
+overruns  Monte Carlo 
+simulation, 
+sensitivity 
+analysis, cost 
+mitigation 
+measures  
+Shaktawat et 
+al. (2020)  Financial 
+(economic risks), 
+Environmental 
+(geological 
+uncertainties), 
+Other 
+(sustainability 
+risks)  Long gestation 
+periods, 
+insufficient cost 
+margins  Sensitivity 
+analysis, risk 
+analysis in cost 
+estimation to 
+reduce overruns  
+Zhang et  al. 
+(2020)  Safety (accident 
+rates, 
+technological 
+risks)  Poor 
+understanding of 
+new risks, 
+stakeholder 
+coordination 
+challenges  Identifying critical 
+factors, surveys 
+with professionals 
+to improve safety  
+Banerjee 
+Chattapadhyay 
+et al. (2021)  Financial (cost 
+risks), Operational 
+(time delays), 
+Other (quality 
+risks)  Complexity of 63 
+risk factors, 
+identifying sub -
+risk components  GA–K-means 
+clustering, SMOTE 
+to enhance risk 
+prediction 
+accuracy  
+Erol et al. 
+(2021)  Other 
+(complexity, 
+uncertainty, 
+unrealistic 
+assessm ents) Lack of 
+structured risk 
+synthesis, 
+ineffective 
+strategies  ANP model, Delphi 
+study for risk 
+quantification and 
+assessment 
+reliability  
+Li et al. (2021)  Financial (cost 
+overruns, land 
+acquisition), 
+Environmental 
+(sustainability 
+impacts), Other 
+(social risks)  Poor 
+coordination, 
+limited 
+information 
+sharing  Fuzzy set theory, 
+extending 
+sustainability with 
+coordination for 
+better strategies  
+ 
+    
+
+   71 
+Source  Risk Categories 
+Identified  Challenges 
+Highlighted  Mitigation 
+Strategies 
+Proposed  
+Santarsiero et 
+al. (2021)  Technical (bridge 
+failures), Other 
+(aging 
+infrastructure, 
+degradation)  Data gaps, 
+conservative 
+guidelines 
+limiting bridge 
+operations  Prioritizing bridges 
+for assessments, 
+using public image 
+repositories for 
+data 
+Khairullah et al. 
+(2022)  Contractual 
+(contract -related, 
+subcontractor 
+issues), Technical 
+(design risks)  Absence of risk 
+manag ement, 
+lack of control 
+over systems  Identifying risk 
+causes, analyzing 
+root causes to 
+improve EPC 
+project 
+management  
+Nguyen et al. 
+(2022)  Financial 
+(economic risks), 
+Operational 
+(pandemic 
+delays), 
+Contractual 
+(competence 
+risks)  Joint venture 
+organizationa l 
+and legal risks  Ranking risk 
+factors, 
+understanding 
+latent risks for 
+better contractor 
+selection  
+Osei-Kyei et al. 
+(2022)  Operational (cost 
+and schedule 
+risks), Other 
+(Industry 5.0 
+uncertainties, 
+stakeholder 
+issues)  Complexity of 
+risk models, 
+limited 
+knowledge -based 
+systems  Risk-integrated 
+planning, effective 
+knowledge -based 
+systems  
+Shibani et al. 
+(2022)  Financial 
+(currency 
+fluctuation), 
+Operational 
+(solvency delays), 
+Other (inflation 
+risks)  Severe economic 
+crisis, barriers to 
+effective risk 
+managemen t Implementing risk 
+management, 
+classifying risks 
+for targeted 
+financial control  
+Canesi & Gallo 
+(2023)  Financial (cost 
+overruns), Other 
+(economic risks 
+from 
+infrastructure 
+decline)  Complexity of 
+infrastructure 
+projects, 
+uncertainties in 
+cost estimation  ANAC risk 
+assessment tool, 
+risk matrix to 
+mitigate cost 
+increases  
+Coskun et al. 
+(2023)  Environmental 
+(sustainability 
+risks), Other 
+(economic, social 
+risks)  Cross -impacts of 
+risks, unique 
+nature of 
+megaprojects  RAMSCOM for 
+sustainability 
+integration, 
+visuali zing 
+interrelated risks  
+ 
+    
+
+   72 
+Source  Risk Categories 
+Identified  Challenges 
+Highlighted  Mitigation 
+Strategies 
+Proposed  
+Khodeir (2023)  Operational 
+(unfair risk 
+distribution, 
+overlapping 
+phases), Other 
+(execution risks)  Incorrect 
+contract terms, 
+strain from faster 
+delivery demands  Clarifying risks, 
+careful scope 
+assessment to 
+manage 
+uncertainties  
+Liu et al. 
+(2023)  Safety (security 
+incidents), 
+Technical 
+(complexity of 
+tunnel risks)  Delays in risk 
+management, 
+lack of real -time 
+risk adaptation  Comprehensive 
+risk awareness, 
+real-time 
+adaptation, 
+shortening delays  
+Xiang et al. 
+(2023)  Political 
+(government 
+conflicts), 
+Technical 
+(technology 
+complexity), 
+Other (natural 
+environment)  Lack of technical 
+experience, 
+inadequate 
+coordination 
+mechanisms  Integrated risk 
+assessment, 
+interest 
+coordination, 
+flexible 
+environmental 
+strategies  
+Yousri e t al. 
+(2023)  Contractual 
+(funding issues), 
+Supply Chain 
+(material price 
+fluctuations), 
+Other (economic 
+shifts)  Unrealistic 
+duration 
+estimates, 
+currency 
+valuation 
+challenges  Identifying high -
+risk factors, 
+redefining risks 
+based on current 
+conditions  
+Zhao (2023)  Political 
+(geopolitical 
+risks), Technical 
+(human factors), 
+Other (unspecified 
+categories)  Integration 
+challenges with 
+CRM, limited use 
+of advanced 
+techniques  Advanced risk 
+analysis, ICT -
+driven CRM for 
+monitoring and 
+communication  
+Al-Mhdawi et 
+al. (2024)  Environmental 
+(PPE non -
+compliance), 
+Technical 
+(equipment 
+failure), Political 
+(economic 
+instability)  Complexity of 
+assessing 41 risk 
+factors, 
+stakeholder 
+miscommunicatio
+n Fuzzy -based 
+FMEA, targeting 
+significant risks 
+like PPE non -
+compliance  
+Gao et al . 
+(2024)  Other (historical 
+risk carryovers)  Time-consuming 
+risk data 
+collection, 
+expensive 
+manual 
+extraction  NLP-based MCRI 
+model, multi -
+sentence context -
+aware approach 
+for risk extraction  
+
+   73 
+Source  Risk Categories 
+Identified  Challenges 
+Highlighted  Mitigation 
+Strategies 
+Proposed  
+Jackson & Priya 
+(2024)  Operational 
+(resource 
+planning issues), 
+Other (conflicts, 
+technological 
+adoption)  Difficulty in 
+timely conflict 
+resolution, 
+limited focus on 
+risk identification  Mandatory conflict 
+resolution boards, 
+identifying critical 
+risk factors  
+Shishehgarkha
+neh et al. 
+(2024)  Supply Chain 
+(micro -level risks, 
+logistics delays), 
+Other (macro -
+level economic 
+shifts)  Complexity of 
+risk allocation, 
+reliance on 
+traditional 
+methods  AI techniques for 
+risk identification, 
+risk recovery 
+strategies for 
+resilience  
+Tang et al. 
+(2024)  Safety 
+(complexity, 
+environmental 
+uncer tainties)  Shortcomings in 
+safety risk 
+management, 
+underutilization 
+of data  Text mining with 
+Jieba package, TF -
+IDF for safety risk 
+identification  
+Ullah et al. 
+(2024)  Political (policy 
+shifts, 
+unpredictability), 
+Other 
+(expropriation)  Volatility in 
+political  
+environments, 
+disruptions from 
+civil disturbance  Systematic risk 
+identification, 
+thorough political 
+environment 
+examination  
+Adriantama et 
+al. (2025)  Operational 
+(diversion channel 
+delays), 
+Environmental 
+(geological 
+issues), Technical 
+(design revisions)  Poor scheduling, 
+over-processing 
+from inefficient 
+workflows  Lean construction, 
+FMEA, Pareto 
+principle to target 
+high-impact risks 
+and waste  
+Ahmad et al. 
+(2025)  Environmental 
+(bridge lifecycle 
+risks), Other 
+(sustainability 
+risks)  Complexity of 
+integrating B IM 
+with LCSA, 
+supervision 
+phase challenges  Integrating BIM 
+with LCSA, Pareto 
+principle, ISO 
+9001:2015 
+guidelines  
+Amin et al. 
+(2025)  Supply Chain 
+(delayed delivery, 
+material prices), 
+Other (skilled 
+labor shortages)  Poor logistics 
+coordination, 
+insufficient  
+collaboration 
+with agencies  Real-time 
+monitoring, 
+stakeholder 
+collaboration, 
+improved logistics 
+coordination  
+Chen et al. 
+(2025)  Supply Chain 
+(financial 
+constraints, 
+material delays), 
+Environmental 
+(sustainability 
+risks)  Lack of risk 
+frameworks, 
+operation al 
+inefficiencies in 
+SMEs  Systematic risk 
+assessment 
+frameworks, 
+categorizing risks 
+for SMEs  
+
+   74 
+Source  Risk Categories 
+Identified  Challenges 
+Highlighted  Mitigation 
+Strategies 
+Proposed  
+Hatefi et al. 
+(2025)  Operational 
+(import 
+restrictions, 
+climatic 
+conditions), Other 
+(inflation 
+volatility)  High work 
+volume, dynamic 
+project nature, 
+limited data o n 
+low-risk factors  Fuzzy Shannon 
+entropy, Fuzzy 
+EDAS for risk 
+prioritization and 
+resource 
+allocation  
+Ramadhan & 
+Waty (2025)  Technical (design 
+changes), 
+Operational 
+(planning errors)  Insufficient 
+documentation, 
+inaccurate cost 
+estimation, poor 
+coordination  BIM for planning 
+accuracy, 
+strengthening 
+design reviews, 
+structured change 
+protocols  
+Note.  Contributions are summarized based on the study’s results .  
+Appendix 2. Word Clouds  by Risk Categories  
+ 
+Figure 6. Contractual risks  word clouds  
+
+
+   75 
+ 
+Figure 7. Environmental risks  word clouds  
+ 
+Figure 8. Financial  risks word clouds  
+ 
+Figure 9. Operational  risks word clouds  
+
+
+   76 
+ 
+Figure 10. Other risks word clouds  
+ 
+Figure 11. Political  risks word clouds  
+ 
+Figure 12. Safety risks word clouds  
+
+
+   77 
+ 
+Figure 13. Supply chain  risks word clouds  
+ 
+Figure 14. Technical  risks word clouds  
+
+
+   78 
+Appendix 3. Word Clouds by Common Challenges  
+ 
+Figure 15. Management challenges  word clouds  
+Appendix 4. Word Clouds by Mitigation Strategies  
+ 
+Figure 16. Contingency planning  word clouds  
+
+
+   79 
+ 
+Figure 17. Systematic frameworks  word clouds  
+ 
+Figure 18. Other mitigation strategy  word clouds  
+ 
+Figure 19. Risk identification  word clouds  
+ 
+
+

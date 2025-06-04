@@ -1,1 +1,2 @@
-Need to work on the data scrapping code next and the Vector DB code 
+fixed the data processing issue related to PDF, docx, and txt. Should all be resolved now
+
