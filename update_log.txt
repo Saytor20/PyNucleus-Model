@@ -1,18 +1,24 @@
 2025-06-04 12:38:21 Log:
 - Fixed a minor issue in the data processing pipeline. The script now correctly processes the data and generates the necessary outputs.
-
-
 2025-06-04 12:50:22 changes made and pushed to origin main
+
 
  2025-06-04 12:50:49: Log Update
 - Right now the data scrapping script scrapes wikipedia only. Future work can be paid services for Google API as we have tried to use python library but the error 429.2025-06-04 13:23:04 changes made and pushed to origin main
 - Finished with the data chunking code and analysis and is ready for use 
 - Next to work on the Vector DB code 
 2025-06-04 13:24:12 changes made and pushed to origin main
- 2025-06-04 13:25:48 changes made and pushed to origin main
 
+2025-06-04 14:09:22 Log Update:
+- Implemented VectorDB setup and management system using FAISS
+- Added comprehensive output logging with score explanations
+- Script has the following features:
+  * Embedding model setup using sentence-transformers
+  * FAISS vector database creation and management
+  * Semantic search functionality with similarity scoring
+  * Detailed output logging to text files
+  * Score explanations and quality metrics
+- Tested with multiple queries related to modular design and chemical plants
+- Output files are now saved in vectordb_outputs directory with timestamps
 
- 2025-06-04 14:01:23 changes made and pushed to origin main
- 2025-06-04 14:01:31: Log Update
-
- 2025-06-04 14:01:37 changes made and pushed to origin main
+ 2025-06-04 14:10:37 changes made and pushed to origin main
