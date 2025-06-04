@@ -1,0 +1,17 @@
+=== FAISS VectorDB Analysis ===
+Started: 2025-06-04 16:22:22
+Loaded 883 documents from Chuncked_Data/chunked_data_full.json
+Embedding device → cpu   | dim=384
+Docs indexed : 883
+Index file   : faiss_store/pynucleus_mcp.faiss
+Embeds .pkl  : faiss_store/embeddings.pkl
+
+-- Files in faiss_store/ --
+  · embeddings.pkl
+  · pynucleus_mcp.faiss
+
+=== Evaluation (Recall@3) ===
+Q: advantages of modular chemical plants          ✗   top-score=0.4061
+Q: scalability of modular design                  ✗   top-score=0.5283
+
+Recall@3: 0/2  →  0.0%
