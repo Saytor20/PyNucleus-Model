@@ -20,12 +20,19 @@
   * Score explanations and quality metrics
 - Tested with multiple queries related to modular design and chemical plants
 - Output files are now saved in vectordb_outputs directory with timestamps
+-Updated the README.md file 
 
 
  2025-06-04 15:58:48 changes made and pushed to origin main
 
 - all codes have been transferred into their own .py file for formatting purposes. The main notebook contains only function calling now
+- new file named performance_analyzer have been created to measure the performance of the model 
+
+To Do: 
+- Need to figure out why the function calling is not working in the main .ipynb for performance_analyzer but works in the performance_analyzer.py
 - Need to work on the process simulation integration and python scriptting
+- Need to work on API integration for cost of goods, news, and others 
+- Need to create a script that would clean the data before ingesting into LLM or VectorDB (to veryify best approach)
+- understand the structure and how to view the vectorDB data 
 
-
- 2025-06-04 16:24:07 changes made and pushed to origin main
+ 2025-06-04 17:58:12 changes made and pushed to origin main
