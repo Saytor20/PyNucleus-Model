@@ -21,7 +21,11 @@
 - Tested with multiple queries related to modular design and chemical plants
 - Output files are now saved in vectordb_outputs directory with timestamps
 
+
  2025-06-04 15:58:48 changes made and pushed to origin main
 
+- all codes have been transferred into their own .py file for formatting purposes. The main notebook contains only function calling now
+- Need to work on the process simulation integration and python scriptting
 
- 2025-06-04 16:00:52 changes made and pushed to origin main
+
+ 2025-06-04 16:24:07 changes made and pushed to origin main
