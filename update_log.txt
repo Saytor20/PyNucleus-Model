@@ -36,3 +36,38 @@ To Do:
 - understand the structure and how to view the vectorDB data 
 
  2025-06-04 17:58:12 changes made and pushed to origin main
+
+
+# 1) Mono + Debian base
+FROM mono:6.12.0 AS mono-base
+
+# 2) Install Python 3 and pip, then pythonnet & ML deps
+RUN apt-get update && apt-get install -y \
+        python3 python3-pip \
+    && pip3 install --upgrade pip \
+    && pip3 install \
+        pythonnet \
+        pandas \
+        faiss-cpu \
+        transformers \
+        torch \
+        langchain \
+        openai \
+        openpyxl
+
+# 3) Copy DWSIM assemblies into mono’s GAC path
+#    (adjust source path if you checked them into your repo under /libs)
+COPY libs/DWSIM.Thermodynamics.dll /usr/local/lib/mono/4.5/
+COPY libs/DWSIM.Interfaces.dll     /usr/local/lib/mono/4.5/
+
+# 4) Copy your RAG + simulation code
+WORKDIR /app
+COPY . /app
+
+# 5) Set entrypoint (you can override in `docker run`)
+ENTRYPOINT ["python3", "run_pipeline.py"]
+CMD ["--help"]
+
+ 2025-06-09 14:16:11: Log Update
+
+ 2025-06-09 14:16:28 changes made and pushed to origin main
