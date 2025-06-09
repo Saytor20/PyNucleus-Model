@@ -37,7 +37,7 @@ To Do:
 
  2025-06-04 17:58:12 changes made and pushed to origin main
 
-
+Need to connect github to Docker so that the below steps are followed: 
 # 1) Mono + Debian base
 FROM mono:6.12.0 AS mono-base
 
@@ -68,6 +68,5 @@ COPY . /app
 ENTRYPOINT ["python3", "run_pipeline.py"]
 CMD ["--help"]
 
- 2025-06-09 14:16:11: Log Update
 
- 2025-06-09 14:16:28 changes made and pushed to origin main
+ 2025-06-09 15:12:14 changes made and pushed to origin main
