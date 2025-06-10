@@ -1,0 +1,24 @@
+{
+  "simulations": [
+    {
+      "name": "optimized_ethanol_plant",
+      "type": "distillation",
+      "components": [
+        "water",
+        "ethanol"
+      ],
+      "description": "Optimized ethanol plant with enhanced parameters",
+      "parameters": {
+        "temperature": 82.0,
+        "pressure": 101325,
+        "flow_rate": 1500,
+        "reflux_ratio": 3.0
+      },
+      "expected_outputs": {
+        "conversion": 0.97,
+        "selectivity": 0.99,
+        "yield": 0.96
+      }
+    }
+  ]
+}

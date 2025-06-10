@@ -70,3 +70,20 @@ To do:
 5) Need to revise the DWSIM so that it can be easily adjusted later 
 
  2025-06-10 16:27:15 changes made and pushed to origin main
+ Completed: 
+1) Need to work on the DWSIM conversion to be understood by the RAG and to have input and output integration between the two 
+2) The results and analysis should then be converted to a .txt file so that it is used as input to the LLM model to have a robust output 
+3) Need to revise the DWSIM so that it can be easily adjusted later
+4) the .ipynb have been revised to include both basic pipeline and advanced pipeline with integration ready context to be fed to the LLM 
+
+To Do: 
+1) update the code to include DWSIM script for window so that it switches seamsly between hosting API and using windows
+2) update system_diagonstic.py to be aligned with the new changes 
+3) change the folders directory for different outputs like LLM and the results 
+4) make sure that the LLM ready document has the feed conditions which can be fetched easily from .json value 
+5) update the @project_structure.md to have everything updated 
+6) run another docker build 
+
+
+
+ 2025-06-10 17:46:14 changes made and pushed to origin main
