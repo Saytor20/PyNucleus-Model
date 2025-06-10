@@ -68,8 +68,6 @@ To do:
 3) Need to work on the DWSIM conversion to be understood by the RAG and to have input and output integration between the two 
 4) The results and analysis should then be converted to a .txt file so that it is used as input to the LLM model to have a robust output 
 5) Need to revise the DWSIM so that it can be easily adjusted later 
-6) a new branch have been created. The main branch covers functional tools of the data ingestion and conversion to vectorDB, and up to the successful integration with Docker for all. 
-7) the new branch covers DWSIM integration, conversion of simulation outputs to .csv files, and will feature the integration of RAG with DWSIM to output a .txt file
 
 
  2025-06-10 16:18:36 changes made and pushed to origin main
@@ -77,3 +75,5 @@ To do:
  2025-06-10 16:23:23 changes made and pushed to origin main
 
  2025-06-10 16:24:55 changes made and pushed to origin main
+
+ 2025-06-10 16:25:31 changes made and pushed to origin main
