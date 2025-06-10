@@ -1,1 +1,1 @@
-"""DWSIM simulation bridge module.""" 
+"""DWSIM simulation bridge module."""

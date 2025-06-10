@@ -29,4 +29,16 @@ venv.bak/
 .Spotlight-V100
 .Trashes
 ehthumbs.db
-Thumbs.db 
+Thumbs.db
+
+# --- Project-Specific ---
+# Data and cache files
+/vector_db/
+/converted_chunked_data/
+/converted_to_txt/
+/web_sources/
+/source_documents/
+/chunk_reports/
+/dwsim_libs/
+/.pytest_cache/
+update_log.txt 

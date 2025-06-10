@@ -1,5 +1,7 @@
 Can Modular Chemical Plants Lower the Barriers to African Industrialization? A Systematic Review Study
 
+
+
 Authors’ Names: Peter Oladipupoa, Arvind Ramanb, and Joseph F. Peknya*
 
 Authors’ Affiliations:
@@ -8,13 +10,15 @@ aDavidson School of Chemical Engineering, Purdue University, West Lafayette, IN 
 
 bSchool of Mechanical Engineering, Purdue University, West Lafayette, IN 47907, USA
 
+
+
 Abstract
 
 This study explores the potential of modular chemical plants (MCPs) to mitigate existing barriers to industrialization within Africa's chemical sector. Employing a Systematic Literature Review (SLR) methodology, this study rigorously identifies, evaluates, and synthesizes findings from peer-reviewed academic studies and authoritative industry reports. Key barriers to African industrialization, including financial constraints, infrastructural deficits, skills shortages, and policy inconsistencies, are analyzed in the context of the chemical industry. The techno-economic advantages of MCPs, such as reduced capital expenditure, accelerated project timelines, enhanced locational flexibility, and improved safety, are systematically evaluated against these barriers. The analysis further explores the role of process intensification (PI) within modular systems and the implications of "economies of numbers" versus traditional "economies of scale." Case studies of modular plant applications in developing countries, including relevant examples from Africa in sectors like chlor-alkali, gas-to-liquids (GTL), fertilizers, and water treatment, are examined to provide empirical context. The findings suggest that MCPs offer a compelling, albeit not universal, pathway to de-risk investments, enable localized value addition to Africa's natural resources, and foster a more adaptable and resilient chemical manufacturing base, thereby offering a significant opportunity to lower several critical barriers. This study contributes a nuanced, evidence-based perspective on a novel technological approach to a critical development challenge.
 
+
+
 Keywords: Modular Chemical Plants, African Industrialization, Chemical Manufacturing, Systematic Literature Review, Barriers to Industrialization, Process Intensification, Sustainable Development.
-
-
 
 1.0.	Introduction
 
@@ -22,21 +26,13 @@ Africa's pursuit of industrialization is a cornerstone of its developmental aspi
 
 Despite this recognized importance, Africa's chemical manufacturing sector remains significantly underdeveloped, contributing a disproportionately small share estimated at less than 2% to global chemical manufacturing value added.7 This underdevelopment has led to a pronounced and often precarious reliance on imports for a wide array of essential chemical products, worth $56 billion in 2021.8 Such import dependency not only drains foreign exchange reserves but also exposes African economies to the vagaries of global price volatility and disruptive supply chain shocks, as starkly highlighted during the COVID-19 pandemic.10 Conversely, the development of robust local chemical production capabilities offers substantial socio-economic benefits, from job creation across skill levels to boosting exports and driving innovation through R&D. It supports critical development goals, such as improving food security with local fertilizers and enhancing public health through accessible pharmaceuticals. The chemical sector's underdevelopment, therefore, is not merely a symptom of broader industrial challenges but acts as a significant bottleneck to achieving the ambitious socio-economic aspirations outlined in Agenda 2063. 
 
-However, the development of Africa’s chemical sector is impeded by a complex web of interconnected barriers that hinder its ability to attain its potential. The inherently capital-intensive nature of chemical plants demands substantial upfront investment, posing a formidable challenge 
-
-
-
-in economies with limited access to affordable long-term finance, especially for Small and Medium-sized Enterprises (SMEs).9 High debt burdens, high inflation, and currency volatility compound financial risks, with 32% of African firms identifying limited access to finance as a major barrier to growth. In 2023, nearly half of African nations exhibited debt-to-GDP ratios exceeding 60%, with a considerable portion of government revenue diverted to debt servicing.9 Low domestic purchasing power further constrains market demand for locally produced chemicals. Market access is particularly constrained by fragmentation and significant non-tariff barriers that impede intra-African trade.9 Achieving economies of scale with conventional large plants is difficult when domestic or regional markets are small (fragmented) or logistical costs for distribution are prohibitively high.
+However, the development of Africa’s chemical sector is impeded by a complex web of interconnected barriers that hinder its ability to attain its potential. The inherently capital-intensive nature of chemical plants demands substantial upfront investment, posing a formidable challenge in economies with limited access to affordable long-term finance, especially for Small and Medium-sized Enterprises (SMEs).9 High debt burdens, high inflation, and currency volatility compound financial risks, with 32% of African firms identifying limited access to finance as a major barrier to growth. In 2023, nearly half of African nations exhibited debt-to-GDP ratios exceeding 60%, with a considerable portion of government revenue diverted to debt servicing.9 Low domestic purchasing power further constrains market demand for locally produced chemicals. Market access is particularly constrained by fragmentation and significant non-tariff barriers that impede intra-African trade.9 Achieving economies of scale with conventional large plants is difficult when domestic or regional markets are small (fragmented) or logistical costs for distribution are prohibitively high.
 
 Inadequate infrastructure is another critical bottleneck. Unreliable and expensive electricity supplies affect energy-intensive processes, while poor transportation networks dramatically increase logistics costs and complicate moving hazardous materials.4 Indeed, infrastructure gaps contribute to trade costs in Africa being approximately 50% higher than the global average.9 The continent also faces a significant shortage of skilled labor, particularly chemical engineers, process technicians, and specialized maintenance personnel. Educational systems struggle to produce graduates with industry-relevant skills, and a digital skills gap hinders adopting crucial 4th Industrial Revolution technologies. Political instability, governance challenges, corruption, outdated or inconsistent regulatory frameworks, bureaucratic hurdles, and a lack of coherent long-term industrial policies further deter investment and create uncertainty.
 
 These barriers are not isolated. They are deeply interconnected, creating a stifling cycle wherein poor infrastructure inflates costs, deterring investment, which limits opportunities for upgrades, skills development, and technology adoption.
 
-Against this backdrop of complex challenges, Modular Chemical Plants (MCPs) emerge as an innovative technological and strategic approach that could potentially alter the trajectory of chemical industry development in Africa. MCPs are processing facilities constructed by fabricating individual process units (comprising equipment, piping, instrumentation, and control systems) on steel frames known as skids or modules in a controlled off-site workshop.11 These prefabricated modules are then transported to the site for interconnection and integration, 
-
-
-
-parallelizing construction, improving quality control, and reducing on-site time and complexity.20 This approach offers several purported advantages pertinent to the African context, including lower upfront capital expenditures compared to traditional stick-built plants, shorter project execution times, enhanced flexibility in plant siting (including remote locations)11, and the ability to scale production incrementally by adding modules to offer a dynamic response to evolving market demands.19
+Against this backdrop of complex challenges, Modular Chemical Plants (MCPs) emerge as an innovative technological and strategic approach that could potentially alter the trajectory of chemical industry development in Africa. MCPs are processing facilities constructed by fabricating individual process units (comprising equipment, piping, instrumentation, and control systems) on steel frames known as skids or modules in a controlled off-site workshop.11 These prefabricated modules are then transported to the site for interconnection and integration, parallelizing construction, improving quality control, and reducing on-site time and complexity.20 This approach offers several purported advantages pertinent to the African context, including lower upfront capital expenditures compared to traditional stick-built plants, shorter project execution times, enhanced flexibility in plant siting (including remote locations)11, and the ability to scale production incrementally by adding modules to offer a dynamic response to evolving market demands.19
 
 Consequently, MCPs present Africa with an alternative construction methodology and a fundamental shift in chemical industry development. They represent a decisive move from the traditional high-risk, capital-intensive, slow-return model towards an agile, adaptable, and potentially less costly pathway. This is particularly relevant to the concept of "leapfrogging," where developing economies bypass older, less efficient technological stages to adopt more advanced solutions.22
 
@@ -52,8 +48,6 @@ To systematically review and synthesize existing literature on modular chemical 
 
 To critically evaluate the potential of MCPs to mitigate the identified barriers to industrial development within Africa's chemical industry.
 
-
-
 To provide an evidence-based, objective answer to the primary research question.
 
 If the potential is affirmed, to assess the prospective scale, scope, and nature of modularization's contribution to the industrialization of Africa's chemical sector.
@@ -62,15 +56,17 @@ To identify key considerations, including techno-economic feasibility, policy fr
 
 To delineate areas for future research and suggest potential strategic implications for policymakers and industry stakeholders.
 
+
+
 1.2.	Significance and Contribution of the Study
 
 This study’s contribution is its focused and systematic exploration of how modularization can address the specific constraints of chemical manufacturing in Africa, an intersection that remains underexplored in existing literature. By aligning the unique capabilities of modular technologies with Africa’s industrial realities, it provides valuable insights for policymakers, investors, technology developers, and researchers.
 
+
+
 2.0.	Methods
 
 This study employs a Systematic Literature Review (SLR) methodology to address the research questions. The SLR approach is chosen for its rigorous, transparent, and replicable process of identifying, critically appraising, and synthesizing all relevant existing evidence pertaining to a clearly formulated question.24 This methodology is particularly suited for an exploratory yet scientific investigation that aims to provide an objective answer based predominantly on peer-reviewed academic research and other credible sources. The SLR allows for a comprehensive mapping of the current knowledge landscape, identification of consistencies and contradictions in findings, and the delineation of research gaps.24 Given that the intersection of "modular chemical plants" and "African industrialization" represents an emerging and interdisciplinary field, an SLR is essential for systematically gathering and integrating potentially fragmented evidence from diverse sources.
-
-
 
 The conduct and reporting of this SLR adheres to the guidelines outlined in the Preferred Reporting Items for Systematic Reviews and Meta-Analyses (PRISMA) statement.45
 
@@ -91,8 +87,6 @@ Cluster 1 (Modular Plants): "modular chemical plant*", "modular process plant", 
 Cluster 2 (Africa/Developing Countries): "Africa*", "Sub-Saharan Africa", "developing country", "emerging economy", "LDC" (Least Developed Countries), "low-income country", "middle-income country"
 
 Cluster 3 (Industrialization/Chemical Sector): "industrialization", "industrial development", "industrial policy", "manufacturing", "chemical industry", "chemical sector", "chemical manufacturing", "petrochemical", "fertilizer", "agrochemical", "pharmaceutical", "polymer", "specialty chemical", "fine chemical", "water treatment chemical", "gas-to-liquids", "GTL", "chlor-alkali", "biomass conversion"
-
-
 
 Cluster 4 (Barriers/Drivers/Enablers): "barrier", "challenge", "obstacle", "constraint*", "driver", "enabler", "opportunity", "potential", "factor"
 
@@ -118,11 +112,7 @@ Techno-economic analyses (TEA), cost-benefit analyses (CBA), or economic feasibi
 
 Case studies of modular plant implementation or pilot projects in relevant sectors (e.g., petrochemicals, fertilizers, pharmaceuticals, agrochemicals, water treatment, GTL, mini-refineries, biomass conversion) in developing countries or Africa.
 
-Policy discussions, regulatory analyses, or strategic frameworks related to
-
-
-
-industrial technology adoption, particularly modular systems, in Africa or developing economies.
+Policy discussions, regulatory analyses, or strategic frameworks related to industrial technology adoption, particularly modular systems, in Africa or developing economies.
 
 Studies on process intensification (PI) if explicitly linked to modular systems or small-scale chemical production.
 
@@ -150,8 +140,6 @@ Duplicate publications of the same study.
 
 The analytical framework for this SLR involved a systematic mapping of the characteristics, advantages, and disadvantages of MCPs (derived from the literature) against the identified barriers to industrialization in Africa's chemical sector. The primary analytical approaches included:
 
-
-
 Thematic Analysis: Qualitative data from the studies were coded and analyzed to identify recurring themes, patterns, concepts, and relationships concerning the benefits and challenges of modularity, barriers to African industrialization, and potential linkages. This involved identifying common arguments, supporting evidence, and divergent viewpoints.
 
 Narrative Synthesis: Findings from diverse studies were integrated and woven into a coherent narrative to address the research questions. This involved summarizing key findings, comparing and contrasting results, and explaining variations across different contexts or study types.
@@ -163,6 +151,10 @@ Quantitative Analysis (where data permitted): While a formal meta-analysis of te
 Systems Thinking/Pattern Recognition: Identifying interconnections between MCP features and their potential impacts on the complex system of African industrialization. This involved looking for patterns in how specific modular attributes (e.g., lower capital cost, faster deployment, flexibility) could interact with and alleviate specific constraints (e.g., financial limitations, infrastructure deficits, market uncertainties).
 
 Where quantitative meta-analysis was limited, the synthesis focused on drawing robust qualitative conclusions and identifying consistent patterns of reported benefits and addressed challenges.
+
+
+
+
 
 
 
@@ -178,11 +170,7 @@ Several core concepts underpin the modular plant philosophy:
 
 Process Intensification (PI): PI involves the development and application of novel chemical engineering principles and technologies that lead to substantially smaller, cleaner, safer, and more energy-efficient processes.34 PI techniques aim to improve heat and mass transfer, combine multiple unit operations (e.g., reaction and separation) into single pieces of equipment, or utilize alternative energy sources. The inherent compactness achieved through PI is highly synergistic with modularization, leading to what is termed Modular Chemical Process Intensification (MCPI).34 MCPI allows for complex chemical processes to be housed in smaller, more efficient, and easily transportable modules.
 
-Design for Manufacture and Assembly (DfMA): DfMA is a systematic design approach that focuses on simplifying product design to make components easier and more cost-effective to manufacture and easier to assemble.27 This is a crucial design philosophy that prioritizes ease of manufacturing for the individual components of a module and efficiency in the subsequent assembly of these components into a functional unit, as well as the final assembly of modules on site.8 This includes considerations for material selection, standardization of
-
-
-
-parts, minimization of part counts, and ease of connection.
+Design for Manufacture and Assembly (DfMA): DfMA is a systematic design approach that focuses on simplifying product design to make components easier and more cost-effective to manufacture and easier to assemble.27 This is a crucial design philosophy that prioritizes ease of manufacturing for the individual components of a module and efficiency in the subsequent assembly of these components into a functional unit, as well as the final assembly of modules on site.8 This includes considerations for material selection, standardization of parts, minimization of part counts, and ease of connection.
 
 Advanced Manufacturing Techniques: The fabrication of modules increasingly leverages advanced manufacturing techniques such as automation, robotics, and digital technologies.27 Building Information Modeling (BIM), digital twins, and advanced simulation tools are used for detailed design, clash detection, fabrication planning, and lifecycle management of modular plants.
 
@@ -194,8 +182,6 @@ Skid-Mounted Systems vs. Containerized Plants: Skid-mounted modular plants are s
 
 Other core concepts associated with modular plants include interchangeability (designing modules that can be easily replaced or upgraded), and equaling-up (combining modules of different standard sizes to achieve desired capacity).30
 
-
-
 The learning effect associated with modular construction, where the cost per module decreases with cumulative production experience32, offers a significant long-term strategic advantage. If Africa can develop regional centers for module fabrication, this learning curve could benefit numerous projects across the continent. This implies that while initial projects might incur higher costs associated with pioneering the technology in a new region, subsequent projects could become increasingly cost-competitive, fostering a self-sustaining local or regional advanced manufacturing capability. This represents a profound implication for regional industrial strategy, moving beyond simply importing modules to cultivating a domestic industry.
 
 Furthermore, the synergy between MCPI and modularity is a critical factor. Process intensification makes modules significantly smaller, more efficient, and often safer. In turn, modularity makes the deployment of these advanced PI technologies more feasible, less risky, and more adaptable to varying scales and locations. This combination is central to the "leapfrogging" potential, allowing developing economies to bypass older, less efficient, and more capital-intensive conventional technologies.40 PI technologies often involve novel equipment and process configurations39; implementing these directly into a large, traditional stick-built plant for the first time can be a high-risk, high-cost endeavor. MCPI34 allows these advanced PI units to be developed, tested, and proven at a smaller, modular scale, thereby reducing both technical and financial risks. The compactness derived from PI then makes the resulting modules easier and less expensive to transport and install. This symbiotic relationship is considerably more powerful than either modularity or PI implemented in isolation.
@@ -204,7 +190,9 @@ To provide a clearer comparative context, Table 1 summarizes the key characteris
 
 Table 1: Comparison of Modular and Conventional Chemical Plant Construction Approaches
 
-Feature Modular Chemical Plants Conventional (Stick-Built) Chemical Plants Construction Site Primarily off-site factory fabrication of modules; on-site assembly and integration.28 Entirely on-site construction from individual components and materials.34 Design Philosophy Standardized modules, DfMA principles, emphasis on transportability and interconnectivity.27 Custom, site-specific design, often optimized for large scale.32 Scale Well-suited for small to medium scale; scalable by adding modules (numbering-up).32 Typically designed for large to very large scale to achieve economies of scale.32 Flexibility High flexibility to market changes, phased investment, potential for relocation.32 Low flexibility once constructed; capacity changes are difficult and costly. Typical Project Timeline Significantly shorter due to parallel activities (12-18 months often cited for smaller units).27 Reduced weather delays. Build times are generally reduced by 25-50%. Longer, sequential construction phases (can be several years).33 Susceptible to weather delays. Capital Cost Profile Generally lower upfront investment, especially for small to medium scale. Potential 10 to 30% total project cost reduction.32 High upfront CAPEX; benefits from economy of scale (six-tenths rule) for very large capacities.32 On-site Labor Reduced on-site labor, shift towards assembly and integration skills.28 Large, diverse on-site construction workforce required for extended periods. Time-to-Market Faster, allowing earlier revenue generation. Slower. Locational Flexibility High. Suitable for remote areas, proximity to resources/markets. Transportable/relocatable. Low. Requires extensive site infrastructure and resource access. Safety (Construction Phase) Enhanced due to controlled factory environment for module fabrication. Higher risks associated with on-site construction (working at height, weather, etc.). Safety (Operation - Hazardous Materials) Potential for reduced risk by point-of-use production, smaller inventories per site. Larger inventories, risks associated with bulk transport of hazardous materials. Quality Control Improved due to factory fabrication standards and testing. More variable, dependent on on-site conditions and practices. Quality Control Higher and more consistent quality due to controlled factory fabrication environment.27 On-site quality control can be more variable, subject to site conditions and workforce skill.29 Waste Generation Less on-site construction waste; optimized material use in factory.28 Higher potential for on-site construction waste. Locational Flexibility High. Suitable for remote areas, proximity to resources/markets. Transportable/relocatable. Low. Requires extensive site infrastructure and resource access.19 Safety (Construction Phase) Enhanced due to controlled factory environment for module fabrication. Higher risks associated with on-site construction (working at height, weather, etc.).19 Safety (Operation - Hazardous Materials) Potential for reduced risk by point-of-use production, smaller inventories per site. Larger inventories, risks associated with bulk transport of hazardous materials.19 Upfront Engineering (FEED) Often requires more detailed engineering upfront before fabrication. Design can evolve more during construction. Process Intensification (PI) Integration Highly compatible; PI leads to smaller units ideal for modularization (MCPI). Can be retrofitted, but PI is often more seamlessly integrated in new modular designs.11
+
+
+
 
 3.2.	Analysis of Barriers to Africa's Chemical Sector Industrialization
 
@@ -212,11 +200,7 @@ The literature review confirms a consistent set of significant, often interlinke
 
 3.2.1.	Economic and Financial Constraints
 
-The establishment of chemical industries is a capital-intensive endeavor. A primary barrier identified is the high upfront capital cost associated with traditional, large-scale chemical plants.9 This is compounded by limited access to affordable finance, especially for local Small and Medium-sized Enterprises (SMEs), which often form the backbone of nascent industrial sectors.9 Financial markets in many African countries are characterized by high interest rates, stringent collateral requirements, and a general aversion to long-term industrial project financing. In 2023, 32% of African firms cited limited access to financial tools as a major obstacle to growth.11 High sovereign debt levels in many nations 9 also constrain public investment in industrial infrastructure and support. Furthermore, macroeconomic instability, including currency volatility and persistent inflation 9, increases investment risk and can erode project profitability. The low purchasing power of large segments of the population in some regions can also limit the domestic market size for chemical products, thereby affecting the perceived viability of new ventures.7 The terms of finance available are often unsuitable for long-gestation industrial projects, with high-risk premiums 
-
-
-
-making capital prohibitively expensive. This financial landscape makes technologies that can reduce perceived risk or shorten payback periods particularly attractive.
+The establishment of chemical industries is a capital-intensive endeavor. A primary barrier identified is the high upfront capital cost associated with traditional, large-scale chemical plants.9 This is compounded by limited access to affordable finance, especially for local Small and Medium-sized Enterprises (SMEs), which often form the backbone of nascent industrial sectors.9 Financial markets in many African countries are characterized by high interest rates, stringent collateral requirements, and a general aversion to long-term industrial project financing. In 2023, 32% of African firms cited limited access to financial tools as a major obstacle to growth.11 High sovereign debt levels in many nations 9 also constrain public investment in industrial infrastructure and support. Furthermore, macroeconomic instability, including currency volatility and persistent inflation 9, increases investment risk and can erode project profitability. The low purchasing power of large segments of the population in some regions can also limit the domestic market size for chemical products, thereby affecting the perceived viability of new ventures.7 The terms of finance available are often unsuitable for long-gestation industrial projects, with high-risk premiums making capital prohibitively expensive. This financial landscape makes technologies that can reduce perceived risk or shorten payback periods particularly attractive.
 
 3.2.2.	Infrastructural Deficiencies (Energy, Transport, Logistics)
 
@@ -230,11 +214,7 @@ Storage and Distribution: There is often a lack of specialized storage facilitie
 
 3.2.3.	Human Capital and Technological Capabilities
 
-The shortage of skilled and experienced human capital is a pervasive challenge.10 This includes a lack of qualified chemical engineers, process operators, maintenance technicians, and managers with expertise in chemical plant operations.1 In South Africa, for instance, a significant skills gap exists, with only one engineer for every 2,114 citizens, compared to a ratio of 1:200 in countries 
-
-
-
-like India or China.13 Educational and vocational training systems often suffer from a mismatch between curricula and the evolving needs of modern industry, including the digital skills required for 4IR technologies.10 This results in graduates who may not be adequately prepared for the technical and operational demands of a sophisticated chemical sector. Indigenous technological capabilities, including research and development (R&D) capacity, remain weak in many countries, limiting innovation and adaptation of technologies to local contexts.14 The "brain drain" phenomenon, where highly skilled professionals emigrate in search of better opportunities, further exacerbates this shortage.13 The skills gap is therefore not just quantitative but also qualitative, relating to the relevance of available skills to the demands of advanced manufacturing.
+The shortage of skilled and experienced human capital is a pervasive challenge.10 This includes a lack of qualified chemical engineers, process operators, maintenance technicians, and managers with expertise in chemical plant operations.1 In South Africa, for instance, a significant skills gap exists, with only one engineer for every 2,114 citizens, compared to a ratio of 1:200 in countries like India or China.13 Educational and vocational training systems often suffer from a mismatch between curricula and the evolving needs of modern industry, including the digital skills required for 4IR technologies.10 This results in graduates who may not be adequately prepared for the technical and operational demands of a sophisticated chemical sector. Indigenous technological capabilities, including research and development (R&D) capacity, remain weak in many countries, limiting innovation and adaptation of technologies to local contexts.14 The "brain drain" phenomenon, where highly skilled professionals emigrate in search of better opportunities, further exacerbates this shortage.13 The skills gap is therefore not just quantitative but also qualitative, relating to the relevance of available skills to the demands of advanced manufacturing.
 
 3.2.4.	Policy, Regulatory, and Institutional Frameworks
 
@@ -244,11 +224,7 @@ An unsupportive or unstable policy and institutional environment can severely un
 
 The African chemical sector faces several challenges inherent to its nature and the continent's current developmental stage:
 
-Feedstock Availability and Cost: While Africa is rich in primary natural resources (minerals,
-
-
-
-oil, gas, biomass), the conversion of these resources into suitable, cost-effective chemical feedstocks locally can be problematic. In some instances, there is a paradoxical dependence on imported intermediate raw materials or processed feedstocks even when primary resources are available domestically, due to a lack of local processing capacity.13
+Feedstock Availability and Cost: While Africa is rich in primary natural resources (minerals, oil, gas, biomass), the conversion of these resources into suitable, cost-effective chemical feedstocks locally can be problematic. In some instances, there is a paradoxical dependence on imported intermediate raw materials or processed feedstocks even when primary resources are available domestically, due to a lack of local processing capacity.13
 
 Market Size and Integration: Many individual African national markets are relatively small and fragmented, with low domestic purchasing power for sophisticated chemical products.7 While regional integration initiatives like the African Continental Free Trade Area (AfCFTA) aim to create larger markets, non-tariff barriers, poor interconnectivity, and inefficient customs processes continue to hinder intra-African trade.9
 
@@ -262,13 +238,11 @@ The challenge of "appropriate scale" is particularly central to Africa's chemica
 
 Table 2: Categorized Barriers to Industrialization in Africa's Chemical Sector
 
-Barrier Category Specific Barrier Description Impact on Chemical Sector Infrastructural Inadequate Energy Supply Unreliable, insufficient, and often costly electricity and other energy sources. Disrupts production, increases operational costs, makes energy-intensive processes unviable. Poor Transportation Networks Deficient roads, rail, ports, and pipelines. Increases logistics costs for raw materials and products, limits market access, isolates production sites. Limited Logistics and Storage Lack of specialized storage for chemicals, inefficient customs and port handling. Increases supply chain complexity and costs, risk of spoilage or damage. Financial Limited Access to Affordable Finance High cost of capital, underdeveloped financial markets, risk aversion from lenders/investors. Prevents investment in new plants and upgrades, particularly for capital-intensive chemical projects. High Capital Costs for Conventional Plants Traditional large-scale chemical plants require massive upfront investment. Makes many projects unfeasible given market size and financial constraints. Currency Volatility & Investment Risk Unstable exchange rates and perceived high political/economic risks. Deters foreign direct investment, increases cost of imported equipment and inputs. Human Capital Shortage of Skilled Technical Personnel Lack of qualified chemical engineers, process operators, maintenance technicians, and managers. Hampers plant operation, quality control, innovation, and adoption of new technologies. Weaknesses in Education & TVET Systems Insufficient focus on STEM, outdated curricula, lack of practical training facilities. Fails to produce a workforce with relevant skills for the modern chemical industry. Policy & Institutional Unstable/Unsupportive Policy Environment Frequent policy changes, lack of long-term industrial strategy, inadequate enforcement. Creates uncertainty for investors, undermines long-term planning. Regulatory Hurdles & Governance Issues Complex and lengthy approval processes, corruption, weak rule of law. Increases project costs and timelines, deters investment, can lead to unfair competition. Weak Institutional Capacity Limited ability of government agencies to effectively support and regulate industrial development. Ineffective implementation of policies, poor monitoring, and lack of support services for industry. Market-Related Small and Fragmented Domestic Markets Limited purchasing power and demand in individual national markets. Makes it difficult to achieve economies of scale for large conventional plants. Limited Regional and International Market Access Trade barriers, lack of competitiveness, challenges in meeting international quality standards. Restricts growth potential beyond small domestic markets. Intense Global Competition Competition from established, large-scale chemical producers in Asia, Europe, and North America. Makes it difficult for nascent African industries to compete on price and scale. Technological Dependence on Imported Technology Limited indigenous R&D, reliance on foreign technology suppliers and licensors. Increases costs, limits adaptation to local conditions, hinders development of local innovation capacity. Limited Technology Transfer & Absorption Difficulties in accessing, acquiring, effectively transferring, absorbing, and adapting appropriate and modern chemical production technologies. Limited Local R&D and Innovation Insufficient investment in research and development, weak linkages between academia and industry. Slows down technological upgrading, product development, and process optimization. Challenges in Chemical Management & Safety Lack of capacity to assess and monitor risks from chemicals, inadequate waste management, weak enforcement of safety standards. Poses environmental and health risks, can lead to import of hazardous substances, increases operational liabilities.
+
 
 3.3.	Evaluating the Potential of MCPs to Mitigate African Industrialization Barriers
 
 This section critically assesses how the inherent characteristics and techno-economic advantages of modular chemical plants (MCPs), as detailed in Section 3.1, align with and potentially mitigate the multifaceted barriers to chemical sector industrialization in Africa, as identified in Section 3.2.
-
-
 
 3.3.1. Addressing Capital Investment and Financial Risk
 
@@ -277,8 +251,6 @@ A primary advantage of MCPs is their potential to significantly reduce upfront c
 The accelerated project timelines associated with MCPs, often reducing construction and commissioning from several years to potentially 18-24 months 11, lead to quicker revenue generation. This improves key financial metrics such as Net Present Value (NPV) and Internal Rate of Return (IRR), and shortens payback periods.30 In contexts with high perceived political and market risks, a shorter time to positive cash flow can significantly enhance project bankability and attractiveness to investors and lenders.
 
 Furthermore, the concept of "numbering-up" or parallel modularity allows for a phased investment strategy.22 Instead of a single large, speculative investment, companies can start with a smaller modular unit to test the market and establish operations. Subsequent modules can be added incrementally as demand is proven and cash flow from initial units becomes available. This "grow-as-you-go" approach dramatically de-risks market entry and capacity expansion, aligning well with the uncertain and evolving nature of many African markets.22 This approach can also leverage "economies of numbers" or learning curves; as more identical modules are produced, the manufacturing cost per module tends to decrease due to accumulated experience and process optimization.28 While traditional plants benefit from "economies of scale" (lower unit cost at higher capacity), modularity offers a pathway to cost-effectiveness through standardized mass production of smaller units, potentially offsetting the loss of scale economies for certain capacity ranges.32 The argument that automation can diminish the labor cost advantages traditionally associated with large-scale plants further supports the economic rationale for smaller, automated modular units.32
-
-
 
 3.3.2.	Enhancing Locational Flexibility and Overcoming Infrastructure Gaps
 
@@ -296,11 +268,11 @@ The rapid deployment capability of MCPs is a critical advantage for entering nas
 
 Capturing First-Mover Advantages: Shorter project cycles allow companies to establish a market presence quickly, potentially capturing first-mover advantages before larger, slower competitors can react.
 
-
-
 Building Market Confidence: In developing economies, a visibly operational plant can serve as a powerful catalyst, building confidence among local consumers, suppliers, and potential future investors. The "demonstration effect" of a quickly realized project can stimulate further economic activity and skills development in a way that protracted projects cannot.
 
 Adaptive Scalability: The "numbering-up" approach provides unparalleled scalability.22 Producers can start with an initial capacity tailored to current, often uncertain, market demand and then incrementally add identical modules as the market grows or new opportunities emerge. This mitigates the significant risks of overcapacity (leading to underutilized assets) or undercapacity (missing market opportunities) that are common with large, fixed-capacity plants. This allows for a "learning by doing" approach to market development, where expansion decisions are based on real operational data and market feedback, rather than solely on potentially unreliable forecasts in data-scarce African environments.
+
+
 
 3.3.4.	Potential for Localized Value Addition and Resource Utilization
 
@@ -314,8 +286,6 @@ Fertilizers: Small-scale modular ammonia and fertilizer plants, potentially util
 
 Gas Monetization: Modular Gas-to-Liquids (GTL) or gas-to-chemicals plants can convert stranded or flared natural gas into valuable liquid fuels or chemical feedstocks, reducing environmental impact and creating economic value.22
 
-
-
 Mineral Beneficiation: Modular units could be used for localized pre-processing or beneficiation of minerals, adding value before export or for local industrial use.
 
 Biomass Conversion: Small-scale modular biorefineries can process agricultural residues or energy crops into biofuels and biochemicals, supporting rural development and energy diversification.22
@@ -323,6 +293,8 @@ Biomass Conversion: Small-scale modular biorefineries can process agricultural r
 Resilient Local Economies: Localized value addition via MCPs can create more resilient local economies by reducing their dependence on volatile global commodity prices for raw material exports and the equally volatile prices for imported finished chemical products. This creates a "price scissors" buffer, enhancing economic stability.
 
 Regional Value Chains: MCPs could underpin the development of regional chemical value chains within Africa. Countries could specialize in producing specific chemicals based on their local resource endowments, using modular facilities, and then trade these intermediates or finished products within the AfCFTA framework, fostering intra-African trade and industrial integration.7
+
+
 
 3.3.5.	Implications for Skills Development and Technology Transfer
 
@@ -332,15 +304,13 @@ Evolving Skill Requirements: While some argue that standardized modules might si
 
 Opportunities for Phased Skills Development: The modular nature itself might offer avenues for phased skills development. Initial projects could involve assembly and operation with significant vendor support, gradually transitioning to local teams taking on more complex maintenance and eventually even module adaptation or fabrication tasks.
 
-Role of MCP Vendors: Technology suppliers and engineering firms specializing in MCPs have a crucial role to play in providing comprehensive training, technical support, and
-
-
-
-fostering local partnerships.49 Effective technology transfer agreements should emphasize not just the hardware but also the "software" (operational know-how, design principles, maintenance protocols).
+Role of MCP Vendors: Technology suppliers and engineering firms specializing in MCPs have a crucial role to play in providing comprehensive training, technical support, and fostering local partnerships.49 Effective technology transfer agreements should emphasize not just the hardware but also the "software" (operational know-how, design principles, maintenance protocols).
 
 Decentralized Workforce Development: The potential for dispersed MCPs means that skilled job opportunities could be created beyond traditional industrial hubs, potentially in rural or remote areas. However, this also poses a challenge for delivering adequate training and retaining skilled personnel in these locations.47
 
 "Digestible" Technology Transfer: Technology transfer associated with MCPs could be more effectively absorbed if it involves collaboration on module manufacturing or assembly over time, rather than solely relying on turnkey plant importation. This fosters deeper local learning, innovation capacity, and sustainable industrial capability building.
+
+
 
 3.3.6.	Safety, Environmental, and Sustainability Considerations
 
@@ -356,17 +326,13 @@ MCPs can readily incorporate modern, cleaner, and more efficient PI technologies
 
 The smaller, distributed nature of MCPs might allow for more manageable and localized waste treatment solutions, potentially tailored to specific effluent streams.
 
-Sustainability Alignment: The ability to use local resources, reduce transport, improve
-
-
-
-energy efficiency, and potentially integrate with renewable energy sources aligns MCPs well with broader sustainable development goals.6
+Sustainability Alignment: The ability to use local resources, reduce transport, improve energy efficiency, and potentially integrate with renewable energy sources aligns MCPs well with broader sustainable development goals.6
 
 Regulatory Oversight for Dispersed Units: A potential challenge is that the proliferation of many small, geographically dispersed MCPs, if not accompanied by robust environmental governance and monitoring systems, could lead to scattered pollution sources that are collectively difficult to manage, especially for regulatory agencies with limited capacity.16 Therefore, the environmental benefits of MCPs are contingent on effective regulatory frameworks and enforcement.
 
-Table 3: Matrix of Modular Chemical Plant Potentials vs. African Chemical Sector Industrialization Barriers
 
-Barrier Category Key MCP Characteristic/Advantage Potential of MCP to Mitigate Barrier Mitigation Potential Score (H/M/L) Economic & Financial Lower Upfront CAPEX Makes projects more accessible with limited local capital; easier to secure smaller tranches of finance. Reduces overall financial risk. H Shorter Time-to-Market / Faster Revenue Generation Improves NPV/IRR, shortens payback; reduces exposure to market & political volatility during long construction. H Phased Investment (Numbering-up) Allows capacity to match market growth; reduces risk of over/under-capacity; cash flow from early units can fund expansion. H Economies of Numbers / Learning Curves Potential for cost reduction through standardized module mass production, offsetting loss of scale economies. M-H Infrastructural Locational Flexibility / Transportability Enables siting near resources (reducing feedstock transport costs) or markets (reducing product distribution costs), even in remote areas. H Smaller Footprint Reduced land requirement; easier site preparation. M Suitability for Distributed/Renewable Energy Can be powered by localized renewable energy sources, reducing reliance on unreliable grids. M-H Reduced On-site Construction Complexity Less demand on local heavy construction infrastructure and logistics. M Human Capital & Technological Standardized Modules / Simpler O&M (for some configurations) May reduce complexity for some operational tasks; potential for focused training on specific module types. M Vendor Training & Support Opportunity for skills transfer from technology providers during installation and commissioning. M Potential for Local Adaptation/Learning Phased local content development in module assembly/fabrication over time. L-M Policy, Regulatory & Institutional Shorter Project Lifecycles (to first revenue) Reduces exposure window to policy instability for initial investment. M Clearer Project Definition (due to upfront engineering) May improve project bankability and interface with regulatory approval processes. L-M Sector-Specific Scalability (Appropriate Scale) Allows matching plant capacity to smaller/nascent African market demands, avoiding uneconomic large plants. H Point-of-Use Production (Hazardous Chemicals) Reduces risks and costs of transporting hazardous materials like chlorine, ammonia. H Utilization of Stranded/Local Resources Enables economic exploitation of dispersed resources (stranded gas, biomass, remote minerals). H Integration of Modern/Cleaner PI Technologies Opportunity to build environmentally better plants from outset; smaller, contained waste streams. M-H Water Efficiency (with PI) Some PI technologies can reduce water intensity, relevant for water-scarce regions. L-M
+
+Table 3: Matrix of Modular Chemical Plant Potentials vs. African Chemical Sector Industrialization Barriers
 
 H = High, M = Medium, L = Low potential for mitigation.
 
@@ -382,11 +348,7 @@ The techno-economic assessment of MCPs requires frameworks that can adequately c
 
 A critical component in the TEA of MCPs is the incorporation of learning curves or economies of learning.28 As multiple identical or similar modules are manufactured, the cost per module is expected to decrease due to accumulated experience, improved labor efficiency, optimized supply chains, and refined manufacturing processes. This "learning effect" can be modeled using an experience curve, often expressed as a percentage cost reduction for each doubling of cumulative production (e.g., an 85% learning curve means the cost of the 2Nth unit is 85% of the cost of the Nth unit). Some analyses use parameters like a learning curve slope (α) and maximum achievable cost reduction (Rmax).28 This contrasts with the traditional "six-tenths rule" for economies of scale in stick-built plants, where cost scales with capacity to a power less than one. For modular plants, while individual modules might not show strong economies of scale, the overall project cost can benefit from the economies of numbers 32 – the cost savings derived from producing many standardized units. It is argued that automation in module fabrication can further diminish the labor cost advantages traditionally held by large-scale conventional plants, making economies of numbers more competitive.32
 
-Conventional costing techniques need to be extended for modular units, often involving detailed cost estimation for prefabricated modules (including higher steel content and specialized transport) versus reduced on-site construction and installation costs.28 Some frameworks propose a "value density" concept, which considers product price, logistic costs, resource density, and desired 
-
-
-
-production capacity to assess whether a centralized or distributed modular strategy is more appropriate for a given geographic area and resource.31 Low value density (e.g., high logistic costs for low-value feedstock) would favor distributed modular production.
+Conventional costing techniques need to be extended for modular units, often involving detailed cost estimation for prefabricated modules (including higher steel content and specialized transport) versus reduced on-site construction and installation costs.28 Some frameworks propose a "value density" concept, which considers product price, logistic costs, resource density, and desired production capacity to assess whether a centralized or distributed modular strategy is more appropriate for a given geographic area and resource.31 Low value density (e.g., high logistic costs for low-value feedstock) would favor distributed modular production.
 
 The applicability of standard learning rates in the African context warrants careful consideration. Actual learning rates achieved in module manufacturing or assembly on the continent could vary significantly based on local skill levels, existing industrial capabilities, infrastructure quality, and the effectiveness of policy support and technology transfer mechanisms. Therefore, TEAs for MCPs in Africa should treat the learning rate as a critical sensitivity parameter. The "value density" concept, however, offers a potentially robust initial screening tool to identify high-potential applications for modularity across Africa's diverse resource and logistical landscapes.
 
@@ -396,17 +358,11 @@ The literature provides several case studies and feasibility analyses of MCPs in
 
 Chlor-Alkali: A notable African example is the modular, skid-mounted chlor-alkali plant commissioned in Tanzania in 2018 by ThyssenKrupp. Designed to produce 15–45 tons/day of chlorine, its modules fit into 40-ft shipping containers. This plant, the first of its kind in sub-Saharan Africa, aims to provide local production for water treatment, reducing import reliance and transportation risks of chlorine. It exemplifies unitary modular manufacturing with potential for parallel numbering-up.22 While specific operational data is limited in the reviewed sources, its establishment signals interest in such solutions.
 
-Gas-to-Liquids (GTL): The Escravos GTL plant in Nigeria, with a capacity of 33,000 bbl/day, utilized extensive unitary modular construction (over 130 modules, some weighing over 2,600 tons) due to its remote mangrove swamp location. Although it faced significant cost escalations (final cost US$10 billion), modularity was deemed crucial for its development.22 More broadly, small-scale and micro-GTL plants are gaining attention for monetizing stranded or flared natural gas, a significant issue in many oil-producing developing countries. Studies suggest capacities from 7 bbl/d (micro GTL with CAPEX of $570k for the first unit, falling to $360k for the 100th unit due to learning effects) to 686
-
-
-
-bbl/d, with potential for economic viability depending on oil prices and CAPEX reduction.44 A review by Höök et al. (2013) noted that while real-world large GTL projects often faced massive cost overruns (e.g., Escravos, Pearl GTL), small-scale GTL offers lower upfront costs and better cost control, making it attractive for associated gas.35
+Gas-to-Liquids (GTL): The Escravos GTL plant in Nigeria, with a capacity of 33,000 bbl/day, utilized extensive unitary modular construction (over 130 modules, some weighing over 2,600 tons) due to its remote mangrove swamp location. Although it faced significant cost escalations (final cost US$10 billion), modularity was deemed crucial for its development.22 More broadly, small-scale and micro-GTL plants are gaining attention for monetizing stranded or flared natural gas, a significant issue in many oil-producing developing countries. Studies suggest capacities from 7 bbl/d (micro GTL with CAPEX of $570k for the first unit, falling to $360k for the 100th unit due to learning effects) to 686 bbl/d, with potential for economic viability depending on oil prices and CAPEX reduction.44 A review by Höök et al. (2013) noted that while real-world large GTL projects often faced massive cost overruns (e.g., Escravos, Pearl GTL), small-scale GTL offers lower upfront costs and better cost control, making it attractive for associated gas.35
 
 Fertilizers (Green Ammonia): There is growing research on the techno-economic feasibility of small-scale, decentralized green ammonia production using renewable energy sources, particularly relevant for Sub-Saharan Africa to improve fertilizer access for agriculture. Smith and Torrente-Murciano (2021) evaluated the economic benefits of green ammonia from hydropower in Sierra Leone, estimating a 30-year NPV of ~$230M and ~165% ROI compared to importing fertilizers, saving at least $50M/year versus importing rice.37 Other studies analyze wind-powered green ammonia in Kansas (USA) with detailed financing options and community economic viability assessments, providing transferable methodologies.37 Case studies of larger renewable/low-carbon ammonia projects are emerging in developing countries like India (1 MMTPA renewable NH3), Chile (solar and wind-powered NH3), Morocco ($7B, 1 MMTPA green NH3), Brazil ($3B, 1 MMTPA blue NH3), and Nigeria ($3.5B, 1.66 MMTPA blue NH3 with CCS), indicating global interest and diverse technological pathways.40 The cost of green ammonia is currently higher ($794–$1,543/ton) than grey ammonia ($121–$518/ton), but is expected to fall, and can offer price stability.40
 
 Mini-Refineries (Local Fuel Production): Modular refineries, typically ranging from 1,000 to 30,000 bpd, are being developed in Nigeria to address domestic fuel shortages. These often start as simple Atmospheric Distillation Units (ADUs or "topping plants") in container-sized modules, with potential for upgrades. Advantages cited include lower investment, shorter payback periods (2-5 years compared to 5-10+ for conventional), and viability in remote locations.51 A financial analysis for a 10,000 bpd hydro-skimming modular refinery in Nigeria showed gross margins highly sensitive to crude oil price (e.g., 14.6% margin at $55/bbl, but -0.91% at $65/bbl) and refinery efficiency.51 A feasibility study for a micro-refinery in South Sudan highlighted the existing Bentiu modular refinery (5,000-10,000 bpd) and the potential for new modular units to process local crude, reducing import reliance, though facing challenges of political instability and infrastructure.45 Capital costs for mini-refineries are estimated between $20M-$50M.45
-
-
 
 Water Treatment: Tupelovox Pty. Ltd. in South Africa has implemented decentralized modular wastewater treatment and rainwater harvesting systems. One project for Vodacom featured a 1 megaliter storage capacity, harvesting 12 million L/yr of rainwater for non-potable reuse. Such systems offer affordable, adaptable solutions for smaller municipalities or industrial users, fostering economic development without reliance on extensions of large centralized sewer systems.22 Modular membrane-based water treatment systems are particularly recognized for their suitability in developing countries.34 Advantages include easy duplication and scale-up, a significantly smaller physical footprint than conventional plants (saving space and cost), lower energy consumption (as they often avoid phase-change processes), and the ability to serve small and distributed communities effectively.
 
@@ -414,11 +370,7 @@ Biomass Conversion: TEAs for biomass-to-liquids (BTL) plants based on gasificati
 
 Pharmaceuticals/Active Pharmaceutical Ingredients (APIs): Modular designs are increasingly considered for API manufacturing due to advantages in flexibility, speed, and quality control, which can be particularly beneficial for producing smaller batches of high-value products or responding to fluctuating demands, relevant for developing countries aiming to build pharmaceutical capacity.30 Continuous manufacturing, often suited to MCPI and modular designs, is seen as a way to improve efficiency in API synthesis.36
 
-Specialty Chemicals: The study by O'Connor et al. (2021), though not Africa-specific, provides a compelling economic case for MCPI in specialty chemicals production.26 Compared to a conventional stick-built (CSB) plant producing the same product at the same capacity, the MCPI approach demonstrated dramatically reduced CAPEX (attributed partly to smaller plant volume) and OPEX (due to automation of a previously labor-intensive batch process). The Net Present Value (NPV) for the MCPI case was nearly double that of the CSB case over a ten-year period, and the payback period for the CSB case was almost five times longer. This suggests significant economic advantages for high-value, lower-volume specialty chemical production where flexibility and speed can be paramount. Given Africa's growing
-
-
-
-demand for customized chemical solutions in various sectors (e.g., mining, agriculture, consumer goods) 22, modular specialty chemical plants could offer a route for local production, import substitution, and catering to niche market demands.
+Specialty Chemicals: The study by O'Connor et al. (2021), though not Africa-specific, provides a compelling economic case for MCPI in specialty chemicals production.26 Compared to a conventional stick-built (CSB) plant producing the same product at the same capacity, the MCPI approach demonstrated dramatically reduced CAPEX (attributed partly to smaller plant volume) and OPEX (due to automation of a previously labor-intensive batch process). The Net Present Value (NPV) for the MCPI case was nearly double that of the CSB case over a ten-year period, and the payback period for the CSB case was almost five times longer. This suggests significant economic advantages for high-value, lower-volume specialty chemical production where flexibility and speed can be paramount. Given Africa's growing demand for customized chemical solutions in various sectors (e.g., mining, agriculture, consumer goods) 22, modular specialty chemical plants could offer a route for local production, import substitution, and catering to niche market demands.
 
 These case studies, while varied in scope and detail, collectively demonstrate growing interest and application of modular process plants in developing countries across diverse chemical sub-sectors. They highlight common themes: addressing local resource availability (stranded gas, biomass, renewables), meeting specific local demands (fuel, fertilizers, clean water), overcoming infrastructure limitations through decentralized deployment, and aiming for faster project execution with potentially lower initial capital outlays. However, economic viability often remains sensitive to feedstock and product prices, technology efficiency, and the scale of learning effects achieved.
 
@@ -432,11 +384,7 @@ Schedule Compression: Project timelines can be shortened by 25-50%.11 Reducing a
 
 Addressing Infrastructure Gaps:
 
-Locational Flexibility: Ability to site plants near resources or markets can drastically cut transport costs (which can be 29% of product price via road 9). This is a High
-
-
-
-impact for bulk-in/bulk-out processes or hazardous materials.
+Locational Flexibility: Ability to site plants near resources or markets can drastically cut transport costs (which can be 29% of product price via road 9). This is a High impact for bulk-in/bulk-out processes or hazardous materials.
 
 Energy: While MCPs still require energy, smaller, potentially PI-enhanced units may have lower specific energy consumption or be more amenable to local renewable sources, mitigating reliance on unreliable grids. This is a Medium impact, as energy source development is still key.
 
@@ -462,8 +410,6 @@ Processes amenable to significant process intensification.
 
 Regions with supportive policies for SMEs and decentralized industrialization.
 
-
-
 Projects where phased capacity addition aligns with market growth dynamics.
 
 Modularization is less likely to be a panacea for deeply entrenched governance issues or severe human capital deficits on its own, but it can create new opportunities that, if coupled with appropriate enabling conditions, could significantly accelerate chemical sector development. A conservative estimate, based on potential CAPEX reductions and improved project viability, might suggest that MCPs could make an additional 10-20% of otherwise marginal chemical projects feasible in the medium term, and potentially accelerate the development of niche chemical value chains (e.g., bio-based chemicals, specialty fertilizers) that are ill-suited to mega-project approaches. The true quantitative impact will depend on the rate of technology adoption, the realization of learning economies in an African context, and the co-evolution of supportive policies and infrastructure.
@@ -480,11 +426,7 @@ Positive Feedback Loops:
 
 Investment-Skills-Market Loop: Successful initial MCP projects (de-risked by modularity) can attract further investment. This creates demand for skilled labor, incentivizing training programs and skills development. As local production meets market needs reliably and cost-effectively, it can stimulate demand in downstream industries, creating larger markets that justify further MCP capacity expansion. The visibility of operational plants can build local confidence and catalyze ancillary service industries.
 
-Infrastructure-MCP Loop: The deployment of MCPs in resource-rich remote areas might create the economic justification for targeted infrastructure development (e.g., improved access roads, local power solutions). Better infrastructure, in turn, makes further MCP
-
-
-
-deployment more feasible and cost-effective.
+Infrastructure-MCP Loop: The deployment of MCPs in resource-rich remote areas might create the economic justification for targeted infrastructure development (e.g., improved access roads, local power solutions). Better infrastructure, in turn, makes further MCP deployment more feasible and cost-effective.
 
 Learning-Cost Reduction Loop: As more modules are manufactured and deployed (potentially locally or regionally over time), learning effects can lead to reduced module costs and faster deployment, making subsequent MCP projects even more attractive.28 This is the core of "economies of numbers."
 
@@ -502,11 +444,7 @@ Synergies can arise from combining MCPs with other strategic initiatives. For ex
 
 The adoption of MCPs in Africa will likely follow patterns observed in technology diffusion theory, but with nuances specific to the continent's context.
 
-Bass Diffusion Model Analogue: The Bass model, often used to forecast new product adoption, considers innovators and imitators.53 In the context of MCPs, "innovators" might be pioneering companies (local or international) willing to take risks on first-of-a-kind
-
-
-
-modular projects in Africa, or specific governments championing the technology for strategic sectors. "Imitators" would follow once the benefits and viability are demonstrated by these early adopters. Patent citation data, as a proxy for technology diffusion (knowledge spillover), could potentially serve as a leading indicator for the uptake of specific modular chemical technologies, though this is more applicable to the underlying process technologies within the modules rather than modularity as a construction concept itself.53
+Bass Diffusion Model Analogue: The Bass model, often used to forecast new product adoption, considers innovators and imitators.53 In the context of MCPs, "innovators" might be pioneering companies (local or international) willing to take risks on first-of-a-kind modular projects in Africa, or specific governments championing the technology for strategic sectors. "Imitators" would follow once the benefits and viability are demonstrated by these early adopters. Patent citation data, as a proxy for technology diffusion (knowledge spillover), could potentially serve as a leading indicator for the uptake of specific modular chemical technologies, though this is more applicable to the underlying process technologies within the modules rather than modularity as a construction concept itself.53
 
 Bandwagon Effects: If early MCP projects in Africa demonstrate clear success (e.g., significant cost savings, faster completion, high profitability), this could trigger institutional and competitive bandwagon effects.54
 
@@ -526,11 +464,7 @@ Trialability: The ability to pilot or adopt MCPs on a smaller, incremental scale
 
 Observability: The visibility of successful MCP projects elsewhere in Africa or similar developing regions can accelerate adoption.
 
-Enabling Environment: Government support, access to finance, availability of technical
-
-
-
-expertise, and supportive infrastructure are crucial enablers.
+Enabling Environment: Government support, access to finance, availability of technical expertise, and supportive infrastructure are crucial enablers.
 
 3.5.3.	Broader Economic Impacts (value Chain Development, Employment, Spillover Effects)
 
@@ -552,11 +486,7 @@ Indirect Employment: Jobs created in upstream supplier industries and downstream
 
 Skill Upgradation: Demand for new skill sets related to advanced manufacturing, automation, and process control can drive human capital development.
 
-Technological Spillovers and Innovation: The introduction and adaptation of MCP technology can lead to knowledge spillovers, fostering local innovation in related
-
-
-
-engineering, manufacturing, and service sectors.14 Local firms involved in MCP projects may develop new capabilities that can be applied elsewhere.
+Technological Spillovers and Innovation: The introduction and adaptation of MCP technology can lead to knowledge spillovers, fostering local innovation in related engineering, manufacturing, and service sectors.14 Local firms involved in MCP projects may develop new capabilities that can be applied elsewhere.
 
 Regional Development: Siting MCPs in underserved or remote regions can stimulate local economic activity, create jobs, and improve access to essential products, contributing to more balanced regional development.
 
@@ -583,8 +513,6 @@ Feedstock Variability: Inconsistent quality or supply of local feedstocks impact
 Utility Reliability: Dependence on unreliable local power or water supply if dedicated utilities are not part of the modular package.
 
 Economic and Financial Risks:
-
-
 
 Cost Overruns: Despite potential savings, risks of cost escalation in module fabrication, transportation, or site works remain, especially in unfamiliar operating environments.35
 
@@ -664,8 +592,6 @@ Modular Design for Transport: Optimizing module size and weight for existing inf
 
 Experienced Logistics Partners: Engaging specialized firms with experience in heavy/oversized cargo and African logistics.
 
-
-
 Local Sourcing/Fabrication Development: Gradually developing local capacity for some components or module assembly to reduce import reliance.
 
 Political and Regulatory Risk Mitigation:
@@ -700,8 +626,6 @@ A combination of risk transfer (e.g., insurance), risk mitigation (proactive mea
 
 3.7.	Policy and Strategic Framework for Promoting MCPs in Africa
 
-
-
 Realizing the potential of MCPs to contribute to African industrialization requires a conducive and proactive policy and strategic framework. This framework should address enabling conditions, human capital, infrastructure, technology transfer, and regional cooperation.
 
 3.7.1.	Enabling Policies and Regulatory Best Practices
@@ -726,11 +650,7 @@ Financial Support: Access to dedicated financing windows, loan guarantees, or co
 
 Support for R&D and Innovation: Funding for local adaptation of modular designs or development of PI technologies suitable for modularization.
 
-Intellectual Property (IP) Protection: Strong and enforceable IP rights are necessary to
-
-
-
-encourage technology transfer and local innovation related to MCPs.7
+Intellectual Property (IP) Protection: Strong and enforceable IP rights are necessary to encourage technology transfer and local innovation related to MCPs.7
 
 Development of Special Economic Zones (SEZs): SEZs can provide enabling infrastructure, streamlined regulations, and incentives, making them attractive locations for pioneering MCP projects.7 UNIDO has experience supporting SEZ development in Africa.59
 
@@ -748,19 +668,19 @@ Upskilling and Reskilling Existing Workforce: Programs to upgrade the skills of 
 
 Attracting and Retaining Talent: Creating attractive career pathways and incentives to retain skilled engineers and technicians domestically.
 
+
+
 3.7.3.	Infrastructure Development and Logistics Planning
 
 While MCPs can offer some relief from infrastructure constraints, targeted infrastructure development remains crucial:
 
-Integrated Infrastructure Planning: MCP deployment strategies should be integrated with national and regional infrastructure development plans, particularly for transport (roads, rail, ports suitable for module transport) and energy (reliable grid connections or support for off-
-
-
-
-grid renewable solutions).60
+Integrated Infrastructure Planning: MCP deployment strategies should be integrated with national and regional infrastructure development plans, particularly for transport (roads, rail, ports suitable for module transport) and energy (reliable grid connections or support for off-grid renewable solutions).60
 
 Logistics Capabilities: Investment in developing local logistics capabilities, including heavy lifting and specialized transport services.
 
 Digital Infrastructure: Reliable communication infrastructure is important for remote monitoring and control of dispersed modular units.
+
+
 
 3.7.4.	 Fostering Technology Transfer and Local Innovation 
 
@@ -774,15 +694,13 @@ Developing Local Manufacturing Capabilities: Over the long term, fostering local
 
 Knowledge Sharing Platforms: Creating platforms for sharing best practices, lessons learned, and technical knowledge related to MCP deployment within and between African countries.
 
+
+
 3.7.5.	Role of Regional Cooperation and Institutions 
 
 Regional cooperation and strong institutional support can significantly accelerate the adoption and impact of MCPs:
 
-African Continental Free Trade Area (AfCFTA): The AfCFTA can create larger, more integrated markets, making MCP investments more attractive by enabling access to regional
-
-
-
-demand and facilitating trade in modularly produced chemicals and modules themselves.9 Harmonization of standards and regulations under AfCFTA is key.
+African Continental Free Trade Area (AfCFTA): The AfCFTA can create larger, more integrated markets, making MCP investments more attractive by enabling access to regional demand and facilitating trade in modularly produced chemicals and modules themselves.9 Harmonization of standards and regulations under AfCFTA is key.
 
 Regional Economic Communities (RECs): RECs can play a role in coordinating cross-border infrastructure projects, harmonizing policies, and promoting regional value chains based on modular chemical production.
 
@@ -792,6 +710,8 @@ International Organizations (e.g., UNIDO, UNECA): These organizations can provid
 
 A holistic and coordinated approach involving governments, the private sector, educational institutions, and regional/international partners is essential to create a supportive ecosystem for leveraging modular chemical plant technology for Africa's industrial transformation.
 
+
+
 4.0.	Conclusion
 
 4.1.	Synthesis of Findings and Answer to Research Questions
@@ -799,8 +719,6 @@ A holistic and coordinated approach involving governments, the private sector, e
 This systematic literature review set out to determine if modular chemical plants (MCPs) can lower the barriers to African industrialization, with a specific focus on the continent's chemical sector, and if so, to what extent. The synthesized evidence from peer-reviewed literature and authoritative reports indicates an affirmative answer to the primary research question: Modular chemical plants possess significant potential to lower several critical barriers impeding the industrialization of Africa's chemical sector.
 
 MCPs, characterized by off-site fabrication of skid-mounted or containerized units, offer distinct techno-economic advantages that align well with Africa's challenging operational and investment landscape. Key findings indicate that MCPs can:
-
-
 
 Mitigate Financial Barriers: By offering lower upfront capital expenditure, faster project execution leading to earlier revenue generation, and the possibility of phased investment through "numbering-up," MCPs can de-risk projects and improve their bankability in capital-scarce African economies. The potential to achieve "economies of numbers" through standardized module production offers an alternative pathway to cost-effectiveness.
 
@@ -816,11 +734,7 @@ Regarding the follow-up question “To what extent can modularization help Afric
 
 The specific chemical sub-sector: MCPs may be more immediately impactful for specialty chemicals, agrochemicals (like small-scale fertilizer plants), water treatment chemicals, and monetizing stranded gas or biomass resources, where smaller scales and flexibility are advantageous. For very large-scale bulk petrochemicals, conventional plants might still hold scale advantages, though unitary modular construction can still offer benefits.
 
-The specific African context: Countries with proactive industrial policies, improving governance, targeted skills development programs, and a willingness to embrace innovative
-
-
-
-technologies will be better positioned to leverage MCPs.
+The specific African context: Countries with proactive industrial policies, improving governance, targeted skills development programs, and a willingness to embrace innovative technologies will be better positioned to leverage MCPs.
 
 The maturity and cost-competitiveness of specific modular technologies: As MCP and MCPI technologies continue to evolve and their costs decrease (particularly through learning effects), their applicability will broaden.
 
@@ -834,11 +748,7 @@ Modularization is not a panacea for all challenges facing African industrializat
 
 MCPs offer a pathway to a more decentralized, flexible, and potentially more resilient chemical manufacturing ecosystem. This approach can empower local entrepreneurship, facilitate the development of SMEs in the chemical sector, and promote more inclusive industrial growth by enabling value addition in regions previously bypassed by industrial development. The synergy with process intensification (MCPI) further enhances this potential, paving the way for modern, efficient, and more sustainable chemical production.
 
-The successful adoption of MCPs could allow African nations to leapfrog traditional phases of industrial development22, establishing a 21st-century chemical industry grounded in agility, resource efficiency, and adaptability. This requires a paradigm shift from thinking solely in terms 
-
-
-
-of large, centralized mega-projects towards embracing a portfolio of appropriately scaled and strategically located modular facilities.
+The successful adoption of MCPs could allow African nations to leapfrog traditional phases of industrial development22, establishing a 21st-century chemical industry grounded in agility, resource efficiency, and adaptability. This requires a paradigm shift from thinking solely in terms of large, centralized mega-projects towards embracing a portfolio of appropriately scaled and strategically located modular facilities.
 
 4.3.	Limitations of the Study
 
@@ -860,11 +770,7 @@ The findings of this SLR highlight several areas requiring further investigation
 
 Africa-Specific Techno-Economic Analyses: Conduct detailed TEAs for specific MCP applications (e.g., modular fertilizer plants using local phosphate rock and renewable energy, small-scale GTL from flared gas, modular API production) tailored to the economic, infrastructural, and resource contexts of individual African countries or regions.
 
-Pilot Projects and Demonstration Plants: Support the establishment of MCP pilot and demonstration projects in Africa to gather empirical data on performance, costs, operational
-
-
-
-challenges, and local adaptability.
+Pilot Projects and Demonstration Plants: Support the establishment of MCP pilot and demonstration projects in Africa to gather empirical data on performance, costs, operational challenges, and local adaptability.
 
 Learning Curve Dynamics in Africa: Research the actual learning rates achievable in module fabrication, assembly, and operation within African industrial ecosystems, and the factors influencing them.
 
@@ -896,7 +802,7 @@ UNIDO | United Nations Industrial Development Organization, accessed May 26, 202
 
 10 things Africa must do to accelerate industrialization and economic diversification in Africa., accessed May 26, 2025, https://au.int/en/pressreleases/20221114/10-things-africa-must-do-accelerate-industrialization-and-economic
 
-Reimagining economic growth in Africa: Turning diversity into opportunity, https://www.mckinsey.com/mgi/our-research/reimagining-economic-growth-in-africa-turning-diversity-into-opportunity
+Reimagining economic growth in Africa: Turning diversity into opportunity, https://www.mckinsey.com/mgi/our-research/reimagining-economic-growth-in-africa-turning-diversity-into-opportunity 
 
 Economic Development in Africa Report 2024 | UN Trade and ..., accessed May 26, 2025, https://unctad.org/publication/economic-development-africa-report-2024
 
@@ -915,8 +821,6 @@ Africa's Failure to Industrialize: Bad Luck or Bad Policy?, accessed May 26, 202
 Africa Review Report on Chemicals - Sustainable Development Goals, accessed May 26, 2025, https://sustainabledevelopment.un.org/content/documents/AficanReviewReport-on-ChemicalsSummary.pdf
 
 The next frontier for African industrial policy, accessed May 26, 2025, https://iap.unido.org/articles/next-frontier-african-industrial-policy
-
-
 
 10 Africa: Industrialization Strategy In the Context of Globalization in - IMF E-Library, accessed May 26, 2025, https://www.elibrary.imf.org/display/book/9781557757692/ch010.xml
 
@@ -983,8 +887,6 @@ Deck-skid Systems Market - - PW Consulting, accessed May 26, 2025, https://pmark
 unctad.org, accessed May 26, 2025, https://unctad.org/system/files/official-document/dtlstict20097_en.pdf
 
 Technology transfer: International collaboration in Sri Lanka | Request PDF - ResearchGate, accessed May 26, 2025, https://www.researchgate.net/publication/24077951_Technology_transfer_International_collaboration_in_Sri_Lanka
-
-
 
 Developing Modular Refineries in the Downstream Sub-Sector of the Nigerian Petroleum Industry - International Journal of Engineering Research & Technology, accessed May 26, 2025, https://www.ijert.org/developing-modular-refineries-in-the-downstream-sub-sector-of-the-nigerian-petroleum-industry
 
