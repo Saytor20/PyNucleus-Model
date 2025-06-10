@@ -1,0 +1,17 @@
+{
+  "total_chunks": 867,
+  "sources": [
+    "converted_to_txt/sample_document.txt",
+    "converted_to_txt/Bist_Madan.txt",
+    "converted_to_txt/feasibility_factors.txt",
+    "web_sources/wikipedia_industrial_design.txt",
+    "converted_to_txt/Manuscript Draft_Can Modular Plants Lower African Industrialization Barriers.txt",
+    "converted_to_txt/mcp_basics.txt",
+    "web_sources/wikipedia_system_design.txt",
+    "web_sources/wikipedia_software_architecture.txt",
+    "web_sources/wikipedia_supply_chain.txt",
+    "web_sources/wikipedia_modular_design.txt"
+  ],
+  "avg_chunk_size": 378.54094579008074,
+  "generated_at": "2025-06-10T01:25:18.372675"
+}

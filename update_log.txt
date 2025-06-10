@@ -3,7 +3,7 @@
 2025-06-04 12:50:22 changes made and pushed to origin main
 
 
- 2025-06-04 12:50:49: Log Update
+ 2025-06-05 12:50:49: Log Update
 - Right now the data scrapping script scrapes wikipedia only. Future work can be paid services for Google API as we have tried to use python library but the error 429.2025-06-04 13:23:04 changes made and pushed to origin main
 - Finished with the data chunking code and analysis and is ready for use 
 - Next to work on the Vector DB code 
@@ -23,7 +23,7 @@
 -Updated the README.md file 
 
 
- 2025-06-04 15:58:48 changes made and pushed to origin main
+ 2025-06-06 15:58:48 changes made and pushed to origin main
 
 - all codes have been transferred into their own .py file for formatting purposes. The main notebook contains only function calling now
 - new file named performance_analyzer have been created to measure the performance of the model 
@@ -35,41 +35,21 @@ To Do:
 - Need to create a script that would clean the data before ingesting into LLM or VectorDB (to veryify best approach)
 - understand the structure and how to view the vectorDB data 
 
- 2025-06-04 17:58:12 changes made and pushed to origin main
+ 2025-06-07 17:58:12 changes made and pushed to origin main
+ 1) need to connect docker to the system so that it can on anything 
+ 2) need to fix the issue of pull from github because it is not pulling the latest update on github 
 
-Need to connect github to Docker so that the below steps are followed: 
-# 1) Mono + Debian base
-FROM mono:6.12.0 AS mono-base
+  2025-06-08 01:20:12 
+  1) updated the folders and the did full clean house of the files naming and folders 
+  2) implemented docker settings for cross board implementation of the system 
+  3) enhanced the RAG sysstem implementation so that it is more efficient 
+  4) tested the pipeline and made sure everything is working well 
+  5) createed a file name system_diagonstic.py that can tell what is being wrong and should be enhanced frequently 
+  6) installed the DWSIM lib successfully
+  
+  To Do: 
+  1) Confirm everything is good from the docker app 
+  2) start testing the DWSIM simulation 
+  
 
-# 2) Install Python 3 and pip, then pythonnet & ML deps
-RUN apt-get update && apt-get install -y \
-        python3 python3-pip \
-    && pip3 install --upgrade pip \
-    && pip3 install \
-        pythonnet \
-        pandas \
-        faiss-cpu \
-        transformers \
-        torch \
-        langchain \
-        openai \
-        openpyxl
-
-# 3) Copy DWSIM assemblies into mono’s GAC path
-#    (adjust source path if you checked them into your repo under /libs)
-COPY libs/DWSIM.Thermodynamics.dll /usr/local/lib/mono/4.5/
-COPY libs/DWSIM.Interfaces.dll     /usr/local/lib/mono/4.5/
-
-# 4) Copy your RAG + simulation code
-WORKDIR /app
-COPY . /app
-
-# 5) Set entrypoint (you can override in `docker run`)
-ENTRYPOINT ["python3", "run_pipeline.py"]
-CMD ["--help"]
-
-
- 2025-06-09 15:12:14 changes made and pushed to origin main
- 2025-06-09 19:54:50: Log Update
-
- 2025-06-09 19:55:06 changes made and pushed to origin main
+ 2025-06-10 01:33:47 changes made and pushed to origin main

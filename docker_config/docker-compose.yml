@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  pynucleus:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/app/data
+      - ./dwsim_libs:/opt/dwsim_libs
+    environment:
+      - DWSIM_DLL_PATH=/opt/dwsim_libs
+    ports:
+      - "8000:8000"  # For future API endpoints
+    command: python scripts/system_diagnostic.py  # Default command
+
+  # Future services can be added here:
+  # - Vector DB service
+  # - API service
+  # - Monitoring service 
