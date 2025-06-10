@@ -1,0 +1,46 @@
+{
+  "simulations": [
+    {
+      "name": "ethanol_distillation_example",
+      "type": "distillation",
+      "components": [
+        "water",
+        "ethanol"
+      ],
+      "description": "Ethanol-water separation column",
+      "parameters": {
+        "temperature": 78.4,
+        "pressure": 101325,
+        "flow_rate": 1000,
+        "reflux_ratio": 2.5
+      },
+      "expected_outputs": {
+        "conversion": 0.95,
+        "selectivity": 0.98,
+        "yield": 0.93
+      }
+    },
+    {
+      "name": "methane_reforming_example",
+      "type": "reactor",
+      "components": [
+        "methane",
+        "steam",
+        "hydrogen",
+        "carbon_monoxide"
+      ],
+      "description": "Steam methane reforming reactor",
+      "parameters": {
+        "temperature": 850,
+        "pressure": 2500000,
+        "flow_rate": 500,
+        "catalyst_loading": 100
+      },
+      "expected_outputs": {
+        "conversion": 0.85,
+        "selectivity": 0.92,
+        "yield": 0.78
+      }
+    }
+  ]
+}

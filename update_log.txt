@@ -83,7 +83,22 @@ To Do:
 4) make sure that the LLM ready document has the feed conditions which can be fetched easily from .json value 
 5) update the @project_structure.md to have everything updated 
 6) run another docker build 
-
-
-
  2025-06-10 17:46:14 changes made and pushed to origin main
+
+Completed: 
+1) change the folders directory for different outputs like LLM and the results 
+2) make sure that the LLM ready document has the feed conditions which can be fetched easily from .json value 
+3) update the @project_structure.md to have everything updated 
+4) run another docker build- it is needed to build anything. Note: the current builder covers only the DWSIM API calling 
+5) ran everything and everything is working fine 
+6) update the code to include DWSIM script for window so that it switches seamsly between hosting API and using windows
+
+To Do: 
+1) Run the structure and pipelien summary through GenAI tool to get enhancement ideas 
+2) fix the DWSIM pipeline and remove mocked data from output if possible 
+3) Start implementing the LLM in google colab... but write the full script here with or very small model before transferring to google colab 
+
+
+
+
+ 2025-06-10 19:06:06 changes made and pushed to origin main

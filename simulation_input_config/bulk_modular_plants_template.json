@@ -1,0 +1,194 @@
+{
+  "metadata": {
+    "template_version": "2.0",
+    "description": "Bulk template for 1000+ modular plants",
+    "created_date": "2025-06-10T18:57:30.988040",
+    "supports_bulk_operations": true,
+    "max_simulations": "unlimited",
+    "copy_paste_ready": true
+  },
+  "simulation_types": {
+    "distillation": [
+      "ethanol_water",
+      "methanol_water",
+      "benzene_toluene",
+      "acetone_water"
+    ],
+    "reactor": [
+      "steam_reforming",
+      "cracking",
+      "polymerization",
+      "hydrogenation"
+    ],
+    "heat_exchanger": [
+      "shell_tube",
+      "plate",
+      "air_cooled",
+      "reboiler"
+    ],
+    "absorber": [
+      "co2_capture",
+      "acid_gas_removal",
+      "dehydration"
+    ],
+    "crystallizer": [
+      "salt_crystallization",
+      "sugar_crystallization",
+      "pharmaceutical"
+    ]
+  },
+  "simulations": [
+    {
+      "plant_id": "MP001",
+      "name": "small_ethanol_plant_africa",
+      "type": "distillation",
+      "location": "West Africa",
+      "capacity": "small",
+      "components": [
+        "water",
+        "ethanol",
+        "methanol"
+      ],
+      "description": "Small-scale modular ethanol plant for rural deployment",
+      "parameters": {
+        "temperature": 78.4,
+        "pressure": 101325,
+        "flow_rate": 500,
+        "feed_composition": {
+          "ethanol": 0.12,
+          "water": 0.87,
+          "methanol": 0.01
+        },
+        "reflux_ratio": 2.5,
+        "number_of_stages": 12,
+        "feed_temperature": 25.0,
+        "feed_pressure": 101325,
+        "reboiler_duty": 1500.0,
+        "condenser_duty": 1200.0
+      },
+      "expected_outputs": {
+        "conversion": 0.95,
+        "selectivity": 0.98,
+        "yield": 0.93,
+        "purity": 0.999,
+        "recovery_rate": 0.94
+      },
+      "economic_data": {
+        "capex": 250000,
+        "opex_annual": 75000,
+        "revenue_annual": 180000,
+        "payback_period": 3.2
+      }
+    },
+    {
+      "plant_id": "MP002",
+      "name": "medium_hydrogen_plant_asia",
+      "type": "reactor",
+      "location": "Southeast Asia",
+      "capacity": "medium",
+      "components": [
+        "methane",
+        "steam",
+        "hydrogen",
+        "carbon_monoxide",
+        "carbon_dioxide"
+      ],
+      "description": "Medium-scale modular hydrogen production via steam reforming",
+      "parameters": {
+        "temperature": 850,
+        "pressure": 2500000,
+        "flow_rate": 1000,
+        "feed_composition": {
+          "methane": 0.75,
+          "steam": 0.25
+        },
+        "residence_time": 3.0,
+        "catalyst_loading": 150,
+        "steam_to_carbon_ratio": 3.0,
+        "feed_temperature": 400.0,
+        "feed_pressure": 2500000,
+        "reactor_volume": 50.0
+      },
+      "expected_outputs": {
+        "conversion": 0.88,
+        "selectivity": 0.92,
+        "yield": 0.81,
+        "hydrogen_purity": 0.95,
+        "recovery_rate": 0.85
+      },
+      "economic_data": {
+        "capex": 1500000,
+        "opex_annual": 400000,
+        "revenue_annual": 850000,
+        "payback_period": 2.8
+      }
+    },
+    {
+      "plant_id": "MP003",
+      "name": "COPY_PASTE_TEMPLATE_HERE",
+      "type": "SELECT: distillation|reactor|heat_exchanger|absorber|crystallizer",
+      "location": "YOUR_LOCATION",
+      "capacity": "SELECT: small|medium|large",
+      "components": [
+        "component1",
+        "component2",
+        "component3"
+      ],
+      "description": "Description of your modular plant",
+      "parameters": {
+        "temperature": 0.0,
+        "pressure": 101325,
+        "flow_rate": 1000,
+        "feed_composition": {
+          "comp1": 0.5,
+          "comp2": 0.5
+        },
+        "reflux_ratio": 2.5,
+        "number_of_stages": 15,
+        "residence_time": 2.0,
+        "catalyst_loading": 100,
+        "feed_temperature": 25.0,
+        "feed_pressure": 101325
+      },
+      "expected_outputs": {
+        "conversion": 0.9,
+        "selectivity": 0.95,
+        "yield": 0.85,
+        "purity": 0.99,
+        "recovery_rate": 0.9
+      },
+      "economic_data": {
+        "capex": 500000,
+        "opex_annual": 150000,
+        "revenue_annual": 300000,
+        "payback_period": 3.5
+      }
+    }
+  ],
+  "bulk_operation_instructions": {
+    "how_to_add_1000_plants": [
+      "1. Copy the template simulation (MP003) above",
+      "2. Paste it below and modify the parameters",
+      "3. Increment plant_id (MP004, MP005, etc.)",
+      "4. Update name, location, and parameters",
+      "5. Repeat for each modular plant"
+    ],
+    "supported_parameters": [
+      "temperature",
+      "pressure",
+      "flow_rate",
+      "feed_composition",
+      "reflux_ratio",
+      "number_of_stages",
+      "residence_time",
+      "catalyst_loading",
+      "feed_temperature",
+      "feed_pressure",
+      "reboiler_duty",
+      "condenser_duty",
+      "reactor_volume",
+      "steam_to_carbon_ratio"
+    ],
+    "performance_note": "PyNucleus can handle 1000+ simulations efficiently"
+  }
+}

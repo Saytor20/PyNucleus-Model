@@ -1,5 +1,5 @@
 # PyNucleus Model - Process Analysis Report
-Generated: 2025-06-10 17:41:57
+Generated: 2025-06-10 18:57:31
 Total Simulations: 5
 
 ## Executive Summary
@@ -27,22 +27,42 @@ This report analyzes 5 chemical process simulations with enhanced metrics and fi
 ### Simulation 1: distillation_ethanol_water
 
 **Process Type:** Unknown
-**Components:** w, a, t, e, r, ,,  , e, t, h, a, n, o, l
+**Components:** water, ethanol
 **Description:** Ethanol-water separation column
 **Status:** ✅ Successful
 
-**Key Performance Metrics:**
+**Feed Conditions:**
+- Total Feed Rate: 200 kmol/hr
+- Feed Temperature: 25°C
+- Feed Pressure: 2500 kPa (24.7 atm)
+
+**Component Breakdown:**
+
+**Operating Conditions:**
+- Temperature C: 450°C
+- Pressure Kpa: 2500 kPa (24.7 atm)
+- Residence Time Hr: 0.8 hours
+- Catalyst Loading Kg: 150 kg/hr
+- Heat Duty Kw: 3,500 kW
+
+**Performance Results:**
+- Conversion: 85.0%
+- Selectivity: 92.0%
+- Yield: 78.0%
 - Recovery Rate: 82.5%
 - Production Rate: 750.00 kg/hr
+
+**Economic Metrics:**
 - Daily Revenue: $29,700.00
 - Daily Operating Cost: $18,000.00
 - Daily Profit: $11,700.00
 - Overall Performance: Good
 - Efficiency Rating: High
 
-**Issues Identified:** 0
-**Recommendations:** 1
-**Optimization Opportunities:** 1
+**Process Analysis:**
+- Issues Identified: 0
+- Recommendations: 1
+- Optimization Opportunities: 1
 
 **Top Recommendations:**
 1. Simulation completed successfully - results are ready for analysis
@@ -53,22 +73,48 @@ This report analyzes 5 chemical process simulations with enhanced metrics and fi
 ### Simulation 2: reactor_methane_combustion
 
 **Process Type:** Unknown
-**Components:** m, e, t, h, a, n, e, ,,  , o, x, y, g, e, n
+**Components:** methane, oxygen
 **Description:** Methane combustion reactor
 **Status:** ✅ Successful
 
-**Key Performance Metrics:**
+**Feed Conditions:**
+- Total Feed Rate: 200 kmol/hr
+- Feed Temperature: 25°C
+- Feed Pressure: 2500 kPa (24.7 atm)
+
+**Component Breakdown:**
+- Methane:
+  • Mole Fraction: 0.800 (80.0%)
+  • Mass Flow Rate: 2,560 kg/hr
+- Oxygen:
+  • Mole Fraction: 0.200 (20.0%)
+  • Mass Flow Rate: 640 kg/hr
+
+**Operating Conditions:**
+- Temperature C: 450°C
+- Pressure Kpa: 2500 kPa (24.7 atm)
+- Residence Time Hr: 0.8 hours
+- Catalyst Loading Kg: 150 kg/hr
+- Heat Duty Kw: 3,500 kW
+
+**Performance Results:**
+- Conversion: 85.0%
+- Selectivity: 92.0%
+- Yield: 78.0%
 - Recovery Rate: 82.5%
 - Production Rate: 750.00 kg/hr
+
+**Economic Metrics:**
 - Daily Revenue: $29,700.00
 - Daily Operating Cost: $18,000.00
 - Daily Profit: $11,700.00
 - Overall Performance: Good
 - Efficiency Rating: High
 
-**Issues Identified:** 0
-**Recommendations:** 1
-**Optimization Opportunities:** 1
+**Process Analysis:**
+- Issues Identified: 0
+- Recommendations: 1
+- Optimization Opportunities: 1
 
 **Top Recommendations:**
 1. Simulation completed successfully - results are ready for analysis
@@ -79,22 +125,42 @@ This report analyzes 5 chemical process simulations with enhanced metrics and fi
 ### Simulation 3: heat_exchanger_steam
 
 **Process Type:** Unknown
-**Components:** w, a, t, e, r, ,,  , s, t, e, a, m
+**Components:** water, steam
 **Description:** Steam heat exchanger
 **Status:** ✅ Successful
 
-**Key Performance Metrics:**
+**Feed Conditions:**
+- Total Feed Rate: 200 kmol/hr
+- Feed Temperature: 25°C
+- Feed Pressure: 2500 kPa (24.7 atm)
+
+**Component Breakdown:**
+
+**Operating Conditions:**
+- Temperature C: 450°C
+- Pressure Kpa: 2500 kPa (24.7 atm)
+- Residence Time Hr: 0.8 hours
+- Catalyst Loading Kg: 150 kg/hr
+- Heat Duty Kw: 3,500 kW
+
+**Performance Results:**
+- Conversion: 85.0%
+- Selectivity: 92.0%
+- Yield: 78.0%
 - Recovery Rate: 82.5%
 - Production Rate: 750.00 kg/hr
+
+**Economic Metrics:**
 - Daily Revenue: $29,700.00
 - Daily Operating Cost: $18,000.00
 - Daily Profit: $11,700.00
 - Overall Performance: Good
 - Efficiency Rating: High
 
-**Issues Identified:** 0
-**Recommendations:** 1
-**Optimization Opportunities:** 0
+**Process Analysis:**
+- Issues Identified: 0
+- Recommendations: 1
+- Optimization Opportunities: 0
 
 **Top Recommendations:**
 1. Simulation completed successfully - results are ready for analysis
@@ -102,22 +168,42 @@ This report analyzes 5 chemical process simulations with enhanced metrics and fi
 ### Simulation 4: absorber_co2_capture
 
 **Process Type:** Unknown
-**Components:** C, O, 2, ,,  , w, a, t, e, r
+**Components:** CO2, water
 **Description:** CO2 absorption column
 **Status:** ✅ Successful
 
-**Key Performance Metrics:**
+**Feed Conditions:**
+- Total Feed Rate: 200 kmol/hr
+- Feed Temperature: 25°C
+- Feed Pressure: 2500 kPa (24.7 atm)
+
+**Component Breakdown:**
+
+**Operating Conditions:**
+- Temperature C: 450°C
+- Pressure Kpa: 2500 kPa (24.7 atm)
+- Residence Time Hr: 0.8 hours
+- Catalyst Loading Kg: 150 kg/hr
+- Heat Duty Kw: 3,500 kW
+
+**Performance Results:**
+- Conversion: 85.0%
+- Selectivity: 92.0%
+- Yield: 78.0%
 - Recovery Rate: 82.5%
 - Production Rate: 750.00 kg/hr
+
+**Economic Metrics:**
 - Daily Revenue: $29,700.00
 - Daily Operating Cost: $18,000.00
 - Daily Profit: $11,700.00
 - Overall Performance: Good
 - Efficiency Rating: High
 
-**Issues Identified:** 0
-**Recommendations:** 1
-**Optimization Opportunities:** 0
+**Process Analysis:**
+- Issues Identified: 0
+- Recommendations: 1
+- Optimization Opportunities: 0
 
 **Top Recommendations:**
 1. Simulation completed successfully - results are ready for analysis
@@ -125,22 +211,42 @@ This report analyzes 5 chemical process simulations with enhanced metrics and fi
 ### Simulation 5: crystallizer_salt
 
 **Process Type:** Unknown
-**Components:** w, a, t, e, r, ,,  , s, a, l, t
+**Components:** water, salt
 **Description:** Salt crystallization unit
 **Status:** ✅ Successful
 
-**Key Performance Metrics:**
+**Feed Conditions:**
+- Total Feed Rate: 200 kmol/hr
+- Feed Temperature: 25°C
+- Feed Pressure: 2500 kPa (24.7 atm)
+
+**Component Breakdown:**
+
+**Operating Conditions:**
+- Temperature C: 450°C
+- Pressure Kpa: 2500 kPa (24.7 atm)
+- Residence Time Hr: 0.8 hours
+- Catalyst Loading Kg: 150 kg/hr
+- Heat Duty Kw: 3,500 kW
+
+**Performance Results:**
+- Conversion: 85.0%
+- Selectivity: 92.0%
+- Yield: 78.0%
 - Recovery Rate: 82.5%
 - Production Rate: 750.00 kg/hr
+
+**Economic Metrics:**
 - Daily Revenue: $29,700.00
 - Daily Operating Cost: $18,000.00
 - Daily Profit: $11,700.00
 - Overall Performance: Good
 - Efficiency Rating: High
 
-**Issues Identified:** 0
-**Recommendations:** 1
-**Optimization Opportunities:** 0
+**Process Analysis:**
+- Issues Identified: 0
+- Recommendations: 1
+- Optimization Opportunities: 0
 
 **Top Recommendations:**
 1. Simulation completed successfully - results are ready for analysis

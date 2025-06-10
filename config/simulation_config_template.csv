@@ -1,3 +1,0 @@
-name,type,components,description,temperature,pressure,flow_rate,reflux_ratio,number_of_stages,expected_conversion,expected_selectivity,expected_yield,residence_time,catalyst_loading
-ethanol_distillation,distillation,"water,ethanol",Ethanol-water separation using distillation column,78.4,101325,1000,2.5,15.0,0.95,0.98,0.93,,
-methane_reforming,reactor,"methane,steam,hydrogen,carbon_monoxide",Steam methane reforming for hydrogen production,900.0,2500000,500,,,0.85,0.92,0.78,2.5,100.0
