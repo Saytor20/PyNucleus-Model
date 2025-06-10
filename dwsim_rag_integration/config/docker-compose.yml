@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # Enhanced DWSIM Service with Chemical Engineering & RAG Integration
+  dwsim-service:
+    build:
+      context: ..
+      dockerfile: config/Dockerfile.dwsim-service
+    container_name: dwsim-enhanced-service
+    ports:
+      - "8080:8080"
+    environment:
+      - ENV=production
+      - LOG_LEVEL=info
+      - MAX_SIMULATION_TIME=300
+      - ENABLE_RAG=true
+      - ENABLE_CHEMICAL_CALCS=true
+    volumes:
+      - simulation_data:/app/simulation_data
+      - results_data:/app/results
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - dwsim_network
+
+  # Optional: Web Interface for DWSIM+RAG (if needed later)
+  web-interface:
+    build:
+      context: ..
+      dockerfile: config/Dockerfile.web-interface
+    container_name: dwsim-web-interface
+    ports:
+      - "3000:3000"
+    environment:
+      - DWSIM_SERVICE_URL=http://dwsim-service:8080
+      - NODE_ENV=production
+    depends_on:
+      dwsim-service:
+        condition: service_healthy
+    networks:
+      - dwsim_network
+    profiles:
+      - web
+
+volumes:
+  simulation_data:
+    driver: local
+  results_data:
+    driver: local
+
+networks:
+  dwsim_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16 

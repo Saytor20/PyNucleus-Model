@@ -1,0 +1,1 @@
+"""Enhanced DWSIM service with chemical engineering and RAG capabilities.""" 

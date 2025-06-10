@@ -57,9 +57,17 @@ To Do:
 1) New updates have been made in terms of formatting and organization of the folders 
 2) system check and output verifications have been completed with satisfactory output 
 3) new config.py have been created to include all configuration requirements 
-4) 
+4) DWSIM is now functionating and all results are converted to .csv files 
+5) the .ipynb file Capstone Project have been revised so that it covers DWSIM, data processing, chuncking and converting to VectorDB 
+6) all folders have been updated so that it is organized as per the function 
 
 
- 2025-06-10 12:58:34 changes made and pushed to origin main
+To do: 
+1) update the code to include DWSIM script for window so that it switches seamsly between hosting API and using windows
+2) update system_diagonstic.py to be aligned with the new changes 
+3) Need to work on the DWSIM conversion to be understood by the RAG and to have input and output integration between the two 
+4) The results and analysis should then be converted to a .txt file so that it is used as input to the LLM model to have a robust output 
+5) Need to revise the DWSIM so that it can be easily adjusted later 
 
- 2025-06-10 13:03:47 changes made and pushed to origin main
+
+ 2025-06-10 16:18:36 changes made and pushed to origin main

@@ -1,0 +1,20 @@
+# Enhanced DWSIM Bridge with RAG Integration Requirements
+
+# Core dependencies
+requests>=2.31.0
+numpy>=1.24.0
+pyyaml>=6.0.1
+
+# FastAPI service dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# Optional: RAG and AI dependencies (can be added later)
+# openai>=1.0.0
+# chromadb>=0.4.0
+# transformers>=4.35.0
+
+# Development and testing (optional)
+# pytest>=7.4.0
+# pytest-asyncio>=0.21.0 
