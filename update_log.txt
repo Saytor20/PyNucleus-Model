@@ -54,6 +54,12 @@ To Do:
 
  2025-06-10 01:33:47 changes made and pushed to origin main
 
- 2025-06-10 12:56:28 changes made and pushed to origin main
+1) New updates have been made in terms of formatting and organization of the folders 
+2) system check and output verifications have been completed with satisfactory output 
+3) new config.py have been created to include all configuration requirements 
+4) 
+
 
  2025-06-10 12:58:34 changes made and pushed to origin main
+
+ 2025-06-10 13:03:47 changes made and pushed to origin main
