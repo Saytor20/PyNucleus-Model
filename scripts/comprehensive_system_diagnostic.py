@@ -222,8 +222,8 @@ class SystemDiagnostic:
             print(f"   ✅ ConfigManager: {config_manager.config_dir}")
             
             # Test LLMOutputGenerator with separate directories
-            llm_generator = LLMOutputGenerator(results_dir="results", llm_output_dir="llm_reports")
-            print(f"   ✅ LLMOutputGenerator: results_dir={llm_generator.results_dir}, llm_output_dir={llm_generator.llm_output_dir}")
+            llm_generator = LLMOutputGenerator(results_dir="data/05_output/llm_reports")
+            print(f"   ✅ LLMOutputGenerator: results_dir={llm_generator.results_dir}")
             
             # Test template creation (will skip if exists)
             json_template = config_manager.create_template_json("system_diagnostic_test.json", verbose=True)
@@ -246,7 +246,7 @@ class SystemDiagnostic:
         
         try:
             from pynucleus.integration.llm_output_generator import LLMOutputGenerator
-            llm_generator = LLMOutputGenerator(results_dir="results", llm_output_dir="llm_reports")
+            llm_generator = LLMOutputGenerator(results_dir="data/05_output/llm_reports")
             
             # Create comprehensive test data
             test_data = [
@@ -285,7 +285,7 @@ class SystemDiagnostic:
             ]
             
             # Generate enhanced content
-            output_file = llm_generator.export_llm_ready_text(test_data, verbose=False)
+            output_file = llm_generator.export_llm_ready_text(test_data[0])
             print(f"   ✅ Enhanced LLM output generated: {output_file}")
             
             # Verify file location

@@ -1,3 +1,0 @@
-name,type,components,description,temperature,pressure,flow_rate,reflux_ratio,expected_conversion,expected_selectivity,expected_yield,catalyst_loading
-ethanol_distillation_example,distillation,"water,ethanol",Ethanol-water separation column,78.4,101325,1000,2.5,0.95,0.98,0.93,
-methane_reforming_example,reactor,"methane,steam,hydrogen,carbon_monoxide",Steam methane reforming reactor,850.0,2500000,500,,0.85,0.92,0.78,100.0

@@ -105,10 +105,11 @@ Completed:
 2) Data directory consolidation- Completed 
 3) Pydantic settings + ConfigManager refactor- Completed 
 4) Jinja2 templating for LLMOutputGenerator- Completed 
+5) Centralized Logging Configuration
+6) Prompt Template for LLM Integration
+7) Prompt: Token Counting Utility
 
 
 To Do: 
 
-
-
- 2025-06-10 23:02:23 changes made and pushed to origin main
+ 2025-06-11 00:16:05 changes made and pushed to origin main

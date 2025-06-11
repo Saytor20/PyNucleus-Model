@@ -12,7 +12,7 @@ import sys
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional, Any
 
 # Add project root to path
 sys.path.append(os.path.abspath('.'))
@@ -248,6 +248,86 @@ class PipelineUtils:
         
         # Write CSV...
         return str(output_file)
+
+def run_full_pipeline(settings, output_dir: Path) -> Dict[str, Any]:
+    """
+    Execute the full PyNucleus pipeline from command line with configuration settings.
+    
+    Args:
+        settings: AppSettings object loaded from JSON/CSV via Pydantic
+        output_dir: Output directory path
+        
+    Returns:
+        Dictionary with pipeline results and status
+    """
+    # Add src to Python path for CLI usage
+    import sys
+    from pathlib import Path as PathLib
+    src_path = str(PathLib(__file__).parent.parent.parent.parent / "src")
+    if src_path not in sys.path:
+        sys.path.insert(0, src_path)
+    
+    from ..utils.logging_config import get_logger
+    
+    logger = get_logger(__name__)
+    start_time = datetime.now()
+    
+    logger.info("🚀 Starting PyNucleus full pipeline...")
+    logger.info(f"📁 Output directory: {output_dir}")
+    logger.info(f"⚙️ Configuration: {len(settings.simulations)} simulations loaded")
+    logger.info(f"🔍 RAG settings: top_k={settings.rag.top_k}, threshold={settings.rag.similarity_threshold}")
+    logger.info(f"📝 LLM settings: summary_length={settings.llm.summary_length}")
+    
+    try:
+        # Initialize pipeline with output directory
+        pipeline = PipelineUtils(results_dir=str(output_dir))
+        
+        # Always run complete pipeline for CLI
+        logger.info("🔄 Running complete pipeline (RAG + DWSIM + Export)")
+        results = pipeline.run_complete_pipeline()
+        
+        if results:
+            end_time = datetime.now()
+            duration = (end_time - start_time).total_seconds()
+            
+            # Add CLI-specific metadata
+            results.update({
+                'cli_execution': True,
+                'settings_used': {
+                    'simulations_count': len(settings.simulations),
+                    'rag_config': settings.rag.model_dump(),
+                    'llm_config': settings.llm.model_dump()
+                },
+                'output_directory': str(output_dir),
+                'total_duration': duration,
+                'execution_time': start_time.isoformat(),
+                'completion_time': end_time.isoformat()
+            })
+            
+            logger.info(f"✅ Pipeline completed successfully in {duration:.1f}s")
+            logger.info(f"📊 Results: {len(results.get('rag_data', []))} RAG, {len(results.get('dwsim_data', []))} DWSIM")
+            logger.info(f"📁 Files exported: {len(results.get('exported_files', []))}")
+            
+            print(f'✅  CLI available:  python run_pipeline.py --config-path configs/my.json')
+            
+            return results
+        else:
+            logger.error("❌ Pipeline execution returned no results")
+            return {
+                'success': False,
+                'error': 'Pipeline execution failed',
+                'cli_execution': True,
+                'output_directory': str(output_dir)
+            }
+            
+    except Exception as e:
+        logger.error(f"❌ Pipeline execution failed: {str(e)}")
+        return {
+            'success': False,
+            'error': str(e),
+            'cli_execution': True,
+            'output_directory': str(output_dir)
+        }
 
 def create_pipeline(results_dir="data/05_output/results"):
     """Factory function to create a new pipeline instance."""
