@@ -1,0 +1,19 @@
+=== FAISS VectorDB Analysis ===
+Started: 2025-06-10 21:43:06
+Loaded 234 documents from /Users/mohammadalmusaiteer/PyNucleus-Model/src/converted_chunked_data/chunked_data_full.json
+Embedding device → cpu   | dim=384
+Docs indexed : 234
+Index file   : /Users/mohammadalmusaiteer/PyNucleus-Model/src/chunk_reports/pynucleus_mcp.faiss
+Embeds .pkl  : /Users/mohammadalmusaiteer/PyNucleus-Model/src/chunk_reports/embeddings.pkl
+
+-- Files in chunk_reports/ --
+  · embeddings.pkl
+  · faiss_analysis_20250610_214306.txt
+  · pynucleus_mcp.faiss
+  · faiss_analysis_20250610_214035.txt
+
+=== Evaluation (Recall@3) ===
+Q: what are the benefits of modular design  ✓   top-score=0.4110
+Q: how does modular design work in vehicles ✓   top-score=0.3477
+
+Recall@3: 2/2  →  100.0%

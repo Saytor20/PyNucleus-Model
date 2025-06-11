@@ -1,0 +1,12 @@
+{
+  "total_chunks": 234,
+  "sources": [
+    "/Users/mohammadalmusaiteer/PyNucleus-Model/src/web_sources/wikipedia_supply_chain.txt",
+    "/Users/mohammadalmusaiteer/PyNucleus-Model/src/web_sources/wikipedia_industrial_design.txt",
+    "/Users/mohammadalmusaiteer/PyNucleus-Model/src/web_sources/wikipedia_software_architecture.txt",
+    "/Users/mohammadalmusaiteer/PyNucleus-Model/src/web_sources/wikipedia_system_design.txt",
+    "/Users/mohammadalmusaiteer/PyNucleus-Model/src/web_sources/wikipedia_modular_design.txt"
+  ],
+  "avg_chunk_size": 342.4102564102564,
+  "generated_at": "2025-06-10T21:43:06.520482"
+}

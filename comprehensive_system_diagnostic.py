@@ -24,8 +24,10 @@ import json
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-# Add project root to path
-sys.path.append(os.path.abspath('.'))
+# Add src directory to Python path
+src_path = str(Path(__file__).parent / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
 
 class SystemDiagnostic:
     def __init__(self):
@@ -131,43 +133,44 @@ class SystemDiagnostic:
         self.print_section_header("PYNUCLEUS DIRECTORY STRUCTURE CHECK")
         issues = []
         
-        # PyNucleus core directories (actual structure)
-        core_dirs = [
-            ("core_modules", "Core pipeline modules"),
-            ("llm_reports", "LLM output files"),
-            ("simulation_input_config", "Configuration files"),
-            ("results", "Pipeline results"),
-            ("source_documents", "Source documents for RAG"),
-            ("converted_to_txt", "Converted documents"),
-            ("web_sources", "Web scraped sources"),
-            ("chunk_reports", "FAISS analysis reports")
-        ]
+        print("\n============================================================")
+        print("🔍 PYNUCLEUS DIRECTORY STRUCTURE CHECK")
+        print("============================================================")
         
-        for dir_name, description in core_dirs:
-            dir_path = Path(dir_name)
-            if dir_path.exists():
-                file_count = len(list(dir_path.rglob("*")))
-                print(f"   ✅ {description}: {dir_name}/ ({file_count} items)")
+        # Check core directories
+        core_dirs = {
+            "Core pipeline modules": "src/pynucleus",
+            "LLM output files": "llm_reports",
+            "Configuration files": "simulation_input_config",
+            "Pipeline results": "results",
+            "Source documents for RAG": "source_documents",
+            "Converted documents": "converted_to_txt",
+            "Web scraped sources": "web_sources",
+            "FAISS analysis reports": "chunk_reports"
+        }
+        
+        for name, path in core_dirs.items():
+            if os.path.exists(path):
+                items = len(os.listdir(path))
+                print(f"   ✅ {name}: {path}/ ({items} items)")
             else:
-                print(f"   ❌ {description}: {dir_name}/ (missing)")
-                issues.append(f"Missing directory: {dir_name}")
+                print(f"   ❌ {name}: {path}/ (missing)")
+                issues.append(f"Missing directory: {path}")
         
-        # Check core_modules subdirectories
-        core_subdirs = [
-            ("core_modules/pipeline", "Pipeline components"),
-            ("core_modules/rag", "RAG components"),
-            ("core_modules/integration", "Enhanced integration"),
-            ("core_modules/simulation", "Simulation components")
-        ]
+        print("\n   📁 Core Module Structure:")
+        core_module_dirs = {
+            "Pipeline components": "src/pynucleus/pipeline",
+            "RAG components": "src/pynucleus/rag",
+            "Enhanced integration": "src/pynucleus/integration",
+            "Simulation components": "src/pynucleus/simulation"
+        }
         
-        print(f"\n   📁 Core Module Structure:")
-        for subdir, description in core_subdirs:
-            if Path(subdir).exists():
-                files = list(Path(subdir).glob("*"))
-                print(f"      ✅ {description}: {subdir}/ ({len(files)} items)")
+        for name, path in core_module_dirs.items():
+            if os.path.exists(path):
+                print(f"      ✅ {name}: {path}/")
             else:
-                print(f"      ❌ {description}: {subdir}/ (missing)")
-                issues.append(f"Missing core directory: {subdir}")
+                print(f"      ❌ {name}: {path}/ (missing)")
+                issues.append(f"Missing core directory: {path}")
         
         # Check our enhanced folders specifically
         enhanced_folders = [
@@ -196,9 +199,9 @@ class SystemDiagnostic:
         
         try:
             # Test imports
-            from core_modules.integration.config_manager import ConfigManager
-            from core_modules.integration.dwsim_rag_integrator import DWSIMRAGIntegrator
-            from core_modules.integration.llm_output_generator import LLMOutputGenerator
+            from pynucleus.integration.config_manager import ConfigManager
+            from pynucleus.integration.dwsim_rag_integrator import DWSIMRAGIntegrator
+            from pynucleus.integration.llm_output_generator import LLMOutputGenerator
             print("   ✅ All enhanced modules imported successfully")
             
             # Test ConfigManager with new folder structure
@@ -229,7 +232,7 @@ class SystemDiagnostic:
         issues = []
         
         try:
-            from core_modules.integration.llm_output_generator import LLMOutputGenerator
+            from pynucleus.integration.llm_output_generator import LLMOutputGenerator
             llm_generator = LLMOutputGenerator(results_dir="results", llm_output_dir="llm_reports")
             
             # Create comprehensive test data
@@ -336,7 +339,7 @@ class SystemDiagnostic:
             ("web_sources", "Web scraped sources"),
             ("converted_chunked_data", "Chunked data"),
             ("chunk_reports", "FAISS analysis reports"),
-            ("core_modules/rag", "RAG source code"),
+            ("src/pynucleus/rag", "RAG source code"),
         ]
         
         for dir_path, description in rag_dirs:
@@ -367,7 +370,7 @@ class SystemDiagnostic:
         
         try:
             # Test core pipeline imports
-            from core_modules.pipeline import RAGPipeline, DWSIMPipeline, ResultsExporter, PipelineUtils
+            from pynucleus.pipeline import RAGPipeline, DWSIMPipeline, ResultsExporter, PipelineUtils
             print("   ✅ Core pipeline modules imported successfully")
             
             # Initialize pipeline utils

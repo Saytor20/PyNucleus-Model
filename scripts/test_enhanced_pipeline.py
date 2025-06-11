@@ -25,9 +25,9 @@ def test_enhanced_pipeline():
     try:
         # Test 1: Import enhanced modules
         print("\n1️⃣ Testing module imports...")
-        from core_modules.integration.config_manager import ConfigManager
-        from core_modules.integration.dwsim_rag_integrator import DWSIMRAGIntegrator
-        from core_modules.integration.llm_output_generator import LLMOutputGenerator
+        from pynucleus.integration.config_manager import ConfigManager
+        from pynucleus.integration.dwsim_rag_integrator import DWSIMRAGIntegrator
+        from pynucleus.integration.llm_output_generator import LLMOutputGenerator
         print("✅ All enhanced modules imported successfully!")
         
         # Test 2: Initialize components
@@ -105,7 +105,7 @@ def test_basic_functionality():
     print("\n🔧 Testing basic pipeline functionality...")
     
     try:
-        from core_modules.pipeline import RAGPipeline, DWSIMPipeline, ResultsExporter, PipelineUtils
+        from pynucleus.pipeline import RAGPipeline, DWSIMPipeline, ResultsExporter, PipelineUtils
         print("✅ Basic pipeline modules imported successfully!")
         
         # Test basic pipeline initialization

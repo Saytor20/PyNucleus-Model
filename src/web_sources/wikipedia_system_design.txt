@@ -1,0 +1,37 @@
+The basic study of system design is the understanding of component parts and their subsequent interaction with one another.[1]
+
+Systems design has appeared in a variety of fields, including sustainability,[2] computer/software architecture,[3] and sociology.[4]
+
+Product Development
+
+If the broader topic of product development "blends the perspective of marketing, design, and manufacturing into a single approach to product development,"[5] then design is the act of taking the marketing information and creating the design of the product to be manufactured.
+
+Thus in product development, systems design involves the process of defining and developing systems, such as interfaces and data, for an electronic control system to satisfy specified requirements. Systems design could be seen as the application of systems theory to product development. There is some overlap with the disciplines of systems analysis, systems architecture and systems engineering.[6][7]
+
+Physical design
+
+The physical design relates to the actual input and output processes of the system. This is explained in terms of how data is input into a system, how it is verified/authenticated, how it is processed, and how it is displayed.
+In physical design, the following requirements about the system are decided.
+
+Put another way, the physical portion of system design can generally be broken down into three sub-tasks:
+
+Architecture design
+
+Designing the overall structure of a system focuses on creating a scalable, reliable, and efficient system. For example, services like Google, Twitter, Facebook, Amazon, and Netflix exemplify large-scale distributed systems. Here are key considerations:
+
+Machine Learning Systems Design
+
+Machine learning systems design focuses on building scalable, reliable, and efficient systems that integrate machine learning (ML) models to solve real-world problems. ML systems require careful consideration of data pipelines, model training, and deployment infrastructure. ML systems are often used in applications such as recommendation engines, fraud detection, and natural language processing.
+
+Key components to consider when designing ML systems include:
+
+Designing an ML system involves balancing trade-offs between accuracy, latency, cost, and maintainability, while ensuring system scalability and reliability. The discipline overlaps with MLOps, a set of practices that unifies machine learning development and operations to ensure smooth deployment and lifecycle management of ML systems.
+
+See also
+
+References
+
+Further reading
+
+External links
+

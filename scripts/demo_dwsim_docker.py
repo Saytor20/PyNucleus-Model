@@ -12,7 +12,7 @@ from pathlib import Path
 # Add the project root to the Python path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core_modules.sim_bridge.dwsim_workflow import (
+from pynucleus.sim_bridge.dwsim_workflow import (
     get_docker_workflow_status,
     run_dwsim_simulation_docker,
     quick_dwsim_docker_demo
