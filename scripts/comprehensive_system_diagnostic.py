@@ -163,65 +163,47 @@ class SystemDiagnostic:
         self.log_result("Docker Environment", success, issues)
         return success
     
-    def check_directory_structure(self) -> bool:
-        """Check PyNucleus directory structure"""
-        self.print_section_header("PYNUCLEUS DIRECTORY STRUCTURE CHECK")
+    def check_directory_structure(self) -> List[str]:
+        """Check if all required directories exist."""
         issues = []
-        
-        # Check core directories with new data structure
-        core_dirs = {
-            "Core pipeline modules": "src/pynucleus",
-            "LLM output files": "data/05_output/llm_reports",
-            "Configuration files": "simulation_input_config",
-            "Pipeline results": "data/05_output/results",
-            "Source documents for RAG": "data/01_raw/source_documents",
-            "Converted documents": "data/02_processed/converted_to_txt",
-            "Web scraped sources": "data/01_raw/web_sources",
-            "FAISS analysis reports": "data/04_models/chunk_reports"
-        }
-        
-        for name, path in core_dirs.items():
-            if os.path.exists(path):
-                items = len(os.listdir(path))
-                print(f"   ✅ {name}: {path}/ ({items} items)")
-            else:
-                print(f"   ❌ {name}: {path}/ (missing)")
-                issues.append(f"Missing directory: {path}")
-        
-        print("\n   📁 Core Module Structure:")
-        core_module_dirs = {
-            "Pipeline components": "src/pynucleus/pipeline",
-            "RAG components": "src/pynucleus/rag",
-            "Enhanced integration": "src/pynucleus/integration",
-            "Simulation components": "src/pynucleus/simulation"
-        }
-        
-        for name, path in core_module_dirs.items():
-            if os.path.exists(path):
-                print(f"      ✅ {name}: {path}/")
-            else:
-                print(f"      ❌ {name}: {path}/ (missing)")
-                issues.append(f"Missing core directory: {path}")
-        
-        # Check our enhanced folders specifically
-        enhanced_folders = [
-            "data/05_output/llm_reports",
-            "simulation_input_config", 
-            "data/05_output/results"
+        required_dirs = [
+            "data/01_raw/source_documents",
+            "data/01_raw/web_sources",
+            "data/02_processed/converted_to_txt",
+            "data/03_intermediate/converted_chunked_data",
+            "data/04_models/chunk_reports",
+            "data/05_output/results",
+            "data/05_output/llm_reports"
         ]
         
-        print(f"\n   📁 Enhanced Pipeline Folders:")
-        for folder in enhanced_folders:
-            if Path(folder).exists():
-                files = list(Path(folder).glob("*"))
-                print(f"      ✅ {folder}/ ({len(files)} files)")
-            else:
-                print(f"      ❌ {folder}/ (missing)")
-                issues.append(f"Enhanced folder missing: {folder}")
+        for dir_path in required_dirs:
+            if not Path(dir_path).exists():
+                issues.append(f"Directory not found: {dir_path}")
+                # Create directory if it doesn't exist
+                Path(dir_path).mkdir(parents=True, exist_ok=True)
+                print(f"✅ Created directory: {dir_path}")
         
-        success = len(issues) == 0
-        self.log_result("Directory Structure", success, issues)
-        return success
+        return issues
+    
+    def check_output_files(self) -> List[str]:
+        """Check if output files are in the correct locations."""
+        issues = []
+        
+        # Check results directory
+        results_dir = Path("data/05_output/results")
+        if not results_dir.exists():
+            issues.append("Results directory not found")
+            results_dir.mkdir(parents=True, exist_ok=True)
+            print("✅ Created results directory")
+        
+        # Check llm_reports directory
+        llm_reports_dir = Path("data/05_output/llm_reports")
+        if not llm_reports_dir.exists():
+            issues.append("LLM reports directory not found")
+            llm_reports_dir.mkdir(parents=True, exist_ok=True)
+            print("✅ Created LLM reports directory")
+        
+        return issues
     
     def check_enhanced_pipeline_components(self) -> bool:
         """Check enhanced pipeline components functionality"""
@@ -236,7 +218,7 @@ class SystemDiagnostic:
             print("   ✅ All enhanced modules imported successfully")
             
             # Test ConfigManager with new folder structure
-            config_manager = ConfigManager(config_dir="simulation_input_config")
+            config_manager = ConfigManager(config_dir="configs")
             print(f"   ✅ ConfigManager: {config_manager.config_dir}")
             
             # Test LLMOutputGenerator with separate directories

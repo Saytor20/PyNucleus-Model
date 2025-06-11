@@ -2,10 +2,10 @@
 Configuration Manager for DWSIM Simulations
 
 Handles:
-- JSON/CSV configuration loading
+- JSON/CSV configuration loading with Pydantic validation
 - Dynamic simulation parameter adjustment
 - Template generation for easy configuration
-- Validation of simulation parameters
+- Type-safe validation of simulation parameters
 """
 
 import json
@@ -13,117 +13,63 @@ import csv
 import pandas as pd
 from pathlib import Path
 from typing import Dict, List, Union, Any
-import jsonschema
 from datetime import datetime
+from .settings import AppSettings, load_settings, SimulationSettings, FeedComponent, FeedConditions, OperatingConditions
 
 
 class ConfigManager:
-    """Manages DWSIM simulation configurations from various input formats."""
+    """Manages DWSIM simulation configurations using Pydantic models."""
     
-    def __init__(self, config_dir: str = "simulation_input_config"):
+    def __init__(self, config_dir: str | Path = "configs"):
         """Initialize ConfigManager with specified directory."""
         self.config_dir = Path(config_dir)
         self.config_dir.mkdir(exist_ok=True)
-        self.schema = self._get_simulation_schema()
         
         # Create only the essential bulk-ready templates for 1000+ modular plants
         # These templates include all functionality of the basic templates plus comprehensive bulk support
         self.create_bulk_ready_json_template(verbose=False)
         self.create_bulk_ready_csv_template(verbose=False)
-        
-    def _get_simulation_schema(self) -> Dict:
-        """Define JSON schema for simulation validation."""
-        return {
-            "type": "object",
-            "properties": {
-                "name": {"type": "string"},
-                "type": {"type": "string", "enum": ["distillation", "reactor", "heat_exchanger", "absorber", "crystallizer", "separator", "mixer"]},
-                "components": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "minItems": 1
-                },
-                "description": {"type": "string"},
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "temperature": {"type": "number"},
-                        "pressure": {"type": "number"},
-                        "flow_rate": {"type": "number"},
-                        "feed_composition": {"type": "object"},
-                        "operating_conditions": {"type": "object"}
-                    }
-                },
-                "expected_outputs": {
-                    "type": "object",
-                    "properties": {
-                        "conversion": {"type": "number", "minimum": 0, "maximum": 1},
-                        "selectivity": {"type": "number", "minimum": 0, "maximum": 1},
-                        "yield": {"type": "number", "minimum": 0, "maximum": 1},
-                        "purity": {"type": "number", "minimum": 0, "maximum": 1}
-                    }
-                }
-            },
-            "required": ["name", "type", "components", "description"]
-        }
-    
-    def create_template_json(self, filename: str, verbose: bool = False) -> str:
-        """Create a JSON template for simulation configuration. Skip if file already exists."""
-        
-        filepath = self.config_dir / filename
+
+    def load(self, file_name: str) -> AppSettings:
+        """Load settings using Pydantic validation."""
+        return load_settings(self.config_dir / file_name)
+
+    def create_template_json(self, file_name: str = "template.json", verbose: bool = False) -> Path:
+        """Create a JSON template using Pydantic models."""
+        filepath = self.config_dir / file_name
         
         # Check if file already exists
         if filepath.exists():
             if verbose:
                 print(f"⏭️ Template already exists, skipping: {filepath}")
-            return str(filepath)
+            return filepath
         
-        template = {
-            "simulations": [
-                {
-                    "name": "ethanol_distillation_example",
-                    "type": "distillation", 
-                    "components": ["water", "ethanol"],
-                    "description": "Ethanol-water separation column",
-                    "parameters": {
-                        "temperature": 78.4,
-                        "pressure": 101325,
-                        "flow_rate": 1000,
-                        "reflux_ratio": 2.5
-                    },
-                    "expected_outputs": {
-                        "conversion": 0.95,
-                        "selectivity": 0.98,
-                        "yield": 0.93
-                    }
-                },
-                {
-                    "name": "methane_reforming_example", 
-                    "type": "reactor",
-                    "components": ["methane", "steam", "hydrogen", "carbon_monoxide"],
-                    "description": "Steam methane reforming reactor",
-                    "parameters": {
-                        "temperature": 850,
-                        "pressure": 2500000,
-                        "flow_rate": 500,
-                        "catalyst_loading": 100
-                    },
-                    "expected_outputs": {
-                        "conversion": 0.85,
-                        "selectivity": 0.92,
-                        "yield": 0.78
-                    }
-                }
-            ]
-        }
+        # Create template with sample simulation
+        sample_simulation = SimulationSettings(
+            simulation_name="ethanol_distillation_example",
+            feed=FeedConditions(
+                temperature_c=78.4,
+                pressure_kpa=101.325,
+                total_flow_kmol_h=100.0,
+                components=[
+                    FeedComponent(name="water", mole_fraction=0.4, mass_flow_kgh=720.0),
+                    FeedComponent(name="ethanol", mole_fraction=0.6, mass_flow_kgh=1380.0)
+                ]
+            ),
+            operating=OperatingConditions(
+                reflux_ratio=2.5,
+                residence_time_min=30.0
+            )
+        )
         
-        with open(filepath, 'w') as f:
-            json.dump(template, f, indent=2)
+        template = AppSettings(simulations=[sample_simulation])
+        template_json = template.model_dump_json(indent=4)
+        filepath.write_text(template_json)
         
         if verbose:
-            print(f"✅ Template created: {filepath}")
+            print(f"✅ Pydantic template created: {filepath}")
         
-        return str(filepath)
+        return filepath
     
     def create_template_csv(self, filename: str, verbose: bool = False) -> str:
         """Create a CSV template for simulation configuration. Skip if file already exists."""

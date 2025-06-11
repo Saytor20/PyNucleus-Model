@@ -20,10 +20,12 @@ class DWSIMRAGIntegrator:
     """Integrates DWSIM simulation results with RAG knowledge base."""
     
     def __init__(self, rag_pipeline=None, results_dir: str = "data/05_output/results"):
-        """Initialize the integrator with RAG pipeline and results directory."""
+        """Initialize DWSIM-RAG integrator with specified directory."""
         self.rag_pipeline = rag_pipeline
         self.results_dir = Path(results_dir)
-        self.results_dir.mkdir(exist_ok=True)
+        
+        # Create directory if it doesn't exist
+        self.results_dir.mkdir(parents=True, exist_ok=True)
         self.integrated_results = []
         
     def integrate_simulation_results(self, dwsim_results: List[Dict], 
@@ -182,32 +184,18 @@ class DWSIMRAGIntegrator:
         
         return insights
     
-    def export_integrated_results(self, filename: Optional[str] = None, verbose: bool = False) -> str:
-        """Export integrated results to JSON file (quiet operation)"""
-        if not self.integrated_results:
-            if verbose:
-                print("⚠️ No integrated results to export")
-            return ""
+    def export_integrated_results(self) -> str:
+        """Export integrated results to JSON file."""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_file = self.results_dir / f"integrated_dwsim_rag_results_{timestamp}.json"
         
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        if not filename:
-            filename = f"integrated_dwsim_rag_results_{timestamp}.json"
+        # Ensure directory exists
+        output_file.parent.mkdir(parents=True, exist_ok=True)
         
-        filepath = self.results_dir / filename
+        with open(output_file, 'w') as f:
+            json.dump(self.integrated_results, f, indent=2)
         
-        try:
-            with open(filepath, 'w', encoding='utf-8') as f:
-                json.dump(self.integrated_results, f, indent=2, default=str)
-            
-            if verbose:
-                print(f"✅ Integrated results exported: {filepath}")
-            else:
-                print(f"✅ Results saved: {filepath}")
-            
-            return str(filepath)
-        except Exception as e:
-            print(f"❌ Export failed: {str(e)}")
-            return ""
+        return str(output_file)
     
     def get_integration_summary(self) -> Dict:
         """Get summary of integration results."""

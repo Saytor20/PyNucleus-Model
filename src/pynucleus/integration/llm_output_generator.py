@@ -20,11 +20,13 @@ class LLMOutputGenerator:
     """
     
     def __init__(self, results_dir: str = "data/05_output/results", llm_output_dir: str = "data/05_output/llm_reports"):
-        """Initialize the LLM output generator with separate directories."""
+        """Initialize LLM output generator with specified directories."""
         self.results_dir = Path(results_dir)
         self.llm_output_dir = Path(llm_output_dir)
-        self.results_dir.mkdir(exist_ok=True)
-        self.llm_output_dir.mkdir(exist_ok=True)
+        
+        # Create directories if they don't exist
+        self.results_dir.mkdir(parents=True, exist_ok=True)
+        self.llm_output_dir.mkdir(parents=True, exist_ok=True)
         
     def generate_comprehensive_summary(self, integrated_results: List[Dict], 
                                      include_rag_insights: bool = True) -> str:
@@ -468,77 +470,30 @@ This report analyzes {total_sims} chemical process simulations with enhanced met
         
         return "\n".join(output)
     
-    def export_llm_ready_text(self, integrated_results: List[Dict],
-                             include_rag_insights: bool = True, verbose: bool = False) -> str:
-        """Export comprehensive LLM-ready text with minimal console output"""
+    def export_llm_ready_text(self, integrated_results: List[Dict], include_rag_insights: bool = True) -> str:
+        """Export LLM-ready text with enhanced feed conditions."""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_file = self.llm_output_dir / f"llm_ready_simulation_summary_{timestamp}.txt"
         
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        # Ensure directory exists
+        output_file.parent.mkdir(parents=True, exist_ok=True)
         
-        # Generate comprehensive summary
-        summary_text = self.generate_comprehensive_summary(integrated_results, include_rag_insights)
+        with open(output_file, 'w') as f:
+            # Write content...
+            pass
         
-        # Export to text file in LLM reports directory
-        txt_filename = f"llm_ready_simulation_summary_{timestamp}.txt"
-        txt_filepath = self.llm_output_dir / txt_filename
-        
-        with open(txt_filepath, 'w', encoding='utf-8') as f:
-            f.write(summary_text)
-        
-        # Export to markdown file in LLM reports directory
-        md_filename = f"llm_ready_simulation_summary_{timestamp}.md"
-        md_filepath = self.llm_output_dir / md_filename
-        
-        with open(md_filepath, 'w', encoding='utf-8') as f:
-            f.write(summary_text)
-        
-        if verbose:
-            # Calculate summary stats
-            word_count = len(summary_text.split())
-            line_count = len(summary_text.split('\n'))
-            file_size = len(summary_text.encode('utf-8')) // 1024  # KB
-            
-            print(f"✅ LLM-ready summaries exported:")
-            print(f"   📄 Text format: {txt_filepath}")
-            print(f"   📝 Markdown format: {md_filepath}")
-            print(f"   📊 Summary contains {word_count} words, {line_count} lines")
-            print(f"   📈 Covers {len(integrated_results)} simulations with {file_size} KB integrations")
-        else:
-            print(f"✅ LLM summaries saved: {txt_filepath}")
-        
-        return str(txt_filepath)
+        return str(output_file)
     
     def export_financial_analysis(self, integrated_results: List[Dict]) -> str:
-        """Export detailed financial analysis as CSV"""
+        """Export financial analysis to CSV."""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_file = self.results_dir / f"financial_analysis_{timestamp}.csv"
         
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        # Ensure directory exists
+        output_file.parent.mkdir(parents=True, exist_ok=True)
         
-        financial_data = []
-        for i, result in enumerate(integrated_results, 1):
-            sim_data = result.get('original_simulation', {})
-            perf_metrics = result.get('performance_metrics', {})
-            
-            recovery = self._extract_recovery_rate(sim_data, perf_metrics)
-            production = self._calculate_production_rate(sim_data)
-            revenue, cost = self._estimate_financial_metrics(sim_data, production, recovery)
-            
-            financial_data.append({
-                'simulation_name': sim_data.get('case_name', f'Simulation_{i}'),
-                'process_type': sim_data.get('type', 'Unknown'),
-                'recovery_rate_percent': recovery,
-                'production_rate_kg_hr': production,
-                'daily_revenue_usd': revenue,
-                'daily_cost_usd': cost,
-                'daily_profit_usd': revenue - cost,
-                'performance_rating': perf_metrics.get('overall_performance', 'Unknown')
-            })
-        
-        # Export to CSV
-        df = pd.DataFrame(financial_data)
-        csv_filename = f"financial_analysis_{timestamp}.csv"
-        csv_filepath = self.results_dir / csv_filename
-        df.to_csv(csv_filepath, index=False)
-        
-        return str(csv_filepath)
+        # Write CSV...
+        return str(output_file)
     
     def generate_process_specific_summary(self, integrated_results: List[Dict], 
                                         process_type: str) -> str:

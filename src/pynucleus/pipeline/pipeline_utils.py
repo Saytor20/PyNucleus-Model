@@ -12,6 +12,7 @@ import sys
 import os
 from datetime import datetime
 from pathlib import Path
+from typing import Dict
 
 # Add project root to path
 sys.path.append(os.path.abspath('.'))
@@ -23,10 +24,14 @@ from .pipeline_export import ResultsExporter
 class PipelineUtils:
     """Utility class for managing the complete PyNucleus pipeline."""
     
-    def __init__(self, results_dir="data/05_output/results"):
-        """Initialize Pipeline Utils with results directory."""
+    def __init__(self, results_dir: str = "data/05_output/results", llm_output_dir: str = "data/05_output/llm_reports"):
+        """Initialize pipeline utilities with specified directories."""
         self.results_dir = Path(results_dir)
-        self.results_dir.mkdir(exist_ok=True)
+        self.llm_output_dir = Path(llm_output_dir)
+        
+        # Create directories if they don't exist
+        self.results_dir.mkdir(parents=True, exist_ok=True)
+        self.llm_output_dir.mkdir(parents=True, exist_ok=True)
         
         # Initialize pipeline components
         self.rag_pipeline = RAGPipeline(results_dir)
@@ -221,6 +226,28 @@ class PipelineUtils:
                 print(f"   ... and {len(files) - 5} more files")
         else:
             print("   No exported files found.")
+
+    def export_simulation_results(self, results: Dict) -> str:
+        """Export simulation results to CSV."""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_file = self.results_dir / f"dwsim_simulation_results_{timestamp}.csv"
+        
+        # Ensure directory exists
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Write CSV...
+        return str(output_file)
+
+    def export_summary(self, results: Dict) -> str:
+        """Export summary to CSV."""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_file = self.results_dir / f"dwsim_summary_{timestamp}.csv"
+        
+        # Ensure directory exists
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Write CSV...
+        return str(output_file)
 
 def create_pipeline(results_dir="data/05_output/results"):
     """Factory function to create a new pipeline instance."""

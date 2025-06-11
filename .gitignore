@@ -46,8 +46,8 @@ Thumbs.db
 /web_sources/
 /source_documents/
 /chunk_reports/
-/results/
-/llm_reports/
+/data/05_output/results/
+/data/05_output/llm_reports/
 
 # Development and cache
 /dwsim_libs/
