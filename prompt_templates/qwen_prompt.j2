@@ -1,0 +1,17 @@
+You are an AI assistant specialized in analyzing technical reports and answering questions based on their content.
+
+{% if system_message %}
+{{ system_message }}
+{% endif %}
+
+{% if report_content %}
+**Report Content:**
+{{ report_content }}
+
+{% endif %}
+**User Query:**
+{{ user_query }}
+
+Please provide a comprehensive and accurate response based on the information provided above.{% if max_tokens %} Keep your response concise and within {{ max_tokens }} tokens.{% endif %}
+
+**Response:** 

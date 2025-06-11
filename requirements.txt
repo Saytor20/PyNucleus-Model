@@ -25,6 +25,7 @@ python-magic>=0.4.27 # Optional: for file type detection
 jsonschema>=4.0.0  # For configuration validation
 pathlib2>=2.3.0   # Enhanced path handling (if needed)
 typing-extensions>=4.0.0  # For better type hints
+jinja2>=3.1.0  # Template rendering for LLM prompts
 
 # --- DWSIM Integration ---
 pythonnet>=3.0.1
