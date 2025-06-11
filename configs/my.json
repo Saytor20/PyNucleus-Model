@@ -1,35 +1,61 @@
 {
+  "pipeline": {
+    "name": "PyNucleus Enhanced Pipeline",
+    "description": "Complete RAG + DWSIM + Export pipeline with enhanced features",
+    "version": "2.0"
+  },
+  "rag": {
+    "source_documents_dir": "data/01_raw/source_documents",
+    "web_sources_dir": "data/01_raw/web_sources",
+    "converted_dir": "data/02_processed/converted_to_txt",
+    "chunked_data_dir": "data/03_intermediate/converted_chunked_data",
+    "faiss_dir": "data/04_models/chunk_reports",
+    "chunk_size": 500,
+    "chunk_overlap": 50,
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2"
+  },
+  "dwsim": {
     "simulations": [
-        {
-            "simulation_name": "cli_test_ethanol_plant",
-            "feed": {
-                "temperature_c": 78.4,
-                "pressure_kpa": 101.325,
-                "total_flow_kmol_h": 100.0,
-                "components": [
-                    {
-                        "name": "water",
-                        "mole_fraction": 0.4,
-                        "mass_flow_kgh": 720.0
-                    },
-                    {
-                        "name": "ethanol",
-                        "mole_fraction": 0.6,
-                        "mass_flow_kgh": 1380.0
-                    }
-                ]
-            },
-            "operating": {
-                "reflux_ratio": 2.5,
-                "residence_time_min": 30.0
-            }
-        }
-    ],
-    "rag": {
-        "top_k": 5,
-        "similarity_threshold": 0.3
-    },
-    "llm": {
-        "summary_length": 300
-    }
+      {
+        "name": "distillation_ethanol_water",
+        "type": "distillation",
+        "components": ["water", "ethanol"],
+        "description": "Ethanol-water distillation column"
+      },
+      {
+        "name": "reactor_methane_combustion",
+        "type": "reactor",
+        "components": ["methane", "oxygen"],
+        "description": "Methane combustion reactor"
+      },
+      {
+        "name": "heat_exchanger_steam",
+        "type": "heat_exchanger",
+        "components": ["water", "steam"],
+        "description": "Steam heat exchanger"
+      },
+      {
+        "name": "absorber_co2_capture",
+        "type": "absorber",
+        "components": ["co2", "water"],
+        "description": "CO2 absorption column"
+      },
+      {
+        "name": "crystallizer_salt",
+        "type": "crystallizer",
+        "components": ["water", "salt"],
+        "description": "Salt crystallization unit"
+      }
+    ]
+  },
+  "output": {
+    "results_dir": "data/05_output/results",
+    "llm_reports_dir": "data/05_output/llm_reports",
+    "export_formats": ["csv", "json", "markdown"]
+  },
+  "enhanced_features": {
+    "financial_analysis": true,
+    "llm_ready_outputs": true,
+    "dwsim_rag_integration": true
+  }
 } 

@@ -6,7 +6,7 @@ Tests for document processing functionality
 import os
 import pytest
 from pathlib import Path
-from src.rag.document_processor import process_documents
+from pynucleus.rag.document_processor import process_documents
 
 
 def test_document_processor_setup():

@@ -6,7 +6,7 @@ Tests for DWSIM bridge functionality
 import os
 import pytest
 from pathlib import Path
-from src.simulation.dwsim_bridge import DWSIMBridge
+from pynucleus.simulation.dwsim_bridge import DWSIMBridge
 
 
 def test_dwsim_environment():
