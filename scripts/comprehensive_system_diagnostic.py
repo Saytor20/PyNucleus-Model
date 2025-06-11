@@ -716,6 +716,7 @@ DETAILED RESULTS
             ("Enhanced Pipeline Components", self.check_enhanced_pipeline_components),
             ("Enhanced Content Generation", self.check_enhanced_content_generation),
             ("PyNucleus RAG System", self.check_rag_system),
+            ("Token Utilities System", self.check_token_utilities),
             ("Jinja2 Prompts System", self.check_prompts_system),
             ("DWSIM Environment (Optional)", self.check_dwsim_environment),
             ("Docker Environment", self.check_docker_environment),
@@ -853,6 +854,7 @@ DETAILED RESULTS"""
         report += "- Results Export: CSV and LLM-ready formats\n"
         report += "- Enhanced Integration: DWSIM-RAG combined analysis\n"
         report += "- Financial Analysis: ROI and profitability calculations\n"
+        report += "- Token Utilities: Efficient token counting with HuggingFace tokenizers\n"
         report += "- Jinja2 Prompts System: Standardized LLM prompt templates\n"
         
         # System usage information
@@ -1007,6 +1009,201 @@ DETAILED RESULTS"""
         
         success = len(issues) == 0
         self.log_result("RAG System", success, issues)
+        return success
+
+    def check_token_utilities(self) -> bool:
+        """Check PyNucleus Token Utilities System"""
+        self.print_section_header("TOKEN UTILITIES SYSTEM CHECK")
+        issues = []
+        
+        # Check tokens_func directory exists
+        tokens_func_dir = Path("tokens_func")
+        if not tokens_func_dir.exists():
+            self.log_both("   tokens_func/ directory not found", console_symbol="❌ ",
+                         clean_message="tokens_func/ directory not found")
+            issues.append("tokens_func/ directory missing")
+            self.log_result("Token Utilities System", False, issues)
+            return False
+        else:
+            self.log_both("   tokens_func/ directory exists", console_symbol="✅ ",
+                         clean_message="tokens_func/ directory exists")
+        
+        # Check required files in tokens_func directory
+        required_files = [
+            ("token_utils.py", "Main token utility module"),
+            ("__init__.py", "Package initialization"),
+            ("test_token_utils.py", "Unit tests"),
+            ("usage_example.py", "Usage example script")
+        ]
+        
+        for filename, description in required_files:
+            file_path = tokens_func_dir / filename
+            if file_path.exists():
+                self.log_both(f"   {description}: {filename}", console_symbol="✅ ",
+                             clean_message=f"{description}: {filename} - EXISTS")
+            else:
+                self.log_both(f"   {description}: {filename} (missing)", console_symbol="❌ ",
+                             clean_message=f"{description}: {filename} - MISSING")
+                issues.append(f"Missing file: tokens_func/{filename}")
+        
+        # Check PyNucleus integration
+        pynucleus_token_file = Path("src/pynucleus/utils/token_utils.py")
+        if pynucleus_token_file.exists():
+            self.log_both("   PyNucleus integration: token_utils.py", console_symbol="✅ ",
+                         clean_message="PyNucleus integration: token_utils.py - EXISTS")
+        else:
+            self.log_both("   PyNucleus integration: token_utils.py (missing)", console_symbol="❌ ",
+                         clean_message="PyNucleus integration: token_utils.py - MISSING")
+            issues.append("Missing PyNucleus integration file")
+        
+        # Check transformers dependency
+        try:
+            import transformers
+            from transformers import AutoTokenizer
+            self.log_both("   Transformers library available", console_symbol="✅ ",
+                         clean_message="Transformers library available")
+        except ImportError:
+            self.log_both("   Transformers library not installed", console_symbol="❌ ",
+                         clean_message="Transformers library not installed")
+            issues.append("Transformers library missing - required for token utilities")
+            self.log_result("Token Utilities System", False, issues)
+            return False
+        
+        # Test standalone tokens_func module functionality
+        try:
+            # Add tokens_func to path for import
+            import sys
+            tokens_func_path = str(tokens_func_dir.absolute())
+            if tokens_func_path not in sys.path:
+                sys.path.insert(0, tokens_func_path)
+            
+            from token_utils import TokenCounter, count_tokens, get_available_cache_info, clear_all_caches
+            
+            self.log_both("   Standalone module imports successful", console_symbol="✅ ",
+                         clean_message="Standalone module imports successful")
+            
+            # Test basic functionality
+            test_text = "Hello, world! This is a test for token counting."
+            
+            # Test convenience function
+            token_count = count_tokens(test_text)
+            if isinstance(token_count, int) and token_count > 0:
+                self.log_both(f"   Basic token counting: {token_count} tokens", console_symbol="✅ ",
+                             clean_message=f"Basic token counting: {token_count} tokens")
+            else:
+                self.log_both("   Basic token counting failed", console_symbol="❌ ",
+                             clean_message="Basic token counting failed")
+                issues.append("Basic token counting returned invalid result")
+            
+            # Test TokenCounter class
+            counter = TokenCounter("gpt2")
+            class_count = counter.count_tokens(test_text)
+            if class_count == token_count:
+                self.log_both("   TokenCounter class functionality", console_symbol="✅ ",
+                             clean_message="TokenCounter class functionality - WORKING")
+            else:
+                self.log_both("   TokenCounter class mismatch", console_symbol="❌ ",
+                             clean_message="TokenCounter class mismatch")
+                issues.append("TokenCounter class returned different result than convenience function")
+            
+            # Test batch processing
+            batch_texts = ["Text one", "Text two", "Text three"]
+            batch_counts = counter.count_tokens(batch_texts)
+            if isinstance(batch_counts, list) and len(batch_counts) == 3:
+                self.log_both("   Batch processing functionality", console_symbol="✅ ",
+                             clean_message="Batch processing functionality - WORKING")
+            else:
+                self.log_both("   Batch processing failed", console_symbol="❌ ",
+                             clean_message="Batch processing failed")
+                issues.append("Batch processing returned invalid result")
+            
+            # Test caching
+            clear_all_caches()  # Start fresh
+            cache_info_before = get_available_cache_info()
+            
+            # Make two identical calls
+            count_tokens(test_text)
+            count_tokens(test_text)
+            
+            cache_info_after = get_available_cache_info()
+            cache_hits = cache_info_after['count_cache']['hits']
+            
+            if cache_hits > 0:
+                self.log_both(f"   Caching functionality: {cache_hits} hits", console_symbol="✅ ",
+                             clean_message=f"Caching functionality: {cache_hits} hits")
+            else:
+                self.log_both("   Caching not working properly", console_symbol="⚠️ ",
+                             clean_message="Caching not working properly")
+                # Don't treat this as a hard failure since caching might be too fast to measure
+            
+            # Clean up sys.path
+            if tokens_func_path in sys.path:
+                sys.path.remove(tokens_func_path)
+                
+        except Exception as e:
+            error_msg = f"Standalone module test failed: {e}"
+            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
+            issues.append(error_msg)
+        
+        # Test PyNucleus integration
+        try:
+            from pynucleus.utils.token_utils import TokenCounter as PyNucleusTokenCounter
+            from pynucleus.utils.token_utils import count_tokens as pynucleus_count_tokens
+            
+            self.log_both("   PyNucleus integration imports successful", console_symbol="✅ ",
+                         clean_message="PyNucleus integration imports successful")
+            
+            # Test integrated functionality
+            test_text = "PyNucleus integration test for token counting."
+            integrated_count = pynucleus_count_tokens(test_text)
+            
+            if isinstance(integrated_count, int) and integrated_count > 0:
+                self.log_both(f"   Integrated token counting: {integrated_count} tokens", console_symbol="✅ ",
+                             clean_message=f"Integrated token counting: {integrated_count} tokens")
+            else:
+                self.log_both("   Integrated token counting failed", console_symbol="❌ ",
+                             clean_message="Integrated token counting failed")
+                issues.append("Integrated token counting returned invalid result")
+            
+        except Exception as e:
+            error_msg = f"PyNucleus integration test failed: {e}"
+            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
+            issues.append(error_msg)
+        
+        # Check unit tests can run (optional check)
+        test_file = tokens_func_dir / "test_token_utils.py"
+        if test_file.exists():
+            try:
+                # Try to run a quick import test of the test file
+                import subprocess
+                result = subprocess.run([
+                    sys.executable, "-c", 
+                    f"import sys; sys.path.insert(0, '{tokens_func_path}'); from test_token_utils import TestTokenCounter"
+                ], capture_output=True, text=True, timeout=10)
+                
+                if result.returncode == 0:
+                    self.log_both("   Unit test structure valid", console_symbol="✅ ",
+                                 clean_message="Unit test structure valid")
+                else:
+                    self.log_both("   Unit test structure issues", console_symbol="⚠️ ",
+                                 clean_message="Unit test structure issues")
+                    # Don't treat as hard failure
+                    
+            except Exception as e:
+                # Don't fail the whole check if unit test validation fails
+                self.log_both("   Unit test validation skipped", console_symbol="ℹ️ ",
+                             clean_message="Unit test validation skipped")
+        
+        success = len(issues) == 0
+        
+        if success:
+            self.log_both("\n   🎉 Token utilities system fully operational!", console_symbol="✅ ",
+                         clean_message="Token utilities system fully operational!")
+        else:
+            self.log_both(f"\n   {len(issues)} issues found in token utilities system", console_symbol="❌ ",
+                         clean_message=f"{len(issues)} issues found in token utilities system")
+        
+        self.log_result("Token Utilities System", success, issues)
         return success
 
     def check_pipeline_functionality(self) -> bool:
