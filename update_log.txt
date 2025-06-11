@@ -94,11 +94,10 @@ Completed:
 6) update the code to include DWSIM script for window so that it switches seamsly between hosting API and using windows
 
 To Do: 
-1) Run the structure and pipelien summary through GenAI tool to get enhancement ideas 
+1) Enhance the system based on the generated output from ChatGPT to enhance the overall structure of the system before proceeding with LLM integration
 2) fix the DWSIM pipeline and remove mocked data from output if possible 
 3) Start implementing the LLM in google colab... but write the full script here with or very small model before transferring to google colab 
 
-
-
-
  2025-06-10 19:06:06 changes made and pushed to origin main
+
+ 2025-06-10 21:28:05 changes made and pushed to origin main

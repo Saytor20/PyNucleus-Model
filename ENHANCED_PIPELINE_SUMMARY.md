@@ -1,6 +1,6 @@
 # PyNucleus Enhanced Pipeline - Implementation Summary
 
-## 🚀 **Overview**
+## **Overview**
 
 We have successfully implemented a comprehensive enhancement to the PyNucleus pipeline that addresses all the key requirements from the update log. The enhanced system now provides:
 

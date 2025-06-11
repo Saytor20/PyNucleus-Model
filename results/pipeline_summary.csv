@@ -1,2 +1,2 @@
 pipeline_run_timestamp,rag_queries_total,dwsim_simulations_total,dwsim_successful,dwsim_failed,total_documents_processed,results_directory,rag_avg_chunk_size,rag_num_sources,dwsim_success_rate,dwsim_avg_duration
-2025-06-10 18:57:30,15,5,5,0,846,results,375.1513002364066,10,100.0,1.8000000000000001e-06
+2025-06-10 21:26:00,15,5,5,0,846,results,375.1513002364066,10,100.0,1.2e-06
