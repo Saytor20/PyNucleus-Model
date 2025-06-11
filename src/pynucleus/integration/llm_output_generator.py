@@ -5,12 +5,12 @@ Converts integrated DWSIM-RAG results into text summaries optimized for LLM cons
 Generates human-readable reports that can be used as context for further LLM analysis.
 """
 
-import json
 import os
 from pathlib import Path
 from typing import Dict, List, Optional
 from datetime import datetime
 import pandas as pd
+from jinja2 import Environment, FileSystemLoader
 
 
 class LLMOutputGenerator:
@@ -19,14 +19,13 @@ class LLMOutputGenerator:
     with key metrics including recovery%, production, and financial data.
     """
     
-    def __init__(self, results_dir: str = "data/05_output/results", llm_output_dir: str = "data/05_output/llm_reports"):
+    def __init__(self, results_dir: str | Path = "data/05_output/llm_reports"):
         """Initialize LLM output generator with specified directories."""
         self.results_dir = Path(results_dir)
-        self.llm_output_dir = Path(llm_output_dir)
-        
-        # Create directories if they don't exist
         self.results_dir.mkdir(parents=True, exist_ok=True)
-        self.llm_output_dir.mkdir(parents=True, exist_ok=True)
+
+        tmpl_base = Path(__file__).resolve().parent.parent / "templates"
+        self.env = Environment(loader=FileSystemLoader(tmpl_base))
         
     def generate_comprehensive_summary(self, integrated_results: List[Dict], 
                                      include_rag_insights: bool = True) -> str:
@@ -470,19 +469,17 @@ This report analyzes {total_sims} chemical process simulations with enhanced met
         
         return "\n".join(output)
     
-    def export_llm_ready_text(self, integrated_results: List[Dict], include_rag_insights: bool = True) -> str:
-        """Export LLM-ready text with enhanced feed conditions."""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_file = self.llm_output_dir / f"llm_ready_simulation_summary_{timestamp}.txt"
+    def export_llm_ready_text(self, integrated_results: dict) -> Path:
+        """Export LLM-ready text using Jinja2 template."""
+        tpl = self.env.get_template("llm_summary.md.j2")
+        rendered = tpl.render(**integrated_results)
         
-        # Ensure directory exists
-        output_file.parent.mkdir(parents=True, exist_ok=True)
+        # Use case_name from original_simulation for filename
+        case_name = integrated_results.get('original_simulation', {}).get('case_name', 'unknown_simulation')
+        out_file = self.results_dir / f"{case_name}_summary.md"
         
-        with open(output_file, 'w') as f:
-            # Write content...
-            pass
-        
-        return str(output_file)
+        out_file.write_text(rendered)
+        return out_file
     
     def export_financial_analysis(self, integrated_results: List[Dict]) -> str:
         """Export financial analysis to CSV."""
