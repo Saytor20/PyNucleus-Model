@@ -126,10 +126,12 @@ To Do:
  Completed: 
 1) Minimal LLMRunner Class - Completed 
 2) Rendering & Querying Utility - Completed 
-3) CLI Command for Integrated Pipeline & LLM Query
-4) Create API calling for live news, costs, and other things to be considered 
-5) Run a docker builder once everything is completed 
-6) update @README , @Pipeline Summary, and Structure to better enhance the documentations of the project. refer to project info to update those and remove those we dont need 
+3) CLI Command for Integrated Pipeline & LLM Query- Completed 
+4) make sure that all the documents and DWSIM results are integrated in the pipeline- Completed 
+5) remove all duplication files and clean house the files
+6) Create API calling for live news, costs, and other things to be considered 
+7) Run a docker builder once everything is completed 
+8) update @README , @Pipeline Summary, and Structure to better enhance the documentations of the project. refer to project info to update those and remove those we dont need 
 
 To Do: 
 
@@ -137,3 +139,5 @@ To Do:
  2025-06-11 18:08:44 changes made and pushed to origin main
 
  2025-06-11 18:29:53 changes made and pushed to origin main
+
+ 2025-06-11 18:52:01 changes made and pushed to origin main

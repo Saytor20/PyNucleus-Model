@@ -6,6 +6,7 @@ Contains utility functions and classes for pipeline management including:
 - Common utility functions
 - Status monitoring
 - Configuration management
+- DWSIM-RAG integration
 """
 
 import sys
@@ -22,26 +23,31 @@ from .pipeline_dwsim import DWSIMPipeline
 from .pipeline_export import ResultsExporter
 
 class PipelineUtils:
-    """Utility class for managing the complete PyNucleus pipeline."""
+    """Utility class for managing the complete PyNucleus pipeline with DWSIM-RAG integration."""
     
-    def __init__(self, results_dir: str = "data/05_output/results", llm_output_dir: str = "data/05_output/llm_reports"):
+    def __init__(self, results_dir: str = "data/05_output/results", 
+                 llm_output_dir: str = "data/05_output/llm_reports",
+                 enable_dwsim_integration: bool = True):
         """Initialize pipeline utilities with specified directories."""
         self.results_dir = Path(results_dir)
         self.llm_output_dir = Path(llm_output_dir)
+        self.enable_dwsim_integration = enable_dwsim_integration
         
         # Create directories if they don't exist
         self.results_dir.mkdir(parents=True, exist_ok=True)
         self.llm_output_dir.mkdir(parents=True, exist_ok=True)
         
-        # Initialize pipeline components
-        self.rag_pipeline = RAGPipeline(results_dir)
+        # Initialize pipeline components with DWSIM integration
+        self.rag_pipeline = RAGPipeline(results_dir, enable_dwsim_integration=enable_dwsim_integration)
         self.dwsim_pipeline = DWSIMPipeline(results_dir)
         self.exporter = ResultsExporter(results_dir)
         
         print(f"🔧 Pipeline Utils initialized with results dir: {self.results_dir}")
+        if enable_dwsim_integration:
+            print(f"🔗 DWSIM-RAG integration enabled")
     
     def run_complete_pipeline(self):
-        """Run the complete PyNucleus pipeline - RAG + DWSIM + Export."""
+        """Run the complete PyNucleus pipeline - RAG + DWSIM + Export with integration."""
         print("🚀 Running complete PyNucleus pipeline...")
         start_time = datetime.now()
         
@@ -50,29 +56,43 @@ class PipelineUtils:
             self.rag_pipeline.clear_results()
             self.dwsim_pipeline.clear_results()
             
-            # Run RAG pipeline
+            # First, run DWSIM simulations to generate data for integration
+            print("🔬 Step 1: Running DWSIM simulations...")
+            dwsim_data = self.dwsim_pipeline.run_simulations()
+            dwsim_stats = self.dwsim_pipeline.get_statistics()
+            
+            # Run RAG pipeline (which will automatically integrate DWSIM data if available)
+            print("\n📚 Step 2: Running RAG pipeline with DWSIM integration...")
             self.rag_pipeline.run_pipeline()
             rag_data = self.rag_pipeline.test_queries()
             rag_stats = self.rag_pipeline.get_statistics()
             
-            # Run DWSIM simulations
-            dwsim_data = self.dwsim_pipeline.run_simulations()
-            dwsim_stats = self.dwsim_pipeline.get_statistics()
-            
-            # Export DWSIM simulation results only (simplified)
+            # Export DWSIM simulation results
+            print("\n💾 Step 3: Exporting results...")
             exported_files = self.exporter.export_simulation_only(dwsim_data)
             
             end_time = datetime.now()
             duration = (end_time - start_time).total_seconds()
             
-            print(f"✅ Complete pipeline finished in {duration:.1f} seconds!")
+            # Print integration status
+            if rag_stats.get("has_simulation_data", False):
+                print(f"\n🎉 Complete integrated pipeline finished in {duration:.1f} seconds!")
+                print(f"📊 Unified Knowledge Base:")
+                print(f"   ├── Total Chunks: {rag_stats.get('total_chunks', 0):,}")
+                print(f"   ├── Document Chunks: {rag_stats.get('document_chunks', 0):,}")
+                print(f"   └── Simulation Chunks: {rag_stats.get('simulation_chunks', 0):,}")
+            else:
+                print(f"✅ Complete pipeline finished in {duration:.1f} seconds!")
+            
             return {
                 'rag_data': rag_data,
                 'dwsim_data': dwsim_data,
                 'rag_stats': rag_stats,
                 'dwsim_stats': dwsim_stats,
                 'exported_files': exported_files,
-                'duration': duration
+                'duration': duration,
+                'integration_enabled': self.enable_dwsim_integration,
+                'has_integrated_data': rag_stats.get("has_simulation_data", False)
             }
             
         except Exception as e:
@@ -80,8 +100,8 @@ class PipelineUtils:
             return None
     
     def run_rag_only(self):
-        """Run only the RAG pipeline and export results."""
-        print("📚 Running RAG pipeline only...")
+        """Run only the RAG pipeline with DWSIM integration."""
+        print("📚 Running RAG pipeline with DWSIM integration...")
         
         try:
             self.rag_pipeline.clear_results()
@@ -93,11 +113,18 @@ class PipelineUtils:
             exported_file = self.exporter.export_rag_results(rag_data, "rag_only_results.csv")
             stats_file = self.exporter.export_statistics(rag_stats, "rag_only_statistics.csv")
             
-            print("✅ RAG-only pipeline completed!")
+            if rag_stats.get("has_simulation_data", False):
+                print("✅ RAG pipeline with DWSIM integration completed!")
+                print(f"📊 Integrated Knowledge Base: {rag_stats.get('total_chunks', 0):,} chunks")
+            else:
+                print("✅ RAG-only pipeline completed!")
+            
             return {
                 'rag_data': rag_data,
                 'rag_stats': rag_stats,
-                'exported_files': [exported_file, stats_file]
+                'exported_files': [exported_file, stats_file],
+                'integration_enabled': self.enable_dwsim_integration,
+                'has_integrated_data': rag_stats.get("has_simulation_data", False)
             }
             
         except Exception as e:
@@ -128,126 +155,136 @@ class PipelineUtils:
             print(f"❌ DWSIM pipeline error: {str(e)}")
             return None
     
+    def view_results_summary(self):
+        """View comprehensive results summary including integration status."""
+        print("\n📊 Pipeline Results Summary")
+        print("=" * 60)
+        
+        # Get RAG statistics
+        rag_stats = self.rag_pipeline.get_statistics()
+        dwsim_stats = self.dwsim_pipeline.get_statistics()
+        
+        # RAG Section
+        print("📚 RAG Knowledge Base:")
+        if "error" not in rag_stats:
+            print(f"   Total Chunks: {rag_stats.get('total_chunks', 0):,}")
+            
+            if rag_stats.get("has_simulation_data", False):
+                print(f"   ├── Document Chunks: {rag_stats.get('document_chunks', 0):,}")
+                print(f"   └── Simulation Chunks: {rag_stats.get('simulation_chunks', 0):,}")
+                print(f"   Integration: ✅ {rag_stats.get('integration_status', 'Unknown')}")
+            else:
+                print(f"   Document Sources: {len(rag_stats.get('sources', []))}")
+                print(f"   Integration: ⚪ Documents only")
+                
+            print(f"   Avg Chunk Size: {rag_stats.get('avg_chunk_size', 0):.1f} chars")
+        else:
+            print(f"   ❌ {rag_stats.get('error', 'Unknown error')}")
+        
+        # DWSIM Section
+        print(f"\n🔬 DWSIM Simulations:")
+        if "error" not in dwsim_stats:
+            print(f"   Total Simulations: {dwsim_stats.get('total_simulations', 0)}")
+            print(f"   Success Rate: {dwsim_stats.get('success_rate', 0):.1f}%")
+            print(f"   Avg Duration: {dwsim_stats.get('average_duration', 0):.2f}s")
+        else:
+            print(f"   ❌ {dwsim_stats.get('error', 'Unknown error')}")
+        
+        # Output Files
+        print(f"\n📁 Output Files:")
+        output_files = list(self.results_dir.glob("*.csv"))
+        if output_files:
+            for file in output_files:
+                size_kb = file.stat().st_size / 1024
+                print(f"   • {file.name} ({size_kb:.1f} KB)")
+        else:
+            print("   No output files found")
+        
+        print("=" * 60)
+    
     def quick_test(self):
-        """Quick test function to verify everything is working."""
-        print("⚡ Running quick test...")
+        """Quick test of pipeline components and integration status."""
+        print("🧪 Quick Pipeline Test")
+        print("-" * 30)
         
-        # Test each component
-        print(f"📁 Results directory: {self.results_dir}")
+        # Test RAG pipeline
+        rag_stats = self.rag_pipeline.get_statistics()
+        print(f"📚 RAG: {rag_stats.get('total_chunks', 0)} chunks available")
         
-        # Check RAG pipeline
-        rag_data_count = len(self.rag_pipeline.get_results())
-        print(f"📚 RAG data points: {rag_data_count}")
+        if rag_stats.get("has_simulation_data", False):
+            print(f"🔗 Integration: ✅ {rag_stats.get('simulation_chunks', 0)} simulation chunks")
+        else:
+            print(f"🔗 Integration: ⚪ Documents only")
         
-        # Check DWSIM pipeline
-        dwsim_data_count = len(self.dwsim_pipeline.get_results())
-        print(f"🔬 DWSIM data points: {dwsim_data_count}")
+        # Test DWSIM pipeline
+        dwsim_stats = self.dwsim_pipeline.get_statistics()
+        print(f"🔬 DWSIM: {dwsim_stats.get('total_simulations', 0)} simulations")
         
-        # Check CSV files
-        csv_files = list(self.results_dir.glob('*.csv'))
-        print(f"📈 CSV files available: {len(csv_files)}")
-        for f in csv_files:
-            print(f"   • {f.name}")
-        
-        # Test export functionality
-        self.exporter.quick_test()
+        # Test output directory
+        csv_files = list(self.results_dir.glob("*.csv"))
+        print(f"📁 Output: {len(csv_files)} CSV files")
         
         return {
-            'rag_data_count': rag_data_count,
-            'dwsim_data_count': dwsim_data_count,
-            'csv_files_count': len(csv_files)
+            'rag_chunks': rag_stats.get('total_chunks', 0),
+            'simulation_chunks': rag_stats.get('simulation_chunks', 0),
+            'dwsim_simulations': dwsim_stats.get('total_simulations', 0),
+            'csv_files_count': len(csv_files),
+            'integration_enabled': rag_stats.get("has_simulation_data", False)
         }
     
-    def view_results_summary(self):
-        """View a summary of exported results."""
-        self.exporter.view_summary()
+    def print_pipeline_status(self):
+        """Print detailed pipeline status including integration capabilities."""
+        print("\n🔧 PyNucleus Pipeline Status")
+        print("=" * 60)
+        
+        # Pipeline Configuration
+        print("⚙️ Configuration:")
+        print(f"   Results Directory: {self.results_dir}")
+        print(f"   LLM Output Directory: {self.llm_output_dir}")
+        print(f"   DWSIM Integration: {'✅ Enabled' if self.enable_dwsim_integration else '❌ Disabled'}")
+        
+        # Component Status
+        print(f"\n📦 Components:")
+        print(f"   RAG Pipeline: {'✅ Ready' if self.rag_pipeline else '❌ Not available'}")
+        print(f"   DWSIM Pipeline: {'✅ Ready' if self.dwsim_pipeline else '❌ Not available'}")
+        print(f"   Results Exporter: {'✅ Ready' if self.exporter else '❌ Not available'}")
+        
+        # Data Status
+        self.rag_pipeline.print_status()
+        
+        # Integration Capabilities
+        if self.enable_dwsim_integration:
+            print(f"\n🔗 Integration Capabilities:")
+            print(f"   📄 Document Processing: ✅ Available")
+            print(f"   🔬 Simulation Integration: ✅ Available")
+            print(f"   🤖 LLM Querying: ✅ Enhanced (docs + sims)")
+        else:
+            print(f"\n🔗 Integration Capabilities:")
+            print(f"   📄 Document Processing: ✅ Available")
+            print(f"   🔬 Simulation Integration: ❌ Disabled")
+            print(f"   🤖 LLM Querying: ⚪ Standard (docs only)")
+        
+        print("=" * 60)
     
     def clean_all_results(self):
-        """Clean all results and start fresh."""
-        print("🗑️ Cleaning all results...")
+        """Clean all pipeline results and reset integration."""
+        print("🧹 Cleaning all pipeline results...")
         
-        # Clear pipeline data
+        # Clear component results
         self.rag_pipeline.clear_results()
         self.dwsim_pipeline.clear_results()
         
-        # Clean exported files
-        self.exporter.clean_results()
+        # Clean output files
+        output_files = list(self.results_dir.glob("*.csv"))
+        for file in output_files:
+            try:
+                file.unlink()
+                print(f"   🗑️ Removed: {file.name}")
+            except Exception as e:
+                print(f"   ⚠️ Could not remove {file.name}: {e}")
         
-        print("✅ All results cleaned!")
-    
-    def get_pipeline_status(self):
-        """Get current status of all pipeline components."""
-        status = {
-            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'results_directory': str(self.results_dir),
-            'rag_pipeline': {
-                'initialized': self.rag_pipeline.manager is not None,
-                'documents_loaded': self.rag_pipeline.documents is not None,
-                'results_count': len(self.rag_pipeline.get_results())
-            },
-            'dwsim_pipeline': {
-                'available': self.dwsim_pipeline.dwsim_available,
-                'initialized': self.dwsim_pipeline.service is not None,
-                'results_count': len(self.dwsim_pipeline.get_results())
-            },
-            'exported_files': self.exporter.get_latest_files()
-        }
-        
-        return status
-    
-    def print_pipeline_status(self):
-        """Print a formatted pipeline status report."""
-        status = self.get_pipeline_status()
-        
-        print(f"\n📊 Pipeline Status Report - {status['timestamp']}")
-        print(f"📁 Results Directory: {status['results_directory']}")
-        
-        # RAG status
-        rag = status['rag_pipeline']
-        print(f"\n📚 RAG Pipeline:")
-        print(f"   • Initialized: {'✅' if rag['initialized'] else '❌'}")
-        print(f"   • Documents Loaded: {'✅' if rag['documents_loaded'] else '❌'}")
-        print(f"   • Results Count: {rag['results_count']}")
-        
-        # DWSIM status
-        dwsim = status['dwsim_pipeline']
-        print(f"\n🔬 DWSIM Pipeline:")
-        print(f"   • Available: {'✅' if dwsim['available'] else '❌'}")
-        print(f"   • Initialized: {'✅' if dwsim['initialized'] else '❌'}")
-        print(f"   • Results Count: {dwsim['results_count']}")
-        
-        # Files status
-        files = status['exported_files']
-        print(f"\n📈 Exported Files ({len(files)}):")
-        if files:
-            for file_info in files[:5]:  # Show latest 5 files
-                print(f"   • {file_info['filename']} ({file_info['size_bytes']:,} bytes) - {file_info['modified']}")
-            if len(files) > 5:
-                print(f"   ... and {len(files) - 5} more files")
-        else:
-            print("   No exported files found.")
+        print("✅ Cleanup completed!")
 
-    def export_simulation_results(self, results: Dict) -> str:
-        """Export simulation results to CSV."""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_file = self.results_dir / f"dwsim_simulation_results_{timestamp}.csv"
-        
-        # Ensure directory exists
-        output_file.parent.mkdir(parents=True, exist_ok=True)
-        
-        # Write CSV...
-        return str(output_file)
-
-    def export_summary(self, results: Dict) -> str:
-        """Export summary to CSV."""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_file = self.results_dir / f"dwsim_summary_{timestamp}.csv"
-        
-        # Ensure directory exists
-        output_file.parent.mkdir(parents=True, exist_ok=True)
-        
-        # Write CSV...
-        return str(output_file)
 
 def run_full_pipeline(settings, output_dir: Path) -> Dict[str, Any]:
     """
@@ -279,11 +316,11 @@ def run_full_pipeline(settings, output_dir: Path) -> Dict[str, Any]:
     logger.info(f"📝 LLM settings: summary_length={settings.llm.summary_length}")
     
     try:
-        # Initialize pipeline with output directory
-        pipeline = PipelineUtils(results_dir=str(output_dir))
+        # Initialize pipeline with DWSIM integration enabled
+        pipeline = PipelineUtils(results_dir=str(output_dir), enable_dwsim_integration=True)
         
         # Always run complete pipeline for CLI
-        logger.info("🔄 Running complete pipeline (RAG + DWSIM + Export)")
+        logger.info("🔄 Running complete pipeline (RAG + DWSIM + Export + Integration)")
         results = pipeline.run_complete_pipeline()
         
         if results:
@@ -308,6 +345,9 @@ def run_full_pipeline(settings, output_dir: Path) -> Dict[str, Any]:
             logger.info(f"📊 Results: {len(results.get('rag_data', []))} RAG, {len(results.get('dwsim_data', []))} DWSIM")
             logger.info(f"📁 Files exported: {len(results.get('exported_files', []))}")
             
+            if results.get('has_integrated_data', False):
+                logger.info("🔗 DWSIM-RAG integration successful")
+            
             print(f'✅  CLI available:  python run_pipeline.py --config-path configs/my.json')
             
             return results
@@ -329,13 +369,13 @@ def run_full_pipeline(settings, output_dir: Path) -> Dict[str, Any]:
             'output_directory': str(output_dir)
         }
 
-def create_pipeline(results_dir="data/05_output/results"):
-    """Factory function to create a new pipeline instance."""
-    return PipelineUtils(results_dir)
+def create_pipeline(results_dir="data/05_output/results", enable_integration=True):
+    """Factory function to create a new pipeline instance with integration support."""
+    return PipelineUtils(results_dir, enable_dwsim_integration=enable_integration)
 
 def quick_run():
-    """Quick function to run the complete pipeline with default settings."""
-    pipeline = PipelineUtils()
+    """Quick function to run the complete pipeline with default settings and integration."""
+    pipeline = PipelineUtils(enable_dwsim_integration=True)
     return pipeline.run_complete_pipeline()
 
 def status_check():

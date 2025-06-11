@@ -6,6 +6,7 @@ Handles RAG (Retrieval-Augmented Generation) pipeline operations including:
 - Wikipedia article scraping
 - FAISS vector store building and evaluation
 - Query testing and results collection
+- DWSIM simulation data integration
 """
 
 import sys
@@ -20,13 +21,14 @@ sys.path.append(os.path.abspath('.'))
 class RAGPipeline:
     """Main RAG Pipeline class for managing document processing and retrieval operations."""
     
-    def __init__(self, results_dir="data/05_output/results"):
+    def __init__(self, results_dir="data/05_output/results", enable_dwsim_integration=True):
         """Initialize RAG Pipeline with results directory."""
         self.results_dir = Path(results_dir)
         self.results_dir.mkdir(exist_ok=True)
         self.results_data = []
         self.manager = None
         self.documents = None
+        self.enable_dwsim_integration = enable_dwsim_integration
         
         # Import and reload modules
         self._setup_imports()
@@ -61,6 +63,16 @@ class RAGPipeline:
         from pynucleus.rag.data_chunking import load_and_chunk_files, save_chunked_data
         from pynucleus.rag.vector_store import FAISSDBManager, _load_docs
         
+        # Import DWSIM integration if enabled
+        if self.enable_dwsim_integration:
+            try:
+                from pynucleus.integration.dwsim_data_integrator import DWSIMDataIntegrator
+                self.DWSIMDataIntegrator = DWSIMDataIntegrator
+            except ImportError:
+                print("⚠️ DWSIM integration not available - continuing without it")
+                self.enable_dwsim_integration = False
+                self.DWSIMDataIntegrator = None
+        
         # Store imports as instance variables
         self.config = config
         self.process_documents = process_documents
@@ -89,8 +101,15 @@ class RAGPipeline:
         chunked_docs = self.load_and_chunk_files()
         self.save_chunked_data(chunked_docs)
 
-        # Step 4: Build FAISS vector store
-        print("\nStep 4: Building FAISS vector store...")   
+        # Step 4: DWSIM Data Integration (if enabled and available)
+        if self.enable_dwsim_integration and self.DWSIMDataIntegrator:
+            print("\nStep 4: Integrating DWSIM simulation data...")
+            self._integrate_dwsim_data()
+        else:
+            print("\nStep 4: Skipping DWSIM integration (not enabled or not available)")
+
+        # Step 5: Build FAISS vector store
+        print(f"\nStep {'5' if self.enable_dwsim_integration else '4'}: Building FAISS vector store...")   
         self.manager = self.FAISSDBManager()
         self.documents = self._load_docs(str(self.config.FULL_JSON_PATH), self.manager.log)
         self.manager.build(self.documents)
@@ -99,69 +118,178 @@ class RAGPipeline:
         print(f"✅ RAG Pipeline completed! FAISS log → {self.manager.log_path}")
         return self.manager, self.documents
     
-    def test_queries(self, test_queries=None):
-        """Test RAG queries and collect results."""
-        if not self.manager or not self.documents:
-            print("❌ Pipeline not initialized. Run run_pipeline() first.")
-            return
-        
+    def _integrate_dwsim_data(self):
+        """Integrate DWSIM simulation data into the knowledge base."""
+        try:
+            # Initialize DWSIM data integrator
+            integrator = self.DWSIMDataIntegrator()
+            
+            # Check if DWSIM results are available
+            dwsim_results_file = Path("data/05_output/dwsim_simulation_results.csv")
+            if not dwsim_results_file.exists():
+                print("   ⚠️ No DWSIM simulation results found - skipping integration")
+                return
+            
+            # Perform integration
+            result = integrator.integrate_simulation_data()
+            
+            if result["success"]:
+                print(f"   ✅ Integration successful: {result['simulation_chunks']} simulation chunks added")
+                print(f"   📊 Total knowledge base: {result['total_chunks']} chunks")
+                print(f"      ├── Documents: {result['document_chunks']}")
+                print(f"      └── Simulations: {result['simulation_chunks']}")
+                
+                # Show integration summary
+                summary = integrator.create_integration_summary()
+                print(f"\n{summary}")
+                
+                # Show example queries
+                print("\n🔍 Enhanced Query Capabilities:")
+                examples = integrator.get_simulation_query_examples()[:3]
+                for i, query in enumerate(examples, 1):
+                    print(f"   {i}. {query}")
+                    
+            else:
+                print(f"   ❌ Integration failed: {result.get('error', 'Unknown error')}")
+                
+        except Exception as e:
+            print(f"   ❌ DWSIM integration error: {str(e)}")
+            # Continue without integration
+    
+    def test_queries(self):
+        """Test RAG queries with enhanced support for simulation data."""
         print("🔍 Testing RAG queries...")
         
-        if test_queries is None:
-            test_queries = [
-                "What are the key challenges in implementing modular chemical plants?",
-                "How does supply chain management affect modular design?",
-                "What are the economic benefits of modular construction?",
-                "How does software architecture relate to modular design?",
-                "What are the environmental impacts of modular manufacturing?"
-            ]
+        # Standard queries
+        standard_queries = [
+            "What are the key challenges in implementing modular chemical plants?",
+            "How does supply chain management affect modular design?",
+            "What are the economic benefits of modular construction?",
+            "How does software architecture relate to modular design?",
+            "What are the environmental impacts of modular manufacturing?"
+        ]
         
-        self.results_data.clear()
+        # Enhanced queries that leverage simulation data (if available)
+        simulation_queries = [
+            "What are the performance metrics for the distillation simulation?",
+            "How do the reactor conversion rates compare across different simulations?",
+            "What operating conditions were used in the heat exchanger simulation?",
+            "Which simulation showed the highest selectivity and why?",
+            "How do the simulation results relate to modular plant design principles?"
+        ]
         
-        for query in test_queries:
+        # Determine which queries to use based on integration status
+        if self.enable_dwsim_integration and self._has_simulation_data():
+            queries = standard_queries + simulation_queries[:2]  # Add 2 simulation queries
+        else:
+            queries = standard_queries
+        
+        all_results = []
+        
+        for query in queries:
             print(f"\n📝 Query: {query}")
-            results = self.manager.search(query, k=3)
-            
-            for i, (doc, score) in enumerate(results, 1):
-                print(f"   {i}. Score: {score:.4f} | Source: {doc.metadata.get('source', 'Unknown')}")
-                
-                self.results_data.append({
-                    'query': query,
-                    'result_rank': i,
-                    'score': score,
-                    'source': doc.metadata.get('source', 'Unknown'),
-                    'content_preview': doc.page_content[:200],
-                    'full_content': doc.page_content,
-                    'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                })
+            try:
+                results = self.manager.search(query, k=3)
+                for i, (doc, score) in enumerate(results, 1):
+                    source_path = doc.metadata.get('source', 'Unknown source')
+                    print(f"   {i}. Score: {score:.4f} | Source: {source_path}")
+                    all_results.append({
+                        'query': query,
+                        'rank': i,
+                        'score': score,
+                        'source': source_path,
+                        'content_preview': doc.page_content[:100] + "..." if len(doc.page_content) > 100 else doc.page_content
+                    })
+            except Exception as e:
+                print(f"   ❌ Query failed: {str(e)}")
         
-        print(f"✅ Query testing completed! {len(self.results_data)} results collected.")
-        return self.results_data
+        print(f"✅ Query testing completed! {len(all_results)} results collected.")
+        return all_results
+    
+    def _has_simulation_data(self) -> bool:
+        """Check if simulation data is available in the knowledge base."""
+        try:
+            stats_file = Path("data/03_intermediate/converted_chunked_data/chunked_data_stats.json")
+            if not stats_file.exists():
+                return False
+            
+            import json
+            with open(stats_file, 'r') as f:
+                stats = json.load(f)
+            
+            return stats.get("integration_enabled", False) and stats.get("simulation_chunks", 0) > 0
+        except:
+            return False
     
     def get_statistics(self):
-        """Get RAG pipeline statistics."""
-        if not self.documents:
-            return {}
-        
-        stats = {
-            'total_chunks': len(self.documents),
-            'avg_chunk_size': sum(len(doc.page_content) for doc in self.documents) / len(self.documents),
-            'num_sources': len(set(doc.metadata.get('source') for doc in self.documents)),
-            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        }
-        
-        print(f"📊 RAG Statistics:")
-        print(f"   • Total Chunks: {stats['total_chunks']}")
-        print(f"   • Average Chunk Size: {stats['avg_chunk_size']:.1f} characters")
-        print(f"   • Number of Sources: {stats['num_sources']}")
-        
-        return stats
+        """Get comprehensive statistics including simulation data integration."""
+        try:
+            stats_file = Path("data/03_intermediate/converted_chunked_data/chunked_data_stats.json")
+            if not stats_file.exists():
+                return {
+                    "total_chunks": 0,
+                    "sources": [],
+                    "avg_chunk_size": 0,
+                    "error": "Statistics file not found"
+                }
+            
+            import json
+            with open(stats_file, 'r') as f:
+                stats = json.load(f)
+            
+            # Add integration status
+            if stats.get("integration_enabled", False):
+                stats["integration_status"] = "DWSIM data integrated"
+                stats["has_simulation_data"] = True
+            else:
+                stats["integration_status"] = "Documents only"
+                stats["has_simulation_data"] = False
+            
+            return stats
+        except Exception as e:
+            return {
+                "total_chunks": 0,
+                "sources": [],
+                "avg_chunk_size": 0,
+                "error": f"Error loading statistics: {str(e)}"
+            }
     
     def get_results(self):
         """Get collected results data."""
         return self.results_data
     
     def clear_results(self):
-        """Clear collected results."""
+        """Clear previous RAG results."""
         self.results_data.clear()
-        print("🗑️ RAG results cleared.") 
+        print("🗑️ RAG results cleared.")
+    
+    def print_status(self):
+        """Print detailed pipeline status including integration information."""
+        print("\n📊 RAG Pipeline Status:")
+        print("=" * 50)
+        
+        stats = self.get_statistics()
+        
+        if "error" in stats:
+            print(f"❌ Error: {stats['error']}")
+            return
+        
+        print(f"📚 Total Chunks: {stats.get('total_chunks', 0):,}")
+        
+        if stats.get("has_simulation_data", False):
+            print(f"📄 Document Chunks: {stats.get('document_chunks', 0):,}")
+            print(f"🔬 Simulation Chunks: {stats.get('simulation_chunks', 0):,}")
+            print(f"🔗 Integration Status: {stats.get('integration_status', 'Unknown')}")
+        else:
+            print(f"📄 Document Sources: {len(stats.get('sources', []))}")
+            print(f"🔗 Integration Status: {stats.get('integration_status', 'Documents only')}")
+        
+        print(f"📏 Average Chunk Size: {stats.get('avg_chunk_size', 0):.1f} characters")
+        
+        if self.manager:
+            print(f"🔍 Vector Store: Ready")
+            print(f"📂 FAISS Index: Available")
+        else:
+            print(f"🔍 Vector Store: Not built")
+        
+        print("=" * 50) 
