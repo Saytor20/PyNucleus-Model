@@ -19,7 +19,7 @@ import numpy as np
 class DWSIMRAGIntegrator:
     """Integrates DWSIM simulation results with RAG knowledge base."""
     
-    def __init__(self, rag_pipeline=None, results_dir: str = "results"):
+    def __init__(self, rag_pipeline=None, results_dir: str = "data/05_output/results"):
         """Initialize the integrator with RAG pipeline and results directory."""
         self.rag_pipeline = rag_pipeline
         self.results_dir = Path(results_dir)

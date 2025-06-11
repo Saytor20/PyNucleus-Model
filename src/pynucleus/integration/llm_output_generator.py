@@ -19,7 +19,7 @@ class LLMOutputGenerator:
     with key metrics including recovery%, production, and financial data.
     """
     
-    def __init__(self, results_dir: str = "results", llm_output_dir: str = "llm_reports"):
+    def __init__(self, results_dir: str = "data/05_output/results", llm_output_dir: str = "data/05_output/llm_reports"):
         """Initialize the LLM output generator with separate directories."""
         self.results_dir = Path(results_dir)
         self.llm_output_dir = Path(llm_output_dir)

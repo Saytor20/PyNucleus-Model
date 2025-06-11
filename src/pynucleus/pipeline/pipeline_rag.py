@@ -20,7 +20,7 @@ sys.path.append(os.path.abspath('.'))
 class RAGPipeline:
     """Main RAG Pipeline class for managing document processing and retrieval operations."""
     
-    def __init__(self, results_dir="results"):
+    def __init__(self, results_dir="data/05_output/results"):
         """Initialize RAG Pipeline with results directory."""
         self.results_dir = Path(results_dir)
         self.results_dir.mkdir(exist_ok=True)

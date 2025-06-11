@@ -277,6 +277,7 @@ def main():
         if not test_service_health():
             print("\n❌ Service not available. Please start the enhanced DWSIM service:")
             print("   cd docker_config && docker-compose up -d dwsim-service")
+            print("   docker-compose up -d dwsim-service")
             return
         
         # 2. RAG-based queries

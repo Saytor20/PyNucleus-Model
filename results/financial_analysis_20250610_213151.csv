@@ -1,3 +1,0 @@
-simulation_name,process_type,recovery_rate_percent,production_rate_kg_hr,daily_revenue_usd,daily_cost_usd,daily_profit_usd,performance_rating
-system_test_distillation,distillation,76.5,800.0,36720.0,15360.0,21360.0,Excellent
-system_test_reactor,reactor,80.0,750.0,25920.0,21600.0,4320.0,Good

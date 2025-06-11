@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  pynucleus:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ..:/app
+      - ../data:/app/data
+    environment:
+      - PYTHONPATH=/app/src
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
+    command: python scripts/comprehensive_system_diagnostic.py 

@@ -1,6 +1,6 @@
 Case Name,Simulation Type,Components,Description,Status,Duration (s),Conversion,Selectivity,Yield,Temperature (°C),Pressure (atm),Success,Timestamp
-distillation_ethanol_water,distillation,"water, ethanol",Ethanol-water separation column,Completed Successfully,0.0,0.899,0.967,0.915,78.4,1.05,Yes,2025-06-10 21:43:13
-reactor_methane_combustion,reactor,"methane, oxygen",Methane combustion reactor,Completed Successfully,0.0,0.795,0.876,0.758,468.1,12.2,Yes,2025-06-10 21:43:13
-heat_exchanger_steam,heat_exchanger,"water, steam",Steam heat exchanger,Completed Successfully,0.0,N/A,N/A,N/A,136.0,4.3,Yes,2025-06-10 21:43:13
-absorber_co2_capture,absorber,"CO2, water",CO2 absorption column,Completed Successfully,0.0,0.964,0.967,0.881,37.7,2.2,Yes,2025-06-10 21:43:13
-crystallizer_salt,crystallizer,"water, salt",Salt crystallization unit,Completed Successfully,0.0,0.871,0.955,0.821,25.2,1.05,Yes,2025-06-10 21:43:13
+distillation_ethanol_water,distillation,"water, ethanol",Ethanol-water separation column,Completed Successfully,0.0,0.956,0.942,0.908,83.6,1.08,Yes,2025-06-10 22:10:32
+reactor_methane_combustion,reactor,"methane, oxygen",Methane combustion reactor,Completed Successfully,0.0,0.877,0.949,0.795,571.8,9.8,Yes,2025-06-10 22:10:32
+heat_exchanger_steam,heat_exchanger,"water, steam",Steam heat exchanger,Completed Successfully,0.0,N/A,N/A,N/A,133.0,6.5,Yes,2025-06-10 22:10:32
+absorber_co2_capture,absorber,"CO2, water",CO2 absorption column,Completed Successfully,0.0,0.979,0.954,0.916,28.5,2.5,Yes,2025-06-10 22:10:32
+crystallizer_salt,crystallizer,"water, salt",Salt crystallization unit,Completed Successfully,0.0,0.827,0.906,0.81,23.0,1.1,Yes,2025-06-10 22:10:32

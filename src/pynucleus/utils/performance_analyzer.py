@@ -52,7 +52,7 @@ class PerformanceAnalyzer:
         return metrics
 
     def analyze_chunking(
-        self, chunked_data_path="converted_chunked_data/chunked_data_stats.json"
+        self, chunked_data_path="data/03_intermediate/converted_chunked_data/chunked_data_stats.json"
     ):
         """
         Analyze chunking: chunk counts and detailed size statistics.

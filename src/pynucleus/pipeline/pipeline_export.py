@@ -14,7 +14,7 @@ from typing import Dict, List, Optional, Any
 class ResultsExporter:
     """Handles exporting pipeline results to CSV files."""
     
-    def __init__(self, results_dir="results"):
+    def __init__(self, results_dir="data/05_output/results"):
         """Initialize Results Exporter with output directory."""
         self.results_dir = Path(results_dir)
         self.results_dir.mkdir(exist_ok=True)

@@ -42,7 +42,7 @@ except ImportError as e:
 class EnhancedPipelineUtils:
     """Enhanced Pipeline with DWSIM-RAG integration and configurable simulations."""
     
-    def __init__(self, results_dir: str = "results", config_dir: str = "simulation_input_config"):
+    def __init__(self, results_dir: str = "data/05_output/results", config_dir: str = "simulation_input_config"):
         """Initialize enhanced pipeline."""
         self.results_dir = Path(results_dir)
         self.config_dir = Path(config_dir)

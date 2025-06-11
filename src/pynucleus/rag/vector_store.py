@@ -157,10 +157,10 @@ class FAISSDBManager:
 def main():
     """Example usage."""
     GROUND_TRUTH = {
-        "what are the benefits of modular design": "web_sources/wikipedia_modular_design.txt",
-        "how does modular design work in vehicles": "web_sources/wikipedia_modular_design.txt",
+        "what are the benefits of modular design": "data/01_raw/web_sources/wikipedia_modular_design.txt",
+        "how does modular design work in vehicles": "data/01_raw/web_sources/wikipedia_modular_design.txt",
     }
-    JSON_PATH = "converted_chunked_data/chunked_data_full.json"
+    JSON_PATH = "data/03_intermediate/converted_chunked_data/chunked_data_full.json"
 
     f_mgr = FAISSDBManager()
     f_docs = _load_docs(JSON_PATH, f_mgr.log)

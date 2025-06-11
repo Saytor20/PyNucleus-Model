@@ -5,13 +5,13 @@ Configuration for the RAG module.
 from pathlib import Path
 
 # --- Project Directories ---
-ROOT_DIR = Path(__file__).parent.parent.parent
-SOURCE_DOCS_DIR = ROOT_DIR / "source_documents"
-CONVERTED_DIR = ROOT_DIR / "converted_to_txt"
-WEB_SOURCES_DIR = ROOT_DIR / "web_sources"
-CHUNKED_DATA_DIR = ROOT_DIR / "converted_chunked_data"
+ROOT_DIR = Path(__file__).parent.parent.parent.parent
+SOURCE_DOCS_DIR = ROOT_DIR / "data/01_raw/source_documents"
+CONVERTED_DIR = ROOT_DIR / "data/02_processed/converted_to_txt"
+WEB_SOURCES_DIR = ROOT_DIR / "data/01_raw/web_sources"
+CHUNKED_DATA_DIR = ROOT_DIR / "data/03_intermediate/converted_chunked_data"
 VECTOR_DB_DIR = ROOT_DIR / "vector_db"
-REPORTS_DIR = ROOT_DIR / "chunk_reports"
+REPORTS_DIR = ROOT_DIR / "data/04_models/chunk_reports"
 
 # --- Data Chunking ---
 CHUNK_SIZE = 500

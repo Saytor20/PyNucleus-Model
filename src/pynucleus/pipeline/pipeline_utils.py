@@ -23,7 +23,7 @@ from .pipeline_export import ResultsExporter
 class PipelineUtils:
     """Utility class for managing the complete PyNucleus pipeline."""
     
-    def __init__(self, results_dir="results"):
+    def __init__(self, results_dir="data/05_output/results"):
         """Initialize Pipeline Utils with results directory."""
         self.results_dir = Path(results_dir)
         self.results_dir.mkdir(exist_ok=True)
@@ -222,7 +222,7 @@ class PipelineUtils:
         else:
             print("   No exported files found.")
 
-def create_pipeline(results_dir="results"):
+def create_pipeline(results_dir="data/05_output/results"):
     """Factory function to create a new pipeline instance."""
     return PipelineUtils(results_dir)
 
