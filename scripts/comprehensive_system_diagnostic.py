@@ -161,7 +161,7 @@ class SystemDiagnostic:
         
         # Check required packages (only essential ones for PyNucleus)
         required_packages = [
-            "numpy", "pandas", "requests", "tqdm"
+            "numpy", "pandas", "requests", "tqdm", "jinja2"
         ]
         
         # Optional packages (nice to have but not required)
@@ -716,6 +716,7 @@ DETAILED RESULTS
             ("Enhanced Pipeline Components", self.check_enhanced_pipeline_components),
             ("Enhanced Content Generation", self.check_enhanced_content_generation),
             ("PyNucleus RAG System", self.check_rag_system),
+            ("Jinja2 Prompts System", self.check_prompts_system),
             ("DWSIM Environment (Optional)", self.check_dwsim_environment),
             ("Docker Environment", self.check_docker_environment),
             ("Data Consolidation Deliverables", self.check_data_consolidation_deliverables),
@@ -852,6 +853,7 @@ DETAILED RESULTS"""
         report += "- Results Export: CSV and LLM-ready formats\n"
         report += "- Enhanced Integration: DWSIM-RAG combined analysis\n"
         report += "- Financial Analysis: ROI and profitability calculations\n"
+        report += "- Jinja2 Prompts System: Standardized LLM prompt templates\n"
         
         # System usage information
         report += f"\nSYSTEM USAGE:\n"
@@ -1059,6 +1061,178 @@ DETAILED RESULTS"""
                      clean_message="Data directories centralized. Verify file moves if Git complains.")
         
         self.log_result("Data Consolidation Deliverables", success, issues)
+        return success
+    
+    def check_prompts_system(self) -> bool:
+        """Check Jinja2 prompt template system functionality"""
+        self.print_section_header("JINJA2 PROMPTS SYSTEM CHECK")
+        issues = []
+        
+        # Check prompts directory exists
+        prompts_dir = Path("prompts")
+        if not prompts_dir.exists():
+            self.log_both("   prompts/ directory not found", console_symbol="❌ ",
+                         clean_message="prompts/ directory not found")
+            issues.append("prompts/ directory missing")
+        else:
+            self.log_both("   prompts/ directory exists", console_symbol="✅ ",
+                         clean_message="prompts/ directory exists")
+        
+        # Check required files in prompts directory
+        required_files = [
+            ("qwen_prompt.j2", "Jinja2 template file"),
+            ("prompt_system.py", "PromptSystem class"),
+            ("notebook_integration.py", "Jupyter notebook integration"),
+            ("README.md", "Documentation")
+        ]
+        
+        for filename, description in required_files:
+            file_path = prompts_dir / filename
+            if file_path.exists():
+                self.log_both(f"   {description}: {filename}", console_symbol="✅ ",
+                             clean_message=f"{description}: {filename} - EXISTS")
+            else:
+                self.log_both(f"   {description}: {filename} (missing)", console_symbol="❌ ",
+                             clean_message=f"{description}: {filename} - MISSING")
+                issues.append(f"Missing file: prompts/{filename}")
+        
+        # Check Jinja2 dependency
+        try:
+            import jinja2
+            self.log_both("   Jinja2 library available", console_symbol="✅ ",
+                         clean_message="Jinja2 library available")
+        except ImportError:
+            self.log_both("   Jinja2 library not installed", console_symbol="❌ ",
+                         clean_message="Jinja2 library not installed")
+            issues.append("Jinja2 library missing - install with: pip install jinja2")
+        
+        # Test template loading and rendering (if files exist)
+        template_path = prompts_dir / "qwen_prompt.j2"
+        if template_path.exists():
+            try:
+                import jinja2
+                from jinja2 import Environment, FileSystemLoader
+                
+                # Test template loading
+                env = Environment(loader=FileSystemLoader('prompts'))
+                template = env.get_template('qwen_prompt.j2')
+                
+                # Test template rendering with sample data
+                test_data = {
+                    'system_message': 'You are a helpful assistant.',
+                    'context': 'Sample context for testing',
+                    'question': 'What is the meaning of life?',
+                    'constraints': ['Be concise', 'Be accurate'],
+                    'format_instructions': 'Respond in plain text'
+                }
+                
+                rendered = template.render(**test_data)
+                
+                # Check for required sections in rendered output
+                required_sections = ['<SYSTEM>', '<CONTEXT>', '<QUESTION>', '<ANSWER>']
+                missing_sections = []
+                for section in required_sections:
+                    if section not in rendered:
+                        missing_sections.append(section)
+                
+                if missing_sections:
+                    self.log_both(f"   Template missing sections: {', '.join(missing_sections)}", 
+                                 console_symbol="❌ ", 
+                                 clean_message=f"Template missing sections: {', '.join(missing_sections)}")
+                    issues.append(f"Template missing sections: {missing_sections}")
+                else:
+                    self.log_both("   Template renders correctly with all sections", console_symbol="✅ ",
+                                 clean_message="Template renders correctly with all sections")
+                
+            except Exception as e:
+                error_msg = f"Template rendering test failed: {e}"
+                self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
+                issues.append(error_msg)
+        
+        # Test PromptSystem class functionality (if file exists)
+        prompt_system_path = prompts_dir / "prompt_system.py"
+        if prompt_system_path.exists():
+            try:
+                # Add prompts directory to path for import
+                import sys
+                prompts_path = str(prompts_dir.absolute())
+                if prompts_path not in sys.path:
+                    sys.path.insert(0, prompts_path)
+                
+                # Test import and basic functionality
+                from prompt_system import PromptSystem
+                
+                ps = PromptSystem()
+                self.log_both("   PromptSystem class imported and initialized", console_symbol="✅ ",
+                             clean_message="PromptSystem class imported and initialized")
+                
+                # Test template validation
+                if hasattr(ps, 'validate_template'):
+                    validation_result = ps.validate_template()
+                    # Handle both boolean and dict return types
+                    if isinstance(validation_result, bool):
+                        validation_passed = validation_result
+                    elif isinstance(validation_result, dict):
+                        validation_passed = validation_result.get('valid', False)
+                    else:
+                        validation_passed = False
+                    
+                    if validation_passed:
+                        self.log_both("   Template validation passed", console_symbol="✅ ",
+                                     clean_message="Template validation passed")
+                    else:
+                        self.log_both("   Template validation failed", console_symbol="❌ ",
+                                     clean_message="Template validation failed")
+                        issues.append("Template validation failed")
+                
+                # Clean up sys.path
+                if prompts_path in sys.path:
+                    sys.path.remove(prompts_path)
+                    
+            except Exception as e:
+                error_msg = f"PromptSystem class test failed: {e}"
+                self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
+                issues.append(error_msg)
+        
+        # Test notebook integration (if file exists)
+        notebook_integration_path = prompts_dir / "notebook_integration.py"
+        if notebook_integration_path.exists():
+            try:
+                # Read and check notebook integration file
+                with open(notebook_integration_path, 'r') as f:
+                    content = f.read()
+                
+                # Check for key functions
+                key_functions = ['create_prompt', 'demo_prompts', 'validate_prompts']
+                missing_functions = []
+                for func in key_functions:
+                    if f"def {func}" not in content:
+                        missing_functions.append(func)
+                
+                if missing_functions:
+                    self.log_both(f"   Notebook integration missing functions: {', '.join(missing_functions)}", 
+                                 console_symbol="❌ ", 
+                                 clean_message=f"Notebook integration missing functions: {', '.join(missing_functions)}")
+                    issues.append(f"Missing functions: {missing_functions}")
+                else:
+                    self.log_both("   Notebook integration functions available", console_symbol="✅ ",
+                                 clean_message="Notebook integration functions available")
+                
+            except Exception as e:
+                error_msg = f"Notebook integration test failed: {e}"
+                self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
+                issues.append(error_msg)
+        
+        success = len(issues) == 0
+        
+        if success:
+            self.log_both("\n   🎉 Jinja2 prompt system fully operational!", console_symbol="✅ ",
+                         clean_message="Jinja2 prompt system fully operational!")
+        else:
+            self.log_both(f"\n   {len(issues)} issues found in prompts system", console_symbol="❌ ",
+                         clean_message=f"{len(issues)} issues found in prompts system")
+        
+        self.log_result("Jinja2 Prompts System", success, issues)
         return success
 
 def main():

@@ -1,0 +1,50 @@
+{#
+================================================================================
+QWEN LLM PROMPT TEMPLATE
+================================================================================
+This Jinja2 template provides a standardized structure for interactions with 
+the Qwen language model, ensuring consistent formatting and clear section 
+separation for optimal performance.
+
+Template Variables:
+- system_message: Instructions for the AI's behavior and role
+- context: Background information, data, or relevant details
+- question: The specific question or task to be addressed
+- constraints: Optional constraints or requirements (default: None)
+- format_instructions: Optional output format specifications (default: None)
+================================================================================
+#}
+
+{# ========== SYSTEM SECTION ========== #}
+<SYSTEM>
+{{ system_message | default("You are a helpful AI assistant. Provide accurate, concise, and well-structured responses.") }}
+{%- if constraints %}
+
+CONSTRAINTS:
+{{ constraints }}
+{%- endif %}
+{%- if format_instructions %}
+
+OUTPUT FORMAT:
+{{ format_instructions }}
+{%- endif %}
+</SYSTEM>
+
+{# ========== CONTEXT SECTION ========== #}
+<CONTEXT>
+{%- if context %}
+{{ context }}
+{%- else %}
+No additional context provided.
+{%- endif %}
+</CONTEXT>
+
+{# ========== QUESTION SECTION ========== #}
+<QUESTION>
+{{ question }}
+</QUESTION>
+
+{# ========== ANSWER SECTION ========== #}
+<ANSWER>
+{# This section will be populated by the LLM's response #}
+</ANSWER>

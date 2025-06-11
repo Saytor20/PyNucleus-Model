@@ -107,12 +107,11 @@ Completed:
 4) Jinja2 templating for LLMOutputGenerator- Completed 
 5) Centralized Logging Configuration - Completed 
 6) enhanced the logging so that it logs when comprehensive_system_diagnostic is ran - Completed 
-7) Prompt Template for LLM Integration
+7) Prompt Template for LLM Integration - Completed 
 8) Prompt: Token Counting Utility
 
-
 To Do: 
+1) Run a docker builder once everything is completed 
 
- 2025-06-11 00:16:05 changes made and pushed to origin main
 
- 2025-06-11 00:50:42 changes made and pushed to origin main
+ 2025-06-11 01:26:38 changes made and pushed to origin main
