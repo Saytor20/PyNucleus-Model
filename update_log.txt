@@ -109,7 +109,7 @@ Completed:
 6) enhanced the logging so that it logs when comprehensive_system_diagnostic is ran - Completed 
 7) Prompt Template for LLM Integration - Completed 
 8) Prompt: Token Counting Utility- Completed 
-9) all system functions have been tested and working perfectly
+9) all system functions have been tested and working perfectly - Completed 
 
 To Do: 
 
@@ -120,7 +120,14 @@ To Do:
 5) Run a docker builder once everything is completed 
 6) update @README , @Pipeline Summary, and Structure to better enhance the documentations of the project. refer to project info to update those and remove those we dont need 
 
-
- 2025-06-11 01:26:38 changes made and pushed to origin main
-
  2025-06-11 01:44:40 changes made and pushed to origin main
+
+ 2025-06-12 12:44:40 
+1) Minimal LLMRunner Class - Completed 
+2) Rendering & Querying Utility
+3) CLI Command for Integrated Pipeline & LLM Query
+4) Create API calling for live news, costs, and other things to be considered 
+5) Run a docker builder once everything is completed 
+6) update @README , @Pipeline Summary, and Structure to better enhance the documentations of the project. refer to project info to update those and remove those we dont need 
+
+ 2025-06-11 18:08:44 changes made and pushed to origin main
