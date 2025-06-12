@@ -1,37 +1,33 @@
 """
-PyNucleus Pipeline Package
+PyNucleus Pipeline Module
 
-This package contains modular pipeline components for the PyNucleus project.
+Main pipeline components for RAG, DWSIM, and enhanced integration.
 """
 
-# Import components with error handling
+import sys
+import os
+from pathlib import Path
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
+
 try:
     from .pipeline_rag import RAGPipeline
-except ImportError:
-    RAGPipeline = None
-
-try:
-    from .pipeline_dwsim import DWSIMPipeline
-except ImportError:
-    DWSIMPipeline = None
-
-try:
+    from .pipeline_dwsim import DWSIMPipeline  
     from .pipeline_export import ResultsExporter
-except ImportError:
-    ResultsExporter = None
-
-try:
     from .pipeline_utils import PipelineUtils
-except ImportError:
-    PipelineUtils = None
-
-# Only export successfully imported components
-__all__ = []
-if RAGPipeline:
-    __all__.append('RAGPipeline')
-if DWSIMPipeline:
-    __all__.append('DWSIMPipeline')
-if ResultsExporter:
-    __all__.append('ResultsExporter')
-if PipelineUtils:
-    __all__.append('PipelineUtils') 
+    from .enhanced_pipeline_utils import EnhancedPipelineUtils
+    
+    __all__ = [
+        "RAGPipeline",
+        "DWSIMPipeline", 
+        "ResultsExporter",
+        "PipelineUtils",
+        "EnhancedPipelineUtils"
+    ]
+    
+except ImportError as e:
+    print(f"Warning: Some pipeline components not available: {e}")
+    # Provide minimal exports for backward compatibility
+    __all__ = [] 

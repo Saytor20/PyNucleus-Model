@@ -9,11 +9,39 @@ Handles:
 """
 
 import json
+import sys
+import os
 import csv
-import pandas as pd
+import logging
 from pathlib import Path
-from typing import Dict, List, Union, Any
-from datetime import datetime
+
+# Try to import pandas
+try:
+    import pandas as pd
+    PANDAS_AVAILABLE = True
+except ImportError:
+    PANDAS_AVAILABLE = False
+    print("Warning: pandas not available. Some features may be limited.")
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
+
+# Try to import jsonschema for validation
+try:
+    import jsonschema
+    JSONSCHEMA_AVAILABLE = True
+except ImportError:
+    JSONSCHEMA_AVAILABLE = False
+    print("Warning: jsonschema not available. Schema validation disabled.")
+
+# Try to import pydantic for validation
+try:
+    from pydantic import BaseModel, ValidationError
+    PYDANTIC_AVAILABLE = True
+except ImportError:
+    PYDANTIC_AVAILABLE = False
+    print("Warning: pydantic not available. Advanced validation disabled.")
 
 # Handle settings import with fallback
 try:
@@ -53,6 +81,52 @@ except ImportError:
     
     def load_settings(filepath):
         return AppSettings()
+
+# Create fallback functions for pandas operations
+class FallbackDataFrame:
+    def __init__(self, data):
+        self.data = data if isinstance(data, list) else [data]
+    
+    def to_csv(self, path, index=False):
+        with open(path, 'w', newline='') as f:
+            if self.data:
+                keys = self.data[0].keys() if isinstance(self.data[0], dict) else []
+                writer = csv.DictWriter(f, fieldnames=keys)
+                writer.writeheader()
+                writer.writerows(self.data)
+                
+    @property
+    def columns(self):
+        if self.data and isinstance(self.data[0], dict):
+            return list(self.data[0].keys())
+        return []
+
+# Mock pandas functions
+def read_csv(filepath):
+    """Fallback CSV reader"""
+    data = []
+    try:
+        with open(filepath, 'r') as f:
+            reader = csv.DictReader(f)
+            data = list(reader)
+    except Exception as e:
+        print(f"Error reading CSV: {e}")
+    return FallbackDataFrame(data)
+
+def notna(value):
+    """Check if value is not NaN/None"""
+    return value is not None and str(value).strip() != ''
+
+# Create a mock pandas module
+class MockPandas:
+    DataFrame = FallbackDataFrame
+    read_csv = staticmethod(read_csv)
+    notna = staticmethod(notna)
+
+pd = MockPandas()
+
+from typing import Dict, List, Union, Any, Optional
+from datetime import datetime
 
 class ConfigManager:
     """Manages DWSIM simulation configurations using Pydantic models."""
@@ -684,4 +758,53 @@ class ConfigManager:
             all_simulations.extend(sims)
         
         print(f"✅ Merged {len(all_simulations)} simulations from {len(config_files)} files")
-        return all_simulations 
+        return all_simulations
+    
+    def validate_config(self, config_data: Dict[str, Any], schema_file: str = None) -> Dict[str, Any]:
+        """
+        Validate configuration data against a schema.
+        
+        Args:
+            config_data: Configuration data to validate
+            schema_file: Optional schema file name
+            
+        Returns:
+            Dict with validation results
+        """
+        validation_result = {
+            "valid": True,
+            "errors": [],
+            "warnings": []
+        }
+        
+        if not JSONSCHEMA_AVAILABLE:
+            validation_result["warnings"].append("jsonschema not available - validation skipped")
+            return validation_result
+        
+        try:
+            if schema_file:
+                schema_path = self.config_dir / schema_file
+                if schema_path.exists():
+                    with open(schema_path, 'r') as f:
+                        schema = json.load(f)
+                    
+                    # Validate against schema
+                    jsonschema.validate(config_data, schema)
+                    validation_result["valid"] = True
+                else:
+                    validation_result["warnings"].append(f"Schema file not found: {schema_file}")
+            
+            # Basic validation checks
+            if "simulation_name" not in config_data:
+                validation_result["errors"].append("Missing required field: simulation_name")
+                validation_result["valid"] = False
+            
+            if "feed_streams" not in config_data:
+                validation_result["errors"].append("Missing required field: feed_streams") 
+                validation_result["valid"] = False
+                
+        except Exception as e:
+            validation_result["valid"] = False
+            validation_result["errors"].append(f"Validation error: {str(e)}")
+        
+        return validation_result 

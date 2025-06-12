@@ -1,16 +1,27 @@
 """
-LLM Package
+PyNucleus LLM Module
 
-Handles Language Model interactions for the PyNucleus system.
+Language model utilities and query interfaces.
 """
 
-# Import components with error handling
+import sys
+import os
+from pathlib import Path
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
+
 try:
     from .llm_runner import LLMRunner
-except ImportError:
-    LLMRunner = None
-
-# Only export successfully imported components
-__all__ = []
-if LLMRunner:
-    __all__.append('LLMRunner') 
+    from .query_llm import LLMQueryManager, quick_ask_llm
+    
+    __all__ = [
+        "LLMRunner",
+        "LLMQueryManager", 
+        "quick_ask_llm"
+    ]
+    
+except ImportError as e:
+    print(f"Warning: Some LLM components not available: {e}")
+    __all__ = [] 

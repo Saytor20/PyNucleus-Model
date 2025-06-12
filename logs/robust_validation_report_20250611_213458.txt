@@ -1,0 +1,23 @@
+PYNUCLEUS ROBUST SYSTEM VALIDATION REPORT
+Generated: 2025-06-11 21:35:01
+Duration: 2.7 seconds
+Validation Type: Quick Mode
+
+EXECUTIVE SUMMARY
+Overall System Health: NEEDS ATTENTION
+Script Health: 77.3% (34/44)
+Execution Success Rate: 0.0% (0/0)
+
+SCRIPT VALIDATION RESULTS
+Core Pipeline Scripts: ISSUES (9/13 scripts)
+Integration & LLM Scripts: ISSUES (8/13 scripts)
+Entry Point Scripts: ISSUES (4/5 scripts)
+Test Scripts: HEALTHY (9/9 scripts)
+Automation Scripts: HEALTHY (2/2 scripts)
+Prompt System Scripts: HEALTHY (2/2 scripts)
+
+PIPELINE HEALTH RESULTS
+RAG Pipeline: HEALTHY
+DWSIM Integration: HEALTHY
+Enhanced Integration: HEALTHY
+Notebook Execution: ISSUES

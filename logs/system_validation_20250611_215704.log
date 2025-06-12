@@ -1,0 +1,149 @@
+2025-06-11 21:57:04,380 | INFO | PYNUCLEUS SYSTEM VALIDATOR
+2025-06-11 21:57:04,380 | INFO | ======================================================================
+2025-06-11 21:57:04,380 | INFO | Comprehensive validation with actual script execution and pipeline testing
+2025-06-11 21:57:04,380 | INFO | ============================================================
+2025-06-11 21:57:04,380 | INFO | SECTION: CORE PIPELINE SCRIPTS VALIDATION
+2025-06-11 21:57:04,380 | INFO | ============================================================
+2025-06-11 21:57:04,380 | INFO | Found 13 Python script(s) in Core Pipeline Scripts
+2025-06-11 21:57:08,149 | INFO | ISSUES: src/pynucleus/pipeline/__init__.py
+2025-06-11 21:57:08,149 | INFO | Issue: Import errors detected
+2025-06-11 21:57:08,149 | INFO | ISSUES: src/pynucleus/pipeline/enhanced_pipeline_utils.py
+2025-06-11 21:57:08,149 | INFO | Issue: Runtime error: name 'FallbackDataFrame' is not defined
+2025-06-11 21:57:08,149 | INFO | ISSUES: src/pynucleus/pipeline/pipeline_dwsim.py
+2025-06-11 21:57:08,149 | INFO | Issue: Import errors detected
+2025-06-11 21:57:08,149 | INFO | HEALTHY: src/pynucleus/pipeline/pipeline_export.py
+2025-06-11 21:57:08,149 | INFO | HEALTHY: src/pynucleus/pipeline/pipeline_rag.py
+2025-06-11 21:57:08,149 | INFO | ISSUES: src/pynucleus/pipeline/pipeline_utils.py
+2025-06-11 21:57:08,149 | INFO | Issue: Import errors detected
+2025-06-11 21:57:08,149 | INFO | HEALTHY: src/pynucleus/rag/__init__.py
+2025-06-11 21:57:08,149 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-11 21:57:08,149 | INFO | HEALTHY: src/pynucleus/rag/config.py
+2025-06-11 21:57:08,149 | INFO | ISSUES: src/pynucleus/rag/data_chunking.py
+2025-06-11 21:57:08,149 | INFO | Issue: Runtime error: name 'config' is not defined
+2025-06-11 21:57:08,149 | INFO | ISSUES: src/pynucleus/rag/document_processor.py
+2025-06-11 21:57:08,149 | INFO | Issue: Import errors detected
+2025-06-11 21:57:08,149 | INFO | HEALTHY: src/pynucleus/rag/performance_analyzer.py
+2025-06-11 21:57:08,149 | INFO | ISSUES: src/pynucleus/rag/vector_store.py
+2025-06-11 21:57:08,149 | INFO | Issue: Runtime error: name 'Document' is not defined
+2025-06-11 21:57:08,149 | INFO | ISSUES: src/pynucleus/rag/wiki_scraper.py
+2025-06-11 21:57:08,149 | INFO | Issue: Import errors detected
+2025-06-11 21:57:08,149 | INFO | 5/13 Core Pipeline Scripts scripts are healthy
+2025-06-11 21:57:08,149 | INFO | ============================================================
+2025-06-11 21:57:08,149 | INFO | SECTION: INTEGRATION & LLM SCRIPTS VALIDATION
+2025-06-11 21:57:08,149 | INFO | ============================================================
+2025-06-11 21:57:08,149 | INFO | Found 13 Python script(s) in Integration & LLM Scripts
+2025-06-11 21:57:10,475 | INFO | ISSUES: src/pynucleus/integration/__init__.py
+2025-06-11 21:57:10,476 | INFO | Issue: Import errors detected
+2025-06-11 21:57:10,476 | INFO | ISSUES: src/pynucleus/integration/config_manager.py
+2025-06-11 21:57:10,476 | INFO | Issue: Import errors detected
+2025-06-11 21:57:10,476 | INFO | HEALTHY: src/pynucleus/integration/dwsim_data_integrator.py
+2025-06-11 21:57:10,476 | INFO | HEALTHY: src/pynucleus/integration/dwsim_rag_integrator.py
+2025-06-11 21:57:10,476 | INFO | HEALTHY: src/pynucleus/integration/llm_output_generator.py
+2025-06-11 21:57:10,476 | INFO | HEALTHY: src/pynucleus/integration/settings.py
+2025-06-11 21:57:10,476 | INFO | ISSUES: src/pynucleus/llm/__init__.py
+2025-06-11 21:57:10,476 | INFO | Issue: Import errors detected
+2025-06-11 21:57:10,476 | INFO | HEALTHY: src/pynucleus/llm/llm_runner.py
+2025-06-11 21:57:10,476 | INFO | HEALTHY: src/pynucleus/llm/query_llm.py
+2025-06-11 21:57:10,476 | INFO | ISSUES: src/pynucleus/utils/__init__.py
+2025-06-11 21:57:10,476 | INFO | Issue: Import errors detected
+2025-06-11 21:57:10,476 | INFO | HEALTHY: src/pynucleus/utils/logging_config.py
+2025-06-11 21:57:10,476 | INFO | HEALTHY: src/pynucleus/utils/performance_analyzer.py
+2025-06-11 21:57:10,476 | INFO | HEALTHY: src/pynucleus/utils/token_utils.py
+2025-06-11 21:57:10,476 | INFO | 9/13 Integration & LLM Scripts scripts are healthy
+2025-06-11 21:57:10,476 | INFO | ============================================================
+2025-06-11 21:57:10,476 | INFO | SECTION: ENTRY POINT SCRIPTS VALIDATION
+2025-06-11 21:57:10,476 | INFO | ============================================================
+2025-06-11 21:57:10,476 | INFO | Found 4 Python script(s) in Entry Point Scripts
+2025-06-11 21:57:10,839 | INFO | ISSUES: run_pipeline.py
+2025-06-11 21:57:10,839 | INFO | Issue: Execution failed: Traceback (most recent call last):
+  File "/Users/mohammadalmusaiteer/PyNucleus-Model/run_pipeline.py", line 31, in <module>
+    from pynucleus.integration.config_manager import ConfigManager
+  File "/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/integration/__init__.py", line 16, in <module>
+    from .config_manager import ConfigManager
+  File "/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/integration/config_manager.py", line 86, in <module>
+    class MockPandas:
+    ...<2 lines>...
+        notna = staticmethod(notna)
+  File "/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/integration/config_manager.py", line 87, in MockPandas
+    DataFrame = FallbackDataFrame
+                ^^^^^^^^^^^^^^^^^
+NameError: name 'FallbackDataFrame' is not defined
+2025-06-11 21:57:10,839 | INFO | HEALTHY: scripts/comprehensive_system_diagnostic.py
+2025-06-11 21:57:10,839 | INFO | Warning: Script with main() function imported successfully
+2025-06-11 21:57:10,839 | INFO | HEALTHY: scripts/demo_dwsim_docker.py
+2025-06-11 21:57:10,839 | INFO | Warning: Script with main() function imported successfully
+2025-06-11 21:57:10,839 | INFO | HEALTHY: scripts/system_validator.py
+2025-06-11 21:57:10,839 | INFO | Warning: Script with main() function imported successfully
+2025-06-11 21:57:10,839 | INFO | 3/4 Entry Point Scripts scripts are healthy
+2025-06-11 21:57:10,839 | INFO | ============================================================
+2025-06-11 21:57:10,839 | INFO | SECTION: TEST SCRIPTS VALIDATION
+2025-06-11 21:57:10,839 | INFO | ============================================================
+2025-06-11 21:57:10,839 | INFO | Found 9 Python script(s) in Test Scripts
+2025-06-11 21:57:11,390 | INFO | HEALTHY: src/pynucleus/tests/__init__.py
+2025-06-11 21:57:11,390 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-11 21:57:11,390 | INFO | HEALTHY: src/pynucleus/tests/llm/__init__.py
+2025-06-11 21:57:11,390 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-11 21:57:11,390 | INFO | HEALTHY: src/pynucleus/tests/llm/test_query_llm.py
+2025-06-11 21:57:11,390 | INFO | HEALTHY: src/pynucleus/tests/rag/__init__.py
+2025-06-11 21:57:11,390 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-11 21:57:11,390 | INFO | HEALTHY: src/pynucleus/tests/rag/test_document_processor.py
+2025-06-11 21:57:11,390 | INFO | HEALTHY: src/pynucleus/tests/simulation/__init__.py
+2025-06-11 21:57:11,390 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-11 21:57:11,390 | INFO | HEALTHY: src/pynucleus/tests/simulation/test_dwsim_bridge.py
+2025-06-11 21:57:11,390 | INFO | ISSUES: src/pynucleus/tests/test_cli_pipeline_and_ask.py
+2025-06-11 21:57:11,390 | INFO | Issue: Import execution failed: name 'FallbackDataFrame' is not defined
+2025-06-11 21:57:11,390 | INFO | HEALTHY: src/pynucleus/tests/test_logging.py
+2025-06-11 21:57:11,390 | INFO | 8/9 Test Scripts scripts are healthy
+2025-06-11 21:57:11,390 | INFO | ============================================================
+2025-06-11 21:57:11,390 | INFO | SECTION: AUTOMATION SCRIPTS VALIDATION
+2025-06-11 21:57:11,390 | INFO | ============================================================
+2025-06-11 21:57:11,390 | INFO | Found 2 Python script(s) in Automation Scripts
+2025-06-11 21:57:11,549 | INFO | HEALTHY: automation_tools/run_intel_system.py
+2025-06-11 21:57:11,549 | INFO | HEALTHY: automation_tools/sim_to_csv.py
+2025-06-11 21:57:11,549 | INFO | All Automation Scripts scripts are healthy!
+2025-06-11 21:57:11,549 | INFO | ============================================================
+2025-06-11 21:57:11,549 | INFO | SECTION: PROMPT SYSTEM SCRIPTS VALIDATION
+2025-06-11 21:57:11,549 | INFO | ============================================================
+2025-06-11 21:57:11,549 | INFO | Found 2 Python script(s) in Prompt System Scripts
+2025-06-11 21:57:11,655 | INFO | HEALTHY: prompts/notebook_integration.py
+2025-06-11 21:57:11,655 | INFO | HEALTHY: prompts/prompt_system.py
+2025-06-11 21:57:11,655 | INFO | All Prompt System Scripts scripts are healthy!
+2025-06-11 21:57:11,655 | INFO | ============================================================
+2025-06-11 21:57:11,655 | INFO | SECTION: RAG PIPELINE HEALTH TEST
+2025-06-11 21:57:11,655 | INFO | ============================================================
+2025-06-11 21:57:11,656 | INFO | RAG Pipeline health check FAILED: name 'FallbackDataFrame' is not defined
+2025-06-11 21:57:11,656 | INFO | ============================================================
+2025-06-11 21:57:11,656 | INFO | SECTION: DWSIM INTEGRATION HEALTH TEST
+2025-06-11 21:57:11,656 | INFO | ============================================================
+2025-06-11 21:57:11,656 | INFO | DWSIM Integration health check FAILED: name 'FallbackDataFrame' is not defined
+2025-06-11 21:57:11,656 | INFO | ============================================================
+2025-06-11 21:57:11,656 | INFO | SECTION: ENHANCED INTEGRATION HEALTH TEST
+2025-06-11 21:57:11,656 | INFO | ============================================================
+2025-06-11 21:57:11,656 | INFO | Enhanced Integration health check FAILED: name 'FallbackDataFrame' is not defined
+2025-06-11 21:57:11,656 | INFO | Notebook testing skipped
+2025-06-11 21:57:11,656 | INFO | ============================================================
+2025-06-11 21:57:11,656 | INFO | SECTION: COMPREHENSIVE VALIDATION SUMMARY
+2025-06-11 21:57:11,656 | INFO | ============================================================
+2025-06-11 21:57:11,657 | INFO | ============================================================
+2025-06-11 21:57:11,657 | INFO | COMPREHENSIVE VALIDATION REPORT
+2025-06-11 21:57:11,657 | INFO | ============================================================
+2025-06-11 21:57:11,657 | INFO | PYNUCLEUS SYSTEM VALIDATION REPORT
+2025-06-11 21:57:11,657 | INFO | Generated: 2025-06-11 21:57:11
+2025-06-11 21:57:11,657 | INFO | Duration: 7.3 seconds
+2025-06-11 21:57:11,657 | INFO | Validation Type: Comprehensive Mode
+2025-06-11 21:57:11,657 | INFO | EXECUTIVE SUMMARY
+2025-06-11 21:57:11,657 | INFO | Overall System Health: NEEDS ATTENTION
+2025-06-11 21:57:11,657 | INFO | Script Health: 67.4% (29/43)
+2025-06-11 21:57:11,657 | INFO | Execution Success Rate: 85.3% (29/34)
+2025-06-11 21:57:11,657 | INFO | SCRIPT VALIDATION RESULTS
+2025-06-11 21:57:11,657 | INFO | Core Pipeline Scripts: ISSUES (5/13 scripts)
+2025-06-11 21:57:11,657 | INFO | Integration & LLM Scripts: ISSUES (9/13 scripts)
+2025-06-11 21:57:11,657 | INFO | Entry Point Scripts: ISSUES (3/4 scripts)
+2025-06-11 21:57:11,657 | INFO | Test Scripts: ISSUES (8/9 scripts)
+2025-06-11 21:57:11,657 | INFO | Automation Scripts: HEALTHY (2/2 scripts)
+2025-06-11 21:57:11,657 | INFO | Prompt System Scripts: HEALTHY (2/2 scripts)
+2025-06-11 21:57:11,657 | INFO | PIPELINE HEALTH RESULTS
+2025-06-11 21:57:11,657 | INFO | RAG Pipeline: ISSUES
+2025-06-11 21:57:11,657 | INFO | DWSIM Integration: ISSUES
+2025-06-11 21:57:11,657 | INFO | Enhanced Integration: ISSUES
+2025-06-11 21:57:11,657 | INFO | Notebook Execution: ISSUES

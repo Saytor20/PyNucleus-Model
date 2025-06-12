@@ -15,35 +15,39 @@ from jinja2 import Environment, FileSystemLoader, Template, TemplateNotFound
 
 # Add project root to path for imports
 project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "src"))
 
-# Handle llm_runner import with fallback
+# Try to import required components
 try:
-    from .llm_runner import LLMRunner
+    from jinja2 import Environment, FileSystemLoader, Template
+    JINJA2_AVAILABLE = True
 except ImportError:
-    print("Warning: llm_runner not available, using fallback")
-    class LLMRunner:
-        def query(self, prompt, **kwargs):
-            return "LLM service not available"
+    JINJA2_AVAILABLE = False
+    print("Warning: jinja2 not available. Template rendering disabled.")
 
-# Handle token_utils import with fallback
+# Try to import token utilities with fallback
 try:
-    from ..utils.token_utils import count_tokens, estimate_cost, TokenCounter
+    from pynucleus.utils.token_utils import count_tokens, estimate_cost
+    TOKEN_UTILS_AVAILABLE = True
 except ImportError:
+    TOKEN_UTILS_AVAILABLE = False
     print("Warning: token_utils not available, using fallback")
-    def count_tokens(text):
-        return len(text.split())
     
-    def estimate_cost(tokens):
-        return 0.0
+    def count_tokens(text: str, model: str = "gpt-3.5-turbo") -> int:
+        """Fallback token counting - rough estimate"""
+        return len(text.split()) * 1.3  # Rough approximation
     
-    # Fallback TokenCounter class
-    class TokenCounter:
-        def __init__(self, model_id="gpt2"):
-            self.model_id = model_id
-        
-        def count_tokens(self, text):
-            return len(text.split())
+    def estimate_cost(tokens: int, model: str = "gpt-3.5-turbo") -> float:
+        """Fallback cost estimation"""
+        return tokens * 0.0000015  # Rough approximation
+
+# Try to import LLM runner
+try:
+    from pynucleus.llm.llm_runner import LLMRunner
+    LLM_RUNNER_AVAILABLE = True
+except ImportError:
+    LLM_RUNNER_AVAILABLE = False
+    print("Warning: LLMRunner not available")
 
 # Set up logging
 logger = logging.getLogger(__name__)

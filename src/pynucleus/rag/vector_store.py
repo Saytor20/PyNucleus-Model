@@ -1,27 +1,65 @@
 #!/usr/bin/env python3
 """
-Vector Store Module
+Vector Store Module for RAG Pipeline
 
-Manages vector storage and retrieval operations for the PyNucleus RAG system.
-Handles embedding storage, similarity search, and vector database operations.
+Handles FAISS vector database operations for the PyNucleus RAG system.
 """
 
-import json
+import sys
 import os
+from pathlib import Path
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
+
+import json
 import pickle
 import logging
+from typing import List, Dict, Any, Optional, Tuple
 from datetime import datetime
-from pathlib import Path
-from typing import List, Tuple, Dict
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain.docstore.document import Document
-from langchain_community.vectorstores import FAISS
-from . import config
+
+# Try to import required components
+try:
+    import faiss
+    import numpy as np
+    FAISS_AVAILABLE = True
+except ImportError:
+    FAISS_AVAILABLE = False
+    np = None
+
+try:
+    from sentence_transformers import SentenceTransformer
+    SENTENCE_TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
+
+# Try to import langchain components
+try:
+    from langchain.docstore.document import Document
+    DOCUMENT_AVAILABLE = True
+except ImportError:
+    DOCUMENT_AVAILABLE = False
+    # Fallback for Document class
+    class Document:
+        def __init__(self, page_content: str, metadata: dict = None):
+            self.page_content = page_content
+            self.metadata = metadata or {}
+
+# Import from absolute paths instead of relative
+try:
+    from pynucleus.rag.config import RAGConfig
+except ImportError:
+    # Fallback config
+    class RAGConfig:
+        def __init__(self):
+            self.model_name = "sentence-transformers/all-MiniLM-L6-v2"
+            self.vector_dim = 384
 
 logging.basicConfig(level=logging.INFO)
 
 
-def _load_docs(json_path: str = config.FULL_JSON_PATH, logger=None) -> List[Document]:
+def _load_docs(json_path: str = "data/03_intermediate/converted_chunked_data/chunked_data_full.json", logger=None) -> List[Document]:
     """Load documents from JSON file."""
     def log_message(msg):
         if logger:
@@ -68,10 +106,10 @@ def _load_docs(json_path: str = config.FULL_JSON_PATH, logger=None) -> List[Docu
 class FAISSDBManager:
     def __init__(
         self,
-        index_path: str = config.FAISS_INDEX_PATH,
-        embeddings_pkl_path: str = config.EMBEDDINGS_PKL_PATH,
-        model_name: str = config.EMBEDDING_MODEL,
-        log_dir: str = config.REPORTS_DIR,
+            index_path: str = "data/04_models/chunk_reports/pynucleus_mcp.faiss",
+    embeddings_pkl_path: str = "data/04_models/chunk_reports/embeddings.pkl",
+    model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+    log_dir: str = "data/04_models/chunk_reports",
     ):
         """Initialize FAISS vector store manager."""
         self.store_dir = Path(log_dir)

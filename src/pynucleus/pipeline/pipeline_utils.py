@@ -1,26 +1,42 @@
 """
 Pipeline Utilities Module
 
-Contains utility functions and classes for pipeline management including:
-- Pipeline orchestration
-- Common utility functions
-- Status monitoring
-- Configuration management
-- DWSIM-RAG integration
+Main orchestration class for running complete PyNucleus pipelines.
 """
 
 import sys
 import os
-from datetime import datetime
 from pathlib import Path
-from typing import Dict, Optional, Any
+import logging
+import time
+from datetime import datetime
+from typing import Dict, Any, Optional
 
 # Add project root to path
-sys.path.append(os.path.abspath('.'))
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
 
-from .pipeline_rag import RAGPipeline
-from .pipeline_dwsim import DWSIMPipeline
-from .pipeline_export import ResultsExporter
+# Import pipeline components with error handling
+try:
+    from pynucleus.pipeline.pipeline_rag import RAGPipeline
+    RAG_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: RAG pipeline not available: {e}")
+    RAG_AVAILABLE = False
+
+try:
+    from pynucleus.pipeline.pipeline_dwsim import DWSIMPipeline  
+    DWSIM_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: DWSIM pipeline not available: {e}")
+    DWSIM_AVAILABLE = False
+
+try:
+    from pynucleus.pipeline.pipeline_export import ResultsExporter
+    EXPORT_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: Results exporter not available: {e}")
+    EXPORT_AVAILABLE = False
 
 # Try importing logging config, but don't fail if not available
 try:

@@ -1,14 +1,12 @@
 """
-Enhanced DWSIM Bridge for PyNucleus-Model
+Enhanced DWSIM Bridge for PyNucleus Model
 
-Provides advanced chemical engineering simulation capabilities with:
-- Material and energy balance calculations
-- Economic optimization and sensitivity analysis
-- RAG integration for intelligent modular plant design
-- Real-time process optimization
+This module provides an enhanced interface to DWSIM (Dynamic Simulator of Industrial Processes)
+with RAG integration and advanced process analytics.
 """
 
 import os
+import sys
 import json
 import time
 import asyncio
@@ -18,6 +16,14 @@ from typing import Dict, List, Optional, Any, Tuple
 import requests
 import numpy as np
 from dataclasses import dataclass, asdict
+
+# Add project paths
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
+sys.path.insert(0, str(project_root))
+
+# Configuration
+BASE_URL = os.getenv("DWSIM_SERVICE_URL", "http://localhost:5000")
 
 # Check if running in Docker environment
 IS_DOCKER = os.path.exists("/.dockerenv") or "DOCKER_CONTAINER" in os.environ
@@ -278,7 +284,7 @@ class DWSimBridge:
             else:
                 raise Exception(f"RAG query failed: {response.text}")
                 
-            except Exception as e:
+        except Exception as e:
             raise Exception(f"RAG system error: {str(e)}")
     
     def run_comprehensive_analysis(
@@ -433,8 +439,8 @@ class DWSimBridge:
                     }
                     
                     profitability_analysis["capacity_analysis"].append(capacity_analysis)
-
-        except Exception as e:
+                    
+                except Exception as e:
                     profitability_analysis["capacity_analysis"].append({
                         "capacity_tonnes_year": capacity,
                         "error": str(e)
@@ -482,9 +488,9 @@ class DWSimBridge:
                     utility_cost=market_conditions["energy_cost"],
                     operating_hours=8400,
                     discount_rate=0.10
-            )
-
-        try:
+                )
+                
+                try:
                     simulation = self.run_chemical_simulation(
                         process_type=process_type,
                         feed_conditions=feed_conditions,
@@ -508,7 +514,7 @@ class DWSimBridge:
             )
             
             return profitability_analysis
-
+            
         except Exception as e:
             profitability_analysis["error"] = str(e)
             return profitability_analysis

@@ -967,9 +967,9 @@ DETAILED RESULTS"""
         report += f"\nSYSTEM USAGE:\n"
         report += "- CLI Tool: python run_pipeline.py run --config-path configs/my.json\n"
         report += "- Jupyter Notebook: Capstone Project.ipynb for interactive development\n"
-        report += "- Full Diagnostic: python scripts/comprehensive_system_diagnostic.py\n"
+        report += "- System Environment: python scripts/comprehensive_system_diagnostic.py\n"
+        report += "- Script Validation: python scripts/system_validator.py\n"
         report += "- Test Suite: python scripts/comprehensive_system_diagnostic.py --test\n"
-        report += "- Mock Testing: python scripts/comprehensive_system_diagnostic.py --mock\n"
         
         # Save to log file
         self.file_logger.info("=" * 60)

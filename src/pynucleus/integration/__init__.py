@@ -1,26 +1,31 @@
-# DWSIM-RAG Integration Module
+"""
+PyNucleus Integration Module
 
-# Import components with error handling
-try:
-    from .dwsim_rag_integrator import DWSIMRAGIntegrator
-except ImportError:
-    DWSIMRAGIntegrator = None
+Enhanced integration components for DWSIM-RAG integration and advanced analytics.
+"""
 
-try:
-    from .llm_output_generator import LLMOutputGenerator
-except ImportError:
-    LLMOutputGenerator = None
+import sys
+import os
+from pathlib import Path
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
 
 try:
     from .config_manager import ConfigManager
-except ImportError:
-    ConfigManager = None
-
-# Only export successfully imported components
-__all__ = []
-if DWSIMRAGIntegrator:
-    __all__.append('DWSIMRAGIntegrator')
-if LLMOutputGenerator:
-    __all__.append('LLMOutputGenerator')
-if ConfigManager:
-    __all__.append('ConfigManager') 
+    from .dwsim_rag_integrator import DWSIMRAGIntegrator
+    from .llm_output_generator import LLMOutputGenerator
+    from .dwsim_data_integrator import DWSIMDataIntegrator
+    from .settings import *
+    
+    __all__ = [
+        "ConfigManager",
+        "DWSIMRAGIntegrator", 
+        "LLMOutputGenerator",
+        "DWSIMDataIntegrator"
+    ]
+    
+except ImportError as e:
+    print(f"Warning: Some integration components not available: {e}")
+    __all__ = [] 

@@ -1,16 +1,50 @@
 #!/usr/bin/env python3
 """
-Wikipedia Scraper Module
+Wikipedia Scraper for RAG Pipeline
 
-Scrapes Wikipedia articles based on search keywords for the PyNucleus RAG system.
-Downloads and processes Wikipedia content to enhance the knowledge base.
+Handles Wikipedia article fetching and processing for the PyNucleus RAG system.
 """
 
-import requests
-from bs4 import BeautifulSoup
+import sys
 import os
-from urllib.parse import quote
-from typing import List
+from pathlib import Path
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
+
+import json
+import logging
+import warnings
+from datetime import datetime
+from typing import List, Dict, Any, Optional
+
+# Try to import wikipedia
+try:
+    import wikipedia
+    WIKIPEDIA_AVAILABLE = True
+except ImportError:
+    WIKIPEDIA_AVAILABLE = False
+    print("Warning: wikipedia package not available. Wikipedia scraping disabled.")
+
+# Try to import requests as fallback
+try:
+    import requests
+    REQUESTS_AVAILABLE = True
+except ImportError:
+    REQUESTS_AVAILABLE = False
+    print("Warning: requests not available.")
+
+# Import from absolute paths instead of relative
+try:
+    from pynucleus.rag.config import RAGConfig
+except ImportError:
+    # Fallback config
+    class RAGConfig:
+        def __init__(self):
+            self.web_sources_dir = "data/01_raw/web_sources"
+
+warnings.filterwarnings("ignore")
 
 # Handle config import with fallback
 try:

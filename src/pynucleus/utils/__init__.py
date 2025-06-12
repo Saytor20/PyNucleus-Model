@@ -1,34 +1,28 @@
 """
-Utilities Package
+PyNucleus Utilities Module
 
-Contains utility modules for the PyNucleus system.
+Utility functions and helper classes.
 """
 
-# Import components with error handling
-try:
-    from .token_utils import count_tokens, estimate_cost, TokenCounter
-except ImportError:
-    count_tokens = None
-    estimate_cost = None
-    TokenCounter = None
+import sys
+import os
+from pathlib import Path
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
 
 try:
-    from .logging_config import setup_logging
-except ImportError:
-    setup_logging = None
-
-try:
+    from .logging_config import setup_logging, get_logger
     from .performance_analyzer import PerformanceAnalyzer
-except ImportError:
-    PerformanceAnalyzer = None
-
-# Only export successfully imported components
-__all__ = []
-if count_tokens:
-    __all__.extend(['count_tokens', 'estimate_cost'])
-if TokenCounter:
-    __all__.append('TokenCounter')
-if setup_logging:
-    __all__.append('setup_logging')
-if PerformanceAnalyzer:
-    __all__.append('PerformanceAnalyzer')
+    from .token_utils import *
+    
+    __all__ = [
+        "setup_logging",
+        "get_logger", 
+        "PerformanceAnalyzer"
+    ]
+    
+except ImportError as e:
+    print(f"Warning: Some utility components not available: {e}")
+    __all__ = []

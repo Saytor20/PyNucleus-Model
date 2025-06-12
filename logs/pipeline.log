@@ -1,0 +1,15 @@
+2025-06-11 22:55:14 | [36mDEBUG[0m | pynucleus                      | 🔧 Debug logging enabled
+2025-06-11 22:55:14 | [36mDEBUG[0m | pynucleus                      | 📁 Log file: logs/pipeline.log
+2025-06-11 22:55:14 | [36mDEBUG[0m | pynucleus                      | 📊 Console output: True
+2025-06-11 22:55:14 | [36mDEBUG[0m | pynucleus                      | 💾 File output: True
+2025-06-11 22:55:14 | [36mDEBUG[0m | pynucleus.test                 | 🔍 This is a DEBUG message
+2025-06-11 22:55:14 | [32mINFO[0m | pynucleus.test                 | 📋 This is an INFO message
+2025-06-11 22:55:14 | [33mWARNING[0m | pynucleus.test                 | ⚠️ This is a WARNING message
+2025-06-11 22:55:14 | [31mERROR[0m | pynucleus.test                 | ❌ This is an ERROR message
+2025-06-11 22:55:14 | [32mINFO[0m | pynucleus.test                 | 🖥️ System Information:
+2025-06-11 22:55:14 | [32mINFO[0m | pynucleus.test                 |    • Platform: Darwin 24.5.0
+2025-06-11 22:55:14 | [32mINFO[0m | pynucleus.test                 |    • Python: 3.13.1
+2025-06-11 22:55:14 | [32mINFO[0m | pynucleus.test                 |    • Working Directory: /Users/mohammadalmusaiteer/PyNucleus-Model
+2025-06-11 22:55:14 | [32mINFO[0m | pynucleus.test                 |    • Process ID: 98718
+2025-06-11 22:55:14 | [32mINFO[0m | pynucleus.test                 | ✅ Log file created: logs/pipeline.log
+2025-06-11 22:55:14 | [32mINFO[0m | pynucleus.test                 | 📏 Log file size: 1447 bytes

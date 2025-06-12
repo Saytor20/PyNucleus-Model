@@ -1,16 +1,67 @@
 #!/usr/bin/env python3
 """
-Document Processor Module
+Document Processor for RAG Pipeline
 
-Handles processing of various document types (PDF, DOCX, TXT) for the PyNucleus RAG system.
-Converts documents to text format for further processing and indexing.
+Handles document loading, conversion, and preprocessing for the PyNucleus RAG system.
 """
 
+import sys
 import os
+from pathlib import Path
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
+
+import json
+import logging
+import warnings
+from datetime import datetime
+from typing import List, Dict, Any, Optional
+
+# Try to import unstructured
+try:
+    from unstructured.partition.auto import partition
+    UNSTRUCTURED_AVAILABLE = True
+except ImportError:
+    UNSTRUCTURED_AVAILABLE = False
+    print("Warning: unstructured not available. Document processing limited.")
+
+# Try to import docx
+try:
+    from docx import Document as DocxDocument
+    DOCX_AVAILABLE = True
+except ImportError:
+    DOCX_AVAILABLE = False
+    print("Warning: python-docx not available. DOCX processing limited.")
+
+# Try to import other document processors
+try:
+    import pypdf
+    PYPDF_AVAILABLE = True
+except ImportError:
+    try:
+        import PyPDF2
+        PYPDF_AVAILABLE = True
+    except ImportError:
+        PYPDF_AVAILABLE = False
+        print("Warning: PDF processing not available.")
+
+# Import from absolute paths instead of relative
+try:
+    from pynucleus.rag.config import RAGConfig
+except ImportError:
+    # Fallback config
+    class RAGConfig:
+        def __init__(self):
+            self.input_dir = "data/01_raw/source_documents"
+            self.output_dir = "data/02_processed/converted_to_txt"
+
+warnings.filterwarnings("ignore")
+
 from langchain_unstructured import UnstructuredLoader
 from PyPDF2 import PdfReader
 from tqdm import tqdm
-import warnings
 
 # Handle config import with fallback
 try:
@@ -21,10 +72,6 @@ except ImportError:
     CONVERTED_DIR = "data/02_intermediate/converted_docs"
 
 from docx import Document
-
-# Suppress UserWarning from unstructured
-warnings.filterwarnings("ignore", category=UserWarning)
-
 
 def process_documents(
     input_dir: str = SOURCE_DOCS_DIR,
