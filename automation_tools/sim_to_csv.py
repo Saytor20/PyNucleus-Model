@@ -7,7 +7,16 @@ from pathlib import Path
 
 # Local import; adjust if your PYTHONPATH differs.
 sys.path.append("src")
-from sim_bridge.dwsim_bridge import DWSIMBridge
+
+# Try importing from the correct location
+try:
+    from pynucleus.sim_bridge.dwsim_bridge import DWSIMBridge
+except ImportError:
+    try:
+        from pynucleus.sim_bridge import DWSimBridge as DWSIMBridge
+    except ImportError:
+        print("❌ DWSIM bridge not available. Please check your installation.")
+        sys.exit(1)
 
 # ---- config (hard-coded for the demo; parameterise later) ------------------
 os.environ.setdefault("DWSIM_DLL_PATH", "/Applications/DWSIM.app/Contents/MonoBundle")

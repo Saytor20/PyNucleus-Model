@@ -22,6 +22,15 @@ from .pipeline_rag import RAGPipeline
 from .pipeline_dwsim import DWSIMPipeline
 from .pipeline_export import ResultsExporter
 
+# Try importing logging config, but don't fail if not available
+try:
+    from ..utils.logging_config import setup_logging
+except ImportError:
+    # Fallback logging setup
+    def setup_logging():
+        import logging
+        logging.basicConfig(level=logging.INFO)
+
 class PipelineUtils:
     """Utility class for managing the complete PyNucleus pipeline with DWSIM-RAG integration."""
     

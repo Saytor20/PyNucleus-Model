@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+"""
+Vector Store Module
+
+Manages vector storage and retrieval operations for the PyNucleus RAG system.
+Handles embedding storage, similarity search, and vector database operations.
+"""
+
 import json
 import os
 import pickle

@@ -1,23 +1,24 @@
 {#
 ================================================================================
-QWEN LLM PROMPT TEMPLATE
+QWEN LLM PROMPT TEMPLATE (Merged Version)
 ================================================================================
 This Jinja2 template provides a standardized structure for interactions with 
-the Qwen language model, ensuring consistent formatting and clear section 
-separation for optimal performance.
+the Qwen language model, supporting both general queries and report analysis.
 
 Template Variables:
 - system_message: Instructions for the AI's behavior and role
-- context: Background information, data, or relevant details
-- question: The specific question or task to be addressed
-- constraints: Optional constraints or requirements (default: None)
-- format_instructions: Optional output format specifications (default: None)
+- context: Background information, data, or relevant details  
+- question/user_query: The specific question or task to be addressed
+- report_content: Report content for analysis (optional)
+- constraints: Optional constraints or requirements
+- format_instructions: Optional output format specifications
+- max_tokens: Token limit for response (optional)
 ================================================================================
 #}
 
 {# ========== SYSTEM SECTION ========== #}
 <SYSTEM>
-{{ system_message | default("You are a helpful AI assistant. Provide accurate, concise, and well-structured responses.") }}
+{{ system_message | default("You are an AI assistant specialized in analyzing technical reports and answering questions based on their content.") }}
 {%- if constraints %}
 
 CONSTRAINTS:
@@ -34,6 +35,9 @@ OUTPUT FORMAT:
 <CONTEXT>
 {%- if context %}
 {{ context }}
+{%- elif report_content %}
+**Report Content:**
+{{ report_content }}
 {%- else %}
 No additional context provided.
 {%- endif %}
@@ -41,10 +45,13 @@ No additional context provided.
 
 {# ========== QUESTION SECTION ========== #}
 <QUESTION>
-{{ question }}
+{{ question | default(user_query) }}
 </QUESTION>
+
+{# ========== INSTRUCTIONS ========== #}
+Please provide a comprehensive and accurate response based on the information provided above.{% if max_tokens %} Keep your response concise and within {{ max_tokens }} tokens.{% endif %}
 
 {# ========== ANSWER SECTION ========== #}
 <ANSWER>
 {# This section will be populated by the LLM's response #}
-</ANSWER>
+</ANSWER> 

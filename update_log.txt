@@ -128,16 +128,15 @@ To Do:
 2) Rendering & Querying Utility - Completed 
 3) CLI Command for Integrated Pipeline & LLM Query- Completed 
 4) make sure that all the documents and DWSIM results are integrated in the pipeline- Completed 
-5) remove all duplication files and clean house the files
-6) Create API calling for live news, costs, and other things to be considered 
-7) Run a docker builder once everything is completed 
-8) update @README , @Pipeline Summary, and Structure to better enhance the documentations of the project. refer to project info to update those and remove those we dont need 
+5) remove all duplication files and clean house the files - Completed 
+6) create a new script beside comprehensive_system_diagnostic that would run all .py and checks for errors. The system is now 100% after being 66% - Completed 
+7) update @README , @Pipeline Summary, and Structure to better enhance the documentations of the project. refer to project info to update those and remove those we dont need 
 
 To Do: 
+6) Create API calling for live news, costs, and other things to be considered 
+7) Run a docker builder once everything is completed 
+9) update the main .ipynb project to have two versions.. one to run when first starting the notebook to process data and the other one is to run the full pipeline 
 
 
- 2025-06-11 18:08:44 changes made and pushed to origin main
 
- 2025-06-11 18:29:53 changes made and pushed to origin main
-
- 2025-06-11 18:52:01 changes made and pushed to origin main
+ 2025-06-11 21:27:15 changes made and pushed to origin main

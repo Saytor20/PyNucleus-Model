@@ -409,9 +409,9 @@ class TestTokenManagement:
 @pytest.fixture(scope="session")
 def setup_template_directory():
     """Set up a test template directory for integration tests."""
-    # This would create the actual prompt_templates directory if needed
+    # This would create the actual prompts directory if needed
     project_root = Path(__file__).parent.parent.parent.parent.parent
-    template_dir = project_root / "prompt_templates"
+    template_dir = project_root / "prompts"
     
     if not template_dir.exists():
         template_dir.mkdir(exist_ok=True)

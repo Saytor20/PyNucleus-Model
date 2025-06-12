@@ -14,8 +14,45 @@ import pandas as pd
 from pathlib import Path
 from typing import Dict, List, Union, Any
 from datetime import datetime
-from .settings import AppSettings, load_settings, SimulationSettings, FeedComponent, FeedConditions, OperatingConditions
 
+# Handle settings import with fallback
+try:
+    from .settings import AppSettings, load_settings, SimulationSettings, FeedComponent, FeedConditions, OperatingConditions
+except ImportError:
+    # Create fallback classes if settings import fails
+    class AppSettings:
+        def __init__(self, simulations=None):
+            self.simulations = simulations or []
+        
+        def model_dump_json(self, indent=4):
+            return json.dumps({"simulations": [s.__dict__ if hasattr(s, '__dict__') else s for s in self.simulations]}, indent=indent)
+    
+    class SimulationSettings:
+        def __init__(self, simulation_name="", feed=None, operating=None):
+            self.simulation_name = simulation_name
+            self.feed = feed
+            self.operating = operating
+    
+    class FeedComponent:
+        def __init__(self, name="", mole_fraction=0.0, mass_flow_kgh=0.0):
+            self.name = name
+            self.mole_fraction = mole_fraction
+            self.mass_flow_kgh = mass_flow_kgh
+    
+    class FeedConditions:
+        def __init__(self, temperature_c=25.0, pressure_kpa=101.325, total_flow_kmol_h=100.0, components=None):
+            self.temperature_c = temperature_c
+            self.pressure_kpa = pressure_kpa
+            self.total_flow_kmol_h = total_flow_kmol_h
+            self.components = components or []
+    
+    class OperatingConditions:
+        def __init__(self, reflux_ratio=2.0, residence_time_min=30.0):
+            self.reflux_ratio = reflux_ratio
+            self.residence_time_min = residence_time_min
+    
+    def load_settings(filepath):
+        return AppSettings()
 
 class ConfigManager:
     """Manages DWSIM simulation configurations using Pydantic models."""

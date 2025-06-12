@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+"""
+Data Chunking Module
+
+Handles chunking of documents and text content for the PyNucleus RAG system.
+Splits large documents into manageable chunks for vector indexing and retrieval.
+"""
+
 import os
 import json
 import warnings

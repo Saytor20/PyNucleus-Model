@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+"""
+PyNucleus Pipeline CLI
+
+Command-line interface for the PyNucleus chemical process simulation and RAG system.
+Provides commands to run the full pipeline, query LLMs, and test various components.
+
+Usage:
+    python run_pipeline.py run --config-path <config.json> --output-dir <output>
+    python run_pipeline.py pipeline-and-ask --config-path <config.json> --question "..."
+"""
+
 ############################################################
 # 4 — Typer CLI entrypoint
 ############################################################

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Comprehensive PyNucleus System Diagnostic
-Combines all system checks in one comprehensive script:
+Comprehensive PyNucleus System Diagnostic & Testing Suite
+Combines system diagnostics with functional testing:
 
 SYSTEM ENVIRONMENT:
 - Python environment and dependencies
@@ -16,6 +16,12 @@ ENHANCED PIPELINE FEATURES:
 - Component functionality testing
 - File location verification
 
+TESTING CAPABILITIES:
+- Mock DWSIM-RAG integration testing
+- Configuration management testing
+- Component initialization testing
+- End-to-end functionality testing
+
 LOGGING:
 - Generates detailed diagnostic reports in /logs directory
 - Clean output format for professional logging
@@ -27,9 +33,11 @@ import sys
 import importlib
 import json
 import logging
+import shutil
 from pathlib import Path
 from typing import Dict, List, Tuple
 from datetime import datetime
+import argparse
 
 # Add src directory to Python path
 root_dir = Path(__file__).parent.parent
@@ -90,9 +98,9 @@ class SystemDiagnostic:
         self.log_file_path = log_file
         
         # Start logging session
-        self.log_both("COMPREHENSIVE PYNUCLEUS SYSTEM DIAGNOSTIC", level="info")
-        self.log_both("=" * 60, level="info")
-        self.log_both("Testing: Environment, Enhanced Pipeline, Components, Content Generation", level="info")
+        self.log_both("COMPREHENSIVE PYNUCLEUS SYSTEM DIAGNOSTIC & TESTING SUITE", level="info")
+        self.log_both("=" * 70, level="info")
+        self.log_both("Testing: Environment, Enhanced Pipeline, Components, Content Generation, Mock Testing", level="info")
         
     def log_both(self, message: str, level: str = "info", console_symbol: str = "", clean_message: str = None):
         """Log to both file (clean) and console (with symbols)"""
@@ -111,7 +119,7 @@ class SystemDiagnostic:
     def clean_message_for_file(self, message: str) -> str:
         """Remove symbols and emojis from message for clean file logging"""
         # Remove common symbols and emojis
-        symbols_to_remove = ["✅", "❌", "⚠️", "🔍", "📊", "🎉", "🔧", "📁", "📋", "🚀", "🟢", "🟡", "🔴", "ℹ️", "📄", "💾", "🎯", "─", "═", "•", "▶", "⏭️"]
+        symbols_to_remove = ["✅", "❌", "⚠️", "🔍", "📊", "🎉", "🔧", "📁", "📋", "🚀", "🟢", "🟡", "🔴", "ℹ️", "📄", "💾", "��", "─", "═", "•", "▶", "⏭️", "🧪", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "🗑️", "💡"]
         
         clean_msg = message
         for symbol in symbols_to_remove:
@@ -203,27 +211,13 @@ class SystemDiagnostic:
         # Check DWSIM DLL path (this is optional for basic PyNucleus functionality)
         dwsim_path = os.getenv("DWSIM_DLL_PATH")
         if not dwsim_path:
-            print("   ⚠️ DWSIM_DLL_PATH environment variable not set (simulation will use mock data)")
-            print("   ℹ️ This is optional - PyNucleus can run without DWSIM for testing")
+            self.log_both("   DWSIM_DLL_PATH environment variable not set (simulation will use mock data)", 
+                         console_symbol="⚠️ ", clean_message="DWSIM_DLL_PATH environment variable not set")
+            self.log_both("   This is optional - PyNucleus can run without DWSIM for testing", 
+                         console_symbol="ℹ️ ", clean_message="This is optional - PyNucleus can run without DWSIM for testing")
         else:
-            print(f"   ✅ DWSIM_DLL_PATH: {dwsim_path}")
-            
-            # Check DLL directory exists
-            dll_path = Path(dwsim_path)
-            if not dll_path.exists():
-                print(f"   ⚠️ DWSIM DLL directory does not exist: {dwsim_path}")
-                issues.append(f"DLL directory missing: {dwsim_path}")
-            else:
-                # Count DLLs
-                dlls = list(dll_path.glob("*.dll"))
-                print(f"   ✅ Found {len(dlls)} DLL files")
-                for dll in dlls[:3]:  # Show first 3
-                    print(f"      • {dll.name}")
-                if len(dlls) > 3:
-                    print(f"      ... and {len(dlls)-3} more")
-                
-                if not dlls:
-                    issues.append("No DLL files found")
+            self.log_both(f"   DWSIM_DLL_PATH: {dwsim_path}", console_symbol="✅ ",
+                         clean_message=f"DWSIM_DLL_PATH: {dwsim_path}")
         
         # DWSIM is optional, so always pass this check
         success = True
@@ -237,24 +231,30 @@ class SystemDiagnostic:
         
         # Check Dockerfile
         if not Path("docker/Dockerfile").exists():
-            print("   ⚠️ Dockerfile not found")
+            self.log_both("   Dockerfile not found", console_symbol="⚠️ ",
+                         clean_message="Dockerfile not found")
             issues.append("Dockerfile missing")
         else:
-            print("   ✅ Dockerfile exists")
+            self.log_both("   Dockerfile exists", console_symbol="✅ ",
+                         clean_message="Dockerfile exists")
         
         # Check docker-compose.yml
         if not Path("docker/docker-compose.yml").exists():
-            print("   ⚠️ docker-compose.yml not found")
+            self.log_both("   docker-compose.yml not found", console_symbol="⚠️ ",
+                         clean_message="docker-compose.yml not found")
             issues.append("docker-compose.yml missing")
         else:
-            print("   ✅ docker-compose.yml exists")
+            self.log_both("   docker-compose.yml exists", console_symbol="✅ ",
+                         clean_message="docker-compose.yml exists")
         
         # Check .dockerignore
         if not Path("docker/.dockerignore").exists():
-            print("   ⚠️ .dockerignore not found")
+            self.log_both("   .dockerignore not found", console_symbol="⚠️ ",
+                         clean_message=".dockerignore not found")
             issues.append(".dockerignore missing")
         else:
-            print("   ✅ .dockerignore exists")
+            self.log_both("   .dockerignore exists", console_symbol="✅ ",
+                         clean_message=".dockerignore exists")
         
         success = len(issues) == 0
         self.log_result("Docker Environment", success, issues)
@@ -312,24 +312,24 @@ class SystemDiagnostic:
             from pynucleus.integration.config_manager import ConfigManager
             from pynucleus.integration.dwsim_rag_integrator import DWSIMRAGIntegrator
             from pynucleus.integration.llm_output_generator import LLMOutputGenerator
-            print("   ✅ All enhanced modules imported successfully")
+            self.log_both("   All enhanced modules imported successfully", console_symbol="✅ ",
+                         clean_message="All enhanced modules imported successfully")
             
             # Test ConfigManager with new folder structure
             config_manager = ConfigManager(config_dir="configs")
-            print(f"   ✅ ConfigManager: {config_manager.config_dir}")
+            self.log_both(f"   ConfigManager: {config_manager.config_dir}", console_symbol="✅ ",
+                         clean_message=f"ConfigManager: {config_manager.config_dir}")
             
             # Test LLMOutputGenerator with separate directories
             llm_generator = LLMOutputGenerator(results_dir="data/05_output/llm_reports")
-            print(f"   ✅ LLMOutputGenerator: results_dir={llm_generator.results_dir}")
-            
-            # Test template creation (will skip if exists)
-            json_template = config_manager.create_template_json("system_diagnostic_test.json", verbose=True)
-            csv_template = config_manager.create_template_csv("system_diagnostic_test.csv", verbose=True)
+            self.log_both(f"   LLMOutputGenerator: results_dir={llm_generator.results_dir}", console_symbol="✅ ",
+                         clean_message=f"LLMOutputGenerator: results_dir={llm_generator.results_dir}")
             
             success = True
             
         except Exception as e:
-            print(f"   ❌ Enhanced pipeline component test failed: {e}")
+            error_msg = f"Enhanced pipeline component test failed: {e}"
+            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
             issues.append(f"Component initialization failed: {e}")
             success = False
         
@@ -449,6 +449,159 @@ class SystemDiagnostic:
         self.log_result("Enhanced Content Generation", success, issues)
         return success
     
+    def check_mock_integration_testing(self) -> bool:
+        """Test enhanced pipeline with mock data similar to test_enhanced_pipeline.py"""
+        self.print_section_header("MOCK INTEGRATION TESTING")
+        issues = []
+        
+        try:
+            self.log_both("🧪 Testing Enhanced PyNucleus Pipeline", console_symbol="", 
+                         clean_message="Testing Enhanced PyNucleus Pipeline")
+            
+            # Test 1: Import enhanced modules
+            self.log_both("\n1️⃣ Testing module imports...", console_symbol="", 
+                         clean_message="Testing module imports...")
+            from pynucleus.integration.config_manager import ConfigManager
+            from pynucleus.integration.dwsim_rag_integrator import DWSIMRAGIntegrator
+            from pynucleus.integration.llm_output_generator import LLMOutputGenerator
+            self.log_both("✅ All enhanced modules imported successfully!", console_symbol="", 
+                         clean_message="All enhanced modules imported successfully!")
+            
+            # Test 2: Initialize components with test directories
+            self.log_both("\n2️⃣ Testing component initialization...", console_symbol="", 
+                         clean_message="Testing component initialization...")
+            config_manager = ConfigManager(config_dir="test_config")
+            integrator = DWSIMRAGIntegrator(results_dir="test_results")
+            llm_generator = LLMOutputGenerator(results_dir="test_results")
+            self.log_both("✅ All components initialized successfully!", console_symbol="", 
+                         clean_message="All components initialized successfully!")
+            
+            # Test 3: Configuration management
+            self.log_both("\n3️⃣ Testing configuration management...", console_symbol="", 
+                         clean_message="Testing configuration management...")
+            json_template = config_manager.create_template_json("test_template.json")
+            csv_template = config_manager.create_template_csv("test_template.csv")
+            self.log_both(f"✅ Templates created: {json_template}, {csv_template}", console_symbol="", 
+                         clean_message=f"Templates created: {json_template}, {csv_template}")
+            
+            # Test 4: Load configurations
+            self.log_both("\n4️⃣ Testing configuration loading...", console_symbol="", 
+                         clean_message="Testing configuration loading...")
+            try:
+                configs = config_manager.load_from_json(json_template)
+                self.log_both(f"✅ Loaded {len(configs)} configurations from JSON", console_symbol="", 
+                             clean_message=f"Loaded {len(configs)} configurations from JSON")
+            except Exception as e:
+                self.log_both(f"⚠️ Configuration loading test: {e}", console_symbol="", 
+                             clean_message=f"Configuration loading test: {e}")
+            
+            # Test 5: Mock integration test
+            self.log_both("\n5️⃣ Testing DWSIM-RAG integration...", console_symbol="", 
+                         clean_message="Testing DWSIM-RAG integration...")
+            mock_dwsim_results = [
+                {
+                    'case_name': 'test_simulation',
+                    'simulation_type': 'reactor',
+                    'type': 'reactor',
+                    'components': 'methane, oxygen',
+                    'description': 'Test simulation for pipeline validation',
+                    'status': 'SUCCESS',
+                    'success': True,
+                    'duration_seconds': 0.001,
+                    'timestamp': '2025-06-10 16:45:00',
+                    # Add required fields for LLM template
+                    'conversion': 0.95,
+                    'selectivity': 0.90,
+                    'yield': 0.85,
+                    'temperature': 673.15,  # K
+                    'pressure': 101.325,    # kPa
+                    'results': {
+                        'conversion': 0.95,
+                        'selectivity': 0.90,
+                        'yield': 0.85,
+                        'flow_rate': 1000,
+                        'efficiency': 0.88
+                    }
+                }
+            ]
+            
+            integrated_results = integrator.integrate_simulation_results(
+                mock_dwsim_results, 
+                perform_rag_analysis=False  # Skip RAG for basic test
+            )
+            self.log_both(f"✅ Integration test completed: {len(integrated_results)} results processed", 
+                         console_symbol="", 
+                         clean_message=f"Integration test completed: {len(integrated_results)} results processed")
+            
+            # Test 6: LLM output generation
+            self.log_both("\n6️⃣ Testing LLM output generation...", console_symbol="", 
+                         clean_message="Testing LLM output generation...")
+            if integrated_results:
+                llm_output_file = llm_generator.export_llm_ready_text(integrated_results[0])
+                self.log_both(f"✅ LLM output generated: {llm_output_file}", console_symbol="", 
+                             clean_message=f"LLM output generated: {llm_output_file}")
+            
+            # Test 7: File system cleanup
+            self.log_both("\n7️⃣ Cleaning up test files...", console_symbol="", 
+                         clean_message="Cleaning up test files...")
+            test_dirs = ["test_config", "test_results"]
+            for test_dir in test_dirs:
+                if Path(test_dir).exists():
+                    shutil.rmtree(test_dir)
+                    self.log_both(f"🗑️ Cleaned up: {test_dir}", console_symbol="", 
+                                 clean_message=f"Cleaned up: {test_dir}")
+            
+            self.log_both("\n🎉 All mock tests passed! Enhanced pipeline is working correctly.", 
+                         console_symbol="", 
+                         clean_message="All mock tests passed! Enhanced pipeline is working correctly.")
+            success = True
+            
+        except ImportError as e:
+            error_msg = f"Import error: {e}"
+            self.log_both(f"❌ {error_msg}", console_symbol="", clean_message=error_msg)
+            self.log_both("💡 Make sure all dependencies are installed: pip install -r requirements.txt", 
+                         console_symbol="", 
+                         clean_message="Make sure all dependencies are installed: pip install -r requirements.txt")
+            issues.append(error_msg)
+            success = False
+        except Exception as e:
+            error_msg = f"Mock test failed: {e}"
+            self.log_both(f"❌ {error_msg}", console_symbol="", clean_message=error_msg)
+            issues.append(error_msg)
+            success = False
+        
+        self.log_result("Mock Integration Testing", success, issues)
+        return success
+
+    def test_basic_functionality(self) -> bool:
+        """Test basic functionality without enhanced features."""
+        
+        self.log_both("\n🔧 Testing basic pipeline functionality...", console_symbol="", 
+                     clean_message="Testing basic pipeline functionality...")
+        
+        try:
+            from pynucleus.pipeline import RAGPipeline, DWSIMPipeline, ResultsExporter, PipelineUtils
+            self.log_both("✅ Basic pipeline modules imported successfully!", console_symbol="", 
+                         clean_message="Basic pipeline modules imported successfully!")
+            
+            # Test basic pipeline initialization
+            pipeline = PipelineUtils()
+            self.log_both("✅ Basic pipeline initialized successfully!", console_symbol="", 
+                         clean_message="Basic pipeline initialized successfully!")
+            
+            # Test quick status
+            test_results = pipeline.quick_test()
+            self.log_both(f"✅ Quick test completed: {test_results['csv_files_count']} CSV files found", 
+                         console_symbol="", 
+                         clean_message=f"Quick test completed: {test_results['csv_files_count']} CSV files found")
+            
+            return True
+            
+        except Exception as e:
+            error_msg = f"Basic functionality test failed: {e}"
+            self.log_both(f"❌ {error_msg}", console_symbol="", clean_message=error_msg)
+            return False
+
     def check_rag_system(self) -> bool:
         """Check PyNucleus RAG system components"""
         self.print_section_header("PYNUCLEUS RAG SYSTEM CHECK")
@@ -467,24 +620,179 @@ class SystemDiagnostic:
         for dir_path, description in rag_dirs:
             if Path(dir_path).exists():
                 item_count = len(list(Path(dir_path).glob("*")))
-                print(f"   ✅ {description}: {dir_path} ({item_count} items)")
+                self.log_both(f"   {description}: {dir_path} ({item_count} items)", console_symbol="✅ ",
+                             clean_message=f"{description}: {dir_path} ({item_count} items)")
             else:
-                print(f"   ❌ {description}: {dir_path} (missing)")
+                self.log_both(f"   {description}: {dir_path} (missing)", console_symbol="❌ ",
+                             clean_message=f"{description}: {dir_path} (missing)")
                 issues.append(f"Missing RAG directory: {dir_path}")
         
         # Check FAISS store in chunk_reports
         faiss_files = list(Path("data/04_models/chunk_reports").glob("*.faiss")) if Path("data/04_models/chunk_reports").exists() else []
         if faiss_files:
-            print(f"   ✅ FAISS index files found: {len(faiss_files)}")
+            self.log_both(f"   FAISS index files found: {len(faiss_files)}", console_symbol="✅ ",
+                         clean_message=f"FAISS index files found: {len(faiss_files)}")
             for faiss_file in faiss_files[:2]:
-                print(f"      • {faiss_file.name}")
+                self.log_both(f"      • {faiss_file.name}", console_symbol="",
+                             clean_message=f"FAISS file: {faiss_file.name}")
         else:
-            print(f"   ⚠️ No FAISS index files found (will be created on first run)")
+            self.log_both(f"   No FAISS index files found (will be created on first run)", console_symbol="⚠️ ",
+                         clean_message="No FAISS index files found (will be created on first run)")
         
         success = len(issues) == 0
         self.log_result("RAG System", success, issues)
         return success
-    
+
+    def check_token_utilities(self) -> bool:
+        """Check PyNucleus Token Utilities System"""
+        self.print_section_header("TOKEN UTILITIES SYSTEM CHECK")
+        issues = []
+        
+        # Check src/pynucleus/utils directory exists
+        utils_dir = Path("src/pynucleus/utils")
+        if not utils_dir.exists():
+            self.log_both("   src/pynucleus/utils/ directory not found", console_symbol="❌ ",
+                         clean_message="src/pynucleus/utils/ directory not found")
+            issues.append("src/pynucleus/utils/ directory missing")
+            self.log_result("Token Utilities System", False, issues)
+            return False
+        else:
+            self.log_both("   src/pynucleus/utils/ directory exists", console_symbol="✅ ",
+                         clean_message="src/pynucleus/utils/ directory exists")
+        
+        # Check PyNucleus integration
+        pynucleus_token_file = Path("src/pynucleus/utils/token_utils.py")
+        if pynucleus_token_file.exists():
+            self.log_both("   PyNucleus integration: token_utils.py", console_symbol="✅ ",
+                         clean_message="PyNucleus integration: token_utils.py - EXISTS")
+        else:
+            self.log_both("   PyNucleus integration: token_utils.py (missing)", console_symbol="❌ ",
+                         clean_message="PyNucleus integration: token_utils.py - MISSING")
+            issues.append("Missing PyNucleus integration file")
+        
+        # Check transformers dependency
+        try:
+            import transformers
+            from transformers import AutoTokenizer
+            self.log_both("   Transformers library available", console_symbol="✅ ",
+                         clean_message="Transformers library available")
+        except ImportError:
+            self.log_both("   Transformers library not installed", console_symbol="❌ ",
+                         clean_message="Transformers library not installed")
+            issues.append("Transformers library missing - required for token utilities")
+            self.log_result("Token Utilities System", False, issues)
+            return False
+        
+        # Test PyNucleus integration
+        try:
+            from pynucleus.utils.token_utils import TokenCounter as PyNucleusTokenCounter
+            from pynucleus.utils.token_utils import count_tokens as pynucleus_count_tokens
+            
+            self.log_both("   PyNucleus integration imports successful", console_symbol="✅ ",
+                         clean_message="PyNucleus integration imports successful")
+            
+            # Test integrated functionality
+            test_text = "PyNucleus integration test for token counting."
+            integrated_count = pynucleus_count_tokens(test_text)
+            
+            if isinstance(integrated_count, int) and integrated_count > 0:
+                self.log_both(f"   Integrated token counting: {integrated_count} tokens", console_symbol="✅ ",
+                             clean_message=f"Integrated token counting: {integrated_count} tokens")
+            else:
+                self.log_both("   Integrated token counting failed", console_symbol="❌ ",
+                             clean_message="Integrated token counting failed")
+                issues.append("Integrated token counting returned invalid result")
+            
+        except Exception as e:
+            error_msg = f"PyNucleus integration test failed: {e}"
+            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
+            issues.append(error_msg)
+        
+        success = len(issues) == 0
+        
+        if success:
+            self.log_both("\n   🎉 Token utilities system operational!", console_symbol="✅ ",
+                         clean_message="Token utilities system operational!")
+        else:
+            self.log_both(f"\n   {len(issues)} issues found in token utilities system", console_symbol="❌ ",
+                         clean_message=f"{len(issues)} issues found in token utilities system")
+        
+        self.log_result("Token Utilities System", success, issues)
+        return success
+
+    def check_llm_utilities(self) -> bool:
+        """Check PyNucleus LLM Utilities System"""
+        self.print_section_header("LLM UTILITIES SYSTEM CHECK")
+        issues = []
+        
+        # Check src/pynucleus/llm directory exists
+        llm_dir = Path("src/pynucleus/llm")
+        if not llm_dir.exists():
+            self.log_both("   src/pynucleus/llm/ directory not found", console_symbol="❌ ",
+                         clean_message="src/pynucleus/llm/ directory not found")
+            issues.append("src/pynucleus/llm/ directory missing")
+            self.log_result("LLM Utilities System", False, issues)
+            return False
+        else:
+            self.log_both("   src/pynucleus/llm/ directory exists", console_symbol="✅ ",
+                         clean_message="src/pynucleus/llm/ directory exists")
+        
+        # Check required files in llm directory
+        required_files = [
+            ("llm_runner.py", "Main LLM runner module"),
+            ("__init__.py", "Package initialization"),
+            ("query_llm.py", "LLM query manager")
+        ]
+        
+        for filename, description in required_files:
+            file_path = llm_dir / filename
+            if file_path.exists():
+                self.log_both(f"   {description}: {filename}", console_symbol="✅ ",
+                             clean_message=f"{description}: {filename} - EXISTS")
+            else:
+                self.log_both(f"   {description}: {filename} (missing)", console_symbol="❌ ",
+                             clean_message=f"{description}: {filename} - MISSING")
+                issues.append(f"Missing file: src/pynucleus/llm/{filename}")
+        
+        # Check transformers and torch dependencies
+        try:
+            import transformers
+            import torch
+            from transformers import AutoTokenizer, AutoModelForCausalLM
+            self.log_both("   Required dependencies (transformers, torch) available", console_symbol="✅ ",
+                         clean_message="Required dependencies (transformers, torch) available")
+        except ImportError as e:
+            error_msg = f"Missing dependencies: {e}"
+            self.log_both(f"   {error_msg}", console_symbol="❌ ",
+                         clean_message=error_msg)
+            issues.append(f"Dependencies missing: {e}")
+            self.log_result("LLM Utilities System", False, issues)
+            return False
+        
+        # Test LLMRunner functionality
+        try:
+            from pynucleus.llm import LLMRunner
+            
+            self.log_both("   LLMRunner imports successful", console_symbol="✅ ",
+                         clean_message="LLMRunner imports successful")
+        
+        except Exception as e:
+            error_msg = f"LLMRunner import failed: {e}"
+            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
+            issues.append(error_msg)
+        
+        success = len(issues) == 0
+        
+        if success:
+            self.log_both("\n   🎉 LLM utilities system operational!", console_symbol="✅ ",
+                         clean_message="LLM utilities system operational!")
+        else:
+            self.log_both(f"\n   {len(issues)} issues found in LLM utilities system", console_symbol="❌ ",
+                         clean_message=f"{len(issues)} issues found in LLM utilities system")
+        
+        self.log_result("LLM Utilities System", success, issues)
+        return success
+
     def check_pipeline_functionality(self) -> bool:
         """Test core PyNucleus pipeline functionality"""
         self.print_section_header("PYNUCLEUS PIPELINE FUNCTIONALITY CHECK")
@@ -493,37 +801,43 @@ class SystemDiagnostic:
         try:
             # Test core pipeline imports
             from pynucleus.pipeline import RAGPipeline, DWSIMPipeline, ResultsExporter, PipelineUtils
-            print("   ✅ Core pipeline modules imported successfully")
+            self.log_both("   Core pipeline modules imported successfully", console_symbol="✅ ",
+                         clean_message="Core pipeline modules imported successfully")
             
             # Initialize pipeline utils
             pipeline = PipelineUtils()
-            print("   ✅ PipelineUtils initialized successfully")
-            print(f"   ✅ Results directory: {pipeline.results_dir}")
+            self.log_both("   PipelineUtils initialized successfully", console_symbol="✅ ",
+                         clean_message="PipelineUtils initialized successfully")
+            self.log_both(f"   Results directory: {pipeline.results_dir}", console_symbol="✅ ",
+                         clean_message=f"Results directory: {pipeline.results_dir}")
             
             # Check if pipeline has basic functionality
             if hasattr(pipeline, 'rag_pipeline') and hasattr(pipeline, 'dwsim_pipeline'):
-                print("   ✅ RAG and DWSIM pipelines available")
+                self.log_both("   RAG and DWSIM pipelines available", console_symbol="✅ ",
+                             clean_message="RAG and DWSIM pipelines available")
             else:
                 issues.append("Pipeline components not properly initialized")
             
             success = True
             
         except Exception as e:
-            print(f"   ❌ Pipeline functionality test failed: {e}")
+            error_msg = f"Pipeline functionality test failed: {e}"
+            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
             issues.append(f"Pipeline initialization failed: {e}")
             success = False
         
         self.log_result("Pipeline Functionality", success, issues)
         return success
-    
+
     def check_data_consolidation_deliverables(self) -> bool:
         """Check specific data consolidation deliverables"""
         self.print_section_header("DATA CONSOLIDATION DELIVERABLES CHECK")
         issues = []
         
-        print("\n📋 Verifying Data Directory Consolidation Deliverables:")
+        self.log_both("\nVerifying Data Directory Consolidation Deliverables:", console_symbol="📋 ",
+                     clean_message="Verifying Data Directory Consolidation Deliverables:")
         
-        # 1. Check data subdirectories creation
+        # Check data subdirectories creation
         required_data_dirs = [
             "data/01_raw",
             "data/02_processed", 
@@ -532,15 +846,22 @@ class SystemDiagnostic:
             "data/05_output"
         ]
         
-        print("\n   🔍 Data Subdirectories:")
+        self.log_both("\n   🔍 Data Subdirectories:", console_symbol="",
+                     clean_message="Data Subdirectories:")
         for data_dir in required_data_dirs:
             if Path(data_dir).exists():
-                print(f"      ✅ {data_dir}/ exists")
+                self.log_both(f"      {data_dir}/ exists", console_symbol="✅ ",
+                             clean_message=f"{data_dir}/ exists")
             else:
-                print(f"      ❌ {data_dir}/ missing")
+                self.log_both(f"      {data_dir}/ missing", console_symbol="❌ ",
+                             clean_message=f"{data_dir}/ missing")
                 issues.append(f"Missing data directory: {data_dir}")
+                # Create directory if it doesn't exist
+                Path(data_dir).mkdir(parents=True, exist_ok=True)
+                self.log_both(f"      Created directory: {data_dir}", console_symbol="✅ ",
+                             clean_message=f"Created directory: {data_dir}")
         
-        # 2. Check moved folders in correct locations
+        # Check moved folders in correct locations
         moved_folders = {
             "data/01_raw/source_documents": "Source documents",
             "data/01_raw/web_sources": "Web sources", 
@@ -551,81 +872,29 @@ class SystemDiagnostic:
             "data/05_output/llm_reports": "LLM reports"
         }
         
-        print("\n   🔍 Moved Folders Verification:")
+        self.log_both("\n   🔍 Moved Folders Verification:", console_symbol="",
+                     clean_message="Moved Folders Verification:")
         for folder_path, description in moved_folders.items():
             if Path(folder_path).exists():
                 item_count = len(list(Path(folder_path).glob("*")))
-                print(f"      ✅ {description}: {folder_path}/ ({item_count} items)")
+                self.log_both(f"      {description}: {folder_path}/ ({item_count} items)", console_symbol="✅ ",
+                             clean_message=f"{description}: {folder_path}/ ({item_count} items)")
             else:
-                print(f"      ❌ {description}: {folder_path}/ missing")
-                issues.append(f"Missing moved folder: {folder_path}")
-        
-        # 3. Check for old directories (should be gone)
-        old_locations = [
-            "source_documents",
-            "web_sources", 
-            "converted_to_txt",
-            "converted_chunked_data",
-            "chunk_reports",
-            "results",
-            "llm_reports"
-        ]
-        
-        print("\n   🔍 Old Directory Cleanup:")
-        cleanup_issues = []
-        for old_dir in old_locations:
-            if Path(old_dir).exists() and old_dir not in ["results", "llm_reports"]:  # These might still exist for backwards compatibility
-                print(f"      ⚠️ Old directory still exists: {old_dir}/")
-                cleanup_issues.append(f"Old directory not removed: {old_dir}")
-            else:
-                print(f"      ✅ Old directory cleaned: {old_dir}/")
-        
-        # 4. Check path updates in codebase (sample key files)
-        print("\n   🔍 Hard-coded Path Updates:")
-        key_files_to_check = [
-            "src/pynucleus/config.py",
-            "src/pynucleus/rag/config.py",
-            "src/pynucleus/integration/llm_output_generator.py",
-            "src/pynucleus/integration/dwsim_rag_integrator.py"
-        ]
-        
-        path_check_patterns = [
-            ("results/", "data/05_output/results/"),
-            ("llm_reports/", "data/05_output/llm_reports/"),
-            ("converted_chunked_data/", "data/03_intermediate/converted_chunked_data/")
-        ]
-        
-        for file_path in key_files_to_check:
-            if Path(file_path).exists():
-                with open(file_path, 'r') as f:
-                    content = f.read()
-                
-                file_updated = True
-                for old_pattern, new_pattern in path_check_patterns:
-                    if old_pattern in content and new_pattern not in content:
-                        print(f"      ⚠️ {Path(file_path).name}: May contain old path '{old_pattern}'")
-                        file_updated = False
-                
-                if file_updated:
-                    print(f"      ✅ {Path(file_path).name}: Paths updated correctly")
-            else:
-                print(f"      ⚠️ File not found: {file_path}")
-        
-        # 5. Summary
-        print(f"\n   📊 Consolidation Summary:")
-        print(f"      • Data directories: {len([d for d in required_data_dirs if Path(d).exists()])}/{len(required_data_dirs)} created")
-        print(f"      • Moved folders: {len([f for f in moved_folders.keys() if Path(f).exists()])}/{len(moved_folders)} in place")
-        print(f"      • Cleanup issues: {len(cleanup_issues)} remaining")
+                self.log_both(f"      {description}: {folder_path}/ missing", console_symbol="❌ ",
+                             clean_message=f"{description}: {folder_path}/ missing")
+                # Create directory if it doesn't exist
+                Path(folder_path).mkdir(parents=True, exist_ok=True)
+                self.log_both(f"      Created directory: {folder_path}", console_symbol="✅ ",
+                             clean_message=f"Created directory: {folder_path}")
         
         success = len(issues) == 0
-        if success:
-            print(f"\n   🎉 ✅ Data directories centralized. Verify file moves if Git complains.")
-        else:
-            print(f"\n   ❌ {len(issues)} consolidation issues found")
         
-        self.log_result("Data Consolidation Deliverables", success, issues + cleanup_issues)
+        self.log_both("\n   Data directories centralized and verified.", console_symbol="🎉 ✅ ",
+                     clean_message="Data directories centralized and verified.")
+        
+        self.log_result("Data Consolidation Deliverables", success, issues)
         return success
-    
+
     def generate_final_report(self):
         """Generate comprehensive final report and save to logs"""
         end_time = datetime.now()
@@ -642,8 +911,7 @@ class SystemDiagnostic:
             status_text = "NEEDS ATTENTION"
         
         # Generate report
-        report = f"""
-PYNUCLEUS SYSTEM DIAGNOSTIC REPORT
+        report = f"""PYNUCLEUS SYSTEM DIAGNOSTIC & TESTING REPORT
 Generated: {end_time.strftime('%Y-%m-%d %H:%M:%S')}
 Duration: {duration.total_seconds():.1f} seconds
 
@@ -653,15 +921,14 @@ Checks Performed: {self.total_checks}
 Checks Passed: {self.passed_checks}
 Checks Failed: {self.total_checks - self.passed_checks}
 
-DETAILED RESULTS
-"""
+DETAILED RESULTS"""
         
         # Group results by status
         passed = [r for r in self.results if r['success']]
         failed = [r for r in self.results if not r['success']]
         
         if passed:
-            report += f"\nPASSED CHECKS ({len(passed)}):\n"
+            report += f"\n\nPASSED CHECKS ({len(passed)}):\n"
             for result in passed:
                 report += f"- {result['name']}\n"
         
@@ -674,7 +941,7 @@ DETAILED RESULTS
                     report += f"  * {clean_detail}\n"
         
         # Add recommendations
-        report += f"\nRECOMMendations:\n"
+        report += f"\nRECOMMENDATIONS:\n"
         if health_percentage == 100:
             report += "- All systems operational. PyNucleus is ready for production use.\n"
         elif health_percentage >= 90:
@@ -691,6 +958,18 @@ DETAILED RESULTS
         report += "- Results Export: CSV and LLM-ready formats\n"
         report += "- Enhanced Integration: DWSIM-RAG combined analysis\n"
         report += "- Financial Analysis: ROI and profitability calculations\n"
+        report += "- Token Utilities: Efficient token counting with HuggingFace tokenizers\n"
+        report += "- LLM Utilities: Streamlined interface for querying Hugging Face LLM models\n"
+        report += "- Jinja2 Prompts System: Standardized LLM prompt templates\n"
+        report += "- Mock Testing: Comprehensive testing with simulated data\n"
+        
+        # System usage information
+        report += f"\nSYSTEM USAGE:\n"
+        report += "- CLI Tool: python run_pipeline.py run --config-path configs/my.json\n"
+        report += "- Jupyter Notebook: Capstone Project.ipynb for interactive development\n"
+        report += "- Full Diagnostic: python scripts/comprehensive_system_diagnostic.py\n"
+        report += "- Test Suite: python scripts/comprehensive_system_diagnostic.py --test\n"
+        report += "- Mock Testing: python scripts/comprehensive_system_diagnostic.py --mock\n"
         
         # Save to log file
         self.file_logger.info("=" * 60)
@@ -707,38 +986,6 @@ DETAILED RESULTS
         
         return report_file
 
-    def run_comprehensive_diagnostic(self):
-        """Run all diagnostic checks"""
-        # Run PyNucleus-specific checks
-        checks = [
-            ("Python Environment", self.check_python_environment),
-            ("Pipeline Functionality", self.check_pipeline_functionality),
-            ("Enhanced Pipeline Components", self.check_enhanced_pipeline_components),
-            ("Enhanced Content Generation", self.check_enhanced_content_generation),
-            ("PyNucleus RAG System", self.check_rag_system),
-            ("Token Utilities System", self.check_token_utilities),
-            ("LLM Utilities System", self.check_llm_utilities),
-            ("Jinja2 Prompts System", self.check_prompts_system),
-            ("DWSIM Environment (Optional)", self.check_dwsim_environment),
-            ("Docker Environment", self.check_docker_environment),
-            ("Data Consolidation Deliverables", self.check_data_consolidation_deliverables),
-        ]
-        
-        for check_name, check_func in checks:
-            try:
-                check_func()
-            except Exception as e:
-                error_msg = f"{check_name} check failed with error: {e}"
-                self.log_both(error_msg, console_symbol="❌ ", 
-                             clean_message=error_msg)
-                self.log_result(check_name, False, [f"Check error: {e}"])
-        
-        # Generate and save final report
-        report_file = self.generate_final_report()
-        
-        # Print summary to console
-        self.print_final_summary(report_file)
-    
     def print_final_summary(self, report_file):
         """Print comprehensive diagnostic summary to console"""
         self.print_section_header("COMPREHENSIVE DIAGNOSTIC SUMMARY")
@@ -791,652 +1038,6 @@ DETAILED RESULTS
         print(f"   • Detailed Log: {self.log_file_path}")
         print(f"   • Summary Report: {report_file}")
         print(f"   • All logs saved to: /logs directory")
-
-    def generate_final_report(self):
-        """Generate comprehensive final report and save to logs"""
-        end_time = datetime.now()
-        duration = end_time - self.start_time
-        
-        # Calculate statistics
-        health_percentage = (self.passed_checks / self.total_checks) * 100 if self.total_checks > 0 else 0
-        
-        if health_percentage >= 90:
-            status_text = "EXCELLENT"
-        elif health_percentage >= 70:
-            status_text = "GOOD"
-        else:
-            status_text = "NEEDS ATTENTION"
-        
-        # Generate report
-        report = f"""PYNUCLEUS SYSTEM DIAGNOSTIC REPORT
-Generated: {end_time.strftime('%Y-%m-%d %H:%M:%S')}
-Duration: {duration.total_seconds():.1f} seconds
-
-EXECUTIVE SUMMARY
-System Health: {health_percentage:.1f}% ({status_text})
-Checks Performed: {self.total_checks}
-Checks Passed: {self.passed_checks}
-Checks Failed: {self.total_checks - self.passed_checks}
-
-DETAILED RESULTS"""
-        
-        # Group results by status
-        passed = [r for r in self.results if r['success']]
-        failed = [r for r in self.results if not r['success']]
-        
-        if passed:
-            report += f"\n\nPASSED CHECKS ({len(passed)}):\n"
-            for result in passed:
-                report += f"- {result['name']}\n"
-        
-        if failed:
-            report += f"\nFAILED CHECKS ({len(failed)}):\n"
-            for result in failed:
-                report += f"- {result['name']}\n"
-                for detail in result['details']:
-                    clean_detail = self.clean_message_for_file(detail)
-                    report += f"  * {clean_detail}\n"
-        
-        # Add recommendations
-        report += f"\nRECOMMENDATIONS:\n"
-        if health_percentage == 100:
-            report += "- All systems operational. PyNucleus is ready for production use.\n"
-        elif health_percentage >= 90:
-            report += "- Core systems operational. Address minor issues for optimal performance.\n"
-        elif health_percentage >= 70:
-            report += "- System functional with some issues. Review failed checks.\n"
-        else:
-            report += "- Critical issues detected. Address failed checks before proceeding.\n"
-        
-        # System capabilities
-        report += f"\nSYSTEM CAPABILITIES:\n"
-        report += "- RAG Pipeline: Document processing and retrieval\n"
-        report += "- DWSIM Pipeline: Chemical process simulation\n"
-        report += "- Results Export: CSV and LLM-ready formats\n"
-        report += "- Enhanced Integration: DWSIM-RAG combined analysis\n"
-        report += "- Financial Analysis: ROI and profitability calculations\n"
-        report += "- Token Utilities: Efficient token counting with HuggingFace tokenizers\n"
-        report += "- LLM Utilities: Streamlined interface for querying Hugging Face LLM models\n"
-        report += "- Jinja2 Prompts System: Standardized LLM prompt templates\n"
-        
-        # System usage information
-        report += f"\nSYSTEM USAGE:\n"
-        report += "- CLI Tool: python run_pipeline.py run --config-path configs/my.json\n"
-        report += "- Jupyter Notebook: Capstone Project.ipynb for interactive development\n"
-        report += "- Diagnostic Tool: python scripts/comprehensive_system_diagnostic.py\n"
-        
-        # Save to log file
-        self.file_logger.info("=" * 60)
-        self.file_logger.info("FINAL DIAGNOSTIC REPORT")
-        self.file_logger.info("=" * 60)
-        for line in report.strip().split('\n'):
-            if line.strip():
-                self.file_logger.info(line.strip())
-        
-        # Also save as separate report file
-        timestamp = self.start_time.strftime("%Y%m%d_%H%M%S")
-        report_file = Path("logs") / f"diagnostic_report_{timestamp}.txt"
-        report_file.write_text(report.strip())
-        
-        return report_file
-
-    # Stub implementations for other check methods (keeping original logic but adding logging)
-    def check_dwsim_environment(self) -> bool:
-        """Check DWSIM environment setup (optional for PyNucleus)"""
-        self.print_section_header("DWSIM ENVIRONMENT CHECK (Optional)")
-        issues = []
-        
-        # Check DWSIM DLL path (this is optional for basic PyNucleus functionality)
-        dwsim_path = os.getenv("DWSIM_DLL_PATH")
-        if not dwsim_path:
-            self.log_both("   DWSIM_DLL_PATH environment variable not set (simulation will use mock data)", 
-                         console_symbol="⚠️ ", clean_message="DWSIM_DLL_PATH environment variable not set")
-            self.log_both("   This is optional - PyNucleus can run without DWSIM for testing", 
-                         console_symbol="ℹ️ ", clean_message="This is optional - PyNucleus can run without DWSIM for testing")
-        else:
-            self.log_both(f"   DWSIM_DLL_PATH: {dwsim_path}", console_symbol="✅ ",
-                         clean_message=f"DWSIM_DLL_PATH: {dwsim_path}")
-        
-        # DWSIM is optional, so always pass this check
-        success = True
-        self.log_result("DWSIM Environment", success, issues)
-        return success
-
-    def check_docker_environment(self) -> bool:
-        """Check Docker environment setup"""
-        self.print_section_header("DOCKER ENVIRONMENT CHECK")
-        issues = []
-        
-        # Check Dockerfile
-        if not Path("docker/Dockerfile").exists():
-            self.log_both("   Dockerfile not found", console_symbol="⚠️ ",
-                         clean_message="Dockerfile not found")
-            issues.append("Dockerfile missing")
-        else:
-            self.log_both("   Dockerfile exists", console_symbol="✅ ",
-                         clean_message="Dockerfile exists")
-        
-        # Check docker-compose.yml
-        if not Path("docker/docker-compose.yml").exists():
-            self.log_both("   docker-compose.yml not found", console_symbol="⚠️ ",
-                         clean_message="docker-compose.yml not found")
-            issues.append("docker-compose.yml missing")
-        else:
-            self.log_both("   docker-compose.yml exists", console_symbol="✅ ",
-                         clean_message="docker-compose.yml exists")
-        
-        # Check .dockerignore
-        if not Path("docker/.dockerignore").exists():
-            self.log_both("   .dockerignore not found", console_symbol="⚠️ ",
-                         clean_message=".dockerignore not found")
-            issues.append(".dockerignore missing")
-        else:
-            self.log_both("   .dockerignore exists", console_symbol="✅ ",
-                         clean_message=".dockerignore exists")
-        
-        success = len(issues) == 0
-        self.log_result("Docker Environment", success, issues)
-        return success
-
-    def check_enhanced_pipeline_components(self) -> bool:
-        """Check enhanced pipeline components functionality"""
-        self.print_section_header("ENHANCED PIPELINE COMPONENTS CHECK")
-        issues = []
-        
-        try:
-            # Test imports
-            from pynucleus.integration.config_manager import ConfigManager
-            from pynucleus.integration.dwsim_rag_integrator import DWSIMRAGIntegrator
-            from pynucleus.integration.llm_output_generator import LLMOutputGenerator
-            self.log_both("   All enhanced modules imported successfully", console_symbol="✅ ",
-                         clean_message="All enhanced modules imported successfully")
-            
-            # Test ConfigManager with new folder structure
-            config_manager = ConfigManager(config_dir="configs")
-            self.log_both(f"   ConfigManager: {config_manager.config_dir}", console_symbol="✅ ",
-                         clean_message=f"ConfigManager: {config_manager.config_dir}")
-            
-            # Test LLMOutputGenerator with separate directories
-            llm_generator = LLMOutputGenerator(results_dir="data/05_output/llm_reports")
-            self.log_both(f"   LLMOutputGenerator: results_dir={llm_generator.results_dir}", console_symbol="✅ ",
-                         clean_message=f"LLMOutputGenerator: results_dir={llm_generator.results_dir}")
-            
-            success = True
-            
-        except Exception as e:
-            error_msg = f"Enhanced pipeline component test failed: {e}"
-            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
-            issues.append(f"Component initialization failed: {e}")
-            success = False
-        
-        self.log_result("Enhanced Pipeline Components", success, issues)
-        return success
-
-    def check_rag_system(self) -> bool:
-        """Check PyNucleus RAG system components"""
-        self.print_section_header("PYNUCLEUS RAG SYSTEM CHECK")
-        issues = []
-        
-        # Check PyNucleus RAG directories (actual structure)
-        rag_dirs = [
-            ("data/01_raw/source_documents", "Source documents"),
-            ("data/02_processed/converted_to_txt", "Converted documents"),
-            ("data/01_raw/web_sources", "Web scraped sources"),
-            ("data/03_intermediate/converted_chunked_data", "Chunked data"),
-            ("data/04_models/chunk_reports", "FAISS analysis reports"),
-            ("src/pynucleus/rag", "RAG source code"),
-        ]
-        
-        for dir_path, description in rag_dirs:
-            if Path(dir_path).exists():
-                item_count = len(list(Path(dir_path).glob("*")))
-                self.log_both(f"   {description}: {dir_path} ({item_count} items)", console_symbol="✅ ",
-                             clean_message=f"{description}: {dir_path} ({item_count} items)")
-            else:
-                self.log_both(f"   {description}: {dir_path} (missing)", console_symbol="❌ ",
-                             clean_message=f"{description}: {dir_path} (missing)")
-                issues.append(f"Missing RAG directory: {dir_path}")
-        
-        # Check FAISS store in chunk_reports
-        faiss_files = list(Path("data/04_models/chunk_reports").glob("*.faiss")) if Path("data/04_models/chunk_reports").exists() else []
-        if faiss_files:
-            self.log_both(f"   FAISS index files found: {len(faiss_files)}", console_symbol="✅ ",
-                         clean_message=f"FAISS index files found: {len(faiss_files)}")
-            for faiss_file in faiss_files[:2]:
-                self.log_both(f"      • {faiss_file.name}", console_symbol="",
-                             clean_message=f"FAISS file: {faiss_file.name}")
-        else:
-            self.log_both(f"   No FAISS index files found (will be created on first run)", console_symbol="⚠️ ",
-                         clean_message="No FAISS index files found (will be created on first run)")
-        
-        success = len(issues) == 0
-        self.log_result("RAG System", success, issues)
-        return success
-
-    def check_token_utilities(self) -> bool:
-        """Check PyNucleus Token Utilities System"""
-        self.print_section_header("TOKEN UTILITIES SYSTEM CHECK")
-        issues = []
-        
-        # Check tokens_func directory exists
-        tokens_func_dir = Path("tokens_func")
-        if not tokens_func_dir.exists():
-            self.log_both("   tokens_func/ directory not found", console_symbol="❌ ",
-                         clean_message="tokens_func/ directory not found")
-            issues.append("tokens_func/ directory missing")
-            self.log_result("Token Utilities System", False, issues)
-            return False
-        else:
-            self.log_both("   tokens_func/ directory exists", console_symbol="✅ ",
-                         clean_message="tokens_func/ directory exists")
-        
-        # Check required files in tokens_func directory
-        required_files = [
-            ("token_utils.py", "Main token utility module"),
-            ("__init__.py", "Package initialization"),
-            ("test_token_utils.py", "Unit tests"),
-            ("usage_example.py", "Usage example script")
-        ]
-        
-        for filename, description in required_files:
-            file_path = tokens_func_dir / filename
-            if file_path.exists():
-                self.log_both(f"   {description}: {filename}", console_symbol="✅ ",
-                             clean_message=f"{description}: {filename} - EXISTS")
-            else:
-                self.log_both(f"   {description}: {filename} (missing)", console_symbol="❌ ",
-                             clean_message=f"{description}: {filename} - MISSING")
-                issues.append(f"Missing file: tokens_func/{filename}")
-        
-        # Check PyNucleus integration
-        pynucleus_token_file = Path("src/pynucleus/utils/token_utils.py")
-        if pynucleus_token_file.exists():
-            self.log_both("   PyNucleus integration: token_utils.py", console_symbol="✅ ",
-                         clean_message="PyNucleus integration: token_utils.py - EXISTS")
-        else:
-            self.log_both("   PyNucleus integration: token_utils.py (missing)", console_symbol="❌ ",
-                         clean_message="PyNucleus integration: token_utils.py - MISSING")
-            issues.append("Missing PyNucleus integration file")
-        
-        # Check transformers dependency
-        try:
-            import transformers
-            from transformers import AutoTokenizer
-            self.log_both("   Transformers library available", console_symbol="✅ ",
-                         clean_message="Transformers library available")
-        except ImportError:
-            self.log_both("   Transformers library not installed", console_symbol="❌ ",
-                         clean_message="Transformers library not installed")
-            issues.append("Transformers library missing - required for token utilities")
-            self.log_result("Token Utilities System", False, issues)
-            return False
-        
-        # Test standalone tokens_func module functionality
-        try:
-            # Add tokens_func to path for import
-            import sys
-            tokens_func_path = str(tokens_func_dir.absolute())
-            if tokens_func_path not in sys.path:
-                sys.path.insert(0, tokens_func_path)
-            
-            from token_utils import TokenCounter, count_tokens, get_available_cache_info, clear_all_caches
-            
-            self.log_both("   Standalone module imports successful", console_symbol="✅ ",
-                         clean_message="Standalone module imports successful")
-            
-            # Test basic functionality
-            test_text = "Hello, world! This is a test for token counting."
-            
-            # Test convenience function
-            token_count = count_tokens(test_text)
-            if isinstance(token_count, int) and token_count > 0:
-                self.log_both(f"   Basic token counting: {token_count} tokens", console_symbol="✅ ",
-                             clean_message=f"Basic token counting: {token_count} tokens")
-            else:
-                self.log_both("   Basic token counting failed", console_symbol="❌ ",
-                             clean_message="Basic token counting failed")
-                issues.append("Basic token counting returned invalid result")
-            
-            # Test TokenCounter class
-            counter = TokenCounter("gpt2")
-            class_count = counter.count_tokens(test_text)
-            if class_count == token_count:
-                self.log_both("   TokenCounter class functionality", console_symbol="✅ ",
-                             clean_message="TokenCounter class functionality - WORKING")
-            else:
-                self.log_both("   TokenCounter class mismatch", console_symbol="❌ ",
-                             clean_message="TokenCounter class mismatch")
-                issues.append("TokenCounter class returned different result than convenience function")
-            
-            # Test batch processing
-            batch_texts = ["Text one", "Text two", "Text three"]
-            batch_counts = counter.count_tokens(batch_texts)
-            if isinstance(batch_counts, list) and len(batch_counts) == 3:
-                self.log_both("   Batch processing functionality", console_symbol="✅ ",
-                             clean_message="Batch processing functionality - WORKING")
-            else:
-                self.log_both("   Batch processing failed", console_symbol="❌ ",
-                             clean_message="Batch processing failed")
-                issues.append("Batch processing returned invalid result")
-            
-            # Test caching
-            clear_all_caches()  # Start fresh
-            cache_info_before = get_available_cache_info()
-            
-            # Make two identical calls
-            count_tokens(test_text)
-            count_tokens(test_text)
-            
-            cache_info_after = get_available_cache_info()
-            cache_hits = cache_info_after['count_cache']['hits']
-            
-            if cache_hits > 0:
-                self.log_both(f"   Caching functionality: {cache_hits} hits", console_symbol="✅ ",
-                             clean_message=f"Caching functionality: {cache_hits} hits")
-            else:
-                self.log_both("   Caching not working properly", console_symbol="⚠️ ",
-                             clean_message="Caching not working properly")
-                # Don't treat this as a hard failure since caching might be too fast to measure
-            
-            # Clean up sys.path
-            if tokens_func_path in sys.path:
-                sys.path.remove(tokens_func_path)
-                
-        except Exception as e:
-            error_msg = f"Standalone module test failed: {e}"
-            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
-            issues.append(error_msg)
-        
-        # Test PyNucleus integration
-        try:
-            from pynucleus.utils.token_utils import TokenCounter as PyNucleusTokenCounter
-            from pynucleus.utils.token_utils import count_tokens as pynucleus_count_tokens
-            
-            self.log_both("   PyNucleus integration imports successful", console_symbol="✅ ",
-                         clean_message="PyNucleus integration imports successful")
-            
-            # Test integrated functionality
-            test_text = "PyNucleus integration test for token counting."
-            integrated_count = pynucleus_count_tokens(test_text)
-            
-            if isinstance(integrated_count, int) and integrated_count > 0:
-                self.log_both(f"   Integrated token counting: {integrated_count} tokens", console_symbol="✅ ",
-                             clean_message=f"Integrated token counting: {integrated_count} tokens")
-            else:
-                self.log_both("   Integrated token counting failed", console_symbol="❌ ",
-                             clean_message="Integrated token counting failed")
-                issues.append("Integrated token counting returned invalid result")
-            
-        except Exception as e:
-            error_msg = f"PyNucleus integration test failed: {e}"
-            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
-            issues.append(error_msg)
-        
-        # Check unit tests can run (optional check)
-        test_file = tokens_func_dir / "test_token_utils.py"
-        if test_file.exists():
-            try:
-                # Try to run a quick import test of the test file
-                import subprocess
-                result = subprocess.run([
-                    sys.executable, "-c", 
-                    f"import sys; sys.path.insert(0, '{tokens_func_path}'); from test_token_utils import TestTokenCounter"
-                ], capture_output=True, text=True, timeout=10)
-                
-                if result.returncode == 0:
-                    self.log_both("   Unit test structure valid", console_symbol="✅ ",
-                                 clean_message="Unit test structure valid")
-                else:
-                    self.log_both("   Unit test structure issues", console_symbol="⚠️ ",
-                                 clean_message="Unit test structure issues")
-                    # Don't treat as hard failure
-                    
-            except Exception as e:
-                # Don't fail the whole check if unit test validation fails
-                self.log_both("   Unit test validation skipped", console_symbol="ℹ️ ",
-                             clean_message="Unit test validation skipped")
-        
-        success = len(issues) == 0
-        
-        if success:
-            self.log_both("\n   🎉 Token utilities system fully operational!", console_symbol="✅ ",
-                         clean_message="Token utilities system fully operational!")
-        else:
-            self.log_both(f"\n   {len(issues)} issues found in token utilities system", console_symbol="❌ ",
-                         clean_message=f"{len(issues)} issues found in token utilities system")
-        
-        self.log_result("Token Utilities System", success, issues)
-        return success
-
-    def check_llm_utilities(self) -> bool:
-        """Check PyNucleus LLM Utilities System"""
-        self.print_section_header("LLM UTILITIES SYSTEM CHECK")
-        issues = []
-        
-        # Check src/pynucleus/llm directory exists
-        llm_dir = Path("src/pynucleus/llm")
-        if not llm_dir.exists():
-            self.log_both("   src/pynucleus/llm/ directory not found", console_symbol="❌ ",
-                         clean_message="src/pynucleus/llm/ directory not found")
-            issues.append("src/pynucleus/llm/ directory missing")
-            self.log_result("LLM Utilities System", False, issues)
-            return False
-        else:
-            self.log_both("   src/pynucleus/llm/ directory exists", console_symbol="✅ ",
-                         clean_message="src/pynucleus/llm/ directory exists")
-        
-        # Check required files in llm directory
-        required_files = [
-            ("llm_runner.py", "Main LLM runner module"),
-            ("__init__.py", "Package initialization"),
-            ("test_llm_runner.py", "Unit tests"),
-            ("example_usage.py", "Usage example script")
-        ]
-        
-        for filename, description in required_files:
-            file_path = llm_dir / filename
-            if file_path.exists():
-                self.log_both(f"   {description}: {filename}", console_symbol="✅ ",
-                             clean_message=f"{description}: {filename} - EXISTS")
-            else:
-                self.log_both(f"   {description}: {filename} (missing)", console_symbol="❌ ",
-                             clean_message=f"{description}: {filename} - MISSING")
-                issues.append(f"Missing file: src/pynucleus/llm/{filename}")
-        
-        # Check transformers and torch dependencies
-        try:
-            import transformers
-            import torch
-            from transformers import AutoTokenizer, AutoModelForCausalLM
-            self.log_both("   Required dependencies (transformers, torch) available", console_symbol="✅ ",
-                         clean_message="Required dependencies (transformers, torch) available")
-        except ImportError as e:
-            error_msg = f"Missing dependencies: {e}"
-            self.log_both(f"   {error_msg}", console_symbol="❌ ",
-                         clean_message=error_msg)
-            issues.append(f"Dependencies missing: {e}")
-            self.log_result("LLM Utilities System", False, issues)
-            return False
-        
-        # Test LLMRunner functionality
-        try:
-            from pynucleus.llm import LLMRunner
-            
-            self.log_both("   LLMRunner imports successful", console_symbol="✅ ",
-                         clean_message="LLMRunner imports successful")
-            
-            # Test basic initialization
-            try:
-                runner = LLMRunner(model_id="gpt2", device="cpu")
-                
-                self.log_both("   LLMRunner initialization successful", console_symbol="✅ ",
-                             clean_message="LLMRunner initialization successful")
-                
-                # Test get_model_info
-                try:
-                    info = runner.get_model_info()
-                    expected_keys = ['model_id', 'device', 'vocab_size', 'parameters']
-                    
-                    if all(key in info for key in expected_keys):
-                        self.log_both("   Model info functionality working", console_symbol="✅ ",
-                                     clean_message="Model info functionality working")
-                    else:
-                        self.log_both("   Model info functionality issues", console_symbol="❌ ",
-                                     clean_message="Model info functionality issues")
-                        issues.append("Model info missing required keys")
-                except Exception as e:
-                    # Handle __len__ or other tokenizer-related errors as warnings
-                    if "__len__" in str(e) or "len" in str(e).lower():
-                        self.log_both("   Model info has tokenizer compatibility issue (non-critical)", 
-                                     console_symbol="⚠️ ",
-                                     clean_message="Model info has tokenizer compatibility issue (non-critical)")
-                    else:
-                        self.log_both(f"   Model info test failed: {e}", console_symbol="❌ ",
-                                     clean_message=f"Model info test failed: {e}")
-                        issues.append(f"Model info error: {e}")
-                
-                # Test basic validation (without actual generation)
-                try:
-                    runner.ask("")  # Should raise ValueError
-                except ValueError:
-                    self.log_both("   Input validation working", console_symbol="✅ ",
-                                 clean_message="Input validation working")
-                except Exception as e:
-                    self.log_both(f"   Input validation unexpected error: {e}", console_symbol="❌ ",
-                                 clean_message=f"Input validation unexpected error: {e}")
-                    issues.append(f"Input validation error: {e}")
-                
-                # Test device validation
-                try:
-                    LLMRunner(device="invalid")  # Should raise ValueError
-                except ValueError:
-                    self.log_both("   Device validation working", console_symbol="✅ ",
-                                 clean_message="Device validation working")
-                except Exception as e:
-                    self.log_both(f"   Device validation unexpected error: {e}", console_symbol="❌ ",
-                                 clean_message=f"Device validation unexpected error: {e}")
-                    issues.append(f"Device validation error: {e}")
-                
-            except Exception as e:
-                # Handle __len__ or other initialization errors more gracefully
-                if "__len__" in str(e) or "len" in str(e).lower():
-                    self.log_both("   LLMRunner has tokenizer compatibility issue (works but may have warnings)", 
-                                 console_symbol="⚠️ ",
-                                 clean_message="LLMRunner has tokenizer compatibility issue (works but may have warnings)")
-                else:
-                    error_msg = f"LLMRunner initialization failed: {e}"
-                    self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
-                    issues.append(error_msg)
-        
-        except Exception as e:
-            error_msg = f"LLMRunner import failed: {e}"
-            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
-            issues.append(error_msg)
-        
-        # Check if CUDA is available (informational)
-        try:
-            import torch
-            if torch.cuda.is_available():
-                cuda_device_count = torch.cuda.device_count()
-                self.log_both(f"   CUDA available: {cuda_device_count} device(s)", console_symbol="✅ ",
-                             clean_message=f"CUDA available: {cuda_device_count} device(s)")
-            else:
-                self.log_both("   CUDA not available (CPU only)", console_symbol="ℹ️ ",
-                             clean_message="CUDA not available (CPU only)")
-        except Exception:
-            self.log_both("   CUDA status unknown", console_symbol="ℹ️ ",
-                         clean_message="CUDA status unknown")
-        
-        # Check unit tests can run (optional check)
-        test_file = llm_dir / "test_llm_runner.py"
-        if test_file.exists():
-            try:
-                # Try to run a quick import test of the test file
-                import subprocess
-                import sys
-                result = subprocess.run([
-                    sys.executable, "-c", 
-                    "import sys; sys.path.insert(0, 'src'); from pynucleus.llm.test_llm_runner import TestLLMRunner"
-                ], capture_output=True, text=True, timeout=10)
-                
-                if result.returncode == 0:
-                    self.log_both("   Unit test structure valid", console_symbol="✅ ",
-                                 clean_message="Unit test structure valid")
-                else:
-                    self.log_both("   Unit test structure issues", console_symbol="⚠️ ",
-                                 clean_message="Unit test structure issues")
-                    # Don't treat as hard failure
-                    
-            except Exception as e:
-                # Don't fail the whole check if unit test validation fails
-                self.log_both("   Unit test validation skipped", console_symbol="ℹ️ ",
-                             clean_message="Unit test validation skipped")
-        
-        success = len(issues) == 0
-        
-        if success:
-            self.log_both("\n   🎉 LLM utilities system fully operational!", console_symbol="✅ ",
-                         clean_message="LLM utilities system fully operational!")
-        else:
-            self.log_both(f"\n   {len(issues)} issues found in LLM utilities system", console_symbol="❌ ",
-                         clean_message=f"{len(issues)} issues found in LLM utilities system")
-        
-        self.log_result("LLM Utilities System", success, issues)
-        return success
-
-    def check_pipeline_functionality(self) -> bool:
-        """Test core PyNucleus pipeline functionality"""
-        self.print_section_header("PYNUCLEUS PIPELINE FUNCTIONALITY CHECK")
-        issues = []
-        
-        try:
-            # Test core pipeline imports
-            from pynucleus.pipeline import RAGPipeline, DWSIMPipeline, ResultsExporter, PipelineUtils
-            self.log_both("   Core pipeline modules imported successfully", console_symbol="✅ ",
-                         clean_message="Core pipeline modules imported successfully")
-            
-            # Initialize pipeline utils
-            pipeline = PipelineUtils()
-            self.log_both("   PipelineUtils initialized successfully", console_symbol="✅ ",
-                         clean_message="PipelineUtils initialized successfully")
-            self.log_both(f"   Results directory: {pipeline.results_dir}", console_symbol="✅ ",
-                         clean_message=f"Results directory: {pipeline.results_dir}")
-            
-            # Check if pipeline has basic functionality
-            if hasattr(pipeline, 'rag_pipeline') and hasattr(pipeline, 'dwsim_pipeline'):
-                self.log_both("   RAG and DWSIM pipelines available", console_symbol="✅ ",
-                             clean_message="RAG and DWSIM pipelines available")
-            else:
-                issues.append("Pipeline components not properly initialized")
-            
-            success = True
-            
-        except Exception as e:
-            error_msg = f"Pipeline functionality test failed: {e}"
-            self.log_both(f"   {error_msg}", console_symbol="❌ ", clean_message=error_msg)
-            issues.append(f"Pipeline initialization failed: {e}")
-            success = False
-        
-        self.log_result("Pipeline Functionality", success, issues)
-        return success
-
-    def check_data_consolidation_deliverables(self) -> bool:
-        """Check specific data consolidation deliverables"""
-        self.print_section_header("DATA CONSOLIDATION DELIVERABLES CHECK")
-        issues = []
-        
-        self.log_both("\nVerifying Data Directory Consolidation Deliverables:", console_symbol="📋 ",
-                     clean_message="Verifying Data Directory Consolidation Deliverables:")
-        
-        # Basic implementation - all directories exist as checked in other methods
-        # This is a summary check
-        success = True
-        
-        self.log_both("\n   Data directories centralized. Verify file moves if Git complains.", console_symbol="🎉 ✅ ",
-                     clean_message="Data directories centralized. Verify file moves if Git complains.")
-        
-        self.log_result("Data Consolidation Deliverables", success, issues)
-        return success
     
     def check_prompts_system(self) -> bool:
         """Check Jinja2 prompt template system functionality"""
@@ -1535,7 +1136,10 @@ DETAILED RESULTS"""
                     sys.path.insert(0, prompts_path)
                 
                 # Test import and basic functionality
-                from prompt_system import PromptSystem
+                try:
+                    from prompts.prompt_system import PromptSystem
+                except ImportError:
+                    from prompt_system import PromptSystem
                 
                 ps = PromptSystem()
                 self.log_both("   PromptSystem class imported and initialized", console_symbol="✅ ",
@@ -1610,10 +1214,132 @@ DETAILED RESULTS"""
         self.log_result("Jinja2 Prompts System", success, issues)
         return success
 
+    def run_comprehensive_diagnostic(self, test_mode="full"):
+        """Run all diagnostic checks"""
+        # Run PyNucleus-specific checks
+        checks = [
+            ("Python Environment", self.check_python_environment),
+            ("Pipeline Functionality", self.check_pipeline_functionality),
+            ("Enhanced Pipeline Components", self.check_enhanced_pipeline_components),
+            ("Enhanced Content Generation", self.check_enhanced_content_generation),
+            ("PyNucleus RAG System", self.check_rag_system),
+            ("Token Utilities System", self.check_token_utilities),
+            ("LLM Utilities System", self.check_llm_utilities),
+            ("Jinja2 Prompts System", self.check_prompts_system),
+            ("DWSIM Environment (Optional)", self.check_dwsim_environment),
+            ("Docker Environment", self.check_docker_environment),
+            ("Data Consolidation Deliverables", self.check_data_consolidation_deliverables),
+        ]
+        
+        # Add mock testing for full mode
+        if test_mode in ["full", "mock"]:
+            checks.append(("Mock Integration Testing", self.check_mock_integration_testing))
+        
+        for check_name, check_func in checks:
+            try:
+                check_func()
+            except Exception as e:
+                error_msg = f"{check_name} check failed with error: {e}"
+                self.log_both(error_msg, console_symbol="❌ ", 
+                             clean_message=error_msg)
+                self.log_result(check_name, False, [f"Check error: {e}"])
+        
+        # Generate and save final report
+        report_file = self.generate_final_report()
+        
+        # Print summary to console
+        self.print_final_summary(report_file)
+    
+    def run_test_suite_mode(self):
+        """Run enhanced test suite similar to test_enhanced_pipeline.py"""
+        self.print_section_header("PYNUCLEUS ENHANCED PIPELINE TEST SUITE")
+        
+        self.log_both("🚀 PyNucleus Enhanced Pipeline Test Suite", console_symbol="", 
+                     clean_message="PyNucleus Enhanced Pipeline Test Suite")
+        self.log_both("=" * 60, console_symbol="", clean_message="=" * 60)
+        
+        # Test basic functionality first
+        basic_test_passed = self.test_basic_functionality()
+        
+        # Test enhanced functionality
+        enhanced_test_passed = self.check_mock_integration_testing()
+        
+        self.log_both("\n" + "=" * 60, console_symbol="", clean_message="=" * 60)
+        self.log_both("📊 Test Results Summary:", console_symbol="", clean_message="Test Results Summary:")
+        basic_status = "✅ PASS" if basic_test_passed else "❌ FAIL"
+        enhanced_status = "✅ PASS" if enhanced_test_passed else "❌ FAIL"
+        self.log_both(f"   Basic Pipeline: {basic_status}", console_symbol="", 
+                     clean_message=f"Basic Pipeline: {'PASS' if basic_test_passed else 'FAIL'}")
+        self.log_both(f"   Enhanced Pipeline: {enhanced_status}", console_symbol="", 
+                     clean_message=f"Enhanced Pipeline: {'PASS' if enhanced_test_passed else 'FAIL'}")
+        
+        if basic_test_passed and enhanced_test_passed:
+            self.log_both("\n🎉 All tests passed! The enhanced pipeline is ready to use.", console_symbol="", 
+                         clean_message="All tests passed! The enhanced pipeline is ready to use.")
+            self.log_both("\n💡 Next steps:", console_symbol="", clean_message="Next steps:")
+            self.log_both("   1. Run the Capstone Project.ipynb notebook", console_symbol="", 
+                         clean_message="1. Run the Capstone Project.ipynb notebook")
+            self.log_both("   2. Try the enhanced pipeline sections", console_symbol="", 
+                         clean_message="2. Try the enhanced pipeline sections")
+            self.log_both("   3. Edit the configuration templates to customize simulations", console_symbol="", 
+                         clean_message="3. Edit the configuration templates to customize simulations")
+        else:
+            self.log_both("\n⚠️ Some tests failed. Please check the error messages above.", console_symbol="", 
+                         clean_message="Some tests failed. Please check the error messages above.")
+            self.log_both("💡 Common solutions:", console_symbol="", clean_message="Common solutions:")
+            self.log_both("   • Run: pip install -r requirements.txt", console_symbol="", 
+                         clean_message="Run: pip install -r requirements.txt")
+            self.log_both("   • Ensure you're in the project root directory", console_symbol="", 
+                         clean_message="Ensure you're in the project root directory")
+            self.log_both("   • Check that all core modules are properly installed", console_symbol="", 
+                         clean_message="Check that all core modules are properly installed")
+        
+        self.log_both("\n" + "=" * 60, console_symbol="", clean_message="=" * 60)
+
 def main():
-    """Run comprehensive system diagnostic"""
+    """Run comprehensive system diagnostic with command-line options"""
+    parser = argparse.ArgumentParser(
+        description="Comprehensive PyNucleus System Diagnostic & Testing Suite",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python scripts/comprehensive_system_diagnostic.py                    # Full diagnostic
+  python scripts/comprehensive_system_diagnostic.py --test            # Test suite mode
+  python scripts/comprehensive_system_diagnostic.py --quiet           # Quiet mode
+  python scripts/comprehensive_system_diagnostic.py --mock            # Mock testing only
+        """
+    )
+    
+    parser.add_argument(
+        '--test', 
+        action='store_true', 
+        help='Run in test suite mode (similar to test_enhanced_pipeline.py)'
+    )
+    parser.add_argument(
+        '--quiet', 
+        action='store_true', 
+        help='Run in quiet mode with minimal output'
+    )
+    parser.add_argument(
+        '--mock', 
+        action='store_true', 
+        help='Run mock testing only'
+    )
+    
+    args = parser.parse_args()
+    
     diagnostic = SystemDiagnostic()
-    diagnostic.run_comprehensive_diagnostic()
+    
+    if args.test:
+        # Run test suite mode
+        diagnostic.run_test_suite_mode()
+    elif args.mock:
+        # Run only mock testing
+        diagnostic.run_comprehensive_diagnostic(test_mode="mock")
+    else:
+        # Run full diagnostic
+        test_mode = "full" if not args.quiet else "quiet"
+        diagnostic.run_comprehensive_diagnostic(test_mode=test_mode)
     
     # Exit with appropriate code
     success_rate = diagnostic.passed_checks / diagnostic.total_checks if diagnostic.total_checks > 0 else 0

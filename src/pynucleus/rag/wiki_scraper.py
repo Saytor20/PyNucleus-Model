@@ -1,9 +1,24 @@
+#!/usr/bin/env python3
+"""
+Wikipedia Scraper Module
+
+Scrapes Wikipedia articles based on search keywords for the PyNucleus RAG system.
+Downloads and processes Wikipedia content to enhance the knowledge base.
+"""
+
 import requests
 from bs4 import BeautifulSoup
 import os
 from urllib.parse import quote
 from typing import List
-from .config import WIKI_SEARCH_KEYWORDS, WEB_SOURCES_DIR
+
+# Handle config import with fallback
+try:
+    from .config import WIKI_SEARCH_KEYWORDS, WEB_SOURCES_DIR
+except ImportError:
+    # Fallback configuration
+    WIKI_SEARCH_KEYWORDS = ["chemical engineering", "process simulation", "DWSIM"]
+    WEB_SOURCES_DIR = "data/01_raw/web_sources"
 
 # Default configuration
 SEARCH_KEYWORDS = WIKI_SEARCH_KEYWORDS

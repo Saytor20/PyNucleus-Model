@@ -1,6 +1,14 @@
+#!/usr/bin/env python3
+"""
+Settings Module
+
+Configuration settings and data models for the PyNucleus integration system.
+Defines Pydantic models for simulation settings, feed conditions, and operating parameters.
+"""
+
 from pathlib import Path
-from typing import List
-from pydantic import BaseModel
+from typing import List, Optional, Dict, Any
+from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings
 
 class FeedComponent(BaseModel):

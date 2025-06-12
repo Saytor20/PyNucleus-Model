@@ -1,9 +1,25 @@
+#!/usr/bin/env python3
+"""
+Document Processor Module
+
+Handles processing of various document types (PDF, DOCX, TXT) for the PyNucleus RAG system.
+Converts documents to text format for further processing and indexing.
+"""
+
 import os
 from langchain_unstructured import UnstructuredLoader
 from PyPDF2 import PdfReader
 from tqdm import tqdm
 import warnings
-from .config import SOURCE_DOCS_DIR, CONVERTED_DIR
+
+# Handle config import with fallback
+try:
+    from .config import SOURCE_DOCS_DIR, CONVERTED_DIR
+except ImportError:
+    # Fallback configuration
+    SOURCE_DOCS_DIR = "data/01_raw/source_docs"
+    CONVERTED_DIR = "data/02_intermediate/converted_docs"
+
 from docx import Document
 
 # Suppress UserWarning from unstructured

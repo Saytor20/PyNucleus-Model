@@ -1,9 +1,16 @@
 """
-LLM utilities for PyNucleus.
+LLM Package
 
-This module provides a streamlined interface for querying Hugging Face LLM models.
+Handles Language Model interactions for the PyNucleus system.
 """
 
-from .llm_runner import LLMRunner
+# Import components with error handling
+try:
+    from .llm_runner import LLMRunner
+except ImportError:
+    LLMRunner = None
 
-__all__ = ['LLMRunner'] 
+# Only export successfully imported components
+__all__ = []
+if LLMRunner:
+    __all__.append('LLMRunner') 

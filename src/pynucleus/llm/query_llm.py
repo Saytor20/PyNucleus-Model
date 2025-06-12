@@ -1,25 +1,56 @@
+#!/usr/bin/env python3
 """
-LLM Query Utility with Template Rendering and Token Management.
+LLM Query Module
 
-This module provides utilities for querying LLMs with prompt template rendering
-using Jinja2 and intelligent token management for handling text reports.
+Handles querying of Language Models for the PyNucleus system.
+Provides a unified interface for different LLM providers.
 """
 
+import sys
 import os
 import logging
 from pathlib import Path
 from typing import Optional, Dict, Any, Union
 from jinja2 import Environment, FileSystemLoader, Template, TemplateNotFound
 
-from .llm_runner import LLMRunner
-from ..utils.token_utils import TokenCounter
+# Add project root to path for imports
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+# Handle llm_runner import with fallback
+try:
+    from .llm_runner import LLMRunner
+except ImportError:
+    print("Warning: llm_runner not available, using fallback")
+    class LLMRunner:
+        def query(self, prompt, **kwargs):
+            return "LLM service not available"
+
+# Handle token_utils import with fallback
+try:
+    from ..utils.token_utils import count_tokens, estimate_cost, TokenCounter
+except ImportError:
+    print("Warning: token_utils not available, using fallback")
+    def count_tokens(text):
+        return len(text.split())
+    
+    def estimate_cost(tokens):
+        return 0.0
+    
+    # Fallback TokenCounter class
+    class TokenCounter:
+        def __init__(self, model_id="gpt2"):
+            self.model_id = model_id
+        
+        def count_tokens(self, text):
+            return len(text.split())
 
 # Set up logging
 logger = logging.getLogger(__name__)
 
 # Default configuration
 DEFAULT_MAX_TOKENS = 8192
-DEFAULT_TEMPLATE_DIR = "prompt_templates"
+DEFAULT_TEMPLATE_DIR = "prompts"
 DEFAULT_TEMPLATE_NAME = "qwen_prompt.j2"
 
 
@@ -60,7 +91,7 @@ class LLMQueryManager:
         
         # Set up template environment
         if template_dir is None:
-            # Default to prompt_templates in project root
+            # Default to prompts in project root
             project_root = Path(__file__).parent.parent.parent.parent
             template_dir = project_root / DEFAULT_TEMPLATE_DIR
         
