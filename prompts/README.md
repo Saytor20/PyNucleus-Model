@@ -25,12 +25,12 @@ src/pynucleus/
 
 ## 🚀 **Quick Start - Production Usage**
 
-### **Option 1: Jupyter Notebook Integration (Recommended)**
+### **Option 1: User-Friendly Notebook Integration (Recommended)**
 
-Add this cell to your `Capstone Project.ipynb`:
+**For Standard Users** - Add this to `Capstone Project.ipynb`:
 
 ```python
-# Load the integrated prompt system
+# Load the integrated prompt system (included in enhanced cells)
 exec(open('prompts/notebook_integration.py').read())
 
 # Create chemical engineering prompts with PyNucleus data
@@ -44,6 +44,12 @@ prompt = create_prompt(
 demo_prompts()
 validate_prompts()
 ```
+
+**For Advanced Users** - Available in `Developer_Notebook.ipynb`:
+- **Section 4**: LLM Development & Testing (Cells 10-12)
+- **Advanced prompt engineering** with multi-scenario testing
+- **Custom template development** and validation
+- **Integration with PyNucleus results** for enhanced context
 
 ### **Option 2: Integration with PyNucleus Pipeline**
 

@@ -8,34 +8,31 @@ Handles document loading, conversion, and preprocessing for the PyNucleus RAG sy
 import sys
 import os
 from pathlib import Path
-
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root / "src"))
-
 import json
 import logging
 import warnings
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
-# Try to import unstructured
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
+
+# Try importing document processing libraries
 try:
     from unstructured.partition.auto import partition
     UNSTRUCTURED_AVAILABLE = True
 except ImportError:
     UNSTRUCTURED_AVAILABLE = False
-    print("Warning: unstructured not available. Document processing limited.")
+    warnings.warn("unstructured not available. Document processing limited.")
 
-# Try to import docx
 try:
     from docx import Document as DocxDocument
     DOCX_AVAILABLE = True
 except ImportError:
     DOCX_AVAILABLE = False
-    print("Warning: python-docx not available. DOCX processing limited.")
+    warnings.warn("python-docx not available. DOCX processing limited.")
 
-# Try to import other document processors
 try:
     import pypdf
     PYPDF_AVAILABLE = True
@@ -45,33 +42,32 @@ except ImportError:
         PYPDF_AVAILABLE = True
     except ImportError:
         PYPDF_AVAILABLE = False
-        print("Warning: PDF processing not available.")
+        warnings.warn("PDF processing not available.")
 
-# Import from absolute paths instead of relative
+# Import from absolute paths
 try:
-    from pynucleus.rag.config import RAGConfig
+    from pynucleus.rag.config import RAGConfig, SOURCE_DOCS_DIR, CONVERTED_DIR
 except ImportError:
-    # Fallback config
+    # Fallback configuration
     class RAGConfig:
         def __init__(self):
             self.input_dir = "data/01_raw/source_documents"
             self.output_dir = "data/02_processed/converted_to_txt"
-
-warnings.filterwarnings("ignore")
-
-from langchain_unstructured import UnstructuredLoader
-from PyPDF2 import PdfReader
-from tqdm import tqdm
-
-# Handle config import with fallback
-try:
-    from .config import SOURCE_DOCS_DIR, CONVERTED_DIR
-except ImportError:
-    # Fallback configuration
+    
     SOURCE_DOCS_DIR = "data/01_raw/source_docs"
     CONVERTED_DIR = "data/02_intermediate/converted_docs"
 
-from docx import Document
+# Import langchain components
+try:
+    from langchain_unstructured import UnstructuredLoader
+    LANGCHAIN_AVAILABLE = True
+except ImportError:
+    LANGCHAIN_AVAILABLE = False
+    warnings.warn("langchain_unstructured not available. Using fallback document processing.")
+
+warnings.filterwarnings("ignore")
+
+from tqdm import tqdm
 
 def process_documents(
     input_dir: str = SOURCE_DOCS_DIR,
@@ -114,31 +110,43 @@ def process_documents(
             continue
 
         input_path = os.path.join(input_dir, filename)
-        # Use the original filename without "processed_" prefix for cleaner names
         output_filename = f"{os.path.splitext(os.path.basename(filename))[0]}.txt"
         output_path = os.path.join(output_dir, output_filename)
 
         print(f" ▶ Processing: {filename}")
 
         try:
-            # Handle PDF files differently
+            # Handle different file types
             if filename.lower().endswith(".pdf"):
-                # Use PyPDF2 for PDF files
-                reader = PdfReader(input_path)
-                full_text = ""
-                for page in reader.pages:
-                    full_text += page.extract_text() + "\n\n"
+                if PYPDF_AVAILABLE:
+                    if hasattr(pypdf, "PdfReader"):
+                        reader = pypdf.PdfReader(input_path)
+                    else:
+                        reader = PyPDF2.PdfReader(input_path)
+                    full_text = ""
+                    for page in reader.pages:
+                        full_text += page.extract_text() + "\n\n"
+                else:
+                    raise ImportError("PDF processing not available")
+                    
             elif filename.lower().endswith(".docx"):
-                # Use docx for DOCX files
-                doc = Document(input_path)
-                full_text = "\n\n".join([para.text for para in doc.paragraphs])
+                if DOCX_AVAILABLE:
+                    doc = DocxDocument(input_path)
+                    full_text = "\n\n".join([para.text for para in doc.paragraphs])
+                else:
+                    raise ImportError("DOCX processing not available")
+                    
             else:
-                # Use UnstructuredLoader for other file types
-                loader = UnstructuredLoader(input_path)
-                documents = loader.load()
-                full_text = "\n\n".join([doc.page_content for doc in documents])
+                if LANGCHAIN_AVAILABLE:
+                    loader = UnstructuredLoader(input_path)
+                    documents = loader.load()
+                    full_text = "\n\n".join([doc.page_content for doc in documents])
+                else:
+                    # Fallback to basic text reading
+                    with open(input_path, 'r', encoding='utf-8') as f:
+                        full_text = f.read()
 
-            # Save the extracted text to a new .txt file
+            # Save the extracted text
             with open(output_path, "w", encoding="utf-8") as f:
                 f.write(full_text)
 
@@ -149,11 +157,9 @@ def process_documents(
 
     print(f"\n All files processed.")
 
-
 def main():
     """Example usage of the document processor."""
     process_documents()
-
 
 if __name__ == "__main__":
     main()

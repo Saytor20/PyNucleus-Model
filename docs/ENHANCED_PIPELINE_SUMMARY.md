@@ -4,6 +4,13 @@
 
 PyNucleus has achieved **production-ready status** with comprehensive enhancements that integrate **Retrieval-Augmented Generation (RAG)** with **DWSIM chemical process simulation**. The system demonstrates **100% operational health** with robust validation, comprehensive testing, and enterprise-grade features.
 
+### **🔄 New User Experience**
+PyNucleus now provides **dual interfaces** for optimal user experience:
+- **`Capstone Project.ipynb`**: Streamlined 3-step user interface for standard analysis
+- **`Developer_Notebook.ipynb`**: Comprehensive development environment with advanced tools
+
+This separation ensures **ease of use for end users** while preserving **full development capabilities** for advanced users.
+
 ### **🎯 System Health Status**
 - ✅ **Overall Health**: 100.0% EXCELLENT (Comprehensive Diagnostic)
 - ✅ **Script Validation**: 81.4% health with 100% execution success rate  
@@ -293,7 +300,34 @@ integrated_dwsim_rag_results_*.json - Complete integration data
 
 ## 🚀 **Usage Workflows**
 
-### **Basic Pipeline (Standard Users)**
+### **User-Friendly Interface (Recommended for Most Users)**
+```bash
+# Open streamlined notebook interface
+jupyter notebook "Capstone Project.ipynb"
+
+# Simple 3-step process:
+# Cell 1: Initialize system (automatic imports and setup)
+# Cell 2: Run complete analysis (RAG + DWSIM + enhanced features)
+# Cell 3: View results dashboard (files, metrics, summaries)
+
+# Features automatic error handling and progress indicators
+```
+
+### **Developer Environment (Advanced Users & Developers)**
+```bash
+# Open comprehensive development environment
+jupyter notebook "Developer_Notebook.ipynb"
+
+# 6 major sections with 18+ cells:
+# Section 1: System initialization & diagnostics (Cells 1-3)
+# Section 2: Enhanced pipeline configuration (Cells 4-6)
+# Section 3: Advanced analysis & integration (Cells 7-9)
+# Section 4: LLM development & testing (Cells 10-12)
+# Section 5: Performance & debugging (Cells 13-15)
+# Section 6: Version control & maintenance (Cells 16-18)
+```
+
+### **Basic Pipeline (Programmatic Access)**
 ```python
 from pynucleus.pipeline import PipelineUtils
 
@@ -302,11 +336,12 @@ results = pipeline.run_complete_pipeline()
 pipeline.view_results_summary()
 ```
 
-### **Enhanced Pipeline (Advanced Users)**
+### **Enhanced Pipeline Integration**
 ```python
-# Complete enhanced workflow in Jupyter notebook
-# Cells 10-14 in "Capstone Project.ipynb"
+# Available in both notebooks with full feature set
+from pynucleus.integration import ConfigManager, DWSIMRAGIntegrator, LLMOutputGenerator
 
+# Complete enhanced workflow:
 # 1. Initialize enhanced components
 # 2. Create configuration templates  
 # 3. Run DWSIM-RAG integration

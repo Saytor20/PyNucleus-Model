@@ -1,0 +1,161 @@
+[
+  {
+    "original_simulation": {
+      "case_name": "distillation_ethanol_water",
+      "simulation_type": "distillation",
+      "components": "water, ethanol",
+      "description": "Ethanol-water separation column",
+      "success": true,
+      "duration_seconds": 0.0,
+      "conversion": 0.885,
+      "selectivity": 0.933,
+      "yield": 0.912,
+      "temperature": 83.8,
+      "pressure": 1.24,
+      "status": "Completed Successfully",
+      "timestamp": "2025-06-11 21:19:44"
+    },
+    "enhancement_timestamp": "2025-06-11T21:20:19.486597",
+    "performance_metrics": {
+      "overall_performance": "Good",
+      "efficiency_rating": "High",
+      "reliability_score": "High",
+      "performance_indicators": {}
+    },
+    "potential_issues": [],
+    "recommendations": [
+      "Simulation completed successfully - results are ready for analysis"
+    ],
+    "optimization_opportunities": [
+      "Consider heat integration for energy efficiency"
+    ],
+    "rag_insights": [],
+    "knowledge_integration": true
+  },
+  {
+    "original_simulation": {
+      "case_name": "reactor_methane_combustion",
+      "simulation_type": "reactor",
+      "components": "methane, oxygen",
+      "description": "Methane combustion reactor",
+      "success": true,
+      "duration_seconds": 0.0,
+      "conversion": 0.803,
+      "selectivity": 0.868,
+      "yield": 0.801,
+      "temperature": 506.3,
+      "pressure": 10.4,
+      "status": "Completed Successfully",
+      "timestamp": "2025-06-11 21:19:44"
+    },
+    "enhancement_timestamp": "2025-06-11T21:20:19.486641",
+    "performance_metrics": {
+      "overall_performance": "Good",
+      "efficiency_rating": "High",
+      "reliability_score": "High",
+      "performance_indicators": {}
+    },
+    "potential_issues": [],
+    "recommendations": [
+      "Simulation completed successfully - results are ready for analysis"
+    ],
+    "optimization_opportunities": [
+      "Evaluate reactor design alternatives (PFR vs CSTR)"
+    ],
+    "rag_insights": [],
+    "knowledge_integration": true
+  },
+  {
+    "original_simulation": {
+      "case_name": "heat_exchanger_steam",
+      "simulation_type": "heat_exchanger",
+      "components": "water, steam",
+      "description": "Steam heat exchanger",
+      "success": true,
+      "duration_seconds": 0.0,
+      "conversion": "N/A",
+      "selectivity": "N/A",
+      "yield": "N/A",
+      "temperature": 138.6,
+      "pressure": 4.4,
+      "status": "Completed Successfully",
+      "timestamp": "2025-06-11 21:19:44"
+    },
+    "enhancement_timestamp": "2025-06-11T21:20:19.486652",
+    "performance_metrics": {
+      "overall_performance": "Good",
+      "efficiency_rating": "High",
+      "reliability_score": "High",
+      "performance_indicators": {}
+    },
+    "potential_issues": [],
+    "recommendations": [
+      "Simulation completed successfully - results are ready for analysis"
+    ],
+    "optimization_opportunities": [],
+    "rag_insights": [],
+    "knowledge_integration": true
+  },
+  {
+    "original_simulation": {
+      "case_name": "absorber_co2_capture",
+      "simulation_type": "absorber",
+      "components": "CO2, water",
+      "description": "CO2 absorption column",
+      "success": true,
+      "duration_seconds": 0.0,
+      "conversion": 0.947,
+      "selectivity": 0.964,
+      "yield": 0.896,
+      "temperature": 28.5,
+      "pressure": 2.0,
+      "status": "Completed Successfully",
+      "timestamp": "2025-06-11 21:19:44"
+    },
+    "enhancement_timestamp": "2025-06-11T21:20:19.486659",
+    "performance_metrics": {
+      "overall_performance": "Good",
+      "efficiency_rating": "High",
+      "reliability_score": "High",
+      "performance_indicators": {}
+    },
+    "potential_issues": [],
+    "recommendations": [
+      "Simulation completed successfully - results are ready for analysis"
+    ],
+    "optimization_opportunities": [],
+    "rag_insights": [],
+    "knowledge_integration": true
+  },
+  {
+    "original_simulation": {
+      "case_name": "crystallizer_salt",
+      "simulation_type": "crystallizer",
+      "components": "water, salt",
+      "description": "Salt crystallization unit",
+      "success": true,
+      "duration_seconds": 0.0,
+      "conversion": 0.837,
+      "selectivity": 0.952,
+      "yield": 0.81,
+      "temperature": 19.2,
+      "pressure": 1.02,
+      "status": "Completed Successfully",
+      "timestamp": "2025-06-11 21:19:44"
+    },
+    "enhancement_timestamp": "2025-06-11T21:20:19.486665",
+    "performance_metrics": {
+      "overall_performance": "Good",
+      "efficiency_rating": "High",
+      "reliability_score": "High",
+      "performance_indicators": {}
+    },
+    "potential_issues": [],
+    "recommendations": [
+      "Simulation completed successfully - results are ready for analysis"
+    ],
+    "optimization_opportunities": [],
+    "rag_insights": [],
+    "knowledge_integration": true
+  }
+]

@@ -66,19 +66,36 @@ python scripts/system_validator.py
 
 ### **4. Run the Complete Pipeline**
 
-#### **Option A: Jupyter Notebook (Recommended)**
+#### **Option A: User-Friendly Notebook (Recommended)**
 ```bash
-# Open the main notebook
+# Open the streamlined user interface
 jupyter notebook "Capstone Project.ipynb"
 
-# Run the complete pipeline cell for:
+# Simple 3-step process:
+# 1. Run Cell 1: Initialize system
+# 2. Run Cell 2: Execute complete analysis  
+# 3. Run Cell 3: View results
+
+# Automatically includes:
 # • RAG document processing
 # • DWSIM simulations  
-# • Enhanced integration
-# • LLM-ready outputs
+# • Enhanced integration & financial analysis
+# • LLM-ready outputs and reports
 ```
 
-#### **Option B: Command Line Interface**
+#### **Option B: Developer Environment**
+```bash
+# For advanced users and developers
+jupyter notebook "Developer_Notebook.ipynb"
+
+# Features:
+# • System diagnostics and health checks
+# • Performance benchmarking
+# • Advanced configuration management
+# • Debug tools and system optimization
+```
+
+#### **Option C: Command Line Interface**
 ```bash
 # Run the complete pipeline
 python run_pipeline.py run
@@ -132,7 +149,8 @@ PyNucleus-Model/
 ├── configs/                    # Configuration templates
 ├── automation_tools/           # Helper scripts
 ├── logs/                      # System logs
-└── Capstone Project.ipynb     # Main interactive notebook
+├── Capstone Project.ipynb     # User-friendly interface (3-step process)
+└── Developer_Notebook.ipynb   # Advanced development environment
 ```
 
 ---
@@ -175,7 +193,20 @@ WIKI_SEARCH_KEYWORDS = [
 
 ## 🔄 **Usage Workflows**
 
-### **1. Basic Pipeline (Standard Users)**
+### **1. User-Friendly Interface (Recommended for Most Users)**
+```bash
+# Open the streamlined notebook
+jupyter notebook "Capstone Project.ipynb"
+
+# Run 3 simple cells:
+# Cell 1: System initialization
+# Cell 2: Complete analysis execution  
+# Cell 3: Results dashboard
+
+# Everything is handled automatically with clear progress indicators
+```
+
+### **2. Basic Pipeline (Programmatic Access)**
 ```python
 from pynucleus.pipeline import PipelineUtils
 
@@ -189,7 +220,7 @@ results = pipeline.run_complete_pipeline()
 pipeline.view_results_summary()
 ```
 
-### **2. Enhanced Pipeline (Advanced Users)**
+### **3. Enhanced Pipeline (Advanced Users)**
 ```python
 from pynucleus.integration import ConfigManager, DWSIMRAGIntegrator, LLMOutputGenerator
 
@@ -206,7 +237,20 @@ llm_generator = LLMOutputGenerator(results_dir="data/05_output/llm_reports")
 llm_file = llm_generator.export_llm_ready_text(enhanced_results)
 ```
 
-### **3. Prompt System Integration**
+### **4. Developer Environment (For Development & Debugging)**
+```bash
+# Open the comprehensive developer notebook
+jupyter notebook "Developer_Notebook.ipynb"
+
+# Features include:
+# • System diagnostics and health monitoring
+# • Performance benchmarking and optimization
+# • Advanced configuration management
+# • LLM development and prompt engineering
+# • Debug tools and maintenance utilities
+```
+
+### **5. Prompt System Integration**
 ```python
 # Load prompt system (in Jupyter)
 exec(open('prompts/notebook_integration.py').read())
@@ -316,8 +360,15 @@ docker run -p 8000:8000 pynucleus
 
 ## 📚 **Documentation**
 
+### **User Documentation**
+- **User Interface**: `Capstone Project.ipynb` - Simple 3-step process
 - **Complete Guide**: `docs/ENHANCED_PIPELINE_SUMMARY.md`
+- **Quick Start**: This README.md
+
+### **Developer Documentation**  
+- **Developer Environment**: `Developer_Notebook.ipynb` - Advanced tools & diagnostics
 - **Project Structure**: `docs/project_info/PROJECT_STRUCTURE.md`
+- **Testing Reports**: `docs/project_info/LOCAL_TESTING_REPORT.md`
 - **Prompt System**: `prompts/README.md`
 - **API Documentation**: In-code docstrings and type hints
 

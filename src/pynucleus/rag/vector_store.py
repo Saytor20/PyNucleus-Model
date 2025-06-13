@@ -58,7 +58,6 @@ except ImportError:
 
 logging.basicConfig(level=logging.INFO)
 
-
 def _load_docs(json_path: str = "data/03_intermediate/converted_chunked_data/chunked_data_full.json", logger=None) -> List[Document]:
     """Load documents from JSON file."""
     def log_message(msg):
@@ -102,14 +101,13 @@ def _load_docs(json_path: str = "data/03_intermediate/converted_chunked_data/chu
         ]
         return [Document(page_content=t, metadata=m) for t, m in dummy]
 
-
 class FAISSDBManager:
     def __init__(
         self,
-            index_path: str = "data/04_models/chunk_reports/pynucleus_mcp.faiss",
-    embeddings_pkl_path: str = "data/04_models/chunk_reports/embeddings.pkl",
-    model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
-    log_dir: str = "data/04_models/chunk_reports",
+        index_path: str = "data/04_models/chunk_reports/pynucleus_mcp.faiss",
+        embeddings_pkl_path: str = "data/04_models/chunk_reports/embeddings.pkl",
+        model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+        log_dir: str = "data/04_models/chunk_reports",
     ):
         """Initialize FAISS vector store manager."""
         self.store_dir = Path(log_dir)
@@ -135,7 +133,6 @@ class FAISSDBManager:
 
     def _setup_logging(self):
         """Set up logging for FAISS operations."""
-
         def log_func(message: str):
             with open(self.log_path, "a", encoding="utf-8") as f:
                 f.write(f"{message}\n")
@@ -199,21 +196,28 @@ class FAISSDBManager:
         recall = (correct / total) * 100 if total > 0 else 0
         self.log(f"\nRecall@{k}: {correct}/{total}  →  {recall:.1f}%")
 
-
 def main():
-    """Example usage."""
-    GROUND_TRUTH = {
-        "what are the benefits of modular design": "data/01_raw/web_sources/wikipedia_modular_design.txt",
-        "how does modular design work in vehicles": "data/01_raw/web_sources/wikipedia_modular_design.txt",
-    }
-    JSON_PATH = "data/03_intermediate/converted_chunked_data/chunked_data_full.json"
+    """Main function for testing."""
+    if not FAISS_AVAILABLE:
+        print("⚠️ FAISS not available. Please install faiss-cpu or faiss-gpu.")
+        return
 
-    f_mgr = FAISSDBManager()
-    f_docs = _load_docs(JSON_PATH, f_mgr.log)
-    f_mgr.build(f_docs)
-    f_mgr.evaluate(GROUND_TRUTH)
-    print(f"\nFAISS log → {f_mgr.log_path}")
-
+    # Load documents
+    docs = _load_docs()
+    
+    # Initialize and build index
+    manager = FAISSDBManager()
+    manager.build(docs)
+    
+    # Test search
+    query = "What are the advantages of modular plants?"
+    results = manager.search(query, k=3)
+    
+    print("\nSearch Results:")
+    for doc, score in results:
+        print(f"\nScore: {score:.4f}")
+        print(f"Source: {doc.metadata.get('source', 'unknown')}")
+        print(f"Content: {doc.page_content[:200]}...")
 
 if __name__ == "__main__":
-    main()
+    main() 

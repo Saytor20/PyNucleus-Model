@@ -27,7 +27,7 @@ except ImportError:
 
 # Try to import token utilities with fallback
 try:
-    from pynucleus.utils.token_utils import count_tokens, estimate_cost
+    from pynucleus.utils.token_utils import count_tokens, estimate_cost, TokenCounter
     TOKEN_UTILS_AVAILABLE = True
 except ImportError:
     TOKEN_UTILS_AVAILABLE = False
@@ -40,6 +40,14 @@ except ImportError:
     def estimate_cost(tokens: int, model: str = "gpt-3.5-turbo") -> float:
         """Fallback cost estimation"""
         return tokens * 0.0000015  # Rough approximation
+    
+    class TokenCounter:
+        """Fallback TokenCounter class"""
+        def __init__(self, model_id: str = "gpt2"):
+            self.model_id = model_id
+        
+        def count_tokens(self, text: str) -> int:
+            return count_tokens(text, self.model_id)
 
 # Try to import LLM runner
 try:

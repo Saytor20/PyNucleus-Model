@@ -132,14 +132,14 @@ To Do:
 6) create a new script beside comprehensive_system_diagnostic that would run all .py and checks for errors. The system is now 100% after being 66% - Completed 
 7) update @README , @Pipeline Summary, and Structure to better enhance the documentations of the project. refer to project info to update those and remove those we dont need-completed
 8) create a script so that all .py and .ipynb files and RAG pipeline are checked for healthniess- completed  (System_validator)
+9) create two separate notebooks one that is user friendly and the other is developer one - completed 
+
 
 To Do: 
-6) Create API calling for live news, costs, and other things to be considered 
-7) Run a docker builder once everything is completed 
-9) update the main .ipynb project to have two versions.. one to run when first starting the notebook to process data and the other one is to run the full pipeline 
+1) Create API calling for live news, costs, and other things to be considered 
+2) Run a docker builder once everything is completed 
+4) Make the DWSIM code functional 
+5) prepare for migration to google colab 
 
 
-
- 2025-06-11 21:27:15 changes made and pushed to origin main
-
- 2025-06-11 23:04:47 changes made and pushed to origin main
+ 2025-06-13 18:02:08 changes made and pushed to origin main

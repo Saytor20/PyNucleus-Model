@@ -51,10 +51,40 @@ PyNucleus-Model/
 
 ### **Primary Usage (Recommended)**
 
-Use the fully integrated system through the main PyNucleus pipeline:
+#### **User-Friendly Interface**
+Use the streamlined notebook for standard analysis:
+
+```bash
+# Open user-friendly interface
+jupyter notebook "Capstone Project.ipynb"
+
+# Run Cell 2: Complete Analysis (includes DWSIM-RAG integration)
+# All enhanced integration features are included automatically:
+# • DWSIM simulations with RAG insights
+# • Financial analysis and ROI calculations  
+# • LLM-ready output generation
+# • Enhanced performance metrics
+```
+
+#### **Developer Environment**
+For advanced configuration and analysis:
+
+```bash
+# Open comprehensive developer environment
+jupyter notebook "Developer_Notebook.ipynb"
+
+# Section 3: Advanced Analysis & Integration (Cells 7-9)
+# • Custom DWSIM-RAG integration parameters
+# • Advanced financial analysis configuration
+# • Performance metrics customization
+# • Debug tools and system optimization
+```
+
+#### **Programmatic Access**
+Use the fully integrated system programmatically:
 
 ```python
-# Enhanced Pipeline Integration (Jupyter Notebook - Cells 10-14)
+# Enhanced Pipeline Integration
 from pynucleus.integration import DWSIMRAGIntegrator, LLMOutputGenerator
 
 # Initialize enhanced integration

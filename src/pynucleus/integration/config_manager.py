@@ -758,7 +758,7 @@ class ConfigManager:
             all_simulations.extend(sims)
         
         print(f"✅ Merged {len(all_simulations)} simulations from {len(config_files)} files")
-        return all_simulations
+        return all_simulations 
     
     def validate_config(self, config_data: Dict[str, Any], schema_file: str = None) -> Dict[str, Any]:
         """

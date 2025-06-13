@@ -48,7 +48,6 @@ from typing import List
 
 warnings.filterwarnings("ignore")
 
-
 def load_and_chunk_files(
     chunk_size: int = 1000, chunk_overlap: int = 200
 ) -> List[Document]:
@@ -141,7 +140,6 @@ def load_and_chunk_files(
 
     return chunks
 
-
 def save_chunked_data(
     chunks: List[Document], output_dir: str = "data/03_intermediate/converted_chunked_data"
 ) -> None:
@@ -199,122 +197,46 @@ def save_chunked_data(
             f.write(f"Title: {chunk.metadata.get('title', 'unknown')}\n")
             f.write(f"Content:\n{chunk.page_content}\n")
 
-    print(f"✅ Successfully saved chunked data to {output_dir}/:")
-    print(f"  • chunked_data_full.json - Complete data with metadata")
-    print(f"  • chunked_data_stats.json - Statistical analysis")
-    print(f"  • chunked_data_content.txt - Human-readable content\n")
-
-
 def chunk_data(
     chunk_size: int = None, 
     chunk_overlap: int = None
 ) -> Dict[str, Any]:
-    """
-    Main data chunking pipeline.
-    
-    Args:
-        chunk_size: Size of text chunks (default: 1000)
-        chunk_overlap: Overlap between chunks (default: 200)
-        
-    Returns:
-        Dictionary with chunking results and statistics
-    """
-    start_time = datetime.now()
-    print("Step 3: Processing and chunking documents...")
-    
-    # Initialize config
-    rag_config = RAGConfig()
-    
-    # Use provided values or defaults from config
-    if chunk_size is None:
-        chunk_size = getattr(rag_config, 'chunk_size', 1000)
-    if chunk_overlap is None:
-        chunk_overlap = getattr(rag_config, 'chunk_overlap', 200)
-    
-    # Step 1: Load Wikipedia articles
-    web_sources_dir = Path(getattr(rag_config, 'web_sources_dir', 'data/01_raw/web_sources'))
-    wiki_docs = []
-    try:
-        if web_sources_dir.exists():
-            wiki_files = list(web_sources_dir.glob("*.txt"))
-            print(f"📰 Found {len(wiki_files)} Wikipedia articles")
-            
-            for file in wiki_files:
-                with open(file, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                    if LANGCHAIN_AVAILABLE:
-                        doc = Document(page_content=content, metadata={"source": str(file)})
-                    else:
-                        doc = Document(page_content=content, metadata={"source": str(file)})
-                    wiki_docs.append(doc)
-        else:
-            print(f"⚠️ Web sources directory not found: {web_sources_dir}")
-    except Exception as e:
-        print(f"⚠️ Error loading Wikipedia articles: {e}")
-    
-    # Step 2: Load converted documents 
-    converted_dir = Path(getattr(rag_config, 'converted_dir', 'data/02_processed/converted_to_txt'))
-    converted_docs = []
-    try:
-        if converted_dir.exists():
-            converted_files = list(converted_dir.glob("*.txt"))
-            print(f"📄 Found {len(converted_files)} converted documents")
-            
-            for file in converted_files:
-                with open(file, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                    if LANGCHAIN_AVAILABLE:
-                        doc = Document(page_content=content, metadata={"source": str(file)})
-                    else:
-                        doc = Document(page_content=content, metadata={"source": str(file)})
-                    converted_docs.append(doc)
-        else:
-            print(f"⚠️ Converted documents directory not found: {converted_dir}")
-    except Exception as e:
-        print(f"⚠️ Error loading converted documents: {e}")
-    
-    # Combine all documents
-    all_docs = wiki_docs + converted_docs
-    print(f"📋 Total documents loaded: {len(all_docs)}")
-    
-    # Step 3: Split documents into chunks
-    if LANGCHAIN_AVAILABLE:
-        text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=chunk_size,
-            chunk_overlap=chunk_overlap,
-            length_function=len,
-        )
-        chunks = text_splitter.split_documents(all_docs)
-    else:
-        # Fallback simple text splitting
-        chunks = []
-        for doc in all_docs:
-            text = doc.page_content
-            words = text.split()
-            chunk_words = chunk_size // 4  # Rough approximation
-            
-            for i in range(0, len(words), chunk_words - (chunk_overlap // 4)):
-                chunk_text = " ".join(words[i:i + chunk_words])
-                chunk = Document(page_content=chunk_text, metadata=doc.metadata.copy())
-                chunks.append(chunk)
-    
-    print(f"✂️ Split into {len(chunks)} chunks")
-    
-    # Save chunked data
-    output_dir = Path(getattr(rag_config, 'chunked_data_dir', 'data/03_intermediate/converted_chunked_data'))
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    return save_chunked_data(chunks, str(output_dir))
+    """Main function to chunk data and save results.
 
+    Args:
+        chunk_size: Optional override for chunk size
+        chunk_overlap: Optional override for chunk overlap
+
+    Returns:
+        Dictionary with processing results
+    """
+    # Use provided values or defaults
+    if chunk_size is None:
+        chunk_size = 1000
+    if chunk_overlap is None:
+        chunk_overlap = 200
+
+    # Load and chunk files
+    chunks = load_and_chunk_files(chunk_size, chunk_overlap)
+    
+    # Save results
+    save_chunked_data(chunks)
+    
+    return {
+        "total_chunks": len(chunks),
+        "chunk_size": chunk_size,
+        "chunk_overlap": chunk_overlap,
+        "timestamp": datetime.now().isoformat()
+    }
 
 def main():
-    """Example usage of the data processor."""
-    # Load and chunk the documents
-    chunked_docs = load_and_chunk_files()
-
-    # Save the chunked data
-    save_chunked_data(chunked_docs)
-
+    """Main function for testing."""
+    results = chunk_data()
+    print("\nChunking Results:")
+    print(f"Total chunks: {results['total_chunks']}")
+    print(f"Chunk size: {results['chunk_size']}")
+    print(f"Chunk overlap: {results['chunk_overlap']}")
+    print(f"Timestamp: {results['timestamp']}")
 
 if __name__ == "__main__":
-    main()
+    main() 
