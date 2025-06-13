@@ -58,56 +58,144 @@ class PipelineUtils:
         self.llm_output_dir = Path(llm_output_dir)
         self.enable_dwsim_integration = enable_dwsim_integration
         
-        # Create directories if they don't exist
-        self.results_dir.mkdir(parents=True, exist_ok=True)
-        self.llm_output_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Initialize pipeline components with DWSIM integration
-        self.rag_pipeline = RAGPipeline(results_dir, enable_dwsim_integration=enable_dwsim_integration)
-        self.dwsim_pipeline = DWSIMPipeline(results_dir)
-        self.exporter = ResultsExporter(results_dir)
-        
-        print(f"🔧 Pipeline Utils initialized with results dir: {self.results_dir}")
-        if enable_dwsim_integration:
-            print(f"🔗 DWSIM-RAG integration enabled")
+        try:
+            # Create directories if they don't exist
+            self.results_dir.mkdir(parents=True, exist_ok=True)
+            self.llm_output_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Also ensure other required directories exist
+            required_dirs = [
+                "data/01_raw/source_documents",
+                "data/02_processed/converted_to_txt", 
+                "data/03_intermediate/converted_chunked_data",
+                "data/04_models/chunk_reports",
+                "data/05_output/logs"
+            ]
+            
+            for dir_path in required_dirs:
+                Path(dir_path).mkdir(parents=True, exist_ok=True)
+            
+            # Initialize pipeline components with DWSIM integration
+            self.rag_pipeline = RAGPipeline(results_dir, enable_dwsim_integration=enable_dwsim_integration)
+            self.dwsim_pipeline = DWSIMPipeline(results_dir)
+            self.exporter = ResultsExporter(results_dir)
+            
+            print(f"🔧 Pipeline Utils initialized with results dir: {self.results_dir}")
+            if enable_dwsim_integration:
+                print(f"🔗 DWSIM-RAG integration enabled")
+                
+        except Exception as e:
+            print(f"⚠️ Warning during pipeline initialization: {str(e)}")
+            print("🔧 Attempting to continue with basic functionality...")
+            
+            # Try to initialize components individually with error handling
+            try:
+                self.rag_pipeline = RAGPipeline(results_dir, enable_dwsim_integration=False)
+            except Exception:
+                self.rag_pipeline = None
+                print("⚠️ RAG pipeline initialization failed")
+                
+            try:
+                self.dwsim_pipeline = DWSIMPipeline(results_dir)
+            except Exception:
+                self.dwsim_pipeline = None
+                print("⚠️ DWSIM pipeline initialization failed")
+                
+            try:
+                self.exporter = ResultsExporter(results_dir)
+            except Exception:
+                self.exporter = None
+                print("⚠️ Results exporter initialization failed")
     
     def run_complete_pipeline(self):
         """Run the complete PyNucleus pipeline - RAG + DWSIM + Export with integration."""
         print("🚀 Running complete PyNucleus pipeline...")
         start_time = datetime.now()
         
+        # Initialize result containers
+        dwsim_data = []
+        rag_data = []
+        exported_files = []
+        dwsim_stats = {}
+        rag_stats = {}
+        
         try:
-            # Clear previous results
-            self.rag_pipeline.clear_results()
-            self.dwsim_pipeline.clear_results()
+            # Clear previous results if components are available
+            if self.rag_pipeline:
+                self.rag_pipeline.clear_results()
+            if self.dwsim_pipeline:
+                self.dwsim_pipeline.clear_results()
             
-            # First, run DWSIM simulations to generate data for integration
+            # Step 1: Run DWSIM simulations if available
             print("🔬 Step 1: Running DWSIM simulations...")
-            dwsim_data = self.dwsim_pipeline.run_simulations()
-            dwsim_stats = self.dwsim_pipeline.get_statistics()
+            if self.dwsim_pipeline:
+                try:
+                    dwsim_data = self.dwsim_pipeline.run_simulations()
+                    dwsim_stats = self.dwsim_pipeline.get_statistics()
+                    print(f"✅ DWSIM: {len(dwsim_data)} simulations completed")
+                except Exception as e:
+                    print(f"⚠️ DWSIM simulations failed: {str(e)}")
+                    dwsim_stats = {'error': str(e), 'total_simulations': 0}
+            else:
+                print("⚠️ DWSIM pipeline not available")
+                dwsim_stats = {'error': 'Pipeline not initialized', 'total_simulations': 0}
             
-            # Run RAG pipeline (which will automatically integrate DWSIM data if available)
+            # Step 2: Run RAG pipeline if available
             print("\n📚 Step 2: Running RAG pipeline with DWSIM integration...")
-            self.rag_pipeline.run_pipeline()
-            rag_data = self.rag_pipeline.test_queries()
-            rag_stats = self.rag_pipeline.get_statistics()
+            if self.rag_pipeline:
+                try:
+                    # This will automatically initialize data if needed
+                    self.rag_pipeline.run_pipeline()
+                    rag_data = self.rag_pipeline.test_queries()
+                    rag_stats = self.rag_pipeline.get_statistics()
+                    print(f"✅ RAG: {rag_stats.get('total_chunks', 0)} chunks processed")
+                except Exception as e:
+                    print(f"⚠️ RAG pipeline failed: {str(e)}")
+                    # Try to get statistics anyway
+                    try:
+                        rag_stats = self.rag_pipeline.get_statistics()
+                    except:
+                        rag_stats = {'error': str(e), 'total_chunks': 0}
+            else:
+                print("⚠️ RAG pipeline not available")
+                rag_stats = {'error': 'Pipeline not initialized', 'total_chunks': 0}
             
-            # Export DWSIM simulation results
+            # Step 3: Export results if exporter is available
             print("\n💾 Step 3: Exporting results...")
-            exported_files = self.exporter.export_simulation_only(dwsim_data)
+            if self.exporter and dwsim_data:
+                try:
+                    exported_files = self.exporter.export_simulation_only(dwsim_data)
+                    print(f"✅ Export: {len(exported_files)} files created")
+                except Exception as e:
+                    print(f"⚠️ Export failed: {str(e)}")
+                    exported_files = []
+            else:
+                if not self.exporter:
+                    print("⚠️ Exporter not available")
+                else:
+                    print("⚠️ No data to export")
+                exported_files = []
             
             end_time = datetime.now()
             duration = (end_time - start_time).total_seconds()
             
-            # Print integration status
+            # Print completion status
+            success_count = sum([
+                1 if dwsim_data else 0,
+                1 if rag_stats.get('total_chunks', 0) > 0 else 0,
+                1 if exported_files else 0
+            ])
+            
             if rag_stats.get("has_simulation_data", False):
-                print(f"\n🎉 Complete integrated pipeline finished in {duration:.1f} seconds!")
+                print(f"\n🎉 Integrated pipeline completed in {duration:.1f} seconds!")
                 print(f"📊 Unified Knowledge Base:")
                 print(f"   ├── Total Chunks: {rag_stats.get('total_chunks', 0):,}")
                 print(f"   ├── Document Chunks: {rag_stats.get('document_chunks', 0):,}")
                 print(f"   └── Simulation Chunks: {rag_stats.get('simulation_chunks', 0):,}")
             else:
-                print(f"✅ Complete pipeline finished in {duration:.1f} seconds!")
+                status = "✅ Complete" if success_count >= 2 else "⚠️ Partial"
+                print(f"\n{status} pipeline finished in {duration:.1f} seconds!")
+                print(f"📊 Components completed: {success_count}/3")
             
             return {
                 'rag_data': rag_data,
@@ -117,12 +205,29 @@ class PipelineUtils:
                 'exported_files': exported_files,
                 'duration': duration,
                 'integration_enabled': self.enable_dwsim_integration,
-                'has_integrated_data': rag_stats.get("has_simulation_data", False)
+                'has_integrated_data': rag_stats.get("has_simulation_data", False),
+                'success_count': success_count,
+                'component_status': {
+                    'rag_pipeline': self.rag_pipeline is not None,
+                    'dwsim_pipeline': self.dwsim_pipeline is not None,
+                    'exporter': self.exporter is not None
+                }
             }
             
         except Exception as e:
             print(f"❌ Pipeline error: {str(e)}")
-            return None
+            return {
+                'rag_data': rag_data,
+                'dwsim_data': dwsim_data,
+                'rag_stats': rag_stats,
+                'dwsim_stats': dwsim_stats,
+                'exported_files': exported_files,
+                'duration': (datetime.now() - start_time).total_seconds(),
+                'integration_enabled': self.enable_dwsim_integration,
+                'has_integrated_data': False,
+                'error': str(e),
+                'success_count': 0
+            }
     
     def run_rag_only(self):
         """Run only the RAG pipeline with DWSIM integration."""
@@ -232,30 +337,96 @@ class PipelineUtils:
         print("🧪 Quick Pipeline Test")
         print("-" * 30)
         
-        # Test RAG pipeline
-        rag_stats = self.rag_pipeline.get_statistics()
-        print(f"📚 RAG: {rag_stats.get('total_chunks', 0)} chunks available")
+        # Initialize default return values
+        results = {
+            'results_dir': str(self.results_dir),
+            'rag_chunks': 0,
+            'simulation_chunks': 0,
+            'dwsim_simulations': 0,
+            'csv_files_count': 0,
+            'csv_files': [],
+            'integration_enabled': False,
+            'rag_stats': {},
+            'dwsim_stats': {},
+            'component_status': {
+                'rag_pipeline': False,
+                'dwsim_pipeline': False,
+                'exporter': False
+            }
+        }
         
-        if rag_stats.get("has_simulation_data", False):
-            print(f"🔗 Integration: ✅ {rag_stats.get('simulation_chunks', 0)} simulation chunks")
-        else:
-            print(f"🔗 Integration: ⚪ Documents only")
+        # Test RAG pipeline
+        try:
+            if self.rag_pipeline:
+                rag_stats = self.rag_pipeline.get_statistics()
+                results['rag_stats'] = rag_stats
+                results['rag_chunks'] = rag_stats.get('total_chunks', 0)
+                results['simulation_chunks'] = rag_stats.get('simulation_chunks', 0)
+                results['integration_enabled'] = rag_stats.get("has_simulation_data", False)
+                results['component_status']['rag_pipeline'] = True
+                
+                print(f"📚 RAG: {rag_stats.get('total_chunks', 0)} chunks available")
+                
+                if rag_stats.get("has_simulation_data", False):
+                    print(f"🔗 Integration: ✅ {rag_stats.get('simulation_chunks', 0)} simulation chunks")
+                else:
+                    print(f"🔗 Integration: ⚪ Documents only")
+            else:
+                print("📚 RAG: ❌ Pipeline not available")
+        except Exception as e:
+            print(f"📚 RAG: ❌ Error - {str(e)}")
         
         # Test DWSIM pipeline
-        dwsim_stats = self.dwsim_pipeline.get_statistics()
-        print(f"🔬 DWSIM: {dwsim_stats.get('total_simulations', 0)} simulations")
+        try:
+            if self.dwsim_pipeline:
+                dwsim_stats = self.dwsim_pipeline.get_statistics()
+                results['dwsim_stats'] = dwsim_stats
+                results['dwsim_simulations'] = dwsim_stats.get('total_simulations', 0)
+                results['component_status']['dwsim_pipeline'] = True
+                
+                print(f"🔬 DWSIM: {dwsim_stats.get('total_simulations', 0)} simulations")
+            else:
+                print("🔬 DWSIM: ❌ Pipeline not available")
+        except Exception as e:
+            print(f"🔬 DWSIM: ❌ Error - {str(e)}")
         
-        # Test output directory
-        csv_files = list(self.results_dir.glob("*.csv"))
-        print(f"📁 Output: {len(csv_files)} CSV files")
+        # Test output directory and files
+        try:
+            csv_files = list(self.results_dir.glob("*.csv"))
+            results['csv_files_count'] = len(csv_files)
+            
+            # Collect CSV file information
+            csv_files_info = []
+            for file in csv_files:
+                try:
+                    csv_files_info.append({
+                        'name': file.name,
+                        'size': file.stat().st_size,
+                        'path': str(file)
+                    })
+                except Exception:
+                    csv_files_info.append({
+                        'name': file.name,
+                        'size': 0,
+                        'path': str(file)
+                    })
+            
+            results['csv_files'] = csv_files_info
+            print(f"📁 Output: {len(csv_files)} CSV files")
+            
+        except Exception as e:
+            print(f"📁 Output: ❌ Error accessing files - {str(e)}")
         
-        return {
-            'rag_chunks': rag_stats.get('total_chunks', 0),
-            'simulation_chunks': rag_stats.get('simulation_chunks', 0),
-            'dwsim_simulations': dwsim_stats.get('total_simulations', 0),
-            'csv_files_count': len(csv_files),
-            'integration_enabled': rag_stats.get("has_simulation_data", False)
-        }
+        # Test exporter
+        try:
+            if self.exporter:
+                results['component_status']['exporter'] = True
+            else:
+                print("💾 Exporter: ❌ Not available")
+        except Exception as e:
+            print(f"💾 Exporter: ❌ Error - {str(e)}")
+        
+        return results
     
     def print_pipeline_status(self):
         """Print detailed pipeline status including integration capabilities."""

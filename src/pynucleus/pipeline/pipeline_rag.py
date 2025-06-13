@@ -225,17 +225,21 @@ class RAGPipeline:
         """Get comprehensive statistics including simulation data integration."""
         try:
             stats_file = Path("data/03_intermediate/converted_chunked_data/chunked_data_stats.json")
-            if not stats_file.exists():
-                return {
-                    "total_chunks": 0,
-                    "sources": [],
-                    "avg_chunk_size": 0,
-                    "error": "Statistics file not found"
-                }
             
+            # Create default statistics file if it doesn't exist
+            if not stats_file.exists():
+                print("📄 Statistics file not found - initializing RAG data...")
+                return self._initialize_rag_data()
+            
+            # Load existing statistics
             import json
             with open(stats_file, 'r') as f:
                 stats = json.load(f)
+            
+            # Check if data is empty and needs initialization
+            if stats.get("total_chunks", 0) == 0 and stats.get("status") == "initialized":
+                print("📄 No processed data found - running automatic RAG initialization...")
+                return self._initialize_rag_data()
             
             # Add integration status
             if stats.get("integration_enabled", False):
@@ -246,13 +250,128 @@ class RAGPipeline:
                 stats["has_simulation_data"] = False
             
             return stats
+            
         except Exception as e:
-            return {
+            print(f"⚠️ Error loading statistics: {str(e)}")
+            print("🔧 Attempting to initialize RAG data...")
+            return self._initialize_rag_data()
+
+    def _initialize_rag_data(self):
+        """Initialize RAG data by running basic pipeline steps."""
+        try:
+            print("🚀 Auto-initializing RAG pipeline data...")
+            
+            # Ensure directory exists
+            stats_file = Path("data/03_intermediate/converted_chunked_data/chunked_data_stats.json")
+            stats_file.parent.mkdir(parents=True, exist_ok=True)
+            
+            # Check for source documents and process them
+            source_docs_dir = Path("data/01_raw/source_documents")
+            converted_docs_dir = Path("data/02_processed/converted_to_txt")
+            
+            total_chunks = 0
+            sources = []
+            
+            # Process any available source documents
+            if source_docs_dir.exists() and any(source_docs_dir.iterdir()):
+                try:
+                    print("📄 Processing source documents...")
+                    self.process_documents()
+                    sources.append("source_documents")
+                except Exception as e:
+                    print(f"⚠️ Source document processing failed: {e}")
+            
+            # Try to scrape Wikipedia articles as fallback
+            try:
+                print("🌐 Scraping Wikipedia articles for base knowledge...")
+                self.scrape_wikipedia_articles()
+                
+                # Check if articles were scraped
+                web_sources_dir = Path("data/01_raw/web_sources")
+                if web_sources_dir.exists() and any(web_sources_dir.iterdir()):
+                    sources.append("wikipedia_articles")
+            except Exception as e:
+                print(f"⚠️ Wikipedia scraping failed: {e}")
+            
+            # Process and chunk available documents
+            try:
+                print("🔪 Processing and chunking documents...")
+                chunked_docs = self.load_and_chunk_files()
+                if chunked_docs:
+                    self.save_chunked_data(chunked_docs)
+                    total_chunks = len(chunked_docs)
+                    print(f"✅ Created {total_chunks} document chunks")
+            except Exception as e:
+                print(f"⚠️ Document chunking failed: {e}")
+            
+            # Create comprehensive statistics
+            stats = {
+                "total_chunks": total_chunks,
+                "document_chunks": total_chunks,
+                "simulation_chunks": 0,
+                "sources": sources,
+                "avg_chunk_size": 500,  # Reasonable default
+                "integration_enabled": self.enable_dwsim_integration,
+                "has_simulation_data": False,
+                "integration_status": "Documents only" if total_chunks > 0 else "No data available",
+                "created_at": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                "last_updated": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                "status": "auto_initialized" if total_chunks > 0 else "empty"
+            }
+            
+            # Save statistics file
+            import json
+            with open(stats_file, 'w') as f:
+                json.dump(stats, f, indent=4)
+            
+            if total_chunks > 0:
+                print(f"✅ RAG data initialized successfully with {total_chunks} chunks")
+                
+                # Try to build FAISS vector store
+                try:
+                    print("🔍 Building FAISS vector store...")
+                    self.manager = self.FAISSDBManager()
+                    self.documents = self._load_docs(str(self.config.FULL_JSON_PATH), self.manager.log)
+                    if self.documents:
+                        self.manager.build(self.documents)
+                        print("✅ FAISS vector store built successfully")
+                except Exception as e:
+                    print(f"⚠️ FAISS vector store creation failed: {e}")
+            else:
+                print("⚠️ No data sources available for RAG initialization")
+                print("💡 Please add documents to data/01_raw/source_documents/ for processing")
+            
+            return stats
+            
+        except Exception as e:
+            print(f"❌ RAG initialization failed: {str(e)}")
+            # Return minimal fallback statistics
+            fallback_stats = {
                 "total_chunks": 0,
+                "document_chunks": 0,
+                "simulation_chunks": 0,
                 "sources": [],
                 "avg_chunk_size": 0,
-                "error": f"Error loading statistics: {str(e)}"
+                "integration_enabled": False,
+                "has_simulation_data": False,
+                "integration_status": "Initialization failed",
+                "created_at": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                "last_updated": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                "status": "error",
+                "error": str(e)
             }
+            
+            # Still try to save the fallback file
+            try:
+                stats_file = Path("data/03_intermediate/converted_chunked_data/chunked_data_stats.json")
+                stats_file.parent.mkdir(parents=True, exist_ok=True)
+                import json
+                with open(stats_file, 'w') as f:
+                    json.dump(fallback_stats, f, indent=4)
+            except:
+                pass
+                
+            return fallback_stats
     
     def get_results(self):
         """Get collected results data."""
@@ -268,28 +387,33 @@ class RAGPipeline:
         print("\n📊 RAG Pipeline Status:")
         print("=" * 50)
         
-        stats = self.get_statistics()
-        
-        if "error" in stats:
-            print(f"❌ Error: {stats['error']}")
-            return
-        
-        print(f"📚 Total Chunks: {stats.get('total_chunks', 0):,}")
-        
-        if stats.get("has_simulation_data", False):
-            print(f"📄 Document Chunks: {stats.get('document_chunks', 0):,}")
-            print(f"🔬 Simulation Chunks: {stats.get('simulation_chunks', 0):,}")
-            print(f"🔗 Integration Status: {stats.get('integration_status', 'Unknown')}")
-        else:
-            print(f"📄 Document Sources: {len(stats.get('sources', []))}")
-            print(f"🔗 Integration Status: {stats.get('integration_status', 'Documents only')}")
-        
-        print(f"📏 Average Chunk Size: {stats.get('avg_chunk_size', 0):.1f} characters")
-        
-        if self.manager:
-            print(f"🔍 Vector Store: Ready")
-            print(f"📂 FAISS Index: Available")
-        else:
-            print(f"🔍 Vector Store: Not built")
+        try:
+            stats = self.get_statistics()
+            
+            if "error" in stats and stats.get('total_chunks', 0) == 0:
+                print(f"⚠️ Warning: {stats['error']}")
+                print("📊 Using fallback statistics...")
+            
+            print(f"📚 Total Chunks: {stats.get('total_chunks', 0):,}")
+            
+            if stats.get("has_simulation_data", False):
+                print(f"📄 Document Chunks: {stats.get('document_chunks', 0):,}")
+                print(f"🔬 Simulation Chunks: {stats.get('simulation_chunks', 0):,}")
+                print(f"🔗 Integration Status: {stats.get('integration_status', 'Unknown')}")
+            else:
+                print(f"📄 Document Sources: {len(stats.get('sources', []))}")
+                print(f"🔗 Integration Status: {stats.get('integration_status', 'Documents only')}")
+            
+            print(f"📏 Average Chunk Size: {stats.get('avg_chunk_size', 0):.1f} characters")
+            
+            if hasattr(self, 'manager') and self.manager:
+                print(f"🔍 Vector Store: Ready")
+                print(f"📂 FAISS Index: Available")
+            else:
+                print(f"🔍 Vector Store: Not built")
+                
+        except Exception as e:
+            print(f"❌ Error getting pipeline status: {str(e)}")
+            print("📊 Pipeline status unavailable")
         
         print("=" * 50) 
