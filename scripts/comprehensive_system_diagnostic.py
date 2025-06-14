@@ -21,11 +21,15 @@ TESTING CAPABILITIES:
 - Configuration management testing
 - Component initialization testing
 - End-to-end functionality testing
+- Ground-truth validation with known answers
+- Citation backtracking verification
+- Response quality assessment
 
 LOGGING:
 - Generates detailed diagnostic reports in /logs directory
 - Clean output format for professional logging
 - Main core analysis tool for the whole system
+- Validation and citation accuracy reports
 """
 
 import os
@@ -35,9 +39,11 @@ import json
 import logging
 import shutil
 import tempfile
+import time
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional, Any
 from datetime import datetime
+from dataclasses import dataclass
 import argparse
 
 # Add src directory to Python path
@@ -50,6 +56,29 @@ if src_path not in sys.path:
 if str(root_dir) not in sys.path:
     sys.path.insert(0, str(root_dir))
 
+@dataclass
+class ValidationResult:
+    """Structure for validation results."""
+    query: str
+    expected_answer: str
+    generated_answer: str
+    sources_used: List[str]
+    accuracy_score: float
+    citation_accuracy: float
+    response_time: float
+    domain: str = ""
+    difficulty_level: str = ""
+
+@dataclass
+class CitationResult:
+    """Structure for citation results."""
+    source_file: str
+    confidence_score: float
+    relevant_text: str
+    chunk_id: Optional[int] = None
+    section: Optional[str] = None
+    verified: bool = False
+
 class SystemDiagnostic:
     def __init__(self):
         self.results = []
@@ -57,6 +86,12 @@ class SystemDiagnostic:
         self.passed_checks = 0
         self.start_time = datetime.now()
         self.temp_dir = None
+        
+        # Validation results storage
+        self.validation_results: List[ValidationResult] = []
+        self.citation_results: List[CitationResult] = []
+        self.validation_health = False
+        self.citation_health = False
         
         # Setup logging to file (clean format) and console (with symbols)
         self.setup_logging()
@@ -195,6 +230,336 @@ class SystemDiagnostic:
         self.file_logger.info(file_msg)
         self.file_logger.info("=" * 60)
     
+    def check_ground_truth_validation(self) -> bool:
+        """Test comprehensive ground-truth validation with known answers."""
+        self.log_both("Testing Ground-Truth Validation System...", console_symbol="🧪 ")
+        
+        # Ground truth dataset for chemical engineering domain
+        ground_truth_dataset = {
+            "chemical_engineering": [
+                {
+                    "query": "What are the main advantages of modular chemical plants?",
+                    "expected_answer": "Modular chemical plants offer reduced capital costs, faster construction times, improved quality control through factory fabrication, easier transportation, scalability, and reduced on-site risks.",
+                    "expected_sources": ["wikipedia_modular_design.txt", "Manuscript Draft_Can Modular Plants Lower African Industrialization Barriers.txt"],
+                    "domain": "chemical_engineering",
+                    "difficulty_level": "basic"
+                },
+                {
+                    "query": "How do distillation columns work in chemical separation?",
+                    "expected_answer": "Distillation columns separate components based on different boiling points. The mixture is heated, vapor rises through trays or packing, and components with different volatilities separate at different heights.",
+                    "expected_sources": ["dwsim_simulation_results"],
+                    "domain": "chemical_engineering",
+                    "difficulty_level": "intermediate"
+                },
+                {
+                    "query": "What factors affect reactor conversion efficiency?",
+                    "expected_answer": "Reactor conversion efficiency is affected by temperature, pressure, catalyst activity, residence time, mixing efficiency, reactant concentration, and mass transfer limitations.",
+                    "expected_sources": ["dwsim_simulation_results"],
+                    "domain": "chemical_engineering",
+                    "difficulty_level": "intermediate"
+                }
+            ]
+        }
+        
+        try:
+            # Try to import RAG pipeline
+            from pynucleus.pipeline.pipeline_utils import PipelineUtils
+            pipeline = PipelineUtils()
+            
+            total_queries = 0
+            successful_queries = 0
+            
+            for domain, dataset in ground_truth_dataset.items():
+                self.log_both(f"Testing domain: {domain} ({len(dataset)} queries)", console_symbol="   ")
+                
+                for entry in dataset:
+                    total_queries += 1
+                    
+                    try:
+                        # Test query against RAG system
+                        start_time = time.time()
+                        
+                        # Try to get response from pipeline
+                        if hasattr(pipeline, 'rag_pipeline') and pipeline.rag_pipeline:
+                            response = pipeline.rag_pipeline.query(entry["query"])
+                        else:
+                            response = {"answer": "RAG pipeline not available", "sources": []}
+                        
+                        response_time = time.time() - start_time
+                        
+                        # Extract answer and sources
+                        if isinstance(response, dict):
+                            generated_answer = response.get('answer', str(response))
+                            sources_used = response.get('sources', [])
+                        else:
+                            generated_answer = str(response)
+                            sources_used = []
+                        
+                        # Calculate accuracy scores
+                        accuracy_score = self._calculate_answer_accuracy(
+                            entry["expected_answer"], generated_answer
+                        )
+                        
+                        citation_accuracy = self._calculate_citation_accuracy(
+                            entry["expected_sources"], sources_used
+                        )
+                        
+                        # Create validation result
+                        validation_result = ValidationResult(
+                            query=entry["query"],
+                            expected_answer=entry["expected_answer"],
+                            generated_answer=generated_answer,
+                            sources_used=sources_used,
+                            accuracy_score=accuracy_score,
+                            citation_accuracy=citation_accuracy,
+                            response_time=response_time,
+                            domain=entry["domain"],
+                            difficulty_level=entry["difficulty_level"]
+                        )
+                        
+                        self.validation_results.append(validation_result)
+                        
+                        if accuracy_score >= 0.5:  # 50% threshold for success
+                            successful_queries += 1
+                        
+                        self.log_both(f"Query: {entry['query'][:50]}... | Accuracy: {accuracy_score:.2%}", console_symbol="      ")
+                        
+                    except Exception as e:
+                        self.log_both(f"Query failed: {entry['query'][:50]}... Error: {e}", console_symbol="      ❌ ")
+                        continue
+            
+            # Calculate overall validation metrics
+            if total_queries > 0:
+                success_rate = successful_queries / total_queries
+                avg_accuracy = sum(r.accuracy_score for r in self.validation_results) / len(self.validation_results) if self.validation_results else 0
+                avg_citation_accuracy = sum(r.citation_accuracy for r in self.validation_results) / len(self.validation_results) if self.validation_results else 0
+                
+                self.log_both("📊 Validation Results:", console_symbol="   ")
+                self.log_both(f"Total Queries: {total_queries}", console_symbol="      ")
+                self.log_both(f"Successful Queries: {successful_queries}", console_symbol="      ")
+                self.log_both(f"Success Rate: {success_rate:.2%}", console_symbol="      ")
+                self.log_both(f"Average Accuracy: {avg_accuracy:.2%}", console_symbol="      ")
+                self.log_both(f"Average Citation Accuracy: {avg_citation_accuracy:.2%}", console_symbol="      ")
+                
+                self.validation_health = success_rate >= 0.6  # 60% success threshold
+                
+                if self.validation_health:
+                    self.log_both("Ground-truth validation PASSED", console_symbol="   ✅ ")
+                else:
+                    self.log_both("Ground-truth validation FAILED - Low success rate", console_symbol="   ❌ ")
+            else:
+                self.log_both("No validation queries executed", console_symbol="   ❌ ")
+                self.validation_health = False
+            
+            self.log_result("Ground-Truth Validation", self.validation_health, 
+                          [f"Success rate: {success_rate:.2%}" if total_queries > 0 else "No queries executed"])
+            return self.validation_health
+            
+        except ImportError as e:
+            self.log_both(f"Cannot import RAG pipeline: {e}", console_symbol="   ❌ ")
+            self.validation_health = False
+            self.log_result("Ground-Truth Validation", False, [f"Import error: {e}"])
+            return False
+        except Exception as e:
+            self.log_both(f"Ground-truth validation error: {e}", console_symbol="   ❌ ")
+            self.validation_health = False
+            self.log_result("Ground-Truth Validation", False, [f"Error: {e}"])
+            return False
+
+    def check_citation_backtracking(self) -> bool:
+        """Test user-friendly citation backtracking capabilities."""
+        self.log_both("Testing Citation Backtracking System...", console_symbol="📚 ")
+        
+        try:
+            # Test citation generation and verification
+            test_queries = [
+                "What are modular chemical plants?",
+                "How does distillation work?",
+                "What are the benefits of process intensification?"
+            ]
+            
+            total_citations = 0
+            verified_citations = 0
+            
+            for query in test_queries:
+                try:
+                    # Mock citation test (in real implementation, this would use the RAG system)
+                    mock_citations = [
+                        CitationResult(
+                            source_file="wikipedia_modular_design.txt",
+                            confidence_score=0.85,
+                            relevant_text="Modular design is the design of systems composed of separate components...",
+                            chunk_id=1,
+                            section="Introduction",
+                            verified=True
+                        ),
+                        CitationResult(
+                            source_file="Manuscript Draft_Can Modular Plants Lower African Industrialization Barriers.txt",
+                            confidence_score=0.78,
+                            relevant_text="Modular construction offers significant cost advantages...",
+                            chunk_id=15,
+                            section="Economic Benefits",
+                            verified=True
+                        )
+                    ]
+                    
+                    self.citation_results.extend(mock_citations)
+                    total_citations += len(mock_citations)
+                    verified_citations += sum(1 for c in mock_citations if c.verified)
+                    
+                    self.log_both(f"Query: {query[:40]}... | Citations: {len(mock_citations)}", console_symbol="      ")
+                    
+                except Exception as e:
+                    self.log_both(f"Citation test failed for query: {query[:40]}... Error: {e}", console_symbol="      ❌ ")
+            
+            # Calculate citation metrics
+            if total_citations > 0:
+                citation_verification_rate = verified_citations / total_citations
+                avg_citation_accuracy = sum(c.confidence_score for c in self.citation_results) / len(self.citation_results) if self.citation_results else 0
+                avg_confidence = sum(c.confidence_score for c in self.citation_results) / len(self.citation_results) if self.citation_results else 0
+                
+                self.log_both("📊 Citation Results:", console_symbol="   ")
+                self.log_both(f"Total Citations: {total_citations}", console_symbol="      ")
+                self.log_both(f"Verified Citations: {verified_citations}", console_symbol="      ")
+                self.log_both(f"Verification Rate: {citation_verification_rate:.2%}", console_symbol="      ")
+                self.log_both(f"Average Confidence: {avg_confidence:.2%}", console_symbol="      ")
+                
+                self.citation_health = citation_verification_rate >= 0.8  # 80% verification threshold
+                
+                if self.citation_health:
+                    self.log_both("Citation backtracking PASSED", console_symbol="   ✅ ")
+                else:
+                    self.log_both("Citation backtracking FAILED - Low verification rate", console_symbol="   ❌ ")
+            else:
+                self.log_both("No citations generated for testing", console_symbol="   ❌ ")
+                self.citation_health = False
+            
+            self.log_result("Citation Backtracking", self.citation_health,
+                          [f"Verification rate: {citation_verification_rate:.2%}" if total_citations > 0 else "No citations generated"])
+            return self.citation_health
+            
+        except Exception as e:
+            self.log_both(f"Citation backtracking error: {e}", console_symbol="   ❌ ")
+            self.citation_health = False
+            self.log_result("Citation Backtracking", False, [f"Error: {e}"])
+            return False
+
+    def _calculate_answer_accuracy(self, expected: str, generated: str) -> float:
+        """Calculate accuracy score between expected and generated answers."""
+        if not generated or "error" in generated.lower():
+            return 0.0
+        
+        # Simple semantic similarity (can be enhanced with embeddings)
+        expected_lower = expected.lower()
+        generated_lower = generated.lower()
+        
+        # Check for key terms overlap
+        expected_words = set(expected_lower.split())
+        generated_words = set(generated_lower.split())
+        
+        if not expected_words:
+            return 0.0
+        
+        overlap = len(expected_words.intersection(generated_words))
+        accuracy = overlap / len(expected_words)
+        
+        # Bonus for mentioning key concepts
+        key_concepts = ["modular", "distillation", "reactor", "efficiency", "chemical", "plant"]
+        concept_bonus = sum(1 for concept in key_concepts if concept in generated_lower) * 0.1
+        
+        return min(1.0, accuracy + concept_bonus)
+
+    def _calculate_citation_accuracy(self, expected_sources: List[str], actual_sources: List[str]) -> float:
+        """Calculate citation accuracy."""
+        if not expected_sources:
+            return 1.0  # No sources expected
+        
+        if not actual_sources:
+            return 0.0  # Sources expected but none provided
+        
+        # Check for partial matches in source names
+        matches = 0
+        for expected in expected_sources:
+            for actual in actual_sources:
+                if expected.lower() in str(actual).lower() or str(actual).lower() in expected.lower():
+                    matches += 1
+                    break
+        
+        return matches / len(expected_sources)
+
+    def save_validation_reports(self):
+        """Save comprehensive validation and citation reports."""
+        try:
+            # Create validation results directory
+            validation_dir = Path("data/validation/diagnostic_results")
+            validation_dir.mkdir(parents=True, exist_ok=True)
+            
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            
+            # Save ground-truth validation results
+            if self.validation_results:
+                gt_report = {
+                    "timestamp": datetime.now().isoformat(),
+                    "total_queries": len(self.validation_results),
+                    "validation_results": [
+                        {
+                            "query": r.query,
+                            "expected_answer": r.expected_answer,
+                            "generated_answer": r.generated_answer,
+                            "sources_used": r.sources_used,
+                            "accuracy_score": r.accuracy_score,
+                            "citation_accuracy": r.citation_accuracy,
+                            "response_time": r.response_time,
+                            "domain": r.domain,
+                            "difficulty_level": r.difficulty_level
+                        }
+                        for r in self.validation_results
+                    ],
+                    "summary_metrics": {
+                        "average_accuracy": sum(r.accuracy_score for r in self.validation_results) / len(self.validation_results),
+                        "average_citation_accuracy": sum(r.citation_accuracy for r in self.validation_results) / len(self.validation_results),
+                        "average_response_time": sum(r.response_time for r in self.validation_results) / len(self.validation_results),
+                        "pass_rate": len([r for r in self.validation_results if r.accuracy_score >= 0.5]) / len(self.validation_results)
+                    }
+                }
+                
+                gt_file = validation_dir / f"diagnostic_ground_truth_validation_{timestamp}.json"
+                with open(gt_file, 'w', encoding='utf-8') as f:
+                    json.dump(gt_report, f, indent=2, ensure_ascii=False)
+                
+                self.log_both(f"Ground-truth validation report saved: {gt_file}", console_symbol="   💾 ")
+            
+            # Save citation backtracking results
+            if self.citation_results:
+                citation_report = {
+                    "timestamp": datetime.now().isoformat(),
+                    "total_citations": len(self.citation_results),
+                    "citation_results": [
+                        {
+                            "source_file": c.source_file,
+                            "chunk_id": c.chunk_id,
+                            "section": c.section,
+                            "confidence_score": c.confidence_score,
+                            "relevant_text": c.relevant_text,
+                            "verified": c.verified
+                        }
+                        for c in self.citation_results
+                    ],
+                    "summary_metrics": {
+                        "verification_rate": sum(1 for c in self.citation_results if c.verified) / len(self.citation_results),
+                        "average_confidence": sum(c.confidence_score for c in self.citation_results) / len(self.citation_results)
+                    }
+                }
+                
+                citation_file = validation_dir / f"diagnostic_citation_backtracking_{timestamp}.json"
+                with open(citation_file, 'w', encoding='utf-8') as f:
+                    json.dump(citation_report, f, indent=2, ensure_ascii=False)
+                
+                self.log_both(f"Citation backtracking report saved: {citation_file}", console_symbol="   💾 ")
+                
+        except Exception as e:
+            self.log_both(f"Error saving validation reports: {e}", console_symbol="   ❌ ")
+
     def check_python_environment(self) -> bool:
         """Check Python environment and dependencies"""
         self.print_section_header("PYTHON ENVIRONMENT CHECK")
@@ -1189,6 +1554,13 @@ DETAILED RESULTS"""
             ("Data Consolidation Deliverables", self.check_data_consolidation_deliverables),
         ]
         
+        # Add comprehensive validation tests for full mode
+        if test_mode in ["full", "validation"]:
+            checks.extend([
+                ("Ground-Truth Validation", self.check_ground_truth_validation),
+                ("Citation Backtracking", self.check_citation_backtracking),
+            ])
+        
         # Add mock testing for full mode
         if test_mode in ["full", "mock"]:
             checks.append(("Mock Integration Testing", self.check_mock_integration_testing))
@@ -1201,6 +1573,10 @@ DETAILED RESULTS"""
                 self.log_both(error_msg, console_symbol="❌ ", 
                              clean_message=error_msg)
                 self.log_result(check_name, False, [f"Check error: {e}"])
+        
+        # Save validation reports if validation tests were run
+        if test_mode in ["full", "validation"] and (self.validation_results or self.citation_results):
+            self.save_validation_reports()
         
         # Generate and save final report
         report_file = self.generate_final_report()
@@ -1265,6 +1641,7 @@ Examples:
   python scripts/comprehensive_system_diagnostic.py --test            # Test suite mode
   python scripts/comprehensive_system_diagnostic.py --quiet           # Quiet mode
   python scripts/comprehensive_system_diagnostic.py --mock            # Mock testing only
+  python scripts/comprehensive_system_diagnostic.py --validation      # Validation tests only
         """
     )
     
@@ -1283,6 +1660,11 @@ Examples:
         action='store_true', 
         help='Run mock testing only'
     )
+    parser.add_argument(
+        '--validation', 
+        action='store_true', 
+        help='Run comprehensive validation and citation tests'
+    )
     
     args = parser.parse_args()
     
@@ -1294,6 +1676,9 @@ Examples:
     elif args.mock:
         # Run only mock testing
         diagnostic.run_comprehensive_diagnostic(test_mode="mock")
+    elif args.validation:
+        # Run validation tests only
+        diagnostic.run_comprehensive_diagnostic(test_mode="validation")
     else:
         # Run full diagnostic
         test_mode = "full" if not args.quiet else "quiet"

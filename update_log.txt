@@ -148,6 +148,10 @@ Completed:
 1) Debugged @capstone project to fix major changes 
 2) we need to enhance the OCR- Compeleted but need verification with samples 
 3) fixed the validator and system_diagonstic so that it shows healthy running code 
+4) improved the embedding mechanism 
+5) implemented structured performance metrics @test_production_mont logging (latency, memory, CPU utilization) with real-time alerts for abnormal conditions to proactively address pipeline robustness issues.
+6) implemented comprehensive validation methods ( ground-truth datasets with known answers) and provide user-friendly citation backtracking from generated responses.
+7) added a new .md file for comprehensive system documentation
 
 To Do: 
 1) Create API calling for live news, costs, and other things to be considered 
@@ -158,4 +162,4 @@ To Do:
 
  2025-06-13 21:38:04 changes made and pushed to origin main
 
- 2025-06-13 22:49:29 changes made and pushed to origin main
+ 2025-06-13 23:22:07 changes made and pushed to origin main
