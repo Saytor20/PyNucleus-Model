@@ -150,11 +150,15 @@ This report analyzes {total_sims} chemical process simulations with enhanced met
         }
     
     def _extract_recovery_rate(self, sim_data: Dict, perf_metrics: Dict) -> float:
-        """Extract or estimate recovery rate from simulation data"""
+        """Extract or estimate recovery rate from simulation data (flexible approach)"""
         
-        # Try to get from performance metrics first
-        if 'recovery_rate' in perf_metrics:
-            return perf_metrics['recovery_rate'] * 100
+        # Try to get from performance metrics first - check for various possible keys
+        recovery_keys = ['recovery_rate', 'recovery', 'recovery_percentage', 'product_recovery']
+        for key in recovery_keys:
+            if key in perf_metrics:
+                value = perf_metrics[key]
+                # Handle both decimal (0.85) and percentage (85) formats
+                return value * 100 if value <= 1.0 else value
         
         # Try to calculate from simulation results
         results = sim_data.get('results', {})
@@ -293,19 +297,43 @@ This report analyzes {total_sims} chemical process simulations with enhanced met
 **Operating Conditions:**
 {operating_conditions}
 
-**Performance Results:**
-- Conversion: {result_summary.get('results', {}).get('conversion', 0.85):.1%}
-- Selectivity: {result_summary.get('results', {}).get('selectivity', 0.92):.1%}
-- Yield: {result_summary.get('results', {}).get('yield', 0.78):.1%}
-- Recovery Rate: {recovery:.1f}%
-- Production Rate: {production:.2f} kg/hr
+**Performance Results:**"""
+        
+        # Add simulation results dynamically
+        results = result_summary.get('results', {})
+        if results:
+            for key, value in results.items():
+                display_key = key.replace('_', ' ').title()
+                if isinstance(value, (int, float)):
+                    if 'rate' in key.lower() or 'percentage' in key.lower() or key.lower() in ['conversion', 'selectivity', 'yield', 'efficiency']:
+                        summary += f"\n- {display_key}: {value:.1%}"
+                    else:
+                        summary += f"\n- {display_key}: {value:.3f}"
+                else:
+                    summary += f"\n- {display_key}: {value}"
+        
+        # Add calculated metrics
+        summary += f"\n- Recovery Rate: {recovery:.1f}%"
+        summary += f"\n- Production Rate: {production:.2f} kg/hr"
+        
+        # Add performance metrics dynamically
+        if perf_metrics:
+            summary += f"\n\n**Performance Assessment:**"
+            for key, value in perf_metrics.items():
+                display_key = key.replace('_', ' ').title()
+                if isinstance(value, dict):
+                    summary += f"\n- {display_key}: {len(value)} items"
+                elif isinstance(value, list):
+                    summary += f"\n- {display_key}: {len(value)} items"
+                else:
+                    summary += f"\n- {display_key}: {value}"
+        
+        summary += f"""
 
 **Economic Metrics:**
 - Daily Revenue: ${revenue:,.2f}
 - Daily Operating Cost: ${cost:,.2f}
 - Daily Profit: ${revenue - cost:,.2f}
-- Overall Performance: {perf_metrics.get('overall_performance', 'Good')}
-- Efficiency Rating: {perf_metrics.get('efficiency_rating', 'High')}
 
 **Process Analysis:**
 - Issues Identified: {len(result.get('potential_issues', []))}

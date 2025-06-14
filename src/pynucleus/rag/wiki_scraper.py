@@ -35,6 +35,14 @@ except ImportError:
     REQUESTS_AVAILABLE = False
     print("Warning: requests not available.")
 
+# Try to import BeautifulSoup
+try:
+    from bs4 import BeautifulSoup
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+    print("Warning: beautifulsoup4 not available. Wikipedia scraping limited.")
+
 # Import from absolute paths instead of relative
 try:
     from pynucleus.rag.config import RAGConfig
@@ -61,6 +69,7 @@ DATA_DIR = WEB_SOURCES_DIR
 
 def search_wikipedia(keyword):
     """Search Wikipedia for a keyword and return the first result URL"""
+    from urllib.parse import quote
     search_url = f"https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch={quote(keyword)}&format=json"
     response = requests.get(search_url)
     data = response.json()

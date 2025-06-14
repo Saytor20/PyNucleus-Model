@@ -1,0 +1,2 @@
+name,type,components,description,temperature,pressure,flow_rate,reflux_ratio,expected_conversion,expected_selectivity,expected_yield
+ethanol_distillation_example,distillation,"water,ethanol",Ethanol-water separation column,78.4,101325,1000,2.5,0.95,0.98,0.93

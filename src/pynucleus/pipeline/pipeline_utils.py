@@ -107,8 +107,12 @@ class PipelineUtils:
                 self.exporter = None
                 print("⚠️ Results exporter initialization failed")
     
-    def run_complete_pipeline(self):
-        """Run the complete PyNucleus pipeline - RAG + DWSIM + Export with integration."""
+    def run_complete_pipeline(self, clear_previous_results: bool = True):
+        """Run the complete PyNucleus pipeline - RAG + DWSIM + Export with integration.
+        
+        Args:
+            clear_previous_results: Whether to clear previous results before running (default: True)
+        """
         print("🚀 Running complete PyNucleus pipeline...")
         start_time = datetime.now()
         
@@ -120,11 +124,16 @@ class PipelineUtils:
         rag_stats = {}
         
         try:
-            # Clear previous results if components are available
-            if self.rag_pipeline:
-                self.rag_pipeline.clear_results()
-            if self.dwsim_pipeline:
-                self.dwsim_pipeline.clear_results()
+            # Clear previous results if requested and components are available
+            if clear_previous_results:
+                if self.rag_pipeline:
+                    self.rag_pipeline.clear_results()
+                    print("🗑️ RAG results cleared.")
+                if self.dwsim_pipeline:
+                    self.dwsim_pipeline.clear_results()
+                    print("🗑️ DWSIM results cleared.")
+            else:
+                print("🔄 Preserving existing results...")
             
             # Step 1: Run DWSIM simulations if available
             print("🔬 Step 1: Running DWSIM simulations...")
@@ -144,8 +153,8 @@ class PipelineUtils:
             print("\n📚 Step 2: Running RAG pipeline with DWSIM integration...")
             if self.rag_pipeline:
                 try:
-                    # This will automatically initialize data if needed
-                    self.rag_pipeline.run_pipeline()
+                    # Pass DWSIM data to RAG pipeline for integration
+                    self.rag_pipeline.run_pipeline(dwsim_data if dwsim_data else None)
                     rag_data = self.rag_pipeline.test_queries()
                     rag_stats = self.rag_pipeline.get_statistics()
                     print(f"✅ RAG: {rag_stats.get('total_chunks', 0)} chunks processed")
@@ -337,7 +346,7 @@ class PipelineUtils:
         print("🧪 Quick Pipeline Test")
         print("-" * 30)
         
-        # Initialize default return values
+        # Initialize default return values - ALWAYS ensure results_dir is set
         results = {
             'results_dir': str(self.results_dir),
             'rag_chunks': 0,
@@ -354,6 +363,15 @@ class PipelineUtils:
                 'exporter': False
             }
         }
+        
+        # Ensure results_dir is always valid
+        try:
+            if not hasattr(self, 'results_dir') or not self.results_dir:
+                self.results_dir = Path("data/05_output/results")
+            results['results_dir'] = str(self.results_dir)
+        except Exception as e:
+            print(f"⚠️ Results directory issue: {e}")
+            results['results_dir'] = "data/05_output/results"
         
         # Test RAG pipeline
         try:
@@ -375,6 +393,7 @@ class PipelineUtils:
                 print("📚 RAG: ❌ Pipeline not available")
         except Exception as e:
             print(f"📚 RAG: ❌ Error - {str(e)}")
+            results['rag_stats'] = {'error': str(e)}
         
         # Test DWSIM pipeline
         try:
@@ -389,10 +408,14 @@ class PipelineUtils:
                 print("🔬 DWSIM: ❌ Pipeline not available")
         except Exception as e:
             print(f"🔬 DWSIM: ❌ Error - {str(e)}")
+            results['dwsim_stats'] = {'error': str(e)}
         
         # Test output directory and files
         try:
-            csv_files = list(self.results_dir.glob("*.csv"))
+            results_dir_path = Path(results['results_dir'])
+            results_dir_path.mkdir(parents=True, exist_ok=True)  # Ensure directory exists
+            
+            csv_files = list(results_dir_path.glob("*.csv"))
             results['csv_files_count'] = len(csv_files)
             
             # Collect CSV file information
@@ -416,6 +439,8 @@ class PipelineUtils:
             
         except Exception as e:
             print(f"📁 Output: ❌ Error accessing files - {str(e)}")
+            results['csv_files_count'] = 0
+            results['csv_files'] = []
         
         # Test exporter
         try:
@@ -426,6 +451,28 @@ class PipelineUtils:
         except Exception as e:
             print(f"💾 Exporter: ❌ Error - {str(e)}")
         
+        # Final validation - ensure all required keys exist
+        required_keys = ['results_dir', 'rag_chunks', 'simulation_chunks', 'dwsim_simulations', 
+                        'csv_files_count', 'csv_files', 'integration_enabled', 'rag_stats', 
+                        'dwsim_stats', 'component_status']
+        
+        for key in required_keys:
+            if key not in results:
+                print(f"⚠️ Missing key {key} in results, adding default")
+                if key == 'results_dir':
+                    results[key] = "data/05_output/results"
+                elif key in ['rag_chunks', 'simulation_chunks', 'dwsim_simulations', 'csv_files_count']:
+                    results[key] = 0
+                elif key in ['csv_files']:
+                    results[key] = []
+                elif key == 'integration_enabled':
+                    results[key] = False
+                elif key in ['rag_stats', 'dwsim_stats']:
+                    results[key] = {}
+                elif key == 'component_status':
+                    results[key] = {'rag_pipeline': False, 'dwsim_pipeline': False, 'exporter': False}
+        
+        # Always return results dictionary with results_dir guaranteed
         return results
     
     def print_pipeline_status(self):
@@ -480,6 +527,69 @@ class PipelineUtils:
                 print(f"   ⚠️ Could not remove {file.name}: {e}")
         
         print("✅ Cleanup completed!")
+    
+    def get_existing_results(self):
+        """Get existing pipeline results without running the pipeline."""
+        results = {
+            'dwsim_data': [],
+            'rag_data': [],
+            'dwsim_stats': {},
+            'rag_stats': {},
+            'has_dwsim_results': False,
+            'has_rag_results': False
+        }
+        
+        try:
+            # Get DWSIM results if available
+            if self.dwsim_pipeline:
+                dwsim_data = self.dwsim_pipeline.get_results()
+                dwsim_stats = self.dwsim_pipeline.get_statistics()
+                results['dwsim_data'] = dwsim_data if dwsim_data else []
+                results['dwsim_stats'] = dwsim_stats
+                results['has_dwsim_results'] = len(dwsim_data) > 0 if dwsim_data else False
+            
+            # Get RAG results if available
+            if self.rag_pipeline:
+                rag_stats = self.rag_pipeline.get_statistics()
+                results['rag_stats'] = rag_stats
+                results['has_rag_results'] = rag_stats.get('total_chunks', 0) > 0
+                
+                # Try to get RAG query results if available
+                try:
+                    rag_data = self.rag_pipeline.test_queries()
+                    results['rag_data'] = rag_data if rag_data else []
+                except:
+                    results['rag_data'] = []
+            
+            return results
+            
+        except Exception as e:
+            print(f"⚠️ Error getting existing results: {str(e)}")
+            return results
+    
+    def has_existing_results(self):
+        """Check if there are existing results available."""
+        try:
+            dwsim_has_results = False
+            rag_has_results = False
+            
+            if self.dwsim_pipeline:
+                dwsim_data = self.dwsim_pipeline.get_results()
+                dwsim_has_results = len(dwsim_data) > 0 if dwsim_data else False
+            
+            if self.rag_pipeline:
+                rag_stats = self.rag_pipeline.get_statistics()
+                rag_has_results = rag_stats.get('total_chunks', 0) > 0
+            
+            return {
+                'dwsim_results': dwsim_has_results,
+                'rag_results': rag_has_results,
+                'any_results': dwsim_has_results or rag_has_results
+            }
+            
+        except Exception as e:
+            print(f"⚠️ Error checking existing results: {str(e)}")
+            return {'dwsim_results': False, 'rag_results': False, 'any_results': False}
 
 
 def run_full_pipeline(settings, output_dir: Path) -> Dict[str, Any]:

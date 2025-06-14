@@ -140,10 +140,19 @@ To Do:
 2) Run a docker builder once everything is completed 
 4) Make the DWSIM code functional 
 5) prepare for migration to google colab 
-
-
- 2025-06-13 18:02:08 changes made and pushed to origin main
+6) evalute including an MCP container so that the agent can call on it if needed for further assistance 
 
  2025-06-13 18:04:09 changes made and pushed to origin main
 
- 2025-06-13 18:17:42 changes made and pushed to origin main
+Completed: 
+1) Debugged @capstone project to fix major changes 
+
+To Do: 
+1) we need to enhance the OCR
+1) Create API calling for live news, costs, and other things to be considered 
+2) Run a docker builder once everything is completed 
+4) Make the DWSIM code functional 
+5) prepare for migration to google colab 
+6) evalute including an MCP container so that the agent can call on it if needed for further assistance 
+
+ 2025-06-13 21:38:04 changes made and pushed to origin main

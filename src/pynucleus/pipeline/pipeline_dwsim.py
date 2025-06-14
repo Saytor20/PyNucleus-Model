@@ -10,6 +10,7 @@ Handles DWSIM (Dynamic Simulator of Industrial Processes) operations including:
 
 import sys
 import os
+import json
 import importlib
 from datetime import datetime
 from pathlib import Path
@@ -24,12 +25,38 @@ class DWSIMPipeline:
         """Initialize DWSIM Pipeline with results directory."""
         self.results_dir = Path(results_dir)
         self.results_dir.mkdir(exist_ok=True)
+        self.results_file = self.results_dir / "dwsim_results.json"
         self.results_data = []
         self.bridge = None
         self.service = None
         
+        # Load existing results if available
+        self._load_existing_results()
+        
         # Import and setup DWSIM modules
         self._setup_imports()
+    
+    def _load_existing_results(self):
+        """Load existing results from disk if available."""
+        try:
+            if self.results_file.exists():
+                with open(self.results_file, 'r') as f:
+                    self.results_data = json.load(f)
+                print(f"📂 Loaded {len(self.results_data)} existing DWSIM results from disk")
+            else:
+                print("📂 No existing DWSIM results found")
+        except Exception as e:
+            print(f"⚠️ Error loading existing DWSIM results: {str(e)}")
+            self.results_data = []
+    
+    def _save_results_to_disk(self):
+        """Save current results to disk."""
+        try:
+            with open(self.results_file, 'w') as f:
+                json.dump(self.results_data, f, indent=2)
+            print(f"💾 Saved {len(self.results_data)} DWSIM results to disk")
+        except Exception as e:
+            print(f"⚠️ Error saving DWSIM results: {str(e)}")
     
     def _setup_imports(self):
         """Setup and reload DWSIM modules."""
@@ -114,6 +141,8 @@ class DWSIMPipeline:
         print(f"\n📊 Simulation Summary:")
         print(f"   • Successful simulations: {successful_sims}/{len(test_cases)}")
         print(f"   • Failed simulations: {len(test_cases) - successful_sims}/{len(test_cases)}")
+        
+        self._save_results_to_disk()
         
         return self.results_data
     
@@ -300,9 +329,18 @@ class DWSIMPipeline:
         return self.results_data
     
     def clear_results(self):
-        """Clear collected results."""
+        """Clear collected results from memory and disk."""
         self.results_data.clear()
-        print("🗑️ DWSIM results cleared.")
+        
+        # Also remove the results file from disk
+        try:
+            if self.results_file.exists():
+                self.results_file.unlink()
+                print("🗑️ DWSIM results cleared from memory and disk.")
+            else:
+                print("🗑️ DWSIM results cleared from memory.")
+        except Exception as e:
+            print(f"🗑️ DWSIM results cleared from memory. Warning: {str(e)}")
     
     def get_statistics(self):
         """Get DWSIM pipeline statistics."""

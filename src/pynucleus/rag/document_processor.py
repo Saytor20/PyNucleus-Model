@@ -54,8 +54,8 @@ except ImportError:
             self.input_dir = "data/01_raw/source_documents"
             self.output_dir = "data/02_processed/converted_to_txt"
     
-    SOURCE_DOCS_DIR = "data/01_raw/source_docs"
-    CONVERTED_DIR = "data/02_intermediate/converted_docs"
+    SOURCE_DOCS_DIR = "data/01_raw/source_documents"
+    CONVERTED_DIR = "data/02_processed/converted_to_txt"
 
 # Import langchain components
 try:
