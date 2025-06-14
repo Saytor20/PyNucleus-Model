@@ -36,15 +36,19 @@ except ImportError:
 
 # Try to import langchain components
 try:
-    from langchain.docstore.document import Document
+    from langchain_core.documents.base import Document
     DOCUMENT_AVAILABLE = True
 except ImportError:
-    DOCUMENT_AVAILABLE = False
-    # Fallback for Document class
-    class Document:
-        def __init__(self, page_content: str, metadata: dict = None):
-            self.page_content = page_content
-            self.metadata = metadata or {}
+    try:
+        from langchain.docstore.document import Document
+        DOCUMENT_AVAILABLE = True
+    except ImportError:
+        DOCUMENT_AVAILABLE = False
+        # Fallback for Document class
+        class Document:
+            def __init__(self, page_content: str, metadata: dict = None):
+                self.page_content = page_content
+                self.metadata = metadata or {}
 
 # Try to import embeddings
 try:
@@ -52,10 +56,14 @@ try:
     EMBEDDINGS_AVAILABLE = True
 except ImportError:
     try:
-        from langchain.embeddings import HuggingFaceEmbeddings
+        from langchain_community.embeddings import HuggingFaceEmbeddings
         EMBEDDINGS_AVAILABLE = True
     except ImportError:
-        EMBEDDINGS_AVAILABLE = False
+        try:
+            from langchain.embeddings import HuggingFaceEmbeddings
+            EMBEDDINGS_AVAILABLE = True
+        except ImportError:
+            EMBEDDINGS_AVAILABLE = False
 
 # Try to import FAISS from langchain
 try:
@@ -300,26 +308,284 @@ class FAISSDBManager:
         results.sort(key=lambda x: x[1], reverse=True)
         return results[:k]
 
-    def evaluate(self, ground_truth: Dict[str, str], k: int = 3) -> None:
-        """Evaluate vector store performance."""
+    def evaluate(self, ground_truth: Dict[str, str], k: int = 3) -> Dict[str, float]:
+        """Evaluate vector store performance with comprehensive metrics."""
         self.log(f"\n=== Evaluation (Recall@{k}) ===")
         correct = 0
         total = len(ground_truth)
+        scores = []
+        response_times = []
 
         for query, expected_id in ground_truth.items():
+            start_time = datetime.now()
             results = self.search(query, k=k)
+            response_time = (datetime.now() - start_time).total_seconds()
+            response_times.append(response_time)
+            
             top_score = results[0][1] if results else 0
+            scores.append(top_score)
 
             # Check if any result matches the expected document
             found = any(doc.metadata.get("source") == expected_id for doc, _ in results)
             correct += 1 if found else 0
 
             self.log(
-                f"Q: {query[:40]:<40} {'✓' if found else '✗'}   top-score={top_score:.4f}"
+                f"Q: {query[:40]:<40} {'✓' if found else '✗'}   top-score={top_score:.4f}   time={response_time:.3f}s"
             )
 
         recall = (correct / total) * 100 if total > 0 else 0
+        avg_score = sum(scores) / len(scores) if scores else 0
+        avg_response_time = sum(response_times) / len(response_times) if response_times else 0
+        
+        # Calculate additional metrics for production monitoring
+        metrics = {
+            'recall_at_k': recall,
+            'average_similarity_score': avg_score,
+            'average_response_time': avg_response_time,
+            'total_queries': total,
+            'successful_queries': correct,
+            'timestamp': datetime.now().isoformat()
+        }
+        
         self.log(f"\nRecall@{k}: {correct}/{total}  →  {recall:.1f}%")
+        self.log(f"Avg Similarity Score: {avg_score:.4f}")
+        self.log(f"Avg Response Time: {avg_response_time:.3f}s")
+        
+        # Save metrics for trend analysis
+        self._save_performance_metrics(metrics)
+        
+        return metrics
+
+    def _save_performance_metrics(self, metrics: Dict[str, float]):
+        """Save performance metrics for trend analysis and monitoring."""
+        metrics_file = self.store_dir / "performance_metrics.jsonl"
+        
+        # Append metrics to JSONL file for time series analysis
+        with open(metrics_file, "a", encoding="utf-8") as f:
+            import json
+            f.write(json.dumps(metrics) + "\n")
+
+    def benchmark_embedding_quality(self, sample_queries: List[str] = None, k: int = 5) -> Dict[str, Any]:
+        """Comprehensive embedding quality benchmark for production systems."""
+        if not sample_queries:
+            sample_queries = [
+                "modular chemical plant design",
+                "process intensification benefits",
+                "distillation column optimization",
+                "reactor conversion efficiency",
+                "heat exchanger performance",
+                "separation process economics",
+                "industrial automation systems",
+                "chemical process safety",
+                "sustainable manufacturing",
+                "supply chain optimization"
+            ]
+        
+        self.log(f"\n=== Embedding Quality Benchmark ===")
+        
+        benchmark_results = {
+            'timestamp': datetime.now().isoformat(),
+            'total_documents': len(self.documents),
+            'embedding_dimension': 384,  # all-MiniLM-L6-v2 dimension
+            'queries_tested': len(sample_queries),
+            'retrieval_metrics': {},
+            'diversity_metrics': {},
+            'coverage_metrics': {}
+        }
+        
+        all_scores = []
+        all_response_times = []
+        retrieved_docs = set()
+        
+        for i, query in enumerate(sample_queries):
+            start_time = datetime.now()
+            results = self.search(query, k=k)
+            response_time = (datetime.now() - start_time).total_seconds()
+            all_response_times.append(response_time)
+            
+            if results:
+                query_scores = [score for _, score in results]
+                all_scores.extend(query_scores)
+                
+                # Track document coverage
+                for doc, _ in results:
+                    doc_id = doc.metadata.get('source', f'doc_{hash(doc.page_content[:100])}')
+                    retrieved_docs.add(doc_id)
+                
+                self.log(f"Query {i+1:2d}: {query[:30]:<30} | Top score: {query_scores[0]:.4f} | Time: {response_time:.3f}s")
+        
+        # Calculate comprehensive metrics
+        if all_scores:
+            benchmark_results['retrieval_metrics'] = {
+                'avg_similarity_score': sum(all_scores) / len(all_scores),
+                'min_similarity_score': min(all_scores),
+                'max_similarity_score': max(all_scores),
+                'score_std_dev': np.std(all_scores) if np else 0,
+                'avg_response_time': sum(all_response_times) / len(all_response_times),
+                'max_response_time': max(all_response_times),
+                'queries_with_results': len([s for s in all_scores if s > 0])
+            }
+        
+        # Document coverage analysis
+        total_docs = len(self.documents)
+        coverage_ratio = len(retrieved_docs) / total_docs if total_docs > 0 else 0
+        benchmark_results['coverage_metrics'] = {
+            'documents_retrieved': len(retrieved_docs),
+            'total_documents': total_docs,
+            'coverage_ratio': coverage_ratio,
+            'coverage_percentage': coverage_ratio * 100
+        }
+        
+        # Diversity analysis (check if we're getting diverse results)
+        unique_sources = len(set(doc.metadata.get('source', 'unknown') for doc in self.documents))
+        benchmark_results['diversity_metrics'] = {
+            'unique_sources': unique_sources,
+            'source_diversity_ratio': unique_sources / total_docs if total_docs > 0 else 0
+        }
+        
+        self.log(f"\n📊 Benchmark Summary:")
+        self.log(f"   Avg Similarity: {benchmark_results['retrieval_metrics'].get('avg_similarity_score', 0):.4f}")
+        self.log(f"   Avg Response Time: {benchmark_results['retrieval_metrics'].get('avg_response_time', 0):.3f}s")
+        self.log(f"   Document Coverage: {benchmark_results['coverage_metrics']['coverage_percentage']:.1f}%")
+        
+        # Save benchmark results
+        benchmark_file = self.store_dir / f"embedding_benchmark_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        with open(benchmark_file, "w", encoding="utf-8") as f:
+            import json
+            f.write(json.dumps(benchmark_results, indent=2))
+        
+        return benchmark_results
+
+    def monitor_embedding_drift(self, reference_queries: List[str] = None) -> Dict[str, Any]:
+        """Monitor embedding drift over time for production systems."""
+        if not reference_queries:
+            reference_queries = [
+                "chemical process optimization",
+                "modular plant design",
+                "industrial efficiency"
+            ]
+        
+        drift_metrics = {
+            'timestamp': datetime.now().isoformat(),
+            'reference_queries': len(reference_queries),
+            'drift_indicators': {}
+        }
+        
+        # Load historical performance if available
+        metrics_file = self.store_dir / "performance_metrics.jsonl"
+        historical_scores = []
+        
+        if metrics_file.exists():
+            with open(metrics_file, "r", encoding="utf-8") as f:
+                for line in f:
+                    try:
+                        import json
+                        data = json.loads(line.strip())
+                        if 'average_similarity_score' in data:
+                            historical_scores.append(data['average_similarity_score'])
+                    except:
+                        continue
+        
+        # Current performance
+        current_scores = []
+        for query in reference_queries:
+            results = self.search(query, k=3)
+            if results:
+                current_scores.append(results[0][1])
+        
+        current_avg = sum(current_scores) / len(current_scores) if current_scores else 0
+        
+        if historical_scores and len(historical_scores) >= 5:
+            historical_avg = sum(historical_scores[-5:]) / 5  # Last 5 measurements
+            drift_percentage = ((current_avg - historical_avg) / historical_avg) * 100
+            
+            drift_metrics['drift_indicators'] = {
+                'current_avg_score': current_avg,
+                'historical_avg_score': historical_avg,
+                'drift_percentage': drift_percentage,
+                'drift_status': 'SIGNIFICANT' if abs(drift_percentage) > 10 else 'NORMAL',
+                'measurements_count': len(historical_scores)
+            }
+            
+            self.log(f"\n🔍 Embedding Drift Analysis:")
+            self.log(f"   Current Avg Score: {current_avg:.4f}")
+            self.log(f"   Historical Avg: {historical_avg:.4f}")
+            self.log(f"   Drift: {drift_percentage:+.2f}%")
+            self.log(f"   Status: {drift_metrics['drift_indicators']['drift_status']}")
+        else:
+            drift_metrics['drift_indicators'] = {
+                'current_avg_score': current_avg,
+                'status': 'BASELINE_ESTABLISHING',
+                'note': 'Need more historical data for drift analysis'
+            }
+            self.log(f"\n🔍 Establishing baseline - Current avg score: {current_avg:.4f}")
+        
+        return drift_metrics
+
+    def health_check(self) -> Dict[str, Any]:
+        """Comprehensive health check for production vector store."""
+        health_status = {
+            'timestamp': datetime.now().isoformat(),
+            'overall_status': 'HEALTHY',
+            'checks': {},
+            'recommendations': []
+        }
+        
+        # Check 1: Index availability
+        if self.index is not None:
+            health_status['checks']['index_available'] = True
+        else:
+            health_status['checks']['index_available'] = False
+            health_status['overall_status'] = 'DEGRADED'
+            health_status['recommendations'].append("Rebuild FAISS index")
+        
+        # Check 2: Document count
+        doc_count = len(self.documents)
+        health_status['checks']['document_count'] = doc_count
+        if doc_count == 0:
+            health_status['overall_status'] = 'CRITICAL'
+            health_status['recommendations'].append("Add documents to vector store")
+        elif doc_count < 10:
+            health_status['recommendations'].append("Consider adding more documents for better retrieval")
+        
+        # Check 3: Embedding model availability
+        try:
+            test_embedding = self.embeddings.embed_query("test")
+            health_status['checks']['embedding_model'] = True
+            health_status['checks']['embedding_dimension'] = len(test_embedding)
+        except Exception as e:
+            health_status['checks']['embedding_model'] = False
+            health_status['overall_status'] = 'CRITICAL'
+            health_status['recommendations'].append(f"Fix embedding model: {str(e)}")
+        
+        # Check 4: Search functionality
+        try:
+            if doc_count > 0:
+                test_results = self.search("test query", k=1)
+                health_status['checks']['search_functional'] = len(test_results) > 0
+            else:
+                health_status['checks']['search_functional'] = None
+        except Exception as e:
+            health_status['checks']['search_functional'] = False
+            health_status['overall_status'] = 'DEGRADED'
+            health_status['recommendations'].append(f"Fix search functionality: {str(e)}")
+        
+        # Check 5: Performance metrics availability
+        metrics_file = self.store_dir / "performance_metrics.jsonl"
+        health_status['checks']['metrics_tracking'] = metrics_file.exists()
+        
+        self.log(f"\n🏥 Health Check Results:")
+        self.log(f"   Overall Status: {health_status['overall_status']}")
+        self.log(f"   Documents: {doc_count}")
+        self.log(f"   Index Available: {health_status['checks']['index_available']}")
+        self.log(f"   Search Functional: {health_status['checks']['search_functional']}")
+        
+        if health_status['recommendations']:
+            self.log(f"   Recommendations: {len(health_status['recommendations'])}")
+            for rec in health_status['recommendations']:
+                self.log(f"     • {rec}")
+        
+        return health_status
 
 def main():
     """Main function for testing."""

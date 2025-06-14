@@ -21,16 +21,26 @@ from dataclasses import dataclass
 
 # Try to import langchain components
 try:
-    from langchain.text_splitter import RecursiveCharacterTextSplitter
-    from langchain.docstore.document import Document
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
+    from langchain_core.documents.base import Document
     LANGCHAIN_AVAILABLE = True
 except ImportError:
-    LANGCHAIN_AVAILABLE = False
-    # Fallback for text splitting
-    class Document:
-        def __init__(self, page_content: str, metadata: dict = None):
-            self.page_content = page_content
-            self.metadata = metadata or {}
+    try:
+        from langchain.text_splitter import RecursiveCharacterTextSplitter
+        from langchain_core.documents.base import Document
+        LANGCHAIN_AVAILABLE = True
+    except ImportError:
+        try:
+            from langchain.text_splitter import RecursiveCharacterTextSplitter
+            from langchain.docstore.document import Document
+            LANGCHAIN_AVAILABLE = True
+        except ImportError:
+            LANGCHAIN_AVAILABLE = False
+            # Fallback for text splitting
+            class Document:
+                def __init__(self, page_content: str, metadata: dict = None):
+                    self.page_content = page_content
+                    self.metadata = metadata or {}
 
 # Import from absolute paths instead of relative
 try:

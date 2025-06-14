@@ -13,11 +13,11 @@ project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
 try:
-    from .config_manager import ConfigManager
-    from .dwsim_rag_integrator import DWSIMRAGIntegrator
-    from .llm_output_generator import LLMOutputGenerator
-    from .dwsim_data_integrator import DWSIMDataIntegrator
-    from .settings import *
+    from pynucleus.integration.config_manager import ConfigManager
+    from pynucleus.integration.dwsim_rag_integrator import DWSIMRAGIntegrator
+    from pynucleus.integration.llm_output_generator import LLMOutputGenerator
+    from pynucleus.integration.dwsim_data_integrator import DWSIMDataIntegrator
+    from pynucleus.integration.settings import *
     
     __all__ = [
         "ConfigManager",
@@ -28,4 +28,4 @@ try:
     
 except ImportError as e:
     print(f"Warning: Some integration components not available: {e}")
-__all__ = []
+    __all__ = []

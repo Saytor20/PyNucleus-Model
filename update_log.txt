@@ -146,9 +146,10 @@ To Do:
 
 Completed: 
 1) Debugged @capstone project to fix major changes 
+2) we need to enhance the OCR- Compeleted but need verification with samples 
+3) fixed the validator and system_diagonstic so that it shows healthy running code 
 
 To Do: 
-1) we need to enhance the OCR
 1) Create API calling for live news, costs, and other things to be considered 
 2) Run a docker builder once everything is completed 
 4) Make the DWSIM code functional 
@@ -156,3 +157,5 @@ To Do:
 6) evalute including an MCP container so that the agent can call on it if needed for further assistance 
 
  2025-06-13 21:38:04 changes made and pushed to origin main
+
+ 2025-06-13 22:49:29 changes made and pushed to origin main

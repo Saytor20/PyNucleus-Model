@@ -45,7 +45,7 @@ except ImportError:
 
 # Handle settings import with fallback
 try:
-    from .settings import AppSettings, load_settings, SimulationSettings, FeedComponent, FeedConditions, OperatingConditions
+    from pynucleus.integration.settings import AppSettings, load_settings, SimulationSettings, FeedComponent, FeedConditions, OperatingConditions
 except ImportError:
     # Create fallback classes if settings import fails
     class AppSettings:

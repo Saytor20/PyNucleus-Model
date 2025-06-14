@@ -13,8 +13,8 @@ project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
 try:
-    from .llm_runner import LLMRunner
-    from .query_llm import LLMQueryManager, quick_ask_llm
+    from pynucleus.llm.llm_runner import LLMRunner
+    from pynucleus.llm.query_llm import LLMQueryManager, quick_ask_llm
     
     __all__ = [
         "LLMRunner",
@@ -24,4 +24,4 @@ try:
     
 except ImportError as e:
     print(f"Warning: Some LLM components not available: {e}")
-__all__ = []
+    __all__ = []

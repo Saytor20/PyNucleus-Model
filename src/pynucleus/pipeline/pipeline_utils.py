@@ -40,7 +40,7 @@ except ImportError as e:
 
 # Try importing logging config, but don't fail if not available
 try:
-    from ..utils.logging_config import setup_logging
+    from pynucleus.utils.logging_config import setup_logging
 except ImportError:
     # Fallback logging setup
     def setup_logging():
