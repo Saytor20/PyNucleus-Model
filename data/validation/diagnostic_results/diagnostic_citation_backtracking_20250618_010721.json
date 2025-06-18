@@ -1,0 +1,58 @@
+{
+  "timestamp": "2025-06-18T01:07:21.196191",
+  "total_citations": 6,
+  "citation_results": [
+    {
+      "source_file": "wikipedia_modular_design.txt",
+      "chunk_id": 1,
+      "section": "Introduction",
+      "confidence_score": 0.85,
+      "relevant_text": "Modular design is the design of systems composed of separate components...",
+      "verified": true
+    },
+    {
+      "source_file": "Manuscript Draft_Can Modular Plants Lower African Industrialization Barriers.txt",
+      "chunk_id": 15,
+      "section": "Economic Benefits",
+      "confidence_score": 0.78,
+      "relevant_text": "Modular construction offers significant cost advantages...",
+      "verified": true
+    },
+    {
+      "source_file": "wikipedia_modular_design.txt",
+      "chunk_id": 1,
+      "section": "Introduction",
+      "confidence_score": 0.85,
+      "relevant_text": "Modular design is the design of systems composed of separate components...",
+      "verified": true
+    },
+    {
+      "source_file": "Manuscript Draft_Can Modular Plants Lower African Industrialization Barriers.txt",
+      "chunk_id": 15,
+      "section": "Economic Benefits",
+      "confidence_score": 0.78,
+      "relevant_text": "Modular construction offers significant cost advantages...",
+      "verified": true
+    },
+    {
+      "source_file": "wikipedia_modular_design.txt",
+      "chunk_id": 1,
+      "section": "Introduction",
+      "confidence_score": 0.85,
+      "relevant_text": "Modular design is the design of systems composed of separate components...",
+      "verified": true
+    },
+    {
+      "source_file": "Manuscript Draft_Can Modular Plants Lower African Industrialization Barriers.txt",
+      "chunk_id": 15,
+      "section": "Economic Benefits",
+      "confidence_score": 0.78,
+      "relevant_text": "Modular construction offers significant cost advantages...",
+      "verified": true
+    }
+  ],
+  "summary_metrics": {
+    "verification_rate": 1.0,
+    "average_confidence": 0.815
+  }
+}

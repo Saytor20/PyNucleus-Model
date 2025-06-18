@@ -1,0 +1,123 @@
+2025-06-18 01:02:42,863 | INFO | PYNUCLEUS SYSTEM VALIDATOR
+2025-06-18 01:02:42,863 | INFO | ======================================================================
+2025-06-18 01:02:42,863 | INFO | Comprehensive validation with actual script execution and pipeline testing
+2025-06-18 01:02:42,863 | INFO | ============================================================
+2025-06-18 01:02:42,863 | INFO | SECTION: CORE PIPELINE SCRIPTS VALIDATION
+2025-06-18 01:02:42,863 | INFO | ============================================================
+2025-06-18 01:02:42,863 | INFO | Found 9 Python script(s) in Core Pipeline Scripts
+2025-06-18 01:02:43,023 | INFO | HEALTHY: src/pynucleus/pipeline/__init__.py
+2025-06-18 01:02:43,023 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-18 01:02:43,023 | INFO | HEALTHY: src/pynucleus/pipeline/pipeline_dwsim.py
+2025-06-18 01:02:43,023 | INFO | HEALTHY: src/pynucleus/pipeline/pipeline_rag.py
+2025-06-18 01:02:43,023 | INFO | HEALTHY: src/pynucleus/pipeline/pipeline_utils.py
+2025-06-18 01:02:43,023 | INFO | HEALTHY: src/pynucleus/pipeline/results_exporter.py
+2025-06-18 01:02:43,023 | INFO | HEALTHY: src/pynucleus/rag/__init__.py
+2025-06-18 01:02:43,023 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-18 01:02:43,023 | INFO | HEALTHY: src/pynucleus/rag/document_processor.py
+2025-06-18 01:02:43,023 | INFO | HEALTHY: src/pynucleus/rag/rag_core.py
+2025-06-18 01:02:43,023 | INFO | HEALTHY: src/pynucleus/rag/vector_store.py
+2025-06-18 01:02:43,023 | INFO | All Core Pipeline Scripts scripts are healthy!
+2025-06-18 01:02:43,023 | INFO | ============================================================
+2025-06-18 01:02:43,023 | INFO | SECTION: INTEGRATION & LLM SCRIPTS VALIDATION
+2025-06-18 01:02:43,023 | INFO | ============================================================
+2025-06-18 01:02:43,024 | INFO | Found 10 Python script(s) in Integration & LLM Scripts
+2025-06-18 01:02:43,193 | INFO | HEALTHY: src/pynucleus/integration/__init__.py
+2025-06-18 01:02:43,193 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-18 01:02:43,193 | INFO | HEALTHY: src/pynucleus/integration/config_manager.py
+2025-06-18 01:02:43,194 | INFO | HEALTHY: src/pynucleus/integration/dwsim_rag_integrator.py
+2025-06-18 01:02:43,194 | INFO | HEALTHY: src/pynucleus/integration/llm_output_generator.py
+2025-06-18 01:02:43,194 | INFO | HEALTHY: src/pynucleus/llm/__init__.py
+2025-06-18 01:02:43,194 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-18 01:02:43,194 | INFO | HEALTHY: src/pynucleus/llm/llm_runner.py
+2025-06-18 01:02:43,194 | INFO | HEALTHY: src/pynucleus/llm/query_llm.py
+2025-06-18 01:02:43,194 | INFO | HEALTHY: src/pynucleus/utils/__init__.py
+2025-06-18 01:02:43,194 | INFO | Warning: Skipped execution: __init__.py (not meant for direct execution)
+2025-06-18 01:02:43,194 | INFO | HEALTHY: src/pynucleus/utils/logging_config.py
+2025-06-18 01:02:43,194 | INFO | HEALTHY: src/pynucleus/utils/token_utils.py
+2025-06-18 01:02:43,194 | INFO | All Integration & LLM Scripts scripts are healthy!
+2025-06-18 01:02:43,194 | INFO | ============================================================
+2025-06-18 01:02:43,194 | INFO | SECTION: ENTRY POINT SCRIPTS VALIDATION
+2025-06-18 01:02:43,194 | INFO | ============================================================
+2025-06-18 01:02:43,194 | INFO | Found 6 Python script(s) in Entry Point Scripts
+2025-06-18 01:02:43,489 | INFO | HEALTHY: run_pipeline.py
+2025-06-18 01:02:43,489 | INFO | HEALTHY (Limited Validation): scripts/comprehensive_system_diagnostic.py
+2025-06-18 01:02:43,489 | INFO | Warning: External dependency script executed successfully
+2025-06-18 01:02:43,489 | INFO | HEALTHY: scripts/enhanced_text_cleaner.py
+2025-06-18 01:02:43,489 | INFO | Warning: Script with main() function imported successfully
+2025-06-18 01:02:43,489 | INFO | HEALTHY (Limited Validation): scripts/system_validator.py
+2025-06-18 01:02:43,489 | INFO | Warning: External dependency script executed successfully
+2025-06-18 01:02:43,489 | INFO | ISSUES: scripts/test_production_monitoring.py
+2025-06-18 01:02:43,489 | INFO | Issue: Import execution failed: cannot import name 'EnhancedFAISSDBManager' from 'pynucleus.rag.vector_store' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/vector_store.py)
+2025-06-18 01:02:43,489 | INFO | HEALTHY: scripts/validate_rag_factual_accuracy.py
+2025-06-18 01:02:43,489 | INFO | Warning: Script with main() function imported successfully
+2025-06-18 01:02:43,489 | INFO | 5/6 Entry Point Scripts scripts are healthy (1 with issues, 2 with limited validation)
+2025-06-18 01:02:43,489 | INFO | ============================================================
+2025-06-18 01:02:43,489 | INFO | SECTION: TEST SCRIPTS VALIDATION
+2025-06-18 01:02:43,489 | INFO | ============================================================
+2025-06-18 01:02:43,489 | INFO | No Python scripts found in Test Scripts
+2025-06-18 01:02:43,489 | INFO | ============================================================
+2025-06-18 01:02:43,489 | INFO | SECTION: AUTOMATION SCRIPTS VALIDATION
+2025-06-18 01:02:43,489 | INFO | ============================================================
+2025-06-18 01:02:43,490 | INFO | Found 2 Python script(s) in Automation Scripts
+2025-06-18 01:02:43,579 | INFO | HEALTHY (Limited Validation): automation_tools/run_intel_system.py
+2025-06-18 01:02:43,579 | INFO | Warning: External dependency script executed successfully
+2025-06-18 01:02:43,579 | INFO | HEALTHY (Limited Validation): automation_tools/sim_to_csv.py
+2025-06-18 01:02:43,579 | INFO | Warning: External dependency script validation inconclusive
+2025-06-18 01:02:43,579 | INFO | All Automation Scripts scripts are healthy! (2 with limited validation due to external dependencies)
+2025-06-18 01:02:43,579 | INFO | ============================================================
+2025-06-18 01:02:43,579 | INFO | SECTION: PROMPT SYSTEM SCRIPTS VALIDATION
+2025-06-18 01:02:43,579 | INFO | ============================================================
+2025-06-18 01:02:43,580 | INFO | Found 2 Python script(s) in Prompt System Scripts
+2025-06-18 01:02:43,790 | INFO | HEALTHY: prompts/notebook_integration.py
+2025-06-18 01:02:43,790 | INFO | HEALTHY: prompts/prompt_system.py
+2025-06-18 01:02:43,790 | INFO | All Prompt System Scripts scripts are healthy!
+2025-06-18 01:02:43,790 | INFO | ============================================================
+2025-06-18 01:02:43,790 | INFO | SECTION: VALIDATION SCRIPTS VALIDATION
+2025-06-18 01:02:43,790 | INFO | ============================================================
+2025-06-18 01:02:43,790 | INFO | No Python scripts found in Validation Scripts
+2025-06-18 01:02:43,790 | INFO | ============================================================
+2025-06-18 01:02:43,790 | INFO | SECTION: RAG PIPELINE HEALTH TEST
+2025-06-18 01:02:43,790 | INFO | ============================================================
+2025-06-18 01:02:43,790 | INFO | RAGPipeline imported successfully
+2025-06-18 01:02:43,790 | INFO | RAGPipeline initialized successfully
+2025-06-18 01:02:43,790 | INFO | RAG Pipeline health check PASSED
+2025-06-18 01:02:43,790 | INFO | ============================================================
+2025-06-18 01:02:43,791 | INFO | SECTION: DWSIM INTEGRATION HEALTH TEST
+2025-06-18 01:02:43,791 | INFO | ============================================================
+2025-06-18 01:02:43,791 | INFO | DWSIMPipeline imported successfully
+2025-06-18 01:02:43,791 | INFO | DWSIMPipeline initialized successfully
+2025-06-18 01:02:43,791 | INFO | DWSIM pipeline has simulation capability
+2025-06-18 01:02:43,791 | INFO | DWSIM Integration health check PASSED
+2025-06-18 01:02:43,791 | INFO | ============================================================
+2025-06-18 01:02:43,791 | INFO | SECTION: ENHANCED INTEGRATION HEALTH TEST
+2025-06-18 01:02:43,791 | INFO | ============================================================
+2025-06-18 01:02:43,806 | INFO | Enhanced integration modules imported successfully
+2025-06-18 01:02:43,806 | INFO | Enhanced Integration health check FAILED: DWSIMRAGIntegrator.__init__() got an unexpected keyword argument 'results_dir'
+2025-06-18 01:02:43,806 | INFO | Notebook testing skipped
+2025-06-18 01:02:43,806 | INFO | ============================================================
+2025-06-18 01:02:43,806 | INFO | SECTION: COMPREHENSIVE VALIDATION SUMMARY
+2025-06-18 01:02:43,806 | INFO | ============================================================
+2025-06-18 01:02:43,806 | INFO | ============================================================
+2025-06-18 01:02:43,806 | INFO | COMPREHENSIVE VALIDATION REPORT
+2025-06-18 01:02:43,806 | INFO | ============================================================
+2025-06-18 01:02:43,806 | INFO | PYNUCLEUS SYSTEM VALIDATION REPORT
+2025-06-18 01:02:43,806 | INFO | Generated: 2025-06-18 01:02:43
+2025-06-18 01:02:43,806 | INFO | Duration: 0.9 seconds
+2025-06-18 01:02:43,806 | INFO | Validation Type: Comprehensive Mode
+2025-06-18 01:02:43,806 | INFO | EXECUTIVE SUMMARY
+2025-06-18 01:02:43,806 | INFO | Overall System Health: NEEDS ATTENTION
+2025-06-18 01:02:43,806 | INFO | Script Health: 96.6% (28/29)
+2025-06-18 01:02:43,806 | INFO | Execution Success Rate: 96.6% (28/29)
+2025-06-18 01:02:43,806 | INFO | SCRIPT VALIDATION RESULTS
+2025-06-18 01:02:43,806 | INFO | Core Pipeline Scripts: HEALTHY (9/9 scripts)
+2025-06-18 01:02:43,806 | INFO | Integration & LLM Scripts: HEALTHY (10/10 scripts)
+2025-06-18 01:02:43,806 | INFO | Entry Point Scripts: ISSUES (5/6 scripts)
+2025-06-18 01:02:43,806 | INFO | Test Scripts: HEALTHY (0/0 scripts)
+2025-06-18 01:02:43,806 | INFO | Automation Scripts: HEALTHY (2/2 scripts)
+2025-06-18 01:02:43,806 | INFO | Prompt System Scripts: HEALTHY (2/2 scripts)
+2025-06-18 01:02:43,806 | INFO | Validation Scripts: HEALTHY (0/0 scripts)
+2025-06-18 01:02:43,806 | INFO | PIPELINE HEALTH RESULTS
+2025-06-18 01:02:43,806 | INFO | RAG Pipeline: HEALTHY
+2025-06-18 01:02:43,806 | INFO | DWSIM Integration: HEALTHY
+2025-06-18 01:02:43,806 | INFO | Enhanced Integration: ISSUES
+2025-06-18 01:02:43,806 | INFO | Notebook Execution: ISSUES

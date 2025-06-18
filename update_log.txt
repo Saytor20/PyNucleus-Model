@@ -165,7 +165,7 @@ To Do:
 2025-06-16 22:34:15 changes made and pushed to origin main
 
 Completed:
-1) ✅ update chunking to include metdata to remove titles and pages - COMPLETED
+1) - update chunking to include metdata to remove titles and pages - COMPLETED
    - Implemented efficient metadata stripping with pre-compiled regexes
    - Added Counter-based frequency analysis for repeated headers/footers  
    - Enhanced chunking pipeline with standardized JSON output format
@@ -184,4 +184,6 @@ To Do:
 9) LLM Integration: Replace template-based answers with actual language model
 10) Advanced Validation: More sophisticated fact-checking algorithms
 11) implemented archiving for the FAISS reports
- 2025-06-18 00:22:44 changes made and pushed to origin main
+12) fix the token counter 
+13) fix notebooks
+ 2025-06-18 14:13:10 changes made and pushed to origin main

@@ -1,167 +1,124 @@
 """
-Lightweight, reusable Python utility for accurate token counting.
-
-This module provides efficient token counting functionality using Hugging Face's
-transformers library with caching for optimal performance.
+Token utilities for PyNucleus system using HuggingFace tokenizers.
 """
 
 import logging
-from functools import lru_cache
-from typing import Union, List, Optional
-from transformers import AutoTokenizer
-
-# Set up logging
-logger = logging.getLogger(__name__)
-
-# Default model configuration
-DEFAULT_MODEL = "gpt2"
-
+from typing import Optional, Union, List
 
 class TokenCounter:
-    """
-    A lightweight token counter using Hugging Face tokenizers with caching.
+    """Efficient token counting using HuggingFace tokenizers."""
     
-    This class provides efficient token counting with automatic caching of
-    tokenizers to avoid repeated model loading.
-    """
-    
-    def __init__(self, model_id: str = DEFAULT_MODEL):
-        """
-        Initialize the TokenCounter with a specific model.
+    def __init__(self, model_name: str = "microsoft/DialoGPT-medium"):
+        self.model_name = model_name
+        self.tokenizer = None
+        self.logger = logging.getLogger(__name__)
         
-        Args:
-            model_id (str): The Hugging Face model identifier.
-                          Defaults to "gpt2".
-        """
-        self.model_id = model_id
-        self._tokenizer = None
-    
-    @property
-    def tokenizer(self):
-        """Lazy loading of tokenizer with caching."""
-        if self._tokenizer is None:
-            self._tokenizer = self._get_tokenizer(self.model_id)
-        return self._tokenizer
-    
-    @staticmethod
-    @lru_cache(maxsize=8)
-    def _get_tokenizer(model_id: str):
-        """
-        Get a tokenizer for the specified model with LRU caching.
-        
-        Args:
-            model_id (str): The Hugging Face model identifier.
-            
-        Returns:
-            AutoTokenizer: The loaded tokenizer.
-            
-        Raises:
-            Exception: If the tokenizer cannot be loaded.
-        """
         try:
-            logger.info(f"Loading tokenizer for model: {model_id}")
-            tokenizer = AutoTokenizer.from_pretrained(model_id)
-            
-            # Ensure tokenizer has a pad token (required for some models)
-            if tokenizer.pad_token is None:
-                tokenizer.pad_token = tokenizer.eos_token
-                
-            return tokenizer
+            from transformers import AutoTokenizer
+            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+            self.logger.info(f"TokenCounter initialized with model: {model_name}")
+        except ImportError:
+            self.logger.warning("Transformers library not available, using fallback token counting")
         except Exception as e:
-            logger.error(f"Failed to load tokenizer for model {model_id}: {e}")
-            raise
+            self.logger.warning(f"Failed to load tokenizer {model_name}, using fallback: {e}")
     
     def count_tokens(self, text: Union[str, List[str]]) -> Union[int, List[int]]:
         """
-        Count tokens in the given text(s).
+        Count tokens in text or list of texts.
         
         Args:
-            text (Union[str, List[str]]): Text or list of texts to tokenize.
+            text: Single text string or list of text strings
             
         Returns:
-            Union[int, List[int]]: Token count(s) for the input text(s).
+            Token count(s)
         """
-        if isinstance(text, str):
-            return len(self.tokenizer.encode(text, add_special_tokens=True))
-        elif isinstance(text, list):
-            return [len(self.tokenizer.encode(t, add_special_tokens=True)) for t in text]
+        if isinstance(text, list):
+            return [self._count_single_text(t) for t in text]
         else:
-            raise ValueError("Input must be a string or list of strings")
+            return self._count_single_text(text)
     
-    def get_tokens(self, text: str) -> List[str]:
+    def _count_single_text(self, text: str) -> int:
+        """Count tokens in a single text string."""
+        if not text:
+            return 0
+            
+        if self.tokenizer:
+            try:
+                tokens = self.tokenizer.encode(text, add_special_tokens=True)
+                return len(tokens)
+            except Exception as e:
+                self.logger.warning(f"Tokenizer failed, using fallback: {e}")
+                return self._fallback_count(text)
+        else:
+            return self._fallback_count(text)
+    
+    def _fallback_count(self, text: str) -> int:
+        """Fallback token counting method."""
+        # Simple word-based approximation
+        # Typical rule: ~0.75 tokens per word for English text
+        words = len(text.split())
+        return max(1, int(words * 0.75))
+    
+    def estimate_cost(self, text: str, cost_per_1k_tokens: float = 0.002) -> float:
         """
-        Get the actual tokens for debugging/inspection purposes.
+        Estimate API cost for text processing.
         
         Args:
-            text (str): Text to tokenize.
+            text: Text to estimate cost for
+            cost_per_1k_tokens: Cost per 1000 tokens (default: $0.002)
             
         Returns:
-            List[str]: List of tokens.
+            Estimated cost in dollars
         """
-        token_ids = self.tokenizer.encode(text, add_special_tokens=True)
-        return self.tokenizer.convert_ids_to_tokens(token_ids)
+        token_count = self.count_tokens(text)
+        return (token_count / 1000.0) * cost_per_1k_tokens
     
-    def clear_cache(self):
-        """Clear the tokenizer cache."""
-        TokenCounter._get_tokenizer.cache_clear()
-        logger.info("Tokenizer cache cleared")
+    def chunk_text_by_tokens(self, text: str, max_tokens: int = 2000, overlap: int = 100) -> List[str]:
+        """
+        Chunk text by token count with overlap.
+        
+        Args:
+            text: Text to chunk
+            max_tokens: Maximum tokens per chunk
+            overlap: Token overlap between chunks
+            
+        Returns:
+            List of text chunks
+        """
+        if not text:
+            return []
+            
+        # Simple sentence-based chunking for fallback
+        sentences = text.split('. ')
+        chunks = []
+        current_chunk = ""
+        
+        for sentence in sentences:
+            test_chunk = current_chunk + ". " + sentence if current_chunk else sentence
+            
+            if self.count_tokens(test_chunk) <= max_tokens:
+                current_chunk = test_chunk
+            else:
+                if current_chunk:
+                    chunks.append(current_chunk)
+                current_chunk = sentence
+                
+        if current_chunk:
+            chunks.append(current_chunk)
+            
+        return chunks
 
-
-# Convenience function for quick token counting
-@lru_cache(maxsize=128)
-def count_tokens(text: str, model_id: str = DEFAULT_MODEL) -> int:
+# Convenience function for direct usage
+def count_tokens(text: Union[str, List[str]], model_name: str = "microsoft/DialoGPT-medium") -> Union[int, List[int]]:
     """
-    Count tokens in a text string using the specified model.
-    
-    This is a convenience function that provides caching for both the tokenizer
-    and the results of token counting for repeated calls.
+    Count tokens in text using HuggingFace tokenizer.
     
     Args:
-        text (str): The text to count tokens for.
-        model_id (str): The Hugging Face model identifier.
-                       Defaults to "gpt2".
-    
-    Returns:
-        int: The number of tokens in the text.
+        text: Text or list of texts to count tokens for
+        model_name: HuggingFace model name for tokenizer
         
-    Example:
-        >>> count_tokens("Hello, world!")
-        4
-        >>> count_tokens("This is a test", "gpt2")
-        5
-    """
-    counter = TokenCounter(model_id)
-    return counter.count_tokens(text)
-
-
-def get_available_cache_info() -> dict:
-    """
-    Get information about the current cache state.
-    
     Returns:
-        dict: Cache information including hits, misses, and current size.
+        Token count(s)
     """
-    tokenizer_cache = TokenCounter._get_tokenizer.cache_info()
-    count_cache = count_tokens.cache_info()
-    
-    return {
-        "tokenizer_cache": {
-            "hits": tokenizer_cache.hits,
-            "misses": tokenizer_cache.misses,
-            "current_size": tokenizer_cache.currsize,
-            "max_size": tokenizer_cache.maxsize
-        },
-        "count_cache": {
-            "hits": count_cache.hits,
-            "misses": count_cache.misses,
-            "current_size": count_cache.currsize,
-            "max_size": count_cache.maxsize
-        }
-    }
-
-
-def clear_all_caches():
-    """Clear all token counting caches."""
-    TokenCounter._get_tokenizer.cache_clear()
-    count_tokens.cache_clear()
-    logger.info("All token counting caches cleared") 
+    counter = TokenCounter(model_name)
+    return counter.count_tokens(text) 

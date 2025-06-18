@@ -1,0 +1,54 @@
+{
+  "timestamp": "2025-06-18T14:10:17.183730",
+  "total_queries": 3,
+  "validation_results": [
+    {
+      "query": "What are the main advantages of modular chemical plants?",
+      "expected_answer": "Modular chemical plants offer reduced capital costs, faster construction times, improved quality control through factory fabrication, easier transportation, scalability, and reduced on-site risks.",
+      "generated_answer": "Mock RAG response for: What are the main advantages of modular chemical plants?",
+      "sources_used": [
+        "mock_document_1.txt",
+        "mock_document_2.txt"
+      ],
+      "accuracy_score": 0.6,
+      "citation_accuracy": 0.0,
+      "response_time": 1.4781951904296875e-05,
+      "domain": "chemical_engineering",
+      "difficulty_level": "basic"
+    },
+    {
+      "query": "How do distillation columns work in chemical separation?",
+      "expected_answer": "Distillation columns separate components based on different boiling points. The mixture is heated, vapor rises through trays or packing, and components with different volatilities separate at different heights.",
+      "generated_answer": "Mock RAG response for: How do distillation columns work in chemical separation?",
+      "sources_used": [
+        "mock_document_1.txt",
+        "mock_document_2.txt"
+      ],
+      "accuracy_score": 0.6,
+      "citation_accuracy": 0.0,
+      "response_time": 4.291534423828125e-06,
+      "domain": "chemical_engineering",
+      "difficulty_level": "intermediate"
+    },
+    {
+      "query": "What factors affect reactor conversion efficiency?",
+      "expected_answer": "Reactor conversion efficiency is affected by temperature, pressure, catalyst activity, residence time, mixing efficiency, reactant concentration, and mass transfer limitations.",
+      "generated_answer": "Mock RAG response for: What factors affect reactor conversion efficiency?",
+      "sources_used": [
+        "mock_document_1.txt",
+        "mock_document_2.txt"
+      ],
+      "accuracy_score": 0.6,
+      "citation_accuracy": 0.0,
+      "response_time": 2.86102294921875e-06,
+      "domain": "chemical_engineering",
+      "difficulty_level": "intermediate"
+    }
+  ],
+  "summary_metrics": {
+    "average_accuracy": 0.6,
+    "average_citation_accuracy": 0.0,
+    "average_response_time": 7.311503092447917e-06,
+    "pass_rate": 1.0
+  }
+}

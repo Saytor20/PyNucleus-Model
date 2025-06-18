@@ -1,46 +1,18 @@
 """
 PyNucleus Pipeline Module
 
-Main pipeline components for RAG, DWSIM, and enhanced integration.
+Core pipeline functionality for chemical process simulation and RAG integration.
 """
 
-import sys
-import os
-from pathlib import Path
+from .pipeline_utils import PipelineUtils, run_full_pipeline
+from .pipeline_rag import RAGPipeline  
+from .pipeline_dwsim import DWSIMPipeline
+from .results_exporter import ResultsExporter
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root / "src"))
-
-# Import pipeline components with proper error handling
-__all__ = []
-
-try:
-    from pynucleus.pipeline.pipeline_rag import RAGPipeline
-    __all__.append("RAGPipeline")
-except ImportError as e:
-    print(f"Warning: RAG pipeline not available: {e}")
-
-try:
-    from pynucleus.pipeline.pipeline_dwsim import DWSIMPipeline
-    __all__.append("DWSIMPipeline")
-except ImportError as e:
-    print(f"Warning: DWSIM pipeline not available: {e}")
-
-try:
-    from pynucleus.pipeline.pipeline_export import ResultsExporter
-    __all__.append("ResultsExporter")
-except ImportError as e:
-    print(f"Warning: Results exporter not available: {e}")
-
-try:
-    from pynucleus.pipeline.pipeline_utils import PipelineUtils
-    __all__.append("PipelineUtils")
-except ImportError as e:
-    print(f"Warning: Pipeline utilities not available: {e}")
-
-try:
-    from pynucleus.pipeline.enhanced_pipeline_utils import EnhancedPipelineUtils
-    __all__.append("EnhancedPipelineUtils")
-except ImportError as e:
-    print(f"Warning: Enhanced pipeline utilities not available: {e}")
+__all__ = [
+    'PipelineUtils',
+    'run_full_pipeline',
+    'RAGPipeline', 
+    'DWSIMPipeline',
+    'ResultsExporter'
+] 

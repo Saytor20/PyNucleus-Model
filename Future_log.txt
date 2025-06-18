@@ -1,1 +1,26 @@
 1) image processing is not available right now but we can add another VLLM model that can process images at later stages 
+
+
+# # ========================================
+# # VERSION CONTROL (Optional - For Maintainers Only)
+# # ========================================
+# # Uncomment the lines below if you need to update the repository:
+
+# from datetime import datetime
+
+# # Log end time
+# with open("update_log.txt", "a") as f:
+#     f.write(f"\n {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} changes made and pushed to origin main\n")
+
+# # Simple GitHub update function
+# def update_github():
+#     print(" Starting GitHub update...")
+#     !git add .
+#     print(" Files added to staging")
+#     !git commit -m "Update: $(date +'%Y-%m-%d %H:%M:%S')"
+#     print(" Changes committed")
+#     !git push origin main
+#     print(" Changes pushed to GitHub successfully!")
+
+# # To use it, just run:
+# update_github()

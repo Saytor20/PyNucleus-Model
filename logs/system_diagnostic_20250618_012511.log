@@ -1,0 +1,184 @@
+2025-06-18 01:25:11,762 | INFO | COMPREHENSIVE PYNUCLEUS SYSTEM DIAGNOSTIC & TESTING SUITE
+2025-06-18 01:25:11,762 | INFO | ======================================================================
+2025-06-18 01:25:11,762 | INFO | Testing: Environment, Enhanced Pipeline, Components, Content Generation, Mock Testing
+2025-06-18 01:25:11,762 | INFO | ============================================================
+2025-06-18 01:25:11,762 | INFO | SECTION: PYTHON ENVIRONMENT CHECK
+2025-06-18 01:25:11,762 | INFO | ============================================================
+2025-06-18 01:25:11,762 | INFO | Python version: 3.13.1
+2025-06-18 01:25:11,873 | INFO | numpy (required) - AVAILABLE
+2025-06-18 01:25:12,738 | INFO | pandas (required) - AVAILABLE
+2025-06-18 01:25:12,871 | INFO | requests (required) - AVAILABLE
+2025-06-18 01:25:12,874 | INFO | tqdm (required) - AVAILABLE
+2025-06-18 01:25:12,883 | INFO | jinja2 (required) - AVAILABLE
+2025-06-18 01:25:12,883 | INFO | pythonnet (optional) - MISSING
+2025-06-18 01:25:12,884 | INFO | scikit-learn (optional) - MISSING
+2025-06-18 01:25:12,884 | INFO | faiss-cpu (optional) - MISSING
+2025-06-18 01:25:12,884 | INFO | python-dotenv (optional) - MISSING
+2025-06-18 01:25:12,884 | INFO | beautifulsoup4 (optional) - MISSING
+2025-06-18 01:25:12,884 | INFO | Check Result: Python Environment - PASSED
+2025-06-18 01:25:12,884 | INFO | ============================================================
+2025-06-18 01:25:12,884 | INFO | SECTION: PYNUCLEUS PIPELINE FUNCTIONALITY CHECK
+2025-06-18 01:25:12,884 | INFO | ============================================================
+2025-06-18 01:25:12,884 | INFO | Core pipeline modules imported successfully
+2025-06-18 01:25:12,884 | INFO | PipelineUtils initialized successfully
+2025-06-18 01:25:12,884 | INFO | Results directory: data/05_output
+2025-06-18 01:25:12,884 | INFO | RAG and DWSIM pipelines available
+2025-06-18 01:25:12,884 | INFO | Check Result: Pipeline Functionality - PASSED
+2025-06-18 01:25:12,884 | INFO | ============================================================
+2025-06-18 01:25:12,884 | INFO | SECTION: ENHANCED PIPELINE COMPONENTS CHECK
+2025-06-18 01:25:12,884 | INFO | ============================================================
+2025-06-18 01:25:12,885 | INFO | All enhanced modules imported successfully
+2025-06-18 01:25:12,885 | INFO | ConfigManager: configs
+2025-06-18 01:25:12,885 | INFO | LLMOutputGenerator: results_dir=data/05_output/llm_reports
+2025-06-18 01:25:12,885 | INFO | Check Result: Enhanced Pipeline Components - PASSED
+2025-06-18 01:25:12,885 | INFO | ============================================================
+2025-06-18 01:25:12,885 | INFO | SECTION: ENHANCED CONTENT GENERATION CHECK
+2025-06-18 01:25:12,885 | INFO | ============================================================
+2025-06-18 01:25:12,885 | INFO | Enhanced LLM output generated: data/05_output/llm_reports/llm_analysis_system_test_distillation_20250618_012512.md
+2025-06-18 01:25:12,885 | INFO | File saved in correct llm_reports/ folder
+2025-06-18 01:25:12,885 | INFO | Enhanced Content Features Check:
+2025-06-18 01:25:12,885 | INFO | Process Type: FOUND
+2025-06-18 01:25:12,885 | INFO | Components: FOUND
+2025-06-18 01:25:12,885 | INFO | Performance Metrics: FOUND
+2025-06-18 01:25:12,885 | INFO | Conversion: FOUND
+2025-06-18 01:25:12,885 | INFO | Selectivity: FOUND
+2025-06-18 01:25:12,885 | INFO | Temperature: MISSING
+2025-06-18 01:25:12,885 | INFO | Pressure: MISSING
+2025-06-18 01:25:12,885 | INFO | Recommendations: MISSING
+2025-06-18 01:25:12,885 | INFO | Analysis Summary: FOUND
+2025-06-18 01:25:12,885 | INFO | LLM Simulation Analysis: FOUND
+2025-06-18 01:25:12,885 | INFO | Financial analysis generated: financial_analysis_20250618_012512.md
+2025-06-18 01:25:12,885 | INFO | Check Result: Enhanced Content Generation - FAILED
+2025-06-18 01:25:12,885 | INFO |   Detail: Missing feature: Temperature
+2025-06-18 01:25:12,885 | INFO |   Detail: Missing feature: Pressure
+2025-06-18 01:25:12,885 | INFO |   Detail: Missing feature: Recommendations
+2025-06-18 01:25:12,885 | INFO | ============================================================
+2025-06-18 01:25:12,885 | INFO | SECTION: PYNUCLEUS RAG SYSTEM CHECK
+2025-06-18 01:25:12,885 | INFO | ============================================================
+2025-06-18 01:25:12,885 | INFO | Source documents: data/01_raw/source_documents (9 items)
+2025-06-18 01:25:12,886 | INFO | Converted documents: data/02_processed/converted_to_txt (9 items)
+2025-06-18 01:25:12,886 | INFO | Web scraped sources: data/01_raw/web_sources (5 items)
+2025-06-18 01:25:12,886 | INFO | Chunked data: data/03_intermediate/converted_chunked_data (3 items)
+2025-06-18 01:25:12,886 | INFO | FAISS analysis reports: data/04_models/chunk_reports (8 items)
+2025-06-18 01:25:12,886 | INFO | RAG source code: src/pynucleus/rag (6 items)
+2025-06-18 01:25:12,886 | INFO | FAISS index files found: 1
+2025-06-18 01:25:12,886 | INFO | FAISS file: pynucleus_mcp.faiss
+2025-06-18 01:25:12,886 | INFO | Check Result: RAG System - PASSED
+2025-06-18 01:25:12,886 | INFO | ============================================================
+2025-06-18 01:25:12,886 | INFO | SECTION: TOKEN UTILITIES SYSTEM CHECK
+2025-06-18 01:25:12,886 | INFO | ============================================================
+2025-06-18 01:25:12,886 | INFO | src/pynucleus/utils/ directory exists
+2025-06-18 01:25:12,886 | INFO | PyNucleus integration: token_utils.py - EXISTS
+2025-06-18 01:25:18,513 | INFO | Transformers library available
+2025-06-18 01:25:18,516 | INFO | PyNucleus integration imports successful
+2025-06-18 01:25:18,781 | INFO | Integrated token counting: 10 tokens
+2025-06-18 01:25:18,781 | INFO | Token utilities system operational!
+2025-06-18 01:25:18,781 | INFO | Check Result: Token Utilities System - PASSED
+2025-06-18 01:25:18,781 | INFO | ============================================================
+2025-06-18 01:25:18,781 | INFO | SECTION: LLM UTILITIES SYSTEM CHECK
+2025-06-18 01:25:18,781 | INFO | ============================================================
+2025-06-18 01:25:18,781 | INFO | src/pynucleus/llm/ directory exists
+2025-06-18 01:25:18,781 | INFO | Main LLM runner module: llm_runner.py - EXISTS
+2025-06-18 01:25:18,781 | INFO | Package initialization: __init__.py - EXISTS
+2025-06-18 01:25:18,781 | INFO | LLM query manager: query_llm.py - EXISTS
+2025-06-18 01:25:18,786 | INFO | Required dependencies (transformers, torch) available
+2025-06-18 01:25:18,787 | INFO | LLMRunner imports successful
+2025-06-18 01:25:18,787 | INFO | LLM utilities system operational!
+2025-06-18 01:25:18,787 | INFO | Check Result: LLM Utilities System - PASSED
+2025-06-18 01:25:18,787 | INFO | ============================================================
+2025-06-18 01:25:18,787 | INFO | SECTION: JINJA2 PROMPTS SYSTEM CHECK
+2025-06-18 01:25:18,787 | INFO | ============================================================
+2025-06-18 01:25:18,787 | INFO | prompts/ directory exists
+2025-06-18 01:25:18,787 | INFO | Jinja2 template file: qwen_prompt.j2 - EXISTS
+2025-06-18 01:25:18,787 | INFO | PromptSystem class: prompt_system.py - EXISTS
+2025-06-18 01:25:18,787 | INFO | Jupyter notebook integration: notebook_integration.py - EXISTS
+2025-06-18 01:25:18,787 | INFO | Documentation: README.md - EXISTS
+2025-06-18 01:25:18,787 | INFO | Jinja2 library available
+2025-06-18 01:25:18,789 | INFO | Template renders correctly with all sections
+2025-06-18 01:25:18,791 | INFO | PromptSystem class imported and initialized
+2025-06-18 01:25:18,791 | INFO | Template validation passed
+2025-06-18 01:25:18,792 | INFO | Notebook integration functions available
+2025-06-18 01:25:18,792 | INFO | Jinja2 prompt system fully operational!
+2025-06-18 01:25:18,792 | INFO | Check Result: Jinja2 Prompts System - PASSED
+2025-06-18 01:25:18,792 | INFO | ============================================================
+2025-06-18 01:25:18,792 | INFO | SECTION: DWSIM ENVIRONMENT CHECK (Optional)
+2025-06-18 01:25:18,792 | INFO | ============================================================
+2025-06-18 01:25:18,792 | INFO | DWSIM_DLL_PATH environment variable not set
+2025-06-18 01:25:18,792 | INFO | This is optional - PyNucleus can run without DWSIM for testing
+2025-06-18 01:25:18,792 | INFO | Check Result: DWSIM Environment - PASSED
+2025-06-18 01:25:18,792 | INFO | ============================================================
+2025-06-18 01:25:18,792 | INFO | SECTION: DOCKER ENVIRONMENT CHECK
+2025-06-18 01:25:18,792 | INFO | ============================================================
+2025-06-18 01:25:18,792 | INFO | Dockerfile exists
+2025-06-18 01:25:18,792 | INFO | docker-compose.yml exists
+2025-06-18 01:25:18,792 | INFO | .dockerignore exists
+2025-06-18 01:25:18,792 | INFO | Check Result: Docker Environment - PASSED
+2025-06-18 01:25:18,792 | INFO | ============================================================
+2025-06-18 01:25:18,792 | INFO | SECTION: DATA CONSOLIDATION DELIVERABLES CHECK
+2025-06-18 01:25:18,792 | INFO | ============================================================
+2025-06-18 01:25:18,792 | INFO | Verifying Data Directory Consolidation Deliverables:
+2025-06-18 01:25:18,792 | INFO | Data Subdirectories:
+2025-06-18 01:25:18,792 | INFO | data/01_raw/ exists
+2025-06-18 01:25:18,792 | INFO | data/02_processed/ exists
+2025-06-18 01:25:18,792 | INFO | data/03_intermediate/ exists
+2025-06-18 01:25:18,792 | INFO | data/04_models/ exists
+2025-06-18 01:25:18,792 | INFO | data/05_output/ exists
+2025-06-18 01:25:18,792 | INFO | Moved Folders Verification:
+2025-06-18 01:25:18,792 | INFO | Source documents: data/01_raw/source_documents/ (9 items)
+2025-06-18 01:25:18,792 | INFO | Web sources: data/01_raw/web_sources/ (5 items)
+2025-06-18 01:25:18,792 | INFO | Converted documents: data/02_processed/converted_to_txt/ (9 items)
+2025-06-18 01:25:18,792 | INFO | Chunked data: data/03_intermediate/converted_chunked_data/ (3 items)
+2025-06-18 01:25:18,792 | INFO | Chunk reports: data/04_models/chunk_reports/ (8 items)
+2025-06-18 01:25:18,793 | INFO | Results: data/05_output/results/ (22 items)
+2025-06-18 01:25:18,793 | INFO | LLM reports: data/05_output/llm_reports/ (14 items)
+2025-06-18 01:25:18,793 | INFO | Data directories centralized and verified.
+2025-06-18 01:25:18,793 | INFO | Check Result: Data Consolidation Deliverables - PASSED
+2025-06-18 01:25:18,793 | INFO | ============================================================
+2025-06-18 01:25:18,793 | INFO | FINAL DIAGNOSTIC REPORT
+2025-06-18 01:25:18,793 | INFO | ============================================================
+2025-06-18 01:25:18,793 | INFO | PYNUCLEUS SYSTEM DIAGNOSTIC & TESTING REPORT
+2025-06-18 01:25:18,793 | INFO | Generated: 2025-06-18 01:25:18
+2025-06-18 01:25:18,793 | INFO | Duration: 7.0 seconds
+2025-06-18 01:25:18,793 | INFO | EXECUTIVE SUMMARY
+2025-06-18 01:25:18,793 | INFO | System Health: 90.9% (EXCELLENT)
+2025-06-18 01:25:18,793 | INFO | Checks Performed: 11
+2025-06-18 01:25:18,793 | INFO | Checks Passed: 10
+2025-06-18 01:25:18,793 | INFO | Checks Failed: 1
+2025-06-18 01:25:18,793 | INFO | DETAILED RESULTS
+2025-06-18 01:25:18,793 | INFO | PASSED CHECKS (10):
+2025-06-18 01:25:18,793 | INFO | - Python Environment
+2025-06-18 01:25:18,793 | INFO | - Pipeline Functionality
+2025-06-18 01:25:18,793 | INFO | - Enhanced Pipeline Components
+2025-06-18 01:25:18,793 | INFO | - RAG System
+2025-06-18 01:25:18,793 | INFO | - Token Utilities System
+2025-06-18 01:25:18,793 | INFO | - LLM Utilities System
+2025-06-18 01:25:18,793 | INFO | - Jinja2 Prompts System
+2025-06-18 01:25:18,793 | INFO | - DWSIM Environment
+2025-06-18 01:25:18,793 | INFO | - Docker Environment
+2025-06-18 01:25:18,793 | INFO | - Data Consolidation Deliverables
+2025-06-18 01:25:18,793 | INFO | FAILED CHECKS (1):
+2025-06-18 01:25:18,793 | INFO | - Enhanced Content Generation
+2025-06-18 01:25:18,793 | INFO | * Missing feature: Temperature
+2025-06-18 01:25:18,793 | INFO | * Missing feature: Pressure
+2025-06-18 01:25:18,793 | INFO | * Missing feature: Recommendations
+2025-06-18 01:25:18,793 | INFO | RECOMMENDATIONS:
+2025-06-18 01:25:18,793 | INFO | - Core systems operational. Address minor issues for optimal performance.
+2025-06-18 01:25:18,793 | INFO | SYSTEM CAPABILITIES:
+2025-06-18 01:25:18,793 | INFO | - RAG Pipeline: Document processing and retrieval
+2025-06-18 01:25:18,793 | INFO | - DWSIM Pipeline: Chemical process simulation
+2025-06-18 01:25:18,793 | INFO | - Results Export: CSV and LLM-ready formats
+2025-06-18 01:25:18,793 | INFO | - Enhanced Integration: DWSIM-RAG combined analysis
+2025-06-18 01:25:18,793 | INFO | - Financial Analysis: ROI and profitability calculations
+2025-06-18 01:25:18,793 | INFO | - Token Utilities: Efficient token counting with HuggingFace tokenizers
+2025-06-18 01:25:18,793 | INFO | - LLM Utilities: Streamlined interface for querying Hugging Face LLM models
+2025-06-18 01:25:18,793 | INFO | - Jinja2 Prompts System: Standardized LLM prompt templates
+2025-06-18 01:25:18,793 | INFO | - Mock Testing: Comprehensive testing with simulated data
+2025-06-18 01:25:18,793 | INFO | SYSTEM USAGE:
+2025-06-18 01:25:18,793 | INFO | - CLI Tool: python run_pipeline.py run --config-path configs/my.json
+2025-06-18 01:25:18,793 | INFO | - Jupyter Notebook: Capstone Project.ipynb for interactive development
+2025-06-18 01:25:18,793 | INFO | - System Environment: python scripts/comprehensive_system_diagnostic.py
+2025-06-18 01:25:18,793 | INFO | - Script Validation: python scripts/system_validator.py
+2025-06-18 01:25:18,793 | INFO | - Test Suite: python scripts/comprehensive_system_diagnostic.py --test
+2025-06-18 01:25:18,793 | INFO | ============================================================
+2025-06-18 01:25:18,793 | INFO | SECTION: COMPREHENSIVE DIAGNOSTIC SUMMARY
+2025-06-18 01:25:18,793 | INFO | ============================================================

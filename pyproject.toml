@@ -1,0 +1,141 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pynucleus"
+dynamic = ["version"]
+description = "Chemical process simulation and RAG system"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "PyNucleus Contributors"}
+]
+maintainers = [
+    {name = "PyNucleus Contributors"}
+]
+keywords = ["chemical", "simulation", "rag", "dwsim", "llm"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.6.0",
+    "transformers>=4.30.0",
+    "sentence-transformers>=2.2.0",
+    "langchain>=0.2.0",
+    "faiss-cpu>=1.7.0",
+    "python-dotenv>=1.0.0",
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.0",
+    "tqdm>=4.66.0",
+    "pypdf>=4.0.0",
+    "python-docx>=1.1.0",
+    "jsonschema>=4.0.0",
+    "typing-extensions>=4.0.0",
+    "jinja2>=3.1.0",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "scikit-learn>=1.3.0",
+    "httpx>=0.24.0",
+    "aiohttp>=3.8.0",
+    "urllib3>=2.0.0",
+    "structlog>=23.0.0",
+    "accelerate>=0.24.0",
+    "unstructured>=0.11.0",
+    "PyMuPDF>=1.23.0",
+    "pdfplumber>=0.10.0",
+    "Pillow>=10.0.0",
+    "PyYAML>=6.0.0",
+    "typer>=0.12.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.7.0",
+    "isort>=5.12.0",
+    "flake8>=6.1.0",
+    "mypy>=1.5.0",
+    "ruff>=0.1.0",
+]
+test = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+]
+
+[project.scripts]
+pynucleus = "pynucleus.cli:main"
+pynucleus-ingest = "pynucleus.rag.document_processor:main"
+pynucleus-build-faiss = "pynucleus.utils.faiss_archiver:main"
+pynucleus-ask = "pynucleus.llm.query_llm:main"
+pynucleus-chunk = "pynucleus.rag.data_chunking:main"
+pynucleus-scrape = "pynucleus.rag.wiki_scraper:main"
+pynucleus-monitor = "pynucleus.rag.embedding_monitor:main"
+pynucleus-vector-store = "pynucleus.rag.vector_store:main"
+pynucleus-dwsim = "pynucleus.sim_bridge.dwsim_bridge:main"
+
+[project.urls]
+Homepage = "https://github.com/mohammadalmusaiteer/PyNucleus-Model"
+Repository = "https://github.com/mohammadalmusaiteer/PyNucleus-Model"
+Issues = "https://github.com/mohammadalmusaiteer/PyNucleus-Model/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "pynucleus.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pynucleus = ["templates/*.j2", "py.typed"]
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["src/pynucleus/tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "G", "PIE", "T20", "Q"]
+ignore = ["E501", "E203"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+"src/pynucleus/tests/*" = ["T201"]

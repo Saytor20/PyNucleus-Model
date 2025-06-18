@@ -1,377 +1,234 @@
-#!/usr/bin/env python3
 """
-LLM Query Module
-
-Handles querying of Language Models for the PyNucleus system.
-Provides a unified interface for different LLM providers.
+LLM query manager for PyNucleus system.
 """
 
-import sys
-import os
 import logging
+from typing import Dict, Any, Optional, List
+from datetime import datetime
 from pathlib import Path
-from typing import Optional, Dict, Any, Union
-from jinja2 import Environment, FileSystemLoader, Template, TemplateNotFound
-
-# Add project root to path for imports
-project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root / "src"))
-
-# Try to import required components
-try:
-    from jinja2 import Environment, FileSystemLoader, Template
-    JINJA2_AVAILABLE = True
-except ImportError:
-    JINJA2_AVAILABLE = False
-    print("Warning: jinja2 not available. Template rendering disabled.")
-
-# Try to import token utilities with fallback
-try:
-    from pynucleus.utils.token_utils import count_tokens, estimate_cost, TokenCounter
-    TOKEN_UTILS_AVAILABLE = True
-except ImportError:
-    TOKEN_UTILS_AVAILABLE = False
-    print("Warning: token_utils not available, using fallback")
-    
-    def count_tokens(text: str, model: str = "gpt-3.5-turbo") -> int:
-        """Fallback token counting - rough estimate"""
-        return len(text.split()) * 1.3  # Rough approximation
-    
-    def estimate_cost(tokens: int, model: str = "gpt-3.5-turbo") -> float:
-        """Fallback cost estimation"""
-        return tokens * 0.0000015  # Rough approximation
-    
-    class TokenCounter:
-        """Fallback TokenCounter class"""
-        def __init__(self, model_id: str = "gpt2"):
-            self.model_id = model_id
-        
-        def count_tokens(self, text: str) -> int:
-            return count_tokens(text, self.model_id)
-
-# Try to import LLM runner
-try:
-    from pynucleus.llm.llm_runner import LLMRunner
-    LLM_RUNNER_AVAILABLE = True
-except ImportError:
-    LLM_RUNNER_AVAILABLE = False
-    print("Warning: LLMRunner not available")
-
-# Set up logging
-logger = logging.getLogger(__name__)
-
-# Default configuration
-DEFAULT_MAX_TOKENS = 8192
-DEFAULT_TEMPLATE_DIR = "prompts"
-DEFAULT_TEMPLATE_NAME = "qwen_prompt.j2"
-
 
 class LLMQueryManager:
-    """
-    Manages LLM queries with template rendering and token management.
+    """Manage LLM queries and integrate with PyNucleus pipeline."""
     
-    This class provides functionality to:
-    - Render prompts using Jinja2 templates
-    - Load and process text reports from files
-    - Manage token limits by intelligently truncating content
-    - Query LLMs using the LLMRunner class
-    """
-    
-    def __init__(self, 
-                 model_id: str = "gpt2",
-                 device: str = "cpu",
-                 template_dir: Optional[str] = None,
-                 max_tokens: int = DEFAULT_MAX_TOKENS):
-        """
-        Initialize the LLM Query Manager.
-        
-        Args:
-            model_id (str): HuggingFace model identifier for LLM
-            device (str): Device to run the model on ('cpu' or 'cuda')
-            template_dir (str): Directory containing Jinja2 templates
-            max_tokens (int): Maximum tokens for prompt (default: 8192)
-        """
+    def __init__(self, model_id: str = "microsoft/DialoGPT-medium"):
         self.model_id = model_id
-        self.device = device
-        self.max_tokens = max_tokens
+        self.logger = logging.getLogger(__name__)
+        self.llm_runner = None
         
         # Initialize LLM runner
-        self.llm_runner = LLMRunner(model_id=model_id, device=device)
-        
-        # Initialize token counter
-        self.token_counter = TokenCounter(model_id=model_id)
-        
-        # Set up template environment
-        if template_dir is None:
-            # Default to prompts in project root
-            project_root = Path(__file__).parent.parent.parent.parent
-            template_dir = project_root / DEFAULT_TEMPLATE_DIR
-        
-        self.template_dir = Path(template_dir)
-        self.jinja_env = None
-        self._setup_template_environment()
-        
-        logger.info(f"LLMQueryManager initialized with model: {model_id}, max_tokens: {max_tokens}")
+        self._initialize_llm()
     
-    def _setup_template_environment(self):
-        """Set up the Jinja2 template environment."""
+    def _initialize_llm(self):
+        """Initialize the LLM runner."""
         try:
-            if not self.template_dir.exists():
-                raise FileNotFoundError(f"Template directory not found: {self.template_dir}")
-            
-            self.jinja_env = Environment(
-                loader=FileSystemLoader(str(self.template_dir)),
-                trim_blocks=True,
-                lstrip_blocks=True
-            )
-            logger.info(f"Template environment set up with directory: {self.template_dir}")
-            
+            from .llm_runner import LLMRunner
+            self.llm_runner = LLMRunner(self.model_id)
+            self.logger.info("LLM Query Manager initialized successfully")
         except Exception as e:
-            logger.error(f"Failed to setup template environment: {e}")
-            raise
+            self.logger.warning(f"LLM initialization failed: {e}")
+            self.llm_runner = None
     
-    def load_report_from_file(self, file_path: Union[str, Path]) -> str:
+    def query_about_report(
+        self, 
+        question: str, 
+        report_path: Path,
+        context_window: int = 2000
+    ) -> Dict[str, Any]:
         """
-        Load textual report content from a file.
+        Query LLM about a specific report file.
         
         Args:
-            file_path (Union[str, Path]): Path to the report file
+            question: Question to ask about the report
+            report_path: Path to the report file
+            context_window: Maximum context length
             
         Returns:
-            str: Content of the report file
-            
-        Raises:
-            FileNotFoundError: If the file doesn't exist
-            IOError: If there's an error reading the file
-        """
-        file_path = Path(file_path)
-        
-        if not file_path.exists():
-            raise FileNotFoundError(f"Report file not found: {file_path}")
-        
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read().strip()
-            
-            logger.info(f"Loaded report from {file_path} ({len(content)} characters)")
-            return content
-            
-        except Exception as e:
-            logger.error(f"Error reading report file {file_path}: {e}")
-            raise IOError(f"Failed to read report file: {e}")
-    
-    def truncate_content_for_tokens(self, 
-                                  content: str, 
-                                  reserved_tokens: int,
-                                  truncate_strategy: str = "end") -> str:
-        """
-        Intelligently truncate content to fit within token limits.
-        
-        Args:
-            content (str): Content to truncate
-            reserved_tokens (int): Tokens reserved for prompt template and response
-            truncate_strategy (str): How to truncate ('end', 'middle', 'start')
-            
-        Returns:
-            str: Truncated content that fits within token limits
-        """
-        available_tokens = self.max_tokens - reserved_tokens
-        content_tokens = self.token_counter.count_tokens(content)
-        
-        if content_tokens <= available_tokens:
-            logger.debug(f"Content fits within limits: {content_tokens}/{available_tokens} tokens")
-            return content
-        
-        logger.info(f"Truncating content: {content_tokens} -> ~{available_tokens} tokens")
-        
-        # Estimate characters per token for truncation
-        chars_per_token = len(content) / content_tokens
-        target_chars = int(available_tokens * chars_per_token * 0.9)  # 90% safety margin
-        
-        if truncate_strategy == "end":
-            truncated = content[:target_chars]
-            # Try to end at a sentence boundary
-            last_period = truncated.rfind('.')
-            if last_period > target_chars * 0.8:  # If period is in last 20%
-                truncated = truncated[:last_period + 1]
-            truncated += "\n\n[Content truncated due to length...]"
-            
-        elif truncate_strategy == "start":
-            truncated = content[-target_chars:]
-            # Try to start at a sentence boundary
-            first_period = truncated.find('.')
-            if first_period < target_chars * 0.2:  # If period is in first 20%
-                truncated = truncated[first_period + 1:].lstrip()
-            truncated = "[Content truncated from beginning...]\n\n" + truncated
-            
-        elif truncate_strategy == "middle":
-            start_chars = target_chars // 2
-            end_chars = target_chars - start_chars
-            start_part = content[:start_chars]
-            end_part = content[-end_chars:]
-            truncated = start_part + "\n\n[... middle content truncated ...]\n\n" + end_part
-            
-        else:
-            raise ValueError(f"Invalid truncate_strategy: {truncate_strategy}")
-        
-        # Verify truncated content fits
-        final_tokens = self.token_counter.count_tokens(truncated)
-        logger.debug(f"Truncated content tokens: {final_tokens}")
-        
-        return truncated
-    
-    def render_prompt(self, 
-                     template_name: str = DEFAULT_TEMPLATE_NAME,
-                     **template_vars) -> str:
-        """
-        Render a prompt using a Jinja2 template.
-        
-        Args:
-            template_name (str): Name of the template file
-            **template_vars: Variables to pass to the template
-            
-        Returns:
-            str: Rendered prompt
-            
-        Raises:
-            TemplateNotFound: If the template file doesn't exist
-            Exception: If there's an error rendering the template
+            Dictionary with LLM response and metadata
         """
         try:
-            template = self.jinja_env.get_template(template_name)
-            rendered = template.render(**template_vars)
+            # Read report content
+            if not report_path.exists():
+                return {
+                    "error": f"Report file not found: {report_path}",
+                    "question": question,
+                    "timestamp": datetime.now().isoformat()
+                }
             
-            logger.debug(f"Rendered prompt using template: {template_name}")
-            return rendered
+            with open(report_path, 'r', encoding='utf-8') as f:
+                report_content = f.read()
             
-        except TemplateNotFound:
-            logger.error(f"Template not found: {template_name}")
-            raise
-        except Exception as e:
-            logger.error(f"Error rendering template {template_name}: {e}")
-            raise
-    
-    def ask_llm(self, 
-                user_query: str,
-                report_file_path: Optional[Union[str, Path]] = None,
-                report_content: Optional[str] = None,
-                system_message: Optional[str] = None,
-                template_name: str = DEFAULT_TEMPLATE_NAME,
-                truncate_strategy: str = "end",
-                generation_params: Optional[Dict[str, Any]] = None) -> str:
-        """
-        Query the LLM with prompt rendering and token management.
-        
-        Args:
-            user_query (str): The user's question or query
-            report_file_path (Optional[Union[str, Path]]): Path to report file to load
-            report_content (Optional[str]): Direct report content (alternative to file)
-            system_message (Optional[str]): System message for the prompt
-            template_name (str): Jinja2 template to use
-            truncate_strategy (str): How to truncate content if needed
-            generation_params (Optional[Dict[str, Any]]): Parameters for text generation
+            # Truncate if too long
+            if len(report_content) > context_window:
+                report_content = report_content[:context_window] + "..."
+                self.logger.info(f"Report content truncated to {context_window} characters")
             
-        Returns:
-            str: LLM response
+            # Create prompt
+            prompt = self._create_report_query_prompt(question, report_content)
             
-        Raises:
-            ValueError: If neither report_file_path nor report_content is provided when needed
-            Exception: If there's an error during processing
-        """
-        # Load report content if file path is provided
-        if report_file_path is not None:
-            report_content = self.load_report_from_file(report_file_path)
-        
-        # Prepare template variables
-        template_vars = {
-            'user_query': user_query,
-            'system_message': system_message,
-            'report_content': report_content,
-            'max_tokens': self.max_tokens
-        }
-        
-        # Calculate tokens for base prompt (without report content)
-        base_template_vars = template_vars.copy()
-        base_template_vars['report_content'] = ""
-        base_prompt = self.render_prompt(template_name, **base_template_vars)
-        base_tokens = self.token_counter.count_tokens(base_prompt)
-        
-        # Reserve tokens for generation (estimate 30% of max tokens)
-        generation_reserve = int(self.max_tokens * 0.3)
-        reserved_tokens = base_tokens + generation_reserve
-        
-        logger.info(f"Base prompt tokens: {base_tokens}, Reserved for generation: {generation_reserve}")
-        
-        # Truncate report content if necessary
-        if report_content:
-            report_content = self.truncate_content_for_tokens(
-                report_content, 
-                reserved_tokens, 
-                truncate_strategy
-            )
-            template_vars['report_content'] = report_content
-        
-        # Render final prompt
-        final_prompt = self.render_prompt(template_name, **template_vars)
-        final_tokens = self.token_counter.count_tokens(final_prompt)
-        
-        logger.info(f"Final prompt tokens: {final_tokens}/{self.max_tokens}")
-        
-        # Set default generation parameters
-        default_params = {
-            'max_length': min(final_tokens + 150, self.max_tokens),  # Leave room for response
-            'temperature': 0.7,
-            'do_sample': True,
-            'top_p': 0.9,
-            'top_k': 50
-        }
-        
-        if generation_params:
-            default_params.update(generation_params)
-        
-        # Query the LLM
-        try:
-            logger.info("Querying LLM...")
-            response = self.llm_runner.ask(final_prompt, **default_params)
-            logger.info(f"LLM response generated ({len(response)} characters)")
+            # Query LLM
+            if self.llm_runner:
+                response = self.llm_runner.generate_response(prompt)
+            else:
+                response = {
+                    "response": f"LLM not available. Mock response for: {question}",
+                    "model_id": "mock",
+                    "generation_time": 0,
+                    "timestamp": datetime.now().isoformat()
+                }
+            
+            # Add query metadata
+            response.update({
+                "question": question,
+                "report_path": str(report_path),
+                "report_length": len(report_content),
+                "query_type": "report_analysis"
+            })
+            
             return response
             
         except Exception as e:
-            logger.error(f"Error querying LLM: {e}")
-            raise
+            self.logger.error(f"Report query failed: {e}")
+            return {
+                "error": str(e),
+                "question": question,
+                "report_path": str(report_path),
+                "timestamp": datetime.now().isoformat()
+            }
     
-    def get_model_info(self) -> Dict[str, Any]:
+    def query_simulation_results(
+        self, 
+        question: str, 
+        simulation_data: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """
-        Get information about the current model and configuration.
+        Query LLM about simulation results.
         
+        Args:
+            question: Question about the simulation
+            simulation_data: Simulation results data
+            
         Returns:
-            Dict[str, Any]: Model and configuration information
+            Dictionary with LLM response and metadata
         """
-        return {
-            'model_id': self.model_id,
-            'device': self.device,
-            'max_tokens': self.max_tokens,
-            'template_dir': str(self.template_dir),
-            'llm_info': self.llm_runner.get_model_info()
-        }
-
-
-# Convenience function for quick querying
-def quick_ask_llm(user_query: str,
-                  report_file_path: Optional[Union[str, Path]] = None,
-                  model_id: str = "gpt2",
-                  max_tokens: int = DEFAULT_MAX_TOKENS) -> str:
-    """
-    Convenience function for quick LLM querying.
+        try:
+            # Create prompt from simulation data
+            prompt = self._create_simulation_query_prompt(question, simulation_data)
+            
+            # Query LLM
+            if self.llm_runner:
+                response = self.llm_runner.generate_response(prompt)
+            else:
+                response = {
+                    "response": f"LLM not available. Mock response for simulation query: {question}",
+                    "model_id": "mock",
+                    "generation_time": 0,
+                    "timestamp": datetime.now().isoformat()
+                }
+            
+            # Add query metadata
+            response.update({
+                "question": question,
+                "simulation_case": simulation_data.get("case_name", "unknown"),
+                "query_type": "simulation_analysis"
+            })
+            
+            return response
+            
+        except Exception as e:
+            self.logger.error(f"Simulation query failed: {e}")
+            return {
+                "error": str(e),
+                "question": question,
+                "timestamp": datetime.now().isoformat()
+            }
     
-    Args:
-        user_query (str): The user's question
-        report_file_path (Optional[Union[str, Path]]): Path to report file
-        model_id (str): Model to use
-        max_tokens (int): Maximum tokens for prompt
+    def batch_query(
+        self, 
+        questions: List[str], 
+        context: str
+    ) -> List[Dict[str, Any]]:
+        """
+        Process multiple questions in batch.
         
-    Returns:
-        str: LLM response
-    """
-    manager = LLMQueryManager(model_id=model_id, max_tokens=max_tokens)
-    return manager.ask_llm(user_query, report_file_path=report_file_path) 
+        Args:
+            questions: List of questions
+            context: Context for all questions
+            
+        Returns:
+            List of response dictionaries
+        """
+        results = []
+        
+        for i, question in enumerate(questions):
+            self.logger.info(f"Processing question {i+1}/{len(questions)}")
+            
+            prompt = self._create_general_query_prompt(question, context)
+            
+            if self.llm_runner:
+                response = self.llm_runner.generate_response(prompt)
+            else:
+                response = {
+                    "response": f"Mock response for: {question}",
+                    "model_id": "mock",
+                    "generation_time": 0,
+                    "timestamp": datetime.now().isoformat()
+                }
+            
+            response.update({
+                "question": question,
+                "batch_index": i,
+                "query_type": "batch_query"
+            })
+            
+            results.append(response)
+        
+        return results
+    
+    def _create_report_query_prompt(self, question: str, report_content: str) -> str:
+        """Create prompt for report analysis."""
+        return f"""You are analyzing a PyNucleus chemical process simulation report. Please answer the following question based on the report content.
+
+Report Content:
+{report_content}
+
+Question: {question}
+
+Please provide a detailed and accurate answer based on the information in the report:"""
+    
+    def _create_simulation_query_prompt(self, question: str, simulation_data: Dict[str, Any]) -> str:
+        """Create prompt for simulation analysis."""
+        # Extract key information from simulation data
+        case_name = simulation_data.get("case_name", "Unknown")
+        status = simulation_data.get("status", "Unknown")
+        results = simulation_data.get("results", {})
+        
+        results_text = "\n".join([f"- {k}: {v}" for k, v in results.items()])
+        
+        return f"""You are analyzing chemical process simulation results from PyNucleus. Please answer the following question based on the simulation data.
+
+Simulation: {case_name}
+Status: {status}
+
+Results:
+{results_text}
+
+Question: {question}
+
+Please provide a detailed analysis based on the simulation data:"""
+    
+    def _create_general_query_prompt(self, question: str, context: str) -> str:
+        """Create general query prompt."""
+        return f"""Context:
+{context}
+
+Question: {question}
+
+Answer:"""
+    
+    def get_query_history(self) -> List[Dict[str, Any]]:
+        """Get query history (placeholder for future implementation)."""
+        return []
+    
+    def clear_history(self):
+        """Clear query history (placeholder for future implementation)."""
+        pass 

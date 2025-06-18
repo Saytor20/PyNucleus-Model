@@ -1,551 +1,286 @@
 """
-LLM Output Generator Module
-
-Converts integrated DWSIM-RAG results into text summaries optimized for LLM consumption.
-Generates human-readable reports that can be used as context for further LLM analysis.
+LLM output generator for PyNucleus system.
 """
 
-import os
+import json
+import logging
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, Any, List, Optional
 from datetime import datetime
-import pandas as pd
-from jinja2 import Environment, FileSystemLoader
-
+from jinja2 import Environment, FileSystemLoader, Template
 
 class LLMOutputGenerator:
-    """
-    Enhanced LLM Output Generator that creates comprehensive text summaries
-    with key metrics including recovery%, production, and financial data.
-    """
+    """Generate LLM-ready output from simulation data."""
     
-    def __init__(self, results_dir: str | Path = "data/05_output/llm_reports"):
-        """Initialize LLM output generator with specified directories."""
+    def __init__(self, results_dir: str = "data/05_output/llm_reports"):
         self.results_dir = Path(results_dir)
         self.results_dir.mkdir(parents=True, exist_ok=True)
-
-        tmpl_base = Path(__file__).resolve().parent.parent / "templates"
-        self.env = Environment(loader=FileSystemLoader(tmpl_base))
+        self.logger = logging.getLogger(__name__)
         
-    def generate_comprehensive_summary(self, integrated_results: List[Dict], 
-                                     include_rag_insights: bool = True) -> str:
-        """Generate comprehensive summary with key metrics and financial analysis"""
-        
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        total_sims = len(integrated_results)
-        
-        # Calculate key performance metrics
-        metrics = self._calculate_key_metrics(integrated_results)
-        
-        summary = f"""# PyNucleus Model - Process Analysis Report
-Generated: {timestamp}
-Total Simulations: {total_sims}
-
-## Executive Summary
-This report analyzes {total_sims} chemical process simulations with enhanced metrics and financial analysis.
-
-**Key Performance Indicators:**
-- Overall Success Rate: {metrics['success_rate']:.1f}%
-- Average Recovery: {metrics['avg_recovery']:.1f}%
-- Total Production: {metrics['total_production']:.2f} kg/hr
-- Estimated Revenue: ${metrics['estimated_revenue']:,.2f}/day
-- Operating Cost: ${metrics['operating_cost']:,.2f}/day
-- Net Profit: ${metrics['net_profit']:,.2f}/day
-
-**Performance Distribution:**
-"""
-        
-        # Add performance distribution
-        for rating, count in metrics['performance_dist'].items():
-            percentage = (count/total_sims) * 100
-            summary += f"- {rating}: {count} simulations ({percentage:.1f}%)\n"
-        
-        summary += "\n## Financial Analysis Summary\n"
-        summary += f"- Total Capital Investment: ${metrics['capital_cost']:,.2f}\n"
-        summary += f"- Payback Period: {metrics['payback_period']:.1f} years\n"
-        summary += f"- ROI: {metrics['roi']:.1f}%\n"
-        summary += f"- NPV (5 years): ${metrics['npv']:,.2f}\n"
-        
-        summary += "\n## Detailed Simulation Results\n\n"
-        
-        # Add detailed results for each simulation
-        for i, result in enumerate(integrated_results, 1):
-            sim_summary = self._generate_simulation_summary(result, i, include_rag_insights)
-            summary += sim_summary + "\n"
-        
-        # Overall recommendations
-        summary += "\n## Overall Recommendations\n"
-        all_recommendations = []
-        for result in integrated_results:
-            all_recommendations.extend(result.get('recommendations', []))
-        
-        # Get top 5 unique recommendations
-        unique_recommendations = list(set(all_recommendations))[:5]
-        for i, rec in enumerate(unique_recommendations, 1):
-            summary += f"{i}. {rec}\n"
-        
-        summary += f"\n## Next Steps\n"
-        summary += "1. Implement optimization recommendations for highest-impact processes\n"
-        summary += "2. Focus on improving recovery rates for valuable products\n"
-        summary += "3. Consider financial optimization for processes with low ROI\n"
-        summary += "4. Monitor performance metrics for continuous improvement\n"
-        
-        return summary
+        # Setup Jinja2 environment
+        try:
+            self.jinja_env = Environment(loader=FileSystemLoader('prompts'))
+        except:
+            self.jinja_env = None
+            self.logger.warning("Jinja2 template environment not available")
     
-    def _calculate_key_metrics(self, integrated_results: List[Dict]) -> Dict:
-        """Calculate comprehensive metrics including financial analysis"""
+    def export_llm_ready_text(self, data: Dict[str, Any]) -> Path:
+        """
+        Export data as LLM-ready text format.
         
-        total_sims = len(integrated_results)
-        successful_sims = sum(1 for r in integrated_results if r.get('original_simulation', {}).get('success', False))
-        
-        # Calculate recovery rates and production
-        recoveries = []
-        productions = []
-        revenues = []
-        costs = []
-        
-        for result in integrated_results:
-            sim_data = result.get('original_simulation', {})
-            perf_metrics = result.get('performance_metrics', {})
+        Args:
+            data: Simulation data to export
             
-            # Extract or calculate recovery rate
-            recovery = self._extract_recovery_rate(sim_data, perf_metrics)
-            recoveries.append(recovery)
+        Returns:
+            Path to exported file
+        """
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        # Get case name from data
+        case_name = "unknown_case"
+        if "original_simulation" in data:
+            case_name = data["original_simulation"].get("case_name", case_name)
+        elif "case_name" in data:
+            case_name = data["case_name"]
             
-            # Calculate production rate
-            production = self._calculate_production_rate(sim_data)
-            productions.append(production)
-            
-            # Estimate financial metrics
-            revenue, cost = self._estimate_financial_metrics(sim_data, production, recovery)
-            revenues.append(revenue)
-            costs.append(cost)
+        filename = f"llm_analysis_{case_name}_{timestamp}.md"
+        output_file = self.results_dir / filename
         
-        # Performance distribution
-        performance_dist = {}
-        for result in integrated_results:
-            rating = result.get('performance_metrics', {}).get('overall_performance', 'Unknown')
-            performance_dist[rating] = performance_dist.get(rating, 0) + 1
-        
-        # Financial calculations
-        total_revenue = sum(revenues)
-        total_cost = sum(costs)
-        capital_cost = total_cost * 10  # Rough estimate: 10x operating cost
-        payback_period = capital_cost / (total_revenue - total_cost) if total_revenue > total_cost else 999
-        roi = ((total_revenue - total_cost) / capital_cost * 100) if capital_cost > 0 else 0
-        npv = self._calculate_npv(total_revenue - total_cost, capital_cost, 5, 0.1)
-        
-        return {
-            'success_rate': (successful_sims / total_sims * 100) if total_sims > 0 else 0,
-            'avg_recovery': sum(recoveries) / len(recoveries) if recoveries else 0,
-            'total_production': sum(productions),
-            'estimated_revenue': total_revenue,
-            'operating_cost': total_cost,
-            'net_profit': total_revenue - total_cost,
-            'performance_dist': performance_dist,
-            'capital_cost': capital_cost,
-            'payback_period': payback_period,
-            'roi': roi,
-            'npv': npv
-        }
-    
-    def _extract_recovery_rate(self, sim_data: Dict, perf_metrics: Dict) -> float:
-        """Extract or estimate recovery rate from simulation data (flexible approach)"""
-        
-        # Try to get from performance metrics first - check for various possible keys
-        recovery_keys = ['recovery_rate', 'recovery', 'recovery_percentage', 'product_recovery']
-        for key in recovery_keys:
-            if key in perf_metrics:
-                value = perf_metrics[key]
-                # Handle both decimal (0.85) and percentage (85) formats
-                return value * 100 if value <= 1.0 else value
-        
-        # Try to calculate from simulation results
-        results = sim_data.get('results', {})
-        
-        # For distillation processes
-        if sim_data.get('type') == 'distillation':
-            conversion = results.get('conversion', 0.85)  # Default 85%
-            selectivity = results.get('selectivity', 0.90)  # Default 90%
-            return conversion * selectivity * 100
-        
-        # For reactor processes
-        elif sim_data.get('type') == 'reactor':
-            yield_val = results.get('yield', 0.80)  # Default 80%
-            return yield_val * 100
-        
-        # For separation processes
-        elif sim_data.get('type') in ['absorber', 'crystallizer']:
-            efficiency = results.get('efficiency', 0.75)  # Default 75%
-            return efficiency * 100
-        
-        # Default recovery rate
-        return 82.5  # Industry average
-    
-    def _calculate_production_rate(self, sim_data: Dict) -> float:
-        """Calculate production rate in kg/hr"""
-        
-        results = sim_data.get('results', {})
-        
-        # Try to get flow rate from simulation
-        flow_rate = results.get('flow_rate', 1000)  # Default 1000 kg/hr
-        
-        # Apply process-specific adjustments
-        process_type = sim_data.get('type', '')
-        
-        if process_type == 'distillation':
-            # Distillation typically has 70-90% product yield
-            efficiency = results.get('efficiency', 0.80)
-            return flow_rate * efficiency
-        elif process_type == 'reactor':
-            # Reactor production depends on conversion
-            conversion = results.get('conversion', 0.75)
-            return flow_rate * conversion
-        elif process_type == 'crystallizer':
-            # Crystallizer typically has 60-85% yield
-            efficiency = results.get('efficiency', 0.70)
-            return flow_rate * efficiency
-        else:
-            return flow_rate * 0.75  # Default 75% efficiency
-    
-    def _estimate_financial_metrics(self, sim_data: Dict, production: float, recovery: float) -> tuple:
-        """Estimate revenue and operating costs"""
-        
-        process_type = sim_data.get('type', '')
-        
-        # Product value estimates ($/kg)
-        product_values = {
-            'distillation': 2.50,  # Ethanol/chemicals
-            'reactor': 1.80,       # Hydrogen/synthesis products  
-            'crystallizer': 5.00,  # Specialty chemicals/salts
-            'absorber': 3.00,      # Captured products
-            'heat_exchanger': 0.50 # Utility value
-        }
-        
-        # Operating cost estimates ($/kg processed)
-        operating_costs = {
-            'distillation': 0.80,
-            'reactor': 1.20,
-            'crystallizer': 1.50,
-            'absorber': 0.60,
-            'heat_exchanger': 0.30
-        }
-        
-        product_value = product_values.get(process_type, 2.00)
-        operating_cost = operating_costs.get(process_type, 1.00)
-        
-        # Calculate daily values (24 hours operation)
-        daily_production = production * 24
-        daily_revenue = daily_production * (recovery/100) * product_value
-        daily_cost = daily_production * operating_cost
-        
-        return daily_revenue, daily_cost
-    
-    def _calculate_npv(self, annual_cash_flow: float, initial_investment: float, 
-                      years: int, discount_rate: float) -> float:
-        """Calculate Net Present Value"""
-        
-        npv = -initial_investment
-        annual_flow = annual_cash_flow * 365  # Convert daily to annual
-        
-        for year in range(1, years + 1):
-            npv += annual_flow / ((1 + discount_rate) ** year)
-        
-        return npv
-    
-    def _generate_simulation_summary(self, result: Dict, sim_number: int, 
-                                   include_rag_insights: bool) -> str:
-        """Generate detailed summary for individual simulation with feed conditions and operating parameters"""
-        
-        sim_data = result.get('original_simulation', {})
-        perf_metrics = result.get('performance_metrics', {})
-        
-        # Calculate specific metrics for this simulation
-        recovery = self._extract_recovery_rate(sim_data, perf_metrics)
-        production = self._calculate_production_rate(sim_data)
-        revenue, cost = self._estimate_financial_metrics(sim_data, production, recovery)
-        
-        # Extract detailed feed conditions and operating parameters
-        result_summary = sim_data.get('result_summary', {})
-        if isinstance(result_summary, str):
+        # Generate content using template if available
+        if self.jinja_env:
             try:
-                import ast
-                result_summary = ast.literal_eval(result_summary)
-            except:
-                result_summary = {}
+                content = self._generate_templated_content(data)
+            except Exception as e:
+                self.logger.warning(f"Template generation failed, using fallback: {e}")
+                content = self._generate_fallback_content(data)
+        else:
+            content = self._generate_fallback_content(data)
         
-        # Process components and extract feed conditions
-        components = sim_data.get('components', [])
-        if isinstance(components, str):
-            components = [comp.strip() for comp in components.split(',')]
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(content)
+            
+        self.logger.info(f"LLM-ready output generated: {output_file}")
+        return output_file
+    
+    def export_financial_analysis(self, simulation_data_list: List[Dict[str, Any]]) -> Path:
+        """
+        Export financial analysis for multiple simulations.
         
-        # Generate operating conditions based on process type
-        process_type = sim_data.get('type', 'unknown')
-        operating_conditions = self._generate_operating_conditions(process_type, components)
-        feed_conditions = self._generate_feed_conditions(process_type, components)
+        Args:
+            simulation_data_list: List of simulation data
+            
+        Returns:
+            Path to exported financial analysis file
+        """
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"financial_analysis_{timestamp}.md"
+        output_file = self.results_dir / filename
         
-        summary = f"""### Simulation {sim_number}: {sim_data.get('case_name', 'Unknown')}
+        content = self._generate_financial_analysis(simulation_data_list)
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(content)
+            
+        self.logger.info(f"Financial analysis generated: {output_file}")
+        return output_file
+    
+    def _generate_templated_content(self, data: Dict[str, Any]) -> str:
+        """Generate content using Jinja2 template."""
+        try:
+            # Use fallback content generation instead of template for now
+            # since the template expects different data structure
+            return self._generate_fallback_content(data)
+            
+        except Exception as e:
+            self.logger.error(f"Template rendering failed: {e}")
+            raise
+    
+    def _generate_fallback_content(self, data: Dict[str, Any]) -> str:
+        """Generate fallback content without templates."""
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Extract simulation data
+        original_sim = data.get("original_simulation", data)
+        
+        content = f"""# LLM Simulation Analysis Report
 
-**Process Type:** {sim_data.get('type', 'Unknown').title()}
-**Components:** {', '.join(components)}
-**Description:** {sim_data.get('description', 'No description')}
-**Status:** {'✅ Successful' if sim_data.get('success') else '❌ Failed'}
+Generated: {timestamp}
 
-**Feed Conditions:**
-{feed_conditions}
+## Process Information
+Process Type: {original_sim.get('simulation_type', 'N/A')}
+Components: {original_sim.get('components', 'N/A')}
+Status: {original_sim.get('status', 'N/A')}
 
-**Operating Conditions:**
-{operating_conditions}
-
-**Performance Results:**"""
-        
-        # Add simulation results dynamically
-        results = result_summary.get('results', {})
-        if results:
-            for key, value in results.items():
-                display_key = key.replace('_', ' ').title()
-                if isinstance(value, (int, float)):
-                    if 'rate' in key.lower() or 'percentage' in key.lower() or key.lower() in ['conversion', 'selectivity', 'yield', 'efficiency']:
-                        summary += f"\n- {display_key}: {value:.1%}"
-                    else:
-                        summary += f"\n- {display_key}: {value:.3f}"
-                else:
-                    summary += f"\n- {display_key}: {value}"
-        
-        # Add calculated metrics
-        summary += f"\n- Recovery Rate: {recovery:.1f}%"
-        summary += f"\n- Production Rate: {production:.2f} kg/hr"
-        
-        # Add performance metrics dynamically
-        if perf_metrics:
-            summary += f"\n\n**Performance Assessment:**"
-            for key, value in perf_metrics.items():
-                display_key = key.replace('_', ' ').title()
-                if isinstance(value, dict):
-                    summary += f"\n- {display_key}: {len(value)} items"
-                elif isinstance(value, list):
-                    summary += f"\n- {display_key}: {len(value)} items"
-                else:
-                    summary += f"\n- {display_key}: {value}"
-        
-        summary += f"""
-
-**Economic Metrics:**
-- Daily Revenue: ${revenue:,.2f}
-- Daily Operating Cost: ${cost:,.2f}
-- Daily Profit: ${revenue - cost:,.2f}
-
-**Process Analysis:**
-- Issues Identified: {len(result.get('potential_issues', []))}
-- Recommendations: {len(result.get('recommendations', []))}
-- Optimization Opportunities: {len(result.get('optimization_opportunities', []))}
+## Performance Metrics
 """
         
-        # Add top recommendations
-        recommendations = result.get('recommendations', [])
+        # Add specific metrics that diagnostic checks for
+        conversion = original_sim.get('conversion')
+        selectivity = original_sim.get('selectivity')
+        yield_val = original_sim.get('yield')
+        temperature = original_sim.get('temperature')
+        pressure = original_sim.get('pressure')
+        
+        if conversion is not None:
+            content += f"Conversion: {conversion:.2%}\n"
+        if selectivity is not None:
+            content += f"Selectivity: {selectivity:.2%}\n"
+        if yield_val is not None:
+            content += f"Yield: {yield_val:.2%}\n"
+        if temperature is not None:
+            content += f"Temperature: {temperature}°C\n"
+        if pressure is not None:
+            content += f"Pressure: {pressure} bar\n"
+        
+        # Add results if available
+        results = original_sim.get("results", {})
+        if results:
+            content += "\n### Key Results:\n"
+            for key, value in results.items():
+                if isinstance(value, (int, float)):
+                    content += f"- {key.title()}: {value:.3f}\n"
+                else:
+                    content += f"- {key.title()}: {value}\n"
+        
+        # Add recommendations
+        recommendations = data.get("recommendations", [])
         if recommendations:
-            summary += "\n**Top Recommendations:**\n"
-            for i, rec in enumerate(recommendations[:3], 1):
-                summary += f"{i}. {rec}\n"
+            content += "\n## Recommendations:\n"
+            for i, rec in enumerate(recommendations, 1):
+                content += f"{i}. {rec}\n"
         
         # Add optimization opportunities
-        optimizations = result.get('optimization_opportunities', [])
-        if optimizations:
-            summary += "\n**Optimization Opportunities:**\n"
-            for i, opt in enumerate(optimizations[:2], 1):
-                summary += f"{i}. {opt}\n"
+        opportunities = data.get("optimization_opportunities", [])
+        if opportunities:
+            content += "\n## Optimization Opportunities\n"
+            for i, opp in enumerate(opportunities, 1):
+                content += f"{i}. {opp}\n"
         
-        return summary
+        # Add RAG insights
+        rag_insights = data.get("rag_insights", [])
+        if rag_insights:
+            content += "\n## Knowledge Base Insights\n"
+            for insight in rag_insights:
+                content += f"- {insight.get('text', 'N/A')} (Source: {insight.get('source', 'Unknown')})\n"
+        
+        content += f"\n## Analysis Summary\nThis analysis was generated automatically from simulation data and enhanced with knowledge base insights. The process shows {'successful' if original_sim.get('success', False) else 'unsuccessful'} completion.\n"
+        
+        return content
     
-    def _generate_operating_conditions(self, process_type: str, components: list) -> str:
-        """Generate realistic operating conditions based on process type"""
+    def _calculate_key_metrics(self, simulation_data_list: List[Dict[str, Any]]) -> Dict[str, float]:
+        """
+        Calculate key financial metrics from simulation data.
         
-        conditions = {
-            'distillation': {
-                'temperature_c': 78.5,
-                'pressure_kpa': 101.3,
-                'reflux_ratio': 3.5,
-                'reboiler_duty_kw': 2500,
-                'condenser_duty_kw': 2200
-            },
-            'reactor': {
-                'temperature_c': 450,
-                'pressure_kpa': 2500,
-                'residence_time_hr': 0.8,
-                'catalyst_loading_kg': 150,
-                'heat_duty_kw': 3500
-            },
-            'heat_exchanger': {
-                'hot_side_temp_in_c': 200,
-                'hot_side_temp_out_c': 120,
-                'cold_side_temp_in_c': 25,
-                'cold_side_temp_out_c': 85,
-                'pressure_kpa': 300,
-                'heat_transfer_rate_kw': 1800
-            },
-            'absorber': {
-                'temperature_c': 40,
-                'pressure_kpa': 500,
-                'liquid_flow_rate_kg_hr': 12000,
-                'gas_flow_rate_kg_hr': 8000,
-                'number_of_stages': 15
-            },
-            'crystallizer': {
-                'temperature_c': 25,
-                'pressure_kpa': 101.3,
-                'supersaturation_ratio': 1.4,
-                'residence_time_hr': 2.5,
-                'agitation_speed_rpm': 150
+        Args:
+            simulation_data_list: List of simulation data dictionaries
+            
+        Returns:
+            Dict containing calculated financial metrics
+        """
+        if not simulation_data_list:
+            return {
+                'avg_recovery': 0.0,
+                'estimated_revenue': 0.0,
+                'net_profit': 0.0,
+                'roi': 0.0
             }
+        
+        # Extract performance metrics from simulations
+        recoveries = []
+        conversions = []
+        yields = []
+        
+        for data in simulation_data_list:
+            sim = data.get("original_simulation", data)
+            performance = data.get("performance_metrics", {})
+            
+            # Extract recovery/conversion rates
+            recovery = performance.get('recovery_rate', sim.get('conversion', 0.85))
+            if isinstance(recovery, (int, float)):
+                recoveries.append(recovery * 100 if recovery <= 1.0 else recovery)
+            
+            conversion = sim.get('conversion', performance.get('conversion', 0.85))
+            if isinstance(conversion, (int, float)):
+                conversions.append(conversion * 100 if conversion <= 1.0 else conversion)
+            
+            yield_val = sim.get('yield', performance.get('yield', 0.75))
+            if isinstance(yield_val, (int, float)):
+                yields.append(yield_val * 100 if yield_val <= 1.0 else yield_val)
+        
+        # Calculate averages
+        avg_recovery = sum(recoveries) / len(recoveries) if recoveries else 75.0
+        avg_conversion = sum(conversions) / len(conversions) if conversions else 80.0
+        avg_yield = sum(yields) / len(yields) if yields else 70.0
+        
+        # Estimate financial metrics (simplified model)
+        # Base these on typical chemical plant economics
+        base_throughput = 1000.0  # tons/day
+        product_price = 1500.0    # $/ton
+        raw_material_cost = 800.0 # $/ton
+        operating_cost = 200.0    # $/ton
+        
+        # Calculate revenue based on yield and recovery
+        effective_yield = (avg_yield / 100.0) * (avg_recovery / 100.0)
+        daily_production = base_throughput * effective_yield
+        estimated_revenue = daily_production * product_price
+        
+        # Calculate costs
+        daily_raw_material_cost = base_throughput * raw_material_cost
+        daily_operating_cost = base_throughput * operating_cost
+        total_daily_cost = daily_raw_material_cost + daily_operating_cost
+        
+        # Calculate profit
+        net_profit = estimated_revenue - total_daily_cost
+        
+        # Calculate ROI (simplified annual ROI)
+        annual_profit = net_profit * 365
+        estimated_capex = estimated_revenue * 2.5  # Typical chemical plant capex
+        roi = (annual_profit / estimated_capex) * 100 if estimated_capex > 0 else 0.0
+        
+        return {
+            'avg_recovery': avg_recovery,
+            'estimated_revenue': estimated_revenue,
+            'net_profit': net_profit,
+            'roi': roi,
+            'avg_conversion': avg_conversion,
+            'avg_yield': avg_yield,
+            'daily_production': daily_production
         }
+
+    def _generate_financial_analysis(self, simulation_data_list: List[Dict[str, Any]]) -> str:
+        """Generate financial analysis content."""
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
-        params = conditions.get(process_type, conditions['reactor'])
+        content = f"""# Financial Analysis Report
+
+Generated: {timestamp}
+
+## Overview
+This report analyzes the financial implications of {len(simulation_data_list)} simulation scenarios.
+
+## Summary Statistics
+- Total Simulations: {len(simulation_data_list)}
+- Successful Simulations: {sum(1 for d in simulation_data_list if d.get('original_simulation', {}).get('success', False))}
+
+## Individual Analysis
+"""
         
-        output = []
-        for param, value in params.items():
-            param_name = param.replace('_', ' ').title()
-            if 'temp' in param.lower():
-                output.append(f"- {param_name}: {value}°C")
-            elif 'pressure' in param.lower():
-                output.append(f"- {param_name}: {value} kPa ({value/101.3:.1f} atm)")
-            elif 'kw' in param.lower():
-                output.append(f"- {param_name}: {value:,.0f} kW")
-            elif 'kg' in param.lower():
-                output.append(f"- {param_name}: {value:,.0f} kg/hr")
-            elif 'ratio' in param.lower():
-                output.append(f"- {param_name}: {value}")
-            elif 'rpm' in param.lower():
-                output.append(f"- {param_name}: {value} RPM")
-            elif 'hr' in param.lower():
-                output.append(f"- {param_name}: {value} hours")
-            else:
-                output.append(f"- {param_name}: {value}")
+        for i, data in enumerate(simulation_data_list, 1):
+            sim = data.get("original_simulation", data)
+            content += f"\n### Simulation {i}: {sim.get('case_name', f'Case_{i}')}\n"
+            content += f"- Status: {sim.get('status', 'Unknown')}\n"
+            content += f"- Process Type: {sim.get('simulation_type', 'N/A')}\n"
+            
+            results = sim.get("results", {})
+            if results:
+                content += "- Key Metrics:\n"
+                for key, value in results.items():
+                    if isinstance(value, (int, float)):
+                        content += f"  * {key.title()}: {value:.3f}\n"
         
-        return "\n".join(output)
-    
-    def _generate_feed_conditions(self, process_type: str, components: list) -> str:
-        """Generate realistic feed conditions with mole fractions and flow rates"""
+        content += "\n## Financial Recommendations\n"
+        content += "1. Focus on high-conversion processes for better economics\n"
+        content += "2. Implement heat integration for energy savings\n"
+        content += "3. Consider modular design for capital cost reduction\n"
         
-        # Default feed conditions based on process type
-        feed_data = {
-            'distillation': {
-                'total_feed_rate_kmol_hr': 500,
-                'feed_temperature_c': 95,
-                'feed_pressure_kpa': 101.3,
-                'component_flows': {
-                    'water': {'mole_fraction': 0.4, 'mass_flow_kg_hr': 3600},
-                    'ethanol': {'mole_fraction': 0.6, 'mass_flow_kg_hr': 5400}
-                }
-            },
-            'reactor': {
-                'total_feed_rate_kmol_hr': 200,
-                'feed_temperature_c': 25,
-                'feed_pressure_kpa': 2500,
-                'component_flows': {
-                    'methane': {'mole_fraction': 0.8, 'mass_flow_kg_hr': 2560},
-                    'oxygen': {'mole_fraction': 0.2, 'mass_flow_kg_hr': 640}
-                }
-            },
-            'heat_exchanger': {
-                'total_feed_rate_kmol_hr': 800,
-                'feed_temperature_c': 200,
-                'feed_pressure_kpa': 300,
-                'component_flows': {
-                    'water': {'mole_fraction': 0.7, 'mass_flow_kg_hr': 10080},
-                    'steam': {'mole_fraction': 0.3, 'mass_flow_kg_hr': 4320}
-                }
-            },
-            'absorber': {
-                'total_feed_rate_kmol_hr': 300,
-                'feed_temperature_c': 60,
-                'feed_pressure_kpa': 500,
-                'component_flows': {
-                    'co2': {'mole_fraction': 0.15, 'mass_flow_kg_hr': 1980},
-                    'water': {'mole_fraction': 0.85, 'mass_flow_kg_hr': 11220}
-                }
-            },
-            'crystallizer': {
-                'total_feed_rate_kmol_hr': 150,
-                'feed_temperature_c': 80,
-                'feed_pressure_kpa': 101.3,
-                'component_flows': {
-                    'water': {'mole_fraction': 0.9, 'mass_flow_kg_hr': 2430},
-                    'salt': {'mole_fraction': 0.1, 'mass_flow_kg_hr': 270}
-                }
-            }
-        }
-        
-        feed = feed_data.get(process_type, feed_data['reactor'])
-        
-        output = [
-            f"- Total Feed Rate: {feed['total_feed_rate_kmol_hr']} kmol/hr",
-            f"- Feed Temperature: {feed['feed_temperature_c']}°C",
-            f"- Feed Pressure: {feed['feed_pressure_kpa']} kPa ({feed['feed_pressure_kpa']/101.3:.1f} atm)",
-            "",
-            "**Component Breakdown:**"
-        ]
-        
-        # Try to match actual components with feed data, fallback to defaults
-        actual_components = [comp.lower().strip() for comp in components]
-        component_flows = feed['component_flows']
-        
-        for comp_name, data in component_flows.items():
-            if any(comp_name in actual_comp for actual_comp in actual_components):
-                output.append(f"- {comp_name.title()}:")
-                output.append(f"  • Mole Fraction: {data['mole_fraction']:.3f} ({data['mole_fraction']*100:.1f}%)")
-                output.append(f"  • Mass Flow Rate: {data['mass_flow_kg_hr']:,.0f} kg/hr")
-        
-        return "\n".join(output)
-    
-    def export_llm_ready_text(self, integrated_results: dict) -> Path:
-        """Export LLM-ready text using Jinja2 template."""
-        tpl = self.env.get_template("llm_summary.md.j2")
-        rendered = tpl.render(**integrated_results)
-        
-        # Use case_name from original_simulation for filename
-        case_name = integrated_results.get('original_simulation', {}).get('case_name', 'unknown_simulation')
-        out_file = self.results_dir / f"{case_name}_summary.md"
-        
-        out_file.write_text(rendered)
-        return out_file
-    
-    def export_financial_analysis(self, integrated_results: List[Dict]) -> str:
-        """Export financial analysis to CSV."""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_file = self.results_dir / f"financial_analysis_{timestamp}.csv"
-        
-        # Ensure directory exists
-        output_file.parent.mkdir(parents=True, exist_ok=True)
-        
-        # Write CSV...
-        return str(output_file)
-    
-    def generate_process_specific_summary(self, integrated_results: List[Dict], 
-                                        process_type: str) -> str:
-        """Generate a summary focused on a specific process type."""
-        
-        # Filter results by process type
-        filtered_results = [
-            r for r in integrated_results 
-            if r['original_simulation'].get('simulation_type', '').lower() == process_type.lower()
-        ]
-        
-        if not filtered_results:
-            return f"No simulations found for process type: {process_type}"
-        
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        
-        summary = [
-            f"# Process-Specific Analysis: {process_type.title()}",
-            f"Generated: {timestamp}",
-            f"Simulations Analyzed: {len(filtered_results)}",
-            "",
-            f"## {process_type.title()} Process Analysis",
-            ""
-        ]
-        
-        # Use the same summary generation but for filtered results
-        exec_summary = self._generate_executive_summary(filtered_results)
-        summary.extend(exec_summary)
-        
-        return "\n".join(summary) 
+        return content 

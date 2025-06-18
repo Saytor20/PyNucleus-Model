@@ -1,2 +1,3 @@
-name,type,components,description,temperature,pressure,flow_rate,reflux_ratio,expected_conversion,expected_selectivity,expected_yield
-ethanol_distillation_example,distillation,"water,ethanol",Ethanol-water separation column,78.4,101325,1000,2.5,0.95,0.98,0.93
+case_name,temperature,pressure,feed_rate,catalyst_type,process_type
+dev_test_case_1,350.0,2.5,100.0,Pt/Al2O3,distillation
+dev_test_case_2,375.0,3.0,120.0,Pd/C,reaction
