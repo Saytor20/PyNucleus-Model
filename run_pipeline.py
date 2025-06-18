@@ -303,5 +303,171 @@ def test_logging():
     
     print("✅ Logging test completed!")
 
+@app.command("ingest")
+def ingest_documents(
+    source_dir: Path = typer.Option(..., "--source-dir", help="Source directory containing documents to ingest"),
+    output_dir: Path = typer.Option("data/03_intermediate", "--output-dir", help="Output directory for processed documents"),
+    verbose: bool = typer.Option(False, "--verbose/--no-verbose", help="Verbose logging"),
+):
+    """Ingest and process documents for RAG system."""
+    try:
+        # Setup logging
+        logger = configure_logging(level="DEBUG" if verbose else "INFO")
+        cli_logger = get_logger(__name__)
+        
+        cli_logger.info("🚀 Starting document ingestion")
+        cli_logger.info(f"📁 Source directory: {source_dir}")
+        cli_logger.info(f"📁 Output directory: {output_dir}")
+        
+        # Validate source directory
+        if not source_dir.exists():
+            cli_logger.error(f"❌ Source directory not found: {source_dir}")
+            raise typer.Exit(1)
+        
+        # Create output directory
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Initialize RAG core
+        from pynucleus.rag import RAGCore
+        rag_core = RAGCore(data_dir=output_dir.parent)
+        
+        # Process documents
+        cli_logger.info("🔄 Processing documents...")
+        result = rag_core.process_documents(source_dir=str(source_dir))
+        
+        if result["status"] == "success":
+            cli_logger.info(f"✅ Successfully processed {result['processed_count']} documents")
+            print(f"📊 Processed {result['processed_count']} out of {result['total_files']} files")
+            print(f"📁 Results saved to: {output_dir}")
+        else:
+            cli_logger.error(f"❌ Document processing failed: {result['message']}")
+            raise typer.Exit(1)
+            
+    except Exception as e:
+        cli_logger.error(f"❌ Ingestion failed: {str(e)}")
+        print(f"❌ Error: {str(e)}")
+        raise typer.Exit(1)
+
+@app.command("build-faiss")  
+def build_faiss_index(
+    chunk_dir: Path = typer.Option("data/03_intermediate/converted_chunked_data", "--chunk-dir", help="Directory containing chunk data"),
+    index_dir: Path = typer.Option("data/04_models/chunk_reports", "--index-dir", help="Output directory for FAISS index"),
+    force_rebuild: bool = typer.Option(False, "--force-rebuild", help="Force rebuild even if index exists"),
+    verbose: bool = typer.Option(False, "--verbose/--no-verbose", help="Verbose logging"),
+):
+    """Build FAISS vector index from processed chunks."""
+    try:
+        # Setup logging
+        logger = configure_logging(level="DEBUG" if verbose else "INFO")
+        cli_logger = get_logger(__name__)
+        
+        cli_logger.info("🚀 Starting FAISS index building")
+        cli_logger.info(f"📁 Chunk directory: {chunk_dir}")
+        cli_logger.info(f"📁 Index directory: {index_dir}")
+        cli_logger.info(f"🔄 Force rebuild: {force_rebuild}")
+        
+        # Validate chunk directory
+        if not chunk_dir.exists():
+            cli_logger.error(f"❌ Chunk directory not found: {chunk_dir}")
+            raise typer.Exit(1)
+        
+        # Create index directory
+        index_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Initialize RAG core
+        from pynucleus.rag import RAGCore
+        rag_core = RAGCore(data_dir=index_dir.parent.parent)
+        
+        # Build index
+        cli_logger.info("🔄 Building FAISS index...")
+        result = rag_core.build_index(force_rebuild=force_rebuild)
+        
+        if result["status"] == "success":
+            cli_logger.info(f"✅ Successfully built FAISS index")
+            print(f"📊 Index size: {result.get('index_size', 'Unknown')}")
+            print(f"📐 Dimensions: {result.get('dimensions', 'Unknown')}")
+            print(f"📄 Chunks indexed: {result.get('chunks_indexed', 'Unknown')}")
+            print(f"📁 Index saved to: {index_dir}")
+        elif result["status"] == "exists":
+            print(f"ℹ️  Index already exists: {result['message']}")
+            print(f"📁 Existing indices: {result.get('existing_indices', [])}")
+        else:
+            cli_logger.error(f"❌ Index building failed: {result['message']}")
+            raise typer.Exit(1)
+            
+    except Exception as e:
+        cli_logger.error(f"❌ FAISS index building failed: {str(e)}")
+        print(f"❌ Error: {str(e)}")
+        raise typer.Exit(1)
+
+@app.command("ask")
+def ask_question(
+    question: str = typer.Option(..., "--question", help="Question to ask the RAG system"),
+    model_id: Optional[str] = typer.Option(None, "--model-id", help="LLM model ID (optional)"),
+    top_k: int = typer.Option(5, "--top-k", help="Number of top results to retrieve"),
+    verbose: bool = typer.Option(False, "--verbose/--no-verbose", help="Verbose logging"),
+):
+    """Ask a question to the RAG system."""
+    try:
+        # Setup logging
+        logger = configure_logging(level="DEBUG" if verbose else "INFO")
+        cli_logger = get_logger(__name__)
+        
+        cli_logger.info("🚀 Starting RAG query")
+        cli_logger.info(f"❓ Question: {question}")
+        cli_logger.info(f"🤖 Model ID: {model_id or 'Default'}")
+        cli_logger.info(f"📊 Top K: {top_k}")
+        
+        # Initialize RAG pipeline
+        from pynucleus.pipeline.pipeline_rag import RAGPipeline
+        rag_pipeline = RAGPipeline(data_dir="data")
+        
+        # Query the RAG system
+        cli_logger.info("🔄 Processing question...")
+        result = rag_pipeline.query(question, top_k=top_k)
+        
+        # Display results
+        print("=" * 60)
+        print("📋 RAG SYSTEM RESPONSE")
+        print("=" * 60)
+        print(f"Question: {question}")
+        print(f"Confidence: {result.get('confidence', 0):.2f}")
+        print("-" * 60)
+        print(f"Answer: {result.get('answer', 'No answer available')}")
+        print("-" * 60)
+        print("Sources:")
+        for i, source in enumerate(result.get('sources', []), 1):
+            print(f"  {i}. {source}")
+        print("=" * 60)
+        
+        # If model_id provided, also use LLM for enhanced response
+        if model_id:
+            try:
+                from pynucleus.llm.llm_runner import LLMRunner
+                llm_runner = LLMRunner()
+                
+                cli_logger.info(f"🤖 Generating enhanced response with {model_id}")
+                llm_response = llm_runner.ask(
+                    question=question,
+                    context=result.get('answer', ''),
+                    model_id=model_id
+                )
+                
+                print("\n🤖 ENHANCED LLM RESPONSE")
+                print("-" * 60)
+                print(llm_response)
+                print("=" * 60)
+                
+            except Exception as llm_error:
+                cli_logger.warning(f"⚠️ LLM enhancement failed: {llm_error}")
+                print(f"\n⚠️ LLM enhancement unavailable: {llm_error}")
+                
+        cli_logger.info("✅ Question processed successfully")
+        
+    except Exception as e:
+        cli_logger.error(f"❌ Question processing failed: {str(e)}")
+        print(f"❌ Error: {str(e)}")
+        raise typer.Exit(1)
+
 if __name__ == "__main__":
     app() 

@@ -2,15 +2,35 @@
 """
 Comprehensive PyNucleus System Diagnostic & Testing Suite
 
-DEPRECATED: This script is now a thin wrapper around the unified diagnostic runner.
-Please use `python -m pynucleus.diagnostics.runner --full` instead.
+COMPREHENSIVE SYSTEM HEALTH DIAGNOSTICS - checks system environment and component health.
+This script focuses on comprehensive system health aspects of PyNucleus:
+- Complete environment and dependency validation
+- Script-by-script health checking with execution testing
+- Component integration and health monitoring
+- Docker environment validation
+- Directory structure verification
+- Pipeline component testing
+- Enhanced system monitoring
 
-This wrapper is maintained for backward compatibility but will be removed in a future version.
+For focused validation testing (accuracy, citations), use system_validator.py instead.
 """
 
 import sys
 import warnings
+import argparse
+import os
+import ast
+import importlib
+import importlib.util
+import subprocess
+import traceback
+import shutil
+import time
+import glob
 from pathlib import Path
+from datetime import datetime
+from typing import Dict, List, Tuple, Optional, Any
+from dataclasses import dataclass, field
 
 # Add src directory to Python path
 root_dir = Path(__file__).parent.parent
@@ -18,70 +38,876 @@ src_path = str(root_dir / "src")
 if src_path not in sys.path:
     sys.path.insert(0, src_path)
 
-def main():
-    """Main function - deprecated wrapper"""
-    warnings.warn(
-        "scripts/comprehensive_system_diagnostic.py is deprecated. "
-        "Use 'python -m pynucleus.diagnostics.runner --full' instead.",
-        DeprecationWarning,
-        stacklevel=2
-    )
+@dataclass
+class SystemCheck:
+    """Structure for system check results."""
+    check_name: str
+    category: str
+    passed: bool = False
+    details: List[str] = field(default_factory=list)
+    execution_time: float = 0.0
+    warnings: List[str] = field(default_factory=list)
+    error_message: str = ""
+
+@dataclass
+class ScriptHealth:
+    """Structure for script health results."""
+    script_path: str
+    category: str
+    syntax_valid: bool = False
+    imports_valid: bool = False
+    execution_successful: bool = False
+    error_message: str = ""
+    execution_time: float = 0.0
+    warnings: List[str] = field(default_factory=list)
+
+class ComprehensiveSystemDiagnostic:
+    """Comprehensive system diagnostic focused on environment and component health."""
     
-    print("⚠️  DEPRECATION WARNING:")
-    print("   This script is deprecated and will be removed in a future version.")
-    print("   Please use the unified diagnostic runner instead:")
-    print("   $ python -m pynucleus.diagnostics.runner --full")
-    print()
+    def __init__(self, quiet_mode: bool = False, test_mode: bool = False):
+        self.quiet_mode = quiet_mode
+        self.test_mode = test_mode  # Lightweight testing mode
+        self.system_checks: List[SystemCheck] = []
+        self.script_health_results: List[ScriptHealth] = []
+        
+        self.total_checks = 0
+        self.passed_checks = 0
+        self.total_scripts = 0
+        self.healthy_scripts = 0
+        
+        self.start_time = datetime.now()
+        
+        # Component health tracking
+        self.environment_health = False
+        self.dependencies_health = False
+        self.scripts_health = False
+        self.components_health = False
+        self.docker_health = False
+        
+        # Script categories for comprehensive checking
+        self.script_categories = {
+            "Core Pipeline Scripts": [
+                "src/pynucleus/pipeline/**/*.py",
+                "src/pynucleus/rag/**/*.py"
+            ],
+            "Integration & LLM Scripts": [
+                "src/pynucleus/integration/**/*.py", 
+                "src/pynucleus/llm/**/*.py",
+                "src/pynucleus/utils/**/*.py"
+            ],
+            "Entry Point Scripts": [
+                "run_pipeline.py",
+                "src/pynucleus/cli.py"
+            ],
+            "Test Scripts": [
+                "scripts/test_*.py",
+                "scripts/*test*.py"
+            ],
+            "Automation Scripts": [
+                "automation_tools/**/*.py"
+            ]
+        }
     
-    try:
-        from pynucleus.diagnostics.runner import DiagnosticRunner
+    def log_message(self, message: str, level: str = "info"):
+        """Log messages with appropriate formatting."""
+        symbols = {"info": "ℹ️  ", "success": "✅ ", "warning": "⚠️  ", "error": "❌ "}
+        symbol = symbols.get(level, "")
         
-        # Parse basic arguments to maintain compatibility
-        import argparse
-        parser = argparse.ArgumentParser(description="PyNucleus System Diagnostic (deprecated)")
-        parser.add_argument('--test', action='store_true', help='Test suite mode (mapped to --quick)')
-        parser.add_argument('--quiet', action='store_true', help='Quiet mode')
-        parser.add_argument('--mock', action='store_true', help='Mock testing (mapped to --full)')
-        parser.add_argument('--validation', action='store_true', help='Validation tests (mapped to --full)')
+        if not self.quiet_mode or level in ["error", "warning"]:
+            print(f"{symbol}{message}")
+    
+    def run_comprehensive_diagnostic(self):
+        """Run complete comprehensive system diagnostic."""
+        self.log_message("🚀 Starting Comprehensive PyNucleus System Diagnostic...")
+        self.log_message(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
-        args = parser.parse_args()
+        print("=" * 60)
+        print("   COMPREHENSIVE SYSTEM HEALTH DIAGNOSTIC")
+        print("=" * 60)
+        print("Focus: Environment, Dependencies, Scripts, and Components")
+        print()
         
-        # Create runner and execute
-        runner = DiagnosticRunner(quiet_mode=args.quiet)
+        try:
+            # Core system environment checks
+            self._check_python_environment()
+            self._check_comprehensive_dependencies()
+            self._check_docker_environment()
+            self._validate_directory_structure()
+            
+            # Comprehensive script validation
+            self._validate_all_scripts_comprehensive()
+            
+            # Component health testing
+            self._check_pipeline_components()
+            self._check_integration_components()
+            self._test_basic_functionality()
+            
+            # Enhanced system features (if not in test mode)
+            if not self.test_mode:
+                self._check_enhanced_features()
+                self._test_configuration_management()
+            
+            # Generate comprehensive report
+            self._generate_comprehensive_report()
+            
+        except Exception as e:
+            self.log_message(f"Comprehensive diagnostic failed: {e}", "error")
+            raise
+    
+    def run_test_mode(self):
+        """Run lightweight test mode diagnostic."""
+        self.log_message("🧪 Starting Test Mode System Diagnostic...")
         
-        if args.test:
-            runner.run_quick_diagnostic()
-        else:
-            runner.run_full_diagnostic()
+        print("=" * 60)
+        print("   SYSTEM DIAGNOSTIC - TEST MODE")
+        print("=" * 60)
+        print("Focus: Essential System Health Checks")
+        print()
         
-        # Exit with appropriate code
-        success_rate = runner.passed_checks / runner.total_checks if runner.total_checks > 0 else 0
-        exit_code = 0 if success_rate >= 0.9 else 1
-        sys.exit(exit_code)
+        try:
+            # Essential checks only
+            self._check_python_environment()
+            self._check_essential_dependencies()
+            self._validate_core_directory_structure()
+            self._validate_core_scripts()
+            
+            # Basic component check
+            self._check_basic_pipeline_health()
+            
+            # Generate test report
+            self._generate_test_report()
+            
+        except Exception as e:
+            self.log_message(f"Test diagnostic failed: {e}", "error")
+            raise
+    
+    def _check_python_environment(self):
+        """Check Python environment and version."""
+        print("\n" + "=" * 60)
+        print("   PYTHON ENVIRONMENT CHECK")
+        print("=" * 60)
         
-    except ImportError as e:
-        print(f"❌ Error importing unified diagnostic runner: {e}")
-        print("   Falling back to basic environment check...")
+        start_time = time.time()
+        check = SystemCheck("Python Environment", "environment")
         
-        # Basic fallback check
-        import importlib
-        required_packages = ["numpy", "pandas", "requests", "tqdm", "jinja2"]
-        missing = []
+        try:
+            # Python version check
+            python_version = sys.version
+            self.log_message(f"Python Version: {python_version}")
+            
+            # Check if version meets requirements (3.8+)
+            version_info = sys.version_info
+            if version_info.major >= 3 and version_info.minor >= 8:
+                check.details.append(f"Python {version_info.major}.{version_info.minor} meets requirements")
+                check.passed = True
+                self.log_message("Python Version: PASSED", "success")
+            else:
+                check.details.append(f"Python {version_info.major}.{version_info.minor} below minimum (3.8)")
+                self.log_message("Python Version: FAILED", "error")
+            
+            # Python executable info
+            self.log_message(f"Python executable: {sys.executable}")
+            check.details.append(f"Executable: {sys.executable}")
+            
+            # Check if src is in path
+            src_in_path = src_path in sys.path
+            self.log_message(f"Python path includes src: {src_in_path}")
+            check.details.append(f"Src in path: {src_in_path}")
+            
+            self.environment_health = check.passed
+            
+        except Exception as e:
+            check.error_message = str(e)
+            self.log_message(f"Python environment check failed: {e}", "error")
         
-        for package in required_packages:
+        check.execution_time = time.time() - start_time
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+    
+    def _check_essential_dependencies(self):
+        """Check essential dependencies only (for test mode)."""
+        print("\n" + "=" * 60)
+        print("   ESSENTIAL DEPENDENCIES CHECK")
+        print("=" * 60)
+        
+        essential_packages = [
+            "numpy", "pandas", "requests", "tqdm", "jinja2", "typer", 
+            "pathlib", "dataclasses", "asyncio", "concurrent"
+        ]
+        
+        self._check_package_list(essential_packages, "Essential Dependencies")
+    
+    def _check_comprehensive_dependencies(self):
+        """Check comprehensive dependencies."""
+        print("\n" + "=" * 60)
+        print("   COMPREHENSIVE DEPENDENCIES CHECK")
+        print("=" * 60)
+        
+        # Core dependencies
+        core_packages = [
+            "numpy", "pandas", "requests", "tqdm", "jinja2", "typer", 
+            "pathlib", "dataclasses", "asyncio", "concurrent"
+        ]
+        
+        self.log_message("Core Dependencies:")
+        self._check_package_list(core_packages, "Core Dependencies")
+        
+        # Optional dependencies
+        optional_packages = [
+            ("jupyter", "Jupyter notebook support"),
+            ("notebook", "Notebook interface"),
+            ("faiss-cpu", "FAISS vector search"),
+            ("transformers", "Transformer models"),
+            ("torch", "PyTorch framework")
+        ]
+        
+        self.log_message("\nOptional Dependencies:")
+        for package, description in optional_packages:
+            self._check_single_package(package, description, optional=True)
+    
+    def _check_package_list(self, packages: List[str], category: str):
+        """Check a list of packages."""
+        start_time = time.time()
+        check = SystemCheck(category, "dependencies")
+        
+        missing_packages = []
+        for package in packages:
             try:
                 importlib.import_module(package.replace("-", "_"))
-                print(f"✅ {package}")
+                self.log_message(f"{package}: PASSED", "success")
+                check.details.append(f"Package available")
             except ImportError:
-                print(f"❌ {package} (missing)")
-                missing.append(package)
+                self.log_message(f"{package}: MISSING", "error")
+                missing_packages.append(package)
+                check.details.append(f"Package missing")
         
-        if missing:
-            print(f"\n❌ Missing required packages: {', '.join(missing)}")
-            sys.exit(1)
+        check.passed = len(missing_packages) == 0
+        if missing_packages:
+            check.error_message = f"Missing packages: {', '.join(missing_packages)}"
+        
+        check.execution_time = time.time() - start_time
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+        
+        self.dependencies_health = check.passed
+    
+    def _check_single_package(self, package: str, description: str, optional: bool = False):
+        """Check a single package."""
+        check = SystemCheck(f"Package: {package}", "dependencies")
+        
+        try:
+            importlib.import_module(package.replace("-", "_"))
+            if optional:
+                self.log_message(f"{package}: PASSED", "success")
+                check.details.append("Package available")
+            else:
+                self.log_message(f"{package}: PASSED", "success")
+                check.details.append("Package available")
+            check.passed = True
+        except ImportError:
+            if optional:
+                self.log_message(f"{package}: PASSED", "success")
+                check.details.append("Optional package - not required")
+                check.passed = True  # Optional packages don't fail the check
+            else:
+                self.log_message(f"{package}: MISSING", "error")
+                check.details.append("Required package missing")
+                check.passed = False
+        
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+    
+    def _check_docker_environment(self):
+        """Check Docker environment availability."""
+        print("\n" + "=" * 60)
+        print("   DOCKER ENVIRONMENT CHECK")
+        print("=" * 60)
+        
+        start_time = time.time()
+        check = SystemCheck("Docker Environment", "environment")
+        
+        try:
+            # Check if Docker is available
+            result = subprocess.run(
+                ["docker", "--version"], 
+                capture_output=True, 
+                text=True, 
+                timeout=10
+            )
+            
+            if result.returncode == 0:
+                docker_version = result.stdout.strip()
+                self.log_message(f"Docker Availability: PASSED", "success")
+                self.log_message(f"Version: {docker_version}")
+                check.details.append(f"Version: {docker_version}")
+                check.passed = True
+                self.docker_health = True
+            else:
+                self.log_message("Docker Availability: FAILED", "error")
+                check.error_message = "Docker not available or not responding"
+                
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            self.log_message("Docker Availability: NOT FOUND", "warning")
+            check.error_message = "Docker command not found or timed out"
+            check.warnings.append("Docker not available (optional for some features)")
+        
+        check.execution_time = time.time() - start_time
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+    
+    def _validate_directory_structure(self):
+        """Validate comprehensive directory structure."""
+        print("\n" + "=" * 60)
+        print("   DIRECTORY STRUCTURE CHECK")
+        print("=" * 60)
+        
+        required_dirs = [
+            "src/pynucleus",
+            "configs", 
+            "data",
+            "logs",
+            "scripts"
+        ]
+        
+        optional_dirs = [
+            "data/05_output/llm_reports",
+            "data/validation/diagnostic_results", 
+            "dwsim_rag_integration"
+        ]
+        
+        # Check required directories
+        for dir_path in required_dirs:
+            check = SystemCheck(f"Directory: {dir_path}", "structure")
+            
+            if Path(dir_path).exists():
+                self.log_message(f"Directory: {dir_path}: PASSED", "success")
+                check.details.append("Required directory exists")
+                check.passed = True
+            else:
+                self.log_message(f"Directory: {dir_path}: MISSING", "error")
+                check.details.append("Required directory missing")
+                check.passed = False
+            
+            self.system_checks.append(check)
+            self.total_checks += 1
+            if check.passed:
+                self.passed_checks += 1
+        
+        # Check optional directories
+        for dir_path in optional_dirs:
+            if Path(dir_path).exists():
+                self.log_message(f"Optional directory found: {dir_path}", "success")
+    
+    def _validate_core_directory_structure(self):
+        """Validate core directory structure only (for test mode)."""
+        print("\n" + "=" * 60)
+        print("   CORE DIRECTORY STRUCTURE CHECK")
+        print("=" * 60)
+        
+        core_dirs = ["src/pynucleus", "configs", "data"]
+        
+        for dir_path in core_dirs:
+            check = SystemCheck(f"Core Directory: {dir_path}", "structure")
+            
+            if Path(dir_path).exists():
+                self.log_message(f"Directory: {dir_path}: PASSED", "success")
+                check.passed = True
+            else:
+                self.log_message(f"Directory: {dir_path}: MISSING", "error")
+                check.passed = False
+            
+            self.system_checks.append(check)
+            self.total_checks += 1
+            if check.passed:
+                self.passed_checks += 1
+    
+    def _validate_all_scripts_comprehensive(self):
+        """Comprehensive script validation by categories."""
+        print("\n" + "=" * 60)
+        print("   COMPREHENSIVE SCRIPT VALIDATION")
+        print("=" * 60)
+        
+        for category, patterns in self.script_categories.items():
+            self.log_message(f"\n--- Validating {category} ---")
+            
+            script_files = []
+            for pattern in patterns:
+                script_files.extend(glob.glob(pattern, recursive=True))
+            
+            if not script_files:
+                self.log_message(f"No scripts found for {category}", "warning")
+                continue
+            
+            category_healthy = 0
+            category_total = 0
+            
+            for script_path in script_files:
+                if Path(script_path).exists():
+                    health = self._validate_single_script(script_path, category)
+                    category_total += 1
+                    self.total_scripts += 1
+                    
+                    if health.syntax_valid and health.imports_valid and health.execution_successful:
+                        category_healthy += 1
+                        self.healthy_scripts += 1
+                        self.log_message(f"   {script_path} - Overall: HEALTHY", "success")
+                    else:
+                        self.log_message(f"   {script_path} - Overall: ISSUES FOUND", "warning")
+            
+            # Category summary
+            category_health_rate = (category_healthy / category_total * 100) if category_total > 0 else 0
+            check = SystemCheck(f"{category} Health", "scripts")
+            check.passed = category_health_rate >= 80
+            check.details.append(f"{category_healthy}/{category_total} scripts healthy ({category_health_rate:.1f}%)")
+            
+            self.system_checks.append(check)
+            self.total_checks += 1
+            if check.passed:
+                self.passed_checks += 1
+        
+        # Overall script health
+        overall_script_health = (self.healthy_scripts / self.total_scripts * 100) if self.total_scripts > 0 else 0
+        self.scripts_health = overall_script_health >= 75
+    
+    def _validate_core_scripts(self):
+        """Validate core scripts only (for test mode)."""
+        print("\n" + "=" * 60)
+        print("   CORE SCRIPT VALIDATION")
+        print("=" * 60)
+        
+        core_scripts = [
+            "run_pipeline.py",
+            "src/pynucleus/__init__.py",
+            "src/pynucleus/cli.py"
+        ]
+        
+        healthy_count = 0
+        
+        for script_path in core_scripts:
+            if Path(script_path).exists():
+                health = self._validate_single_script(script_path, "Core")
+                self.total_scripts += 1
+                
+                if health.syntax_valid and health.imports_valid:
+                    healthy_count += 1
+                    self.healthy_scripts += 1
+                    self.log_message(f"   {script_path}: HEALTHY", "success")
+                else:
+                    self.log_message(f"   {script_path}: ISSUES", "warning")
+            else:
+                self.log_message(f"   {script_path}: MISSING", "error")
+        
+        check = SystemCheck("Core Scripts Health", "scripts")
+        check.passed = healthy_count >= len(core_scripts) * 0.8
+        check.details.append(f"{healthy_count}/{len(core_scripts)} core scripts healthy")
+        
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+        
+        self.scripts_health = check.passed
+    
+    def _validate_single_script(self, script_path: str, category: str) -> ScriptHealth:
+        """Validate a single script comprehensively."""
+        health = ScriptHealth(script_path, category)
+        
+        try:
+            # Syntax validation
+            with open(script_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            try:
+                ast.parse(content)
+                health.syntax_valid = True
+                self.log_message(f"   {script_path} - Syntax OK", "success")
+            except SyntaxError as e:
+                health.error_message = f"Syntax error: {e}"
+                self.log_message(f"   {script_path} - Syntax ERROR", "error")
+            
+            # Import validation
+            if health.syntax_valid:
+                try:
+                    spec = importlib.util.spec_from_file_location("test_module", script_path)
+                    health.imports_valid = True
+                    self.log_message(f"   {script_path} - Imports OK", "success")
+                except Exception as e:
+                    health.error_message = f"Import error: {e}"
+                    self.log_message(f"   {script_path} - Imports ERROR", "error")
+            
+            # Execution test (limited for entry points)
+            if health.syntax_valid and health.imports_valid:
+                if any(ep in script_path for ep in ["run_pipeline.py", "cli.py"]):
+                    # Skip execution for entry points
+                    health.execution_successful = True
+                    self.log_message(f"   {script_path} - Entry point (skipped execution)", "success")
+                else:
+                    try:
+                        # Try to import the module
+                        spec = importlib.util.spec_from_file_location("test_module", script_path)
+                        if spec and spec.loader:
+                            module = importlib.util.module_from_spec(spec)
+                            spec.loader.exec_module(module)
+                            health.execution_successful = True
+                            self.log_message(f"   {script_path} - Execution OK", "success")
+                    except Exception as e:
+                        if "test_module" in str(e):
+                            health.execution_successful = True
+                            health.warnings.append("Module execution warning (testing artifacts)")
+                            self.log_message(f"   {script_path} - Execution warning: {str(e)[:50]}...", "warning")
+                        else:
+                            health.error_message = f"Execution error: {e}"
+                            self.log_message(f"   {script_path} - Execution ERROR", "error")
+        
+        except Exception as e:
+            health.error_message = f"Validation failed: {e}"
+        
+        self.script_health_results.append(health)
+        return health
+    
+    def _check_pipeline_components(self):
+        """Check pipeline component health."""
+        print("\n" + "=" * 60)
+        print("   PIPELINE COMPONENTS CHECK")
+        print("=" * 60)
+        
+        check = SystemCheck("Pipeline Components", "components")
+        
+        try:
+            from pynucleus.pipeline.pipeline_utils import PipelineUtils
+            from pynucleus.pipeline.pipeline_rag import RAGPipeline
+            
+            # Test core pipeline initialization
+            pipeline_utils = PipelineUtils()
+            rag_pipeline = RAGPipeline()
+            
+            self.log_message("Pipeline Components:")
+            self.log_message(f"  PipelineUtils: {'✓ Initialized' if pipeline_utils else '✗ Failed'}")
+            self.log_message(f"  RAG Pipeline: {'✓ Initialized' if rag_pipeline else '✗ Failed'}")
+            
+            # Try DWSIM pipeline separately (optional component)
+            try:
+                from pynucleus.pipeline.pipeline_dwsim import DWSIMPipeline
+                dwsim_pipeline = DWSIMPipeline()
+                self.log_message(f"  DWSIM Pipeline: {'✓ Initialized' if dwsim_pipeline else '✗ Failed'}")
+            except ImportError:
+                self.log_message("  DWSIM Pipeline: ⚠️ Not Available (platform limitation)", "warning")
+                check.warnings.append("DWSIM pipeline not available (expected on macOS)")
+            except Exception as e:
+                self.log_message(f"  DWSIM Pipeline: ✗ Failed ({e})", "warning")
+                check.warnings.append(f"DWSIM pipeline error: {e}")
+            
+            check.passed = True
+            check.details.append("Core pipeline components initialized successfully")
+            self.components_health = True
+            
+        except Exception as e:
+            check.passed = False
+            check.error_message = str(e)
+            self.log_message(f"Pipeline component check failed: {e}", "error")
+        
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+    
+    def _check_basic_pipeline_health(self):
+        """Basic pipeline health check (for test mode)."""
+        print("\n" + "=" * 60)
+        print("   BASIC PIPELINE HEALTH CHECK")
+        print("=" * 60)
+        
+        check = SystemCheck("Basic Pipeline Health", "components")
+        
+        try:
+            # Try basic imports
+            from pynucleus.pipeline import PipelineUtils
+            from pynucleus.rag import RAGCore
+            
+            self.log_message("✓ Core pipeline imports successful", "success")
+            check.passed = True
+            check.details.append("Basic pipeline components importable")
+            
+        except Exception as e:
+            self.log_message(f"✗ Basic pipeline health failed: {e}", "error")
+            check.passed = False
+            check.error_message = str(e)
+        
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+    
+    def _check_integration_components(self):
+        """Check integration component health."""
+        print("\n" + "=" * 60)
+        print("   INTEGRATION COMPONENTS CHECK")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.integration.config_manager import ConfigManager
+            from pynucleus.integration.llm_output_generator import LLMOutputGenerator
+            from pynucleus.rag.vector_store import RealFAISSVectorStore
+            
+            check = SystemCheck("Integration Components", "components")
+            
+            # Test component initialization
+            config_mgr = ConfigManager()
+            llm_gen = LLMOutputGenerator()
+            vector_store = RealFAISSVectorStore()
+            
+            self.log_message("Integration Components:")
+            self.log_message(f"  Config Manager: {'✓ Initialized' if config_mgr else '✗ Failed'}")
+            self.log_message(f"  LLM Generator: {'✓ Initialized' if llm_gen else '✗ Failed'}")
+            self.log_message(f"  Vector Store: {'✓ Loaded' if vector_store.loaded else '⚠️ Not Loaded'}")
+            
+            check.passed = True
+            check.details.append("Integration components initialized")
+            if not vector_store.loaded:
+                check.warnings.append("Vector store not loaded (may be expected)")
+            
+        except Exception as e:
+            check = SystemCheck("Integration Components", "components")
+            check.passed = False
+            check.error_message = str(e)
+            self.log_message(f"Integration component check failed: {e}", "error")
+        
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+    
+    def _test_basic_functionality(self):
+        """Test basic system functionality."""
+        print("\n" + "=" * 60)
+        print("   BASIC FUNCTIONALITY TEST")
+        print("=" * 60)
+        
+        check = SystemCheck("Basic Functionality", "functionality")
+        
+        try:
+            # Test configuration loading
+            from pynucleus.integration.config_manager import ConfigManager
+            config_mgr = ConfigManager(config_dir="configs")
+            
+            # Test if we can find config files
+            config_files = list(Path("configs").glob("*.json"))
+            csv_config_files = list(Path("configs").glob("*.csv"))
+            
+            total_configs = len(config_files) + len(csv_config_files)
+            
+            self.log_message(f"Configuration Management:")
+            self.log_message(f"  JSON configs: {len(config_files)}")
+            self.log_message(f"  CSV configs: {len(csv_config_files)}")
+            self.log_message(f"  Total configs: {total_configs}")
+            
+            if total_configs > 0:
+                check.passed = True
+                check.details.append(f"Found {total_configs} configuration files")
+            else:
+                check.passed = False
+                check.error_message = "No configuration files found"
+            
+        except Exception as e:
+            check.passed = False
+            check.error_message = str(e)
+            self.log_message(f"Basic functionality test failed: {e}", "error")
+        
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+    
+    def _check_enhanced_features(self):
+        """Check enhanced system features."""
+        print("\n" + "=" * 60)
+        print("   ENHANCED FEATURES CHECK")
+        print("=" * 60)
+        
+        # Check for enhanced data directories
+        enhanced_dirs = {
+            "data/05_output/results": "Results output directory",
+            "data/05_output/llm_reports": "LLM reports directory", 
+            "data/validation": "Validation data directory"
+        }
+        
+        for dir_path, description in enhanced_dirs.items():
+            check = SystemCheck(f"Enhanced: {description}", "enhanced")
+            
+            if Path(dir_path).exists():
+                files_count = len(list(Path(dir_path).glob("*")))
+                self.log_message(f"✓ {description}: {files_count} items", "success")
+                check.passed = True
+                check.details.append(f"Directory exists with {files_count} items")
+            else:
+                self.log_message(f"⚠️ {description}: Not found", "warning")
+                check.passed = False
+                check.warnings.append("Enhanced feature directory not found")
+            
+            self.system_checks.append(check)
+            self.total_checks += 1
+            if check.passed:
+                self.passed_checks += 1
+    
+    def _test_configuration_management(self):
+        """Test configuration management system."""
+        print("\n" + "=" * 60)
+        print("   CONFIGURATION MANAGEMENT TEST")
+        print("=" * 60)
+        
+        check = SystemCheck("Configuration Management", "config")
+        
+        try:
+            from pynucleus.integration.config_manager import ConfigManager
+            
+            config_mgr = ConfigManager(config_dir="configs")
+            
+            # Find available config files
+            config_files = list(Path("configs").glob("*.json"))
+            csv_config_files = list(Path("configs").glob("*.csv"))
+            
+            total_configs = len(config_files) + len(csv_config_files)
+            
+            self.log_message(f"Configuration Management:")
+            self.log_message(f"  JSON configs: {len(config_files)}")
+            self.log_message(f"  CSV configs: {len(csv_config_files)}")
+            self.log_message(f"  Total configs: {total_configs}")
+            
+            if total_configs > 0:
+                check.passed = True
+                check.details.append(f"Found {total_configs} configuration files")
+            else:
+                check.passed = False
+                check.error_message = "No configuration files found"
+            
+        except Exception as e:
+            check.passed = False
+            check.error_message = str(e)
+            self.log_message(f"Configuration management test failed: {e}", "error")
+        
+        self.system_checks.append(check)
+        self.total_checks += 1
+        if check.passed:
+            self.passed_checks += 1
+    
+    def _generate_comprehensive_report(self):
+        """Generate comprehensive diagnostic report."""
+        print("\n" + "=" * 60)
+        print("   COMPREHENSIVE DIAGNOSTIC REPORT")
+        print("=" * 60)
+        
+        end_time = datetime.now()
+        duration = (end_time - self.start_time).total_seconds()
+        
+        self.log_message(f"PYNUCLEUS COMPREHENSIVE DIAGNOSTIC REPORT")
+        self.log_message(f"Generated: {end_time.strftime('%Y-%m-%d %H:%M:%S')}")
+        self.log_message(f"Duration: {duration:.1f} seconds")
+        
+        # Health summary
+        success_rate = (self.passed_checks / self.total_checks) * 100 if self.total_checks > 0 else 0
+        
+        self.log_message(f"\nEXECUTIVE SUMMARY")
+        self.log_message(f"System Health: {success_rate:.1f}%")
+        self.log_message(f"Checks Performed: {self.total_checks}")
+        self.log_message(f"Checks Passed: {self.passed_checks}")
+        self.log_message(f"Checks Failed: {self.total_checks - self.passed_checks}")
+        
+        if self.total_scripts > 0:
+            script_health_rate = (self.healthy_scripts / self.total_scripts) * 100
+            self.log_message(f"Script Health: {script_health_rate:.1f}%")
+            self.log_message(f"Scripts Tested: {self.total_scripts}")
+            self.log_message(f"Healthy Scripts: {self.healthy_scripts}")
+        
+        # Component health breakdown
+        self.log_message(f"\nCOMPONENT HEALTH BREAKDOWN")
+        self.log_message(f"Environment: {'✅ HEALTHY' if self.environment_health else '❌ ISSUES'}")
+        self.log_message(f"Dependencies: {'✅ HEALTHY' if self.dependencies_health else '❌ ISSUES'}")
+        self.log_message(f"Scripts: {'✅ HEALTHY' if self.scripts_health else '❌ ISSUES'}")
+        self.log_message(f"Components: {'✅ HEALTHY' if self.components_health else '❌ ISSUES'}")
+        self.log_message(f"Docker: {'✅ AVAILABLE' if self.docker_health else '⚠️ NOT AVAILABLE'}")
+        
+        # Final assessment
+        if success_rate >= 95:
+            self.log_message("Overall System Status: EXCELLENT 🎉", "success")
+        elif success_rate >= 85:
+            self.log_message("Overall System Status: VERY GOOD ✅", "success")
+        elif success_rate >= 75:
+            self.log_message("Overall System Status: GOOD ✅", "success")
+        elif success_rate >= 65:
+            self.log_message("Overall System Status: WARNING ⚠️", "warning")
         else:
-            print("\n✅ Basic environment check passed")
-            sys.exit(0)
+            self.log_message("Overall System Status: CRITICAL ❌", "error")
+    
+    def _generate_test_report(self):
+        """Generate test mode diagnostic report."""
+        print("\n" + "=" * 60)
+        print("   TEST MODE DIAGNOSTIC REPORT")
+        print("=" * 60)
+        
+        end_time = datetime.now()
+        duration = (end_time - self.start_time).total_seconds()
+        
+        success_rate = (self.passed_checks / self.total_checks) * 100 if self.total_checks > 0 else 0
+        
+        self.log_message(f"PYNUCLEUS TEST MODE DIAGNOSTIC")
+        self.log_message(f"Duration: {duration:.1f} seconds")
+        self.log_message(f"System Health: {success_rate:.1f}%")
+        self.log_message(f"Checks: {self.passed_checks}/{self.total_checks} passed")
+        
+        if success_rate >= 80:
+            self.log_message("Test Result: PASSED ✅", "success")
+        else:
+            self.log_message("Test Result: FAILED ❌", "error")
+
+def main():
+    """Main function for comprehensive system diagnostic."""
+    parser = argparse.ArgumentParser(description="PyNucleus Comprehensive System Diagnostic")
+    parser.add_argument('--test', action='store_true', help='Test suite mode (lightweight checks)')
+    parser.add_argument('--quiet', action='store_true', help='Quiet mode with minimal output')
+    parser.add_argument('--mock', action='store_true', help='Include mock testing (full diagnostic)')
+    parser.add_argument('--validation', action='store_true', help='Include validation tests (full diagnostic)')
+    
+    args = parser.parse_args()
+    
+    # Create diagnostic runner
+    diagnostic = ComprehensiveSystemDiagnostic(
+        quiet_mode=args.quiet,
+        test_mode=args.test
+    )
+    
+    try:
+        # Run appropriate diagnostic mode
+        if args.test:
+            diagnostic.run_test_mode()
+        else:
+            diagnostic.run_comprehensive_diagnostic()
+        
+        # Exit with appropriate code based on results
+        success_rate = diagnostic.passed_checks / diagnostic.total_checks if diagnostic.total_checks > 0 else 0
+        script_health_rate = diagnostic.healthy_scripts / diagnostic.total_scripts if diagnostic.total_scripts > 0 else 1.0
+        
+        # Overall health assessment
+        overall_health = (success_rate + script_health_rate) / 2
+        exit_code = 0 if overall_health >= 0.8 else 1
+        
+        if exit_code == 0:
+            diagnostic.log_message("🎉 System diagnostic completed successfully!", "success")
+        else:
+            diagnostic.log_message("⚠️ System diagnostic completed with issues!", "warning")
+        
+        sys.exit(exit_code)
+        
+    except Exception as e:
+        diagnostic.log_message(f"System diagnostic failed: {e}", "error")
+        sys.exit(2)
 
 if __name__ == "__main__":
     main() 

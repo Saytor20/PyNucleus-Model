@@ -332,8 +332,12 @@ class RealFAISSVectorStore:
                 # Try to load the FAISS index
                 try:
                     # Load with LangChain FAISS
-                    from langchain_community.embeddings import SentenceTransformerEmbeddings
-                    embeddings = SentenceTransformerEmbeddings(model_name='all-MiniLM-L6-v2')
+                    try:
+                        from langchain_huggingface import HuggingFaceEmbeddings
+                        embeddings = HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2')
+                    except ImportError:
+                        from langchain_community.embeddings import SentenceTransformerEmbeddings
+                        embeddings = SentenceTransformerEmbeddings(model_name='all-MiniLM-L6-v2')
                     
                     self.vector_store = FAISS.load_local(
                         folder_path=str(faiss_dir),
@@ -365,7 +369,7 @@ class RealFAISSVectorStore:
         self, 
         query: str, 
         top_k: int = 5,
-        similarity_threshold: float = 0.7
+        similarity_threshold: float = 0.3
     ) -> List[Dict[str, Any]]:
         """
         Search for similar chunks using real FAISS index.
@@ -402,12 +406,12 @@ class RealFAISSVectorStore:
                 
             else:
                 # Fallback to enhanced mock results if FAISS not loaded
-                return self._generate_enhanced_mock_results(query, top_k, similarity_threshold)
+                return self._generate_enhanced_mock_results(query, top_k, 0.3)
                 
         except Exception as e:
             self.logger.error(f"FAISS search failed: {e}")
             # Fallback to mock results
-            return self._generate_enhanced_mock_results(query, top_k, similarity_threshold)
+            return self._generate_enhanced_mock_results(query, top_k, 0.3)
     
     def _generate_enhanced_mock_results(self, query: str, top_k: int, similarity_threshold: float) -> List[Dict[str, Any]]:
         """Generate enhanced mock results based on chemical engineering knowledge."""
