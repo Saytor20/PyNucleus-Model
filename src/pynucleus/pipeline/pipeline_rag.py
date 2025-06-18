@@ -12,12 +12,18 @@ Handles RAG (Retrieval-Augmented Generation) pipeline operations including:
 import sys
 import os
 import importlib
+import json
+import logging
 from datetime import datetime
 from pathlib import Path
 from langchain_core.documents.base import Document
+from typing import List, Dict, Any, Optional, Tuple
 
 # Add project root to path
 sys.path.append(os.path.abspath('.'))
+
+# Set up logging
+logger = logging.getLogger(__name__)
 
 class RAGPipeline:
     """Main RAG Pipeline class for managing document processing and retrieval operations."""
@@ -30,6 +36,10 @@ class RAGPipeline:
         self.manager = None
         self.documents = None
         self.enable_dwsim_integration = enable_dwsim_integration
+        
+        # Initialize citation logging
+        self.citation_log_file = Path("logs/rag_trace.jsonl")
+        self.citation_log_file.parent.mkdir(exist_ok=True)
         
         # Import and reload modules
         self._setup_imports()
@@ -62,7 +72,7 @@ class RAGPipeline:
         from pynucleus.rag.document_processor import process_documents
         from pynucleus.rag.wiki_scraper import scrape_wikipedia_articles
         from pynucleus.rag.data_chunking import load_and_chunk_files, save_chunked_data
-        from pynucleus.rag.vector_store import FAISSDBManager, _load_docs
+        from pynucleus.rag.vector_store import EnhancedFAISSDBManager, _load_docs
         
         # Import DWSIM integration if enabled
         if self.enable_dwsim_integration:
@@ -80,7 +90,7 @@ class RAGPipeline:
         self.scrape_wikipedia_articles = scrape_wikipedia_articles
         self.load_and_chunk_files = load_and_chunk_files
         self.save_chunked_data = save_chunked_data
-        self.FAISSDBManager = FAISSDBManager
+        self.FAISSDBManager = EnhancedFAISSDBManager
         self._load_docs = _load_docs
         
         print("✅ RAG imports ready!")
@@ -526,4 +536,160 @@ class RAGPipeline:
             print(f"❌ Error getting pipeline status: {str(e)}")
             print("📊 Pipeline status unavailable")
         
-        print("=" * 50) 
+        print("=" * 50)
+    
+    def query_with_citations(self, 
+                           user_query: str, 
+                           k: int = 5, 
+                           similarity_threshold: float = 0.1) -> Dict[str, Any]:
+        """
+        Query the RAG system and return answer with citations.
+        
+        Args:
+            user_query (str): The user's question
+            k (int): Number of top chunks to retrieve
+            similarity_threshold (float): Minimum similarity score for inclusion
+            
+        Returns:
+            Dict containing answer, citations, and metadata
+        """
+        query_id = f"query_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}"
+        timestamp = datetime.now().isoformat()
+        
+        try:
+            logger.info(f"Processing query {query_id}: {user_query}")
+            
+            # Ensure manager and documents are available
+            if not self.manager or not self.documents:
+                logger.info("Initializing RAG components...")
+                self.manager, self.documents = self.run_pipeline()
+            
+            # Retrieve relevant chunks
+            search_results = self.manager.search(user_query, k=k)
+            
+            # Filter by similarity threshold and prepare citations
+            citations = []
+            relevant_chunks = []
+            
+            for i, (doc, score) in enumerate(search_results):
+                if score >= similarity_threshold:
+                    # Extract source information
+                    source_filename = doc.metadata.get('source', 'unknown_source.json')
+                    chunk_id = doc.metadata.get('chunk_id', f"chunk_{i}")
+                    
+                    citation = {
+                        "source_filename": source_filename,
+                        "chunk_id": chunk_id,
+                        "similarity": round(float(score), 4)
+                    }
+                    citations.append(citation)
+                    relevant_chunks.append(doc.page_content)
+            
+            # Generate answer with inline citations
+            if not relevant_chunks:
+                answer = "I couldn't find relevant information to answer your question."
+                citations = []
+            else:
+                # Combine relevant content for context
+                context = "\n\n".join([
+                    f"Source {i+1}: {chunk}" 
+                    for i, chunk in enumerate(relevant_chunks)
+                ])
+                
+                # Generate answer with citation markers
+                answer = self._generate_answer_with_citations(user_query, context, len(citations))
+            
+            # Prepare response
+            response = {
+                "query_id": query_id,
+                "timestamp": timestamp,
+                "question": user_query,
+                "answer": answer,
+                "citations": citations,
+                "metadata": {
+                    "chunks_retrieved": len(search_results),
+                    "chunks_used": len(relevant_chunks),
+                    "similarity_threshold": similarity_threshold
+                }
+            }
+            
+            # Log to citation trace file
+            self._log_citation_trace(response)
+            
+            logger.info(f"Query {query_id} completed with {len(citations)} citations")
+            return response
+            
+        except Exception as e:
+            logger.error(f"Error processing query {query_id}: {str(e)}")
+            error_response = {
+                "query_id": query_id,
+                "timestamp": timestamp,
+                "question": user_query,
+                "answer": f"Error processing query: {str(e)}",
+                "citations": [],
+                "metadata": {"error": str(e)}
+            }
+            self._log_citation_trace(error_response)
+            return error_response
+    
+    def _generate_answer_with_citations(self, query: str, context: str, num_citations: int) -> str:
+        """
+        Generate an answer with inline citation markers.
+        
+        Args:
+            query (str): The user's question
+            context (str): Combined context from retrieved chunks
+            num_citations (int): Number of citations to reference
+            
+        Returns:
+            str: Answer with inline citation markers [†1], [†2], etc.
+        """
+        # For now, create a basic answer with citation markers
+        # In a full implementation, this would use an LLM
+        
+        context_lines = context.split('\n\n')
+        answer_parts = []
+        
+        # Create a basic answer by summarizing the context
+        if "modular" in query.lower():
+            answer_parts.append("Modular chemical plants offer several key advantages [†1].")
+            if num_citations > 1:
+                answer_parts.append("The design principles focus on standardization and scalability [†2].")
+            if num_citations > 2:
+                answer_parts.append("Implementation requires careful consideration of supply chain and logistics [†3].")
+        
+        elif "simulation" in query.lower() or "DWSIM" in query.lower():
+            answer_parts.append("Simulation results show important performance characteristics [†1].")
+            if num_citations > 1:
+                answer_parts.append("Operating conditions and conversion rates are key metrics [†2].")
+        
+        elif "efficiency" in query.lower() or "performance" in query.lower():
+            answer_parts.append("Performance optimization involves multiple factors [†1].")
+            if num_citations > 1:
+                answer_parts.append("Efficiency metrics include energy consumption and throughput [†2].")
+        
+        else:
+            # Generic response for other queries
+            answer_parts.append("Based on the available information [†1].")
+            if num_citations > 1:
+                answer_parts.append("Additional context provides further insights [†2].")
+        
+        # If no specific patterns matched, create a generic response
+        if not answer_parts:
+            answer_parts = [f"The information retrieved addresses your question about {query.lower()} [†1]."]
+        
+        return " ".join(answer_parts)
+    
+    def _log_citation_trace(self, response: Dict[str, Any]) -> None:
+        """
+        Log the query response to the citation trace file.
+        
+        Args:
+            response (Dict): The complete response with citations
+        """
+        try:
+            with open(self.citation_log_file, 'a', encoding='utf-8') as f:
+                json.dump(response, f, ensure_ascii=False)
+                f.write('\n')
+        except Exception as e:
+            logger.error(f"Failed to log citation trace: {e}") 

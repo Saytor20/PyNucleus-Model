@@ -587,201 +587,154 @@ def process_documents(
     use_progress_bar: bool = True,
     extract_image_text: bool = True,     # Extract text from images via OCR (no image files saved)
     extract_tables: bool = True,         # Extract tables to text format
-    enable_ocr: bool = True             # Enable OCR for image files
+    enable_ocr: bool = True,             # Enable OCR for image files
+    skip_duplicates: bool = True         # Skip files that already exist in output directory
 ) -> None:
     """
-    Process all documents in the input directory and convert them to simple text files.
-    Enhanced with OCR text extraction and table extraction - NO IMAGE FILES ARE CREATED.
+    Process all documents in the input directory and save converted text to output directory.
+    Enhanced with duplicate detection to skip already processed files.
     
     Args:
-        input_dir: Input directory for documents
-        output_dir: Output directory for text files
+        input_dir: Directory containing source documents
+        output_dir: Directory to save converted text files
         use_progress_bar: Whether to show progress bar
-        extract_image_text: Whether to extract text from images in PDFs via OCR (no image files saved)
-        extract_tables: Whether to extract tables from PDFs and include as text
-        enable_ocr: Whether to enable OCR for image files
+        extract_image_text: Extract text from images via OCR (no image files saved)
+        extract_tables: Extract tables to text format  
+        enable_ocr: Enable OCR for image files
+        skip_duplicates: Skip files that already exist in output directory
     """
+    
     # Check if the input directory exists
     if not os.path.exists(input_dir):
-        print(f"📂 Creating directory: '{input_dir}'")
-        os.makedirs(input_dir, exist_ok=True)
-        print(
-            f"ℹ Please place your files (PDF, DOCX, TXT, etc.) in the '{input_dir}' directory and run the script again."
-        )
+        logger.error(f"Input directory does not exist: {input_dir}")
         return
 
-    # Create the output directory
+    # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
 
-    files_to_process = [
-        f for f in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, f))
-    ]
+    # Get list of files to process
+    files_to_process = []
+    for filename in os.listdir(input_dir):
+        file_path = os.path.join(input_dir, filename)
+        
+        # Skip directories and hidden files
+        if os.path.isdir(file_path) or filename.startswith('.'):
+            continue
+            
+        # Skip hidden files like .DS_Store
+        if filename.startswith('.'):
+            continue
+            
+        # Check if file is a supported document type
+        file_ext = os.path.splitext(filename)[1].lower()
+        if file_ext in ['.pdf', '.docx', '.txt', '.png', '.jpg', '.jpeg', '.tiff', '.bmp']:
+            
+            # Check for duplicates if enabled
+            if skip_duplicates:
+                output_filename = os.path.splitext(filename)[0] + '.txt'
+                output_path = os.path.join(output_dir, output_filename)
+                
+                if os.path.exists(output_path):
+                    logger.info(f"⏭️ Skipping {filename} - already processed (output exists: {output_filename})")
+                    continue
+            
+            files_to_process.append((file_path, filename))
 
     if not files_to_process:
-        print(f"ℹ The '{input_dir}' directory is empty. Nothing to process.")
+        if skip_duplicates:
+            logger.info(f"✅ No new files to process in {input_dir} (all files already processed)")
+        else:
+            logger.info(f"⚠️ No supported files found in {input_dir}")
         return
 
-    # Initialize OCR engines only if needed
-    if extract_image_text or enable_ocr:
-        ocr_engines = _init_ocr_engines()
-        if ocr_engines:
-            available_engines = [k for k in ocr_engines.keys() if not k.endswith('_reader')]
-            print(f"🔍 OCR engines available: {', '.join(available_engines)}")
-        else:
-            print("⚠️ No OCR engines available. Install pytesseract, easyocr, or paddleocr for OCR capabilities.")
+    logger.info(f"📁 Found {len(files_to_process)} files to process")
+    if skip_duplicates:
+        total_files = len([f for f in os.listdir(input_dir) if not f.startswith('.') and not os.path.isdir(os.path.join(input_dir, f))])
+        skipped = total_files - len(files_to_process)
+        if skipped > 0:
+            logger.info(f"⏭️ Skipped {skipped} already processed files")
 
-    print(
-        f"--- 📄 Starting simple text processing for {len(files_to_process)} file(s) in '{input_dir}' ---"
-    )
-    print("💡 Processing mode: Simple text output (no image files created)")
-    
-    logger.info(f"Starting document processing: {len(files_to_process)} files from {input_dir}")
+    # Process files with progress bar
+    if use_progress_bar:
+        file_iterator = tqdm(files_to_process, desc="Converting documents", unit="file")
+    else:
+        file_iterator = files_to_process
 
-    for filename in tqdm(
-        files_to_process, desc="Processing files", disable=not use_progress_bar
-    ):
-        # Skip hidden files like .DS_Store
-        if filename.startswith("."):
-            continue
+    successful_conversions = 0
+    failed_conversions = 0
 
-        input_path = os.path.join(input_dir, filename)
-        output_filename = f"{os.path.splitext(os.path.basename(filename))[0]}.txt"
-        output_path = os.path.join(output_dir, output_filename)
-
-        print(f" ▶ Processing: {filename}")
-
+    for file_path, filename in file_iterator:
         try:
-            # Initialize simple content structure
-            content_parts = []
-            doc_name = os.path.splitext(filename)[0]
-            
-            # Add simple document header
-            content_parts.append(f"=" * 60)
-            content_parts.append(f"Document: {filename}")
-            content_parts.append(f"Processed: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-            content_parts.append(f"=" * 60)
-            content_parts.append("")
+            # Update progress bar description
+            if use_progress_bar:
+                file_iterator.set_description(f"Processing {filename}")
 
-            # Handle different file types
-            if filename.lower().endswith(".pdf"):
-                print(f"      📄 Processing PDF...")
-                
-                try:
-                    # Extract main text and image text
-                    main_text = _process_pdf_enhanced(input_path, filename, extract_image_text, extract_tables)
-                    if main_text.strip():
-                        # Clean up the text
-                        cleaned_text = strip_document_metadata(main_text)
-                        content_parts.append(cleaned_text)
-                        logger.info(f"Successfully extracted PDF text from {filename}")
-                except Exception as e:
-                    logger.error(f"Failed to extract PDF text from {filename}: {str(e)}\n{traceback.format_exc()}")
-                    print(f"      ❌ PDF text extraction failed: {e}")
-                    content_parts.append(f"Error processing PDF: {e}")
-                
-                # Extract tables and include as text
-                if extract_tables:
-                    tables = _extract_tables_from_pdf(input_path, doc_name, extract_tables)
-                    if tables:
-                        print(f"      📊 Extracted {len(tables)} tables")
-                        content_parts.append("\n" + "="*40)
-                        content_parts.append("EXTRACTED TABLES")
-                        content_parts.append("="*40)
-                        
-                        for i, table_info in enumerate(tables, 1):
-                            content_parts.append(f"\nTable {i} (Method: {table_info['method']}):")
-                            content_parts.append("-" * 30)
-                            # Read and include table content as text
-                            try:
-                                import pandas as pd
-                                df = pd.read_csv(table_info['path'])
-                                content_parts.append(df.to_string(index=False))
-                                content_parts.append("")
-                                # Clean up the temporary CSV file
-                                Path(table_info['path']).unlink(missing_ok=True)
-                            except Exception as e:
-                                content_parts.append(f"Error reading table: {e}")
-                                content_parts.append("")
-                    
-            elif filename.lower().endswith(".docx"):
-                print(f"      📄 Processing DOCX...")
-                try:
-                    if DOCX_AVAILABLE:
-                        doc = DocxDocument(input_path)
-                        full_text = "\n\n".join([para.text for para in doc.paragraphs])
-                        cleaned_text = strip_document_metadata(full_text)
-                        content_parts.append(cleaned_text)
-                        logger.info(f"Successfully processed DOCX file {filename}")
-                    else:
-                        raise ImportError("DOCX processing not available")
-                except Exception as e:
-                    logger.error(f"Failed to process DOCX file {filename}: {str(e)}\n{traceback.format_exc()}")
-                    print(f"      ❌ DOCX processing failed: {e}")
-                    content_parts.append(f"Error processing DOCX: {e}")
+            # Determine file type and process accordingly
+            file_ext = os.path.splitext(filename)[1].lower()
             
-            elif filename.lower().endswith((".png", ".jpg", ".jpeg", ".tiff", ".bmp")) and enable_ocr:
-                print(f"      🔍 Processing image with OCR...")
-                ocr_text = _process_image_with_ocr(input_path)
-                if ocr_text:
-                    print(f"      🔍 OCR extracted {len(ocr_text)} characters")
-                    cleaned_text = strip_document_metadata(ocr_text)
-                    content_parts.append(cleaned_text)
-                else:
-                    content_parts.append("No text could be extracted from this image.")
-                        
+            if file_ext == '.pdf':
+                # Process PDF with enhanced extraction
+                text_content = _process_pdf_enhanced(
+                    file_path, filename, 
+                    extract_image_text=extract_image_text,
+                    extract_tables=extract_tables
+                )
+                
+            elif file_ext == '.docx':
+                # Process DOCX files
+                text_content = _process_docx(file_path)
+                
+            elif file_ext == '.txt':
+                # Process TXT files  
+                text_content = _process_txt(file_path)
+                
+            elif file_ext in ['.png', '.jpg', '.jpeg', '.tiff', '.bmp'] and enable_ocr:
+                # Process image files with OCR
+                text_content = _process_image_with_ocr(file_path)
+                
             else:
-                print(f"      📄 Processing text/other format...")
-                try:
-                    if LANGCHAIN_AVAILABLE:
-                        loader = UnstructuredLoader(input_path)
-                        documents = loader.load()
-                        full_text = "\n\n".join([doc.page_content for doc in documents])
-                    else:
-                        # Fallback to basic text reading
-                        with open(input_path, 'r', encoding='utf-8') as f:
-                            full_text = f.read()
-                    
-                    cleaned_text = strip_document_metadata(full_text)
-                    content_parts.append(cleaned_text)
-                    logger.info(f"Successfully processed text file {filename}")
-                except Exception as e:
-                    logger.error(f"Failed to process text file {filename}: {str(e)}\n{traceback.format_exc()}")
-                    print(f"      ❌ Text processing failed: {e}")
-                    content_parts.append(f"Error processing file: {e}")
+                logger.warning(f"⚠️ Unsupported file type: {filename}")
+                failed_conversions += 1
+                continue
 
-            # Combine all content into final document
-            final_content = "\n".join(content_parts)
-            
-            # Save the simple text content
-            with open(output_path, "w", encoding="utf-8") as f:
-                f.write(final_content)
-
-            print(f"   ✅ Success! Simple text saved to: {output_path}")
+            # Clean the extracted text
+            if text_content:
+                cleaned_content = strip_document_metadata(text_content)
+                
+                # Save to output file
+                output_filename = os.path.splitext(filename)[0] + '.txt'
+                output_path = os.path.join(output_dir, output_filename)
+                
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    f.write(cleaned_content)
+                
+                logger.info(f"✅ Processed: {filename} → {output_filename}")
+                successful_conversions += 1
+            else:
+                logger.warning(f"⚠️ No content extracted from: {filename}")
+                failed_conversions += 1
 
         except Exception as e:
-            logger.error(f"Critical error processing {filename}: {str(e)}\n{traceback.format_exc()}")
-            print(f"   ❌ Error processing {filename}: {e}")
-            # Continue with next file instead of crashing
+            logger.error(f"❌ Error processing {filename}: {str(e)}")
+            failed_conversions += 1
             continue
 
-    print(f"\n🎉 All files processed as simple text.")
-    
-    # Clean up any remaining temporary table files
-    table_dir = Path("data/02_processed/extracted_tables")
-    if table_dir.exists():
-        for temp_file in table_dir.glob("*.csv"):
-            temp_file.unlink(missing_ok=True)
-        # Remove the directory if it's empty
-        try:
-            table_dir.rmdir()
-        except OSError:
-            pass  # Directory not empty, that's fine
-    
-    print(f"\n📊 Simple Text Processing Summary:")
-    print(f"   📄 All content converted to simple text format")
-    print(f"   🚫 No image files created")
-    print(f"   📊 Tables included as formatted text")
-    print(f"   🔍 OCR text extraction: {'Enabled' if extract_image_text else 'Disabled'}")
+    # Final summary
+    logger.info(f"\n📊 Document Processing Complete")
+    logger.info(f"   ✅ Successfully processed: {successful_conversions} files")
+    if failed_conversions > 0:
+        logger.info(f"   ❌ Failed to process: {failed_conversions} files")
+    logger.info(f"   📁 Output directory: {output_dir}")
+
+    # Extract tables if requested
+    if extract_tables:
+        table_dir = Path(output_dir).parent / "extracted_tables"
+        if table_dir.exists():
+            table_count = len(list(table_dir.glob("*.csv")))
+            if table_count > 0:
+                logger.info(f"   📊 Extracted {table_count} tables to: {table_dir}")
+
+    logger.info(f"🎉 Document processing completed!")
 
 def main():
     """Simple document processing - converts everything to text without creating image files."""

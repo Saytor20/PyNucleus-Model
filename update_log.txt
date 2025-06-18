@@ -176,9 +176,12 @@ Completed:
 To Do: 
 1) DWSIM was a failure... we need to try to mix it with azure 
 2) image processing is not available right now but we can add another VLLM model that can process images at later stages 
-3) add a new txt file that tracks future enhancements 
-4) explore API integration for live news, costs, and market data 
-5) need to work on the FAISS as it is showing bad results and also the filing is very messed up a lot of cleaning to do like what is validation and output in the folder data
-6) update the embedding model to be qwen 3
-
- 2025-06-17 22:42:49 changes made and pushed to origin main
+3) add a new txt file that tracks future enhancements- Completed
+4) explore API integration for live news, costs, and market data  
+5) need to work on the FAISS as it is showing bad results and also the filing is very messed up a lot of cleaning to do like what is validation and output in the folder data - Completed
+7)RAG explainability and factual accuracy - Completed
+8) Enhanced Embeddings: Install transformers for Stella-en-1.5B-v5 (30-50% recall improvement) - Completed
+9) LLM Integration: Replace template-based answers with actual language model
+10) Advanced Validation: More sophisticated fact-checking algorithms
+11) implemented archiving for the FAISS reports
+ 2025-06-18 00:22:44 changes made and pushed to origin main

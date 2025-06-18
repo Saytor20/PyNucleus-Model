@@ -1,0 +1,45 @@
+PYNUCLEUS SYSTEM DIAGNOSTIC & TESTING REPORT
+Generated: 2025-06-17 23:36:15
+Duration: 26.3 seconds
+
+EXECUTIVE SUMMARY
+System Health: 100.0% (EXCELLENT)
+Checks Performed: 11
+Checks Passed: 11
+Checks Failed: 0
+
+DETAILED RESULTS
+
+PASSED CHECKS (11):
+- Python Environment
+- Pipeline Functionality
+- Enhanced Pipeline Components
+- Enhanced Content Generation
+- RAG System
+- Token Utilities System
+- LLM Utilities System
+- Jinja2 Prompts System
+- DWSIM Environment
+- Docker Environment
+- Data Consolidation Deliverables
+
+RECOMMENDATIONS:
+- All systems operational. PyNucleus is ready for production use.
+
+SYSTEM CAPABILITIES:
+- RAG Pipeline: Document processing and retrieval
+- DWSIM Pipeline: Chemical process simulation
+- Results Export: CSV and LLM-ready formats
+- Enhanced Integration: DWSIM-RAG combined analysis
+- Financial Analysis: ROI and profitability calculations
+- Token Utilities: Efficient token counting with HuggingFace tokenizers
+- LLM Utilities: Streamlined interface for querying Hugging Face LLM models
+- Jinja2 Prompts System: Standardized LLM prompt templates
+- Mock Testing: Comprehensive testing with simulated data
+
+SYSTEM USAGE:
+- CLI Tool: python run_pipeline.py run --config-path configs/my.json
+- Jupyter Notebook: Capstone Project.ipynb for interactive development
+- System Environment: python scripts/comprehensive_system_diagnostic.py
+- Script Validation: python scripts/system_validator.py
+- Test Suite: python scripts/comprehensive_system_diagnostic.py --test

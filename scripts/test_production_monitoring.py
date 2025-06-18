@@ -19,7 +19,7 @@ from dataclasses import dataclass
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
-from pynucleus.rag.vector_store import FAISSDBManager
+from pynucleus.rag.vector_store import EnhancedFAISSDBManager
 from pynucleus.rag.embedding_monitor import EmbeddingMonitor
 
 @dataclass
@@ -71,7 +71,7 @@ def create_ground_truth_dataset() -> Dict[str, Dict]:
         }
     }
 
-def test_ground_truth_validation(manager: FAISSDBManager, ground_truth: Dict) -> Dict[str, Any]:
+def test_ground_truth_validation(manager: EnhancedFAISSDBManager, ground_truth: Dict) -> Dict[str, Any]:
     """Test ground truth validation with known answers."""
     print("\n🧪 Testing Ground-Truth Validation...")
     
@@ -146,7 +146,7 @@ def test_ground_truth_validation(manager: FAISSDBManager, ground_truth: Dict) ->
     
     return results
 
-def test_citation_backtracking(manager: FAISSDBManager) -> Dict[str, Any]:
+def test_citation_backtracking(manager: EnhancedFAISSDBManager) -> Dict[str, Any]:
     """Test citation backtracking capabilities."""
     print("\n📚 Testing Citation Backtracking...")
     
@@ -298,9 +298,10 @@ def test_production_monitoring():
     
     # Initialize vector store with production settings
     print("\n1️⃣ Initializing Production Vector Store...")
-    manager = FAISSDBManager(
-        model_name="sentence-transformers/all-MiniLM-L6-v2",
-        log_dir="data/04_models/chunk_reports"
+    manager = EnhancedFAISSDBManager(
+        db_path="data/04_models/chunk_reports/test_production.faiss",
+        embedding_model_type="stella",
+        batch_size=8
     )
     
     # Create test documents (simulating production data)
