@@ -1,0 +1,46 @@
+2025-06-18 14:30:49,122 | INFO | UNIFIED PYNUCLEUS DIAGNOSTIC RUNNER
+2025-06-18 14:30:49,122 | INFO | ======================================================================
+2025-06-18 14:30:49,122 | INFO | Consolidated system diagnostics and validation
+2025-06-18 14:30:49,122 | INFO | Running Full Diagnostic
+2025-06-18 14:30:49,122 | INFO | Created temporary test directory: /var/folders/9z/fhqbcx0d6sqc_273srv0dv300000gn/T/pynucleus_test_sd5qk8v6
+2025-06-18 14:30:49,123 | INFO | Created test file: test_template.csv
+2025-06-18 14:30:49,123 | INFO | Created test file: test_template.json
+2025-06-18 14:30:49,123 | INFO | ============================================================
+2025-06-18 14:30:49,123 | INFO | SECTION: PYTHON ENVIRONMENT CHECK
+2025-06-18 14:30:49,123 | INFO | ============================================================
+2025-06-18 14:30:49,123 | INFO | Python version: 3.13.4
+2025-06-18 14:30:49,153 | INFO | numpy (required) - AVAILABLE
+2025-06-18 14:30:49,335 | INFO | pandas (required) - AVAILABLE
+2025-06-18 14:30:49,395 | INFO | requests (required) - AVAILABLE
+2025-06-18 14:30:49,397 | INFO | tqdm (required) - AVAILABLE
+2025-06-18 14:30:49,409 | INFO | jinja2 (required) - AVAILABLE
+2025-06-18 14:30:49,409 | INFO | pythonnet (optional) - MISSING
+2025-06-18 14:30:49,409 | INFO | scikit-learn (optional) - MISSING
+2025-06-18 14:30:49,409 | INFO | faiss-cpu (optional) - MISSING
+2025-06-18 14:30:49,409 | INFO | python-dotenv (optional) - MISSING
+2025-06-18 14:30:49,409 | INFO | beautifulsoup4 (optional) - MISSING
+2025-06-18 14:30:49,409 | INFO | Check Result: Python Environment - PASSED
+2025-06-18 14:30:49,409 | INFO | ============================================================
+2025-06-18 14:30:49,409 | INFO | SECTION: RAG SYSTEM CHECK
+2025-06-18 14:30:49,409 | INFO | ============================================================
+2025-06-18 14:30:49,411 | INFO | RAGPipeline imported successfully
+2025-06-18 14:30:49,411 | INFO | RAGPipeline initialized successfully
+2025-06-18 14:30:49,411 | INFO | Check Result: RAG System - PASSED
+2025-06-18 14:30:49,411 | INFO | ============================================================
+2025-06-18 14:30:49,411 | INFO | SECTION: DWSIM INTEGRATION CHECK (Optional)
+2025-06-18 14:30:49,411 | INFO | ============================================================
+2025-06-18 14:30:49,411 | INFO | DWSIMPipeline imported successfully
+2025-06-18 14:30:49,411 | INFO | DWSIMPipeline initialized successfully
+2025-06-18 14:30:49,411 | INFO | Check Result: DWSIM Integration - PASSED
+2025-06-18 14:30:49,411 | INFO | Cleaned up temporary test directory
+2025-06-18 14:30:49,411 | INFO | ============================================================
+2025-06-18 14:30:49,411 | INFO | SECTION: DIAGNOSTIC SUMMARY
+2025-06-18 14:30:49,411 | INFO | ============================================================
+2025-06-18 14:30:49,411 | INFO | Duration: 0.3 seconds
+2025-06-18 14:30:49,411 | INFO | Checks: 3/3 passed (100.0%)
+2025-06-18 14:30:49,411 | INFO | System health: EXCELLENT
+2025-06-18 14:30:49,411 | INFO | DETAILED RESULTS:
+2025-06-18 14:30:49,411 | INFO |   Python Environment: PASSED
+2025-06-18 14:30:49,411 | INFO |   RAG System: PASSED
+2025-06-18 14:30:49,411 | INFO |   DWSIM Integration: PASSED
+2025-06-18 14:30:49,411 | INFO | Detailed log saved: logs/diagnostic_runner_20250618_143049.log

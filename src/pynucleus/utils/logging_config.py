@@ -1,5 +1,6 @@
 """
 Logging configuration for PyNucleus system.
+Provides centralized logging setup to replace logging.basicConfig usage.
 """
 
 import logging
@@ -10,78 +11,126 @@ from pathlib import Path
 from typing import Optional
 from datetime import datetime
 
-def setup_logging(
-    debug: bool = False,
-    log_file: Optional[Path] = None,
-    console_output: bool = True,
-    file_output: bool = True
-) -> logging.Logger:
+def configure_logging(level: str = "INFO", log_file: Optional[Path] = None) -> logging.Logger:
     """
-    Setup comprehensive logging configuration for PyNucleus.
+    Central logging configuration function to replace logging.basicConfig usage.
     
     Args:
-        debug: Enable debug level logging
-        log_file: Custom log file path
-        console_output: Enable console logging
-        file_output: Enable file logging
+        level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        log_file: Optional log file path
         
     Returns:
         Root logger instance
+    """
+    # Convert string level to logging constant
+    numeric_level = getattr(logging, level.upper(), logging.INFO)
+    
+    # Create logs directory
+    logs_dir = Path("logs")
+    logs_dir.mkdir(exist_ok=True)
+    
+    # Set default log file if not provided
+    if not log_file:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_file = logs_dir / f"pynucleus_{timestamp}.log"
+    
+    # Configure root logger
+    root_logger = logging.getLogger()
+    root_logger.setLevel(numeric_level)
+    
+    # Clear existing handlers to avoid duplicates
+    for handler in root_logger.handlers[:]:
+        root_logger.removeHandler(handler)
+    
+    # Create formatters
+    console_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    file_formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(filename)s:%(lineno)d | %(message)s')
+    
+    # Add console handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(numeric_level)
+    console_handler.setFormatter(console_formatter)
+    root_logger.addHandler(console_handler)
+    
+    # Add file handler
+    file_handler = logging.FileHandler(log_file, mode='a', encoding='utf-8')
+    file_handler.setLevel(numeric_level)
+    file_handler.setFormatter(file_formatter)
+    root_logger.addHandler(file_handler)
+    
+    return root_logger
+
+def setup_diagnostic_logging(diagnostic_name: str, timestamp: Optional[str] = None) -> tuple[logging.Logger, logging.Logger, Path]:
+    """
+    Setup specialized logging for diagnostic tools with both file and console loggers.
+    
+    Args:
+        diagnostic_name: Name of the diagnostic tool (e.g., 'system_diagnostic', 'system_validator')
+        timestamp: Optional timestamp string for log file naming
+        
+    Returns:
+        Tuple of (file_logger, console_logger, log_file_path)
     """
     # Create logs directory
     logs_dir = Path("logs")
     logs_dir.mkdir(exist_ok=True)
     
-    # Set log file
-    if not log_file:
+    # Create timestamp for unique log file
+    if not timestamp:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        log_file = logs_dir / f"pynucleus_{timestamp}.log"
+    log_file = logs_dir / f"{diagnostic_name}_{timestamp}.log"
     
-    # Set logging level
-    log_level = logging.DEBUG if debug else logging.INFO
+    # Setup file logger (clean format without symbols)
+    file_logger = logging.getLogger(f'{diagnostic_name}_file')
+    file_logger.setLevel(logging.INFO)
     
-    # Create formatters
-    detailed_formatter = logging.Formatter(
-        '%(asctime)s | %(name)s | %(levelname)s | %(filename)s:%(lineno)d | %(message)s'
-    )
+    # Remove existing handlers to avoid duplicates
+    for handler in file_logger.handlers[:]:
+        file_logger.removeHandler(handler)
+        
+    file_handler = logging.FileHandler(log_file)
+    file_formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+    file_handler.setFormatter(file_formatter)
+    file_logger.addHandler(file_handler)
     
-    simple_formatter = logging.Formatter(
-        '%(asctime)s | %(levelname)s | %(message)s'
-    )
+    # Setup console logger (with symbols for better UX)
+    console_logger = logging.getLogger(f'{diagnostic_name}_console')
+    console_logger.setLevel(logging.INFO)
     
-    # Configure root logger
-    root_logger = logging.getLogger()
-    root_logger.setLevel(log_level)
+    # Remove existing handlers to avoid duplicates
+    for handler in console_logger.handlers[:]:
+        console_logger.removeHandler(handler)
+        
+    console_handler = logging.StreamHandler()
+    console_formatter = logging.Formatter('%(message)s')
+    console_handler.setFormatter(console_formatter)
+    console_logger.addHandler(console_handler)
     
-    # Clear existing handlers
-    for handler in root_logger.handlers[:]:
-        root_logger.removeHandler(handler)
+    return file_logger, console_logger, log_file
+
+def clean_message_for_file(message: str) -> str:
+    """
+    Remove symbols and emojis from message for clean file logging.
     
-    # Add console handler
-    if console_output:
-        console_handler = logging.StreamHandler(sys.stdout)
-        console_handler.setLevel(log_level)
-        console_handler.setFormatter(simple_formatter)
-        root_logger.addHandler(console_handler)
+    Args:
+        message: Message with potential symbols/emojis
+        
+    Returns:
+        Clean message without symbols
+    """
+    symbols_to_remove = [
+        "✅", "❌", "⚠️", "🔍", "📊", "🎉", "🔧", "📁", "📋", "🚀", "🟢", "🟡", "🔴", 
+        "ℹ️", "📄", "💾", "🐍", "─", "═", "•", "▶", "⏭️", "🧪", "1️⃣", "2️⃣", "3️⃣", 
+        "4️⃣", "5️⃣", "6️⃣", "7️⃣", "🗑️", "💡"
+    ]
     
-    # Add file handler
-    if file_output:
-        file_handler = logging.FileHandler(log_file, mode='a', encoding='utf-8')
-        file_handler.setLevel(log_level)
-        file_handler.setFormatter(detailed_formatter)
-        root_logger.addHandler(file_handler)
+    clean_msg = message
+    for symbol in symbols_to_remove:
+        clean_msg = clean_msg.replace(symbol, "")
     
-    # Log initial setup message
-    root_logger.info("=" * 60)
-    root_logger.info("PyNucleus Logging System Initialized")
-    root_logger.info(f"Log Level: {logging.getLevelName(log_level)}")
-    root_logger.info(f"Console Output: {console_output}")
-    root_logger.info(f"File Output: {file_output}")
-    if file_output:
-        root_logger.info(f"Log File: {log_file}")
-    root_logger.info("=" * 60)
-    
-    return root_logger
+    # Clean up extra spaces
+    clean_msg = " ".join(clean_msg.split())
+    return clean_msg.strip()
 
 def get_logger(name: str) -> logging.Logger:
     """

@@ -30,7 +30,7 @@ if src_path not in sys.path:
 
 from pynucleus.integration.config_manager import ConfigManager
 from pynucleus.pipeline.pipeline_utils import run_full_pipeline
-from pynucleus.utils.logging_config import setup_logging, get_logger, log_system_info
+from pynucleus.utils.logging_config import configure_logging, get_logger, log_system_info
 from pynucleus.llm.query_llm import LLMQueryManager
 
 app = typer.Typer(
@@ -80,11 +80,9 @@ def run_pipeline(
     # Initialize robust logging configuration
     try:
         # Setup logging with enhanced configuration
-        logger = setup_logging(
-            debug=verbose,
-            log_file=log_file,
-            console_output=True,
-            file_output=True
+        logger = configure_logging(
+            level="DEBUG" if verbose else "INFO",
+            log_file=log_file
         )
         
         # Get CLI-specific logger
@@ -153,11 +151,9 @@ def pipeline_and_ask(
     
     try:
         # Setup logging
-        logger = setup_logging(
-            debug=verbose,
-            log_file=log_file,
-            console_output=True,
-            file_output=True
+        logger = configure_logging(
+            level="DEBUG" if verbose else "INFO",
+            log_file=log_file
         )
         
         cli_logger = get_logger(__name__)
@@ -283,7 +279,7 @@ def test_logging():
     """Test the logging configuration."""
     
     # Setup logging in test mode
-    logger = setup_logging(debug=True, force_reconfigure=True)
+    logger = configure_logging(level="DEBUG")
     cli_logger = get_logger("test")
     
     print("🧪 Testing logging configuration...")

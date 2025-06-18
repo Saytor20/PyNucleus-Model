@@ -182,8 +182,10 @@ To Do:
 7)RAG explainability and factual accuracy - Completed
 8) Enhanced Embeddings: Install transformers for Stella-en-1.5B-v5 (30-50% recall improvement) - Completed
 9) LLM Integration: Replace template-based answers with actual language model
-10) Advanced Validation: More sophisticated fact-checking algorithms
-11) implemented archiving for the FAISS reports
+10) Advanced Validation: More sophisticated fact-checking algorithms -
+11) implemented archiving for the FAISS reports - completed
 12) fix the token counter 
-13) fix notebooks
- 2025-06-18 14:13:10 changes made and pushed to origin main
+13) fix notebooks - completed 
+14) review of all the codes with 100% system diognostic - completed
+16) Consolidate Diagnostics & Loggings- completed
+ 2025-06-18 15:03:27 changes made and pushed to origin main

@@ -30,7 +30,18 @@ import logging
 from datetime import datetime
 
 # Setup logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Use centralized logging configuration
+import sys
+from pathlib import Path
+
+# Add src to path for centralized logging import  
+root_dir = Path(__file__).parent.parent
+src_path = str(root_dir / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.utils.logging_config import configure_logging
+configure_logging("INFO")
 logger = logging.getLogger(__name__)
 
 class EnhancedTextCleaner:

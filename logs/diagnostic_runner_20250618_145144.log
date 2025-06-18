@@ -1,0 +1,174 @@
+2025-06-18 14:51:44,162 | INFO | Starting Comprehensive PyNucleus System Diagnostic...
+2025-06-18 14:51:44,162 | INFO | Started at: 2025-06-18 14:51:44
+2025-06-18 14:51:44,162 | INFO | === PYTHON ENVIRONMENT CHECK ===
+2025-06-18 14:51:44,162 | INFO | Python Version: 3.13.1 (v3.13.1:06714517797, Dec 3 2024, 14:00:22) [Clang 15.0.0 (clang-1500.3.9.4)]
+2025-06-18 14:51:44,162 | INFO | Python Version: PASSED
+2025-06-18 14:51:44,162 | WARNING | - Version 3.13 meets requirements
+2025-06-18 14:51:44,162 | INFO | Python executable: /usr/local/bin/python3
+2025-06-18 14:51:44,162 | INFO | Python path includes src: True
+2025-06-18 14:51:44,162 | INFO | === COMPREHENSIVE DEPENDENCIES CHECK ===
+2025-06-18 14:51:44,162 | INFO | Core Dependencies:
+2025-06-18 14:51:44,162 | INFO | numpy: PASSED
+2025-06-18 14:51:44,162 | WARNING | - Package available
+2025-06-18 14:51:44,162 | INFO | pandas: PASSED
+2025-06-18 14:51:44,162 | WARNING | - Package available
+2025-06-18 14:51:44,230 | INFO | requests: PASSED
+2025-06-18 14:51:44,230 | WARNING | - Package available
+2025-06-18 14:51:44,231 | INFO | tqdm: PASSED
+2025-06-18 14:51:44,231 | WARNING | - Package available
+2025-06-18 14:51:44,245 | INFO | jinja2: PASSED
+2025-06-18 14:51:44,245 | WARNING | - Package available
+2025-06-18 14:51:44,245 | INFO | typer: PASSED
+2025-06-18 14:51:44,245 | WARNING | - Package available
+2025-06-18 14:51:44,245 | INFO | pathlib: PASSED
+2025-06-18 14:51:44,245 | WARNING | - Package available
+2025-06-18 14:51:44,245 | INFO | dataclasses: PASSED
+2025-06-18 14:51:44,245 | WARNING | - Package available
+2025-06-18 14:51:44,251 | INFO | asyncio: PASSED
+2025-06-18 14:51:44,251 | WARNING | - Package available
+2025-06-18 14:51:44,251 | INFO | concurrent: PASSED
+2025-06-18 14:51:44,251 | WARNING | - Package available
+2025-06-18 14:51:44,251 | INFO | Optional Dependencies:
+2025-06-18 14:51:44,251 | INFO | jupyter: PASSED
+2025-06-18 14:51:44,251 | WARNING | - Package available
+2025-06-18 14:51:44,252 | INFO | notebook: PASSED
+2025-06-18 14:51:44,252 | WARNING | - Package available
+2025-06-18 14:51:44,252 | INFO | faiss-cpu: PASSED
+2025-06-18 14:51:44,252 | WARNING | - Optional package - not required
+2025-06-18 14:51:45,168 | INFO | transformers: PASSED
+2025-06-18 14:51:45,168 | WARNING | - Package available
+2025-06-18 14:51:45,168 | INFO | torch: PASSED
+2025-06-18 14:51:45,168 | WARNING | - Package available
+2025-06-18 14:51:45,168 | INFO | === DOCKER ENVIRONMENT CHECK ===
+2025-06-18 14:51:45,188 | INFO | Docker Availability: PASSED
+2025-06-18 14:51:45,188 | WARNING | - Version: Docker version 28.1.1, build 4eba377
+2025-06-18 14:51:45,188 | INFO | === DIRECTORY STRUCTURE CHECK ===
+2025-06-18 14:51:45,188 | INFO | Directory: src/pynucleus: PASSED
+2025-06-18 14:51:45,188 | WARNING | - Required directory exists
+2025-06-18 14:51:45,188 | INFO | Directory: configs: PASSED
+2025-06-18 14:51:45,188 | WARNING | - Required directory exists
+2025-06-18 14:51:45,188 | INFO | Directory: data: PASSED
+2025-06-18 14:51:45,188 | WARNING | - Required directory exists
+2025-06-18 14:51:45,188 | INFO | Directory: logs: PASSED
+2025-06-18 14:51:45,188 | WARNING | - Required directory exists
+2025-06-18 14:51:45,188 | INFO | Directory: scripts: PASSED
+2025-06-18 14:51:45,188 | WARNING | - Required directory exists
+2025-06-18 14:51:45,188 | INFO | Optional directory found: data/05_output/llm_reports
+2025-06-18 14:51:45,188 | INFO | Optional directory found: data/validation/diagnostic_results
+2025-06-18 14:51:45,188 | INFO | Optional directory found: dwsim_rag_integration
+2025-06-18 14:51:45,188 | INFO | === COMPREHENSIVE SCRIPT VALIDATION ===
+2025-06-18 14:51:45,188 | INFO | --- Validating Core Pipeline Scripts ---
+2025-06-18 14:51:45,190 | INFO | src/pynucleus/pipeline/results_exporter.py - Syntax OK
+2025-06-18 14:51:45,190 | INFO | src/pynucleus/pipeline/results_exporter.py - Imports OK
+2025-06-18 14:51:45,190 | INFO | src/pynucleus/pipeline/results_exporter.py - Execution OK
+2025-06-18 14:51:45,190 | INFO | src/pynucleus/pipeline/results_exporter.py - Overall: HEALTHY
+2025-06-18 14:51:45,191 | INFO | src/pynucleus/pipeline/pipeline_rag.py - Syntax OK
+2025-06-18 14:51:45,191 | INFO | src/pynucleus/pipeline/pipeline_rag.py - Imports OK
+2025-06-18 14:51:45,191 | INFO | src/pynucleus/pipeline/pipeline_rag.py - Execution OK
+2025-06-18 14:51:45,191 | INFO | src/pynucleus/pipeline/pipeline_rag.py - Overall: HEALTHY
+2025-06-18 14:51:45,192 | INFO | src/pynucleus/pipeline/pipeline_dwsim.py - Syntax OK
+2025-06-18 14:51:45,192 | INFO | src/pynucleus/pipeline/pipeline_dwsim.py - Imports OK
+2025-06-18 14:51:45,192 | INFO | src/pynucleus/pipeline/pipeline_dwsim.py - Execution OK
+2025-06-18 14:51:45,192 | INFO | src/pynucleus/pipeline/pipeline_dwsim.py - Overall: HEALTHY
+2025-06-18 14:51:45,192 | INFO | src/pynucleus/pipeline/__init__.py - Syntax OK
+2025-06-18 14:51:45,192 | INFO | src/pynucleus/pipeline/__init__.py - Imports OK
+2025-06-18 14:51:45,193 | WARNING | src/pynucleus/pipeline/__init__.py - Execution warning: No module named 'test_module'...
+2025-06-18 14:51:45,193 | WARNING | src/pynucleus/pipeline/__init__.py - Overall: ISSUES FOUND
+2025-06-18 14:51:45,195 | INFO | src/pynucleus/pipeline/pipeline_utils.py - Syntax OK
+2025-06-18 14:51:45,195 | INFO | src/pynucleus/pipeline/pipeline_utils.py - Imports OK
+2025-06-18 14:51:45,195 | INFO | src/pynucleus/pipeline/pipeline_utils.py - Execution OK
+2025-06-18 14:51:45,195 | INFO | src/pynucleus/pipeline/pipeline_utils.py - Overall: HEALTHY
+2025-06-18 14:51:45,197 | INFO | src/pynucleus/rag/vector_store.py - Syntax OK
+2025-06-18 14:51:45,197 | INFO | src/pynucleus/rag/vector_store.py - Imports OK
+2025-06-18 14:51:45,197 | INFO | src/pynucleus/rag/vector_store.py - Execution OK
+2025-06-18 14:51:45,197 | INFO | src/pynucleus/rag/vector_store.py - Overall: HEALTHY
+2025-06-18 14:51:45,198 | INFO | src/pynucleus/rag/embedding_monitor.py - Syntax OK
+2025-06-18 14:51:45,198 | INFO | src/pynucleus/rag/embedding_monitor.py - Imports OK
+2025-06-18 14:51:45,199 | INFO | src/pynucleus/rag/embedding_monitor.py - Execution OK
+2025-06-18 14:51:45,199 | INFO | src/pynucleus/rag/embedding_monitor.py - Overall: HEALTHY
+2025-06-18 14:51:45,199 | INFO | src/pynucleus/rag/document_processor.py - Syntax OK
+2025-06-18 14:51:45,199 | INFO | src/pynucleus/rag/document_processor.py - Imports OK
+2025-06-18 14:51:45,199 | INFO | src/pynucleus/rag/document_processor.py - Execution OK
+2025-06-18 14:51:45,199 | INFO | src/pynucleus/rag/document_processor.py - Overall: HEALTHY
+2025-06-18 14:51:45,199 | INFO | src/pynucleus/rag/__init__.py - Syntax OK
+2025-06-18 14:51:45,199 | INFO | src/pynucleus/rag/__init__.py - Imports OK
+2025-06-18 14:51:45,200 | WARNING | src/pynucleus/rag/__init__.py - Execution warning: No module named 'test_module'...
+2025-06-18 14:51:45,200 | WARNING | src/pynucleus/rag/__init__.py - Overall: ISSUES FOUND
+2025-06-18 14:51:45,200 | INFO | src/pynucleus/rag/rag_core.py - Syntax OK
+2025-06-18 14:51:45,200 | INFO | src/pynucleus/rag/rag_core.py - Imports OK
+2025-06-18 14:51:45,201 | INFO | src/pynucleus/rag/rag_core.py - Execution OK
+2025-06-18 14:51:45,201 | INFO | src/pynucleus/rag/rag_core.py - Overall: HEALTHY
+2025-06-18 14:51:45,201 | INFO | Core Pipeline Scripts Health: PASSED
+2025-06-18 14:51:45,201 | WARNING | - 8/10 scripts healthy (80.0%)
+2025-06-18 14:51:45,201 | INFO | --- Validating Integration & LLM Scripts ---
+2025-06-18 14:51:45,202 | INFO | src/pynucleus/integration/config_manager.py - Syntax OK
+2025-06-18 14:51:45,202 | INFO | src/pynucleus/integration/config_manager.py - Imports OK
+2025-06-18 14:51:45,202 | INFO | src/pynucleus/integration/config_manager.py - Execution OK
+2025-06-18 14:51:45,202 | INFO | src/pynucleus/integration/config_manager.py - Overall: HEALTHY
+2025-06-18 14:51:45,202 | INFO | src/pynucleus/integration/__init__.py - Syntax OK
+2025-06-18 14:51:45,202 | INFO | src/pynucleus/integration/__init__.py - Imports OK
+2025-06-18 14:51:45,202 | WARNING | src/pynucleus/integration/__init__.py - Execution warning: No module named 'test_module'...
+2025-06-18 14:51:45,202 | WARNING | src/pynucleus/integration/__init__.py - Overall: ISSUES FOUND
+2025-06-18 14:51:45,203 | INFO | src/pynucleus/integration/llm_output_generator.py - Syntax OK
+2025-06-18 14:51:45,203 | INFO | src/pynucleus/integration/llm_output_generator.py - Imports OK
+2025-06-18 14:51:45,204 | INFO | src/pynucleus/integration/llm_output_generator.py - Execution OK
+2025-06-18 14:51:45,204 | INFO | src/pynucleus/integration/llm_output_generator.py - Overall: HEALTHY
+2025-06-18 14:51:45,204 | INFO | src/pynucleus/integration/dwsim_rag_integrator.py - Syntax OK
+2025-06-18 14:51:45,204 | INFO | src/pynucleus/integration/dwsim_rag_integrator.py - Imports OK
+2025-06-18 14:51:45,205 | INFO | src/pynucleus/integration/dwsim_rag_integrator.py - Execution OK
+2025-06-18 14:51:45,205 | INFO | src/pynucleus/integration/dwsim_rag_integrator.py - Overall: HEALTHY
+2025-06-18 14:51:45,205 | INFO | src/pynucleus/llm/query_llm.py - Syntax OK
+2025-06-18 14:51:45,205 | INFO | src/pynucleus/llm/query_llm.py - Imports OK
+2025-06-18 14:51:45,206 | INFO | src/pynucleus/llm/query_llm.py - Execution OK
+2025-06-18 14:51:45,206 | INFO | src/pynucleus/llm/query_llm.py - Overall: HEALTHY
+2025-06-18 14:51:45,206 | INFO | src/pynucleus/llm/__init__.py - Syntax OK
+2025-06-18 14:51:45,206 | INFO | src/pynucleus/llm/__init__.py - Imports OK
+2025-06-18 14:51:45,206 | WARNING | src/pynucleus/llm/__init__.py - Execution warning: No module named 'test_module'...
+2025-06-18 14:51:45,206 | WARNING | src/pynucleus/llm/__init__.py - Overall: ISSUES FOUND
+2025-06-18 14:51:45,207 | INFO | src/pynucleus/llm/llm_runner.py - Syntax OK
+2025-06-18 14:51:45,207 | INFO | src/pynucleus/llm/llm_runner.py - Imports OK
+2025-06-18 14:51:45,207 | INFO | src/pynucleus/llm/llm_runner.py - Execution OK
+2025-06-18 14:51:45,207 | INFO | src/pynucleus/llm/llm_runner.py - Overall: HEALTHY
+2025-06-18 14:51:45,208 | INFO | src/pynucleus/utils/logging_config.py - Syntax OK
+2025-06-18 14:51:45,208 | INFO | src/pynucleus/utils/logging_config.py - Imports OK
+2025-06-18 14:51:45,208 | INFO | src/pynucleus/utils/logging_config.py - Execution OK
+2025-06-18 14:51:45,208 | INFO | src/pynucleus/utils/logging_config.py - Overall: HEALTHY
+2025-06-18 14:51:45,208 | INFO | src/pynucleus/utils/__init__.py - Syntax OK
+2025-06-18 14:51:45,208 | INFO | src/pynucleus/utils/__init__.py - Imports OK
+2025-06-18 14:51:45,208 | WARNING | src/pynucleus/utils/__init__.py - Execution warning: No module named 'test_module'...
+2025-06-18 14:51:45,208 | WARNING | src/pynucleus/utils/__init__.py - Overall: ISSUES FOUND
+2025-06-18 14:51:45,209 | INFO | src/pynucleus/utils/token_utils.py - Syntax OK
+2025-06-18 14:51:45,209 | INFO | src/pynucleus/utils/token_utils.py - Imports OK
+2025-06-18 14:51:45,209 | INFO | src/pynucleus/utils/token_utils.py - Execution OK
+2025-06-18 14:51:45,209 | INFO | src/pynucleus/utils/token_utils.py - Overall: HEALTHY
+2025-06-18 14:51:45,209 | ERROR | Integration & LLM Scripts Health: FAILED
+2025-06-18 14:51:45,209 | WARNING | - 7/10 scripts healthy (70.0%)
+2025-06-18 14:51:45,209 | INFO | --- Validating Entry Point Scripts ---
+2025-06-18 14:51:45,210 | INFO | run_pipeline.py - Syntax OK
+2025-06-18 14:51:45,210 | INFO | run_pipeline.py - Imports OK
+2025-06-18 14:51:45,210 | INFO | run_pipeline.py - Entry point (skipped execution)
+2025-06-18 14:51:45,210 | INFO | run_pipeline.py - Overall: HEALTHY
+2025-06-18 14:51:45,210 | INFO | src/pynucleus/cli.py - Syntax OK
+2025-06-18 14:51:45,210 | INFO | src/pynucleus/cli.py - Imports OK
+2025-06-18 14:51:45,210 | INFO | src/pynucleus/cli.py - Entry point (skipped execution)
+2025-06-18 14:51:45,210 | INFO | src/pynucleus/cli.py - Overall: HEALTHY
+2025-06-18 14:51:45,210 | INFO | Entry Point Scripts Health: PASSED
+2025-06-18 14:51:45,210 | WARNING | - 2/2 scripts healthy (100.0%)
+2025-06-18 14:51:45,210 | INFO | --- Validating Test Scripts ---
+2025-06-18 14:51:45,212 | INFO | scripts/test_production_monitoring.py - Syntax OK
+2025-06-18 14:51:45,212 | INFO | scripts/test_production_monitoring.py - Imports OK
+2025-06-18 14:51:45,214 | INFO | scripts/test_production_monitoring.py - Execution OK
+2025-06-18 14:51:45,214 | INFO | scripts/test_production_monitoring.py - Overall: HEALTHY
+2025-06-18 14:51:45,215 | INFO | scripts/test_production_monitoring.py - Syntax OK
+2025-06-18 14:51:45,215 | INFO | scripts/test_production_monitoring.py - Imports OK
+2025-06-18 14:51:45,216 | INFO | scripts/test_production_monitoring.py - Execution OK
+2025-06-18 14:51:45,216 | INFO | scripts/test_production_monitoring.py - Overall: HEALTHY
+2025-06-18 14:51:45,216 | INFO | Test Scripts Health: PASSED
+2025-06-18 14:51:45,216 | WARNING | - 2/2 scripts healthy (100.0%)
+2025-06-18 14:51:45,216 | INFO | --- Validating Automation Scripts ---
+2025-06-18 14:51:45,216 | INFO | automation_tools/run_intel_system.py - Syntax OK
+2025-06-18 14:51:45,216 | INFO | automation_tools/run_intel_system.py - Imports OK
+2025-06-18 14:51:45,217 | INFO | automation_tools/run_intel_system.py - Execution OK
+2025-06-18 14:51:45,217 | INFO | automation_tools/run_intel_system.py - Overall: HEALTHY
+2025-06-18 14:51:45,217 | INFO | automation_tools/sim_to_csv.py - Syntax OK
+2025-06-18 14:51:45,217 | INFO | automation_tools/sim_to_csv.py - Imports OK

@@ -26,8 +26,9 @@ except ImportError as e:
     print(f"Error importing RAGPipeline: {e}")
     sys.exit(1)
 
-# Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# Set up logging using centralized configuration
+from pynucleus.utils.logging_config import configure_logging
+configure_logging("INFO")
 logger = logging.getLogger(__name__)
 
 
