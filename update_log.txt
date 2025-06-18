@@ -162,4 +162,23 @@ To Do:
 
  2025-06-13 21:38:04 changes made and pushed to origin main
 
- 2025-06-13 23:22:07 changes made and pushed to origin main
+2025-06-16 22:34:15 changes made and pushed to origin main
+
+Completed:
+1) ✅ update chunking to include metdata to remove titles and pages - COMPLETED
+   - Implemented efficient metadata stripping with pre-compiled regexes
+   - Added Counter-based frequency analysis for repeated headers/footers  
+   - Enhanced chunking pipeline with standardized JSON output format
+   - Added comprehensive test suite with 9 passing tests
+   - Created demo script showcasing metadata removal capabilities
+   - Fixed import issues and ensured proper function integration
+
+To Do: 
+1) DWSIM was a failure... we need to try to mix it with azure 
+2) image processing is not available right now but we can add another VLLM model that can process images at later stages 
+3) add a new txt file that tracks future enhancements 
+4) explore API integration for live news, costs, and market data 
+5) need to work on the FAISS as it is showing bad results and also the filing is very messed up a lot of cleaning to do like what is validation and output in the folder data
+6) update the embedding model to be qwen 3
+
+ 2025-06-17 22:42:49 changes made and pushed to origin main

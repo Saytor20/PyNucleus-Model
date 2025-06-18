@@ -1,0 +1,42 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  json:
+    format: '{"timestamp": "%(asctime)s", "level": "%(levelname)s", "logger": "%(name)s", "message": "%(message)s", "module": "%(module)s", "function": "%(funcName)s", "line": %(lineno)d}'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  
+  standard:
+    format: '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+
+handlers:
+  ingestion_file:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json
+    filename: logs/ingestion.log
+    maxBytes: 5242880  # 5MB
+    backupCount: 3
+    encoding: utf8
+  
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: standard
+    stream: ext://sys.stdout
+
+loggers:
+  pynucleus.rag.document_processor:
+    level: INFO
+    handlers: [ingestion_file, console]
+    propagate: false
+  
+  pynucleus.rag.data_chunking:
+    level: INFO
+    handlers: [ingestion_file, console]
+    propagate: false
+
+root:
+  level: WARNING
+  handlers: [console] 

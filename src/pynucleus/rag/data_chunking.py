@@ -16,8 +16,33 @@ sys.path.insert(0, str(project_root / "src"))
 import json
 import time
 import logging
+import logging.config
+import yaml
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
+
+# Configure logging from YAML
+def setup_logging():
+    """Setup logging configuration from YAML file."""
+    config_path = project_root / "configs" / "logging.yaml"
+    logs_dir = project_root / "logs"
+    logs_dir.mkdir(exist_ok=True)
+    
+    if config_path.exists():
+        try:
+            with open(config_path, 'r') as f:
+                config = yaml.safe_load(f)
+            logging.config.dictConfig(config)
+        except Exception as e:
+            # Fallback to basic logging if YAML config fails
+            logging.basicConfig(level=logging.INFO)
+            logging.error(f"Failed to load logging config: {e}")
+    else:
+        # Fallback to basic logging
+        logging.basicConfig(level=logging.INFO)
+        
+setup_logging()
+logger = logging.getLogger(__name__)
 
 # Try to import langchain components
 try:
@@ -51,6 +76,9 @@ except ImportError:
         def __init__(self):
             self.chunk_size = 1000
             self.chunk_overlap = 200
+
+# Always import the proper metadata stripper
+from pynucleus.rag.document_processor import strip_document_metadata
 
 import warnings
 from datetime import datetime
@@ -169,12 +197,29 @@ def save_chunked_data(
     # Save full data with metadata in the format expected by vector store
     full_data = []
     for i, chunk in enumerate(chunks):
+        # Extract source file information
+        source_path = chunk.metadata.get("source", "unknown")
+        source_filename = Path(source_path).name if source_path != "unknown" else "unknown"
+        
+        # Determine file format based on extension
+        file_format = "TXT"  # default
+        if source_filename.lower().endswith(".pdf"):
+            file_format = "PDF"
+        elif source_filename.lower().endswith(".docx"):
+            file_format = "DOCX"
+        elif source_filename.lower().endswith(".txt"):
+            file_format = "TXT"
+        
         full_data.append(
             {
                 "chunk_id": i,
                 "content": chunk.page_content,
                 "source": chunk.metadata.get("source", "unknown"),
                 "length": len(chunk.page_content),
+                # Required metadata per requirements
+                "source_filename": source_filename,
+                "file_format": file_format,
+                "ingestion_timestamp": datetime.now().isoformat()
             }
         )
 
@@ -247,6 +292,132 @@ def main():
     print(f"Chunk size: {results['chunk_size']}")
     print(f"Chunk overlap: {results['chunk_overlap']}")
     print(f"Timestamp: {results['timestamp']}")
+
+def chunk_text(
+    text: str, 
+    source_id: str, 
+    chunk_size: int = 1000, 
+    chunk_overlap: int = 200
+) -> List[Dict[str, Any]]:
+    """Chunk a single text document into overlapping segments.
+    
+    Args:
+        text: Raw text to chunk
+        source_id: Unique identifier for the source document
+        chunk_size: Maximum size of each chunk
+        chunk_overlap: Overlap between consecutive chunks
+        
+    Returns:
+        List of chunk dictionaries with standardized format
+    """
+    if not text or not text.strip():
+        return []
+    
+    # Strip metadata before chunking
+    cleaned_text = strip_document_metadata(text)
+    
+    if not cleaned_text:
+        return []
+    
+    chunks = []
+    
+    if LANGCHAIN_AVAILABLE:
+        # Use langchain text splitter
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=chunk_size,
+            chunk_overlap=chunk_overlap,
+            length_function=len,
+            separators=["\n\n", "\n", " ", ""],
+        )
+        
+        # Create a temporary document for splitting
+        doc = Document(page_content=cleaned_text, metadata={})
+        chunk_docs = text_splitter.split_documents([doc])
+        
+        for idx, chunk_doc in enumerate(chunk_docs):
+            # Calculate positions in original cleaned text
+            chunk_text = chunk_doc.page_content
+            start_pos = cleaned_text.find(chunk_text)
+            end_pos = start_pos + len(chunk_text) if start_pos != -1 else len(chunk_text)
+            
+            chunks.append({
+                "id": f"{source_id}_{idx}",
+                "text": chunk_text,
+                "chunk_idx": idx,
+                "start_pos": max(0, start_pos),
+                "end_pos": end_pos
+            })
+    else:
+        # Fallback simple text splitting
+        words = cleaned_text.split()
+        chunk_words = chunk_size // 4  # Rough approximation
+        overlap_words = chunk_overlap // 4
+        
+        for i in range(0, len(words), chunk_words - overlap_words):
+            chunk_words_slice = words[i:i + chunk_words]
+            chunk_text = " ".join(chunk_words_slice)
+            
+            # Calculate approximate positions
+            start_pos = len(" ".join(words[:i])) + (1 if i > 0 else 0)
+            end_pos = start_pos + len(chunk_text)
+            
+            chunks.append({
+                "id": f"{source_id}_{len(chunks)}",
+                "text": chunk_text,
+                "chunk_idx": len(chunks),
+                "start_pos": start_pos,
+                "end_pos": end_pos
+            })
+    
+    return chunks
+
+def save_chunked_document_json(
+    chunks: List[Dict[str, Any]], 
+    source_id: str, 
+    output_dir: str = "data/03_intermediate"
+) -> str:
+    """Save chunks for a single document as JSON.
+    
+    Args:
+        chunks: List of chunk dictionaries
+        source_id: Source document identifier
+        output_dir: Directory to save the JSON file
+        
+    Returns:
+        Path to the saved JSON file
+    """
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+    
+    # Add metadata to each chunk
+    enriched_chunks = []
+    for chunk in chunks:
+        enriched_chunk = chunk.copy()
+        # Extract file information from source_id or chunk data
+        source_filename = f"{source_id}.txt"  # default assumption
+        file_format = "TXT"  # default
+        
+        enriched_chunk.update({
+            "source_filename": source_filename,
+            "file_format": file_format,
+            "ingestion_timestamp": datetime.now().isoformat()
+        })
+        enriched_chunks.append(enriched_chunk)
+    
+    # Create standardized JSON structure
+    json_data = {
+        "source_id": source_id,
+        "total_chunks": len(chunks),
+        "generated_at": datetime.now().isoformat(),
+        "chunks": enriched_chunks
+    }
+    
+    # Save to individual JSON file
+    json_file = output_path / f"{source_id}.json"
+    with open(json_file, "w", encoding="utf-8") as f:
+        json.dump(json_data, f, indent=2, ensure_ascii=False)
+    
+    return str(json_file)
 
 if __name__ == "__main__":
     main() 

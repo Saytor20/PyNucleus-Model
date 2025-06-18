@@ -11,15 +11,43 @@ import os
 from pathlib import Path
 import json
 import logging
+import logging.config
 import warnings
+import yaml
+import traceback
 from datetime import datetime
 from typing import List, Dict, Any, Optional, Tuple
 import base64
 from io import BytesIO
+import re
+from collections import Counter
 
 # Add project root to path
 project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root / "src"))
+
+# Configure logging from YAML
+def setup_logging():
+    """Setup logging configuration from YAML file."""
+    config_path = project_root / "configs" / "logging.yaml"
+    logs_dir = project_root / "logs"
+    logs_dir.mkdir(exist_ok=True)
+    
+    if config_path.exists():
+        try:
+            with open(config_path, 'r') as f:
+                config = yaml.safe_load(f)
+            logging.config.dictConfig(config)
+        except Exception as e:
+            # Fallback to basic logging if YAML config fails
+            logging.basicConfig(level=logging.INFO)
+            logging.error(f"Failed to load logging config: {e}")
+    else:
+        # Fallback to basic logging
+        logging.basicConfig(level=logging.INFO)
+        
+setup_logging()
+logger = logging.getLogger(__name__)
 
 # Try importing document processing libraries
 try:
@@ -118,6 +146,8 @@ except ImportError:
 # Import from absolute paths
 try:
     from pynucleus.rag.config import RAGConfig, SOURCE_DOCS_DIR, CONVERTED_DIR
+    # Use the correct path where PDF files are located
+    SOURCE_DOCS_DIR = "data/01_raw/source_documents"
 except ImportError:
     # Fallback configuration
     class RAGConfig:
@@ -139,6 +169,93 @@ except ImportError:
 warnings.filterwarnings("ignore")
 
 from tqdm import tqdm
+
+# Section headers that indicate real content has started
+SECTION_HEADERS = {
+    'abstract', 'introduction', 'background', 'literature review',
+    'methodology', 'methods', 'experimental', 'results', 'discussion',
+    'analysis', 'findings', 'conclusion', 'summary', 'overview', 'purpose',
+    'objective', 'research', 'study', 'investigation'
+}
+
+# Pre-compiled regexes for efficient pattern matching
+RE_PAGE_FULL   = re.compile(r'^page\s+\d+\s+of\s+\d+$', re.I)
+RE_STANDALONE  = re.compile(r'^\d+$')
+RE_NUM_HDR     = re.compile(r'^\d+\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2}$')
+RE_PUNCT_ONLY  = re.compile(r'^[\d\s\.\-\(\)]+$')
+RE_DOI_COPY    = re.compile(r'(doi:|preprint|copyright|cc by|license)', re.I)
+
+def looks_like_sentence(line: str) -> bool:
+    """Check if a line looks like a proper sentence."""
+    return line.endswith('.') and len(line.split()) >= 8
+
+def strip_document_metadata(text: str) -> str:
+    """Strip document metadata and formatting artifacts from raw text.
+    
+    This function efficiently removes common document artifacts like:
+    - Title lines and author names
+    - Institutional affiliations and email addresses
+    - Page numbers and headers/footers
+    - Copyright notices and DOI references
+    - Repeated headers/footers
+    - Standalone numbers and punctuation-only lines
+    
+    Args:
+        text: Raw document text containing titles, headers, page numbers, etc.
+        
+    Returns:
+        Cleaned text with metadata stripped, preserving actual content
+    """
+    if text is None:
+        return None
+    if not text or not text.strip():
+        return ""
+
+    lines          = text.splitlines()
+    # Strip leading whitespace from all lines first to handle indented text
+    lines          = [line.strip() for line in lines]
+    norm_lines     = [re.sub(r'\s+', ' ', ln.lower().strip()) for ln in lines]
+    freq           = Counter(norm_lines)
+    cleaned_lines  = []
+    content_started = False
+
+    for raw, norm in zip(lines, norm_lines):
+        if not norm:
+            # Always keep blank lines once content has started (paragraph breaks)
+            if content_started:
+                cleaned_lines.append('')
+            continue
+
+        # -- Global skips (always remove these patterns) -----------------
+        if (
+            '@' in norm or
+            'department of' in norm or 'university' in norm or
+            'college of'   in norm or 'institute' in norm or
+            RE_PAGE_FULL.match(norm) or RE_STANDALONE.match(norm) or
+            RE_NUM_HDR.match(raw.strip()) or
+            RE_PUNCT_ONLY.match(norm) or
+            RE_DOI_COPY.search(norm) or
+            freq[norm] >= 3                               # repeated header/footer
+        ):
+            continue
+
+        # -- Identify start of real content ------------------------------
+        if not content_started:
+            if (
+                norm in SECTION_HEADERS or
+                looks_like_sentence(raw.strip())
+            ):
+                content_started = True
+            else:
+                # probably still in title / author block
+                continue
+
+        # -- After content start: keep unless obvious skip ---------------
+        cleaned_lines.append(raw)
+
+    # Collapse >2 consecutive blank lines
+    cleaned_text = re.sub(r'(?:\n\s*){3,}', '\n\n', '\n'.join(cleaned_lines)).strip()
+    return cleaned_text
 
 # Global OCR engines - initialized once
 _ocr_engines = {}
@@ -255,17 +372,12 @@ def _preprocess_image(image) -> Image.Image:
         print(f"⚠️ Image preprocessing failed: {e}")
         return image
 
-def _extract_images_from_pdf(pdf_path: str, doc_name: str, extract_images: bool = True) -> Tuple[List[Dict], str]:
-    """Extract images from PDF and perform OCR."""
-    images = []
+def _extract_text_from_pdf_images(pdf_path: str, doc_name: str, extract_image_text: bool = True) -> str:
+    """Extract text from PDF images using OCR without saving image files."""
     ocr_text = ""
     
-    if not extract_images:
-        return images, ocr_text
-    
-    # Create image output directory
-    image_output_dir = Path("data/02_processed/extracted_images")
-    image_output_dir.mkdir(parents=True, exist_ok=True)
+    if not extract_image_text:
+        return ocr_text
     
     # Initialize OCR engines
     ocr_engines = _init_ocr_engines()
@@ -278,6 +390,9 @@ def _extract_images_from_pdf(pdf_path: str, doc_name: str, extract_images: bool 
         ocr_engine = 'tesseract'
     elif 'paddle' in ocr_engines:
         ocr_engine = 'paddle'
+    
+    if not ocr_engine:
+        return ocr_text
     
     # Method 1: PyMuPDF (best for vector graphics and embedded images)
     if PYMUPDF_AVAILABLE:
@@ -294,70 +409,45 @@ def _extract_images_from_pdf(pdf_path: str, doc_name: str, extract_images: bool 
                     
                     if pix.n - pix.alpha < 4:  # GRAY or RGB
                         img_data = pix.tobytes("png")
-                        img_name = f"{doc_name}_page{page_num+1}_img{img_index+1}.png"
-                        img_path = image_output_dir / img_name
                         
-                        with open(img_path, "wb") as f:
-                            f.write(img_data)
-                        
-                        # Perform OCR on extracted image
+                        # Perform OCR on extracted image (without saving)
                         img_ocr_text = ""
                         if ocr_engine and ocr_engine in ocr_engines:
                             try:
                                 pil_image = Image.open(BytesIO(img_data))
                                 preprocessed = _preprocess_image(pil_image)
                                 img_ocr_text = ocr_engines[ocr_engine](preprocessed)
-                                ocr_text += f"\n--- Image {img_name} ---\n{img_ocr_text}\n"
+                                if img_ocr_text.strip():
+                                    ocr_text += f"\n--- Image Text from Page {page_num+1} (Image {img_index+1}) ---\n{img_ocr_text}\n"
                             except Exception as e:
-                                print(f"⚠️ OCR failed for {img_name}: {e}")
-                        
-                        images.append({
-                            'filename': img_name,
-                            'path': str(img_path),
-                            'page': page_num + 1,
-                            'type': 'embedded_image',
-                            'ocr_text': img_ocr_text,
-                            'size': pix.width * pix.height
-                        })
+                                print(f"⚠️ OCR failed for image on page {page_num+1}: {e}")
                     
                     pix = None
             
             doc.close()
         except Exception as e:
-            print(f"⚠️ PyMuPDF image extraction failed: {e}")
+            print(f"⚠️ PyMuPDF image text extraction failed: {e}")
     
-    # Method 2: Convert PDF pages to images for full-page OCR (if no embedded images found)
-    if PDF2IMAGE_AVAILABLE and ocr_engine and len(images) == 0:
+    # Method 2: Convert PDF pages to images for full-page OCR (only if no embedded images found)
+    if PDF2IMAGE_AVAILABLE and ocr_engine and not ocr_text.strip():
         try:
             pages = convert_from_path(pdf_path, dpi=200, first_page=1, last_page=3)  # Limit to first 3 pages
             for page_num, page_image in enumerate(pages):
-                img_name = f"{doc_name}_fullpage{page_num+1}.png"
-                img_path = image_output_dir / img_name
-                page_image.save(img_path, "PNG")
-                
-                # Perform OCR on full page
+                # Perform OCR on full page (without saving image)
                 img_ocr_text = ""
                 if ocr_engine in ocr_engines:
                     try:
                         preprocessed = _preprocess_image(page_image)
                         img_ocr_text = ocr_engines[ocr_engine](preprocessed)
-                        ocr_text += f"\n--- Full Page {page_num+1} OCR ---\n{img_ocr_text}\n"
+                        if img_ocr_text.strip():
+                            ocr_text += f"\n--- Full Page {page_num+1} OCR Text ---\n{img_ocr_text}\n"
                     except Exception as e:
-                        print(f"⚠️ OCR failed for {img_name}: {e}")
-                
-                images.append({
-                    'filename': img_name,
-                    'path': str(img_path),
-                    'page': page_num + 1,
-                    'type': 'full_page',
-                    'ocr_text': img_ocr_text,
-                    'size': page_image.size[0] * page_image.size[1]
-                })
+                        print(f"⚠️ OCR failed for page {page_num+1}: {e}")
                 
         except Exception as e:
             print(f"⚠️ PDF2Image conversion failed: {e}")
     
-    return images, ocr_text
+    return ocr_text
 
 def _extract_tables_from_pdf(pdf_path: str, doc_name: str, extract_tables: bool = True) -> List[Dict]:
     """Extract tables from PDF using multiple methods."""
@@ -416,52 +506,8 @@ def _extract_tables_from_pdf(pdf_path: str, doc_name: str, extract_tables: bool 
     
     return tables
 
-def _detect_drawings_and_diagrams(image_path: str) -> Dict:
-    """Detect and analyze technical drawings and diagrams."""
-    if not OPENCV_AVAILABLE:
-        return {'has_drawings': False, 'analysis': 'OpenCV not available'}
-    
-    try:
-        # Load image
-        img = cv2.imread(image_path)
-        if img is None:
-            return {'has_drawings': False, 'analysis': 'Could not load image'}
-        
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        
-        # Detect lines (common in technical drawings)
-        edges = cv2.Canny(gray, 50, 150, apertureSize=3)
-        lines = cv2.HoughLines(edges, 1, np.pi/180, threshold=100)
-        
-        # Detect circles (common in process diagrams)
-        circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 20,
-                                 param1=50, param2=30, minRadius=10, maxRadius=100)
-        
-        # Detect contours (shapes and components)
-        contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        
-        # Analyze findings
-        analysis = {
-            'has_drawings': False,
-            'line_count': len(lines) if lines is not None else 0,
-            'circle_count': len(circles[0]) if circles is not None else 0,
-            'contour_count': len(contours),
-            'analysis': 'Basic geometric analysis completed'
-        }
-        
-        # Heuristic: if many lines and shapes, likely a technical drawing
-        if analysis['line_count'] > 20 or analysis['circle_count'] > 3:
-            analysis['has_drawings'] = True
-            analysis['analysis'] = 'Likely contains technical drawings or diagrams'
-        
-        return analysis
-        
-    except Exception as e:
-        print(f"⚠️ Drawing detection failed: {e}")
-        return {'has_drawings': False, 'analysis': f'Error: {e}'}
-
-def _process_pdf_enhanced(input_path: str, filename: str, extract_images: bool = False, extract_tables: bool = False) -> str:
-    """Enhanced PDF processing with multiple extraction methods."""
+def _process_pdf_enhanced(input_path: str, filename: str, extract_image_text: bool = False, extract_tables: bool = False) -> str:
+    """Enhanced PDF processing with text extraction from images and tables."""
     full_text = ""
     doc_name = os.path.splitext(filename)[0]
     
@@ -473,25 +519,11 @@ def _process_pdf_enhanced(input_path: str, filename: str, extract_images: bool =
                 full_text += page.get_text() + "\n\n"
             doc.close()
             if full_text.strip():
-                # Extract images and tables if requested
-                if extract_images or extract_tables:
-                    images, ocr_text = _extract_images_from_pdf(input_path, doc_name, extract_images)
-                    tables = _extract_tables_from_pdf(input_path, doc_name, extract_tables)
-                    
-                    if ocr_text:
+                # Extract text from images if requested
+                if extract_image_text:
+                    ocr_text = _extract_text_from_pdf_images(input_path, doc_name, extract_image_text)
+                    if ocr_text.strip():
                         full_text += "\n\n--- EXTRACTED IMAGE TEXT ---\n" + ocr_text
-                    
-                    if images:
-                        print(f"      📷 Extracted {len(images)} images")
-                        # Analyze images for drawings
-                        for img_info in images:
-                            if img_info['type'] == 'embedded_image':
-                                drawing_analysis = _detect_drawings_and_diagrams(img_info['path'])
-                                if drawing_analysis['has_drawings']:
-                                    print(f"         🎨 Drawing detected in {img_info['filename']}")
-                    
-                    if tables:
-                        print(f"      📊 Extracted {len(tables)} tables")
                 
                 return full_text
         except Exception as e:
@@ -526,7 +558,7 @@ def _process_pdf_enhanced(input_path: str, filename: str, extract_images: bool =
     return full_text
 
 def _process_image_with_ocr(input_path: str) -> str:
-    """Process image files with OCR."""
+    """Process image files with OCR (returns text only, no image saving)."""
     ocr_engines = _init_ocr_engines()
     
     # Choose best available OCR engine
@@ -553,20 +585,20 @@ def process_documents(
     input_dir: str = SOURCE_DOCS_DIR,
     output_dir: str = CONVERTED_DIR,
     use_progress_bar: bool = True,
-    extract_images: bool = True,      # ENABLED by default
-    extract_tables: bool = True,      # ENABLED by default
-    enable_ocr: bool = True          # ENABLED by default
+    extract_image_text: bool = True,     # Extract text from images via OCR (no image files saved)
+    extract_tables: bool = True,         # Extract tables to text format
+    enable_ocr: bool = True             # Enable OCR for image files
 ) -> None:
     """
-    Process all documents in the input directory and convert them to comprehensive text files.
-    Enhanced with OCR, image extraction, and table extraction capabilities - ALL ENABLED by default.
+    Process all documents in the input directory and convert them to simple text files.
+    Enhanced with OCR text extraction and table extraction - NO IMAGE FILES ARE CREATED.
     
     Args:
         input_dir: Input directory for documents
         output_dir: Output directory for text files
         use_progress_bar: Whether to show progress bar
-        extract_images: Whether to extract and OCR images from PDFs
-        extract_tables: Whether to extract tables from PDFs
+        extract_image_text: Whether to extract text from images in PDFs via OCR (no image files saved)
+        extract_tables: Whether to extract tables from PDFs and include as text
         enable_ocr: Whether to enable OCR for image files
     """
     # Check if the input directory exists
@@ -589,17 +621,21 @@ def process_documents(
         print(f"ℹ The '{input_dir}' directory is empty. Nothing to process.")
         return
 
-    # Initialize OCR engines
-    ocr_engines = _init_ocr_engines()
-    if ocr_engines:
-        available_engines = [k for k in ocr_engines.keys() if not k.endswith('_reader')]
-        print(f"🔍 OCR engines available: {', '.join(available_engines)}")
-    else:
-        print("⚠️ No OCR engines available. Install pytesseract, easyocr, or paddleocr for OCR capabilities.")
+    # Initialize OCR engines only if needed
+    if extract_image_text or enable_ocr:
+        ocr_engines = _init_ocr_engines()
+        if ocr_engines:
+            available_engines = [k for k in ocr_engines.keys() if not k.endswith('_reader')]
+            print(f"🔍 OCR engines available: {', '.join(available_engines)}")
+        else:
+            print("⚠️ No OCR engines available. Install pytesseract, easyocr, or paddleocr for OCR capabilities.")
 
     print(
-        f"--- 📄 Starting comprehensive processing for {len(files_to_process)} file(s) in '{input_dir}' ---"
+        f"--- 📄 Starting simple text processing for {len(files_to_process)} file(s) in '{input_dir}' ---"
     )
+    print("💡 Processing mode: Simple text output (no image files created)")
+    
+    logger.info(f"Starting document processing: {len(files_to_process)} files from {input_dir}")
 
     for filename in tqdm(
         files_to_process, desc="Processing files", disable=not use_progress_bar
@@ -615,150 +651,141 @@ def process_documents(
         print(f" ▶ Processing: {filename}")
 
         try:
-            # Initialize comprehensive content structure
-            comprehensive_content = []
+            # Initialize simple content structure
+            content_parts = []
             doc_name = os.path.splitext(filename)[0]
             
-            # Add document header
-            comprehensive_content.append(f"=" * 80)
-            comprehensive_content.append(f"COMPREHENSIVE DOCUMENT EXTRACTION")
-            comprehensive_content.append(f"Source File: {filename}")
-            comprehensive_content.append(f"Processed: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-            comprehensive_content.append(f"=" * 80)
-            comprehensive_content.append("")
+            # Add simple document header
+            content_parts.append(f"=" * 60)
+            content_parts.append(f"Document: {filename}")
+            content_parts.append(f"Processed: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            content_parts.append(f"=" * 60)
+            content_parts.append("")
 
-            # Handle different file types with intelligent detection
+            # Handle different file types
             if filename.lower().endswith(".pdf"):
-                print(f"      📄 Processing PDF with full extraction...")
+                print(f"      📄 Processing PDF...")
                 
-                # Extract main text
-                main_text = _process_pdf_enhanced(input_path, filename, extract_images, extract_tables)
-                if main_text.strip():
-                    comprehensive_content.append("📄 MAIN DOCUMENT TEXT")
-                    comprehensive_content.append("-" * 40)
-                    comprehensive_content.append(main_text)
-                    comprehensive_content.append("")
+                try:
+                    # Extract main text and image text
+                    main_text = _process_pdf_enhanced(input_path, filename, extract_image_text, extract_tables)
+                    if main_text.strip():
+                        # Clean up the text
+                        cleaned_text = strip_document_metadata(main_text)
+                        content_parts.append(cleaned_text)
+                        logger.info(f"Successfully extracted PDF text from {filename}")
+                except Exception as e:
+                    logger.error(f"Failed to extract PDF text from {filename}: {str(e)}\n{traceback.format_exc()}")
+                    print(f"      ❌ PDF text extraction failed: {e}")
+                    content_parts.append(f"Error processing PDF: {e}")
                 
-                # Extract images and OCR
-                if extract_images:
-                    images, ocr_text = _extract_images_from_pdf(input_path, doc_name, extract_images)
-                    if images:
-                        print(f"      📷 Extracted {len(images)} images with OCR")
-                        comprehensive_content.append("📷 EXTRACTED IMAGES & OCR TEXT")
-                        comprehensive_content.append("-" * 40)
-                        for img_info in images:
-                            comprehensive_content.append(f"Image: {img_info['filename']} (Page {img_info['page']})")
-                            if img_info['ocr_text']:
-                                comprehensive_content.append(f"OCR Text: {img_info['ocr_text']}")
-                            comprehensive_content.append("")
-                            
-                            # Analyze for drawings
-                            if img_info['type'] == 'embedded_image':
-                                drawing_analysis = _detect_drawings_and_diagrams(img_info['path'])
-                                if drawing_analysis['has_drawings']:
-                                    print(f"         🎨 Drawing detected in {img_info['filename']}")
-                                    comprehensive_content.append(f"🎨 Drawing Analysis: {drawing_analysis['analysis']}")
-                                    comprehensive_content.append(f"   Lines: {drawing_analysis['line_count']}, Circles: {drawing_analysis['circle_count']}")
-                                    comprehensive_content.append("")
-                
-                # Extract tables
+                # Extract tables and include as text
                 if extract_tables:
                     tables = _extract_tables_from_pdf(input_path, doc_name, extract_tables)
                     if tables:
                         print(f"      📊 Extracted {len(tables)} tables")
-                        comprehensive_content.append("📊 EXTRACTED TABLES")
-                        comprehensive_content.append("-" * 40)
-                        for table_info in tables:
-                            comprehensive_content.append(f"Table: {table_info['filename']} (Method: {table_info['method']})")
-                            # Read and include table content
+                        content_parts.append("\n" + "="*40)
+                        content_parts.append("EXTRACTED TABLES")
+                        content_parts.append("="*40)
+                        
+                        for i, table_info in enumerate(tables, 1):
+                            content_parts.append(f"\nTable {i} (Method: {table_info['method']}):")
+                            content_parts.append("-" * 30)
+                            # Read and include table content as text
                             try:
                                 import pandas as pd
                                 df = pd.read_csv(table_info['path'])
-                                comprehensive_content.append("Table Content:")
-                                comprehensive_content.append(df.to_string(index=False))
-                                comprehensive_content.append("")
+                                content_parts.append(df.to_string(index=False))
+                                content_parts.append("")
+                                # Clean up the temporary CSV file
+                                Path(table_info['path']).unlink(missing_ok=True)
                             except Exception as e:
-                                comprehensive_content.append(f"Table saved to: {table_info['path']}")
-                                comprehensive_content.append("")
+                                content_parts.append(f"Error reading table: {e}")
+                                content_parts.append("")
                     
             elif filename.lower().endswith(".docx"):
                 print(f"      📄 Processing DOCX...")
-                if DOCX_AVAILABLE:
-                    doc = DocxDocument(input_path)
-                    full_text = "\n\n".join([para.text for para in doc.paragraphs])
-                    comprehensive_content.append("📄 DOCUMENT TEXT")
-                    comprehensive_content.append("-" * 40)
-                    comprehensive_content.append(full_text)
-                else:
-                    raise ImportError("DOCX processing not available")
+                try:
+                    if DOCX_AVAILABLE:
+                        doc = DocxDocument(input_path)
+                        full_text = "\n\n".join([para.text for para in doc.paragraphs])
+                        cleaned_text = strip_document_metadata(full_text)
+                        content_parts.append(cleaned_text)
+                        logger.info(f"Successfully processed DOCX file {filename}")
+                    else:
+                        raise ImportError("DOCX processing not available")
+                except Exception as e:
+                    logger.error(f"Failed to process DOCX file {filename}: {str(e)}\n{traceback.format_exc()}")
+                    print(f"      ❌ DOCX processing failed: {e}")
+                    content_parts.append(f"Error processing DOCX: {e}")
             
-            elif filename.lower().endswith((".png", ".jpg", ".jpeg", ".tiff", ".bmp")):
+            elif filename.lower().endswith((".png", ".jpg", ".jpeg", ".tiff", ".bmp")) and enable_ocr:
                 print(f"      🔍 Processing image with OCR...")
                 ocr_text = _process_image_with_ocr(input_path)
                 if ocr_text:
                     print(f"      🔍 OCR extracted {len(ocr_text)} characters")
-                    comprehensive_content.append("🔍 OCR EXTRACTED TEXT")
-                    comprehensive_content.append("-" * 40)
-                    comprehensive_content.append(ocr_text)
-                    
-                    # Analyze for drawings
-                    drawing_analysis = _detect_drawings_and_diagrams(input_path)
-                    if drawing_analysis['has_drawings']:
-                        print(f"         🎨 Drawing detected")
-                        comprehensive_content.append("")
-                        comprehensive_content.append("🎨 DRAWING ANALYSIS")
-                        comprehensive_content.append("-" * 40)
-                        comprehensive_content.append(f"Analysis: {drawing_analysis['analysis']}")
-                        comprehensive_content.append(f"Lines: {drawing_analysis['line_count']}, Circles: {drawing_analysis['circle_count']}")
+                    cleaned_text = strip_document_metadata(ocr_text)
+                    content_parts.append(cleaned_text)
+                else:
+                    content_parts.append("No text could be extracted from this image.")
                         
             else:
                 print(f"      📄 Processing text/other format...")
-                if LANGCHAIN_AVAILABLE:
-                    loader = UnstructuredLoader(input_path)
-                    documents = loader.load()
-                    full_text = "\n\n".join([doc.page_content for doc in documents])
-                else:
-                    # Fallback to basic text reading
-                    with open(input_path, 'r', encoding='utf-8') as f:
-                        full_text = f.read()
-                
-                comprehensive_content.append("📄 DOCUMENT TEXT")
-                comprehensive_content.append("-" * 40)
-                comprehensive_content.append(full_text)
+                try:
+                    if LANGCHAIN_AVAILABLE:
+                        loader = UnstructuredLoader(input_path)
+                        documents = loader.load()
+                        full_text = "\n\n".join([doc.page_content for doc in documents])
+                    else:
+                        # Fallback to basic text reading
+                        with open(input_path, 'r', encoding='utf-8') as f:
+                            full_text = f.read()
+                    
+                    cleaned_text = strip_document_metadata(full_text)
+                    content_parts.append(cleaned_text)
+                    logger.info(f"Successfully processed text file {filename}")
+                except Exception as e:
+                    logger.error(f"Failed to process text file {filename}: {str(e)}\n{traceback.format_exc()}")
+                    print(f"      ❌ Text processing failed: {e}")
+                    content_parts.append(f"Error processing file: {e}")
 
             # Combine all content into final document
-            final_content = "\n".join(comprehensive_content)
+            final_content = "\n".join(content_parts)
             
-            # Save the comprehensive extracted content
+            # Save the simple text content
             with open(output_path, "w", encoding="utf-8") as f:
                 f.write(final_content)
 
-            print(f"   ✅ Success! Comprehensive extraction saved to: {output_path}")
+            print(f"   ✅ Success! Simple text saved to: {output_path}")
 
         except Exception as e:
+            logger.error(f"Critical error processing {filename}: {str(e)}\n{traceback.format_exc()}")
             print(f"   ❌ Error processing {filename}: {e}")
+            # Continue with next file instead of crashing
+            continue
 
-    print(f"\n🎉 All files processed with comprehensive extraction.")
+    print(f"\n🎉 All files processed as simple text.")
     
-    # Print comprehensive summary
-    print(f"\n📊 Comprehensive Processing Summary:")
-    image_dir = Path("data/02_processed/extracted_images")
-    if image_dir.exists():
-        image_count = len(list(image_dir.glob("*")))
-        if image_count > 0:
-            print(f"   📷 Images extracted: {image_count}")
-    
+    # Clean up any remaining temporary table files
     table_dir = Path("data/02_processed/extracted_tables")
     if table_dir.exists():
-        table_count = len(list(table_dir.glob("*")))
-        if table_count > 0:
-            print(f"   📊 Tables extracted: {table_count}")
+        for temp_file in table_dir.glob("*.csv"):
+            temp_file.unlink(missing_ok=True)
+        # Remove the directory if it's empty
+        try:
+            table_dir.rmdir()
+        except OSError:
+            pass  # Directory not empty, that's fine
     
-    print(f"   📄 All content organized into comprehensive text files")
+    print(f"\n📊 Simple Text Processing Summary:")
+    print(f"   📄 All content converted to simple text format")
+    print(f"   🚫 No image files created")
+    print(f"   📊 Tables included as formatted text")
+    print(f"   🔍 OCR text extraction: {'Enabled' if extract_image_text else 'Disabled'}")
 
 def main():
-    """Comprehensive document processing with all features enabled."""
-    # Process all documents with full extraction enabled by default
+    """Simple document processing - converts everything to text without creating image files."""
+    # Process all documents with simple text extraction
     process_documents()
 
 if __name__ == "__main__":

@@ -1,6 +1,0 @@
-Case Name,Simulation Type,Components,Description,Status,Duration (s),Conversion,Selectivity,Yield,Temperature (°C),Pressure (atm),Success,Timestamp
-distillation_ethanol_water,distillation,"water, ethanol",Ethanol-water separation column,Completed Successfully,0.0001,0.931,0.93,0.872,84.3,1.2,Yes,2025-06-11 22:59:39
-reactor_methane_combustion,reactor,"methane, oxygen",Methane combustion reactor,Completed Successfully,0.0,0.813,0.905,0.773,618.7,13.3,Yes,2025-06-11 22:59:39
-heat_exchanger_steam,heat_exchanger,"water, steam",Steam heat exchanger,Completed Successfully,0.0,N/A,N/A,N/A,128.0,3.5,Yes,2025-06-11 22:59:39
-absorber_co2_capture,absorber,"CO2, water",CO2 absorption column,Completed Successfully,0.0,0.974,0.981,0.918,26.2,1.6,Yes,2025-06-11 22:59:39
-crystallizer_salt,crystallizer,"water, salt",Salt crystallization unit,Completed Successfully,0.0,0.875,0.905,0.813,33.2,0.97,Yes,2025-06-11 22:59:39

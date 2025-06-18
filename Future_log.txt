@@ -1,0 +1,1 @@
+1) image processing is not available right now but we can add another VLLM model that can process images at later stages 

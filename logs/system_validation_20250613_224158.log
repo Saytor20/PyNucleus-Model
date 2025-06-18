@@ -1,7 +1,0 @@
-2025-06-13 22:41:58,952 | INFO | PYNUCLEUS SYSTEM VALIDATOR
-2025-06-13 22:41:58,952 | INFO | ======================================================================
-2025-06-13 22:41:58,952 | INFO | Comprehensive validation with actual script execution and pipeline testing
-2025-06-13 22:41:58,952 | INFO | ============================================================
-2025-06-13 22:41:58,952 | INFO | SECTION: CORE PIPELINE SCRIPTS VALIDATION
-2025-06-13 22:41:58,952 | INFO | ============================================================
-2025-06-13 22:41:58,952 | INFO | Found 14 Python script(s) in Core Pipeline Scripts
