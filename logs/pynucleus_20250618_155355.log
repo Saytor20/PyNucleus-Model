@@ -1,0 +1,24 @@
+2025-06-18 15:53:55,618 | werkzeug | WARNING | _internal.py:97 |  * Debugger is active!
+2025-06-18 15:53:55,623 | werkzeug | INFO | _internal.py:97 |  * Debugger PIN: 632-374-954
+2025-06-18 15:54:15,354 | __main__ | INFO | app.py:95 | Processing question: What is chemical engineering?...
+2025-06-18 15:54:18,047 | pynucleus.rag.vector_store | INFO | vector_store.py:327 | Found FAISS directory: data/04_models/chunk_reports/pynucleus_mcp.faiss
+2025-06-18 15:54:18,063 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-18 15:54:18,063 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-18 15:54:19,616 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-18 15:54:19,616 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-18 15:54:20,412 | faiss.loader | INFO | loader.py:148 | Loading faiss.
+2025-06-18 15:54:20,434 | faiss.loader | INFO | loader.py:150 | Successfully loaded faiss.
+2025-06-18 15:54:20,438 | faiss | INFO | __init__.py:174 | Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-06-18 15:54:20,578 | pynucleus.rag.vector_store | INFO | vector_store.py:349 | Successfully loaded FAISS index from data/04_models/chunk_reports/pynucleus_mcp.faiss
+2025-06-18 15:54:20,578 | pynucleus.rag.vector_store | INFO | vector_store.py:354 | FAISS index contains 7141 vectors
+2025-06-18 15:54:20,578 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:32 | Real FAISS vector store initialized successfully
+2025-06-18 15:54:20,661 | pynucleus.rag.vector_store | INFO | vector_store.py:404 | FAISS search for 'What is chemical engineering?...' returned 5 results
+2025-06-18 15:54:20,661 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:97 | RAG query processed: What is chemical engineering?...
+2025-06-18 15:54:20,662 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: microsoft/DialoGPT-large
+2025-06-18 15:54:23,004 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-18 15:54:23,005 | __main__ | INFO | app.py:108 | Generating enhanced response with microsoft/DialoGPT-large
+2025-06-18 15:54:24,081 | pynucleus.llm.llm_runner | INFO | llm_runner.py:163 | Generated response in 1.07s
+2025-06-18 15:54:24,081 | __main__ | INFO | app.py:137 | Question processed successfully
+2025-06-18 15:54:24,149 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [18/Jun/2025 15:54:24] "POST /ask HTTP/1.1" 200 -
+2025-06-18 15:54:33,335 | __main__ | INFO | app.py:63 | Health check requested
+2025-06-18 15:54:33,336 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [18/Jun/2025 15:54:33] "GET /health HTTP/1.1" 200 -

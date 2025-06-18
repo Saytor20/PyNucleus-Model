@@ -179,7 +179,7 @@ To Do:
 3) add a new txt file that tracks future enhancements- Completed
 4) explore API integration for live news, costs, and market data  
 5) need to work on the FAISS as it is showing bad results and also the filing is very messed up a lot of cleaning to do like what is validation and output in the folder data - Completed
-7)RAG explainability and factual accuracy - Completed
+7) RAG explainability and factual accuracy - Completed
 8) Enhanced Embeddings: Install transformers for Stella-en-1.5B-v5 (30-50% recall improvement) - Completed
 9) LLM Integration: Replace template-based answers with actual language model
 10) Advanced Validation: More sophisticated fact-checking algorithms -
@@ -188,8 +188,7 @@ To Do:
 13) fix notebooks - completed 
 14) review of all the codes with 100% system diognostic - completed
 16) Consolidate Diagnostics & Loggings- completed
- 2025-06-18 15:03:27 changes made and pushed to origin main
+17) The Flask API - Completed
 
- 2025-06-18 15:34:38 changes made and pushed to origin main
 
- 2025-06-18 15:49:32 changes made and pushed to origin main
+ 2025-06-18 15:58:47 changes made and pushed to origin main
