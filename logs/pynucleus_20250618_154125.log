@@ -1,0 +1,23 @@
+2025-06-18 15:41:25,518 | __main__ | INFO | run_pipeline.py:416 | 🚀 Starting RAG query
+2025-06-18 15:41:25,518 | __main__ | INFO | run_pipeline.py:417 | ❓ Question: What are the key benefits of modular chemical plants?
+2025-06-18 15:41:25,518 | __main__ | INFO | run_pipeline.py:418 | 🤖 Model ID: microsoft/DialoGPT-medium
+2025-06-18 15:41:25,518 | __main__ | INFO | run_pipeline.py:419 | 📊 Top K: 5
+2025-06-18 15:41:28,889 | pynucleus.rag.vector_store | INFO | vector_store.py:327 | Found FAISS directory: data/04_models/chunk_reports/pynucleus_mcp.faiss
+2025-06-18 15:41:28,911 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-18 15:41:28,912 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-18 15:41:31,846 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-18 15:41:31,849 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-18 15:41:32,952 | faiss.loader | INFO | loader.py:148 | Loading faiss.
+2025-06-18 15:41:32,984 | faiss.loader | INFO | loader.py:150 | Successfully loaded faiss.
+2025-06-18 15:41:32,987 | faiss | INFO | __init__.py:174 | Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-06-18 15:41:33,011 | pynucleus.rag.vector_store | INFO | vector_store.py:349 | Successfully loaded FAISS index from data/04_models/chunk_reports/pynucleus_mcp.faiss
+2025-06-18 15:41:33,011 | pynucleus.rag.vector_store | INFO | vector_store.py:354 | FAISS index contains 7141 vectors
+2025-06-18 15:41:33,011 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:32 | Real FAISS vector store initialized successfully
+2025-06-18 15:41:33,011 | __main__ | INFO | run_pipeline.py:426 | 🔄 Processing question...
+2025-06-18 15:41:33,139 | pynucleus.rag.vector_store | INFO | vector_store.py:404 | FAISS search for 'What are the key benefits of modular chemical plan...' returned 5 results
+2025-06-18 15:41:33,139 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:97 | RAG query processed: What are the key benefits of modular chemical plan...
+2025-06-18 15:41:33,140 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: microsoft/DialoGPT-medium
+2025-06-18 15:41:34,812 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-18 15:41:34,813 | __main__ | INFO | run_pipeline.py:449 | 🤖 Generating enhanced response with microsoft/DialoGPT-medium
+2025-06-18 15:41:34,813 | __main__ | WARNING | run_pipeline.py:462 | ⚠️ LLM enhancement failed: LLMRunner.ask() got an unexpected keyword argument 'context'
+2025-06-18 15:41:34,813 | __main__ | INFO | run_pipeline.py:465 | ✅ Question processed successfully

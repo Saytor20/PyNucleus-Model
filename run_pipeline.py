@@ -403,7 +403,7 @@ def build_faiss_index(
 @app.command("ask")
 def ask_question(
     question: str = typer.Option(..., "--question", help="Question to ask the RAG system"),
-    model_id: Optional[str] = typer.Option(None, "--model-id", help="LLM model ID (optional)"),
+    model_id: str = typer.Option("microsoft/DialoGPT-large", "--model-id", help="LLM model ID for enhanced responses"),
     top_k: int = typer.Option(5, "--top-k", help="Number of top results to retrieve"),
     verbose: bool = typer.Option(False, "--verbose/--no-verbose", help="Verbose logging"),
 ):
@@ -415,7 +415,7 @@ def ask_question(
         
         cli_logger.info("🚀 Starting RAG query")
         cli_logger.info(f"❓ Question: {question}")
-        cli_logger.info(f"🤖 Model ID: {model_id or 'Default'}")
+        cli_logger.info(f"🤖 Model ID: {model_id}")
         cli_logger.info(f"📊 Top K: {top_k}")
         
         # Initialize RAG pipeline
@@ -440,27 +440,32 @@ def ask_question(
             print(f"  {i}. {source}")
         print("=" * 60)
         
-        # If model_id provided, also use LLM for enhanced response
-        if model_id:
-            try:
-                from pynucleus.llm.llm_runner import LLMRunner
-                llm_runner = LLMRunner()
-                
-                cli_logger.info(f"🤖 Generating enhanced response with {model_id}")
-                llm_response = llm_runner.ask(
-                    question=question,
-                    context=result.get('answer', ''),
-                    model_id=model_id
-                )
-                
-                print("\n🤖 ENHANCED LLM RESPONSE")
-                print("-" * 60)
-                print(llm_response)
-                print("=" * 60)
-                
-            except Exception as llm_error:
-                cli_logger.warning(f"⚠️ LLM enhancement failed: {llm_error}")
-                print(f"\n⚠️ LLM enhancement unavailable: {llm_error}")
+        # Always use LLM for enhanced response
+        try:
+            from pynucleus.llm.llm_runner import LLMRunner
+            llm_runner = LLMRunner(model_id=model_id)
+            
+            cli_logger.info(f"🤖 Generating enhanced response with {model_id}")
+            
+            # Create enhanced prompt with context
+            context = result.get('answer', '')
+            enhanced_prompt = f"Based on this scientific information: {context}\n\nQuestion: {question}\n\nProvide a clear, technical answer:"
+            
+            llm_response = llm_runner.ask(
+                question=enhanced_prompt,
+                max_length=500,
+                temperature=0.7
+            )
+            
+            print("\n🤖 ENHANCED LLM RESPONSE")
+            print("-" * 60)
+            print(llm_response)
+            print("=" * 60)
+            
+        except Exception as llm_error:
+            cli_logger.error(f"❌ LLM processing failed: {llm_error}")
+            print(f"\n❌ LLM processing failed: {llm_error}")
+            print("🔄 Falling back to RAG-only response")
                 
         cli_logger.info("✅ Question processed successfully")
         

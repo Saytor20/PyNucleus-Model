@@ -1,0 +1,43 @@
+2025-06-18 15:36:43,650 | __main__ | INFO | run_pipeline.py:416 | 🚀 Starting RAG query
+2025-06-18 15:36:43,650 | __main__ | INFO | run_pipeline.py:417 | ❓ Question: What are the main advantages of modular chemical plants?
+2025-06-18 15:36:43,650 | __main__ | INFO | run_pipeline.py:418 | 🤖 Model ID: Default
+2025-06-18 15:36:43,650 | __main__ | INFO | run_pipeline.py:419 | 📊 Top K: 5
+2025-06-18 15:36:46,892 | pynucleus.rag.vector_store | INFO | vector_store.py:327 | Found FAISS directory: data/04_models/chunk_reports/pynucleus_mcp.faiss
+2025-06-18 15:36:46,930 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-18 15:36:46,930 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-18 15:36:46,932 | urllib3.connectionpool | DEBUG | connectionpool.py:1049 | Starting new HTTPS connection (1): huggingface.co:443
+2025-06-18 15:36:47,105 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 200 0
+2025-06-18 15:36:47,163 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 200 0
+2025-06-18 15:36:47,222 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 200 0
+2025-06-18 15:36:47,279 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 200 0
+2025-06-18 15:36:47,336 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 200 0
+2025-06-18 15:36:47,393 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+2025-06-18 15:36:47,457 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 200 0
+2025-06-18 15:36:47,830 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-06-18 15:36:47,887 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+2025-06-18 15:36:47,978 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6834
+2025-06-18 15:36:48,055 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6834
+2025-06-18 15:36:48,400 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-18 15:36:48,400 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-18 15:36:48,459 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 200 0
+2025-06-18 15:36:48,515 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 200 0
+2025-06-18 15:36:48,572 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 200 0
+2025-06-18 15:36:48,641 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 200 0
+2025-06-18 15:36:48,700 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 200 0
+2025-06-18 15:36:48,767 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+2025-06-18 15:36:48,826 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 200 0
+2025-06-18 15:36:48,976 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-06-18 15:36:49,042 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+2025-06-18 15:36:49,138 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6834
+2025-06-18 15:36:49,233 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6834
+2025-06-18 15:36:49,310 | faiss.loader | DEBUG | loader.py:89 | Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+2025-06-18 15:36:49,311 | faiss.loader | INFO | loader.py:148 | Loading faiss.
+2025-06-18 15:36:49,355 | faiss.loader | INFO | loader.py:150 | Successfully loaded faiss.
+2025-06-18 15:36:49,358 | faiss | INFO | __init__.py:174 | Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-06-18 15:36:49,382 | pynucleus.rag.vector_store | INFO | vector_store.py:349 | Successfully loaded FAISS index from data/04_models/chunk_reports/pynucleus_mcp.faiss
+2025-06-18 15:36:49,382 | pynucleus.rag.vector_store | INFO | vector_store.py:354 | FAISS index contains 7141 vectors
+2025-06-18 15:36:49,382 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:32 | Real FAISS vector store initialized successfully
+2025-06-18 15:36:49,382 | __main__ | INFO | run_pipeline.py:426 | 🔄 Processing question...
+2025-06-18 15:36:49,534 | pynucleus.rag.vector_store | INFO | vector_store.py:404 | FAISS search for 'What are the main advantages of modular chemical p...' returned 5 results
+2025-06-18 15:36:49,534 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:97 | RAG query processed: What are the main advantages of modular chemical p...
+2025-06-18 15:36:49,534 | __main__ | INFO | run_pipeline.py:465 | ✅ Question processed successfully

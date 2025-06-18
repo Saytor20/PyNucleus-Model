@@ -1,0 +1,15 @@
+2025-06-18 15:39:44,339 | test | DEBUG | run_pipeline.py:288 | 🔍 This is a DEBUG message
+2025-06-18 15:39:44,339 | test | INFO | run_pipeline.py:289 | 📋 This is an INFO message
+2025-06-18 15:39:44,339 | test | WARNING | run_pipeline.py:290 | ⚠️ This is a WARNING message
+2025-06-18 15:39:44,339 | test | ERROR | run_pipeline.py:291 | ❌ This is an ERROR message
+2025-06-18 15:39:44,339 | test | INFO | logging_config.py:155 | System Information:
+2025-06-18 15:39:44,351 | test | INFO | logging_config.py:156 |   Platform: macOS-15.5-arm64-arm-64bit-Mach-O
+2025-06-18 15:39:44,351 | test | INFO | logging_config.py:157 |   Python Version: 3.13.4
+2025-06-18 15:39:44,351 | test | INFO | logging_config.py:158 |   Python Implementation: CPython
+2025-06-18 15:39:44,354 | test | INFO | logging_config.py:159 |   Architecture: 64bit
+2025-06-18 15:39:44,354 | test | INFO | logging_config.py:160 |   Processor: arm
+2025-06-18 15:39:44,354 | test | INFO | logging_config.py:161 |   Working Directory: /Users/mohammadalmusaiteer/PyNucleus-Model
+2025-06-18 15:39:44,354 | test | DEBUG | logging_config.py:164 |   Python Path: ['/Users/mohammadalmusaiteer/PyNucleus-Model', '/opt/homebrew/Cellar/python@3.13/3.13.4/Frameworks/Python.framework/Versions/3.13/lib/python313.zip', '/opt/homebrew/Cellar/python@3.13/3.13.4/Frameworks/Python.framework/Versions/3.13/lib/python3.13', '/opt/homebrew/Cellar/python@3.13/3.13.4/Frameworks/Python.framework/Versions/3.13/lib/python3.13/lib-dynload', '/Users/mohammadalmusaiteer/PyNucleus-Model/.venv/lib/python3.13/site-packages', '/Users/mohammadalmusaiteer/PyNucleus-Model/src']
+2025-06-18 15:39:44,357 | test | INFO | logging_config.py:170 |   Total Memory: 16 GB
+2025-06-18 15:39:44,357 | test | INFO | logging_config.py:171 |   Available Memory: 3 GB
+2025-06-18 15:39:44,357 | test | ERROR | run_pipeline.py:302 | ❌ Log file not found
