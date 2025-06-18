@@ -22,3 +22,4 @@
 2025-06-18 15:54:24,149 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [18/Jun/2025 15:54:24] "POST /ask HTTP/1.1" 200 -
 2025-06-18 15:54:33,335 | __main__ | INFO | app.py:63 | Health check requested
 2025-06-18 15:54:33,336 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [18/Jun/2025 15:54:33] "GET /health HTTP/1.1" 200 -
+2025-06-18 16:00:31,753 | werkzeug | INFO | _internal.py:97 |  * Detected change in '/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/api/app.py', reloading

@@ -136,6 +136,9 @@ class SystemValidator:
             if include_notebook:
                 self._run_notebook_validation()
             
+            # Web interface validation (basic)
+            self._run_web_interface_validation()
+            
             # Generate validation report
             self._generate_validation_report()
             self._save_validation_results()
@@ -312,6 +315,96 @@ class SystemValidator:
             
         except Exception as e:
             self.log_message(f"RAG accuracy testing failed: {e}", "error")
+    
+    def _run_web_interface_validation(self):
+        """Run basic web interface validation tests."""
+        print("\n" + "=" * 60)
+        print("   WEB INTERFACE VALIDATION TESTING")
+        print("=" * 60)
+        
+        # Check if web interface files exist
+        web_files_to_check = [
+            ("src/pynucleus/api/app.py", "Flask API application"),
+            ("src/pynucleus/api/static/index.html", "Browser interface HTML"),
+        ]
+        
+        web_files_found = 0
+        for file_path, description in web_files_to_check:
+            self.total_tests += 1
+            
+            if Path(file_path).exists():
+                self.log_message(f"✓ {description}: Found", "success")
+                web_files_found += 1
+                self.passed_tests += 1
+                
+                # Basic content validation
+                if file_path.endswith('.html'):
+                    with open(file_path, 'r') as f:
+                        content = f.read()
+                    
+                    html_requirements = ['id="question"', 'askQuestion', 'typeText', 'fetch']
+                    for req in html_requirements:
+                        self.total_tests += 1
+                        if req in content:
+                            self.log_message(f"  ✓ HTML contains {req}", "success")
+                            self.passed_tests += 1
+                        else:
+                            self.log_message(f"  ✗ HTML missing {req}", "error")
+                            
+                elif file_path.endswith('app.py'):
+                    with open(file_path, 'r') as f:
+                        content = f.read()
+                    
+                    api_requirements = ['@app.route', '/ask', '/health', 'send_from_directory']
+                    for req in api_requirements:
+                        self.total_tests += 1
+                        if req in content:
+                            self.log_message(f"  ✓ API contains {req}", "success")
+                            self.passed_tests += 1
+                        else:
+                            self.log_message(f"  ✗ API missing {req}", "error")
+            else:
+                self.log_message(f"✗ {description}: Missing", "error")
+        
+        # Test basic server availability (if requests is available)
+        try:
+            import requests
+            
+            self.total_tests += 1
+            try:
+                response = requests.get("http://localhost:5001/health", timeout=5)
+                if response.status_code == 200:
+                    self.log_message("✓ Web server responding", "success")
+                    self.passed_tests += 1
+                    
+                    # Test basic API endpoint
+                    self.total_tests += 1
+                    try:
+                        api_response = requests.post(
+                            "http://localhost:5001/ask",
+                            json={"question": "test"},
+                            timeout=10
+                        )
+                        if api_response.status_code == 200:
+                            self.log_message("✓ API endpoint responding", "success")
+                            self.passed_tests += 1
+                        else:
+                            self.log_message(f"⚠️ API endpoint returned {api_response.status_code}", "warning")
+                    except:
+                        self.log_message("⚠️ API endpoint test failed (may be expected)", "warning")
+                else:
+                    self.log_message("⚠️ Web server not responding (may be expected)", "warning")
+            except:
+                self.log_message("⚠️ Web server not available (may be expected)", "warning")
+                
+        except ImportError:
+            self.log_message("⚠️ Cannot test web server (requests not available)", "warning")
+        
+        # Summary
+        if web_files_found >= len(web_files_to_check):
+            self.log_message("Web Interface Files: PASSED", "success")
+        else:
+            self.log_message("Web Interface Files: PARTIAL", "warning")
     
     def _run_notebook_validation(self):
         """Run notebook validation tests."""

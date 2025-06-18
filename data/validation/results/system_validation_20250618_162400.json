@@ -1,0 +1,104 @@
+{
+  "timestamp": "20250618_162400",
+  "total_tests": 21,
+  "passed_tests": 13,
+  "success_rate": 0.6190476190476191,
+  "validation_results": [
+    {
+      "test_name": "Ground Truth - chemical_engineering_concepts",
+      "query": "What are the main advantages of modular chemical plants?",
+      "domain": "modular_plants",
+      "difficulty": "intermediate",
+      "accuracy_score": 0.2,
+      "citation_accuracy": 1.0,
+      "response_time": 6.6255292892456055,
+      "sources_used": [
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - chemical_engineering_concepts",
+      "query": "How do distillation columns work in chemical separation processes?",
+      "domain": "separation_processes",
+      "difficulty": "basic",
+      "accuracy_score": 0.5,
+      "citation_accuracy": 1.0,
+      "response_time": 2.298977851867676,
+      "sources_used": [
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - chemical_engineering_concepts",
+      "query": "What factors affect reactor conversion efficiency in chemical processes?",
+      "domain": "reactor_design",
+      "difficulty": "intermediate",
+      "accuracy_score": 0.5,
+      "citation_accuracy": 1.0,
+      "response_time": 1.8269600868225098,
+      "sources_used": [
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - process_safety",
+      "query": "What are the key principles of process safety management?",
+      "domain": "safety_management",
+      "difficulty": "advanced",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 1.0,
+      "response_time": 1.8454039096832275,
+      "sources_used": [
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - process_safety",
+      "query": "How do pressure relief systems work in chemical plants?",
+      "domain": "safety_systems",
+      "difficulty": "intermediate",
+      "accuracy_score": 0.2,
+      "citation_accuracy": 1.0,
+      "response_time": 1.670591115951538,
+      "sources_used": [
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - environmental_engineering",
+      "query": "What are the main wastewater treatment processes?",
+      "domain": "wastewater_treatment",
+      "difficulty": "basic",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 1.0,
+      "response_time": 2.792055130004883,
+      "sources_used": [
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown",
+        "Unknown"
+      ]
+    }
+  ]
+}

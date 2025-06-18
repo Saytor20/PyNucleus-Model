@@ -189,6 +189,8 @@ To Do:
 14) review of all the codes with 100% system diognostic - completed
 16) Consolidate Diagnostics & Loggings- completed
 17) The Flask API - Completed
-
+18) Static HTMX UI-  Completed but need to make server always available
 
  2025-06-18 15:58:47 changes made and pushed to origin main
+
+ 2025-06-18 16:27:30 changes made and pushed to origin main

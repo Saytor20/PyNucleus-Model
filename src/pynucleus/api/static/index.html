@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyNucleus - Chemical Process Q&A</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">PyNucleus</h1>
+            <p class="text-lg text-gray-600">Chemical Process Simulation & Knowledge Assistant</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="mb-4">
+                <label for="question" class="block text-sm font-medium text-gray-700 mb-2">
+                    Ask a question about chemical processes:
+                </label>
+                <textarea 
+                    id="question" 
+                    name="question"
+                    rows="4" 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 resize-none"
+                    placeholder="Example: What is distillation? How does a heat exchanger work?"
+                ></textarea>
+            </div>
+            
+            <button 
+                type="button"
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50"
+                onclick="askQuestion(this)"
+            >
+                Ask Question
+            </button>
+            
+            <div id="loading" class="htmx-indicator mt-4 text-center">
+                <div class="inline-flex items-center text-blue-600">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing your question...
+                </div>
+            </div>
+        </div>
+
+        <div id="results" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <!-- Results will be inserted here by HTMX -->
+        </div>
+
+        <div class="text-center text-sm text-gray-500 mt-8">
+            <p>Powered by PyNucleus RAG System</p>
+        </div>
+    </div>
+
+    <script>
+        function askQuestion(button) {
+            const question = document.getElementById('question').value.trim();
+            console.log('Question:', question);
+            
+            if (!question) {
+                alert('Please enter a question first.');
+                return;
+            }
+            
+            // Disable button and show loading
+            button.disabled = true;
+            setTimeout(() => button.disabled = false, 3000);
+            
+            console.log('Making request to /ask...');
+            
+            // Make the request
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                displayResponse(data);
+            })
+            .catch(error => {
+                console.error('Full error:', error);
+                displayError('Failed to get response. Error: ' + error.message);
+            });
+        }
+        
+        function displayResponse(response) {
+            console.log('Displaying response...');
+            const resultsDiv = document.getElementById('results');
+            
+            if (!resultsDiv) {
+                console.error('Results div not found!');
+                return;
+            }
+            
+            resultsDiv.classList.remove('hidden');
+            
+            let html = '<div class="space-y-4">';
+            
+            if (response.error) {
+                console.log('Displaying error:', response.error);
+                html += `<div class="bg-red-50 border border-red-200 rounded-md p-4">
+                            <h3 class="text-lg font-medium text-red-800 mb-2">Error</h3>
+                            <p class="text-red-700">${response.error}</p>
+                        </div>`;
+                resultsDiv.innerHTML = html + '</div>';
+            } else {
+                console.log('Displaying successful response');
+                // Create answer container with typing effect
+                html += `<div class="bg-green-50 border border-green-200 rounded-md p-4">
+                            <h3 class="text-lg font-medium text-green-800 mb-2">Answer</h3>
+                            <p id="typing-answer" class="text-green-700 whitespace-pre-wrap"></p>
+                        </div>`;
+                
+                if (response.confidence) {
+                    html += `<div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                                <h4 class="text-md font-medium text-blue-800 mb-2">Confidence</h4>
+                                <p class="text-blue-700">${(response.confidence * 100).toFixed(1)}%</p>
+                            </div>`;
+                }
+                
+                if (response.sources && response.sources.length > 0) {
+                    html += `<div class="bg-gray-50 border border-gray-200 rounded-md p-4">
+                                <h4 class="text-md font-medium text-gray-800 mb-2">Sources</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">`;
+                    response.sources.forEach(source => {
+                        html += `<li class="text-sm">${source}</li>`;
+                    });
+                    html += `</ul></div>`;
+                }
+                
+                html += '</div>';
+                console.log('Setting innerHTML...');
+                resultsDiv.innerHTML = html;
+                
+                // Start typing effect for the answer
+                // Use RAG answer if LLM answer seems to be just a prompt
+                let answerText = response.answer || 'No answer available';
+                if (answerText.includes('Question:') && answerText.includes('Provide a clear, technical answer:')) {
+                    // LLM failed, use RAG answer instead
+                    answerText = response.rag_answer || 'No answer available';
+                    console.log('Using RAG answer instead of LLM answer');
+                }
+                console.log('Starting typing effect for text length:', answerText.length);
+                console.log('Answer text preview:', answerText.substring(0, 100) + '...');
+                setTimeout(() => {
+                    typeText('typing-answer', answerText, 80);
+                }, 500);
+            }
+        }
+        
+        function displayError(message) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.innerHTML = `<div class="bg-red-50 border border-red-200 rounded-md p-4">
+                                      <h3 class="text-lg font-medium text-red-800 mb-2">Error</h3>
+                                      <p class="text-red-700">${message}</p>
+                                   </div>`;
+        }
+        
+        function typeText(elementId, text, speed = 50) {
+            console.log('typeText called for element:', elementId);
+            const element = document.getElementById(elementId);
+            
+            if (!element) {
+                console.error('Element not found:', elementId);
+                return;
+            }
+            
+            console.log('Starting to type text of length:', text.length);
+            element.textContent = ''; // Clear any existing content
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    console.log('Typing completed');
+                }
+            }
+            
+            type();
+        }
+    </script>
+</body>
+</html> 

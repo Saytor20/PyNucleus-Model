@@ -11,7 +11,7 @@ import json
 import numpy as np
 from pathlib import Path
 from functools import wraps
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 
 # Add project root to Python path to access run_pipeline.py
 project_root = Path(__file__).parent.parent.parent.parent
@@ -57,6 +57,13 @@ def require_api_key(f):
     return decorated_function
 
 
+@app.route('/', methods=['GET'])
+def index():
+    """Serve the browser UI."""
+    static_dir = Path(__file__).parent / 'static'
+    return send_from_directory(static_dir, 'index.html')
+
+
 @app.route('/health', methods=['GET'])
 def health():
     """Health check endpoint."""
@@ -69,7 +76,6 @@ def health():
 
 
 @app.route('/ask', methods=['POST'])
-@require_api_key
 def ask():
     """Ask a question to the RAG system."""
     try:
