@@ -1,6 +1,7 @@
-import chromadb, textwrap
+import chromadb
 from ..settings import settings
 from ..llm.model_loader import generate
+from ..llm.prompting import build_prompt
 from ..utils.logger import logger
 
 client = chromadb.PersistentClient(settings.CHROMA_PATH)
@@ -16,18 +17,6 @@ def retrieve(query: str, top_k=None):
 
 def ask(question: str):
     ctx_chunks = retrieve(question)
-    ctx = "\n\n".join(ctx_chunks)
-    prompt = textwrap.dedent(f"""\
-        You are a concise chemical-engineering assistant.
-        Answer using the context below.
-
-        Context:
-        {ctx}
-
-        Question:
-        {question}
-
-        Answer:
-    """)
+    prompt = build_prompt("\n\n".join(ctx_chunks), question)
     answer = generate(prompt)
     return {"answer": answer.strip(), "sources": ctx_chunks} 

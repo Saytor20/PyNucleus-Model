@@ -13,6 +13,8 @@ src/pynucleus/api/__init__.py
 src/pynucleus/api/app.py
 src/pynucleus/diagnostics/__init__.py
 src/pynucleus/diagnostics/runner.py
+src/pynucleus/eval/__init__.py
+src/pynucleus/eval/golden_eval.py
 src/pynucleus/integration/__init__.py
 src/pynucleus/integration/config_manager.py
 src/pynucleus/integration/dwsim_rag_integrator.py
@@ -22,6 +24,7 @@ src/pynucleus/llm/answer_engine.py
 src/pynucleus/llm/device_manager.py
 src/pynucleus/llm/llm_runner.py
 src/pynucleus/llm/model_loader.py
+src/pynucleus/llm/prompting.py
 src/pynucleus/llm/query_llm.py
 src/pynucleus/llm/qwen_loader.py
 src/pynucleus/llm/retriever_adapter.py
@@ -39,6 +42,7 @@ src/pynucleus/rag/engine.py
 src/pynucleus/rag/rag_core.py
 src/pynucleus/rag/vector_store.py
 src/pynucleus/rag/vector_store_remote.py
+src/pynucleus/rag/wiki_scraper.py
 src/pynucleus/utils/__init__.py
 src/pynucleus/utils/env.py
 src/pynucleus/utils/logger.py
@@ -47,3 +51,5 @@ src/pynucleus/utils/token_utils.py
 tests/test_ask_basic.py
 tests/test_backend_choice.py
 tests/test_context_size.py
+tests/test_golden_cli.py
+tests/test_prompt_backend.py
