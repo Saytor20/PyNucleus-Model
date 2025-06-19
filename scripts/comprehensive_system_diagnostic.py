@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Comprehensive PyNucleus System Diagnostic & Testing Suite
+Comprehensive PyNucleus Clean System Diagnostic & Testing Suite
 
 COMPREHENSIVE SYSTEM HEALTH DIAGNOSTICS - checks system environment and component health.
-This script focuses on comprehensive system health aspects of PyNucleus:
+This script focuses on comprehensive system health aspects of PyNucleus Clean:
 - Complete environment and dependency validation
 - Script-by-script health checking with execution testing
 - Component integration and health monitoring
 - Docker environment validation
 - Directory structure verification
-- Pipeline component testing
-- Enhanced system monitoring
+- ChromaDB vector store + Qwen model pipeline testing
+- Clean architecture monitoring (Pydantic + Loguru)
 
 For focused validation testing (accuracy, citations), use system_validator.py instead.
 """
@@ -62,7 +62,7 @@ class ScriptHealth:
     warnings: List[str] = field(default_factory=list)
 
 class ComprehensiveSystemDiagnostic:
-    """Comprehensive system diagnostic focused on environment and component health."""
+    """Comprehensive system diagnostic focused on PyNucleus Clean environment and component health."""
     
     def __init__(self, quiet_mode: bool = False, test_mode: bool = False):
         self.quiet_mode = quiet_mode
@@ -83,16 +83,18 @@ class ComprehensiveSystemDiagnostic:
         self.scripts_health = False
         self.components_health = False
         self.docker_health = False
+        self.chromadb_health = False
+        self.qwen_health = False
         
-        # Updated script categories for current project structure
+        # Updated script categories for current PyNucleus Clean project structure
         self.script_categories = {
             "Core Pipeline Scripts": [
                 "src/pynucleus/pipeline/**/*.py",
                 "src/pynucleus/rag/**/*.py"
             ],
-            "Integration & LLM Scripts": [
-                "src/pynucleus/integration/**/*.py", 
+            "LLM & Model Scripts": [
                 "src/pynucleus/llm/**/*.py",
+                "src/pynucleus/integration/**/*.py",
                 "src/pynucleus/utils/**/*.py"
             ],
             "API & Interface Scripts": [
@@ -124,13 +126,13 @@ class ComprehensiveSystemDiagnostic:
     
     def run_comprehensive_diagnostic(self):
         """Run complete comprehensive system diagnostic."""
-        self.log_message("🚀 Starting Comprehensive PyNucleus System Diagnostic...")
+        self.log_message("🚀 Starting Comprehensive PyNucleus Clean System Diagnostic...")
         self.log_message(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
         print("=" * 60)
-        print("   COMPREHENSIVE SYSTEM HEALTH DIAGNOSTIC")
+        print("   COMPREHENSIVE PYNUCLEUS CLEAN HEALTH DIAGNOSTIC")
         print("=" * 60)
-        print("Focus: Environment, Dependencies, Scripts, and Components")
+        print("Focus: ChromaDB, Qwen Models, Clean Architecture, and Components")
         print()
         
         try:
@@ -139,6 +141,11 @@ class ComprehensiveSystemDiagnostic:
             self._check_comprehensive_dependencies()
             self._check_docker_environment()
             self._validate_directory_structure()
+            
+            # Clean architecture specific checks
+            self._check_pynucleus_clean_architecture()
+            self._check_chromadb_health()
+            self._check_qwen_model_health()
             
             # Comprehensive script validation
             self._validate_all_scripts_comprehensive()
@@ -249,12 +256,12 @@ class ComprehensiveSystemDiagnostic:
         self._check_package_list(essential_packages, "Essential Dependencies")
     
     def _check_comprehensive_dependencies(self):
-        """Check comprehensive dependencies."""
+        """Check comprehensive dependencies for PyNucleus Clean."""
         print("\n" + "=" * 60)
         print("   COMPREHENSIVE DEPENDENCIES CHECK")
         print("=" * 60)
         
-        # Core dependencies
+        # Core dependencies for PyNucleus Clean
         core_packages = [
             "numpy", "pandas", "requests", "tqdm", "typer",
             "pathlib", "dataclasses", "asyncio", "concurrent", "flask"
@@ -263,14 +270,28 @@ class ComprehensiveSystemDiagnostic:
         self.log_message("Core Dependencies:")
         self._check_package_list(core_packages, "Core Dependencies")
         
+        # PyNucleus Clean specific dependencies
+        clean_packages = [
+            ("chromadb", "ChromaDB vector database"),
+            ("transformers", "HuggingFace transformers"),
+            ("torch", "PyTorch framework"),
+            ("sentence-transformers", "Sentence embeddings"),
+            ("pydantic", "Pydantic settings validation"),
+            ("loguru", "Loguru logging"),
+            ("tiktoken", "Token counting utilities")
+        ]
+        
+        self.log_message("\nPyNucleus Clean Dependencies:")
+        for package, description in clean_packages:
+            self._check_single_package(package, description, optional=False)
+        
         # Optional dependencies
         optional_packages = [
             ("jupyter", "Jupyter notebook support"),
             ("notebook", "Notebook interface"),
-            ("faiss-cpu", "FAISS vector search"),
-            ("transformers", "Transformer models"),
-            ("torch", "PyTorch framework"),
-            ("sentence-transformers", "Sentence embeddings")
+            ("llama-cpp-python", "GGUF model support"),
+            ("bitsandbytes", "Model quantization"),
+            ("accelerate", "Model acceleration")
         ]
         
         self.log_message("\nOptional Dependencies:")
@@ -637,11 +658,12 @@ class ComprehensiveSystemDiagnostic:
             self.log_message(f"  PipelineUtils: {'✓ Initialized' if pipeline_utils else '✗ Failed'}")
             self.log_message(f"  RAG Pipeline: {'✓ Initialized' if rag_pipeline else '✗ Failed'}")
             
-            # Try DWSIM pipeline separately (optional component)
+            # Try DWSIM pipeline separately (optional component - legacy)
             try:
                 from pynucleus.pipeline.pipeline_dwsim import DWSIMPipeline
                 dwsim_pipeline = DWSIMPipeline()
                 self.log_message(f"  DWSIM Pipeline: {'✓ Initialized' if dwsim_pipeline else '✗ Failed'}")
+                check.warnings.append("DWSIM pipeline is legacy - focus on ChromaDB RAG")
             except ImportError:
                 self.log_message("  DWSIM Pipeline: ⚠️ Not Available (platform limitation)", "warning")
                 check.warnings.append("DWSIM pipeline not available (expected on macOS)")
@@ -699,24 +721,24 @@ class ComprehensiveSystemDiagnostic:
         try:
             from pynucleus.integration.config_manager import ConfigManager
             from pynucleus.integration.llm_output_generator import LLMOutputGenerator
-            from pynucleus.rag.vector_store import RealFAISSVectorStore
+            from pynucleus.rag.vector_store import ChromaVectorStore
             
             check = SystemCheck("Integration Components", "components")
             
             # Test component initialization
             config_mgr = ConfigManager()
             llm_gen = LLMOutputGenerator()
-            vector_store = RealFAISSVectorStore()
+            chroma_store = ChromaVectorStore()
             
             self.log_message("Integration Components:")
             self.log_message(f"  Config Manager: {'✓ Initialized' if config_mgr else '✗ Failed'}")
             self.log_message(f"  LLM Generator: {'✓ Initialized' if llm_gen else '✗ Failed'}")
-            self.log_message(f"  Vector Store: {'✓ Loaded' if vector_store.loaded else '⚠️ Not Loaded'}")
+            self.log_message(f"  ChromaDB Store: {'✓ Loaded' if chroma_store.loaded else '⚠️ Not Loaded'}")
             
             check.passed = True
             check.details.append("Integration components initialized")
-            if not vector_store.loaded:
-                check.warnings.append("Vector store not loaded (may be expected)")
+            if not chroma_store.loaded:
+                check.warnings.append("ChromaDB store not loaded (may be expected)")
             
         except Exception as e:
             check = SystemCheck("Integration Components", "components")
@@ -728,6 +750,136 @@ class ComprehensiveSystemDiagnostic:
         self.total_checks += 1
         if check.passed:
             self.passed_checks += 1
+    
+    def _check_pynucleus_clean_architecture(self):
+        """Check PyNucleus Clean architecture components."""
+        print("\n" + "=" * 60)
+        print("   PYNUCLEUS CLEAN ARCHITECTURE CHECK")
+        print("=" * 60)
+        
+        # Test Pydantic Settings
+        try:
+            from pynucleus.settings import settings
+            
+            self.total_checks += 1
+            check = SystemCheck("Pydantic Settings", "architecture")
+            
+            # Validate core settings
+            required_settings = ['CHROMA_PATH', 'MODEL_ID', 'EMB_MODEL', 'MAX_TOKENS', 'RETRIEVE_TOP_K']
+            settings_valid = all(hasattr(settings, attr) for attr in required_settings)
+            
+            if settings_valid:
+                self.log_message("✓ Pydantic Settings validation PASSED", "success")
+                self.log_message(f"   ChromaDB Path: {settings.CHROMA_PATH}")
+                self.log_message(f"   Model ID: {settings.MODEL_ID}")
+                self.log_message(f"   Embedding Model: {settings.EMB_MODEL}")
+                check.passed = True
+                self.passed_checks += 1
+            else:
+                self.log_message("✗ Pydantic Settings validation FAILED", "error")
+                check.passed = False
+                
+            self.system_checks.append(check)
+                
+        except Exception as e:
+            self.log_message(f"Clean architecture validation failed: {e}", "error")
+        
+        # Test Loguru Logger
+        try:
+            from pynucleus.utils.logger import logger
+            
+            self.total_checks += 1
+            check = SystemCheck("Loguru Logger", "architecture")
+            
+            # Test logger functionality
+            logger.info("Test log message from comprehensive diagnostic")
+            self.log_message("✓ Loguru Logger validation PASSED", "success")
+            check.passed = True
+            self.passed_checks += 1
+            
+            self.system_checks.append(check)
+            
+        except Exception as e:
+            self.log_message(f"Logger validation failed: {e}", "error")
+    
+    def _check_chromadb_health(self):
+        """Check ChromaDB health and connectivity."""
+        print("\n" + "=" * 60)
+        print("   CHROMADB HEALTH CHECK")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.rag.engine import retrieve
+            from pynucleus.settings import settings
+            
+            self.total_checks += 1
+            check = SystemCheck("ChromaDB Health", "chromadb")
+            
+            # Test ChromaDB connection
+            chroma_path = Path(settings.CHROMA_PATH)
+            if chroma_path.exists():
+                self.log_message(f"✓ ChromaDB directory exists: {settings.CHROMA_PATH}", "success")
+                
+                # Test basic retrieval
+                test_docs = retrieve("chemical engineering", top_k=1)
+                if test_docs and len(test_docs) > 0:
+                    self.log_message("✓ ChromaDB retrieval PASSED", "success")
+                    self.log_message(f"   Retrieved {len(test_docs)} documents")
+                    check.passed = True
+                    self.passed_checks += 1
+                    self.chromadb_health = True
+                else:
+                    self.log_message("⚠️ ChromaDB retrieval returned no results", "warning")
+                    check.passed = False
+                    check.warnings.append("ChromaDB empty or not functioning")
+            else:
+                self.log_message(f"⚠️ ChromaDB directory not found: {settings.CHROMA_PATH}", "warning")
+                check.passed = False
+                check.warnings.append("ChromaDB directory missing")
+                
+            self.system_checks.append(check)
+                
+        except Exception as e:
+            self.log_message(f"ChromaDB health check failed: {e}", "error")
+    
+    def _check_qwen_model_health(self):
+        """Check Qwen model health and performance."""
+        print("\n" + "=" * 60)
+        print("   QWEN MODEL HEALTH CHECK")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.llm.qwen_loader import generate
+            from pynucleus.settings import settings
+            
+            self.total_checks += 1
+            check = SystemCheck("Qwen Model Health", "qwen")
+            
+            # Test model loading and generation
+            self.log_message(f"Testing Qwen model: {settings.MODEL_ID}")
+            
+            test_prompt = "What is chemical engineering?"
+            start_time = time.time()
+            
+            response = generate(test_prompt, max_tokens=50)
+            response_time = time.time() - start_time
+            
+            if response and len(response.strip()) > 10:
+                self.log_message("✓ Qwen model generation PASSED", "success")
+                self.log_message(f"   Response time: {response_time:.2f}s")
+                self.log_message(f"   Response length: {len(response)} characters")
+                check.passed = True
+                self.passed_checks += 1
+                self.qwen_health = True
+            else:
+                self.log_message("✗ Qwen model generation FAILED", "error")
+                check.passed = False
+                check.error_message = "Model generation failed or returned empty response"
+                
+            self.system_checks.append(check)
+                
+        except Exception as e:
+            self.log_message(f"Qwen model health check failed: {e}", "error")
     
     def _test_basic_functionality(self):
         """Test basic system functionality."""

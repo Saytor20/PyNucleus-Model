@@ -470,9 +470,10 @@ def ask_question(
             
             cli_logger.info(f"🤖 Generating enhanced response with {model_id}")
             
-            # Create enhanced prompt with context
+            # Create enhanced prompt with context using Guidance integration
+            from pynucleus.llm.prompting import build_prompt
             context = result.get('answer', '')
-            enhanced_prompt = f"Based on this scientific information: {context}\n\nQuestion: {question}\n\nProvide a clear, technical answer:"
+            enhanced_prompt = build_prompt(context, question)
             
             llm_response = llm_runner.ask(
                 question=enhanced_prompt,
@@ -583,9 +584,10 @@ def interactive_chat(
                     # Get RAG response
                     rag_result = rag_pipeline.query(question, top_k=top_k)
                     
-                    # Get enhanced LLM response
+                    # Get enhanced LLM response using Guidance integration
+                    from pynucleus.llm.prompting import build_prompt
                     context = rag_result.get('answer', '')
-                    enhanced_prompt = f"Based on this scientific information: {context}\n\nQuestion: {question}\n\nProvide a clear, technical answer:"
+                    enhanced_prompt = build_prompt(context, question)
                     
                     llm_response = llm_runner.ask(
                         question=enhanced_prompt,

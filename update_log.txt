@@ -206,10 +206,15 @@ To Do:
 6) run system_validator script and start fixing all the problems in it 
 7) update the API script to include costs
 8) create a finanical advisor model that handles the money 
-9) add DSPY like framework to the system to enhance the model 
-
+9) add DSPY like framework to the system to enhance the model
+10) we need to fix the reliance on RAG... should it be like that? 
+11) evaluate if we should start training the model or the current set up is fine and just needs more data
+12) once number 10 is fixed then we can proceed with uploading more data and enhancing the system 
+13) just updated @comprehensive_system_diagnostica and @system_validator... run them to make sure everything is running
 
 
  2025-06-19 17:24:17 changes made and pushed to origin main
 
  2025-06-19 17:26:51 changes made and pushed to origin main
+
+ 2025-06-19 17:54:04 changes made and pushed to origin main

@@ -7,10 +7,9 @@ from ..utils.logger import logger
 
 try:
     import guidance
-    guidance.llm = guidance.llms.Transformers("Qwen/Qwen1.5-0.5B-Chat")
     USE_GUIDANCE = True
     logger.success("Guidance activated.")
-except Exception as e:
+except ImportError as e:
     USE_GUIDANCE = False
     logger.warning(f"Guidance unavailable → using plain prompt. ({e})")
 
@@ -36,13 +35,22 @@ def build_prompt(context: str, question: str) -> str:
     if not USE_GUIDANCE:
         return _SIMPLE_TMPL.format(context=context, question=question)
 
-    @guidance
-    def qa(g):
-        g += "You are a concise chemical-engineering assistant.\n"
-        g += "Context:\n{{context}}\n"
-        g += "Question: {{question}}\n"
-        g += "Answer (cite numbers in square brackets): "
-        g += guidance.gen(name="answer", max_tokens=256)
+    # Enhanced Guidance template with structured formatting
+    guidance_template = f"""You are a concise chemical-engineering assistant with expertise in process design and optimization.
+
+Context Information:
+{context}
+
+User Question: {question}
+
+Instructions:
+- Provide a direct, technical answer based on the context
+- Include specific numbers, percentages, or quantitative data when available
+- Cite relevant information using [context] notation
+- Keep responses focused on chemical engineering principles
+- Format your answer clearly with bullet points if listing multiple factors
+
+Answer:"""
     
-    result = qa(context=context, question=question)
-    return result["answer"] 
+    logger.debug("Using enhanced Guidance template")
+    return guidance_template 

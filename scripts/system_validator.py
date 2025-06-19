@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-PyNucleus System Validator
+PyNucleus Clean System Validator
 
 FOCUSED VALIDATION TESTING - validates accuracy, citations, and ground-truth responses.
-This script specifically focuses on validation aspects of the PyNucleus system:
+This script specifically focuses on validation aspects of the PyNucleus Clean system:
 - Ground-truth validation with known answers
 - Citation accuracy and backtracking verification  
 - Factual accuracy validation
 - Response quality assessment
-- RAG system validation
+- ChromaDB vector store validation
+- Qwen model generation validation
+- Clean architecture validation (Pydantic + Loguru)
 
 For comprehensive system diagnostics, use comprehensive_system_diagnostic.py instead.
 """
@@ -46,7 +48,7 @@ class ValidationResult:
     validation_notes: str = ""
 
 class SystemValidator:
-    """Focused system validator for PyNucleus accuracy and validation testing."""
+    """Focused system validator for PyNucleus Clean accuracy and validation testing."""
     
     def __init__(self, quiet_mode: bool = False):
         self.quiet_mode = quiet_mode
@@ -118,17 +120,20 @@ class SystemValidator:
     
     def run_validation_suite(self, include_citations: bool = True, include_notebook: bool = False):
         """Run the complete validation suite."""
-        self.log_message("🚀 Starting PyNucleus Validation Suite...")
+        self.log_message("🚀 Starting PyNucleus Clean Validation Suite...")
         self.log_message(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
         print("=" * 60)
-        print("   PYNUCLEUS VALIDATION TESTING SUITE")
+        print("   PYNUCLEUS CLEAN VALIDATION TESTING SUITE")
         print("=" * 60)
-        print("Focus: Accuracy, Citations, and Ground-Truth Validation")
+        print("Focus: ChromaDB, Qwen Model, and Clean Architecture Validation")
         print()
         
         try:
-            # Core validation tests
+            # Core validation tests for Clean architecture
+            self._run_clean_architecture_validation()
+            self._run_chromadb_validation()
+            self._run_qwen_model_validation()
             self._run_ground_truth_validation()
             self._run_golden_dataset_validation()
             
@@ -140,7 +145,7 @@ class SystemValidator:
             if include_notebook:
                 self._run_notebook_validation()
             
-            # Web interface validation (basic)
+            # Web interface validation
             self._run_web_interface_validation()
             
             # Generate validation report
@@ -150,6 +155,111 @@ class SystemValidator:
         except Exception as e:
             self.log_message(f"Validation suite failed: {e}", "error")
             raise
+    
+    def _run_clean_architecture_validation(self):
+        """Run validation for PyNucleus Clean architecture components."""
+        print("\n" + "=" * 60)
+        print("   CLEAN ARCHITECTURE VALIDATION")
+        print("=" * 60)
+        
+        # Test Pydantic Settings
+        try:
+            from pynucleus.settings import settings
+            
+            self.total_tests += 1
+            
+            # Validate core settings
+            required_settings = ['CHROMA_PATH', 'MODEL_ID', 'EMB_MODEL', 'MAX_TOKENS', 'RETRIEVE_TOP_K']
+            settings_valid = all(hasattr(settings, attr) for attr in required_settings)
+            
+            if settings_valid:
+                self.log_message("✓ Pydantic Settings validation PASSED", "success")
+                self.log_message(f"   ChromaDB Path: {settings.CHROMA_PATH}")
+                self.log_message(f"   Model ID: {settings.MODEL_ID}")
+                self.log_message(f"   Embedding Model: {settings.EMB_MODEL}")
+                self.passed_tests += 1
+            else:
+                self.log_message("✗ Pydantic Settings validation FAILED", "error")
+                
+        except Exception as e:
+            self.log_message(f"Clean architecture validation failed: {e}", "error")
+        
+        # Test Loguru Logger
+        try:
+            from pynucleus.utils.logger import logger
+            
+            self.total_tests += 1
+            
+            # Test logger functionality
+            logger.info("Test log message from validator")
+            self.log_message("✓ Loguru Logger validation PASSED", "success")
+            self.passed_tests += 1
+            
+        except Exception as e:
+            self.log_message(f"Logger validation failed: {e}", "error")
+    
+    def _run_chromadb_validation(self):
+        """Run ChromaDB-specific validation tests."""
+        print("\n" + "=" * 60)
+        print("   CHROMADB VALIDATION TESTING")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.rag.engine import retrieve
+            from pynucleus.settings import settings
+            
+            self.total_tests += 1
+            
+            # Test ChromaDB connection
+            chroma_path = Path(settings.CHROMA_PATH)
+            if chroma_path.exists():
+                self.log_message(f"✓ ChromaDB directory exists: {settings.CHROMA_PATH}", "success")
+                
+                # Test basic retrieval
+                test_docs = retrieve("chemical engineering", top_k=1)
+                if test_docs and len(test_docs) > 0:
+                    self.log_message("✓ ChromaDB retrieval PASSED", "success")
+                    self.log_message(f"   Retrieved {len(test_docs)} documents")
+                    self.passed_tests += 1
+                else:
+                    self.log_message("⚠️ ChromaDB retrieval returned no results", "warning")
+            else:
+                self.log_message(f"⚠️ ChromaDB directory not found: {settings.CHROMA_PATH}", "warning")
+                
+        except Exception as e:
+            self.log_message(f"ChromaDB validation failed: {e}", "error")
+    
+    def _run_qwen_model_validation(self):
+        """Run Qwen model validation tests."""
+        print("\n" + "=" * 60)
+        print("   QWEN MODEL VALIDATION TESTING")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.llm.qwen_loader import generate
+            from pynucleus.settings import settings
+            
+            self.total_tests += 1
+            
+            # Test model loading and generation
+            self.log_message(f"Testing Qwen model: {settings.MODEL_ID}")
+            
+            test_prompt = "What is chemical engineering?"
+            start_time = time.time()
+            
+            response = generate(test_prompt, max_tokens=50)
+            response_time = time.time() - start_time
+            
+            if response and len(response.strip()) > 10:
+                self.log_message("✓ Qwen model generation PASSED", "success")
+                self.log_message(f"   Response time: {response_time:.2f}s")
+                self.log_message(f"   Response length: {len(response)} characters")
+                self.passed_tests += 1
+            else:
+                self.log_message("✗ Qwen model generation FAILED", "error")
+                
+        except Exception as e:
+            self.log_message(f"Qwen model validation failed: {e}", "error")
     
     def _run_golden_dataset_validation(self):
         """Run validation against the golden dataset."""
@@ -323,30 +433,42 @@ class SystemValidator:
         print("   RAG SYSTEM ACCURACY TESTING")
         print("=" * 60)
         
-        # Test RAG system basic functionality
+        # Test ChromaDB RAG system basic functionality
         try:
-            from pynucleus.pipeline.pipeline_rag import RAGPipeline
-            from pynucleus.rag.vector_store import RealFAISSVectorStore
+            from pynucleus.rag.engine import ask, retrieve
+            from pynucleus.rag.vector_store import ChromaVectorStore
             
             # Initialize components
-            rag_pipeline = RAGPipeline(data_dir="data")
-            vector_store = RealFAISSVectorStore()
+            chroma_store = ChromaVectorStore()
             
-            self.log_message("RAG Pipeline Components:")
-            self.log_message(f"  RAG Pipeline: {'✓ Initialized' if rag_pipeline else '✗ Failed'}")
-            self.log_message(f"  Vector Store: {'✓ Loaded' if vector_store.loaded else '✗ Not Loaded'}")
+            self.log_message("RAG System Components:")
+            self.log_message(f"  ChromaDB Store: {'✓ Loaded' if chroma_store.loaded else '⚠️ Not Loaded'}")
             
-            # Test search functionality
-            if vector_store.loaded:
+            # Test retrieval functionality
+            if chroma_store.loaded or chroma_store.collection:
                 test_query = "What are modular chemical plants?"
-                search_results = vector_store.search(test_query, top_k=3)
+                search_results = retrieve(test_query, top_k=3)
                 
                 self.total_tests += 1
                 if search_results:
-                    self.log_message(f"✓ Vector search working ({len(search_results)} results)", "success")
+                    self.log_message(f"✓ ChromaDB retrieval working ({len(search_results)} results)", "success")
                     self.passed_tests += 1
                 else:
-                    self.log_message("✗ Vector search returned no results", "warning")
+                    self.log_message("⚠️ ChromaDB retrieval returned no results", "warning")
+                
+                # Test full RAG pipeline
+                self.total_tests += 1
+                try:
+                    rag_response = ask(test_query)
+                    if rag_response and rag_response.get("answer"):
+                        self.log_message("✓ Full RAG pipeline working", "success")
+                        self.passed_tests += 1
+                    else:
+                        self.log_message("⚠️ RAG pipeline returned empty response", "warning")
+                except Exception as e:
+                    self.log_message(f"✗ RAG pipeline test failed: {e}", "error")
+            else:
+                self.log_message("⚠️ ChromaDB not loaded - cannot test retrieval", "warning")
             
         except Exception as e:
             self.log_message(f"RAG accuracy testing failed: {e}", "error")
@@ -507,7 +629,7 @@ class SystemValidator:
         end_time = datetime.now()
         duration = (end_time - self.start_time).total_seconds()
         
-        self.log_message(f"PYNUCLEUS VALIDATION REPORT")
+        self.log_message(f"PYNUCLEUS CLEAN VALIDATION REPORT")
         self.log_message(f"Generated: {end_time.strftime('%Y-%m-%d %H:%M:%S')}")
         self.log_message(f"Duration: {duration:.1f} seconds")
         
@@ -581,7 +703,7 @@ class SystemValidator:
 
 def main():
     """Main function for validation testing."""
-    parser = argparse.ArgumentParser(description="PyNucleus System Validator - Focused Validation Testing")
+    parser = argparse.ArgumentParser(description="PyNucleus Clean System Validator - Focused Validation Testing")
     parser.add_argument('--quick', action='store_true', help='Quick validation mode (basic tests only)')
     parser.add_argument('--citations', action='store_true', help='Include citation accuracy testing')
     parser.add_argument('--notebook', action='store_true', help='Include notebook validation testing')

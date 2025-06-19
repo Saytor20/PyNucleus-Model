@@ -1,12 +1,5 @@
 1) image processing is not available right now but we can add another VLLM model that can process images at later stages 
-2) Current Status:
-RAG System: ✅ WORKING - Vector search returns 3 results
-Ground Truth: ⚠️ IMPROVED - 2/6 tests passing (33% success)
-Citations: ⚠️ NEEDS WORK - Still 0% (next priority)
-Overall Health: ⚠️ 30% (up from 0%)
-The core PyNucleus system is now functional and retrieving real data from the FAISS index. The remaining issues are primarily related to keyword matching algorithms and citation source mapping, which are validation methodology issues rather than core system failures.
-Next Steps: The citation validation needs the expected sources to be updated to match the actual document sources in your FAISS index, and the keyword matching algorithm could be enhanced to use semantic similarity instead of exact matches.
-
+2)
 If you later want RLHF, here’s the roadmap
 Collect feedback
 Add a thumbs-up / thumbs-down button in the UI.
@@ -24,3 +17,16 @@ Keep KL penalty high so you don’t ruin the factual core.
 Plug new weights into your vLLM container
 Update docker/Dockerfile.vllm to download phi1_5_rlhf.
 DSPy and RAG remain unchanged.
+
+
+
+3) it seems we have issues that the system relies too much on the RAG and if there is no context then it breaks so we need to enhance it so that it outputs complet sentance 
+[Q2] 💭 Your question: what is mass transfer? 
+
+🔄 Processing question 2...
+2025-06-19 17:43:20,333 - pynucleus.rag.vector_store - INFO - ChromaDB search for 'what is mass transfer?...' returned 5 results
+2025-06-19 17:43:20,333 - pynucleus.pipeline.pipeline_rag - INFO - RAG query processed: what is mass transfer?...
+2025-06-19 17:43:27,913 - pynucleus.llm.llm_runner - INFO - Generated response in 7.57s
+
+📋 ==========================================================
+Answer: You are a concise chemical-engineering assistant with expertise in process design and optimization.  Context Information: Title: Mass transfer Source: Wikipedia - https://en. wikipedia.

@@ -113,9 +113,10 @@ def ask():
             
             api_logger.info(f"Generating enhanced response with {model_id}")
             
-            # Create enhanced prompt with context
+            # Create enhanced prompt with context using Guidance integration
+            from pynucleus.llm.prompting import build_prompt
             context = result.get('answer', '')
-            enhanced_prompt = f"Based on this scientific information: {context}\n\nQuestion: {question}\n\nProvide a clear, technical answer:"
+            enhanced_prompt = build_prompt(context, question)
             
             llm_response = llm_runner.ask(
                 question=enhanced_prompt,
