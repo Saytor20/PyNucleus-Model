@@ -307,7 +307,7 @@ def test_logging():
 def ingest_documents(
     source_dir: Path = typer.Option(..., "--source-dir", help="Source directory containing documents to ingest"),
     output_dir: Path = typer.Option("data/03_intermediate", "--output-dir", help="Output directory for processed documents"),
-    backend: str = typer.Option("faiss", "--backend", help="Vector store backend (faiss|qdrant)"),
+    backend: str = typer.Option("chroma", "--backend", help="Vector store backend (chroma|faiss|qdrant)"),
     verbose: bool = typer.Option(False, "--verbose/--no-verbose", help="Verbose logging"),
 ):
     """Ingest and process documents for RAG system."""
@@ -329,8 +329,8 @@ def ingest_documents(
         output_dir.mkdir(parents=True, exist_ok=True)
         
         # Validate backend selection
-        if backend not in ['faiss', 'qdrant']:
-            cli_logger.error(f"❌ Invalid backend: {backend}. Must be 'faiss' or 'qdrant'")
+        if backend not in ['chroma', 'faiss', 'qdrant']:
+            cli_logger.error(f"❌ Invalid backend: {backend}. Must be 'chroma', 'faiss', or 'qdrant'")
             raise typer.Exit(1)
         
         cli_logger.info(f"🔧 Using vector store backend: {backend}")
@@ -344,17 +344,24 @@ def ingest_documents(
         from pynucleus.rag import RAGCore
         rag_core = RAGCore(data_dir=output_dir.parent)
         
-        # Process documents
+        # Process documents using real ChromaDB ingestion
         cli_logger.info("🔄 Processing documents...")
-        result = rag_core.process_documents(source_dir=str(source_dir))
         
-        if result["status"] == "success":
-            cli_logger.info(f"✅ Successfully processed {result['processed_count']} documents")
-            print(f"📊 Processed {result['processed_count']} out of {result['total_files']} files")
-            print(f"📁 Results saved to: {output_dir}")
+        if backend == 'chroma':
+            # Use the actual ChromaDB ingestion function
+            from pynucleus.rag.collector import ingest
+            ingest(source_dir=str(source_dir))
+            cli_logger.info("✅ Successfully ingested documents into ChromaDB")
+            print(f"📊 Documents ingested into ChromaDB collection: pynucleus_documents")
         else:
-            cli_logger.error(f"❌ Document processing failed: {result['message']}")
-            raise typer.Exit(1)
+            # Fallback to RAG core for other backends
+            result = rag_core.process_documents(source_dir=str(source_dir))
+            if result["status"] == "success":
+                cli_logger.info(f"✅ Successfully processed {result['processed_count']} documents")
+                print(f"📊 Processed {result['processed_count']} out of {result['total_files']} files")
+            else:
+                cli_logger.error(f"❌ Document processing failed: {result['message']}")
+                raise typer.Exit(1)
             
     except Exception as e:
         cli_logger.error(f"❌ Ingestion failed: {str(e)}")
@@ -431,55 +438,30 @@ def ask_question(
         cli_logger.info(f"🤖 Model ID: {model_id}")
         cli_logger.info(f"📊 Top K: {top_k}")
         
-        # Check for compiled DSPy program first
-        from src.pynucleus.llm.dspy_compile import DSPyCompiler
+        # DSPy components removed, using RAG system directly
+        cli_logger.info("🔄 Using RAG system for query processing")
         
-        compiler = DSPyCompiler()
-        compiled_program = compiler.load_compiled_program()
+        # Initialize RAG pipeline
+        from pynucleus.pipeline.pipeline_rag import RAGPipeline
+        rag_pipeline = RAGPipeline(data_dir="data")
         
-        if compiled_program:
-            cli_logger.info("🎯 Using compiled DSPy program")
-            # Use DSPy answer engine
-            from src.pynucleus.llm.answer_engine import DSPyAnswerEngine
-            engine = DSPyAnswerEngine(model_id=model_id)
-            result = engine.answer_general(question)
-            
-            # Display DSPy results
-            print("=" * 60)
-            print("🧠 DSPY ENHANCED RESPONSE")
-            print("=" * 60)
-            print(f"Question: {question}")
-            print(f"Generation Time: {result.get('generation_time', 0):.2f}s")
-            print("-" * 60)
-            print(f"Answer: {result.get('answer', 'No answer available')}")
-            print("-" * 60)
-            print(f"Model: {result.get('model_id', model_id)}")
-            print(f"DSPy Used: {result.get('dspy_used', False)}")
-            print("=" * 60)
-        else:
-            cli_logger.warning("⚠️ No compiled DSPy program found, using fallback RAG system")
-            
-            # Initialize RAG pipeline
-            from pynucleus.pipeline.pipeline_rag import RAGPipeline
-            rag_pipeline = RAGPipeline(data_dir="data")
-            
-            # Query the RAG system
-            cli_logger.info("🔄 Processing question...")
-            result = rag_pipeline.query(question, top_k=top_k)
-            
-            # Display results
-            print("=" * 60)
-            print("📋 RAG SYSTEM RESPONSE")
-            print("=" * 60)
-            print(f"Question: {question}")
-            print(f"Confidence: {result.get('confidence', 0):.2f}")
-            print("-" * 60)
-            print(f"Answer: {result.get('answer', 'No answer available')}")
-            print("-" * 60)
-            print("Sources:")
-            for i, source in enumerate(result.get('sources', []), 1):
-                print(f"  {i}. {source}")
-            print("=" * 60)
+        # Query the RAG system
+        cli_logger.info("🔄 Processing question...")
+        result = rag_pipeline.query(question, top_k=top_k)
+        
+        # Display results
+        print("=" * 60)
+        print("📋 RAG SYSTEM RESPONSE")
+        print("=" * 60)
+        print(f"Question: {question}")
+        print(f"Confidence: {result.get('confidence', 0):.2f}")
+        print("-" * 60)
+        print(f"Answer: {result.get('answer', 'No answer available')}")
+        print("-" * 60)
+        print("Sources:")
+        for i, source in enumerate(result.get('sources', []), 1):
+            print(f"  {i}. {source}")
+        print("=" * 60)
         
         # Always use LLM for enhanced response
         try:
@@ -515,67 +497,15 @@ def ask_question(
         print(f"❌ Error: {str(e)}")
         raise typer.Exit(1)
 
-@app.command("dspy-compile")
-def dspy_compile(
-    csv_path: Path = typer.Option("docs/devset/dspy_examples.csv", "--csv-path", help="Path to development examples CSV"),
-    output_dir: Path = typer.Option("data/dspy_artifacts", "--output-dir", help="Output directory for compiled artifacts"),
-    ci: bool = typer.Option(False, "--ci", help="Run in CI mode (create artifact but don't commit)"),
-    create_sample: bool = typer.Option(False, "--create-sample", help="Create sample development dataset"),
-    verbose: bool = typer.Option(False, "--verbose/--no-verbose", help="Verbose logging"),
-):
-    """Compile DSPy programs using development examples."""
-    try:
-        # Setup logging
-        logger = configure_logging(level="DEBUG" if verbose else "INFO")
-        cli_logger = get_logger(__name__)
-        
-        cli_logger.info("🧠 Starting DSPy compilation")
-        cli_logger.info(f"📋 CSV Path: {csv_path}")
-        cli_logger.info(f"📁 Output Directory: {output_dir}")
-        cli_logger.info(f"🔧 CI Mode: {ci}")
-        
-        # Import the compilation utility
-        from src.pynucleus.llm.dspy_compile import compile_dspy_main
-        
-        # Run compilation
-        exit_code = compile_dspy_main(
-            csv_path=str(csv_path),
-            output_dir=str(output_dir),
-            ci_mode=ci,
-            create_sample=create_sample
-        )
-        
-        if exit_code == 0:
-            if create_sample:
-                cli_logger.info("✅ Sample dataset created successfully")
-                print("📋 Sample development dataset created!")
-                print(f"📁 Location: {csv_path}")
-                print("💡 Edit this file to add your own examples, then run compilation again")
-            elif ci:
-                cli_logger.info("✅ CI compilation completed successfully")
-                print("🎯 DSPy compilation completed in CI mode!")
-                print("📄 Artifact created but not committed")
-            else:
-                cli_logger.info("✅ DSPy compilation completed successfully")
-                print("🎉 DSPy compilation completed!")
-                print(f"📁 Compiled artifacts saved to: {output_dir}")
-                print("💡 Now 'pynucleus ask' will use the compiled DSPy program")
-        else:
-            cli_logger.error("❌ DSPy compilation failed")
-            print("❌ DSPy compilation failed. Check logs for details.")
-            raise typer.Exit(1)
-            
-    except Exception as e:
-        cli_logger.error(f"❌ DSPy compilation error: {e}")
-        print(f"❌ Error: {str(e)}")
-        raise typer.Exit(1)
+# DSPy command removed - DSPy functionality disabled to avoid API dependencies
+# Use the regular 'ask' or 'chat' commands instead for local LLM processing
 
 @app.command("chat")
 def interactive_chat(
     model_id: str = typer.Option("Qwen/Qwen2.5-1.5B-Instruct", "--model-id", help="LLM model ID for responses"),
     top_k: int = typer.Option(5, "--top-k", help="Number of top results to retrieve from RAG"),
     verbose: bool = typer.Option(False, "--verbose/--no-verbose", help="Verbose logging"),
-    use_dspy: bool = typer.Option(True, "--use-dspy/--no-dspy", help="Use DSPy if available"),
+    use_dspy: bool = typer.Option(False, "--use-dspy/--no-dspy", help="DSPy disabled - using local RAG+LLM instead"),
 ):
     """Start an interactive chat session with the LLM."""
     try:
@@ -586,59 +516,26 @@ def interactive_chat(
         cli_logger.info("🚀 Starting interactive chat session")
         cli_logger.info(f"🤖 Model ID: {model_id}")
         cli_logger.info(f"📊 Top K: {top_k}")
-        cli_logger.info(f"🧠 DSPy enabled: {use_dspy}")
+        # DSPy functionality has been removed to avoid API dependencies
+        # Using local RAG + LLM processing only
         
         # Initialize systems
-        dspy_engine = None
         rag_pipeline = None
         llm_runner = None
         
-        # Check for compiled DSPy program first
-        if use_dspy:
-            try:
-                from src.pynucleus.llm.dspy_compile import DSPyCompiler
-                from src.pynucleus.llm.answer_engine import DSPyAnswerEngine
-                
-                compiler = DSPyCompiler()
-                compiled_program = compiler.load_compiled_program()
-                
-                if compiled_program:
-                    cli_logger.info("🎯 Initializing DSPy answer engine")
-                    dspy_engine = DSPyAnswerEngine(model_id=model_id)
-                    
-                    # Check if DSPy, LocalDSPy, or SimpleLocal was actually configured successfully
-                    if dspy_engine.local_dspy_configured:
-                        print("✅ LocalDSPy enhanced mode enabled (LangChain + structured prompting)")
-                        print("🎯 Using DSPy-like structured reasoning with local models")
-                    elif dspy_engine.simple_local_configured:
-                        print("✅ SimpleLocal enhanced mode enabled (Direct transformers + structured prompting)")
-                        print("🎯 Using basic structured reasoning with local models")
-                    elif dspy_engine.dspy_configured:
-                        print("✅ DSPy enhanced mode enabled")
-                    else:
-                        print("⚠️ DSPy disabled - local models not supported, using standard RAG + LLM")
-                        dspy_engine = None  # Clear the engine so we use fallback
-                else:
-                    cli_logger.warning("⚠️ No compiled DSPy program found")
-                    print("⚠️ No compiled DSPy program found, using standard RAG + LLM")
-            except Exception as e:
-                cli_logger.warning(f"⚠️ DSPy initialization failed: {e}")
-                print(f"⚠️ DSPy initialization failed: {e}")
-        
-        # Fallback to RAG pipeline
-        if not dspy_engine:
-            try:
-                from pynucleus.pipeline.pipeline_rag import RAGPipeline
-                from pynucleus.llm.llm_runner import LLMRunner
-                
-                cli_logger.info("🔧 Initializing RAG pipeline and LLM runner")
-                rag_pipeline = RAGPipeline(data_dir="data")
-                llm_runner = LLMRunner(model_id=model_id)
-                print("✅ RAG + LLM mode enabled")
-            except Exception as e:
-                cli_logger.error(f"❌ Failed to initialize RAG/LLM systems: {e}")
-                print(f"❌ Failed to initialize systems: {e}")
-                raise typer.Exit(1)
+        # Initialize RAG pipeline and LLM
+        try:
+            from pynucleus.pipeline.pipeline_rag import RAGPipeline
+            from pynucleus.llm.llm_runner import LLMRunner
+            
+            cli_logger.info("🔧 Initializing RAG pipeline and LLM runner")
+            rag_pipeline = RAGPipeline(data_dir="data")
+            llm_runner = LLMRunner(model_id=model_id)
+            print("✅ RAG + LLM mode enabled")
+        except Exception as e:
+            cli_logger.error(f"❌ Failed to initialize RAG/LLM systems: {e}")
+            print(f"❌ Failed to initialize systems: {e}")
+            raise typer.Exit(1)
         
         # Start interactive session
         print("\n" + "=" * 60)
@@ -681,70 +578,43 @@ def interactive_chat(
                 print(f"\n🔄 Processing question {question_count}...")
                 start_time = datetime.now()
                 
-                # Process with DSPy if available
-                if dspy_engine:
-                    try:
-                        result = dspy_engine.answer_general(question)
-                        
-                        # Display DSPy results
-                        print("\n" + "🧠 " + "=" * 58)
-                        print(f"Answer: {result.get('answer', 'No answer available')}")
-                        print("=" * 60)
-                        print(f"⏱️  Generation time: {result.get('generation_time', 0):.2f}s")
-                        print(f"🤖 Model: {result.get('model_id', model_id)}")
-                        if dspy_engine.local_dspy_configured:
-                            dspy_mode = "LocalDSPy"
-                        elif dspy_engine.simple_local_configured:
-                            dspy_mode = "SimpleLocal"
-                        elif dspy_engine.dspy_configured:
-                            dspy_mode = "DSPy"
-                        else:
-                            dspy_mode = "None"
-                        print(f"🎯 Enhanced Mode: {dspy_mode}")
-                        
-                    except Exception as e:
-                        cli_logger.error(f"❌ DSPy processing failed: {e}")
-                        print(f"❌ DSPy processing failed: {e}")
-                        continue
-                
                 # Process with RAG + LLM
-                else:
-                    try:
-                        # Get RAG response
-                        rag_result = rag_pipeline.query(question, top_k=top_k)
-                        
-                        # Get enhanced LLM response
-                        context = rag_result.get('answer', '')
-                        enhanced_prompt = f"Based on this scientific information: {context}\n\nQuestion: {question}\n\nProvide a clear, technical answer:"
-                        
-                        llm_response = llm_runner.ask(
-                            question=enhanced_prompt,
-                            max_length=500,
-                            temperature=0.7
-                        )
-                        
-                        # Display results
-                        print("\n" + "📋 " + "=" * 58)
-                        print(f"Answer: {llm_response}")
-                        print("=" * 60)
-                        
-                        # Show sources if available
-                        sources = rag_result.get('sources', [])
-                        if sources:
-                            print("📚 Sources:")
-                            for i, source in enumerate(sources[:3], 1):  # Show top 3 sources
-                                print(f"  {i}. {source}")
-                        
-                        end_time = datetime.now()
-                        duration = (end_time - start_time).total_seconds()
-                        print(f"⏱️  Response time: {duration:.2f}s")
-                        print(f"🤖 Model: {model_id}")
-                        print(f"📊 Confidence: {rag_result.get('confidence', 0):.2f}")
-                        
-                    except Exception as e:
-                        cli_logger.error(f"❌ RAG/LLM processing failed: {e}")
-                        print(f"❌ Processing failed: {e}")
-                        continue
+                try:
+                    # Get RAG response
+                    rag_result = rag_pipeline.query(question, top_k=top_k)
+                    
+                    # Get enhanced LLM response
+                    context = rag_result.get('answer', '')
+                    enhanced_prompt = f"Based on this scientific information: {context}\n\nQuestion: {question}\n\nProvide a clear, technical answer:"
+                    
+                    llm_response = llm_runner.ask(
+                        question=enhanced_prompt,
+                        max_length=500,
+                        temperature=0.7
+                    )
+                    
+                    # Display results
+                    print("\n" + "📋 " + "=" * 58)
+                    print(f"Answer: {llm_response}")
+                    print("=" * 60)
+                    
+                    # Show sources if available
+                    sources = rag_result.get('sources', [])
+                    if sources:
+                        print("📚 Sources:")
+                        for i, source in enumerate(sources[:3], 1):  # Show top 3 sources
+                            print(f"  {i}. {source}")
+                    
+                    end_time = datetime.now()
+                    duration = (end_time - start_time).total_seconds()
+                    print(f"⏱️  Response time: {duration:.2f}s")
+                    print(f"🤖 Model: {model_id}")
+                    print(f"📊 Confidence: {rag_result.get('confidence', 0):.2f}")
+                    
+                except Exception as e:
+                    cli_logger.error(f"❌ RAG/LLM processing failed: {e}")
+                    print(f"❌ Processing failed: {e}")
+                    continue
                 
             except KeyboardInterrupt:
                 print("\n\n⏹️ Chat session interrupted by user")
@@ -760,19 +630,7 @@ def interactive_chat(
         # Session summary
         print(f"\n📊 Chat session summary:")
         print(f"  • Questions asked: {question_count}")
-        if dspy_engine:
-            if dspy_engine.local_dspy_configured:
-                system_type = "LocalDSPy Enhanced"
-            elif dspy_engine.simple_local_configured:
-                system_type = "SimpleLocal Enhanced"
-            elif dspy_engine.dspy_configured:
-                system_type = "DSPy Enhanced"
-            else:
-                system_type = "DSPy (fallback mode)"
-        else:
-            system_type = "RAG + LLM"
-        
-        print(f"  • System used: {system_type}")
+        print(f"  • System used: RAG + LLM")
         print(f"  • Model: {model_id}")
         
         cli_logger.info(f"✅ Chat session ended. Questions processed: {question_count}")

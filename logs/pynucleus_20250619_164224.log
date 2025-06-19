@@ -1,0 +1,23 @@
+2025-06-19 16:42:24,519 | __main__ | INFO | run_pipeline.py:436 | 🚀 Starting RAG query
+2025-06-19 16:42:24,519 | __main__ | INFO | run_pipeline.py:437 | ❓ Question: What are modular chemical plants?
+2025-06-19 16:42:24,519 | __main__ | INFO | run_pipeline.py:438 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 16:42:24,519 | __main__ | INFO | run_pipeline.py:439 | 📊 Top K: 5
+2025-06-19 16:42:24,520 | __main__ | INFO | run_pipeline.py:442 | 🔄 Using RAG system for query processing
+2025-06-19 16:42:25,025 | chromadb.config | DEBUG | config.py:359 | Starting component System
+2025-06-19 16:42:25,025 | chromadb.config | DEBUG | config.py:359 | Starting component Posthog
+2025-06-19 16:42:25,050 | pynucleus.rag.vector_store | INFO | vector_store.py:592 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-19 16:42:25,052 | pynucleus.rag.vector_store | INFO | vector_store.py:599 | ChromaDB collection is empty
+2025-06-19 16:42:25,052 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:40 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-19 16:42:25,052 | __main__ | INFO | run_pipeline.py:449 | 🔄 Processing question...
+2025-06-19 16:42:25,052 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:104 | RAG query processed: What are modular chemical plants?...
+2025-06-19 16:42:27,451 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 16:42:27,452 | urllib3.connectionpool | DEBUG | connectionpool.py:1049 | Starting new HTTPS connection (1): huggingface.co:443
+2025-06-19 16:42:27,591 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-06-19 16:42:27,644 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "GET /api/models/Qwen/Qwen2.5-1.5B-Instruct/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+2025-06-19 16:42:27,874 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-06-19 16:42:39,509 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-06-19 16:42:39,558 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+2025-06-19 16:42:39,559 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-19 16:42:39,559 | __main__ | INFO | run_pipeline.py:471 | 🤖 Generating enhanced response with Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 16:43:24,528 | pynucleus.llm.llm_runner | INFO | llm_runner.py:172 | Generated response in 44.95s
+2025-06-19 16:43:24,528 | __main__ | INFO | run_pipeline.py:493 | ✅ Question processed successfully

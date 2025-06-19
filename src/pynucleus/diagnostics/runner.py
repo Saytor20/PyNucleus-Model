@@ -349,7 +349,7 @@ class DiagnosticRunner:
             self._test_mock_integration()
             self._test_token_utilities()
             self._test_configuration_management()
-            self._test_dspy_prompts()
+            # DSPy tests removed - DSPy functionality disabled
             
             # Advanced Testing
             if self.test_notebook:
@@ -898,26 +898,7 @@ class DiagnosticRunner:
         except Exception as e:
             self.log_result("Configuration Management", False, [f"Configuration management test failed: {e}"])
 
-    def _test_dspy_prompts(self):
-        """Test DSPy prompt system."""
-        self.print_section_header("DSPY PROMPT SYSTEM TEST")
-        
-        try:
-            # Test that DSPy components are importable
-            from src.pynucleus.llm.answer_engine import DSPyAnswerEngine
-            from src.pynucleus.llm.dspy_program import PyNucleusProgram
-            
-            # Test basic DSPy functionality
-            engine = DSPyAnswerEngine()
-            status = engine.get_status()
-            
-            if status.get("dspy_available", False):
-                self.log_result("DSPy Framework", True, ["DSPy framework available and configured"])
-            else:
-                self.log_result("DSPy Framework", False, ["DSPy framework not available or not configured"])
-                
-        except Exception as e:
-            self.log_result("DSPy Prompt System", False, [f"DSPy prompt system test failed: {e}"])
+    # DSPy prompt system test removed - DSPy functionality disabled to avoid API dependencies
 
     def _test_notebook_execution(self):
         """Test notebook execution capabilities."""

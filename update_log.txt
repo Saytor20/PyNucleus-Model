@@ -199,7 +199,15 @@ To Do:
 
 To Do: 
 1) Deploy the model to google colab and test it... make sure the set up for github pipeline to pull is there to always test it 
-2) Redo the whole pipeline related to the LLM... a prompt have already been developed just proceed with the implementaiton 
-3) test the model so that it spits out answers... right now we are focused on the system working rather than enhancing the system 
-4) test and validate everything 
- 2025-06-19 13:07:33 changes made and pushed to origin main
+2) Redo the whole pipeline related to the LLM... a prompt have already been developed just proceed with the implementaiton - Completed 
+3) test the model so that it spits out answers... right now we are focused on the system working rather than enhancing the system - Completed 
+4) complete clean the system and remove all templates, files, and folders that are not used - Completed 
+5) fix the citation 
+6) run system_validator script and start fixing all the problems in it 
+7) update the API script to include costs
+8) create a finanical advisor model that handles the money 
+9) add DSPY like framework to the system to enhance the model 
+
+
+
+ 2025-06-19 17:24:17 changes made and pushed to origin main

@@ -1,0 +1,22 @@
+2025-06-19 17:10:07,981 | __main__ | INFO | run_pipeline.py:516 | 🚀 Starting interactive chat session
+2025-06-19 17:10:07,981 | __main__ | INFO | run_pipeline.py:517 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 17:10:07,981 | __main__ | INFO | run_pipeline.py:518 | 📊 Top K: 5
+2025-06-19 17:10:07,981 | __main__ | INFO | run_pipeline.py:519 | 🧠 DSPy enabled: False
+2025-06-19 17:10:07,981 | __main__ | INFO | run_pipeline.py:538 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-19 17:10:08,658 | chromadb.config | DEBUG | config.py:359 | Starting component System
+2025-06-19 17:10:08,673 | chromadb.config | DEBUG | config.py:359 | Starting component Posthog
+2025-06-19 17:10:08,688 | pynucleus.rag.vector_store | INFO | vector_store.py:593 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-19 17:10:09,148 | pynucleus.rag.vector_store | INFO | vector_store.py:598 | ChromaDB collection contains 3602 documents
+2025-06-19 17:10:09,148 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:36 | Vector store (chroma) initialized successfully
+2025-06-19 17:10:12,091 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 17:10:12,092 | urllib3.connectionpool | DEBUG | connectionpool.py:1049 | Starting new HTTPS connection (1): huggingface.co:443
+2025-06-19 17:10:12,184 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-06-19 17:10:12,238 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "GET /api/models/Qwen/Qwen2.5-1.5B-Instruct/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+2025-06-19 17:10:12,551 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-06-19 17:10:26,114 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-06-19 17:10:26,175 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+2025-06-19 17:10:26,176 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-19 17:10:36,523 | chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 | DEBUG | onnx_mini_lm_l6_v2.py:227 | WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+2025-06-19 17:10:36,649 | pynucleus.rag.vector_store | ERROR | vector_store.py:688 | ChromaDB search failed: 'NoneType' object has no attribute 'get'
+2025-06-19 17:10:36,649 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:104 | RAG query processed: what is ditillation columns?...
+2025-06-19 17:11:32,034 | pynucleus.llm.llm_runner | INFO | llm_runner.py:172 | Generated response in 55.37s

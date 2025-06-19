@@ -51,4 +51,12 @@ data/05_output/*
 
 # Logs
 *.log
-logs/ 
+logs/
+
+# Notebooks (exclude clean versions when building)
+notebooks/
+*.pkl
+*.faiss
+
+# Tests (exclude from Docker builds)
+tests/ 

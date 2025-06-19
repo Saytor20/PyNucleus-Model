@@ -196,7 +196,7 @@ def create_vector_store(backend: str = None, **kwargs) -> object:
     Factory function to create appropriate vector store instance.
     
     Args:
-        backend: Vector store backend ('faiss', 'qdrant', or None for settings default)
+        backend: Vector store backend ('chroma', 'faiss', 'qdrant', or None for settings default)
         **kwargs: Additional arguments for vector store initialization
         
     Returns:
@@ -204,7 +204,10 @@ def create_vector_store(backend: str = None, **kwargs) -> object:
     """
     backend = backend or settings.vstore_backend
     
-    if backend == 'faiss':
+    if backend == 'chroma':
+        from .vector_store import ChromaVectorStore
+        return ChromaVectorStore(**kwargs)
+    elif backend == 'faiss':
         from .vector_store import RealFAISSVectorStore
         return RealFAISSVectorStore(**kwargs)
     elif backend == 'qdrant':

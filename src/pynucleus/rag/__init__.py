@@ -7,11 +7,12 @@ indexing, and knowledge retrieval.
 
 from .rag_core import RAGCore
 from .document_processor import DocumentProcessor
-from .vector_store import VectorStore, RealFAISSVectorStore
+from .vector_store import VectorStore, RealFAISSVectorStore, ChromaVectorStore
 
 __all__ = [
     'RAGCore',
     'DocumentProcessor', 
     'VectorStore',
-    'RealFAISSVectorStore'
+    'RealFAISSVectorStore',
+    'ChromaVectorStore'
 ] 

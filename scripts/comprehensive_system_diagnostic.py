@@ -84,7 +84,7 @@ class ComprehensiveSystemDiagnostic:
         self.components_health = False
         self.docker_health = False
         
-        # Script categories for comprehensive checking
+        # Updated script categories for current project structure
         self.script_categories = {
             "Core Pipeline Scripts": [
                 "src/pynucleus/pipeline/**/*.py",
@@ -95,16 +95,22 @@ class ComprehensiveSystemDiagnostic:
                 "src/pynucleus/llm/**/*.py",
                 "src/pynucleus/utils/**/*.py"
             ],
+            "API & Interface Scripts": [
+                "src/pynucleus/api/**/*.py",
+                "src/pynucleus/diagnostics/**/*.py"
+            ],
             "Entry Point Scripts": [
                 "run_pipeline.py",
+                "run_answer_engine.py",
                 "src/pynucleus/cli.py"
             ],
             "Test Scripts": [
+                "tests/*.py",
                 "scripts/test_*.py",
                 "scripts/*test*.py"
             ],
-            "Automation Scripts": [
-                "automation_tools/**/*.py"
+            "Evaluation Scripts": [
+                "src/pynucleus/eval/**/*.py"
             ]
         }
     
@@ -250,8 +256,8 @@ class ComprehensiveSystemDiagnostic:
         
         # Core dependencies
         core_packages = [
-            "numpy", "pandas", "requests", "tqdm", "typer", "dspy",
-            "pathlib", "dataclasses", "asyncio", "concurrent"
+            "numpy", "pandas", "requests", "tqdm", "typer",
+            "pathlib", "dataclasses", "asyncio", "concurrent", "flask"
         ]
         
         self.log_message("Core Dependencies:")
@@ -263,7 +269,8 @@ class ComprehensiveSystemDiagnostic:
             ("notebook", "Notebook interface"),
             ("faiss-cpu", "FAISS vector search"),
             ("transformers", "Transformer models"),
-            ("torch", "PyTorch framework")
+            ("torch", "PyTorch framework"),
+            ("sentence-transformers", "Sentence embeddings")
         ]
         
         self.log_message("\nOptional Dependencies:")
@@ -313,7 +320,7 @@ class ComprehensiveSystemDiagnostic:
             check.passed = True
         except ImportError:
             if optional:
-                self.log_message(f"{package}: PASSED", "success")
+                self.log_message(f"{package}: MISSING (optional)", "warning")
                 check.details.append("Optional package - not required")
                 check.passed = True  # Optional packages don't fail the check
             else:
@@ -382,8 +389,9 @@ class ComprehensiveSystemDiagnostic:
         
         optional_dirs = [
             "data/05_output/llm_reports",
-            "data/validation/diagnostic_results", 
-            "dwsim_rag_integration"
+            "data/validation", 
+            "dwsim_rag_integration",
+            "tests"
         ]
         
         # Check required directories
@@ -488,6 +496,7 @@ class ComprehensiveSystemDiagnostic:
         
         core_scripts = [
             "run_pipeline.py",
+            "run_answer_engine.py",
             "src/pynucleus/__init__.py",
             "src/pynucleus/cli.py"
         ]
@@ -546,15 +555,14 @@ class ComprehensiveSystemDiagnostic:
                     health.error_message = f"Import error: {e}"
                     self.log_message(f"   {script_path} - Imports ERROR", "error")
             
-            # Execution test (limited for entry points and modules with relative imports)
+            # Execution test (updated logic for current project structure)
             if health.syntax_valid and health.imports_valid:
-                if any(ep in script_path for ep in ["run_pipeline.py", "cli.py"]):
+                if any(ep in script_path for ep in ["run_pipeline.py", "run_answer_engine.py", "cli.py"]):
                     # Skip execution for entry points
                     health.execution_successful = True
                     self.log_message(f"   {script_path} - Entry point (skipped execution)", "success")
                 elif "src/pynucleus/" in script_path and script_path.endswith(".py"):
-                    # Skip direct execution for package modules with relative imports
-                    # Check if file contains relative imports
+                    # Handle package modules
                     try:
                         with open(script_path, 'r', encoding='utf-8') as f:
                             content = f.read()

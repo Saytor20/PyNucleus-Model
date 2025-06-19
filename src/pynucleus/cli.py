@@ -1,26 +1,24 @@
-#!/usr/bin/env python3
-"""
-PyNucleus CLI entry point module.
+import rich
+from typer import Typer
+app = Typer()
 
-This module provides the main entry point for the PyNucleus CLI application.
-"""
+@app.command()
+def ingest_docs(source_dir: str = "data/01_raw"):
+    from pynucleus.rag.collector import ingest
+    ingest(source_dir)
 
-import sys
-from pathlib import Path
+@app.command()
+def ask(question: str):
+    from pynucleus.rag.engine import ask as rag_ask
+    result = rag_ask(question)
+    rich.print(f"[green]Answer:[/green] {result['answer']}")
 
-# Add project root to Python path to access run_pipeline.py
-project_root = Path(__file__).parent.parent.parent
-if str(project_root) not in sys.path:
-    sys.path.insert(0, str(project_root))
-
-# Import the typer app from run_pipeline.py
-from run_pipeline import app
-
+@app.command()
+def eval_golden():
+    from pynucleus.eval.golden_eval import run_eval
+    passed = run_eval()
+    if not passed:
+        raise SystemExit("Golden dataset evaluation below threshold!")
 
 def main():
-    """Main entry point for the PyNucleus CLI."""
-    app()
-
-
-if __name__ == "__main__":
-    main() 
+    app() 

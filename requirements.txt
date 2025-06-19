@@ -1,103 +1,59 @@
-# --- Core RAG and Machine Learning ---
+# PyNucleus-Model: Unified Requirements
+# Comprehensive dependencies for all environments (local, Colab, Docker, minimal)
+
+# --- Core ML Dependencies ---
 torch>=2.0.0,<2.4.0
-transformers>=4.30.0,<4.50.0
-sentence-transformers>=2.2.0,<2.8.0
-langchain>=0.2.0,<0.4.0
+transformers~=4.41
+sentence-transformers~=2.7
+huggingface-hub~=0.22
+bitsandbytes~=0.43
+accelerate>=0.24.0,<0.35.0
 
-# --- Vector Store (Choose one) ---
-# For CPU-only systems
-faiss-cpu>=1.7.0,<1.9.0
+# --- Vector Store and RAG ---
+chromadb~=0.4
 
-# For GPU-accelerated systems (requires CUDA)
-# faiss-gpu>=1.7.0,<1.9.0
-
-# --- Data Processing & APIs ---
-python-dotenv>=1.0.0,<1.1.0
+# --- Configuration and Settings ---
 pydantic>=2.0.0,<2.10.0
-pydantic-settings>=2.0.0,<2.7.0
-psutil>=5.9.0,<6.1.0
-requests>=2.31.0,<2.33.0
-beautifulsoup4>=4.12.0,<4.13.0
-tqdm>=4.66.0,<4.67.0
-# For document loading
-pypdf>=4.0.0,<4.4.0
-python-docx>=1.1.0,<1.2.0
-python-magic>=0.4.0,<0.5.0 # Optional: for file type detection
+pydantic-settings~=2.2
+python-dotenv>=1.0.0,<1.1.0
+jsonschema>=4.0.0,<4.24.0
+typing-extensions>=4.0.0,<4.13.0
+PyYAML>=6.0.0,<6.1.0
 
-# --- Enhanced Pipeline Dependencies ---
-jsonschema>=4.0.0,<4.24.0  # For configuration validation
-pathlib2>=2.3.0,<2.4.0   # Enhanced path handling (if needed)
-typing-extensions>=4.0.0,<4.13.0  # For better type hints
-dspy-ai>=2.4.0,<2.6.0  # DSPy framework for structured LLM prompting
+# --- CLI and UI ---
+typer~=0.12
+rich~=13.7
 
-# --- DWSIM Integration ---
-pythonnet>=3.0.0,<3.1.0
+# --- Logging and Monitoring ---
+loguru~=0.7
+
+# --- Model Loading (Multi-backend) ---
+llama-cpp-python~=0.2      # Metal / CPU inference
+
+# --- Utilities ---
+tqdm~=4.66
 numpy>=1.24.0,<1.27.0
 pandas>=2.0.0,<2.3.0
 
-# --- Developer Tools ---
-scikit-learn>=1.3.0,<1.6.0 # For performance analysis
-pytest>=7.4.0,<7.5.0
-black>=23.7.0,<24.11.0
-isort>=5.12.0,<5.14.0
-flake8>=6.1.0,<6.2.0
-ruff>=0.1.0,<0.8.0
-mypy>=1.5.0,<1.12.0
-
-# Core dependencies
+# --- HTTP Clients ---
+requests>=2.31.0,<2.33.0
 httpx>=0.24.0,<0.28.0
-aiohttp>=3.8.0,<3.11.0
 
-# Optional: For advanced HTTP handling
-urllib3>=2.0.0,<2.3.0
-
-# Optional: For async operations (asyncio-timeout not needed in Python 3.11+)
-
-# Development and testing
-pytest-asyncio>=0.21.0,<0.25.0
-
-# Logging and monitoring
-structlog>=23.0.0,<24.5.0
-
-# Vector database and search
-chromadb>=0.4.0,<0.6.0
-
-# Enhanced embeddings for better recall
-accelerate>=0.24.0,<0.35.0
-
-# RAG and vector search (optional)
-langchain-community>=0.0.0,<0.4.0
-
-# Document processing (optional)
-unstructured>=0.11.0,<0.16.0
+# --- Document Processing ---
+pypdf>=4.0.0,<4.4.0
+python-docx>=1.1.0,<1.2.0
+beautifulsoup4>=4.12.0,<4.13.0
 PyMuPDF>=1.23.0,<1.25.0
-pdfplumber>=0.10.0,<0.12.0
-
-# OCR capabilities (optional)
-pytesseract>=0.3.0,<0.4.0
 Pillow>=10.0.0,<10.5.0
-opencv-python>=4.8.0,<4.11.0
-easyocr>=1.7.0,<1.8.0
 
-# Table extraction (optional)
-camelot-py[cv]>=0.11.0,<0.12.0
-tabula-py>=2.8.0,<2.11.0
+# --- Web API Frameworks ---
+flask>=2.3.0,<3.1.0
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
 
-# Web scraping (optional)
-selenium>=4.15.0,<4.26.0
+# --- Testing ---
+pytest~=7.4
 
-# Environment management (optional)
-# python-dotenv already listed above
-
-# Jupyter support (optional)
-jupyter>=1.0.0,<1.1.0
-ipykernel>=6.25.0,<6.30.0
-
-# Logging and monitoring
-PyYAML>=6.0.0,<6.1.0
-
-# CLI framework
-typer>=0.12.0,<0.13.0
-
-# Web API framework
-flask>=2.3.0,<3.1.0 
+# --- Language Chain (optional for advanced workflows) ---
+langchain>=0.2.0,<0.4.0 

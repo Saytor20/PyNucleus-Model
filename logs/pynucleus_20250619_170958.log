@@ -1,0 +1,13 @@
+2025-06-19 17:09:58,854 | __main__ | INFO | run_pipeline.py:516 | 🚀 Starting interactive chat session
+2025-06-19 17:09:58,855 | __main__ | INFO | run_pipeline.py:517 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 17:09:58,855 | __main__ | INFO | run_pipeline.py:518 | 📊 Top K: 5
+2025-06-19 17:09:58,855 | __main__ | INFO | run_pipeline.py:519 | 🧠 DSPy enabled: True
+2025-06-19 17:09:58,855 | __main__ | INFO | run_pipeline.py:529 | ⚠️ DSPy disabled - using local RAG + LLM mode instead
+2025-06-19 17:09:58,855 | __main__ | INFO | run_pipeline.py:538 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-19 17:09:59,359 | pynucleus.rag.vector_store | INFO | vector_store.py:593 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-19 17:09:59,436 | pynucleus.rag.vector_store | INFO | vector_store.py:598 | ChromaDB collection contains 3602 documents
+2025-06-19 17:09:59,436 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:36 | Vector store (chroma) initialized successfully
+2025-06-19 17:10:01,624 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 17:10:10,137 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-19 17:10:22,913 | pynucleus.rag.vector_store | ERROR | vector_store.py:688 | ChromaDB search failed: 'NoneType' object has no attribute 'get'
+2025-06-19 17:10:22,914 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:104 | RAG query processed: what is distillation columns?...

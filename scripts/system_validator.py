@@ -55,6 +55,9 @@ class SystemValidator:
         self.passed_tests = 0
         self.start_time = datetime.now()
         
+        # Updated paths for validation data
+        self.golden_dataset_path = "data/validation/golden_dataset.csv"
+        
         # Validation test datasets
         self.ground_truth_tests = self._create_validation_datasets()
         
@@ -127,6 +130,7 @@ class SystemValidator:
         try:
             # Core validation tests
             self._run_ground_truth_validation()
+            self._run_golden_dataset_validation()
             
             if include_citations:
                 self._run_citation_validation()
@@ -146,6 +150,37 @@ class SystemValidator:
         except Exception as e:
             self.log_message(f"Validation suite failed: {e}", "error")
             raise
+    
+    def _run_golden_dataset_validation(self):
+        """Run validation against the golden dataset."""
+        print("\n" + "=" * 60)
+        print("   GOLDEN DATASET VALIDATION")
+        print("=" * 60)
+        
+        if not Path(self.golden_dataset_path).exists():
+            self.log_message(f"Golden dataset not found at {self.golden_dataset_path}", "warning")
+            return
+        
+        try:
+            # Use the golden evaluation module
+            from pynucleus.eval.golden_eval import run_eval
+            
+            self.total_tests += 1
+            start_time = time.time()
+            
+            success = run_eval(threshold=0.6)  # 60% threshold
+            response_time = time.time() - start_time
+            
+            if success:
+                self.log_message("✓ Golden dataset validation PASSED", "success")
+                self.passed_tests += 1
+            else:
+                self.log_message("✗ Golden dataset validation FAILED", "error")
+            
+            self.log_message(f"Golden dataset evaluation completed in {response_time:.2f}s")
+            
+        except Exception as e:
+            self.log_message(f"Golden dataset validation failed: {e}", "error")
     
     def _run_ground_truth_validation(self):
         """Run ground-truth validation tests."""
@@ -413,8 +448,8 @@ class SystemValidator:
         print("=" * 60)
         
         notebooks_to_test = [
-            "Capstone Project.ipynb",
-            "Developer_Notebook.ipynb"
+            "Capstone_Project_Clean.ipynb",
+            "Developer_Notebook_Clean.ipynb"
         ]
         
         for notebook_path in notebooks_to_test:
@@ -430,9 +465,8 @@ class SystemValidator:
     def _query_rag_system(self, query: str) -> Dict[str, Any]:
         """Query the RAG system with error handling."""
         try:
-            from pynucleus.pipeline.pipeline_rag import RAGPipeline
-            rag_pipeline = RAGPipeline(data_dir="data")
-            return rag_pipeline.query(query)
+            from pynucleus.rag.engine import ask
+            return ask(query)
         except Exception as e:
             self.log_message(f"RAG query failed: {e}", "warning")
             return {"answer": "", "sources": []}

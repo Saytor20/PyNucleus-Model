@@ -151,6 +151,35 @@ class LLMRunner:
             if response_text.startswith(prompt):
                 response_text = response_text[len(prompt):].strip()
             
+            # Clean up response - remove training artifacts and contamination
+            response_lines = response_text.split('\n')
+            clean_lines = []
+            
+            for line in response_lines:
+                line = line.strip()
+                # Skip common training artifacts
+                if any(artifact in line.lower() for artifact in [
+                    'you are an ai assistant',
+                    'human:',
+                    'assistant:',
+                    'answer:',
+                    'you will be given a task',
+                    'must complete the task',
+                    'i am an ai',
+                    'as an ai'
+                ]):
+                    break  # Stop at first training artifact
+                
+                if line and not line.startswith('#'):  # Keep non-empty, non-comment lines
+                    clean_lines.append(line)
+            
+            response_text = ' '.join(clean_lines)
+            
+            # Limit response length to avoid contamination
+            if len(response_text) > 1000:
+                sentences = response_text.split('.')
+                response_text = '. '.join(sentences[:3]) + '.'
+            
             end_time = datetime.now()
             generation_time = (end_time - start_time).total_seconds()
             

@@ -59,9 +59,23 @@ class RAGCore:
                     "processed_count": 0
                 }
             
-            # Get all documents
-            doc_files = list(source_dir.glob("*"))
-            doc_files = [f for f in doc_files if f.is_file()]
+            # Get all documents (including from subdirectories)
+            doc_files = []
+            # First check direct files
+            direct_files = [f for f in source_dir.glob("*") if f.is_file() and f.suffix.lower() in ['.txt', '.md', '.pdf']]
+            doc_files.extend(direct_files)
+            
+            # Then check subdirectories recursively for text files
+            for pattern in ['**/*.txt', '**/*.md', '**/*.pdf']:
+                subdirectory_files = list(source_dir.glob(pattern))
+                doc_files.extend(subdirectory_files)
+            
+            # Remove duplicates and ensure we only have files
+            doc_files = list(set([f for f in doc_files if f.is_file()]))
+            
+            self.logger.info(f"Found {len(doc_files)} documents to process")
+            if doc_files:
+                self.logger.debug(f"Document types: {[f.suffix for f in doc_files[:10]]}")  # Log first 10 file types
             
             processed_docs = []
             

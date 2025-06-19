@@ -1,0 +1,15 @@
+2025-06-19 17:21:37,206 | __main__ | INFO | run_pipeline.py:516 | 🚀 Starting interactive chat session
+2025-06-19 17:21:37,206 | __main__ | INFO | run_pipeline.py:517 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 17:21:37,206 | __main__ | INFO | run_pipeline.py:518 | 📊 Top K: 5
+2025-06-19 17:21:37,206 | __main__ | INFO | run_pipeline.py:531 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-19 17:21:37,549 | pynucleus.rag.vector_store | INFO | vector_store.py:593 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-19 17:21:37,618 | pynucleus.rag.vector_store | INFO | vector_store.py:598 | ChromaDB collection contains 3602 documents
+2025-06-19 17:21:37,618 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:36 | Vector store (chroma) initialized successfully
+2025-06-19 17:21:39,691 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 17:21:49,074 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-19 17:22:00,174 | pynucleus.rag.vector_store | INFO | vector_store.py:683 | ChromaDB search for 'what is mass transfer?...' returned 5 results
+2025-06-19 17:22:00,174 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:104 | RAG query processed: what is mass transfer?...
+2025-06-19 17:22:10,071 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 9.88s
+2025-06-19 17:22:28,980 | pynucleus.rag.vector_store | INFO | vector_store.py:683 | ChromaDB search for 'what is velocity?...' returned 5 results
+2025-06-19 17:22:28,980 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:104 | RAG query processed: what is velocity?...
+2025-06-19 17:22:36,343 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 7.35s
