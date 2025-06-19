@@ -197,4 +197,9 @@ To Do:
 
  2025-06-18 16:37:51 changes made and pushed to origin main
 
- 2025-06-18 23:30:55 changes made and pushed to origin main
+To Do: 
+1) Deploy the model to google colab and test it... make sure the set up for github pipeline to pull is there to always test it 
+2) Redo the whole pipeline related to the LLM... a prompt have already been developed just proceed with the implementaiton 
+3) test the model so that it spits out answers... right now we are focused on the system working rather than enhancing the system 
+4) test and validate everything 
+ 2025-06-19 13:07:33 changes made and pushed to origin main

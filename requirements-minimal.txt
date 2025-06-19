@@ -1,0 +1,31 @@
+# PyNucleus-Model: Minimal Requirements
+# Essential dependencies for basic functionality testing
+
+# Core ML dependencies (minimal versions)
+torch>=2.0.0
+transformers>=4.30.0
+sentence-transformers>=2.2.0
+
+# Vector store
+faiss-cpu>=1.7.0
+
+# Essential utilities
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+requests>=2.31.0
+numpy>=1.24.0
+pandas>=2.0.0
+tqdm>=4.66.0
+
+# Document processing
+pypdf>=4.0.0
+
+# Configuration
+PyYAML>=6.0.0
+jsonschema>=4.0.0
+
+# HTTP client
+httpx>=0.24.0
+
+# Note: This minimal set allows basic RAG functionality
+# For full features, use requirements.txt or requirements-colab.txt 

@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   model:
     build:
@@ -10,6 +12,8 @@ services:
       retries: 3
     ports:
       - "8080:80"
+    networks:
+      - pynucleus-network
 
   api:
     build:
@@ -17,8 +21,36 @@ services:
       dockerfile: docker/Dockerfile.api
     environment:
       - MODEL_ENDPOINT=http://model:80
+      - PYTHONPATH=/app/src
+      - PYNUCLEUS_API_KEY=docker
     depends_on:
       model:
         condition: service_healthy
     ports:
-      - "5001:5000" 
+      - "5001:5000"
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+    networks:
+      - pynucleus-network
+
+  # Main application service
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    environment:
+      - PYTHONPATH=/app/src
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+      - ../configs:/app/configs
+    ports:
+      - "8888:8888"  # For Jupyter if needed
+    networks:
+      - pynucleus-network
+
+networks:
+  pynucleus-network:
+    driver: bridge 

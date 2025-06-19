@@ -36,28 +36,77 @@
 
 ## 🎯 **Quick Start**
 
-### **1. Prerequisites**
-- Python 3.9+ (tested with 3.13.1)
+### **🎯 Choose Your Installation Method**
+
+#### **Option 1: Google Colab (Recommended for Quick Testing)**
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadalmusaiteer/PyNucleus-Model/blob/main/Capstone%20Project.ipynb)
+
+**Perfect for**: Testing, learning, cloud-based analysis
+- ✅ No local setup required
+- ✅ Free GPU access available  
+- ✅ Instant start with pre-configured environment
+- ✅ Automatic dependency management
+
+See detailed setup: [📚 Colab Setup Guide](docs/colab_setup.md)
+
+#### **Option 2: Local Installation**
+
+**Prerequisites:**
+- Python 3.10+ (tested with 3.11 and 3.13)
 - 8GB+ RAM recommended
 - (Optional) GPU with CUDA for enhanced performance
 
-### **2. Installation**
 ```bash
 # Clone the repository
-git clone https://github.com/m-a-i-n-s/PyNucleus-Model.git
+git clone https://github.com/mohammadalmusaiteer/PyNucleus-Model.git
 cd PyNucleus-Model
+
+# Validate infrastructure first
+python scripts/validate_infrastructure.py
 
 # Create and activate virtual environment
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-# Install dependencies
+# Choose your requirements file based on your needs:
+# Full installation (recommended for production):
 pip install -r requirements.txt
+
+# Colab-compatible installation:
+pip install -r requirements-colab.txt
+
+# Minimal installation (basic functionality only):
+pip install -r requirements-minimal.txt
 ```
 
-### **3. System Health Check**
+#### **Option 3: Docker Deployment (Production Ready)**
+
+**Perfect for**: Production deployment, consistent environments, microservices
+
 ```bash
-# Verify system is ready
+# Clone and validate
+git clone https://github.com/mohammadalmusaiteer/PyNucleus-Model.git
+cd PyNucleus-Model
+
+# Validate and build all services
+chmod +x docker/build.sh
+./docker/build.sh
+
+# Start all services
+cd docker
+docker-compose up -d
+
+# View service status
+docker-compose ps
+docker-compose logs -f
+```
+
+### **🔍 Infrastructure Validation**
+```bash
+# Comprehensive infrastructure check
+python scripts/validate_infrastructure.py
+
+# Quick system health check
 python scripts/comprehensive_system_diagnostic.py --quiet
 
 # Validate all components
