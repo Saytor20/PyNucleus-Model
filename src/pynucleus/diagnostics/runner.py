@@ -349,7 +349,7 @@ class DiagnosticRunner:
             self._test_mock_integration()
             self._test_token_utilities()
             self._test_configuration_management()
-            self._test_jinja2_prompts()
+            self._test_dspy_prompts()
             
             # Advanced Testing
             if self.test_notebook:
@@ -408,7 +408,7 @@ class DiagnosticRunner:
         
         # Core packages
         core_packages = [
-            "numpy", "pandas", "requests", "tqdm", "jinja2", "typer",
+            "numpy", "pandas", "requests", "tqdm", "typer",
             "pathlib", "dataclasses", "asyncio", "concurrent"
         ]
         
@@ -898,28 +898,26 @@ class DiagnosticRunner:
         except Exception as e:
             self.log_result("Configuration Management", False, [f"Configuration management test failed: {e}"])
 
-    def _test_jinja2_prompts(self):
-        """Test Jinja2 prompt system."""
-        self.print_section_header("JINJA2 PROMPT SYSTEM TEST")
+    def _test_dspy_prompts(self):
+        """Test DSPy prompt system."""
+        self.print_section_header("DSPY PROMPT SYSTEM TEST")
         
         try:
-            import jinja2
+            # Test that DSPy components are importable
+            from src.pynucleus.llm.answer_engine import DSPyAnswerEngine
+            from src.pynucleus.llm.dspy_program import PyNucleusProgram
             
-            # Test basic Jinja2 functionality
-            template_str = "Hello {{ name }}! This is a {{ type }} test for {{ system }}."
-            template = jinja2.Template(template_str)
-            result = template.render(name="PyNucleus", type="comprehensive", system="diagnostic runner")
+            # Test basic DSPy functionality
+            engine = DSPyAnswerEngine()
+            status = engine.get_status()
             
-            expected_parts = ["PyNucleus", "comprehensive", "diagnostic runner"]
-            all_present = all(part in result for part in expected_parts)
-            
-            if all_present:
-                self.log_result("Jinja2 Template Rendering", True, ["Template rendering works correctly"])
+            if status.get("dspy_available", False):
+                self.log_result("DSPy Framework", True, ["DSPy framework available and configured"])
             else:
-                self.log_result("Jinja2 Template Rendering", False, ["Template rendering failed"])
+                self.log_result("DSPy Framework", False, ["DSPy framework not available or not configured"])
                 
         except Exception as e:
-            self.log_result("Jinja2 Prompt System", False, [f"Jinja2 prompt system test failed: {e}"])
+            self.log_result("DSPy Prompt System", False, [f"DSPy prompt system test failed: {e}"])
 
     def _test_notebook_execution(self):
         """Test notebook execution capabilities."""

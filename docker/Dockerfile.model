@@ -1,0 +1,18 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install only essential dependencies
+RUN pip install --no-cache-dir flask>=2.3.0
+
+# Copy model server script
+COPY simple_model_server.py .
+
+EXPOSE 80
+
+CMD ["python", "simple_model_server.py"] 

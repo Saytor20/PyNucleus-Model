@@ -24,14 +24,21 @@ class RAGPipeline:
         self._initialize_vector_store()
     
     def _initialize_vector_store(self):
-        """Initialize the real FAISS vector store."""
+        """Initialize vector store using factory pattern."""
         try:
-            from ..rag.vector_store import RealFAISSVectorStore
-            self.vector_store = RealFAISSVectorStore()
-            if self.vector_store.loaded:
-                self.logger.info("Real FAISS vector store initialized successfully")
+            from ..rag.vector_store_remote import create_vector_store
+            from ..settings import settings
+            
+            self.vector_store = create_vector_store(backend=settings.vstore_backend)
+            
+            # Check if vector store loaded successfully
+            if hasattr(self.vector_store, 'loaded') and self.vector_store.loaded:
+                self.logger.info(f"Vector store ({settings.vstore_backend}) initialized successfully")
+            elif hasattr(self.vector_store, 'initialized') and self.vector_store.initialized:
+                self.logger.info(f"Remote vector store ({settings.vstore_backend}) initialized successfully")
             else:
-                self.logger.warning("FAISS vector store not loaded - will use fallback mode")
+                self.logger.warning(f"Vector store ({settings.vstore_backend}) not fully loaded - will use fallback mode")
+                
         except Exception as e:
             self.logger.warning(f"Failed to initialize vector store: {e}")
             self.vector_store = None

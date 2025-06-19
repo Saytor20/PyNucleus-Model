@@ -1,16 +1,24 @@
-version: '3.8'
-
 services:
-  pynucleus:
+  model:
+    build:
+      context: .
+      dockerfile: Dockerfile.model
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    ports:
+      - "8080:80"
+
+  api:
     build:
       context: ..
-      dockerfile: docker/Dockerfile
-    volumes:
-      - ..:/app
-      - ../data:/app/data
+      dockerfile: docker/Dockerfile.api
     environment:
-      - PYTHONPATH=/app/src
-      - PYTHONUNBUFFERED=1
+      - MODEL_ENDPOINT=http://model:80
+    depends_on:
+      model:
+        condition: service_healthy
     ports:
-      - "8000:8000"
-    command: python scripts/comprehensive_system_diagnostic.py 
+      - "5001:5000" 

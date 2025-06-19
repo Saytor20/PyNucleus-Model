@@ -7,7 +7,6 @@ import logging
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from datetime import datetime
-from jinja2 import Environment, FileSystemLoader, Template
 
 class LLMOutputGenerator:
     """Generate LLM-ready output from simulation data."""
@@ -17,12 +16,9 @@ class LLMOutputGenerator:
         self.results_dir.mkdir(parents=True, exist_ok=True)
         self.logger = logging.getLogger(__name__)
         
-        # Setup Jinja2 environment
-        try:
-            self.jinja_env = Environment(loader=FileSystemLoader('prompts'))
-        except:
-            self.jinja_env = None
-            self.logger.warning("Jinja2 template environment not available")
+        # Note: Jinja2 template system removed in favor of DSPy structured prompting
+        self.jinja_env = None
+        self.logger.info("Using direct content generation (templates migrated to DSPy)")
     
     def export_llm_ready_text(self, data: Dict[str, Any]) -> Path:
         """
@@ -46,15 +42,8 @@ class LLMOutputGenerator:
         filename = f"llm_analysis_{case_name}_{timestamp}.md"
         output_file = self.results_dir / filename
         
-        # Generate content using template if available
-        if self.jinja_env:
-            try:
-                content = self._generate_templated_content(data)
-            except Exception as e:
-                self.logger.warning(f"Template generation failed, using fallback: {e}")
-                content = self._generate_fallback_content(data)
-        else:
-            content = self._generate_fallback_content(data)
+        # Generate content directly (template system migrated to DSPy)
+        content = self._generate_content(data)
         
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(content)
@@ -84,18 +73,7 @@ class LLMOutputGenerator:
         self.logger.info(f"Financial analysis generated: {output_file}")
         return output_file
     
-    def _generate_templated_content(self, data: Dict[str, Any]) -> str:
-        """Generate content using Jinja2 template."""
-        try:
-            # Use fallback content generation instead of template for now
-            # since the template expects different data structure
-            return self._generate_fallback_content(data)
-            
-        except Exception as e:
-            self.logger.error(f"Template rendering failed: {e}")
-            raise
-    
-    def _generate_fallback_content(self, data: Dict[str, Any]) -> str:
+    def _generate_content(self, data: Dict[str, Any]) -> str:
         """Generate fallback content without templates."""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         

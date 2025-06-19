@@ -10,7 +10,7 @@ from pathlib import Path
 class LLMQueryManager:
     """Manage LLM queries and integrate with PyNucleus pipeline."""
     
-    def __init__(self, model_id: str = "microsoft/DialoGPT-medium"):
+    def __init__(self, model_id: str = "Qwen/Qwen2.5-1.5B-Instruct"):
         self.model_id = model_id
         self.logger = logging.getLogger(__name__)
         self.llm_runner = None

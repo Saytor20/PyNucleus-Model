@@ -9,7 +9,7 @@ from datetime import datetime
 class LLMRunner:
     """Run LLM models using HuggingFace transformers."""
     
-    def __init__(self, model_id: str = "microsoft/DialoGPT-medium", device: str = "auto"):
+    def __init__(self, model_id: str = "Qwen/Qwen2.5-1.5B-Instruct", device: str = "auto"):
         self.model_id = model_id
         self.device = device
         self.model = None
@@ -116,23 +116,32 @@ class LLMRunner:
             
             start_time = datetime.now()
             
-            # Tokenize input
-            inputs = self.tokenizer.encode(prompt, return_tensors="pt")
+            # Improved tokenization with attention mask
+            inputs = self.tokenizer(
+                prompt, 
+                return_tensors="pt", 
+                padding=True,
+                truncation=True,
+                max_length=min(max_length - 50, 1024),  # Leave room for generation
+                return_attention_mask=True
+            )
             
             # Move to same device as model
-            inputs = inputs.to(self.model.device)
+            inputs = {k: v.to(self.model.device) for k, v in inputs.items()}
             
-            # Generate response
+            # Generate response with proper attention mask
             with torch.no_grad():
                 outputs = self.model.generate(
-                    inputs,
+                    input_ids=inputs["input_ids"],
+                    attention_mask=inputs.get("attention_mask"),
                     max_length=max_length,
                     temperature=temperature,
                     do_sample=do_sample,
                     top_p=top_p,
                     top_k=top_k,
                     pad_token_id=self.tokenizer.pad_token_id,
-                    eos_token_id=self.tokenizer.eos_token_id
+                    eos_token_id=self.tokenizer.eos_token_id,
+                    no_repeat_ngram_size=2  # Reduce repetition
                 )
             
             # Decode response

@@ -95,7 +95,7 @@ def ask():
             return jsonify({"error": "Question cannot be empty"}), 400
         
         # Optional parameters
-        model_id = data.get('model_id', 'microsoft/DialoGPT-large')
+        model_id = data.get('model_id', 'Qwen/Qwen2.5-1.5B-Instruct')
         top_k = data.get('top_k', 5)
         
         api_logger.info(f"Processing question: {question[:50]}...")

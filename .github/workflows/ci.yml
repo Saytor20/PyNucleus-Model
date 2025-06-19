@@ -39,3 +39,13 @@ jobs:
     - name: Run tests with pytest
       run: |
         pytest -q 
+        
+    - name: Test DSPy Compilation
+      run: |
+        # Test DSPy compilation in CI mode (creates artifact but doesn't commit)
+        python run_pipeline.py dspy-compile --ci
+        
+    - name: Flask smoke test
+      run: |
+        export PYNUCLEUS_API_KEY=dummy
+        FLASK_APP=pynucleus.api.app flask routes

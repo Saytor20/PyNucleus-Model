@@ -39,7 +39,7 @@ class TokenCounter:
     
     def _count_single_text(self, text: str) -> int:
         """Count tokens in a single text string."""
-        if not text:
+        if not text or text is None:
             return 0
             
         if self.tokenizer:
