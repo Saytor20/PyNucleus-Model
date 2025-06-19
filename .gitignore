@@ -39,6 +39,16 @@ Thumbs.db
 /data/04_models/
 /data/05_output/
 
+# Model files (prevent large files from being tracked)
+models/
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.h5
+*.hdf5
+
 # Legacy directories (should be empty after migration)
 /vector_db/
 /converted_chunked_data/
