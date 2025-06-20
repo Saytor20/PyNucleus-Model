@@ -30,8 +30,9 @@ def _simple(ctx:str, q:str, tier:str)->str:
         return f"Human: {q}\n\nAssistant:"
     
     # Truncate context to avoid exceeding token limits
-    # Estimate ~2-3 chars per token, keep context under 300 tokens (~900 chars)
-    max_context_chars = 900
+    # Estimate ~2-3 chars per token, keep context under 200 tokens (~600 chars)
+    # Reduced to account for citation tags [1], [2], etc.
+    max_context_chars = 600
     if len(ctx) > max_context_chars:
         ctx = ctx[:max_context_chars] + "..."
         logger.info(f"Context truncated to {max_context_chars} characters to fit context window")

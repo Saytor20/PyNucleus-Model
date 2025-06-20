@@ -131,9 +131,11 @@ def retrieve(q: str, k: int | None = None):
 def ask(question: str):
     """Ask a question using RAG pipeline."""
     chunks = retrieve(question)
-    context = "\n\n".join(chunks) if chunks else ""
+    # Tag chunks for inline citation markers [1] etc.
+    tagged_ctx = [f"[{i+1}] {c}" for i,c in enumerate(chunks)]
+    context = "\n\n".join(tagged_ctx) if chunks else ""
     prompt = build_prompt(context, question)
-    answer = generate(prompt, max_tokens=100)
+    answer = generate(prompt, max_tokens=50)
     
     if chunks:
         refs = "\n\nReferences:\n" + "\n".join(f"[{i+1}] {c[:60]}..." for i,c in enumerate(chunks))
