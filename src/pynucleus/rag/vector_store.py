@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime
 from dataclasses import dataclass
+from rank_bm25 import BM25Okapi
 from ..settings import settings
 
 @dataclass
@@ -698,14 +699,15 @@ class ChromaVectorStore:
             similarity_threshold: Minimum similarity score
             
         Returns:
-            List of search results
+            List of search results with text and metadata
         """
         try:
             if self.loaded and self.collection:
                 # Perform ChromaDB search
                 results = self.collection.query(
                     query_texts=[query],
-                    n_results=top_k
+                    n_results=top_k,
+                    include=['documents', 'metadatas', 'distances']
                 )
                 
                 search_results = []
@@ -745,7 +747,7 @@ class ChromaVectorStore:
                         
                         if similarity >= similarity_threshold:
                             search_results.append({
-                                "text": doc[:500] + "..." if len(doc) > 500 else doc,
+                                "text": doc,
                                 "source": metadata.get('source', f'document_{i+1}') if isinstance(metadata, dict) else f'document_{i+1}',
                                 "score": similarity,
                                 "chunk_id": metadata.get('chunk_id', f'chunk_{i+1}') if isinstance(metadata, dict) else f'chunk_{i+1}',
@@ -763,6 +765,34 @@ class ChromaVectorStore:
             self.logger.error(f"ChromaDB search failed: {e}")
             # Fallback to mock results
             return self._generate_enhanced_mock_results(query, top_k, similarity_threshold)
+    
+    def search_with_sources(
+        self, 
+        query: str, 
+        top_k: int = 5,
+        similarity_threshold: float = 0.3
+    ) -> Tuple[List[str], List[str]]:
+        """
+        Search for similar documents and return documents and sources separately.
+        
+        Args:
+            query: Search query
+            top_k: Number of results to return
+            similarity_threshold: Minimum similarity score
+            
+        Returns:
+            Tuple of (documents, sources)
+        """
+        results = self.search(query, top_k, similarity_threshold)
+        
+        documents = []
+        sources = []
+        
+        for result in results:
+            documents.append(result.get('text', ''))
+            sources.append(result.get('source', 'unknown'))
+            
+        return documents, sources
     
     def _generate_enhanced_mock_results(self, query: str, top_k: int, similarity_threshold: float) -> List[Dict[str, Any]]:
         """Generate enhanced mock results for ChromaDB."""
@@ -838,4 +868,252 @@ class ChromaVectorStore:
                 "backend": "ChromaDB", 
                 "status": "error",
                 "error": str(e)
-            } 
+            }
+
+class HybridVectorStore:
+    """
+    Hybrid vector store that combines Chroma vector search with BM25 keyword search.
+    
+    This implementation combines semantic similarity (Chroma) with keyword relevance (BM25)
+    to provide improved retrieval results.
+    """
+    
+    def __init__(self, chroma_client):
+        """
+        Initialize hybrid vector store.
+        
+        Args:
+            chroma_client: Initialized Chroma collection client
+        """
+        self.chroma = chroma_client
+        self.logger = logging.getLogger(__name__)
+        
+        # Load documents and initialize BM25
+        self.docs, self.metadata = self.load_all_docs()
+        if self.docs:
+            # Tokenize documents for BM25
+            tokenized_docs = [doc.split() for doc in self.docs]
+            self.bm25 = BM25Okapi(tokenized_docs)
+        else:
+            self.bm25 = None
+            self.logger.warning("No documents found for BM25 initialization")
+
+    def load_all_docs(self) -> Tuple[List[str], List[Dict[str, Any]]]:
+        """
+        Load all documents from Chroma collection.
+        
+        Returns:
+            Tuple of (documents, metadata)
+        """
+        try:
+            result = self.chroma.get(include=["documents", "metadatas"])
+            documents = result.get("documents", [])
+            metadata = result.get("metadatas", [])
+            
+            self.logger.info(f"Loaded {len(documents)} documents for hybrid search")
+            return documents, metadata
+            
+        except Exception as e:
+            self.logger.error(f"Failed to load documents from Chroma: {e}")
+            return [], []
+
+    def search(
+        self, 
+        query: str, 
+        top_k: int = 5,
+        similarity_threshold: float = 0.3
+    ) -> List[Dict[str, Any]]:
+        """
+        Perform hybrid search combining Chroma vector search with BM25.
+        
+        Args:
+            query: Search query
+            top_k: Number of results to return
+            similarity_threshold: Minimum similarity threshold for Chroma results
+            
+        Returns:
+            List of search results with combined scores
+        """
+        try:
+            if not self.bm25:
+                self.logger.warning("BM25 not initialized, falling back to Chroma only")
+                return self._chroma_only_search(query, top_k, similarity_threshold)
+            
+            # Get Chroma results (retrieve more than needed for better ranking)
+            chroma_results = self.chroma.query(
+                query_texts=[query], 
+                n_results=min(top_k * 2, len(self.docs)) if self.docs else top_k
+            )
+            
+            # Get BM25 scores for all documents
+            query_tokens = query.split()
+            bm25_scores = self.bm25.get_scores(query_tokens)
+            
+            # Combine results
+            combined_results = self.combine_results(
+                chroma_results, bm25_scores, top_k, similarity_threshold
+            )
+            
+            return combined_results
+            
+        except Exception as e:
+            self.logger.error(f"Hybrid search failed: {e}")
+            return []
+
+    def combine_results(
+        self, 
+        chroma_results: Dict[str, Any], 
+        bm25_scores: List[float], 
+        top_k: int,
+        similarity_threshold: float = 0.3
+    ) -> List[Dict[str, Any]]:
+        """
+        Combine Chroma and BM25 results using score fusion.
+        
+        Args:
+            chroma_results: Results from Chroma query
+            bm25_scores: BM25 scores for all documents
+            top_k: Number of results to return
+            similarity_threshold: Minimum similarity threshold
+            
+        Returns:
+            Combined and ranked results
+        """
+        try:
+            documents = chroma_results.get("documents", [[]])[0]
+            metadatas = chroma_results.get("metadatas", [[]])[0]
+            distances = chroma_results.get("distances", [[]])[0]
+            
+            # Convert distances to similarity scores (Chroma uses distance, lower is better)
+            chroma_similarities = [max(0, 1 - dist) for dist in distances]
+            
+            # Create document-score pairs
+            doc_scores = []
+            for i, (doc, metadata, chroma_sim) in enumerate(zip(documents, metadatas, chroma_similarities)):
+                # Skip documents below similarity threshold
+                if chroma_sim < similarity_threshold:
+                    continue
+                
+                # Find document index in full corpus for BM25 score
+                try:
+                    doc_idx = self.docs.index(doc)
+                    bm25_score = bm25_scores[doc_idx]
+                except (ValueError, IndexError):
+                    bm25_score = 0.0
+                
+                # Normalize BM25 score (simple min-max normalization)
+                max_bm25 = float(max(bm25_scores)) if len(bm25_scores) > 0 else 1.0
+                normalized_bm25 = float(bm25_score) / max_bm25 if max_bm25 > 0 else 0.0
+                
+                # Combine scores (weighted average: 70% vector, 30% BM25)
+                combined_score = 0.7 * chroma_sim + 0.3 * normalized_bm25
+                
+                doc_scores.append({
+                    "text": doc,
+                    "source": metadata.get("source", "unknown"),
+                    "score": combined_score,
+                    "chroma_score": chroma_sim,
+                    "bm25_score": normalized_bm25,
+                    "metadata": metadata
+                })
+            
+            # Sort by combined score and return top_k
+            ranked_results = sorted(doc_scores, key=lambda x: x["score"], reverse=True)
+            
+            return ranked_results[:top_k]
+            
+        except Exception as e:
+            self.logger.error(f"Failed to combine results: {e}")
+            return []
+
+    def search_with_sources(
+        self, 
+        query: str, 
+        top_k: int = 5,
+        similarity_threshold: float = 0.3
+    ) -> Tuple[List[str], List[str]]:
+        """
+        Perform hybrid search and return documents and sources separately.
+        
+        Args:
+            query: Search query
+            top_k: Number of results to return
+            similarity_threshold: Minimum similarity threshold
+            
+        Returns:
+            Tuple of (documents, sources)
+        """
+        results = self.search(query, top_k, similarity_threshold)
+        
+        documents = [result["text"] for result in results]
+        sources = [result["source"] for result in results]
+        
+        return documents, sources
+
+    def _chroma_only_search(
+        self, 
+        query: str, 
+        top_k: int,
+        similarity_threshold: float
+    ) -> List[Dict[str, Any]]:
+        """
+        Fallback to Chroma-only search when BM25 is not available.
+        
+        Args:
+            query: Search query
+            top_k: Number of results to return
+            similarity_threshold: Minimum similarity threshold
+            
+        Returns:
+            Chroma search results
+        """
+        try:
+            chroma_results = self.chroma.query(
+                query_texts=[query], 
+                n_results=top_k
+            )
+            
+            documents = chroma_results.get("documents", [[]])[0]
+            metadatas = chroma_results.get("metadatas", [[]])[0]
+            distances = chroma_results.get("distances", [[]])[0]
+            
+            results = []
+            for doc, metadata, distance in zip(documents, metadatas, distances):
+                similarity = max(0, 1 - distance)
+                
+                if similarity >= similarity_threshold:
+                    results.append({
+                        "text": doc,
+                        "source": metadata.get("source", "unknown"),
+                        "score": similarity,
+                        "metadata": metadata
+                    })
+            
+            return results
+            
+        except Exception as e:
+            self.logger.error(f"Chroma-only search failed: {e}")
+            return []
+
+    def get_stats(self) -> Dict[str, Any]:
+        """
+        Get hybrid vector store statistics.
+        
+        Returns:
+            Statistics about the hybrid store
+        """
+        try:
+            chroma_count = len(self.docs) if self.docs else 0
+            bm25_initialized = self.bm25 is not None
+            
+            return {
+                "type": "hybrid",
+                "total_documents": chroma_count,
+                "bm25_initialized": bm25_initialized,
+                "chroma_backend": "active",
+                "search_modes": ["vector", "keyword", "hybrid"]
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Failed to get stats: {e}")
+            return {"type": "hybrid", "error": str(e)} 

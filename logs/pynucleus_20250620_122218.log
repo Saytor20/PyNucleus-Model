@@ -1,0 +1,17 @@
+2025-06-20 12:22:18,343 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-20 12:22:18,343 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 12:22:18,343 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3587 documents
+2025-06-20 12:22:18,343 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-20 12:22:18,344 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3587 documents
+2025-06-20 12:22:18,344 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:61 | Loading validation questions from docs/e2e_validation_questions.csv
+2025-06-20 12:22:18,344 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:128 | Loaded 0 questions from CSV
+2025-06-20 12:22:18,344 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:73 | Validating 0 questions...
+2025-06-20 12:22:18,344 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:106 | Validation completed: 0/0 passed
+2025-06-20 12:22:18,430 | pynucleus.rag.vector_store | INFO | vector_store.py:757 | ChromaDB search for 'What are the benefits of process intensification?...' returned 8 results
+2025-06-20 12:22:18,925 | pynucleus.rag.vector_store | INFO | vector_store.py:757 | ChromaDB search for 'How does heat integration work in chemical process...' returned 8 results
+2025-06-20 12:22:19,614 | pynucleus.rag.vector_store | INFO | vector_store.py:757 | ChromaDB search for 'What are the main types of chemical reactors?...' returned 8 results
+2025-06-20 12:22:20,119 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-20 12:22:20,119 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 12:22:20,120 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3587 documents
+2025-06-20 12:22:20,203 | pynucleus.rag.vector_store | INFO | vector_store.py:757 | ChromaDB search for 'What are modular chemical plants?...' returned 3 results
+2025-06-20 12:22:20,288 | pynucleus.rag.vector_store | INFO | vector_store.py:757 | ChromaDB search for 'What are modular chemical plants?...' returned 8 results

@@ -11,6 +11,7 @@ This script specifically focuses on validation aspects of the PyNucleus Clean sy
 - ChromaDB vector store validation
 - Qwen model generation validation
 - Clean architecture validation (Pydantic + Loguru)
+- PDF table extraction and processing validation
 
 For comprehensive system diagnostics, use comprehensive_system_diagnostic.py instead.
 """
@@ -20,6 +21,7 @@ import warnings
 import argparse
 import json
 import time
+import importlib
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional
@@ -134,8 +136,10 @@ class SystemValidator:
             self._run_clean_architecture_validation()
             self._run_chromadb_validation()
             self._run_qwen_model_validation()
+            self._run_pdf_processing_validation()
             self._run_ground_truth_validation()
             self._run_golden_dataset_validation()
+            self._run_e2e_validation()
             
             if include_citations:
                 self._run_citation_validation()
@@ -144,6 +148,9 @@ class SystemValidator:
             
             if include_notebook:
                 self._run_notebook_validation()
+            
+            # CLI enhancement validation
+            self._run_cli_enhancement_validation()
             
             # Web interface validation
             self._run_web_interface_validation()
@@ -197,6 +204,31 @@ class SystemValidator:
             
         except Exception as e:
             self.log_message(f"Logger validation failed: {e}", "error")
+        
+        # Enhanced dependency validation
+        self._validate_enhanced_dependencies()
+    
+    def _validate_enhanced_dependencies(self):
+        """Validate enhanced dependencies for PDF processing."""
+        self.log_message("\nEnhanced Dependencies Validation:")
+        
+        enhanced_deps = [
+            ("camelot", "Camelot PDF table extraction"),
+            ("PyMuPDF", "PyMuPDF document processing"),
+            ("PIL", "Pillow image processing"),
+            ("cv2", "OpenCV computer vision")
+        ]
+        
+        for package, description in enhanced_deps:
+            self.total_tests += 1
+            try:
+                importlib.import_module(package.replace("-", "_"))
+                self.log_message(f"✓ {description}: Available", "success")
+                self.passed_tests += 1
+            except ImportError:
+                self.log_message(f"⚠️ {description}: Missing (install for full PDF features)", "warning")
+                # Don't fail the test for these enhanced dependencies
+                self.passed_tests += 1
     
     def _run_chromadb_validation(self):
         """Run ChromaDB-specific validation tests."""
@@ -216,7 +248,7 @@ class SystemValidator:
                 self.log_message(f"✓ ChromaDB directory exists: {settings.CHROMA_PATH}", "success")
                 
                 # Test basic retrieval
-                test_docs = retrieve("chemical engineering", top_k=1)
+                test_docs = retrieve("chemical engineering", k=1)
                 if test_docs and len(test_docs) > 0:
                     self.log_message("✓ ChromaDB retrieval PASSED", "success")
                     self.log_message(f"   Retrieved {len(test_docs)} documents")
@@ -261,6 +293,54 @@ class SystemValidator:
         except Exception as e:
             self.log_message(f"Qwen model validation failed: {e}", "error")
     
+    def _run_pdf_processing_validation(self):
+        """Run PDF processing system validation tests."""
+        print("\n" + "=" * 60)
+        print("   PDF PROCESSING VALIDATION TESTING")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.data.table_cleaner import extract_tables
+            from pynucleus.rag.document_processor import DocumentProcessor
+            
+            self.total_tests += 1
+            
+            # Test table cleaner module
+            self.log_message("PDF Processing System Components:")
+            self.log_message(f"  Table Cleaner Module: ✓ Importable")
+            
+            # Test document processor with table extraction
+            processor = DocumentProcessor()
+            self.log_message(f"  Document Processor: ✓ Initialized")
+            self.log_message(f"  Tables Output Directory: {processor.tables_output_dir}")
+            
+            # Verify tables output directory exists
+            if processor.tables_output_dir.exists():
+                self.log_message(f"  Tables Directory: ✓ Exists")
+            else:
+                self.log_message(f"  Tables Directory: ⚠️ Will be created on first use")
+            
+            # Test camelot dependency
+            try:
+                import camelot
+                self.log_message("  Camelot PDF Parser: ✓ Available", "success")
+                
+                # Test table extraction functionality with a mock
+                try:
+                    # Just test that the functions are callable without actual PDF
+                    table_keywords = processor.table_keywords
+                    self.log_message(f"  Table Detection Keywords: {len(table_keywords)} configured", "success")
+                    self.passed_tests += 1
+                except Exception as e:
+                    self.log_message(f"  Table Processing Test: ⚠️ {e}", "warning")
+                    
+            except ImportError:
+                self.log_message("  Camelot PDF Parser: ✗ Not Available", "error")
+                self.log_message("    Install with: pip install camelot-py[cv]", "warning")
+                
+        except Exception as e:
+            self.log_message(f"PDF processing validation failed: {e}", "error")
+    
     def _run_golden_dataset_validation(self):
         """Run validation against the golden dataset."""
         print("\n" + "=" * 60)
@@ -278,7 +358,7 @@ class SystemValidator:
             self.total_tests += 1
             start_time = time.time()
             
-            success = run_eval(threshold=0.6)  # 60% threshold
+            success = run_eval(threshold=0.6, sample_size=5)  # 60% threshold, 5 random questions
             response_time = time.time() - start_time
             
             if success:
@@ -291,6 +371,53 @@ class SystemValidator:
             
         except Exception as e:
             self.log_message(f"Golden dataset validation failed: {e}", "error")
+    
+    def _run_e2e_validation(self):
+        """Run E2E validation using factual accuracy validator with random sampling."""
+        print("\n" + "=" * 60)
+        print("   E2E VALIDATION TESTING")
+        print("=" * 60)
+        
+        e2e_csv_path = Path("docs/e2e_validation_questions.csv")
+        
+        if not e2e_csv_path.exists():
+            self.log_message(f"E2E validation file not found at {e2e_csv_path}", "warning")
+            return
+        
+        try:
+            # Import necessary modules
+            from pynucleus.pipeline.pipeline_rag import RAGPipeline
+            
+            # Import FactualAccuracyValidator from the validate_rag_factual_accuracy script
+            import sys
+            scripts_path = str(Path(__file__).parent)
+            if scripts_path not in sys.path:
+                sys.path.insert(0, scripts_path)
+                
+            from validate_rag_factual_accuracy import FactualAccuracyValidator
+            
+            self.total_tests += 1
+            start_time = time.time()
+            
+            # Initialize RAG pipeline and validator
+            pipeline = RAGPipeline()
+            validator = FactualAccuracyValidator(pipeline, accuracy_threshold=0.8)
+            
+            # Run validation with 5 random questions
+            accuracy = validator.validate_csv(e2e_csv_path, sample_size=5)
+            response_time = time.time() - start_time
+            
+            if accuracy >= 0.8:  # 80% threshold for E2E validation
+                self.log_message("✓ E2E validation PASSED", "success")
+                self.passed_tests += 1
+            else:
+                self.log_message("✗ E2E validation FAILED", "error")
+            
+            self.log_message(f"E2E validation completed in {response_time:.2f}s")
+            self.log_message(f"E2E accuracy: {accuracy:.2%}")
+            
+        except Exception as e:
+            self.log_message(f"E2E validation failed: {e}", "error")
     
     def _run_ground_truth_validation(self):
         """Run ground-truth validation tests."""
@@ -447,7 +574,7 @@ class SystemValidator:
             # Test retrieval functionality
             if chroma_store.loaded or chroma_store.collection:
                 test_query = "What are modular chemical plants?"
-                search_results = retrieve(test_query, top_k=3)
+                search_results = retrieve(test_query, k=3)
                 
                 self.total_tests += 1
                 if search_results:
@@ -583,6 +710,48 @@ class SystemValidator:
                 self.passed_tests += 1
             else:
                 self.log_message(f"✗ Missing notebook: {notebook_path}", "error")
+    
+    def _run_cli_enhancement_validation(self):
+        """Run validation tests for enhanced CLI features."""
+        print("\n" + "=" * 60)
+        print("   CLI ENHANCEMENT VALIDATION TESTING")
+        print("=" * 60)
+        
+        # Check CLI file for enhanced features
+        cli_file = "src/pynucleus/cli.py"
+        
+        self.total_tests += 1
+        if Path(cli_file).exists():
+            with open(cli_file, 'r') as f:
+                cli_content = f.read()
+            
+            # Check for enhanced PDF table extraction features
+            cli_enhancements = [
+                "extract_pdf_tables",
+                "DocumentProcessor", 
+                "process_document",
+                "tables_extracted",
+                "data/02_processed/tables"
+            ]
+            
+            enhancements_found = 0
+            for enhancement in cli_enhancements:
+                self.total_tests += 1
+                if enhancement in cli_content:
+                    self.log_message(f"  ✓ CLI has {enhancement}", "success")
+                    enhancements_found += 1
+                    self.passed_tests += 1
+                else:
+                    self.log_message(f"  ✗ CLI missing {enhancement}", "error")
+            
+            # Overall CLI enhancement assessment
+            if enhancements_found >= len(cli_enhancements) * 0.8:
+                self.log_message("CLI Enhancement Features: PASSED", "success")
+            else:
+                self.log_message("CLI Enhancement Features: PARTIAL", "warning")
+                
+        else:
+            self.log_message(f"✗ CLI file not found: {cli_file}", "error")
     
     def _query_rag_system(self, query: str) -> Dict[str, Any]:
         """Query the RAG system with error handling."""

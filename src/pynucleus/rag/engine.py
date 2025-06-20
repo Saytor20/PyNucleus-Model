@@ -9,6 +9,7 @@ from ..utils.logger import logger
 # Centralized ChromaDB client management
 _client = None
 _coll = None
+_store = None
 
 def _get_chromadb_client():
     """Get or create ChromaDB client with consistent settings."""
@@ -112,33 +113,61 @@ def _initialize_collection():
     
     return _coll
 
-def retrieve(q: str, k: int | None = None):
-    """Retrieve documents using ChromaDB collection."""
+def _get_vector_store():
+    """Get or create ChromaVectorStore instance."""
+    global _store
+    if _store is None:
+        from ..rag.vector_store import ChromaVectorStore
+        _store = ChromaVectorStore()
+    return _store
+
+def _retrieve(q: str, k: int | None = None):
+    """Retrieve documents and sources using ChromaVectorStore."""
     k = k or settings.RETRIEVE_TOP_K
     
-    # Lazy initialization of collection
-    coll = _initialize_collection()
-    if coll is None:
-        logger.warning("ChromaDB not available, returning empty results")
-        return []
-    
     try:
-        return coll.query(query_texts=[q], n_results=k)["documents"][0]
+        # Use ChromaVectorStore for consistent retrieval
+        store = _get_vector_store()
+        results = store.search(q, top_k=k)
+        
+        # Extract documents and sources from search results
+        documents = []
+        sources = []
+        
+        for result in results:
+            documents.append(result.get('text', ''))
+            sources.append(result.get('source', 'unknown'))
+            
+        return documents, sources
+        
     except Exception as e:
-        logger.warning(f"Retrieval failed: {e}")
-        return []
+        logger.warning(f"ChromaVectorStore retrieval failed, falling back to direct collection query: {e}")
+        
+        # Fallback to direct collection query
+        coll = _initialize_collection()
+        if coll is None:
+            logger.warning("ChromaDB not available, returning empty results")
+            return [], []
+        
+        try:
+            res = coll.query(query_texts=[q], n_results=k, include=['documents', 'metadatas'])
+            documents = res["documents"][0]
+            metadatas = res["metadatas"][0]
+            sources = [meta.get('source', f"doc_{i}") if meta else f"doc_{i}" for i, meta in enumerate(metadatas)]
+            return documents, sources
+        except Exception as e:
+            logger.warning(f"Direct collection retrieval failed: {e}")
+            return [], []
+
+def retrieve(q: str, k: int | None = None):
+    """Retrieve documents using ChromaDB collection (legacy interface)."""
+    documents, _ = _retrieve(q, k)
+    return documents
 
 def ask(question: str):
     """Ask a question using RAG pipeline."""
-    chunks = retrieve(question)
-    # Tag chunks for inline citation markers [1] etc.
-    tagged_ctx = [f"[{i+1}] {c}" for i,c in enumerate(chunks)]
-    context = "\n\n".join(tagged_ctx) if chunks else ""
-    prompt = build_prompt(context, question)
-    answer = generate(prompt, max_tokens=50)
-    
-    if chunks:
-        refs = "\n\nReferences:\n" + "\n".join(f"[{i+1}] {c[:60]}..." for i,c in enumerate(chunks))
-        answer += refs
-    
-    return {"answer": answer.strip(), "sources": chunks or ["General Knowledge"]} 
+    docs, sources = _retrieve(question)
+    ctx = "\n\n".join(docs)
+    prompt = build_prompt(ctx, question)
+    answer = generate(prompt)
+    return {"answer": answer.strip(), "sources": sources} 

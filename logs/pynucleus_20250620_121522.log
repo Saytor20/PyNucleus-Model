@@ -1,0 +1,18 @@
+2025-06-20 12:15:22,907 | __main__ | INFO | run_pipeline.py:517 | 🚀 Starting interactive chat session
+2025-06-20 12:15:22,907 | __main__ | INFO | run_pipeline.py:518 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-20 12:15:22,907 | __main__ | INFO | run_pipeline.py:519 | 📊 Top K: 5
+2025-06-20 12:15:22,907 | __main__ | INFO | run_pipeline.py:532 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-20 12:15:22,908 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-20 12:15:22,908 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 12:15:22,908 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3587 documents
+2025-06-20 12:15:22,908 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-20 12:15:22,909 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3587 documents
+2025-06-20 12:15:22,909 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-20 12:15:29,952 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-20 12:15:35,732 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-20 12:15:35,733 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 12:15:35,733 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3587 documents
+2025-06-20 12:15:35,734 | pynucleus.rag.vector_store | ERROR | vector_store.py:765 | ChromaDB search failed: Expected include item to be one of documents, embeddings, metadatas, distances, uris, data, got ids in query.
+2025-06-20 12:16:27,920 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 51.51s
+2025-06-20 12:16:58,579 | pynucleus.rag.vector_store | ERROR | vector_store.py:765 | ChromaDB search failed: Expected include item to be one of documents, embeddings, metadatas, distances, uris, data, got ids in query.
+2025-06-20 12:17:47,651 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 48.24s

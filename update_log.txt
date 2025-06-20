@@ -197,31 +197,39 @@ To Do:
 
  2025-06-18 16:37:51 changes made and pushed to origin main
 
-To Do: 
-1) Deploy the model to google colab and test it... make sure the set up for github pipeline to pull is there to always test it 
+Completed 
 2) Redo the whole pipeline related to the LLM... a prompt have already been developed just proceed with the implementaiton - Completed 
 3) test the model so that it spits out answers... right now we are focused on the system working rather than enhancing the system - Completed 
 4) complete clean the system and remove all templates, files, and folders that are not used - Completed 
-5) fix the citation and ground truth
-6) run system_validator script and start fixing all the problems in it 
-7) update the API script to include costs
-8) create a finanical advisor model that handles the money 
 9) add DSPY like framework to the system to enhance the model - Completed "guidance" 
-10) we need to fix the reliance on RAG... should it be like that? 
-11) once number 10 is fixed then we can proceed with uploading more data and enhancing the system 
-12) just updated @comprehensive_system_diagnostica and @system_validator... run them to make sure everything is running
+10) we need to fix the reliance on RAG... should it be like that? - completed 
+12) just updated @comprehensive_system_diagnostica and @system_validator... run them to make sure everything is running - completed
 13) Fix the github issue - completed... right now the model parameters is locally downloaded
 14) we are using now QWEN 1.5B with no problems with it so far - completed 
 15) updated vector store to be more robust - completed  
-16) fix the "Failed to initialize ChromaDB:An instance of Chroma already exists"
+16) fix the "Failed to initialize ChromaDB:An instance of Chroma already exists" - completed 
 17) we have added a source in the output which is soo cool- completed 
-18) we need to now enhance the output and make it look pretty i am sure there is an existing library that can do that 
- 2025-06-19 22:40:07 changes made and pushed to origin main
+18) we need to now enhance the output and make it look pretty i am sure there is an existing library that can do that - completed
+19) Stop the extra HF download - completed 
+20) Minimal citation formatter - completed 
+21) create a script to clean the tables in the during the pdf extraction using panda so that we can use these information part of @data - completed but need to be tested - completed
+22) updates the golden and validation dataset - completed
+23) updated the script to randomly select from both dataset insstead of using the whole dataset - completed
+24)Citation Metadata Enhancement - completed 
+25) Improve Recall & Prompt Quality- completed
+26)Align Ingestion and Retrieval (Metadata & Golden Set Inclusion) - completed
+27) Enrich Chunking and Document Re-indexing- completed
+28) Hybrid Retrieval (Semantic + Keyword/BM25) - completed
 
- 2025-06-19 22:57:53 changes made and pushed to origin main
 
- 2025-06-20 00:31:20 changes made and pushed to origin main
 
- 2025-06-20 00:44:45 changes made and pushed to origin main
-
- 2025-06-20 01:01:16 changes made and pushed to origin main
+To do: 
+1) Deploy the model to google colab and test it... make sure the set up for github pipeline to pull is there to always test it 
+2) fix the citation and ground truth
+3) run system_validator script and start fixing all the problems in it 
+4) update the API script to include costs
+5) create a finanical advisor model that handles the money 
+6) once number 10 is fixed then we can proceed with uploading more data and enhancing the system - 
+7) we need to understand what we have to do with the golden dataset and validation data are we trainning on them or what and what is the difference between the 2? 
+8) we need to create a template so that it understand what it is doing instead of spitting out answers 
+ 2025-06-20 12:25:50 changes made and pushed to origin main

@@ -38,7 +38,7 @@ class RAGCore:
     
     def process_documents(self, source_dir: Optional[str] = None) -> Dict[str, Any]:
         """
-        Process documents from source directory.
+        Process documents from source directory and docs directory.
         
         Args:
             source_dir: Directory containing source documents
@@ -46,41 +46,61 @@ class RAGCore:
         Returns:
             Processing results
         """
-        if not source_dir:
-            source_dir = self.data_dir / "01_raw" / "source_documents"
-        else:
-            source_dir = Path(source_dir)
-            
         try:
-            if not source_dir.exists():
+            # Define comprehensive document paths
+            if source_dir:
+                source_dirs = [Path(source_dir)]
+            else:
+                # Default comprehensive search paths
+                source_dirs = [
+                    self.data_dir / "01_raw" / "source_documents",
+                    self.data_dir / "01_raw",
+                    Path("docs")  # Include docs directory for full corpus coverage
+                ]
+            
+            # Collect all document files from all source directories
+            all_doc_files = []
+            
+            for source_path in source_dirs:
+                if not source_path.exists():
+                    self.logger.debug(f"Source directory not found: {source_path}")
+                    continue
+                
+                # Get all documents (including from subdirectories)
+                doc_files = []
+                # First check direct files
+                direct_files = [f for f in source_path.glob("*") if f.is_file() and f.suffix.lower() in ['.txt', '.md', '.pdf']]
+                doc_files.extend(direct_files)
+                
+                # Then check subdirectories recursively for text files
+                for pattern in ['**/*.txt', '**/*.md', '**/*.pdf']:
+                    subdirectory_files = list(source_path.glob(pattern))
+                    doc_files.extend(subdirectory_files)
+                
+                # Remove duplicates and ensure we only have files
+                doc_files = list(set([f for f in doc_files if f.is_file()]))
+                all_doc_files.extend(doc_files)
+                
+                self.logger.info(f"Found {len(doc_files)} documents in {source_path}")
+            
+            # Remove overall duplicates across all directories
+            all_doc_files = list(set(all_doc_files))
+            
+            self.logger.info(f"Total unique documents found: {len(all_doc_files)}")
+            if all_doc_files:
+                self.logger.debug(f"Document types: {[f.suffix for f in all_doc_files[:10]]}")  # Log first 10 file types
+            
+            if not all_doc_files:
                 return {
                     "status": "error",
-                    "message": f"Source directory not found: {source_dir}",
+                    "message": f"No documents found in any source directories: {[str(d) for d in source_dirs]}",
                     "processed_count": 0
                 }
-            
-            # Get all documents (including from subdirectories)
-            doc_files = []
-            # First check direct files
-            direct_files = [f for f in source_dir.glob("*") if f.is_file() and f.suffix.lower() in ['.txt', '.md', '.pdf']]
-            doc_files.extend(direct_files)
-            
-            # Then check subdirectories recursively for text files
-            for pattern in ['**/*.txt', '**/*.md', '**/*.pdf']:
-                subdirectory_files = list(source_dir.glob(pattern))
-                doc_files.extend(subdirectory_files)
-            
-            # Remove duplicates and ensure we only have files
-            doc_files = list(set([f for f in doc_files if f.is_file()]))
-            
-            self.logger.info(f"Found {len(doc_files)} documents to process")
-            if doc_files:
-                self.logger.debug(f"Document types: {[f.suffix for f in doc_files[:10]]}")  # Log first 10 file types
             
             processed_docs = []
             
             if self.document_processor:
-                for doc_file in doc_files:
+                for doc_file in all_doc_files:
                     try:
                         result = self.document_processor.process_document(doc_file)
                         processed_docs.append(result)
@@ -89,7 +109,7 @@ class RAGCore:
                         continue
             else:
                 # Mock processing
-                for doc_file in doc_files:
+                for doc_file in all_doc_files:
                     processed_docs.append({
                         "file_path": str(doc_file),
                         "status": "processed",
@@ -100,7 +120,8 @@ class RAGCore:
             return {
                 "status": "success",
                 "processed_count": len(processed_docs),
-                "total_files": len(doc_files),
+                "total_files": len(all_doc_files),
+                "source_directories": [str(d) for d in source_dirs if d.exists()],
                 "processed_documents": processed_docs,
                 "timestamp": datetime.now().isoformat()
             }

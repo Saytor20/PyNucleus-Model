@@ -1,0 +1,13 @@
+2025-06-20 01:38:26,031 | __main__ | INFO | run_pipeline.py:517 | 🚀 Starting interactive chat session
+2025-06-20 01:38:26,031 | __main__ | INFO | run_pipeline.py:518 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-20 01:38:26,032 | __main__ | INFO | run_pipeline.py:519 | 📊 Top K: 5
+2025-06-20 01:38:26,032 | __main__ | INFO | run_pipeline.py:532 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-20 01:38:26,033 | pynucleus.rag.vector_store | INFO | vector_store.py:600 | ChromaDB client initialized successfully in vector store
+2025-06-20 01:38:26,033 | pynucleus.rag.vector_store | INFO | vector_store.py:629 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 01:38:26,033 | pynucleus.rag.vector_store | INFO | vector_store.py:634 | ChromaDB collection contains 3587 documents
+2025-06-20 01:38:26,033 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-20 01:38:26,033 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3587 documents
+2025-06-20 01:38:26,033 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-20 01:38:33,222 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-20 01:38:44,808 | pynucleus | INFO | prompting.py:41 | Context truncated to 600 characters to fit context window
+2025-06-20 01:39:30,063 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 44.44s

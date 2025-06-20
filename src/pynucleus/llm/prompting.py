@@ -14,6 +14,9 @@ except Exception as e:
     _USE_GUIDANCE = False
     logger.warning(f"Guidance off → plain prompts. ({e})")
 
+# Export for external use/testing
+USE_GUIDANCE = _USE_GUIDANCE
+
 def _grade(ctx:str)->str:
     if not ctx or "No relevant" in ctx: return "none"
     l = len(ctx)
@@ -21,20 +24,19 @@ def _grade(ctx:str)->str:
     if l < 800:  return "medium"
     return "high"
 
-def build_prompt(ctx:str, q:str)->str:
-    tier = _grade(ctx)
-    return _simple(ctx, q, tier)
+def build_prompt(context: str, question: str, max_context_chars=1200) -> str:
+    context = context[:max_context_chars]
+    return f"""You are an expert chemical-process engineer.
+Use ONLY the context below to answer clearly and precisely. Cite explicitly when possible.
 
-def _simple(ctx:str, q:str, tier:str)->str:
-    if tier == "none":
-        return f"Human: {q}\n\nAssistant:"
-    
-    # Truncate context to avoid exceeding token limits
-    # Estimate ~2-3 chars per token, keep context under 200 tokens (~600 chars)
-    # Reduced to account for citation tags [1], [2], etc.
-    max_context_chars = 600
-    if len(ctx) > max_context_chars:
-        ctx = ctx[:max_context_chars] + "..."
-        logger.info(f"Context truncated to {max_context_chars} characters to fit context window")
-    
-    return f"Human: Use this context to answer: {ctx}\n\n{q}\n\nAssistant:" 
+Context:
+{context}
+
+Question:
+{question}
+
+Answer:
+"""
+
+# Define public exports
+__all__ = ["build_prompt", "USE_GUIDANCE"] 

@@ -11,6 +11,7 @@ This script focuses on comprehensive system health aspects of PyNucleus Clean:
 - Directory structure verification
 - ChromaDB vector store + Qwen model pipeline testing
 - Clean architecture monitoring (Pydantic + Loguru)
+- Enhanced PDF table extraction system validation
 
 For focused validation testing (accuracy, citations), use system_validator.py instead.
 """
@@ -85,12 +86,16 @@ class ComprehensiveSystemDiagnostic:
         self.docker_health = False
         self.chromadb_health = False
         self.qwen_health = False
+        self.pdf_processing_health = False
         
         # Updated script categories for current PyNucleus Clean project structure
         self.script_categories = {
             "Core Pipeline Scripts": [
                 "src/pynucleus/pipeline/**/*.py",
                 "src/pynucleus/rag/**/*.py"
+            ],
+            "Data Processing Scripts": [
+                "src/pynucleus/data/**/*.py"
             ],
             "LLM & Model Scripts": [
                 "src/pynucleus/llm/**/*.py",
@@ -132,7 +137,7 @@ class ComprehensiveSystemDiagnostic:
         print("=" * 60)
         print("   COMPREHENSIVE PYNUCLEUS CLEAN HEALTH DIAGNOSTIC")
         print("=" * 60)
-        print("Focus: ChromaDB, Qwen Models, Clean Architecture, and Components")
+        print("Focus: ChromaDB, Qwen Models, PDF Processing, and Clean Architecture")
         print()
         
         try:
@@ -146,6 +151,7 @@ class ComprehensiveSystemDiagnostic:
             self._check_pynucleus_clean_architecture()
             self._check_chromadb_health()
             self._check_qwen_model_health()
+            self._check_pdf_processing_health()
             
             # Comprehensive script validation
             self._validate_all_scripts_comprehensive()
@@ -285,13 +291,28 @@ class ComprehensiveSystemDiagnostic:
         for package, description in clean_packages:
             self._check_single_package(package, description, optional=False)
         
+        # PDF Processing dependencies (new)
+        pdf_packages = [
+            ("camelot", "Camelot PDF table extraction"),
+            ("PyMuPDF", "PyMuPDF document processing"),
+            ("pypdf", "PyPDF text extraction"),
+            ("PIL", "Pillow image processing"),
+            ("cv2", "OpenCV image processing")
+        ]
+        
+        self.log_message("\nPDF Processing Dependencies:")
+        for package, description in pdf_packages:
+            self._check_single_package(package, description, optional=False)
+        
         # Optional dependencies
         optional_packages = [
             ("jupyter", "Jupyter notebook support"),
             ("notebook", "Notebook interface"),
             ("llama-cpp-python", "GGUF model support"),
             ("bitsandbytes", "Model quantization"),
-            ("accelerate", "Model acceleration")
+            ("accelerate", "Model acceleration"),
+            ("langchain", "Language chain workflows"),
+            ("guidance", "Prompt templating")
         ]
         
         self.log_message("\nOptional Dependencies:")
@@ -402,13 +423,16 @@ class ComprehensiveSystemDiagnostic:
         
         required_dirs = [
             "src/pynucleus",
+            "src/pynucleus/data",
             "configs", 
             "data",
+            "data/02_processed",
             "logs",
             "scripts"
         ]
         
         optional_dirs = [
+            "data/02_processed/tables",
             "data/05_output/llm_reports",
             "data/validation", 
             "dwsim_rag_integration",
@@ -444,7 +468,7 @@ class ComprehensiveSystemDiagnostic:
         print("   CORE DIRECTORY STRUCTURE CHECK")
         print("=" * 60)
         
-        core_dirs = ["src/pynucleus", "configs", "data"]
+        core_dirs = ["src/pynucleus", "src/pynucleus/data", "configs", "data"]
         
         for dir_path in core_dirs:
             check = SystemCheck(f"Core Directory: {dir_path}", "structure")
@@ -821,7 +845,7 @@ class ComprehensiveSystemDiagnostic:
                 self.log_message(f"✓ ChromaDB directory exists: {settings.CHROMA_PATH}", "success")
                 
                 # Test basic retrieval
-                test_docs = retrieve("chemical engineering", top_k=1)
+                test_docs = retrieve("chemical engineering", k=1)
                 if test_docs and len(test_docs) > 0:
                     self.log_message("✓ ChromaDB retrieval PASSED", "success")
                     self.log_message(f"   Retrieved {len(test_docs)} documents")
@@ -881,6 +905,46 @@ class ComprehensiveSystemDiagnostic:
         except Exception as e:
             self.log_message(f"Qwen model health check failed: {e}", "error")
     
+    def _check_pdf_processing_health(self):
+        """Check PDF processing system health and functionality."""
+        print("\n" + "=" * 60)
+        print("   PDF PROCESSING SYSTEM CHECK")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.data.table_cleaner import extract_tables
+            from pynucleus.rag.document_processor import DocumentProcessor
+            
+            self.total_checks += 1
+            check = SystemCheck("PDF Processing System", "pdf_processing")
+            
+            # Test table cleaner availability
+            self.log_message("PDF Processing Components:")
+            self.log_message(f"  Table Cleaner: ✓ Available")
+            
+            # Test document processor with table extraction
+            processor = DocumentProcessor()
+            self.log_message(f"  Document Processor: ✓ Initialized")
+            self.log_message(f"  Tables Output Dir: {processor.tables_output_dir}")
+            
+            # Test camelot availability
+            try:
+                import camelot
+                self.log_message("  Camelot PDF Parser: ✓ Available", "success")
+                check.passed = True
+                self.passed_checks += 1
+                self.pdf_processing_health = True
+                check.details.append("PDF table extraction system fully functional")
+            except ImportError:
+                self.log_message("  Camelot PDF Parser: ✗ Not Available", "error")
+                check.passed = False
+                check.error_message = "Camelot not available - install with: pip install camelot-py[cv]"
+                
+            self.system_checks.append(check)
+                
+        except Exception as e:
+            self.log_message(f"PDF processing health check failed: {e}", "error")
+    
     def _test_basic_functionality(self):
         """Test basic system functionality."""
         print("\n" + "=" * 60)
@@ -930,6 +994,7 @@ class ComprehensiveSystemDiagnostic:
         
         # Check for enhanced data directories
         enhanced_dirs = {
+            "data/02_processed/tables": "Extracted tables directory",
             "data/05_output/results": "Results output directory",
             "data/05_output/llm_reports": "LLM reports directory", 
             "data/validation": "Validation data directory"
@@ -947,6 +1012,30 @@ class ComprehensiveSystemDiagnostic:
                 self.log_message(f"⚠️ {description}: Not found", "warning")
                 check.passed = False
                 check.warnings.append("Enhanced feature directory not found")
+            
+            self.system_checks.append(check)
+            self.total_checks += 1
+            if check.passed:
+                self.passed_checks += 1
+        
+        # Check for new test files
+        new_test_files = {
+            "tests/test_document_processor_tables.py": "Document processor table tests",
+            "tests/test_table_cleaner.py": "Table cleaner tests"
+        }
+        
+        self.log_message("\nNew Test File Validation:")
+        for test_file, description in new_test_files.items():
+            check = SystemCheck(f"Test: {description}", "enhanced")
+            
+            if Path(test_file).exists():
+                self.log_message(f"✓ {description}: Found", "success")
+                check.passed = True
+                check.details.append("Test file exists")
+            else:
+                self.log_message(f"⚠️ {description}: Missing", "warning")
+                check.passed = False
+                check.warnings.append("Test file not found")
             
             self.system_checks.append(check)
             self.total_checks += 1
@@ -1148,6 +1237,7 @@ class ComprehensiveSystemDiagnostic:
         self.log_message(f"Scripts: {'✅ HEALTHY' if self.scripts_health else '❌ ISSUES'}")
         self.log_message(f"Components: {'✅ HEALTHY' if self.components_health else '❌ ISSUES'}")
         self.log_message(f"Docker: {'✅ AVAILABLE' if self.docker_health else '⚠️ NOT AVAILABLE'}")
+        self.log_message(f"PDF Processing: {'✅ HEALTHY' if self.pdf_processing_health else '❌ ISSUES'}")
         
         # Final assessment
         if success_rate >= 95:

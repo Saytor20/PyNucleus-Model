@@ -1,0 +1,6 @@
+2025-06-20 01:29:54,644 | httpx | INFO | _client.py:1025 | HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+2025-06-20 01:29:55,154 | pynucleus.rag.vector_store | INFO | vector_store.py:600 | ChromaDB client initialized successfully in vector store
+2025-06-20 01:29:55,154 | pynucleus.rag.vector_store | INFO | vector_store.py:629 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 01:29:55,161 | pynucleus.rag.vector_store | INFO | vector_store.py:634 | ChromaDB collection contains 3587 documents
+2025-06-20 01:29:55,161 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-20 01:29:55,162 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3587 documents

@@ -1,0 +1,23 @@
+2025-06-20 01:29:04,510 | httpx | INFO | _client.py:1025 | HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+2025-06-20 01:29:04,979 | pynucleus.rag.vector_store | INFO | vector_store.py:600 | ChromaDB client initialized successfully in vector store
+2025-06-20 01:29:04,979 | pynucleus.rag.vector_store | INFO | vector_store.py:629 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 01:29:04,987 | pynucleus.rag.vector_store | INFO | vector_store.py:634 | ChromaDB collection contains 3587 documents
+2025-06-20 01:29:04,987 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-20 01:29:04,987 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3587 documents
+2025-06-20 01:29:05,046 | pynucleus.rag.vector_store | INFO | vector_store.py:600 | ChromaDB client initialized successfully in vector store
+2025-06-20 01:29:05,046 | pynucleus.rag.vector_store | INFO | vector_store.py:629 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 01:29:05,046 | pynucleus.rag.vector_store | INFO | vector_store.py:634 | ChromaDB collection contains 3587 documents
+2025-06-20 01:29:05,046 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-20 01:29:05,046 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3587 documents
+2025-06-20 01:29:05,064 | pynucleus.rag.vector_store | INFO | vector_store.py:362 | No existing FAISS directories found
+2025-06-20 01:29:05,064 | pynucleus.pipeline.pipeline_utils | INFO | pipeline_utils.py:42 | Pipeline components initialized successfully
+2025-06-20 01:29:05,064 | pynucleus.pipeline.pipeline_utils | WARNING | pipeline_utils.py:46 | FAISS vector store not loaded - using fallback mode
+2025-06-20 01:29:05,065 | pynucleus.rag.vector_store | INFO | vector_store.py:600 | ChromaDB client initialized successfully in vector store
+2025-06-20 01:29:05,065 | pynucleus.rag.vector_store | INFO | vector_store.py:629 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 01:29:05,065 | pynucleus.rag.vector_store | INFO | vector_store.py:634 | ChromaDB collection contains 3587 documents
+2025-06-20 01:29:05,065 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-20 01:29:05,066 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3587 documents
+2025-06-20 01:29:05,066 | pynucleus.integration.llm_output_generator | INFO | llm_output_generator.py:21 | Using direct content generation (templates migrated to DSPy)
+2025-06-20 01:29:05,067 | pynucleus.rag.vector_store | INFO | vector_store.py:600 | ChromaDB client initialized successfully in vector store
+2025-06-20 01:29:05,067 | pynucleus.rag.vector_store | INFO | vector_store.py:629 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 01:29:05,067 | pynucleus.rag.vector_store | INFO | vector_store.py:634 | ChromaDB collection contains 3587 documents
