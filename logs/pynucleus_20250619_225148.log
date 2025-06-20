@@ -1,0 +1,16 @@
+2025-06-19 22:51:48,660 | __main__ | INFO | run_pipeline.py:517 | 🚀 Starting interactive chat session
+2025-06-19 22:51:48,660 | __main__ | INFO | run_pipeline.py:518 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 22:51:48,660 | __main__ | INFO | run_pipeline.py:519 | 📊 Top K: 5
+2025-06-19 22:51:48,660 | __main__ | INFO | run_pipeline.py:532 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-19 22:51:49,186 | pynucleus.rag.vector_store | INFO | vector_store.py:593 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-19 22:51:49,262 | pynucleus.rag.vector_store | INFO | vector_store.py:598 | ChromaDB collection contains 3602 documents
+2025-06-19 22:51:49,262 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:36 | Vector store (chroma) initialized successfully
+2025-06-19 22:51:51,495 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 22:51:59,242 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-19 22:52:11,210 | pynucleus.rag.vector_store | INFO | vector_store.py:683 | ChromaDB search for 'what is modular plants?...' returned 5 results
+2025-06-19 22:52:11,210 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:104 | RAG query processed: what is modular plants?...
+2025-06-19 22:52:11,646 | pynucleus | INFO | logger.py:24 | ✅ Guidance activated.
+2025-06-19 22:52:19,796 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 8.14s
+2025-06-19 22:52:32,914 | pynucleus.rag.vector_store | INFO | vector_store.py:683 | ChromaDB search for 'what determines the feasibility of a modular plant...' returned 5 results
+2025-06-19 22:52:32,914 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:104 | RAG query processed: what determines the feasibility of a modular plant...
+2025-06-19 22:52:41,481 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 8.56s

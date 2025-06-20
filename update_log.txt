@@ -202,7 +202,7 @@ To Do:
 2) Redo the whole pipeline related to the LLM... a prompt have already been developed just proceed with the implementaiton - Completed 
 3) test the model so that it spits out answers... right now we are focused on the system working rather than enhancing the system - Completed 
 4) complete clean the system and remove all templates, files, and folders that are not used - Completed 
-5) fix the citation 
+5) fix the citation and ground truth
 6) run system_validator script and start fixing all the problems in it 
 7) update the API script to include costs
 8) create a finanical advisor model that handles the money 
@@ -212,7 +212,8 @@ To Do:
 12) just updated @comprehensive_system_diagnostica and @system_validator... run them to make sure everything is running
 13) Fix the github issue - completed... right now the model parameters is locally downloaded
 14) we are using now QWEN 1.5B with no problems with it so far - completed 
-
-
+15) updated vector store to be more robust - completed  
 
  2025-06-19 22:40:07 changes made and pushed to origin main
+
+ 2025-06-19 22:57:53 changes made and pushed to origin main
