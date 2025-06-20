@@ -133,5 +133,10 @@ def ask(question: str):
     chunks = retrieve(question)
     context = "\n\n".join(chunks) if chunks else ""
     prompt = build_prompt(context, question)
-    ans = generate(prompt, max_tokens=100)
-    return {"answer": ans.strip(), "sources": chunks or ["General Knowledge"]} 
+    answer = generate(prompt, max_tokens=100)
+    
+    if chunks:
+        refs = "\n\nReferences:\n" + "\n".join(f"[{i+1}] {c[:60]}..." for i,c in enumerate(chunks))
+        answer += refs
+    
+    return {"answer": answer.strip(), "sources": chunks or ["General Knowledge"]} 

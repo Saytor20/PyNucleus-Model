@@ -42,24 +42,12 @@ if not (_hf or _lcpp):
     logger.warning("Falling back to CPU FP16")
 
 def generate(prompt:str, max_tokens=256, temperature=0.7)->str:
-    if _hf:
-        ids = _tok(prompt, return_tensors="pt").to(_hf.device)
-        out = _hf.generate(**ids, max_new_tokens=max_tokens, temperature=temperature, 
-                           do_sample=True, repetition_penalty=1.1, 
-                           pad_token_id=_tok.eos_token_id)
-        full_text = _tok.decode(out[0], skip_special_tokens=True)
-        # Remove the input prompt from the output
-        return full_text[len(prompt):].strip()
-    out = _lcpp(prompt, max_tokens=max_tokens, temperature=temperature, 
-                repeat_penalty=1.1, stop=["\n\n", "Question:"])
-    text = out["choices"][0]["text"].strip()
-    # Additional cleanup for repetitive patterns
-    words = text.split()
-    if len(words) > 10:
-        # Check for repetitive patterns and truncate
-        for i in range(5, min(len(words), 15)):
-            phrase = " ".join(words[:i])
-            if text.count(phrase) > 2:
-                # Found repetition, truncate at first occurrence
-                return phrase
-    return text 
+    # Prefer llama-cpp if present
+    if _lcpp:
+        out = _lcpp(prompt, max_tokens=max_tokens, temperature=temperature)
+        return out["choices"][0]["text"].strip()
+
+    # Else use HF model (CUDA or CPU)
+    ids = _tok(prompt, return_tensors="pt").to(_hf.device)
+    out = _hf.generate(**ids, max_new_tokens=max_tokens, temperature=temperature)
+    return _tok.decode(out[0], skip_special_tokens=True) 
