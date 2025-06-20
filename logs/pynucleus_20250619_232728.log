@@ -1,0 +1,9 @@
+2025-06-19 23:27:28,172 | __main__ | INFO | run_pipeline.py:517 | 🚀 Starting interactive chat session
+2025-06-19 23:27:28,172 | __main__ | INFO | run_pipeline.py:518 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 23:27:28,172 | __main__ | INFO | run_pipeline.py:519 | 📊 Top K: 5
+2025-06-19 23:27:28,172 | __main__ | INFO | run_pipeline.py:532 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-19 23:27:28,172 | pynucleus.rag.vector_store | ERROR | vector_store.py:612 | Failed to initialize ChromaDB: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-19 23:27:28,172 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:41 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-19 23:27:29,627 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 23:27:39,352 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-19 23:29:14,890 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 47.71s

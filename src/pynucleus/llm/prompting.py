@@ -4,53 +4,36 @@ Falls back to f-string templates if Guidance is unavailable.
 """
 
 from ..utils.logger import logger
+from ..settings import settings
 
 try:
     import guidance
-    USE_GUIDANCE = True
-    logger.success("Guidance activated.")
-except ImportError as e:
-    USE_GUIDANCE = False
-    logger.warning(f"Guidance unavailable → using plain prompt. ({e})")
+    _USE_GUIDANCE = True
+    logger.success("Guidance available")
+except Exception as e:
+    _USE_GUIDANCE = False
+    logger.warning(f"Guidance off → plain prompts. ({e})")
 
-_SIMPLE_TMPL = (
-    "You are a concise chemical-engineering assistant.\n"
-    "Answer using the context below.\n\n"
-    "Context:\n{context}\n\n"
-    "Question:\n{question}\n\n"
-    "Answer:"
-)
+def _grade(ctx:str)->str:
+    if not ctx or "No relevant" in ctx: return "none"
+    l = len(ctx)
+    if l < 200:  return "low"
+    if l < 800:  return "medium"
+    return "high"
 
-def build_prompt(context: str, question: str) -> str:
-    """
-    Build prompt using Guidance templates if available, otherwise f-string fallback.
+def build_prompt(ctx:str, q:str)->str:
+    tier = _grade(ctx)
+    return _simple(ctx, q, tier)
+
+def _simple(ctx:str, q:str, tier:str)->str:
+    if tier == "none":
+        return f"Human: {q}\n\nAssistant:"
     
-    Args:
-        context: Retrieved context chunks joined together
-        question: User's question
-        
-    Returns:
-        Formatted prompt string ready for LLM generation
-    """
-    if not USE_GUIDANCE:
-        return _SIMPLE_TMPL.format(context=context, question=question)
-
-    # Enhanced Guidance template with structured formatting
-    guidance_template = f"""You are a concise chemical-engineering assistant with expertise in process design and optimization.
-
-Context Information:
-{context}
-
-User Question: {question}
-
-Instructions:
-- Provide a direct, technical answer based on the context
-- Include specific numbers, percentages, or quantitative data when available
-- Cite relevant information using [context] notation
-- Keep responses focused on chemical engineering principles
-- Format your answer clearly with bullet points if listing multiple factors
-
-Answer:"""
+    # Truncate context to avoid exceeding token limits
+    # Estimate ~2-3 chars per token, keep context under 300 tokens (~900 chars)
+    max_context_chars = 900
+    if len(ctx) > max_context_chars:
+        ctx = ctx[:max_context_chars] + "..."
+        logger.info(f"Context truncated to {max_context_chars} characters to fit context window")
     
-    logger.debug("Using enhanced Guidance template")
-    return guidance_template 
+    return f"Human: Use this context to answer: {ctx}\n\n{q}\n\nAssistant:" 

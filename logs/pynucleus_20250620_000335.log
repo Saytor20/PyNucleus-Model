@@ -1,0 +1,15 @@
+2025-06-20 00:03:35,661 | __main__ | INFO | run_pipeline.py:517 | 🚀 Starting interactive chat session
+2025-06-20 00:03:35,661 | __main__ | INFO | run_pipeline.py:518 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-20 00:03:35,661 | __main__ | INFO | run_pipeline.py:519 | 📊 Top K: 5
+2025-06-20 00:03:35,661 | __main__ | INFO | run_pipeline.py:532 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-20 00:03:35,662 | pynucleus.rag.vector_store | INFO | vector_store.py:600 | ChromaDB client initialized successfully in vector store
+2025-06-20 00:03:35,662 | pynucleus.rag.vector_store | INFO | vector_store.py:633 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-20 00:03:35,662 | pynucleus.rag.vector_store | INFO | vector_store.py:640 | ChromaDB collection is empty
+2025-06-20 00:03:35,662 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:41 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-20 00:03:36,598 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-20 00:03:43,242 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-20 00:04:28,211 | pynucleus | INFO | engine.py:37 | ChromaDB client initialized successfully in engine
+2025-06-20 00:04:28,214 | pynucleus | INFO | logger.py:24 | ✅ ChromaDB collection initialized successfully
+2025-06-20 00:05:17,245 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 47.57s
+2025-06-20 00:06:29,400 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 48.62s
+2025-06-20 00:08:43,433 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 52.67s

@@ -213,7 +213,11 @@ To Do:
 13) Fix the github issue - completed... right now the model parameters is locally downloaded
 14) we are using now QWEN 1.5B with no problems with it so far - completed 
 15) updated vector store to be more robust - completed  
-
+16) fix the "Failed to initialize ChromaDB:An instance of Chroma already exists"
+17) we have added a source in the output which is soo cool- completed 
+18) we need to now enhance the output and make it look pretty i am sure there is an existing library that can do that 
  2025-06-19 22:40:07 changes made and pushed to origin main
 
  2025-06-19 22:57:53 changes made and pushed to origin main
+
+ 2025-06-20 00:31:20 changes made and pushed to origin main

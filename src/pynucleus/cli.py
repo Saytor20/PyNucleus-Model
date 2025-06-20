@@ -9,9 +9,9 @@ def ingest_docs(source_dir: str = "data/01_raw"):
 
 @app.command()
 def ask(question: str):
-    from pynucleus.rag.engine import ask as rag_ask
-    result = rag_ask(question)
-    rich.print(f"[green]Answer:[/green] {result['answer']}")
+    from pynucleus.pipeline.pipeline_rag import rag_pipeline
+    res = rag_pipeline.query(question)
+    rich.print(res["answer"])
 
 @app.command()
 def eval_golden():

@@ -1,0 +1,20 @@
+2025-06-19 23:32:25,653 | __main__ | INFO | run_pipeline.py:436 | 🚀 Starting RAG query
+2025-06-19 23:32:25,653 | __main__ | INFO | run_pipeline.py:437 | ❓ Question: What is distillation?
+2025-06-19 23:32:25,654 | __main__ | INFO | run_pipeline.py:438 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 23:32:25,654 | __main__ | INFO | run_pipeline.py:439 | 📊 Top K: 5
+2025-06-19 23:32:25,654 | __main__ | INFO | run_pipeline.py:442 | 🔄 Using RAG system for query processing
+2025-06-19 23:32:25,654 | pynucleus.rag.vector_store | ERROR | vector_store.py:636 | Failed to initialize ChromaDB: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-19 23:32:25,654 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:41 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-19 23:32:25,654 | __main__ | INFO | run_pipeline.py:449 | 🔄 Processing question...
+2025-06-19 23:32:25,727 | chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 | DEBUG | onnx_mini_lm_l6_v2.py:227 | WARNING: No ONNX providers provided, defaulting to available providers: ['CoreMLExecutionProvider', 'AzureExecutionProvider', 'CPUExecutionProvider']
+2025-06-19 23:32:28,622 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 23:32:28,623 | urllib3.connectionpool | DEBUG | connectionpool.py:1049 | Starting new HTTPS connection (1): huggingface.co:443
+2025-06-19 23:32:28,767 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-06-19 23:32:28,877 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "GET /api/models/Qwen/Qwen2.5-1.5B-Instruct/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+2025-06-19 23:32:29,146 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-06-19 23:32:42,728 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-06-19 23:32:42,842 | urllib3.connectionpool | DEBUG | connectionpool.py:544 | https://huggingface.co:443 "HEAD /Qwen/Qwen2.5-1.5B-Instruct/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+2025-06-19 23:32:42,842 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-19 23:32:42,843 | __main__ | INFO | run_pipeline.py:471 | 🤖 Generating enhanced response with Qwen/Qwen2.5-1.5B-Instruct
+2025-06-19 23:33:48,567 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 65.70s
+2025-06-19 23:33:48,568 | __main__ | INFO | run_pipeline.py:494 | ✅ Question processed successfully

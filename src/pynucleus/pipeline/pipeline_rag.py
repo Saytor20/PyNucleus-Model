@@ -6,6 +6,7 @@ import logging
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from datetime import datetime
+from ..rag.engine import ask as _ask
 
 class RAGPipeline:
     """RAG (Retrieval-Augmented Generation) pipeline for document processing and querying."""
@@ -24,94 +25,88 @@ class RAGPipeline:
         self._initialize_vector_store()
     
     def _initialize_vector_store(self):
-        """Initialize vector store using factory pattern."""
+        """Initialize vector store using factory pattern with auto-ingestion."""
         try:
             from ..rag.vector_store_remote import create_vector_store
             from ..settings import settings
             
             self.vector_store = create_vector_store(backend=settings.vstore_backend)
             
-            # Check if vector store loaded successfully
+            # Check if vector store loaded successfully and has content
             if hasattr(self.vector_store, 'loaded') and self.vector_store.loaded:
                 self.logger.info(f"Vector store ({settings.vstore_backend}) initialized successfully")
+                # Check if ChromaDB has documents
+                self._check_and_populate_chromadb()
             elif hasattr(self.vector_store, 'initialized') and self.vector_store.initialized:
                 self.logger.info(f"Remote vector store ({settings.vstore_backend}) initialized successfully")
+                # Check if ChromaDB has documents
+                self._check_and_populate_chromadb()
             else:
                 self.logger.warning(f"Vector store ({settings.vstore_backend}) not fully loaded - will use fallback mode")
                 
         except Exception as e:
             self.logger.warning(f"Failed to initialize vector store: {e}")
             self.vector_store = None
-        
-    def query(self, question: str, top_k: int = 5) -> Dict[str, Any]:
-        """
-        Query the RAG system with a question.
-        
-        Args:
-            question: The question to ask
-            top_k: Number of top results to return
             
-        Returns:
-            Dictionary with answer and sources
-        """
+    def _check_and_populate_chromadb(self):
+        """Check if ChromaDB has documents and auto-ingest if empty."""
         try:
-            # Use real vector store if available
-            if self.vector_store and hasattr(self.vector_store, 'search'):
-                search_results = self.vector_store.search(question, top_k=top_k, similarity_threshold=0.3)
+            from ..rag.engine import _get_chromadb_client, _initialize_collection
+            from ..rag.collector import ingest
+            from ..settings import settings
+            from pathlib import Path
+            import chromadb
+            
+            # Get ChromaDB client and collection
+            client = _get_chromadb_client()
+            if client is None:
+                self.logger.warning("Failed to get ChromaDB client for document check")
+                return
                 
-                if search_results:
-                    # Combine search results into answer
-                    answer_parts = []
-                    sources = []
-                    confidence_scores = []
+            coll = _initialize_collection()
+            if coll is None:
+                self.logger.warning("Failed to initialize ChromaDB collection")
+                return
+                
+            # Check if collection has documents
+            doc_count = coll.count()
+            self.logger.info(f"ChromaDB collection contains {doc_count} documents")
+            
+            if doc_count == 0:
+                # Auto-ingest documents if collection is empty
+                source_docs_dir = Path("data/01_raw/source_documents")
+                if source_docs_dir.exists() and list(source_docs_dir.glob("*")):
+                    self.logger.info("ChromaDB collection is empty. Auto-ingesting documents...")
+                    ingest(str(source_docs_dir))
                     
-                    for result in search_results:
-                        answer_parts.append(result["text"][:300] + "...")
-                        sources.append(result["source"])
-                        confidence_scores.append(result["score"])
-                    
-                    combined_answer = " ".join(answer_parts)
-                    avg_confidence = sum(confidence_scores) / len(confidence_scores)
-                    
-                    response = {
-                        "answer": combined_answer,
-                        "sources": sources,
-                        "confidence": avg_confidence,
-                        "timestamp": datetime.now().isoformat(),
-                        "search_results_count": len(search_results)
-                    }
+                    # Verify ingestion worked
+                    new_count = coll.count()
+                    self.logger.info(f"Auto-ingestion completed. ChromaDB now contains {new_count} documents")
                 else:
-                    # No search results found
-                    response = {
-                        "answer": f"No relevant information found for: {question}",
-                        "sources": [],
-                        "confidence": 0.0,
-                        "timestamp": datetime.now().isoformat(),
-                        "search_results_count": 0
-                    }
-            else:
-                # Fallback to mock response
-                response = {
-                    "answer": f"Mock RAG response for: {question}",
-                    "sources": [
-                        "mock_document_1.txt",
-                        "mock_document_2.txt"
-                    ],
-                    "confidence": 0.85,
-                    "timestamp": datetime.now().isoformat()
-                }
-            
-            self.logger.info(f"RAG query processed: {question[:50]}...")
-            return response
-            
+                    self.logger.warning(f"No source documents found in {source_docs_dir} for auto-ingestion")
+                    
         except Exception as e:
-            self.logger.error(f"RAG query failed: {e}")
-            return {
-                "answer": f"Error processing query: {e}",
-                "sources": [],
-                "confidence": 0.0,
-                "timestamp": datetime.now().isoformat()
-            }
+            self.logger.error(f"Failed to check/populate ChromaDB: {e}")
+        
+    def query(self, q:str, top_k:int=6):
+        out = _ask(q)
+        
+        # Calculate confidence based on source availability and quality
+        sources = out["sources"] or ["General Knowledge"]
+        if sources == ["General Knowledge"]:
+            confidence = 0.0  # No real sources found
+        elif len(sources) >= 3:
+            confidence = 0.8  # Good sources available
+        else:
+            confidence = 0.5  # Some sources available
+        
+        return {
+            "answer": out["answer"],
+            "sources": sources,
+            "confidence": confidence,
+            "timestamp": datetime.now().isoformat(),
+            "context_quality": "none" if not out["sources"] else "medium"
+        }
     
     def load_documents(self, source_dir: Optional[str] = None) -> bool:
         """
@@ -141,3 +136,5 @@ class RAGPipeline:
         except Exception as e:
             self.logger.error(f"Failed to load documents: {e}")
             return False 
+
+rag_pipeline = RAGPipeline() 

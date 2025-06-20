@@ -1,4 +1,6 @@
 import pathlib, tqdm, chromadb
+from chromadb.config import Settings
+from pathlib import Path
 from sentence_transformers import SentenceTransformer
 from transformers import logging as hf_logging
 from ..settings import settings
@@ -35,8 +37,62 @@ def extract_pdf_text(pdf_path):
         logger.warning(f"Failed to extract text from {pdf_path}: {e}")
         return f"PDF file: {pdf_path.name} (extraction failed)"
 
+def _get_chromadb_client():
+    """Get or create ChromaDB client with consistent settings."""
+    try:
+        # Ensure directory exists
+        Path(settings.CHROMA_PATH).mkdir(parents=True, exist_ok=True)
+        
+        # Create client with consistent settings (same as engine.py)
+        client_settings = Settings(
+            anonymized_telemetry=False,
+            allow_reset=True,
+            chroma_client_auth_provider=None,
+            chroma_server_host=None,
+            chroma_server_http_port=None
+        )
+        
+        client = chromadb.PersistentClient(
+            path=settings.CHROMA_PATH,
+            settings=client_settings
+        )
+        
+        # Test client connectivity
+        client.list_collections()
+        logger.info("ChromaDB client initialized successfully in collector")
+        return client
+        
+    except Exception as e:
+        if "already exists" in str(e).lower():
+            # Handle existing instance conflict by using engine's archive function
+            logger.warning(f"ChromaDB instance conflict detected in collector, archiving old DB...")
+            try:
+                from .engine import _archive_and_recreate_chromadb
+                _archive_and_recreate_chromadb()
+                
+                # Recreate client
+                client = chromadb.PersistentClient(
+                    path=settings.CHROMA_PATH,
+                    settings=client_settings
+                )
+                logger.info("ChromaDB client recreated after archiving in collector")
+                return client
+                
+            except Exception as reset_error:
+                logger.error(f"Failed to archive/recreate ChromaDB in collector: {reset_error}")
+                return None
+        else:
+            logger.error(f"ChromaDB initialization failed in collector: {e}")
+            return None
+
 def ingest(source_dir: str):
-    client = chromadb.PersistentClient(settings.CHROMA_PATH)
+    """Ingest documents into ChromaDB using centralized client management."""
+    client = _get_chromadb_client()
+    if client is None:
+        logger.error("Failed to get ChromaDB client for ingestion")
+        return
+    
+    # Use consistent collection name with other modules
     coll = client.get_or_create_collection("pynucleus_documents")
     embedder = SentenceTransformer(settings.EMB_MODEL)
 

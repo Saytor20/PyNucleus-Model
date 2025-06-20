@@ -1,60 +1,65 @@
 from ..settings import settings
 from ..utils.logger import logger
-import os, torch
+from ..utils.env import *   # ensure env vars loaded
+import torch, os
 
-def _try_cuda_bitsandbytes():
+def _cuda_bitsandbytes():
     try:
-        if not settings.USE_CUDA or not torch.cuda.is_available():
-            raise RuntimeError("CUDA not available")
-        from transformers import (AutoTokenizer, AutoModelForCausalLM,
-                                  BitsAndBytesConfig)
-
+        if not torch.cuda.is_available(): raise RuntimeError("No CUDA")
+        from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
         tok = AutoTokenizer.from_pretrained(settings.MODEL_ID, trust_remote_code=False)
-        quant = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True,
+        qconf = BitsAndBytesConfig(load_in_4bit=True,bnb_4bit_use_double_quant=True,
                                    bnb_4bit_compute_dtype="float16")
-        mod = AutoModelForCausalLM.from_pretrained(
+        model = AutoModelForCausalLM.from_pretrained(
             settings.MODEL_ID, device_map="auto",
-            quantization_config=quant, trust_remote_code=False
-        )
-        logger.success("Loaded 4-bit model with bitsandbytes/CUDA")
-        return tok, mod
+            quantization_config=qconf, trust_remote_code=False)
+        logger.success("Loaded 4-bit CUDA model")
+        return tok, model
     except Exception as e:
-        logger.warning(f"CUDA/bitsandbytes path failed: {e}")
+        logger.warning(f"CUDA path skipped: {e}")
         return None, None
 
-def _try_metal_llama_cpp():
+def _metal_llama_cpp():
     try:
         from llama_cpp import Llama
-        if not os.path.exists(settings.GGUF_PATH):
-            raise FileNotFoundError(f"GGUF file missing: {settings.GGUF_PATH}")
+        if not os.path.exists(settings.GGUF_PATH): raise FileNotFoundError
         llm = Llama(model_path=settings.GGUF_PATH, n_threads=os.cpu_count(),
-                    use_metal=True, n_gpu_layers=1, n_ctx=4096)
-        logger.success("Loaded GGUF via llama-cpp (Metal/CPU)")
+                    use_metal=True, n_gpu_layers=1)
+        logger.success("Loaded GGUF via Metal")
         return llm
     except Exception as e:
-        logger.warning(f"llama-cpp path failed: {e}")
+        logger.warning(f"Metal path skipped: {e}")
         return None
 
-# ---- public API --------------------------------------------------------
-_tokenizer, _hf_model = _try_cuda_bitsandbytes()
-_llama_cpp_model      = None if _hf_model else _try_metal_llama_cpp()
+_tok,_hf=_cuda_bitsandbytes()
+_lcpp=None if _hf else _metal_llama_cpp()
 
-if not (_hf_model or _llama_cpp_model):
+if not (_hf or _lcpp):
     from transformers import AutoTokenizer, AutoModelForCausalLM
-    _tokenizer = AutoTokenizer.from_pretrained(settings.MODEL_ID, trust_remote_code=False)
-    _hf_model  = AutoModelForCausalLM.from_pretrained(
-        settings.MODEL_ID, torch_dtype=torch.float16, device_map=None,
-        trust_remote_code=False
-    ).to("cpu")
-    logger.warning("Falling back to FP16 CPU model (slow)")
+    _tok = AutoTokenizer.from_pretrained(settings.MODEL_ID, trust_remote_code=False)
+    _hf  = AutoModelForCausalLM.from_pretrained(
+        settings.MODEL_ID, torch_dtype=torch.float16).to("cpu")
+    logger.warning("Falling back to CPU FP16")
 
-def generate(prompt: str, max_tokens=256, temperature=0.7) -> str:
-    if _hf_model:
-        inputs = _tokenizer(prompt, return_tensors="pt").to(_hf_model.device)
-        ids = _hf_model.generate(**inputs, max_new_tokens=max_tokens,
-                                 temperature=temperature)
-        return _tokenizer.decode(ids[0], skip_special_tokens=True)
-
-    # llama-cpp route
-    out = _llama_cpp_model(prompt, max_tokens=max_tokens, temperature=temperature)
-    return out["choices"][0]["text"].strip() 
+def generate(prompt:str, max_tokens=256, temperature=0.7)->str:
+    if _hf:
+        ids = _tok(prompt, return_tensors="pt").to(_hf.device)
+        out = _hf.generate(**ids, max_new_tokens=max_tokens, temperature=temperature, 
+                           do_sample=True, repetition_penalty=1.1, 
+                           pad_token_id=_tok.eos_token_id)
+        full_text = _tok.decode(out[0], skip_special_tokens=True)
+        # Remove the input prompt from the output
+        return full_text[len(prompt):].strip()
+    out = _lcpp(prompt, max_tokens=max_tokens, temperature=temperature, 
+                repeat_penalty=1.1, stop=["\n\n", "Question:"])
+    text = out["choices"][0]["text"].strip()
+    # Additional cleanup for repetitive patterns
+    words = text.split()
+    if len(words) > 10:
+        # Check for repetitive patterns and truncate
+        for i in range(5, min(len(words), 15)):
+            phrase = " ".join(words[:i])
+            if text.count(phrase) > 2:
+                # Found repetition, truncate at first occurrence
+                return phrase
+    return text 

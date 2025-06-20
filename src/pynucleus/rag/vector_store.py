@@ -570,22 +570,58 @@ class ChromaVectorStore:
         self._initialize_chroma()
     
     def _initialize_chroma(self):
-        """Initialize ChromaDB client and collection."""
+        """Initialize ChromaDB client and collection using centralized approach."""
         try:
             import chromadb
             from chromadb.config import Settings
+            from pathlib import Path
             
-            # Initialize ChromaDB client with persistent storage and disabled telemetry
-            self.client = chromadb.PersistentClient(
-                path=str(self.index_dir),
-                settings=Settings(
-                    anonymized_telemetry=False,
-                    allow_reset=True,
-                    chroma_client_auth_provider=None,
-                    chroma_server_host=None,
-                    chroma_server_http_port=None
-                )
+            # Ensure directory exists
+            Path(self.index_dir).mkdir(parents=True, exist_ok=True)
+            
+            # Use consistent settings across all ChromaDB clients
+            client_settings = Settings(
+                anonymized_telemetry=False,
+                allow_reset=True,
+                chroma_client_auth_provider=None,
+                chroma_server_host=None,
+                chroma_server_http_port=None
             )
+            
+            try:
+                # Initialize ChromaDB client with consistent settings
+                self.client = chromadb.PersistentClient(
+                    path=str(self.index_dir),
+                    settings=client_settings
+                )
+                
+                # Test client connectivity
+                self.client.list_collections()
+                self.logger.info("ChromaDB client initialized successfully in vector store")
+                
+            except Exception as e:
+                if "already exists" in str(e).lower():
+                    # Handle existing instance conflict by using engine's archive function
+                    self.logger.warning(f"ChromaDB instance conflict detected in vector store, archiving old DB...")
+                    try:
+                        from .engine import _archive_and_recreate_chromadb
+                        _archive_and_recreate_chromadb()
+                        
+                        # Recreate client
+                        self.client = chromadb.PersistentClient(
+                            path=str(self.index_dir),
+                            settings=client_settings
+                        )
+                        self.logger.info("ChromaDB client recreated after archiving in vector store")
+                        
+                    except Exception as reset_error:
+                        self.logger.error(f"Failed to archive/recreate ChromaDB in vector store: {reset_error}")
+                        self.client = None
+                        return
+                else:
+                    self.logger.error(f"ChromaDB initialization failed in vector store: {e}")
+                    self.client = None
+                    return
             
             # Get or create collection
             try:
@@ -598,6 +634,8 @@ class ChromaVectorStore:
                     self.logger.info(f"ChromaDB collection contains {count} documents")
                 else:
                     self.logger.info("ChromaDB collection is empty")
+                    # Auto-ingest documents if collection is empty
+                    self._auto_ingest_documents()
             except Exception:
                 # Collection doesn't exist, create it
                 self.collection = self.client.create_collection(
@@ -605,11 +643,45 @@ class ChromaVectorStore:
                     metadata={"description": "PyNucleus document collection"}
                 )
                 self.logger.info(f"Created new ChromaDB collection: {self.collection_name}")
+                # Auto-ingest documents for new collection
+                self._auto_ingest_documents()
                 
         except ImportError:
             self.logger.warning("ChromaDB not installed. Vector store unavailable.")
         except Exception as e:
             self.logger.error(f"Failed to initialize ChromaDB: {e}")
+    
+    def _auto_ingest_documents(self):
+        """Auto-ingest documents if ChromaDB collection is empty."""
+        try:
+            from pathlib import Path
+            
+            # Check if source documents directory exists
+            source_docs_dir = Path("data/01_raw/source_documents")
+            if source_docs_dir.exists() and list(source_docs_dir.glob("*")):
+                self.logger.info("ChromaDB collection is empty. Auto-ingesting documents...")
+                
+                # Import ingest function dynamically to avoid circular imports
+                from ..rag.collector import ingest
+                ingest(str(source_docs_dir))
+                
+                # Check if ingestion worked and update loaded status
+                if self.collection:
+                    new_count = self.collection.count()
+                    if new_count > 0:
+                        self.loaded = True
+                        self.logger.info(f"Auto-ingestion completed. ChromaDB now contains {new_count} documents")
+                    else:
+                        self.logger.warning("Auto-ingestion completed but no documents were added")
+                else:
+                    self.logger.warning("Auto-ingestion failed: collection not available")
+            else:
+                self.logger.warning(f"No source documents found in {source_docs_dir} for auto-ingestion")
+                
+        except ImportError as e:
+            self.logger.error(f"Failed to import collector for auto-ingestion: {e}")
+        except Exception as e:
+            self.logger.error(f"Failed to auto-ingest documents: {e}")
     
     def search(
         self, 

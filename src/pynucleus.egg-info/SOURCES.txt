@@ -52,5 +52,7 @@ tests/test_ask_basic.py
 tests/test_backend_choice.py
 tests/test_context_size.py
 tests/test_golden_cli.py
+tests/test_prompt_and_rag.py
 tests/test_prompt_backend.py
 tests/test_vector_backend.py
+tests/test_vector_robustness.py
