@@ -3,7 +3,7 @@ from pydantic import ValidationError
 
 class Settings(BaseSettings):
     CHROMA_PATH: str = "data/03_intermediate/vector_db"
-    MODEL_ID: str = "Qwen/Qwen1.5-0.5B-Chat"
+    MODEL_ID: str = "Qwen/Qwen2.5-1.5B-Instruct"
     GGUF_PATH: str = "models/qwen-0.5b.Q4_K_M.gguf"   # <- pre-quantized file
     USE_CUDA: bool = False
     EMB_MODEL: str = "all-MiniLM-L6-v2"
