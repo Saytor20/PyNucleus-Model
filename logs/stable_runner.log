@@ -666,3 +666,83 @@ app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
 2025-06-21 16:48:21,533 - INFO - Loaded model with CPU FP32 for cross-platform stability
 2025-06-21 16:48:22,077 - INFO - ✅ Guidance available
 2025-06-21 16:48:22,114 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 17:37:59,194 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 17:37:59,195 - INFO - 📊 Max restarts: 10
+2025-06-21 17:37:59,195 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 17:37:59,908 - INFO - ✅ Core dependencies available
+2025-06-21 17:37:59,908 - INFO - ✅ Required directories setup complete
+2025-06-21 17:37:59,912 - INFO - ✅ Memory usage acceptable: 58.1%
+2025-06-21 17:37:59,912 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 17:38:04,806 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 17:45:50,436 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 17:45:50,436 - INFO - 📊 Max restarts: 10
+2025-06-21 17:45:50,436 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 17:45:51,189 - INFO - ✅ Core dependencies available
+2025-06-21 17:45:51,190 - INFO - ✅ Required directories setup complete
+2025-06-21 17:45:51,195 - INFO - ✅ Memory usage acceptable: 58.2%
+2025-06-21 17:45:51,195 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 17:45:56,234 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 17:58:19,038 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 17:58:19,039 - INFO - 📊 Max restarts: 10
+2025-06-21 17:58:19,039 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 17:58:19,915 - INFO - ✅ Core dependencies available
+2025-06-21 17:58:19,915 - INFO - ✅ Required directories setup complete
+2025-06-21 17:58:19,921 - INFO - ✅ Memory usage acceptable: 79.5%
+2025-06-21 17:58:19,921 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 17:58:29,678 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 18:12:31,118 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 18:12:31,119 - INFO - 📊 Max restarts: 10
+2025-06-21 18:12:31,119 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 18:12:31,779 - INFO - ✅ Core dependencies available
+2025-06-21 18:12:31,779 - INFO - ✅ Required directories setup complete
+2025-06-21 18:12:31,784 - INFO - ✅ Memory usage acceptable: 67.6%
+2025-06-21 18:12:31,784 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 18:12:38,772 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 18:14:04,516 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 18:14:04,516 - INFO - 📊 Max restarts: 10
+2025-06-21 18:14:04,516 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 18:14:05,247 - INFO - ✅ Core dependencies available
+2025-06-21 18:14:05,247 - INFO - ✅ Required directories setup complete
+2025-06-21 18:14:05,252 - INFO - ✅ Memory usage acceptable: 59.5%
+2025-06-21 18:14:05,252 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 18:14:11,993 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 18:22:51,598 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 18:22:51,599 - INFO - 📊 Max restarts: 10
+2025-06-21 18:22:51,599 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 18:22:52,417 - INFO - ✅ Core dependencies available
+2025-06-21 18:22:52,418 - INFO - ✅ Required directories setup complete
+2025-06-21 18:22:52,425 - INFO - ✅ Memory usage acceptable: 77.2%
+2025-06-21 18:22:52,425 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 18:22:56,804 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 18:25:05,299 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 18:25:05,299 - INFO - 📊 Max restarts: 10
+2025-06-21 18:25:05,299 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 18:25:05,924 - INFO - ✅ Core dependencies available
+2025-06-21 18:25:05,924 - INFO - ✅ Required directories setup complete
+2025-06-21 18:25:05,929 - INFO - ✅ Memory usage acceptable: 71.1%
+2025-06-21 18:25:05,929 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 18:25:10,652 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 18:27:15,445 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 18:27:15,446 - INFO - 📊 Max restarts: 10
+2025-06-21 18:27:15,446 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 18:27:16,108 - INFO - ✅ Core dependencies available
+2025-06-21 18:27:16,108 - INFO - ✅ Required directories setup complete
+2025-06-21 18:27:16,113 - INFO - ✅ Memory usage acceptable: 68.8%
+2025-06-21 18:27:16,113 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 18:27:23,113 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 18:28:32,196 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 18:28:32,196 - INFO - 📊 Max restarts: 10
+2025-06-21 18:28:32,196 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 18:28:32,858 - INFO - ✅ Core dependencies available
+2025-06-21 18:28:32,858 - INFO - ✅ Required directories setup complete
+2025-06-21 18:28:32,863 - INFO - ✅ Memory usage acceptable: 62.9%
+2025-06-21 18:28:32,863 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 18:28:38,505 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 18:30:16,804 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 18:30:16,804 - INFO - 📊 Max restarts: 10
+2025-06-21 18:30:16,804 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 18:30:17,575 - INFO - ✅ Core dependencies available
+2025-06-21 18:30:17,576 - INFO - ✅ Required directories setup complete
+2025-06-21 18:30:17,581 - INFO - ✅ Memory usage acceptable: 51.9%
+2025-06-21 18:30:17,581 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 18:30:25,670 - INFO - PyTorch version 2.7.1 available.

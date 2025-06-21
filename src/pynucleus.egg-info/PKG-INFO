@@ -210,7 +210,28 @@ jupyter notebook "Developer_Notebook.ipynb"
 # • Debug tools and system optimization
 ```
 
-#### **Option C: Command Line Interface**
+#### **Option C: Developer Console (Web Interface)**
+```bash
+# Enhanced stable web application with auto-restart and monitoring
+python run_web_app.py
+
+# Navigate to the developer console
+# http://localhost:5001/dev
+
+# Features:
+# • Interactive RAG testing with real-time responses
+# • Document upload directly to source_documents folder
+# • System diagnostics with comprehensive validation
+# • System statistics and database monitoring
+# • Retro CRT terminal interface with PDF table extraction
+# • Keyboard shortcuts (Ctrl+Enter, F5, F6, F7)
+# • Circuit breaker protection against failures
+# • Automatic restart on crashes (up to 10 attempts)
+# • Enhanced error handling and memory management
+# • Health monitoring at: http://localhost:5001/health
+```
+
+#### **Option D: Command Line Interface**
 ```bash
 # Run the complete pipeline
 python run_pipeline.py run
@@ -229,6 +250,9 @@ python run_pipeline.py test
 ```
 PyNucleus-Model/
 ├── src/pynucleus/              # Main Python package
+│   ├── api/                    # Web application & developer console
+│   │   ├── app.py              # Flask web server
+│   │   └── static/             # Developer console interface
 │   ├── pipeline/               # Core pipeline orchestration
 │   │   ├── pipeline_rag.py     # RAG pipeline
 │   │   ├── pipeline_dwsim.py   # DWSIM simulation

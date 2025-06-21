@@ -19,14 +19,4 @@ Update docker/Dockerfile.vllm to download phi1_5_rlhf.
 DSPy and RAG remain unchanged.
 
 
-
-3) it seems we have issues that the system relies too much on the RAG and if there is no context then it breaks so we need to enhance it so that it outputs complet sentance 
-[Q2] 💭 Your question: what is mass transfer? 
-
-🔄 Processing question 2...
-2025-06-19 17:43:20,333 - pynucleus.rag.vector_store - INFO - ChromaDB search for 'what is mass transfer?...' returned 5 results
-2025-06-19 17:43:20,333 - pynucleus.pipeline.pipeline_rag - INFO - RAG query processed: what is mass transfer?...
-2025-06-19 17:43:27,913 - pynucleus.llm.llm_runner - INFO - Generated response in 7.57s
-
-📋 ==========================================================
-Answer: You are a concise chemical-engineering assistant with expertise in process design and optimization.  Context Information: Title: Mass transfer Source: Wikipedia - https://en. wikipedia.
+3) lets implement an algorith that ranks the answers and chooses the best one based on probability--- right now top k is being used... is there a better more accurate approach? 

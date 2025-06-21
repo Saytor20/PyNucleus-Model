@@ -55,11 +55,13 @@ tests/test_ask_basic.py
 tests/test_backend_choice.py
 tests/test_citation_stub.py
 tests/test_context_size.py
+tests/test_dev_console.py
 tests/test_document_processor_tables.py
 tests/test_golden_cli.py
 tests/test_ground_truth_slice.py
 tests/test_prompt_and_rag.py
 tests/test_prompt_backend.py
+tests/test_reasoning_quality.py
 tests/test_table_cleaner.py
 tests/test_vector_backend.py
 tests/test_vector_robustness.py

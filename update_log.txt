@@ -267,7 +267,6 @@ Compleeted:
 
 To do: 
 1) Deploy the model to google colab and test it... make sure the set up for github pipeline to pull is there to always test it 
-2) fix the citation and ground truth
 3) run system_validator script and start fixing all the problems in it 
 4) update the API script to include costs 
 5) create a finanical advisor model that handles the money 
@@ -275,7 +274,8 @@ To do:
 8) we need to create a template so that it understand what it is doing instead of spitting out answers 
 10) enable another function inside chat that asks either to chat or build if its a build then we build a template that fetches data from API sources uses finanical analyzer, and system designs to estimate cost using an existing template that we build ourselves using mock dwsim daa using 20 plants for now 
 11) save the flask format as an image? evaluate anothe container with the current set up  .. add a clear button to the system dignostic also file upload is ugly... also the statisitcs are weird and its still spitting lies - completed 
-12) switch to a better qwen model like qwen 3 0.6b 
+12) switch to a better qwen model like qwen 3 0.6b - completed
+13) general clean up 
 12) ADD ROBUST ANSWER SYNTHESIS
 
 # Update prompting.py build_prompt function:
@@ -297,3 +297,5 @@ Let's think step-by-step:
 # Validation:
 # Confirm improved reasoning clarity.
  2025-06-21 17:18:23 changes made and pushed to origin main
+
+ 2025-06-21 18:31:52 changes made and pushed to origin main

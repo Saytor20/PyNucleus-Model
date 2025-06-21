@@ -41,3 +41,10 @@
 2025-06-21 16:53:57,631 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
 2025-06-21 16:53:57,641 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
 2025-06-21 16:53:57,641 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:53:57] "GET /health HTTP/1.1" 200 -
+2025-06-21 17:27:36,470 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 17:27:36] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 17:29:22,993 | pynucleus.api.app | INFO | app.py:289 | Processing question: what is modular plant? ...
+2025-06-21 17:29:23,166 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plant? ...' returned 5 results
+2025-06-21 17:29:23,166 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'what is modular plant? ...'
+2025-06-21 17:29:23,166 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2431, max_tokens: 400
+2025-06-21 17:29:40,753 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 17.76s
+2025-06-21 17:29:40,753 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 17:29:40] "POST /ask HTTP/1.1" 200 -

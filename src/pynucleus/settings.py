@@ -3,13 +3,13 @@ from pydantic import ValidationError
 
 class Settings(BaseSettings):
     CHROMA_PATH: str = "data/03_intermediate/vector_db"
-    MODEL_ID: str = "Qwen/Qwen3-0.6B-Instruct"
+    MODEL_ID: str = "Qwen/Qwen3-0.6B"
     GGUF_PATH: str = "path/to/Qwen3-0.6B-Instruct.gguf"
     USE_CUDA: bool = False
     EMB_MODEL: str = "all-MiniLM-L6-v2"
-    MAX_TOKENS: int = 300
+    MAX_TOKENS: int = 50
     MAX_CONTEXT_CHARS: int = 1000
-    RETRIEVE_TOP_K: int = 3
+    RETRIEVE_TOP_K: int = 2
     LOG_LEVEL: str = "INFO"
     VSTORE_BACKEND: str = "chroma"  # legacy stub
     vstore_backend: str = "chroma"   # lowercase alias for compatibility
