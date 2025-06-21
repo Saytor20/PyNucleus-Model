@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>PyNucleus ▚ Developer Console</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* CRT Terminal Theme */
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff41;
+            font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+            min-height: 100vh;
+        }
+        
+        /* CRT Effects */
+        .crt::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            background: linear-gradient(rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.05) 50%);
+            background-size: 100% 3px;
+            opacity: 0.4;
+            mix-blend-mode: overlay;
+            z-index: 1000;
+        }
+        
+        .crt::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(0,255,65,0.1) 1%, transparent 70%);
+            opacity: 0.2;
+            z-index: 999;
+        }
+        
+        /* Enhanced Components */
+        .console-window {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff41;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+        
+        .console-header {
+            background: linear-gradient(90deg, #00ff41, #00cc33);
+            color: #000;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00ff41, #00cc33);
+            color: #000;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #00cc33, #009926);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 65, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background: #00ff41;
+            color: #000;
+        }
+        
+        .input-field {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff41;
+            color: #00ff41;
+            padding: 0.75rem;
+            border-radius: 4px;
+            width: 100%;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00cc33;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+        
+        .terminal-output {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 1rem;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: inherit;
+            border-radius: 4px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-online { background: #00ff41; }
+        .status-warning { background: #ffaa00; }
+        .status-error { background: #ff4444; }
+        
+        .typing-indicator {
+            display: none;
+            color: #00cc33;
+            font-style: italic;
+        }
+        
+        .typing-indicator.show {
+            display: block;
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #00ff41;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00cc33;
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="crt p-6">
+    <div class="max-w-7xl mx-auto space-y-6">
+        <!-- Header -->
+        <div class="console-window fade-in">
+            <div class="console-header">
+                <div class="flex items-center">
+                    <i class="fas fa-terminal mr-2"></i>
+                    <span>PyNucleus Developer Console</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <span class="status-indicator status-online"></span>
+                        <span class="text-sm">System Online</span>
+                    </div>
+                    <button onclick="resetConsole()" class="btn-secondary text-xs">
+                        <i class="fas fa-refresh mr-1"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="console-window fade-in">
+                <div class="console-header">
+                    <span><i class="fas fa-comments mr-2"></i>AI Chat Interface</span>
+                    <button onclick="clearChat()" class="btn-secondary text-xs">
+                        <i class="fas fa-trash mr-1"></i> Clear
+                    </button>
+                </div>
+                <div class="p-4 space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            <i class="fas fa-question-circle mr-1"></i> Ask PyNucleus
+                        </label>
+                        <textarea 
+                            id="question" 
+                            class="input-field" 
+                            rows="4" 
+                            placeholder="Enter your chemical engineering question here...&#10;&#10;Examples:&#10;• How do distillation columns work?&#10;• What are the safety considerations for reactor design?&#10;• Explain mass transfer in chemical processes"
+                            onkeydown="handleChatKeydown(event)"
+                        ></textarea>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button 
+                            class="btn-primary flex-1" 
+                            onclick="askQuestion()"
+                            id="askBtn"
+                        >
+                            <i class="fas fa-paper-plane mr-2"></i>Ask Question
+                        </button>
+                        <button class="btn-secondary" onclick="insertExample()">
+                            <i class="fas fa-lightbulb mr-1"></i> Example
+                        </button>
+                    </div>
+                    <div class="typing-indicator" id="typingIndicator">
+                        <i class="fas fa-robot mr-2"></i>PyNucleus is thinking...
+                    </div>
+                    <div id="answer" class="terminal-output">
+                        <div class="text-gray-400">
+                            <i class="fas fa-info-circle mr-2"></i>Welcome to PyNucleus Developer Console
+                            <br><br>This is an enhanced interface for testing and debugging the PyNucleus system.
+                            <br><br>Features:
+                            <br>• Advanced AI chat with context
+                            <br>• Real-time system diagnostics
+                            <br>• Performance monitoring
+                            <br>• Developer tools and utilities
+                            <br><br>Ready for your questions...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Diagnostics -->
+            <div class="console-window fade-in">
+                <div class="console-header">
+                    <span><i class="fas fa-stethoscope mr-2"></i>System Diagnostics</span>
+                    <div class="text-xs">
+                        <span id="lastDiagTime">Never run</span>
+                    </div>
+                </div>
+                <div class="p-4 space-y-4">
+                    <div class="flex space-x-2">
+                        <button 
+                            class="btn-primary flex-1" 
+                            onclick="runDiagnostics()"
+                            id="diagBtn"
+                        >
+                            <i class="fas fa-play mr-2"></i>Run Diagnostics
+                        </button>
+                        <button class="btn-secondary" onclick="exportDiagnostics()">
+                            <i class="fas fa-download mr-1"></i> Export
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div class="bg-black bg-opacity-50 p-2 rounded">
+                            <div class="text-yellow-400">Vector DB Status</div>
+                            <div id="vectorStatus" class="text-white">Checking...</div>
+                        </div>
+                        <div class="bg-black bg-opacity-50 p-2 rounded">
+                            <div class="text-yellow-400">Model Status</div>
+                            <div id="modelStatus" class="text-white">Checking...</div>
+                        </div>
+                    </div>
+                    <div id="diag" class="terminal-output">
+                        <div class="text-gray-400">
+                            <i class="fas fa-info-circle mr-2"></i>No diagnostics run yet.
+                            <br><br>Click "Run Diagnostics" to perform a comprehensive system health check.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Tools -->
+        <div class="console-window fade-in">
+            <div class="console-header">
+                <span><i class="fas fa-tools mr-2"></i>Developer Tools</span>
+            </div>
+            <div class="p-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button class="btn-secondary p-4 h-auto" onclick="checkSystemStatus()">
+                        <i class="fas fa-heartbeat text-2xl mb-2 block"></i>
+                        <div class="font-bold">Health Check</div>
+                        <div class="text-xs opacity-75">System vitals</div>
+                    </button>
+                    <button class="btn-secondary p-4 h-auto" onclick="showPerformanceMetrics()">
+                        <i class="fas fa-chart-line text-2xl mb-2 block"></i>
+                        <div class="font-bold">Performance</div>
+                        <div class="text-xs opacity-75">Speed & metrics</div>
+                    </button>
+                    <button class="btn-secondary p-4 h-auto" onclick="viewLogs()">
+                        <i class="fas fa-file-alt text-2xl mb-2 block"></i>
+                        <div class="font-bold">View Logs</div>
+                        <div class="text-xs opacity-75">Recent activity</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-reset on page load/refresh
+        document.addEventListener('DOMContentLoaded', function() {
+            resetConsole();
+            checkSystemStatus();
+        });
+
+        function resetConsole() {
+            // Clear all outputs and reset interface
+            document.getElementById('question').value = '';
+            document.getElementById('answer').innerHTML = `
+                <div class="text-gray-400">
+                    <i class="fas fa-info-circle mr-2"></i>Console reset. Welcome back to PyNucleus Developer Console
+                    <br><br>All chat history cleared. Ready for new session...
+                </div>
+            `;
+            document.getElementById('diag').innerHTML = `
+                <div class="text-gray-400">
+                    <i class="fas fa-info-circle mr-2"></i>Diagnostics cleared.
+                    <br><br>Click "Run Diagnostics" to perform a fresh system check.
+                </div>
+            `;
+            document.getElementById('lastDiagTime').textContent = 'Never run';
+            console.log('Console reset');
+        }
+
+        function clearChat() {
+            document.getElementById('answer').innerHTML = `
+                <div class="text-gray-400">
+                    <i class="fas fa-info-circle mr-2"></i>Chat cleared. Ready for new conversation...
+                </div>
+            `;
+        }
+
+        function handleChatKeydown(event) {
+            if (event.ctrlKey && event.key === 'Enter') {
+                event.preventDefault();
+                askQuestion();
+            }
+        }
+
+        function insertExample() {
+            const examples = [
+                "How do distillation columns work in chemical separation processes?",
+                "What are the main advantages of modular chemical plants?", 
+                "Explain the principles of mass transfer in chemical engineering",
+                "What safety considerations are important in reactor design?",
+                "How does pressure affect chemical reaction rates?"
+            ];
+            const randomExample = examples[Math.floor(Math.random() * examples.length)];
+            document.getElementById('question').value = randomExample;
+        }
+
+        async function askQuestion() {
+            const question = document.getElementById('question').value.trim();
+            if (!question) {
+                alert('Please enter a question first.');
+                return;
+            }
+
+            const askBtn = document.getElementById('askBtn');
+            const typingIndicator = document.getElementById('typingIndicator');
+            const answerDiv = document.getElementById('answer');
+
+            // Show loading state
+            askBtn.disabled = true;
+            askBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
+            typingIndicator.classList.add('show');
+
+            try {
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: question })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    const formattedAnswer = `
+                        <div class="border-b border-green-400 pb-2 mb-3">
+                            <strong><i class="fas fa-question mr-2"></i>Question:</strong> ${question}
+                        </div>
+                        <div class="mb-3">
+                            <strong><i class="fas fa-robot mr-2"></i>Answer:</strong>
+                            <br><br>${data.answer}
+                        </div>
+                        ${data.sources && data.sources.length > 0 ? `
+                        <div class="border-t border-green-400 pt-2 mt-3 text-sm opacity-75">
+                            <strong><i class="fas fa-book mr-2"></i>Sources:</strong>
+                            <ul class="list-disc list-inside mt-1">
+                                ${data.sources.map(source => `<li>${source}</li>`).join('')}
+                            </ul>
+                        </div>` : ''}
+                        <div class="border-t border-green-400 pt-2 mt-3 text-xs opacity-50">
+                            <i class="fas fa-clock mr-1"></i>Response time: ${data.metadata?.processing_time || 'N/A'}s | 
+                            Model: ${data.metadata?.model || 'Unknown'} | 
+                            Sources: ${data.metadata?.source_count || 0}
+                        </div>
+                    `;
+                    answerDiv.innerHTML = formattedAnswer;
+                } else {
+                    answerDiv.innerHTML = `
+                        <div class="text-red-400">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>Error: ${data.error || 'Unknown error occurred'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                answerDiv.innerHTML = `
+                    <div class="text-red-400">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Network Error: ${error.message}
+                    </div>
+                `;
+            } finally {
+                // Reset button state
+                askBtn.disabled = false;
+                askBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Ask Question';
+                typingIndicator.classList.remove('show');
+            }
+        }
+
+        async function runDiagnostics() {
+            const diagBtn = document.getElementById('diagBtn');
+            const diagDiv = document.getElementById('diag');
+            const lastDiagTime = document.getElementById('lastDiagTime');
+
+            // Show loading state
+            diagBtn.disabled = true;
+            diagBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Running...';
+            diagDiv.innerHTML = `
+                <div class="text-yellow-400">
+                    <i class="fas fa-cog fa-spin mr-2"></i>Running comprehensive system diagnostics...
+                    <br><br>This may take a few moments...
+                </div>
+            `;
+
+            try {
+                const response = await fetch('/system_diagnostic');
+                const data = await response.json();
+
+                if (response.ok) {
+                    const formattedResults = formatDiagnosticResults(data);
+                    diagDiv.innerHTML = formattedResults;
+                    lastDiagTime.textContent = new Date().toLocaleTimeString();
+                } else {
+                    diagDiv.innerHTML = `
+                        <div class="text-red-400">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>Diagnostic Error: ${data.error}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                diagDiv.innerHTML = `
+                    <div class="text-red-400">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Network Error: ${error.message}
+                    </div>
+                `;
+            } finally {
+                diagBtn.disabled = false;
+                diagBtn.innerHTML = '<i class="fas fa-play mr-2"></i>Run Diagnostics';
+            }
+        }
+
+        function formatDiagnosticResults(data) {
+            if (data.status === 'error') {
+                return `
+                    <div class="text-red-400">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Diagnostic failed
+                        <br><br><strong>Output:</strong><br>${data.stdout || 'No output'}
+                        <br><br><strong>Error:</strong><br>${data.stderr || 'No error details'}
+                    </div>
+                `;
+            }
+
+            const successRate = data.success_rate || 0;
+            const statusColor = successRate >= 0.9 ? 'text-green-400' : 
+                              successRate >= 0.7 ? 'text-yellow-400' : 'text-red-400';
+
+            return `
+                <div class="${statusColor}">
+                    <i class="fas fa-check-circle mr-2"></i>System Diagnostic Complete
+                    <br><br><strong>Overall Health:</strong> ${(successRate * 100).toFixed(1)}%
+                    <br><strong>Tests Passed:</strong> ${data.passed_tests || 0}/${data.total_tests || 0}
+                    <br><strong>Timestamp:</strong> ${data.timestamp || 'Unknown'}
+                </div>
+                ${data.validation_results ? `
+                <div class="mt-4 text-sm border-t border-green-400 pt-2">
+                    <strong>Test Results:</strong>
+                    ${data.validation_results.slice(0, 5).map(result => `
+                        <div class="mt-1 opacity-75">
+                            • ${result.test_name}: ${(result.accuracy_score * 100).toFixed(1)}% accuracy
+                        </div>
+                    `).join('')}
+                    ${data.validation_results.length > 5 ? `<div class="mt-1 opacity-50">... and ${data.validation_results.length - 5} more tests</div>` : ''}
+                </div>` : ''}
+            `;
+        }
+
+        async function checkSystemStatus() {
+            try {
+                const response = await fetch('/status');
+                const data = await response.json();
+                
+                document.getElementById('vectorStatus').textContent = data.database?.status || 'Unknown';
+                document.getElementById('modelStatus').textContent = data.model?.id || 'Unknown';
+            } catch (error) {
+                document.getElementById('vectorStatus').textContent = 'Error';
+                document.getElementById('modelStatus').textContent = 'Error';
+            }
+        }
+
+        function exportDiagnostics() {
+            const diagContent = document.getElementById('diag').textContent;
+            const blob = new Blob([diagContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `pynucleus-diagnostics-${new Date().toISOString().slice(0,19)}.txt`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function showPerformanceMetrics() {
+            alert('Performance metrics feature coming soon!');
+        }
+
+        function viewLogs() {
+            alert('Log viewer feature coming soon!');
+        }
+
+        // Auto-refresh system status every 30 seconds
+        setInterval(checkSystemStatus, 30000);
+    </script>
+</body>
+</html> 

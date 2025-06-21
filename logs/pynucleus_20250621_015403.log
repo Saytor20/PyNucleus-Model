@@ -1,0 +1,14 @@
+2025-06-21 01:54:03,330 | pynucleus | INFO | run_web_app.py:68 | PyNucleus web application starting
+2025-06-21 01:54:03,379 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.69.150:5001
+2025-06-21 01:54:03,379 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 01:54:07,355 | pynucleus.api.app | INFO | app.py:83 | Health check requested
+2025-06-21 01:54:07,355 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 01:54:07] "GET /health HTTP/1.1" 200 -
+2025-06-21 01:54:13,161 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 01:54:13,161 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 01:54:13,244 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3587 documents
+2025-06-21 01:54:13,378 | pynucleus.rag.vector_store | INFO | vector_store.py:757 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 01:54:13,521 | pynucleus.rag.vector_store | INFO | vector_store.py:757 | ChromaDB search for '...' returned 1000 results
+2025-06-21 01:54:13,521 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 01:54:13] "GET /status HTTP/1.1" 200 -

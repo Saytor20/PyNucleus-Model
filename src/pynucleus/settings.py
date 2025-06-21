@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     GGUF_PATH: str = "models/qwen-0.5b.Q4_K_M.gguf"
     USE_CUDA: bool = False
     EMB_MODEL: str = "all-MiniLM-L6-v2"
-    MAX_TOKENS: int = 256
+    MAX_TOKENS: int = 512
     RETRIEVE_TOP_K: int = 8
     LOG_LEVEL: str = "INFO"
     VSTORE_BACKEND: str = "chroma"  # legacy stub

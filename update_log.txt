@@ -221,8 +221,7 @@ Completed
 27) Enrich Chunking and Document Re-indexing- completed
 28) Hybrid Retrieval (Semantic + Keyword/BM25) - completed
 
-
-
+ 2025-06-20 10:25:50 changes made and pushed to origin main
 To do: 
 1) Deploy the model to google colab and test it... make sure the set up for github pipeline to pull is there to always test it 
 2) fix the citation and ground truth
@@ -232,4 +231,31 @@ To do:
 6) once number 10 is fixed then we can proceed with uploading more data and enhancing the system - 
 7) we need to understand what we have to do with the golden dataset and validation data are we trainning on them or what and what is the difference between the 2? 
 8) we need to create a template so that it understand what it is doing instead of spitting out answers 
- 2025-06-20 12:25:50 changes made and pushed to origin main
+9)enhance the website to include system dignostic and make it into a developer like website where you can view stas and run system_diagonstic
+10) enable another function inside chat that asks either to chat or build if its a build then we build a template that fetches data from API sources uses finanical analyzer, and system designs to estimate cost using an existing template that we build ourselves using mock dwsim daa using 20 plants for now 
+9) ADD ROBUST ANSWER SYNTHESIS
+
+# Update prompting.py build_prompt function:
+"""
+def build_prompt(context: str, question: str) -> str:
+    return f\"\"\"You are an expert chemical-process engineer.
+Using the provided context, think step-by-step to answer precisely.
+
+Context:
+{context}
+
+Question:
+{question}
+
+Let's think step-by-step:
+\"\"\"
+"""
+
+# Validation:
+# Confirm improved reasoning clarity.
+
+
+
+ 2025-06-20 10:25:50 changes made and pushed to origin main
+
+ 2025-06-21 03:59:48 changes made and pushed to origin main

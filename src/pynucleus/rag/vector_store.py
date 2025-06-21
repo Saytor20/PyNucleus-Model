@@ -684,87 +684,45 @@ class ChromaVectorStore:
         except Exception as e:
             self.logger.error(f"Failed to auto-ingest documents: {e}")
     
-    def search(
-        self, 
-        query: str, 
-        top_k: int = 5,
-        similarity_threshold: float = 0.3
-    ) -> List[Dict[str, Any]]:
+    def search(self, query: str, top_k: int = 5):
         """
         Search for similar documents using ChromaDB.
         
         Args:
             query: Search query
             top_k: Number of results to return
-            similarity_threshold: Minimum similarity score
             
         Returns:
-            List of search results with text and metadata
+            Tuple of (docs, sources) where docs is list of documents and sources is list of source names
         """
         try:
             if self.loaded and self.collection:
                 # Perform ChromaDB search
-                results = self.collection.query(
+                res = self.collection.query(
                     query_texts=[query],
                     n_results=top_k,
-                    include=['documents', 'metadatas', 'distances']
+                    include=['documents', 'metadatas']
                 )
                 
-                search_results = []
-                # Safely check if results contain documents
-                if (results and 
-                    isinstance(results, dict) and 
-                    'documents' in results and 
-                    results['documents'] and 
-                    len(results['documents']) > 0 and 
-                    results['documents'][0]):
-                    
-                    documents = results['documents'][0]
-                    
-                    # Handle metadata safely
-                    metadatas = results.get('metadatas', [])
-                    if metadatas and len(metadatas) > 0 and metadatas[0]:
-                        metadatas = metadatas[0]
-                    else:
-                        metadatas = [{}] * len(documents)
-                    
-                    # Handle distances safely
-                    distances = results.get('distances', [])
-                    if distances and len(distances) > 0 and distances[0]:
-                        distances = distances[0]
-                    else:
-                        distances = [0.5] * len(documents)
-                    
-                    for i, doc in enumerate(documents):
-                        metadata = metadatas[i] if i < len(metadatas) else {}
-                        # Ensure metadata is not None
-                        if metadata is None:
-                            metadata = {}
-                        distance = distances[i] if i < len(distances) else 0.5
-                        
-                        # Convert distance to similarity (lower distance = higher similarity)
-                        similarity = 1.0 / (1.0 + distance)
-                        
-                        if similarity >= similarity_threshold:
-                            search_results.append({
-                                "text": doc,
-                                "source": metadata.get('source', f'document_{i+1}') if isinstance(metadata, dict) else f'document_{i+1}',
-                                "score": similarity,
-                                "chunk_id": metadata.get('chunk_id', f'chunk_{i+1}') if isinstance(metadata, dict) else f'chunk_{i+1}',
-                                "metadata": metadata if isinstance(metadata, dict) else {}
-                            })
+                docs = res["documents"][0]
+                metas = res["metadatas"][0]
+                # Handle None metadata items safely
+                sources = [m.get("source", f"doc_{i}") if m is not None else f"doc_{i}" for i, m in enumerate(metas)]
                 
-                self.logger.info(f"ChromaDB search for '{query[:50]}...' returned {len(search_results)} results")
-                return search_results
+                self.logger.info(f"ChromaDB search for '{query[:50]}...' returned {len(docs)} results")
+                return docs, sources
                 
             else:
                 # Fallback to mock results if ChromaDB not loaded
-                return self._generate_enhanced_mock_results(query, top_k, similarity_threshold)
+                mock_results = self._generate_enhanced_mock_results(query, top_k, 0.3)
+                docs = [result["text"] for result in mock_results]
+                sources = [result["source"] for result in mock_results]
+                return docs, sources
                 
         except Exception as e:
             self.logger.error(f"ChromaDB search failed: {e}")
-            # Fallback to mock results
-            return self._generate_enhanced_mock_results(query, top_k, similarity_threshold)
+            # Return empty results on error
+            return [], []
     
     def search_with_sources(
         self, 

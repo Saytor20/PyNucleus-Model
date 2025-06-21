@@ -5,6 +5,7 @@ from ..settings import settings
 from ..llm.model_loader import generate
 from ..llm.prompting import build_prompt
 from ..utils.logger import logger
+from ..rag.vector_store import ChromaVectorStore
 
 # Centralized ChromaDB client management
 _client = None
@@ -117,7 +118,6 @@ def _get_vector_store():
     """Get or create ChromaVectorStore instance."""
     global _store
     if _store is None:
-        from ..rag.vector_store import ChromaVectorStore
         _store = ChromaVectorStore()
     return _store
 
@@ -165,9 +165,61 @@ def retrieve(q: str, k: int | None = None):
     return documents
 
 def ask(question: str):
-    """Ask a question using RAG pipeline."""
-    docs, sources = _retrieve(question)
-    ctx = "\n\n".join(docs)
-    prompt = build_prompt(ctx, question)
-    answer = generate(prompt)
+    """Ask a question using RAG pipeline with enhanced prompting and citations."""
+    # Use ChromaVectorStore for optimized retrieval
+    store = _get_vector_store()
+    docs, sources = store.search(question, top_k=5)  # Balanced retrieval
+    
+    # Smart context management: estimate tokens and balance input/output
+    target_input_tokens = 1000  # Reserve ~1000 tokens for response generation
+    chars_per_token = 4  # Rough estimate: 4 chars per token
+    max_context_chars = target_input_tokens * chars_per_token
+    
+    # Calculate per-document allocation
+    if docs:
+        chars_per_doc = min(400, max_context_chars // len(docs))  # Max 400 chars per doc
+        chars_per_doc = max(200, chars_per_doc)  # But at least 200 chars
+    else:
+        chars_per_doc = 400
+    
+    # Process documents with intelligent truncation
+    processed_docs = []
+    for doc in docs:
+        if len(doc) <= chars_per_doc:
+            processed_docs.append(doc)
+        else:
+            # Smart truncation: try to preserve complete sentences
+            truncated = doc[:chars_per_doc]
+            
+            # Find the best cut point (sentence ending)
+            for punct in ['. ', '.\n', '! ', '? ']:
+                last_punct = truncated.rfind(punct)
+                if last_punct > chars_per_doc * 0.6:  # If we keep at least 60% of content
+                    truncated = truncated[:last_punct + 1]
+                    break
+            else:
+                # If no good sentence boundary found, add ellipsis
+                truncated = truncated.rstrip() + "..."
+            
+            processed_docs.append(truncated)
+    
+    # Build optimized context
+    ctx = "\n\n".join(processed_docs)
+    
+    # Efficient prompt design
+    prompt = (
+        f"You are a chemical process engineer. Using the context below, answer: {question}\n\n"
+        f"Context:\n{ctx}\n\n"
+        f"Provide a detailed answer with citations [1], [2], etc:"
+    )
+    
+    # Generate with appropriate token allocation
+    max_response_tokens = min(400, settings.MAX_TOKENS)  # Cap at 400 tokens for response
+    answer = generate(prompt, max_tokens=max_response_tokens)
+    
+    # Add reference section
+    if sources:
+        refs = "\n\nReferences:\n" + "\n".join(f"[{i+1}] {s}" for i, s in enumerate(sources))
+        answer += refs
+    
     return {"answer": answer.strip(), "sources": sources} 
