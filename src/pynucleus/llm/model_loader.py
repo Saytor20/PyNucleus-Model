@@ -43,14 +43,41 @@ _lcpp=None if _hf else _metal_llama_cpp()
 if not (_hf or _lcpp):
     from transformers import AutoTokenizer, AutoModelForCausalLM
     _tok = AutoTokenizer.from_pretrained(settings.MODEL_ID, trust_remote_code=False)
-    _hf  = AutoModelForCausalLM.from_pretrained(
-        settings.MODEL_ID, torch_dtype=torch.float16).to("cpu")
-    logger.warning("Falling back to CPU FP16")
+    
+    # Cross-platform CPU fallback with proper dtype handling
+    try:
+        # Try float32 first for stability across platforms
+        _hf = AutoModelForCausalLM.from_pretrained(
+            settings.MODEL_ID, 
+            torch_dtype=torch.float32,
+            device_map="cpu"
+        )
+        logger.info("Loaded model with CPU FP32 for cross-platform stability")
+    except Exception as e:
+        logger.warning(f"FP32 failed: {e}, trying FP16")
+        try:
+            _hf = AutoModelForCausalLM.from_pretrained(
+                settings.MODEL_ID, 
+                torch_dtype=torch.float16,
+                device_map="cpu"
+            )
+            logger.warning("Loaded model with CPU FP16 - may have stability issues")
+        except Exception as e2:
+            logger.error(f"Both FP32 and FP16 failed: {e2}")
+            _hf = None
 
 def generate(prompt:str, max_tokens=256, temperature=0.7)->str:
     # Validate input
     if not prompt or not prompt.strip():
+        logger.warning("Generate called with empty prompt")
         return _generate_fallback_response("empty prompt")
+    
+    # Check if we have a working model
+    if not _hf and not _lcpp:
+        logger.error("No working model available - both HF and llama-cpp failed to load")
+        return _generate_fallback_response("no working model")
+    
+    logger.info(f"Generate called with prompt length: {len(prompt)}, max_tokens: {max_tokens}")
     
     # Prefer llama-cpp if present
     if _lcpp:
@@ -115,28 +142,69 @@ def generate(prompt:str, max_tokens=256, temperature=0.7)->str:
         ids = _tok(prompt, return_tensors="pt", truncation=True, max_length=1024).to(_hf.device)
         
         with torch.no_grad():  # Prevent gradient computation to save memory
-            out = _hf.generate(
-                **ids, 
-                max_new_tokens=min(max_tokens, 256), 
-                temperature=0.1,
-                do_sample=True,
-                top_p=0.5,
-                top_k=10,
-                repetition_penalty=1.5,
-                pad_token_id=_tok.eos_token_id,
-                eos_token_id=_tok.eos_token_id,
-                early_stopping=True
-            )
+            # Cross-platform stable generation parameters for Qwen 3
+            generation_kwargs = {
+                **ids,
+                'max_new_tokens': min(max_tokens, 256),
+                'pad_token_id': _tok.eos_token_id,
+                'eos_token_id': _tok.eos_token_id,
+                'do_sample': False,  # Deterministic for stability
+                'num_beams': 1,      # Greedy decoding
+                'use_cache': True,
+                'output_scores': False,
+                'return_dict_in_generate': False,
+                'repetition_penalty': 1.2,  # Prevent repetition loops
+                'no_repeat_ngram_size': 3,  # Prevent 3-gram repetition
+                'early_stopping': True,     # Stop on EOS token
+                'length_penalty': 1.0       # Neutral length penalty
+            }
+            
+            # Only add temperature/sampling if model supports it
+            try:
+                out = _hf.generate(**generation_kwargs)
+            except Exception as gen_error:
+                logger.warning(f"Standard generation failed: {gen_error}, trying minimal params")
+                # Fallback to minimal parameters
+                minimal_kwargs = {
+                    **ids,
+                    'max_new_tokens': min(max_tokens, 128),
+                    'pad_token_id': _tok.eos_token_id,
+                    'do_sample': False,
+                    'repetition_penalty': 1.1,  # Light repetition penalty
+                    'no_repeat_ngram_size': 2   # Prevent 2-gram repetition
+                }
+                out = _hf.generate(**minimal_kwargs)
         
         # Extract only the new tokens (not the input)
         input_length = ids['input_ids'].shape[1]
         new_tokens = out[0][input_length:]
         response = _tok.decode(new_tokens, skip_special_tokens=True).strip()
         
-        # Validate response
+        # Validate response and detect repetition loops
         if not response or len(response.strip()) < 10:
             raise ValueError("Invalid response")
+        
+        # Check for repetition loops (common issue with smaller models)
+        words = response.split()
+        if len(words) > 10:
+            # Check for excessive repetition
+            word_counts = {}
+            for word in words:
+                word_counts[word] = word_counts.get(word, 0) + 1
             
+            # If any word appears more than 30% of the time, it's likely a loop
+            max_repetition = max(word_counts.values()) if word_counts else 0
+            if max_repetition > len(words) * 0.3:
+                logger.warning("Repetition loop detected, using fallback response")
+                raise ValueError("Repetition loop detected")
+            
+            # Check for consecutive identical phrases
+            for i in range(len(words) - 3):
+                phrase = " ".join(words[i:i+3])
+                if response.count(phrase) > 3:  # Same 3-word phrase appears more than 3 times
+                    logger.warning("Consecutive repetition detected, using fallback response")
+                    raise ValueError("Consecutive repetition detected")
+        
         # Clear memory
         del ids, out, new_tokens
         torch.cuda.empty_cache() if torch.cuda.is_available() else None

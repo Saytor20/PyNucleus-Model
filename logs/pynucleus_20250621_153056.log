@@ -1,0 +1,39 @@
+2025-06-21 15:30:56,899 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-21 15:30:56,924 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-21 15:30:56,924 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 15:34:13,668 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 15:34:13,746 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 15:34:13,746 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 15:34:13,841 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 15:34:13,994 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 15:34:13,994 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'test...'
+2025-06-21 15:34:13,994 | pynucleus | INFO | model_loader.py:56 | Generate called with prompt length: 1189, max_tokens: 400
+2025-06-21 15:34:25,178 | pynucleus | WARNING | model_loader.py:150 | HF model generation failed: probability tensor contains either `inf`, `nan` or element < 0. Using fallback.
+2025-06-21 15:34:25,295 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 15:34:25,295 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 15:34:25,296 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 15:34:25,296 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:34:25] "GET /health HTTP/1.1" 200 -
+2025-06-21 15:34:35,974 | pynucleus.api.app | INFO | app.py:289 | Processing question: What is distillation and how does it work?...
+2025-06-21 15:34:36,078 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'What is distillation and how does it work?...' returned 5 results
+2025-06-21 15:34:36,078 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'What is distillation and how does it work?...'
+2025-06-21 15:34:36,078 | pynucleus | INFO | model_loader.py:56 | Generate called with prompt length: 2245, max_tokens: 400
+2025-06-21 15:34:40,974 | pynucleus | WARNING | model_loader.py:150 | HF model generation failed: probability tensor contains either `inf`, `nan` or element < 0. Using fallback.
+2025-06-21 15:34:41,080 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 5.11s
+2025-06-21 15:34:41,080 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:34:41] "POST /ask HTTP/1.1" 200 -
+2025-06-21 15:35:01,818 | pynucleus.api.app | INFO | app.py:289 | Processing question: How do chemical reactors work?...
+2025-06-21 15:35:01,924 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'How do chemical reactors work?...' returned 5 results
+2025-06-21 15:35:01,924 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'How do chemical reactors work?...'
+2025-06-21 15:35:01,924 | pynucleus | INFO | model_loader.py:56 | Generate called with prompt length: 2288, max_tokens: 400
+2025-06-21 15:35:06,154 | pynucleus | WARNING | model_loader.py:150 | HF model generation failed: probability tensor contains either `inf`, `nan` or element < 0. Using fallback.
+2025-06-21 15:35:06,256 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 4.44s
+2025-06-21 15:35:06,257 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:35:06] "POST /ask HTTP/1.1" 200 -
+2025-06-21 15:35:35,629 | pynucleus.api.app | INFO | app.py:289 | Processing question: What is heat transfer in chemical engineering?...
+2025-06-21 15:35:35,734 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'What is heat transfer in chemical engineering?...' returned 5 results
+2025-06-21 15:35:35,734 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'What is heat transfer in chemical engineering?...'
+2025-06-21 15:35:35,734 | pynucleus | INFO | model_loader.py:56 | Generate called with prompt length: 2325, max_tokens: 400
+2025-06-21 15:35:43,370 | pynucleus | WARNING | model_loader.py:150 | HF model generation failed: probability tensor contains either `inf`, `nan` or element < 0. Using fallback.
+2025-06-21 15:35:43,478 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 7.85s
+2025-06-21 15:35:43,478 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:35:43] "POST /ask HTTP/1.1" 200 -

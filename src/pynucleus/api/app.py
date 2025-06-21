@@ -302,12 +302,14 @@ def ask():
             answer = result.get('answer', '')
             if not answer or len(answer.strip()) < 5:
                 # Use fallback answer
+                api_logger.warning(f"RAG returned empty/short response for question: '{question[:50]}...'. Using fallback.")
                 answer = _generate_basic_answer(question)
                 api_logger.warning("Used fallback answer due to empty/short response")
             
         except Exception as rag_error:
-            api_logger.error(f"RAG system error: {rag_error}")
+            api_logger.error(f"RAG system error for question: '{question[:50]}...': {rag_error}")
             # Generate basic fallback response
+            api_logger.warning("Using fallback answer due to RAG system error")
             answer = _generate_basic_answer(question)
             result = {"answer": answer, "sources": []}
         

@@ -1,0 +1,33 @@
+2025-06-21 16:25:43,406 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-21 16:25:43,441 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-21 16:25:43,441 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 16:25:52,736 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:25:52] "GET / HTTP/1.1" 200 -
+2025-06-21 16:26:01,355 | pynucleus.api.app | INFO | app.py:289 | Processing question: what is modular plants? ...
+2025-06-21 16:26:01,423 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 16:26:01,423 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 16:26:01,510 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 16:26:01,629 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plants? ...' returned 5 results
+2025-06-21 16:26:01,629 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'what is modular plants? ...'
+2025-06-21 16:26:01,629 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2432, max_tokens: 400
+2025-06-21 16:26:10,247 | pynucleus.api.app | INFO | app.py:626 | Generating system statistics
+2025-06-21 16:26:10,249 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 16:26:10,249 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 16:26:10,249 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 16:26:11,029 | pynucleus.api.app | INFO | app.py:289 | Processing question: what is modular plants?...
+2025-06-21 16:26:11,114 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plants?...' returned 5 results
+2025-06-21 16:26:11,114 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'what is modular plants?...'
+2025-06-21 16:26:11,114 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2431, max_tokens: 400
+2025-06-21 16:26:11,263 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:26:11] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 16:26:20,383 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 19.03s
+2025-06-21 16:26:20,383 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:26:20] "POST /ask HTTP/1.1" 200 -
+2025-06-21 16:26:30,481 | pynucleus | WARNING | model_loader.py:188 | HF model generation failed: Invalid response. Using fallback.
+2025-06-21 16:26:30,588 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 19.56s
+2025-06-21 16:26:30,588 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:26:30] "POST /ask HTTP/1.1" 200 -
+2025-06-21 16:27:40,123 | pynucleus.api.app | INFO | app.py:64 | Received signal 15, shutting down gracefully...
+2025-06-21 16:27:40,123 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 16:27:40,234 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed
+2025-06-21 16:27:40,739 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 16:27:40,901 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed

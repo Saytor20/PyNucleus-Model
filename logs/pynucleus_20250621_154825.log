@@ -1,0 +1,28 @@
+2025-06-21 15:48:25,901 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-21 15:48:25,939 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-21 15:48:25,939 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 15:48:39,865 | pynucleus.api.app | INFO | app.py:289 | Processing question: what is modular plants?...
+2025-06-21 15:48:39,954 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 15:48:39,954 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 15:48:40,057 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 15:48:40,228 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plants?...' returned 5 results
+2025-06-21 15:48:40,228 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'what is modular plants?...'
+2025-06-21 15:48:40,228 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2431, max_tokens: 400
+2025-06-21 15:49:11,768 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 31.90s
+2025-06-21 15:49:11,769 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:49:11] "POST /ask HTTP/1.1" 200 -
+2025-06-21 15:49:19,916 | pynucleus.api.app | INFO | app.py:289 | Processing question: How do heat exchangers work in chemical plants?...
+2025-06-21 15:49:20,033 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'How do heat exchangers work in chemical plants?...' returned 5 results
+2025-06-21 15:49:20,033 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'How do heat exchangers work in chemical plants?...'
+2025-06-21 15:49:20,033 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2267, max_tokens: 400
+2025-06-21 15:49:27,148 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:49:27] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 15:49:33,915 | pynucleus.api.app | INFO | app.py:289 | Processing question: what is modular plants? ...
+2025-06-21 15:49:34,241 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plants? ...' returned 5 results
+2025-06-21 15:49:34,241 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'what is modular plants? ...'
+2025-06-21 15:49:34,241 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2432, max_tokens: 400
+2025-06-21 15:50:03,584 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 43.67s
+2025-06-21 15:50:03,585 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:50:03] "POST /ask HTTP/1.1" 200 -
+2025-06-21 15:50:19,596 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 45.68s
+2025-06-21 15:50:19,596 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:50:19] "POST /ask HTTP/1.1" 200 -

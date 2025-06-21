@@ -1,0 +1,54 @@
+2025-06-21 16:27:55,990 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-21 16:27:56,032 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-21 16:27:56,033 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 16:28:03,455 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:28:03] "GET / HTTP/1.1" 200 -
+2025-06-21 16:28:08,580 | pynucleus.api.app | INFO | app.py:289 | Processing question: what is modular plants? ...
+2025-06-21 16:28:08,674 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 16:28:08,674 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 16:28:08,771 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 16:28:08,935 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plants? ...' returned 5 results
+2025-06-21 16:28:08,935 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'what is modular plants? ...'
+2025-06-21 16:28:08,935 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2432, max_tokens: 400
+2025-06-21 16:28:23,488 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 14.91s
+2025-06-21 16:28:23,489 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:28:23] "POST /ask HTTP/1.1" 200 -
+2025-06-21 16:31:20,176 | pynucleus.api.app | INFO | app.py:626 | Generating system statistics
+2025-06-21 16:31:20,182 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 16:31:20,183 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 16:31:20,184 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 16:31:21,210 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:31:21] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 16:31:23,181 | pynucleus.api.app | INFO | app.py:599 | Running comprehensive system diagnostic
+2025-06-21 16:31:39,119 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 16:31:39,294 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 16:31:39,294 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'test...'
+2025-06-21 16:31:39,294 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2327, max_tokens: 400
+2025-06-21 16:31:43,820 | pynucleus.api.app | INFO | app.py:614 | Comprehensive diagnostic completed with return code 0
+2025-06-21 16:31:43,822 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:31:43] "GET /comprehensive_diagnostic HTTP/1.1" 200 -
+2025-06-21 16:32:05,756 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 16:32:05,756 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 16:32:05,766 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 16:32:05,767 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:32:05] "GET /health HTTP/1.1" 200 -
+2025-06-21 16:32:53,849 | pynucleus.api.app | INFO | app.py:570 | Running system diagnostic
+2025-06-21 16:36:47,434 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 16:36:47,565 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 16:36:47,565 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'test...'
+2025-06-21 16:36:47,565 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2327, max_tokens: 400
+2025-06-21 16:36:54,136 | pynucleus.api.app | INFO | app.py:585 | System diagnostic completed with return code 0
+2025-06-21 16:36:54,137 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:36:54] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-21 16:36:54,199 | pynucleus.api.app | INFO | app.py:570 | Running system diagnostic
+2025-06-21 16:37:12,782 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 16:37:12,783 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 16:37:12,793 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 16:37:12,795 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:37:12] "GET /health HTTP/1.1" 200 -
+2025-06-21 16:40:57,541 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 16:40:57,676 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 16:40:57,676 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'test...'
+2025-06-21 16:40:57,676 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2327, max_tokens: 400
+2025-06-21 16:41:04,149 | pynucleus.api.app | INFO | app.py:585 | System diagnostic completed with return code 0
+2025-06-21 16:41:04,150 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:41:04] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-21 16:41:22,126 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 16:41:22,127 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 16:41:22,127 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 16:41:22,128 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:41:22] "GET /health HTTP/1.1" 200 -

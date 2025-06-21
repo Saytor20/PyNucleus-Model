@@ -45,3 +45,27 @@
 2025-06-21 15:06:01,204 | pynucleus | INFO | collector.py:231 | Successfully processed Making-a-case-for-modular-integrated-construction-in-West-Africa-rethinking-of-housing-supply-in-Ghana.pdf: 74 chunks added
 2025-06-21 15:06:01,204 | pynucleus.api.app | INFO | app.py:438 | Document processed successfully: Making-a-case-for-modular-integrated-construction-in-West-Africa-rethinking-of-housing-supply-in-Ghana.pdf (74 chunks)
 2025-06-21 15:06:01,204 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:06:01] "POST /upload HTTP/1.1" 200 -
+2025-06-21 15:25:46,438 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:25:46] "GET / HTTP/1.1" 200 -
+2025-06-21 15:26:23,832 | pynucleus.api.app | INFO | app.py:289 | Processing question: what is modular plants? ...
+2025-06-21 15:26:23,981 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plants? ...' returned 5 results
+2025-06-21 15:26:23,981 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 15:26:24,700 | pynucleus | WARNING | model_loader.py:99 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 15:26:24,853 | pynucleus.api.app | INFO | app.py:334 | Question processed successfully in 1.02s
+2025-06-21 15:26:24,853 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:26:24] "POST /ask HTTP/1.1" 200 -
+2025-06-21 15:26:53,839 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:26:53] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 15:26:59,864 | pynucleus.api.app | INFO | app.py:289 | Processing question: what is modular plants? ...
+2025-06-21 15:26:59,989 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plants? ...' returned 5 results
+2025-06-21 15:26:59,989 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 15:27:00,005 | pynucleus | WARNING | model_loader.py:99 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 15:27:00,138 | pynucleus.api.app | INFO | app.py:334 | Question processed successfully in 0.27s
+2025-06-21 15:27:00,138 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:27:00] "POST /ask HTTP/1.1" 200 -
+2025-06-21 15:27:06,135 | pynucleus.api.app | INFO | app.py:624 | Generating system statistics
+2025-06-21 15:27:06,143 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 15:27:06,145 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 15:27:06,162 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 15:27:07,182 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 15:27:07] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 15:29:23,187 | pynucleus.api.app | INFO | app.py:64 | Received signal 15, shutting down gracefully...
+2025-06-21 15:29:23,189 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 15:29:23,452 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed
+2025-06-21 15:29:23,955 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 15:29:24,140 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed

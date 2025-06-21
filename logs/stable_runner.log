@@ -562,3 +562,107 @@ app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
 2025-06-21 15:05:30,818 - INFO - ✅ Loaded GGUF via Metal
 2025-06-21 15:05:31,702 - INFO - ✅ Guidance available
 2025-06-21 15:05:33,174 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 15:25:15,498 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 15:25:15,500 - INFO - 📊 Max restarts: 10
+2025-06-21 15:25:15,502 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 15:25:16,056 - INFO - ✅ Core dependencies available
+2025-06-21 15:25:16,056 - INFO - ✅ Required directories setup complete
+2025-06-21 15:25:16,060 - INFO - ✅ Memory usage acceptable: 62.5%
+2025-06-21 15:25:16,060 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 15:25:16,535 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 15:25:16,549 - WARNING - Metal path skipped: 
+2025-06-21 15:25:22,220 - WARNING - Falling back to CPU FP16
+2025-06-21 15:25:22,748 - INFO - ✅ Guidance available
+2025-06-21 15:25:22,788 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 15:30:49,494 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 15:30:49,511 - WARNING - Metal path skipped: 
+2025-06-21 15:30:56,013 - WARNING - Falling back to CPU FP16
+2025-06-21 15:30:56,575 - INFO - ✅ Guidance available
+2025-06-21 15:30:56,619 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 15:36:57,604 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 15:36:57,604 - INFO - 📊 Max restarts: 10
+2025-06-21 15:36:57,604 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 15:36:58,239 - INFO - ✅ Core dependencies available
+2025-06-21 15:36:58,239 - INFO - ✅ Required directories setup complete
+2025-06-21 15:36:58,244 - INFO - ✅ Memory usage acceptable: 50.6%
+2025-06-21 15:36:58,244 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 15:36:58,779 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 15:36:58,795 - WARNING - Metal path skipped: 
+2025-06-21 15:37:04,568 - WARNING - Falling back to CPU FP16
+2025-06-21 15:37:05,052 - INFO - ✅ Guidance available
+2025-06-21 15:37:05,091 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 15:38:58,995 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 15:38:58,995 - INFO - 📊 Max restarts: 10
+2025-06-21 15:38:58,995 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 15:38:59,619 - INFO - ✅ Core dependencies available
+2025-06-21 15:38:59,620 - INFO - ✅ Required directories setup complete
+2025-06-21 15:38:59,623 - INFO - ✅ Memory usage acceptable: 57.6%
+2025-06-21 15:38:59,624 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 15:39:00,123 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 15:39:00,139 - WARNING - Metal path skipped: 
+2025-06-21 15:39:06,785 - WARNING - Falling back to CPU FP16
+2025-06-21 15:39:07,519 - INFO - ✅ Guidance available
+2025-06-21 15:39:07,577 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 15:48:21,164 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 15:48:21,194 - WARNING - Metal path skipped: 
+2025-06-21 15:48:25,013 - INFO - Loaded model with CPU FP32 for cross-platform stability
+2025-06-21 15:48:25,489 - INFO - ✅ Guidance available
+2025-06-21 15:48:25,533 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 15:51:05,104 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 15:51:05,104 - INFO - 📊 Max restarts: 10
+2025-06-21 15:51:05,104 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 15:51:05,779 - INFO - ✅ Core dependencies available
+2025-06-21 15:51:05,779 - INFO - ✅ Required directories setup complete
+2025-06-21 15:51:05,784 - INFO - ✅ Memory usage acceptable: 36.6%
+2025-06-21 15:51:05,784 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 15:51:06,349 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 15:51:06,364 - WARNING - Metal path skipped: 
+2025-06-21 15:51:12,441 - INFO - Loaded model with CPU FP32 for cross-platform stability
+2025-06-21 15:51:12,978 - INFO - ✅ Guidance available
+2025-06-21 15:51:13,028 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 16:06:22,479 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 16:06:22,479 - INFO - 📊 Max restarts: 10
+2025-06-21 16:06:22,479 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 16:06:23,556 - INFO - ✅ Core dependencies available
+2025-06-21 16:06:23,556 - INFO - ✅ Required directories setup complete
+2025-06-21 16:06:23,565 - INFO - ✅ Memory usage acceptable: 63.7%
+2025-06-21 16:06:23,565 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 16:06:24,477 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 16:06:24,514 - WARNING - Metal path skipped: 
+2025-06-21 16:06:39,927 - INFO - Loaded model with CPU FP32 for cross-platform stability
+2025-06-21 16:06:41,112 - INFO - ✅ Guidance available
+2025-06-21 16:06:41,207 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 16:23:07,534 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 16:23:07,535 - INFO - 📊 Max restarts: 10
+2025-06-21 16:23:07,535 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 16:23:08,234 - INFO - ✅ Core dependencies available
+2025-06-21 16:23:08,234 - INFO - ✅ Required directories setup complete
+2025-06-21 16:23:08,240 - INFO - ✅ Memory usage acceptable: 37.5%
+2025-06-21 16:23:08,240 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 16:23:08,796 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 16:23:08,813 - WARNING - Metal path skipped: 
+2025-06-21 16:23:14,393 - INFO - Loaded model with CPU FP32 for cross-platform stability
+2025-06-21 16:23:14,930 - INFO - ✅ Guidance available
+2025-06-21 16:23:14,972 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 16:25:39,930 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 16:25:39,948 - WARNING - Metal path skipped: 
+2025-06-21 16:25:42,648 - INFO - Loaded model with CPU FP32 for cross-platform stability
+2025-06-21 16:25:43,096 - INFO - ✅ Guidance available
+2025-06-21 16:25:43,137 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 16:27:51,146 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 16:27:51,163 - WARNING - Metal path skipped: 
+2025-06-21 16:27:55,189 - INFO - Loaded model with CPU FP32 for cross-platform stability
+2025-06-21 16:27:55,653 - INFO - ✅ Guidance available
+2025-06-21 16:27:55,694 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 16:48:16,485 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 16:48:16,485 - INFO - 📊 Max restarts: 10
+2025-06-21 16:48:16,485 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 16:48:17,119 - INFO - ✅ Core dependencies available
+2025-06-21 16:48:17,119 - INFO - ✅ Required directories setup complete
+2025-06-21 16:48:17,124 - INFO - ✅ Memory usage acceptable: 53.5%
+2025-06-21 16:48:17,124 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 16:48:17,627 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 16:48:17,642 - WARNING - Metal path skipped: 
+2025-06-21 16:48:21,533 - INFO - Loaded model with CPU FP32 for cross-platform stability
+2025-06-21 16:48:22,077 - INFO - ✅ Guidance available
+2025-06-21 16:48:22,114 - INFO - PyTorch version 2.7.1 available.

@@ -1,0 +1,21 @@
+2025-06-21 16:23:15,275 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-21 16:23:15,297 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-21 16:23:15,298 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 16:23:19,521 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:23:19] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 16:23:26,744 | pynucleus.api.app | INFO | app.py:289 | Processing question: what are modular plants? ...
+2025-06-21 16:23:26,840 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 16:23:26,840 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 16:23:26,939 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3763 documents
+2025-06-21 16:23:27,121 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what are modular plants? ...' returned 5 results
+2025-06-21 16:23:27,121 | pynucleus | INFO | engine.py:202 | Retrieved 5 documents for question: 'what are modular plants? ...'
+2025-06-21 16:23:27,121 | pynucleus | INFO | model_loader.py:80 | Generate called with prompt length: 2433, max_tokens: 400
+2025-06-21 16:23:57,932 | pynucleus.api.app | INFO | app.py:336 | Question processed successfully in 31.19s
+2025-06-21 16:23:57,933 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 16:23:57] "POST /ask HTTP/1.1" 200 -
+2025-06-21 16:25:27,825 | pynucleus.api.app | INFO | app.py:64 | Received signal 15, shutting down gracefully...
+2025-06-21 16:25:27,826 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 16:25:28,330 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed
+2025-06-21 16:25:28,831 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 16:25:28,962 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed
