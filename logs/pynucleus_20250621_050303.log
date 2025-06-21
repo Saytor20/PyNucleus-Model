@@ -1,0 +1,19 @@
+2025-06-21 05:03:03,358 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 05:03:03,358 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 1
+2025-06-21 05:03:03,358 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 05:03:03,460 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 05:03:03,460 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 3.0s)
+2025-06-21 05:03:33,465 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 2)
+2025-06-21 05:03:33,466 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 05:03:33,466 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 2
+2025-06-21 05:03:33,466 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 05:03:33,609 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 05:03:33,609 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.1s)
+2025-06-21 05:04:03,615 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 3)
+2025-06-21 05:04:03,615 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 05:04:03,615 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 3
+2025-06-21 05:04:03,615 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 05:04:03,730 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 05:04:03,730 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.1s)
+2025-06-21 05:04:06,761 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 05:04:06,875 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed

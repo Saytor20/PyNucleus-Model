@@ -1,0 +1,130 @@
+2025-06-21 04:00:12,419 | pynucleus | INFO | run_web_app.py:70 | PyNucleus web application starting
+2025-06-21 04:00:12,466 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.13:5001
+2025-06-21 04:00:12,466 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 04:00:37,294 | pynucleus.api.app | INFO | app.py:83 | Health check requested
+2025-06-21 04:00:37,295 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:00:37] "GET /health HTTP/1.1" 200 -
+2025-06-21 04:02:44,323 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:02:44] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 04:02:44,728 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 04:02:44,728 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 04:02:44,806 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3587 documents
+2025-06-21 04:02:44,925 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:02:44,925 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:02:44,926 | pynucleus | INFO | engine.py:39 | ChromaDB client initialized successfully in engine
+2025-06-21 04:02:44,926 | pynucleus | INFO | logger.py:24 | ✅ ChromaDB collection initialized successfully
+2025-06-21 04:02:45,147 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:02:45,147 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:02:45,236 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:02:45] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:02:48,195 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:02:48] "GET / HTTP/1.1" 200 -
+2025-06-21 04:02:48,420 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:02:48,420 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:02:48,602 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:02:48,602 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:02:48,693 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:02:48] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:02:55,832 | pynucleus.api.app | INFO | app.py:164 | Processing question: what is modular plants?...
+2025-06-21 04:02:55,947 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plants?...' returned 5 results
+2025-06-21 04:02:56,678 | pynucleus | WARNING | model_loader.py:80 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 04:02:56,678 | pynucleus.api.app | INFO | app.py:189 | Question processed successfully in 0.85s
+2025-06-21 04:02:56,678 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:02:56] "POST /ask HTTP/1.1" 200 -
+2025-06-21 04:03:28,143 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:03:28] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 04:03:28,377 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:03:28,377 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:03:28,573 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:03:28,573 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:03:28,665 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:03:28] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:03:48,146 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:03:48,146 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:03:48,320 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:03:48,320 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:03:48,408 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:03:48] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:03:58,382 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:03:58,382 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:03:58,555 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:03:58,555 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:03:58,642 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:03:58] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:04:26,250 | pynucleus.api.app | INFO | app.py:265 | File uploaded: 2007-nitrogenous-fertilizers-ehs-guidelines-en.pdf
+2025-06-21 04:04:26,253 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 04:04:26,258 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-21 04:04:26,258 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-21 04:04:27,400 | pynucleus | INFO | collector.py:113 | Found 1 files to ingest from data/01_raw/uploaded_documents
+2025-06-21 04:04:27,401 | pynucleus | INFO | collector.py:114 |   - 0 .txt files
+2025-06-21 04:04:27,401 | pynucleus | INFO | collector.py:115 |   - 1 .pdf files
+2025-06-21 04:04:27,401 | pynucleus | INFO | collector.py:116 |   - 0 .md files
+2025-06-21 04:04:28,416 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:04:28,417 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:04:28,534 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 04:04:28,600 | pynucleus.rag.document_processor | ERROR | document_processor.py:466 | Failed to extract tables from data/01_raw/uploaded_documents/2007-nitrogenous-fertilizers-ehs-guidelines-en.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 04:04:28,687 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:04:28,687 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:04:28,784 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:04:28] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:04:28,845 | pynucleus | INFO | collector.py:191 | Enhanced ingestion completed:
+2025-06-21 04:04:28,845 | pynucleus | INFO | collector.py:192 |   - Total chunks ingested: 1
+2025-06-21 04:04:28,845 | pynucleus | INFO | collector.py:193 |   - Files processed successfully: 1
+2025-06-21 04:04:28,845 | pynucleus | INFO | collector.py:194 |   - Files failed: 0
+2025-06-21 04:04:28,845 | pynucleus | INFO | collector.py:195 |   - Enhanced metadata fields: section_header, document_type, chunk_type, readability_score, etc.
+2025-06-21 04:04:28,845 | pynucleus.api.app | INFO | app.py:270 | Document processed successfully: 2007-nitrogenous-fertilizers-ehs-guidelines-en.pdf
+2025-06-21 04:04:28,845 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:04:28] "POST /upload HTTP/1.1" 200 -
+2025-06-21 04:04:28,940 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:04:28,940 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:04:29,111 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:04:29,111 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:04:29,203 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:04:29] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:04:35,782 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:04:35,782 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:04:36,004 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:04:36,004 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:04:36,093 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:04:36] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:04:58,501 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:04:58,502 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:04:58,745 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:04:58,745 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:04:58,841 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:04:58] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:05:03,711 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:05:03] "GET /dev HTTP/1.1" 200 -
+2025-06-21 04:05:28,570 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:05:28,570 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:05:28,764 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:05:28,764 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:05:28,861 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:05:28] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:05:58,717 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:05:58,717 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:05:58,889 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:05:58,889 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:05:58,976 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:05:58] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:06:28,774 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:06:28,774 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:06:28,948 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:06:28,949 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:06:29,036 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:06:29] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:06:58,799 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:06:58,800 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:06:59,013 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:06:59,014 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:06:59,100 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:06:59] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:07:28,902 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:07:28,903 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:07:29,122 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:07:29,122 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:07:29,212 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:07:29] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:08:02,217 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:08:02,217 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:08:02,402 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:08:02,402 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:08:02,492 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:08:02] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:08:56,437 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:08:56,438 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:08:56,668 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:08:56,668 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:08:56,761 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:08:56] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:08:59,219 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:08:59] "GET /dev HTTP/1.1" 200 -
+2025-06-21 04:09:14,229 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:09:14] "[33mPOST /refresh_vectordb HTTP/1.1[0m" 404 -
+2025-06-21 04:10:07,670 | pynucleus.api.app | INFO | app.py:83 | Health check requested
+2025-06-21 04:10:07,671 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:10:07] "GET /health HTTP/1.1" 200 -
+2025-06-21 04:10:16,139 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:10:16] "[33mPOST /refresh_vectordb HTTP/1.1[0m" 404 -
+2025-06-21 04:10:25,702 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:10:25,702 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:10:25,920 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:10:25,921 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:10:26,011 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:10:26] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:10:31,153 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:10:31] "GET / HTTP/1.1" 200 -

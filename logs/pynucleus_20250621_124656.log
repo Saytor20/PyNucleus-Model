@@ -1,0 +1,62 @@
+2025-06-21 12:46:56,750 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:46:56,750 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 1
+2025-06-21 12:46:56,750 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:46:56,853 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:46:56,853 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 5.8s)
+2025-06-21 12:47:26,858 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 2)
+2025-06-21 12:47:26,859 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:47:26,859 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 2
+2025-06-21 12:47:26,859 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:47:27,006 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:47:27,006 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.1s)
+2025-06-21 12:47:57,011 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 3)
+2025-06-21 12:47:57,012 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:47:57,012 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 3
+2025-06-21 12:47:57,012 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:47:57,157 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:47:57,157 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.1s)
+2025-06-21 12:48:27,162 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 4)
+2025-06-21 12:48:27,163 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:48:27,163 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 4
+2025-06-21 12:48:27,163 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:48:27,301 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:48:27,301 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.1s)
+2025-06-21 12:48:57,307 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 5)
+2025-06-21 12:48:57,311 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:48:57,312 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 5
+2025-06-21 12:48:57,312 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:48:57,471 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:48:57,472 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.2s)
+2025-06-21 12:49:27,477 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 6)
+2025-06-21 12:49:27,477 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:49:27,477 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 6
+2025-06-21 12:49:27,478 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:49:27,609 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:49:27,609 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.1s)
+2025-06-21 12:49:57,614 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 7)
+2025-06-21 12:49:57,615 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:49:57,615 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 7
+2025-06-21 12:49:57,615 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:49:57,750 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:49:57,750 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.1s)
+2025-06-21 12:50:27,754 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 8)
+2025-06-21 12:50:27,755 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:50:27,755 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 8
+2025-06-21 12:50:27,755 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:50:27,902 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:50:27,902 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.1s)
+2025-06-21 12:50:57,907 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 9)
+2025-06-21 12:50:57,908 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:50:57,909 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 9
+2025-06-21 12:50:57,909 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:50:58,053 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:50:58,054 | __main__ | WARNING | run_web_app.py:167 | ⚠️ Quick restart detected (uptime: 0.1s)
+2025-06-21 12:51:28,062 | __main__ | INFO | run_web_app.py:194 | ✅ Starting application (attempt 10)
+2025-06-21 12:51:28,063 | __main__ | ERROR | run_web_app.py:148 | ❌ Failed to start application: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)
+2025-06-21 12:51:28,063 | __main__ | WARNING | run_web_app.py:201 | ⚠️ Application failed, restart attempt 10
+2025-06-21 12:51:28,063 | __main__ | INFO | run_web_app.py:41 | Cleaning up application resources...
+2025-06-21 12:51:28,332 | __main__ | INFO | run_web_app.py:55 | Resource cleanup completed
+2025-06-21 12:51:28,332 | __main__ | ERROR | run_web_app.py:162 | ❌ Maximum restart attempts (10) exceeded
+2025-06-21 12:51:28,332 | __main__ | INFO | run_web_app.py:224 | 🛑 PyNucleus Stable Web App Runner Stopped
+2025-06-21 12:51:28,333 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 12:51:28,451 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed

@@ -87,8 +87,162 @@ def _get_chromadb_client():
             logger.error(f"ChromaDB initialization failed in collector: {e}")
             return None
 
+def _is_already_processed(file_path: pathlib.Path) -> bool:
+    """Check if a file has been successfully processed by looking for meaningful content in ChromaDB."""
+    try:
+        client = _get_chromadb_client()
+        if client is None:
+            return False
+        
+        coll = client.get_or_create_collection("pynucleus_documents")
+        
+        # Query for chunks from this specific file
+        file_stem = file_path.stem
+        
+        # Get all documents with metadata to check content quality
+        all_docs = coll.get(include=['documents', 'metadatas'])
+        if not all_docs or not all_docs.get('ids'):
+            return False
+        
+        matching_chunks = []
+        
+        # Check for chunks from this file and evaluate their quality
+        for i, doc_id in enumerate(all_docs['ids']):
+            if doc_id.startswith(f"{file_stem}__"):
+                # Check the content quality
+                document_content = all_docs['documents'][i] if all_docs['documents'] else ""
+                metadata = all_docs['metadatas'][i] if all_docs['metadatas'] else {}
+                
+                # Skip failed/placeholder chunks
+                if (document_content.startswith("No tables extracted") or 
+                    document_content.startswith("Failed to") or
+                    document_content.startswith("Error:") or
+                    len(document_content.strip()) < 50):  # Less than 50 chars = probably failed
+                    continue
+                    
+                matching_chunks.append(doc_id)
+        
+        # Consider processed only if we have multiple meaningful chunks
+        # (Most successful documents produce several chunks)
+        if len(matching_chunks) >= 2:
+            logger.debug(f"File {file_path.name} already processed with {len(matching_chunks)} meaningful chunks")
+            return True
+        elif len(matching_chunks) == 1:
+            logger.info(f"File {file_path.name} has only 1 meaningful chunk, may need reprocessing")
+            return False
+        else:
+            logger.info(f"File {file_path.name} has no meaningful chunks or failed processing, needs reprocessing")
+            return False
+        
+    except Exception as e:
+        logger.warning(f"Could not check if {file_path.name} is already processed: {e}")
+        return False  # If we can't check, assume not processed
+
+def ingest_single_file(file_path: str):
+    """Ingest a single new document into ChromaDB without reprocessing existing ones."""
+    client = _get_chromadb_client()
+    if client is None:
+        logger.error("Failed to get ChromaDB client for single file ingestion")
+        return {"status": "error", "message": "ChromaDB client unavailable"}
+    
+    file_path_obj = pathlib.Path(file_path)
+    
+    # Check if already processed
+    if _is_already_processed(file_path_obj):
+        logger.info(f"File {file_path_obj.name} already processed, skipping")
+        return {
+            "status": "skipped", 
+            "message": f"File {file_path_obj.name} already processed",
+            "chunks_added": 0
+        }
+    
+    # Use consistent collection name with other modules
+    coll = client.get_or_create_collection("pynucleus_documents")
+    embedder = SentenceTransformer(settings.EMB_MODEL)
+    
+    # Initialize enhanced document processor
+    processor = DocumentProcessor(chunk_size=300, chunk_overlap=150)
+    
+    logger.info(f"Processing new file: {file_path_obj.name}")
+    
+    try:
+        # Use enhanced document processor
+        result = processor.process_document(file_path_obj)
+        
+        if result["status"] == "error":
+            error_msg = f"Document processor failed for {file_path_obj.name}: {result.get('error', 'Unknown error')}"
+            logger.error(error_msg)
+            return {"status": "error", "message": error_msg, "chunks_added": 0}
+        
+        # Process enhanced chunks with enriched metadata
+        chunks = result.get("chunks", [])
+        chunks_added = 0
+        
+        for chunk_data in chunks:
+            try:
+                chunk_text = chunk_data["text"]
+                if not chunk_text.strip():
+                    continue
+                
+                # Generate embedding
+                emb = embedder.encode(chunk_text).tolist()
+                
+                # Create unique document ID
+                doc_id = f"{file_path_obj.stem}__{chunk_data['chunk_id']}"
+                
+                # Enriched metadata from enhanced chunking
+                metadata = {
+                    "source": str(file_path_obj.name),
+                    "source_path": str(file_path_obj),
+                    "section_header": chunk_data.get("section_header", "Unknown"),
+                    "section_index": chunk_data.get("section_index", 0),
+                    "chunk_index_in_section": chunk_data.get("chunk_index_in_section", 0),
+                    "estimated_page": chunk_data.get("estimated_page", 1),
+                    "document_type": chunk_data.get("document_type", "general"),
+                    "chunk_type": chunk_data.get("chunk_type", "narrative"),
+                    "word_count": chunk_data.get("word_count", 0),
+                    "character_count": chunk_data.get("character_count", 0),
+                    "contains_technical_terms": chunk_data.get("contains_technical_terms", False),
+                    "readability_score": chunk_data.get("readability_score", 0.0),
+                    # Additional processing metadata
+                    "processed_with": "enhanced_chunking_v1",
+                    "chunk_size_setting": processor.chunk_size,
+                    "chunk_overlap_setting": processor.chunk_overlap
+                }
+                
+                # Store in ChromaDB with enriched metadata
+                coll.add(
+                    documents=[chunk_text], 
+                    embeddings=[emb], 
+                    ids=[doc_id],
+                    metadatas=[metadata]
+                )
+                chunks_added += 1
+                
+            except Exception as chunk_error:
+                logger.warning(f"Failed to process chunk {chunk_data.get('chunk_id', 'unknown')} from {file_path_obj.name}: {chunk_error}")
+                continue
+        
+        # Log processing results
+        success_msg = f"Successfully processed {file_path_obj.name}: {chunks_added} chunks added"
+        if result.get("tables_extracted", 0) > 0:
+            success_msg += f", {result['tables_extracted']} tables extracted"
+        
+        logger.info(success_msg)
+        return {
+            "status": "success", 
+            "message": success_msg,
+            "chunks_added": chunks_added,
+            "tables_extracted": result.get("tables_extracted", 0)
+        }
+        
+    except Exception as e:
+        error_msg = f"Failed to process file {file_path_obj.name}: {e}"
+        logger.error(error_msg)
+        return {"status": "error", "message": error_msg, "chunks_added": 0}
+
 def ingest(source_dir: str):
-    """Ingest documents into ChromaDB using enhanced document processor and enriched metadata."""
+    """Ingest documents into ChromaDB using enhanced document processor and enriched metadata with incremental processing."""
     client = _get_chromadb_client()
     if client is None:
         logger.error("Failed to get ChromaDB client for ingestion")
@@ -110,16 +264,25 @@ def ingest(source_dir: str):
     md_files = list(source_path.rglob("*.md"))
     files = txt_files + pdf_files + md_files
     
-    logger.info(f"Found {len(files)} files to ingest from {source_dir}")
+    # Filter out already processed files
+    unprocessed_files = [f for f in files if not _is_already_processed(f)]
+    
+    logger.info(f"Found {len(files)} files total in {source_dir}")
     logger.info(f"  - {len(txt_files)} .txt files")
     logger.info(f"  - {len(pdf_files)} .pdf files") 
     logger.info(f"  - {len(md_files)} .md files")
+    logger.info(f"Files already processed: {len(files) - len(unprocessed_files)}")
+    logger.info(f"Files to process: {len(unprocessed_files)}")
+    
+    if not unprocessed_files:
+        logger.info("No new files to process - all files already processed")
+        return
     
     total = 0
     processed_files = 0
     failed_files = 0
     
-    for f in tqdm.tqdm(files, desc="Enhanced ingestion & chunking"):
+    for f in tqdm.tqdm(unprocessed_files, desc="Enhanced ingestion & chunking"):
         try:
             # Use enhanced document processor
             result = processor.process_document(f)

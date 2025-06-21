@@ -58,16 +58,24 @@ class DocumentProcessor:
                 "table_files": []
             }
             
-            # Handle PDF files with table extraction
+            # Handle PDF files with text extraction and table extraction
             if file_path.suffix.lower() == '.pdf':
+                # Extract full text content from PDF
+                content = self._extract_pdf_text(file_path)
+                
+                # Also extract tables separately
                 table_result = self._extract_pdf_tables(file_path)
                 result.update(table_result)
                 
-                # Create a summary text from extracted tables for chunking
-                content = self._create_table_summary(result["table_files"])
+                # If no text content was extracted, fall back to table summary
+                if not content.strip():
+                    content = self._create_table_summary(result["table_files"])
             else:
                 # Read document content for non-PDF files
                 content = self._read_document(file_path)
+            
+            # Save cleaned text to disk before chunking
+            self._save_cleaned_text(content, file_path)
             
             # Enhanced chunking with metadata enrichment
             chunks = self._create_enhanced_chunks(content, file_path)
@@ -102,6 +110,91 @@ class DocumentProcessor:
             # For other file types, return a placeholder
             return f"Document: {file_path.name}\n[Content processing not implemented for {suffix} files]"
     
+    def _save_cleaned_text(self, content: str, file_path: Path) -> None:
+        """Save cleaned text content to the processed directory."""
+        try:
+            # Create output directory structure
+            cleaned_txt_dir = Path("data/02_processed/cleaned_txt")
+            cleaned_txt_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Generate output filename
+            output_filename = f"{file_path.stem}.txt"
+            output_path = cleaned_txt_dir / output_filename
+            
+            # Clean and format the content for saving
+            cleaned_content = self._clean_text_for_saving(content)
+            
+            # Save to file
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(cleaned_content)
+            
+            self.logger.info(f"Saved cleaned text to: {output_path}")
+            
+        except Exception as e:
+            self.logger.warning(f"Failed to save cleaned text for {file_path.name}: {e}")
+    
+    def _clean_text_for_saving(self, content: str) -> str:
+        """Clean and format text content for saving to disk."""
+        if not content:
+            return ""
+        
+        # Basic text cleaning
+        lines = content.split('\n')
+        cleaned_lines = []
+        
+        for line in lines:
+            line = line.strip()
+            if line:  # Skip empty lines
+                # Remove excessive whitespace
+                line = re.sub(r'\s+', ' ', line)
+                # Remove special characters that might cause issues
+                line = re.sub(r'[^\w\s\.\,\;\:\!\?\-\(\)\[\]\/\&\%\$\#\@\+\=\<\>]', '', line)
+                cleaned_lines.append(line)
+        
+        # Join with single newlines and add metadata header
+        cleaned_text = '\n'.join(cleaned_lines)
+        
+        # Add processing metadata header
+        header = f"# Processed Document\n"
+        header += f"# Processing Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        header += f"# Content Length: {len(cleaned_text)} characters\n"
+        header += f"# Word Count: {len(cleaned_text.split())} words\n"
+        header += "# " + "="*50 + "\n\n"
+        
+        return header + cleaned_text
+    
+    def _extract_pdf_text(self, pdf_path: Path) -> str:
+        """Extract text content from PDF using PyMuPDF."""
+        try:
+            import fitz  # PyMuPDF
+            
+            doc = fitz.open(pdf_path)
+            full_text = ""
+            
+            for page_num in range(len(doc)):
+                page = doc.load_page(page_num)
+                text = page.get_text()
+                
+                if text.strip():  # Only add non-empty pages
+                    full_text += f"\n--- Page {page_num + 1} ---\n"
+                    full_text += text + "\n"
+            
+            doc.close()
+            
+            if full_text.strip():
+                self.logger.info(f"Extracted {len(full_text)} characters from PDF: {pdf_path.name}")
+                return full_text
+            else:
+                self.logger.warning(f"No text content extracted from PDF: {pdf_path.name}")
+                return ""
+                
+        except ImportError:
+            self.logger.warning("PyMuPDF not available for PDF text extraction")
+            return ""
+        except Exception as e:
+            self.logger.error(f"Failed to extract text from PDF {pdf_path}: {e}")
+            return ""
+    
     def _create_enhanced_chunks(self, content: str, file_path: Path) -> List[Dict[str, Any]]:
         """
         Enhanced chunking with structure awareness and metadata enrichment.
@@ -116,49 +209,55 @@ class DocumentProcessor:
         if not content:
             return []
         
-        # First, extract document structure
-        sections = self._extract_document_structure(content)
-        
-        chunks = []
-        current_section = None
-        current_page = 1
-        
-        for section in sections:
-            section_text = section['content']
-            section_header = section['header']
+        try:
+            # First, extract document structure
+            sections = self._extract_document_structure(content)
             
-            # Update current section context
-            current_section = section_header
+            chunks = []
+            current_section = None
+            current_page = 1
             
-            # Split section into chunks using improved chunking strategy
-            section_chunks = self._chunk_text_smartly(section_text)
-            
-            for chunk_idx, chunk_text in enumerate(section_chunks):
-                # Estimate page number (rough approximation: 500 words per page)
-                word_position = len(' '.join(chunks).split()) if chunks else 0
-                estimated_page = max(1, (word_position // 500) + 1)
+            for section in sections:
+                section_text = section['content']
+                section_header = section['header']
                 
-                # Create enriched chunk metadata
-                chunk_metadata = {
-                    "chunk_id": len(chunks),
-                    "text": chunk_text,
-                    "word_count": len(chunk_text.split()),
-                    "source_file": file_path.name,
-                    "source_path": str(file_path),
-                    "section_header": current_section,
-                    "section_index": section['index'],
-                    "chunk_index_in_section": chunk_idx,
-                    "estimated_page": estimated_page,
-                    "document_type": self._detect_document_type(file_path, content),
-                    "chunk_type": self._classify_chunk_content(chunk_text),
-                    "character_count": len(chunk_text),
-                    "contains_technical_terms": self._contains_technical_terms(chunk_text),
-                    "readability_score": self._calculate_readability_score(chunk_text)
-                }
+                # Update current section context
+                current_section = section_header
                 
-                chunks.append(chunk_metadata)
-        
-        return chunks
+                # Split section into chunks using improved chunking strategy
+                section_chunks = self._chunk_text_smartly(section_text)
+                
+                for chunk_idx, chunk_text in enumerate(section_chunks):
+                    # Estimate page number (rough approximation: 500 words per page)
+                    total_words_so_far = sum(chunk.get('word_count', 0) for chunk in chunks) if chunks else 0
+                    estimated_page = max(1, (total_words_so_far // 500) + 1)
+                    
+                    # Create enriched chunk metadata
+                    chunk_metadata = {
+                        "chunk_id": len(chunks),
+                        "text": chunk_text,
+                        "word_count": len(chunk_text.split()),
+                        "source_file": file_path.name,
+                        "source_path": str(file_path),
+                        "section_header": current_section,
+                        "section_index": section['index'],
+                        "chunk_index_in_section": chunk_idx,
+                        "estimated_page": estimated_page,
+                        "document_type": self._detect_document_type(file_path, content),
+                        "chunk_type": self._classify_chunk_content(chunk_text),
+                        "character_count": len(chunk_text),
+                        "contains_technical_terms": self._contains_technical_terms(chunk_text),
+                        "readability_score": self._calculate_readability_score(chunk_text)
+                    }
+                    
+                    chunks.append(chunk_metadata)
+            
+            return chunks
+            
+        except Exception as e:
+            self.logger.warning(f"Enhanced chunking failed for {file_path}: {e}. Using fallback chunking.")
+            # Fallback to legacy chunking method
+            return self._create_chunks(content)
     
     def _extract_document_structure(self, content: str) -> List[Dict[str, Any]]:
         """Extract document structure by identifying sections and headers."""

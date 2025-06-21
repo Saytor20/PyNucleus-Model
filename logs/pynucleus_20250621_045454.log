@@ -1,0 +1,19 @@
+2025-06-21 04:54:54,719 | pynucleus | INFO | run_web_app.py:71 | PyNucleus web application starting
+2025-06-21 04:54:54,772 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.13:5001
+2025-06-21 04:54:54,772 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 04:55:11,551 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 04:55:11,619 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 04:55:11,620 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 04:55:11,701 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 04:55:11,884 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 04:55:11,884 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 04:55:15,260 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 04:55:15,260 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 04:55:15,261 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 04:55:15,261 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:55:15] "GET /health HTTP/1.1" 200 -
+2025-06-21 04:55:40,992 | pynucleus.api.app | INFO | app.py:64 | Received signal 15, shutting down gracefully...
+2025-06-21 04:55:41,376 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 04:55:41,513 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed

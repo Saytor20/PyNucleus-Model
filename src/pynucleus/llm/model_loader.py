@@ -48,19 +48,34 @@ if not (_hf or _lcpp):
     logger.warning("Falling back to CPU FP16")
 
 def generate(prompt:str, max_tokens=256, temperature=0.7)->str:
+    # Validate input
+    if not prompt or not prompt.strip():
+        return _generate_fallback_response("empty prompt")
+    
     # Prefer llama-cpp if present
     if _lcpp:
         try:
+            # Truncate prompt if too long to prevent memory issues
+            max_prompt_length = 1500  # Reasonable limit for context
+            if len(prompt) > max_prompt_length:
+                prompt = prompt[:max_prompt_length] + "..."
+                logger.warning(f"Prompt truncated to {max_prompt_length} characters")
+            
             out = _lcpp(
                 prompt, 
-                max_tokens=max_tokens, 
+                max_tokens=min(max_tokens, 256),  # Cap max tokens to prevent memory issues
                 temperature=0.1,         # Very low temperature for stability
                 top_p=0.5,               # Conservative nucleus sampling
                 top_k=10,                # Limited vocabulary
                 repeat_penalty=1.5,      # Strong repeat penalty
-                stop=["</s>", "<|im_end|>", "\n\n\n"],  # Stop sequences
+                stop=["</s>", "<|im_end|>", "\n\n\n", "Human:", "User:"],  # Stop sequences
                 echo=False               # Don't echo the prompt
             )
+            
+            # Validate output structure
+            if not out or "choices" not in out or not out["choices"]:
+                raise ValueError("Invalid model output structure")
+                
             response = out["choices"][0]["text"].strip()
             
             # Check if response is valid (not empty or repetitive)
@@ -74,36 +89,69 @@ def generate(prompt:str, max_tokens=256, temperature=0.7)->str:
                 if len(unique_words) / len(words) < 0.3:  # If less than 30% unique words
                     raise ValueError("Repetitive response detected")
             
+            # Check for model artifacts/hallucinations
+            if response.count("I don't know") > 2 or response.count("I'm not sure") > 2:
+                raise ValueError("Model showing uncertainty patterns")
+            
             return response
             
         except Exception as e:
             logger.warning(f"Model generation failed: {e}. Using fallback.")
-            # Fallback: Extract key terms from prompt and provide basic response
+            # Clear any potential memory issues
+            try:
+                import gc
+                gc.collect()
+            except:
+                pass
             return _generate_fallback_response(prompt)
 
     # Else use HF model (CUDA or CPU)
     try:
-        ids = _tok(prompt, return_tensors="pt").to(_hf.device)
-        out = _hf.generate(
-            **ids, 
-            max_new_tokens=max_tokens, 
-            temperature=0.1,
-            do_sample=True,
-            top_p=0.5,
-            top_k=10,
-            repetition_penalty=1.5,
-            pad_token_id=_tok.eos_token_id
-        )
-        response = _tok.decode(out[0], skip_special_tokens=True)
+        # Truncate prompt for HF models too
+        max_prompt_length = 1500
+        if len(prompt) > max_prompt_length:
+            prompt = prompt[:max_prompt_length] + "..."
+            
+        ids = _tok(prompt, return_tensors="pt", truncation=True, max_length=1024).to(_hf.device)
+        
+        with torch.no_grad():  # Prevent gradient computation to save memory
+            out = _hf.generate(
+                **ids, 
+                max_new_tokens=min(max_tokens, 256), 
+                temperature=0.1,
+                do_sample=True,
+                top_p=0.5,
+                top_k=10,
+                repetition_penalty=1.5,
+                pad_token_id=_tok.eos_token_id,
+                eos_token_id=_tok.eos_token_id,
+                early_stopping=True
+            )
+        
+        # Extract only the new tokens (not the input)
+        input_length = ids['input_ids'].shape[1]
+        new_tokens = out[0][input_length:]
+        response = _tok.decode(new_tokens, skip_special_tokens=True).strip()
         
         # Validate response
         if not response or len(response.strip()) < 10:
             raise ValueError("Invalid response")
             
+        # Clear memory
+        del ids, out, new_tokens
+        torch.cuda.empty_cache() if torch.cuda.is_available() else None
+            
         return response
         
     except Exception as e:
         logger.warning(f"HF model generation failed: {e}. Using fallback.")
+        # Clear memory on error
+        try:
+            torch.cuda.empty_cache() if torch.cuda.is_available() else None
+            import gc
+            gc.collect()
+        except:
+            pass
         return _generate_fallback_response(prompt)
 
 def _generate_fallback_response(prompt: str) -> str:

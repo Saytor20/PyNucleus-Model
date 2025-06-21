@@ -1,0 +1,564 @@
+2025-06-21 04:54:49,953 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 04:54:49,953 - INFO - 📊 Max restarts: 10
+2025-06-21 04:54:49,953 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 04:54:50,790 - INFO - ✅ Core dependencies available
+2025-06-21 04:54:50,790 - INFO - ✅ Required directories setup complete
+2025-06-21 04:54:50,795 - INFO - ✅ Memory usage acceptable: 62.7%
+2025-06-21 04:54:50,795 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 04:54:50,795 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python run_web_app.py
+2025-06-21 04:54:50,800 - INFO - ✅ Application started successfully (attempt 1)
+2025-06-21 04:55:23,028 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 04:55:23,029 - INFO - 📊 Max restarts: 10
+2025-06-21 04:55:23,029 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 04:55:23,702 - INFO - ✅ Core dependencies available
+2025-06-21 04:55:23,702 - INFO - ✅ Required directories setup complete
+2025-06-21 04:55:23,707 - INFO - ✅ Memory usage acceptable: 63.0%
+2025-06-21 04:55:23,707 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 04:55:23,707 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python run_web_app.py
+2025-06-21 04:55:23,711 - INFO - ✅ Application started successfully (attempt 1)
+2025-06-21 04:55:28,613 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 04:55:28,613 - WARNING - ⚠️ Application failed, restart attempt 1
+2025-06-21 04:55:28,651 - INFO - 🧹 Cleanup completed
+2025-06-21 04:55:28,651 - WARNING - ⚠️ Quick restart detected (uptime: 4.9s)
+2025-06-21 04:55:40,992 - INFO - Received signal 15, shutting down gracefully...
+2025-06-21 04:56:04,582 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 04:56:04,582 - INFO - 📊 Max restarts: 10
+2025-06-21 04:56:04,582 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 04:56:05,318 - INFO - ✅ Core dependencies available
+2025-06-21 04:56:05,318 - INFO - ✅ Required directories setup complete
+2025-06-21 04:56:05,322 - INFO - ✅ Memory usage acceptable: 56.9%
+2025-06-21 04:56:05,322 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 04:56:05,322 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python run_web_app.py
+2025-06-21 04:56:05,325 - INFO - ✅ Application started successfully (attempt 1)
+2025-06-21 04:58:03,694 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 04:58:03,694 - INFO - 📊 Max restarts: 10
+2025-06-21 04:58:03,694 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 04:58:04,449 - INFO - ✅ Core dependencies available
+2025-06-21 04:58:04,449 - INFO - ✅ Required directories setup complete
+2025-06-21 04:58:04,454 - INFO - ✅ Memory usage acceptable: 63.0%
+2025-06-21 04:58:04,455 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 04:58:04,455 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python run_web_app.py
+2025-06-21 04:58:04,459 - INFO - ✅ Application started successfully (attempt 1)
+2025-06-21 04:58:04,579 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 04:58:04,579 - WARNING - ⚠️ Application failed, restart attempt 1
+2025-06-21 04:58:04,607 - INFO - 🧹 Cleanup completed
+2025-06-21 04:58:04,607 - WARNING - ⚠️ Quick restart detected (uptime: 0.2s)
+2025-06-21 04:58:45,108 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 04:58:45,108 - INFO - 📊 Max restarts: 10
+2025-06-21 04:58:45,108 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 04:58:45,742 - INFO - ✅ Core dependencies available
+2025-06-21 04:58:45,742 - INFO - ✅ Required directories setup complete
+2025-06-21 04:58:45,747 - INFO - ✅ Memory usage acceptable: 62.6%
+2025-06-21 04:58:45,747 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 04:58:45,747 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python -c 
+import sys
+from pathlib import Path
+src_path = str(Path(".").absolute() / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.api.app import app
+from pynucleus.settings import settings
+from pynucleus.utils.logger import logger
+
+print("🚀 Starting PyNucleus Web Application...")
+print("=" * 50)
+print(f"✅ PyNucleus modules loaded successfully")
+print(f"📋 Configuration:")
+print(f"   • ChromaDB Path: {settings.CHROMA_PATH}")
+print(f"   • Model: {settings.MODEL_ID}")
+print(f"   • Embedding Model: {settings.EMB_MODEL}")
+print(f"   • Max Tokens: {settings.MAX_TOKENS}")
+print(f"   • Retrieve Top-K: {settings.RETRIEVE_TOP_K}")
+
+chroma_path = Path(settings.CHROMA_PATH)
+if chroma_path.exists():
+    print(f"✅ Vector Database Found: {settings.CHROMA_PATH}")
+else:
+    print(f"⚠️ Vector Database Not Found: {settings.CHROMA_PATH}")
+
+print(f"\n🌐 Starting web server...")
+print(f"📍 Application available at: http://localhost:5001")
+print(f"🔧 Developer console: http://localhost:5001/dev")
+print(f"=" * 50)
+print(f"🎯 Ready! Visit http://localhost:5001 to start using PyNucleus")
+print(f"🛑 Press Ctrl+C to stop the server")
+print(f"=" * 50)
+
+logger.info("PyNucleus web application starting")
+app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
+
+2025-06-21 04:58:45,750 - INFO - ✅ Application started successfully (attempt 1)
+2025-06-21 04:58:50,578 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 04:58:50,578 - WARNING - ⚠️ Application failed, restart attempt 1
+2025-06-21 04:58:50,605 - INFO - 🧹 Cleanup completed
+2025-06-21 04:58:50,605 - WARNING - ⚠️ Quick restart detected (uptime: 4.9s)
+2025-06-21 04:59:16,766 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 04:59:16,766 - INFO - 📊 Max restarts: 10
+2025-06-21 04:59:16,766 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 04:59:17,397 - INFO - ✅ Core dependencies available
+2025-06-21 04:59:17,397 - INFO - ✅ Required directories setup complete
+2025-06-21 04:59:17,401 - INFO - ✅ Memory usage acceptable: 62.0%
+2025-06-21 04:59:17,401 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 04:59:17,401 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python -c 
+import sys
+from pathlib import Path
+src_path = str(Path(".").absolute() / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.api.app import app
+from pynucleus.settings import settings
+from pynucleus.utils.logger import logger
+
+print("🚀 Starting PyNucleus Web Application...")
+print("=" * 50)
+print(f"✅ PyNucleus modules loaded successfully")
+print(f"📋 Configuration:")
+print(f"   • ChromaDB Path: {settings.CHROMA_PATH}")
+print(f"   • Model: {settings.MODEL_ID}")
+print(f"   • Embedding Model: {settings.EMB_MODEL}")
+print(f"   • Max Tokens: {settings.MAX_TOKENS}")
+print(f"   • Retrieve Top-K: {settings.RETRIEVE_TOP_K}")
+
+chroma_path = Path(settings.CHROMA_PATH)
+if chroma_path.exists():
+    print(f"✅ Vector Database Found: {settings.CHROMA_PATH}")
+else:
+    print(f"⚠️ Vector Database Not Found: {settings.CHROMA_PATH}")
+
+print(f"\n🌐 Starting web server...")
+print(f"📍 Application available at: http://localhost:5001")
+print(f"🔧 Developer console: http://localhost:5001/dev")
+print(f"=" * 50)
+print(f"🎯 Ready! Visit http://localhost:5001 to start using PyNucleus")
+print(f"🛑 Press Ctrl+C to stop the server")
+print(f"=" * 50)
+
+logger.info("PyNucleus web application starting")
+app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
+
+2025-06-21 04:59:17,405 - INFO - ✅ Application started successfully (attempt 1)
+2025-06-21 04:59:20,607 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 04:59:20,607 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python -c 
+import sys
+from pathlib import Path
+src_path = str(Path(".").absolute() / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.api.app import app
+from pynucleus.settings import settings
+from pynucleus.utils.logger import logger
+
+print("🚀 Starting PyNucleus Web Application...")
+print("=" * 50)
+print(f"✅ PyNucleus modules loaded successfully")
+print(f"📋 Configuration:")
+print(f"   • ChromaDB Path: {settings.CHROMA_PATH}")
+print(f"   • Model: {settings.MODEL_ID}")
+print(f"   • Embedding Model: {settings.EMB_MODEL}")
+print(f"   • Max Tokens: {settings.MAX_TOKENS}")
+print(f"   • Retrieve Top-K: {settings.RETRIEVE_TOP_K}")
+
+chroma_path = Path(settings.CHROMA_PATH)
+if chroma_path.exists():
+    print(f"✅ Vector Database Found: {settings.CHROMA_PATH}")
+else:
+    print(f"⚠️ Vector Database Not Found: {settings.CHROMA_PATH}")
+
+print(f"\n🌐 Starting web server...")
+print(f"📍 Application available at: http://localhost:5001")
+print(f"🔧 Developer console: http://localhost:5001/dev")
+print(f"=" * 50)
+print(f"🎯 Ready! Visit http://localhost:5001 to start using PyNucleus")
+print(f"🛑 Press Ctrl+C to stop the server")
+print(f"=" * 50)
+
+logger.info("PyNucleus web application starting")
+app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
+
+2025-06-21 04:59:20,610 - INFO - ✅ Application started successfully (attempt 2)
+2025-06-21 04:59:21,685 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 04:59:21,686 - WARNING - ⚠️ Application failed, restart attempt 1
+2025-06-21 04:59:21,716 - INFO - 🧹 Cleanup completed
+2025-06-21 04:59:21,716 - WARNING - ⚠️ Quick restart detected (uptime: 4.3s)
+2025-06-21 04:59:24,730 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 04:59:24,730 - WARNING - ⚠️ Application failed, restart attempt 2
+2025-06-21 04:59:24,758 - INFO - 🧹 Cleanup completed
+2025-06-21 04:59:24,758 - WARNING - ⚠️ Quick restart detected (uptime: 4.2s)
+2025-06-21 04:59:51,721 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 04:59:51,721 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python -c 
+import sys
+from pathlib import Path
+src_path = str(Path(".").absolute() / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.api.app import app
+from pynucleus.settings import settings
+from pynucleus.utils.logger import logger
+
+print("🚀 Starting PyNucleus Web Application...")
+print("=" * 50)
+print(f"✅ PyNucleus modules loaded successfully")
+print(f"📋 Configuration:")
+print(f"   • ChromaDB Path: {settings.CHROMA_PATH}")
+print(f"   • Model: {settings.MODEL_ID}")
+print(f"   • Embedding Model: {settings.EMB_MODEL}")
+print(f"   • Max Tokens: {settings.MAX_TOKENS}")
+print(f"   • Retrieve Top-K: {settings.RETRIEVE_TOP_K}")
+
+chroma_path = Path(settings.CHROMA_PATH)
+if chroma_path.exists():
+    print(f"✅ Vector Database Found: {settings.CHROMA_PATH}")
+else:
+    print(f"⚠️ Vector Database Not Found: {settings.CHROMA_PATH}")
+
+print(f"\n🌐 Starting web server...")
+print(f"📍 Application available at: http://localhost:5001")
+print(f"🔧 Developer console: http://localhost:5001/dev")
+print(f"=" * 50)
+print(f"🎯 Ready! Visit http://localhost:5001 to start using PyNucleus")
+print(f"🛑 Press Ctrl+C to stop the server")
+print(f"=" * 50)
+
+logger.info("PyNucleus web application starting")
+app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
+
+2025-06-21 04:59:51,727 - INFO - ✅ Application started successfully (attempt 2)
+2025-06-21 04:59:56,089 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 04:59:56,089 - WARNING - ⚠️ Application failed, restart attempt 2
+2025-06-21 04:59:56,116 - INFO - 🧹 Cleanup completed
+2025-06-21 04:59:56,116 - WARNING - ⚠️ Quick restart detected (uptime: 4.4s)
+2025-06-21 05:00:26,118 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 05:00:26,118 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python -c 
+import sys
+from pathlib import Path
+src_path = str(Path(".").absolute() / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.api.app import app
+from pynucleus.settings import settings
+from pynucleus.utils.logger import logger
+
+print("🚀 Starting PyNucleus Web Application...")
+print("=" * 50)
+print(f"✅ PyNucleus modules loaded successfully")
+print(f"📋 Configuration:")
+print(f"   • ChromaDB Path: {settings.CHROMA_PATH}")
+print(f"   • Model: {settings.MODEL_ID}")
+print(f"   • Embedding Model: {settings.EMB_MODEL}")
+print(f"   • Max Tokens: {settings.MAX_TOKENS}")
+print(f"   • Retrieve Top-K: {settings.RETRIEVE_TOP_K}")
+
+chroma_path = Path(settings.CHROMA_PATH)
+if chroma_path.exists():
+    print(f"✅ Vector Database Found: {settings.CHROMA_PATH}")
+else:
+    print(f"⚠️ Vector Database Not Found: {settings.CHROMA_PATH}")
+
+print(f"\n🌐 Starting web server...")
+print(f"📍 Application available at: http://localhost:5001")
+print(f"🔧 Developer console: http://localhost:5001/dev")
+print(f"=" * 50)
+print(f"🎯 Ready! Visit http://localhost:5001 to start using PyNucleus")
+print(f"🛑 Press Ctrl+C to stop the server")
+print(f"=" * 50)
+
+logger.info("PyNucleus web application starting")
+app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
+
+2025-06-21 05:00:26,123 - INFO - ✅ Application started successfully (attempt 3)
+2025-06-21 05:00:30,867 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 05:00:30,867 - WARNING - ⚠️ Application failed, restart attempt 3
+2025-06-21 05:00:30,893 - INFO - 🧹 Cleanup completed
+2025-06-21 05:00:30,893 - WARNING - ⚠️ Quick restart detected (uptime: 4.8s)
+2025-06-21 05:01:00,898 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 05:01:00,899 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python -c 
+import sys
+from pathlib import Path
+src_path = str(Path(".").absolute() / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.api.app import app
+from pynucleus.settings import settings
+from pynucleus.utils.logger import logger
+
+print("🚀 Starting PyNucleus Web Application...")
+print("=" * 50)
+print(f"✅ PyNucleus modules loaded successfully")
+print(f"📋 Configuration:")
+print(f"   • ChromaDB Path: {settings.CHROMA_PATH}")
+print(f"   • Model: {settings.MODEL_ID}")
+print(f"   • Embedding Model: {settings.EMB_MODEL}")
+print(f"   • Max Tokens: {settings.MAX_TOKENS}")
+print(f"   • Retrieve Top-K: {settings.RETRIEVE_TOP_K}")
+
+chroma_path = Path(settings.CHROMA_PATH)
+if chroma_path.exists():
+    print(f"✅ Vector Database Found: {settings.CHROMA_PATH}")
+else:
+    print(f"⚠️ Vector Database Not Found: {settings.CHROMA_PATH}")
+
+print(f"\n🌐 Starting web server...")
+print(f"📍 Application available at: http://localhost:5001")
+print(f"🔧 Developer console: http://localhost:5001/dev")
+print(f"=" * 50)
+print(f"🎯 Ready! Visit http://localhost:5001 to start using PyNucleus")
+print(f"🛑 Press Ctrl+C to stop the server")
+print(f"=" * 50)
+
+logger.info("PyNucleus web application starting")
+app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
+
+2025-06-21 05:01:00,902 - INFO - ✅ Application started successfully (attempt 4)
+2025-06-21 05:01:05,500 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 05:01:05,501 - WARNING - ⚠️ Application failed, restart attempt 4
+2025-06-21 05:01:05,547 - INFO - 🧹 Cleanup completed
+2025-06-21 05:01:05,547 - WARNING - ⚠️ Quick restart detected (uptime: 4.6s)
+2025-06-21 05:01:35,573 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 05:01:35,574 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python -c 
+import sys
+from pathlib import Path
+src_path = str(Path(".").absolute() / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.api.app import app
+from pynucleus.settings import settings
+from pynucleus.utils.logger import logger
+
+print("🚀 Starting PyNucleus Web Application...")
+print("=" * 50)
+print(f"✅ PyNucleus modules loaded successfully")
+print(f"📋 Configuration:")
+print(f"   • ChromaDB Path: {settings.CHROMA_PATH}")
+print(f"   • Model: {settings.MODEL_ID}")
+print(f"   • Embedding Model: {settings.EMB_MODEL}")
+print(f"   • Max Tokens: {settings.MAX_TOKENS}")
+print(f"   • Retrieve Top-K: {settings.RETRIEVE_TOP_K}")
+
+chroma_path = Path(settings.CHROMA_PATH)
+if chroma_path.exists():
+    print(f"✅ Vector Database Found: {settings.CHROMA_PATH}")
+else:
+    print(f"⚠️ Vector Database Not Found: {settings.CHROMA_PATH}")
+
+print(f"\n🌐 Starting web server...")
+print(f"📍 Application available at: http://localhost:5001")
+print(f"🔧 Developer console: http://localhost:5001/dev")
+print(f"=" * 50)
+print(f"🎯 Ready! Visit http://localhost:5001 to start using PyNucleus")
+print(f"🛑 Press Ctrl+C to stop the server")
+print(f"=" * 50)
+
+logger.info("PyNucleus web application starting")
+app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
+
+2025-06-21 05:01:35,576 - INFO - ✅ Application started successfully (attempt 5)
+2025-06-21 05:01:40,772 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 05:01:40,772 - WARNING - ⚠️ Application failed, restart attempt 5
+2025-06-21 05:01:40,803 - INFO - 🧹 Cleanup completed
+2025-06-21 05:01:40,804 - WARNING - ⚠️ Quick restart detected (uptime: 5.2s)
+2025-06-21 05:02:10,815 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 05:02:10,815 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python -c 
+import sys
+from pathlib import Path
+src_path = str(Path(".").absolute() / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.api.app import app
+from pynucleus.settings import settings
+from pynucleus.utils.logger import logger
+
+print("🚀 Starting PyNucleus Web Application...")
+print("=" * 50)
+print(f"✅ PyNucleus modules loaded successfully")
+print(f"📋 Configuration:")
+print(f"   • ChromaDB Path: {settings.CHROMA_PATH}")
+print(f"   • Model: {settings.MODEL_ID}")
+print(f"   • Embedding Model: {settings.EMB_MODEL}")
+print(f"   • Max Tokens: {settings.MAX_TOKENS}")
+print(f"   • Retrieve Top-K: {settings.RETRIEVE_TOP_K}")
+
+chroma_path = Path(settings.CHROMA_PATH)
+if chroma_path.exists():
+    print(f"✅ Vector Database Found: {settings.CHROMA_PATH}")
+else:
+    print(f"⚠️ Vector Database Not Found: {settings.CHROMA_PATH}")
+
+print(f"\n🌐 Starting web server...")
+print(f"📍 Application available at: http://localhost:5001")
+print(f"🔧 Developer console: http://localhost:5001/dev")
+print(f"=" * 50)
+print(f"🎯 Ready! Visit http://localhost:5001 to start using PyNucleus")
+print(f"🛑 Press Ctrl+C to stop the server")
+print(f"=" * 50)
+
+logger.info("PyNucleus web application starting")
+app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
+
+2025-06-21 05:02:10,818 - INFO - ✅ Application started successfully (attempt 6)
+2025-06-21 05:02:15,104 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 05:02:15,104 - WARNING - ⚠️ Application failed, restart attempt 6
+2025-06-21 05:02:15,128 - INFO - 🧹 Cleanup completed
+2025-06-21 05:02:15,128 - WARNING - ⚠️ Quick restart detected (uptime: 4.3s)
+2025-06-21 05:02:23,152 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 05:02:23,387 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 05:02:24,000 - INFO - ✅ Guidance available
+2025-06-21 05:02:25,256 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 05:02:45,134 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 05:02:45,134 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python -c 
+import sys
+from pathlib import Path
+src_path = str(Path(".").absolute() / "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+from pynucleus.api.app import app
+from pynucleus.settings import settings
+from pynucleus.utils.logger import logger
+
+print("🚀 Starting PyNucleus Web Application...")
+print("=" * 50)
+print(f"✅ PyNucleus modules loaded successfully")
+print(f"📋 Configuration:")
+print(f"   • ChromaDB Path: {settings.CHROMA_PATH}")
+print(f"   • Model: {settings.MODEL_ID}")
+print(f"   • Embedding Model: {settings.EMB_MODEL}")
+print(f"   • Max Tokens: {settings.MAX_TOKENS}")
+print(f"   • Retrieve Top-K: {settings.RETRIEVE_TOP_K}")
+
+chroma_path = Path(settings.CHROMA_PATH)
+if chroma_path.exists():
+    print(f"✅ Vector Database Found: {settings.CHROMA_PATH}")
+else:
+    print(f"⚠️ Vector Database Not Found: {settings.CHROMA_PATH}")
+
+print(f"\n🌐 Starting web server...")
+print(f"📍 Application available at: http://localhost:5001")
+print(f"🔧 Developer console: http://localhost:5001/dev")
+print(f"=" * 50)
+print(f"🎯 Ready! Visit http://localhost:5001 to start using PyNucleus")
+print(f"🛑 Press Ctrl+C to stop the server")
+print(f"=" * 50)
+
+logger.info("PyNucleus web application starting")
+app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
+
+2025-06-21 05:02:45,137 - INFO - ✅ Application started successfully (attempt 7)
+2025-06-21 05:02:49,890 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 05:02:49,890 - WARNING - ⚠️ Application failed, restart attempt 7
+2025-06-21 05:02:49,929 - INFO - 🧹 Cleanup completed
+2025-06-21 05:02:49,929 - WARNING - ⚠️ Quick restart detected (uptime: 4.8s)
+2025-06-21 05:02:58,280 - INFO - Received signal 15, shutting down gracefully...
+2025-06-21 05:02:59,824 - WARNING - 📉 Process terminated unexpectedly
+2025-06-21 05:02:59,825 - WARNING - ⚠️ Application failed, restart attempt 1
+2025-06-21 05:02:59,858 - INFO - 🧹 Cleanup completed
+2025-06-21 05:02:59,858 - INFO - 🚀 Starting PyNucleus web application...
+2025-06-21 05:02:59,858 - INFO - Command: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python run_web_app.py
+2025-06-21 05:02:59,861 - INFO - ✅ Application started successfully (attempt 2)
+2025-06-21 05:02:59,884 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 05:02:59,884 - INFO - 📊 Max restarts: 10
+2025-06-21 05:02:59,884 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 05:03:00,409 - INFO - ✅ Core dependencies available
+2025-06-21 05:03:00,410 - INFO - ✅ Required directories setup complete
+2025-06-21 05:03:00,414 - INFO - ✅ Memory usage acceptable: 59.8%
+2025-06-21 05:03:00,414 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 05:03:00,849 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 05:03:01,085 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 05:03:01,844 - INFO - ✅ Guidance available
+2025-06-21 05:03:03,109 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 05:03:20,068 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 05:03:20,068 - INFO - 📊 Max restarts: 10
+2025-06-21 05:03:20,068 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 05:03:20,772 - INFO - ✅ Core dependencies available
+2025-06-21 05:03:20,772 - INFO - ✅ Required directories setup complete
+2025-06-21 05:03:20,776 - INFO - ✅ Memory usage acceptable: 63.2%
+2025-06-21 05:03:20,776 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 05:03:21,221 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 05:03:21,441 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 05:03:22,007 - INFO - ✅ Guidance available
+2025-06-21 05:03:23,211 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 05:04:06,472 - INFO - Received signal 15, shutting down gracefully...
+2025-06-21 12:46:50,156 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 12:46:50,156 - INFO - 📊 Max restarts: 10
+2025-06-21 12:46:50,156 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 12:46:51,049 - INFO - ✅ Core dependencies available
+2025-06-21 12:46:51,049 - INFO - ✅ Required directories setup complete
+2025-06-21 12:46:51,055 - INFO - ✅ Memory usage acceptable: 75.6%
+2025-06-21 12:46:51,055 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 12:46:51,970 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 12:46:52,481 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 12:46:53,394 - INFO - ✅ Guidance available
+2025-06-21 12:46:55,502 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 12:54:14,263 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 12:54:14,775 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 12:54:15,680 - INFO - ✅ Guidance available
+2025-06-21 12:54:17,217 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 12:57:26,406 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 12:57:26,406 - INFO - 📊 Max restarts: 10
+2025-06-21 12:57:26,406 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 12:57:27,075 - INFO - ✅ Core dependencies available
+2025-06-21 12:57:27,075 - INFO - ✅ Required directories setup complete
+2025-06-21 12:57:27,080 - INFO - ✅ Memory usage acceptable: 75.7%
+2025-06-21 12:57:27,080 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 12:57:27,627 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 12:57:27,924 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 12:57:28,817 - INFO - ✅ Guidance available
+2025-06-21 12:57:30,268 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 13:00:47,616 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 13:00:48,126 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 13:00:49,046 - INFO - ✅ Guidance available
+2025-06-21 13:00:50,666 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 13:12:55,184 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 13:12:55,740 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 13:12:56,980 - INFO - ✅ Guidance available
+2025-06-21 13:12:59,144 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 13:29:02,255 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 13:29:02,750 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 13:29:03,705 - INFO - ✅ Guidance available
+2025-06-21 13:29:05,325 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 13:33:14,468 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 13:33:14,709 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 13:33:15,615 - INFO - ✅ Guidance available
+2025-06-21 13:33:17,058 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 13:34:24,719 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 13:34:25,002 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 13:34:25,900 - INFO - ✅ Guidance available
+2025-06-21 13:34:27,332 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 13:43:03,806 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 13:43:04,048 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 13:43:04,950 - INFO - ✅ Guidance available
+2025-06-21 13:43:06,393 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 13:50:53,667 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 13:50:54,063 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 13:50:55,022 - INFO - ✅ Guidance available
+2025-06-21 13:50:56,603 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 13:55:26,358 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 13:55:26,596 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 13:55:27,502 - INFO - ✅ Guidance available
+2025-06-21 13:55:29,121 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 14:01:27,946 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 14:01:28,189 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 14:01:28,869 - INFO - ✅ Guidance available
+2025-06-21 14:01:30,212 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 14:06:07,415 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 14:06:07,672 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 14:06:08,543 - INFO - ✅ Guidance available
+2025-06-21 14:06:09,938 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 15:05:29,321 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 15:05:29,321 - INFO - 📊 Max restarts: 10
+2025-06-21 15:05:29,321 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 15:05:29,998 - INFO - ✅ Core dependencies available
+2025-06-21 15:05:29,998 - INFO - ✅ Required directories setup complete
+2025-06-21 15:05:30,003 - INFO - ✅ Memory usage acceptable: 74.3%
+2025-06-21 15:05:30,003 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 15:05:30,550 - WARNING - CUDA path skipped: No CUDA
+2025-06-21 15:05:30,818 - INFO - ✅ Loaded GGUF via Metal
+2025-06-21 15:05:31,702 - INFO - ✅ Guidance available
+2025-06-21 15:05:33,174 - INFO - PyTorch version 2.7.1 available.

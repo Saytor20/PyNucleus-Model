@@ -1,0 +1,399 @@
+2025-06-21 04:56:08,499 | pynucleus | INFO | run_web_app.py:71 | PyNucleus web application starting
+2025-06-21 04:56:08,552 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.13:5001
+2025-06-21 04:56:08,552 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 04:56:16,417 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 04:56:16,474 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 04:56:16,474 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 04:56:16,546 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 04:56:16,669 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 04:56:16,670 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 04:56:18,899 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 04:56:18,899 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 04:56:18,899 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 04:56:18,900 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:56:18] "GET /health HTTP/1.1" 200 -
+2025-06-21 04:56:24,847 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:56:24] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 04:56:25,170 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 1 results
+2025-06-21 04:56:25,170 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:56:25,171 | pynucleus | INFO | engine.py:39 | ChromaDB client initialized successfully in engine
+2025-06-21 04:56:25,173 | pynucleus | INFO | logger.py:24 | ✅ ChromaDB collection initialized successfully
+2025-06-21 04:56:25,395 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for '...' returned 1000 results
+2025-06-21 04:56:25,395 | pynucleus | WARNING | engine.py:144 | ChromaVectorStore retrieval failed, falling back to direct collection query: 'list' object has no attribute 'get'
+2025-06-21 04:56:25,485 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:56:25] "GET /status HTTP/1.1" 200 -
+2025-06-21 04:56:32,794 | pynucleus.api.app | INFO | app.py:274 | Processing question: what modular plants?...
+2025-06-21 04:56:32,912 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what modular plants?...' returned 5 results
+2025-06-21 04:56:32,912 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 04:56:33,324 | pynucleus | WARNING | model_loader.py:99 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 04:56:33,425 | pynucleus.api.app | INFO | app.py:319 | Question processed successfully in 0.63s
+2025-06-21 04:56:33,426 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:56:33] "POST /ask HTTP/1.1" 200 -
+2025-06-21 04:56:43,573 | pynucleus.api.app | INFO | app.py:274 | Processing question: What is distillation?...
+2025-06-21 04:56:43,692 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'What is distillation?...' returned 5 results
+2025-06-21 04:56:43,692 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 04:56:44,107 | pynucleus | WARNING | model_loader.py:99 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 04:56:44,206 | pynucleus.api.app | INFO | app.py:319 | Question processed successfully in 0.63s
+2025-06-21 04:56:44,206 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:56:44] "POST /ask HTTP/1.1" 200 -
+2025-06-21 04:56:51,408 | pynucleus.api.app | INFO | app.py:274 | Processing question: test question...
+2025-06-21 04:56:51,530 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test question...' returned 5 results
+2025-06-21 04:56:51,530 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 04:56:52,150 | pynucleus | WARNING | model_loader.py:99 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 04:56:52,249 | pynucleus.api.app | INFO | app.py:319 | Question processed successfully in 0.84s
+2025-06-21 04:56:52,249 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:56:52] "POST /ask HTTP/1.1" 200 -
+2025-06-21 04:59:38,522 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 04:59:38,637 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 04:59:38,638 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 04:59:41,175 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 04:59:41,175 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 04:59:41,182 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 04:59:41,183 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:59:41] "GET /health HTTP/1.1" 200 -
+2025-06-21 05:00:03,889 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:00:03] "GET /dev HTTP/1.1" 200 -
+2025-06-21 05:00:12,067 | pynucleus.api.app | INFO | app.py:274 | Processing question: what is modular plants? ...
+2025-06-21 05:00:12,187 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what is modular plants? ...' returned 5 results
+2025-06-21 05:00:12,187 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 05:00:12,552 | pynucleus | WARNING | model_loader.py:99 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 05:00:12,650 | pynucleus.api.app | INFO | app.py:319 | Question processed successfully in 0.58s
+2025-06-21 05:00:12,650 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:00:12] "POST /ask HTTP/1.1" 200 -
+2025-06-21 05:00:28,077 | pynucleus.api.app | INFO | app.py:414 | File uploaded to source_documents: 2007-natural-gas-processing-ehs-guidelines-en.pdf
+2025-06-21 05:00:28,078 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 05:00:28,080 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-21 05:00:28,080 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-21 05:00:29,428 | pynucleus | INFO | collector.py:113 | Found 10 files to ingest from data/01_raw/source_documents
+2025-06-21 05:00:29,428 | pynucleus | INFO | collector.py:114 |   - 1 .txt files
+2025-06-21 05:00:29,428 | pynucleus | INFO | collector.py:115 |   - 9 .pdf files
+2025-06-21 05:00:29,428 | pynucleus | INFO | collector.py:116 |   - 0 .md files
+2025-06-21 05:00:29,431 | pynucleus.rag.document_processor | ERROR | document_processor.py:83 | Failed to process document data/01_raw/source_documents/The Landscape of Modular Chemical Plants in Africa- Opportunities, Challenges, and Strategic Imperatives for Industrialization.txt: sequence item 0: expected str instance, dict found
+2025-06-21 05:00:29,432 | pynucleus | WARNING | collector.py:128 | Document processor failed for data/01_raw/source_documents/The Landscape of Modular Chemical Plants in Africa- Opportunities, Challenges, and Strategic Imperatives for Industrialization.txt: sequence item 0: expected str instance, dict found
+2025-06-21 05:00:42,208 | pynucleus.api.app | INFO | app.py:586 | Generating system statistics
+2025-06-21 05:00:42,211 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 05:00:42,212 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 05:00:42,212 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 05:00:43,268 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:00:43] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 05:00:44,911 | pynucleus.api.app | INFO | app.py:559 | Running comprehensive system diagnostic
+2025-06-21 05:00:49,238 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:00:49,240 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:00:49,240 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:00:49,240 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:00:49,242 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:00:51,999 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 05:00:52,122 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 05:00:52,123 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 05:00:56,663 | pynucleus.api.app | INFO | app.py:574 | Comprehensive diagnostic completed with return code 0
+2025-06-21 05:00:56,663 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:00:56] "GET /comprehensive_diagnostic HTTP/1.1" 200 -
+2025-06-21 05:00:56,773 | pynucleus.api.app | INFO | app.py:559 | Running comprehensive system diagnostic
+2025-06-21 05:01:00,022 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 05:01:00,022 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 05:01:00,023 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 05:01:00,024 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:01:00] "GET /health HTTP/1.1" 200 -
+2025-06-21 05:01:05,353 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 05:01:05,677 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 05:01:05,684 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 05:01:09,950 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 05:01:09,951 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 05:01:09,952 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 05:01:09,953 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:01:09] "GET /health HTTP/1.1" 200 -
+2025-06-21 05:01:10,293 | pynucleus.api.app | INFO | app.py:574 | Comprehensive diagnostic completed with return code 0
+2025-06-21 05:01:10,299 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:01:10] "GET /comprehensive_diagnostic HTTP/1.1" 200 -
+2025-06-21 05:01:10,360 | pynucleus.api.app | INFO | app.py:559 | Running comprehensive system diagnostic
+2025-06-21 05:01:18,006 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 05:01:18,178 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 05:01:18,178 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 05:01:19,974 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 05:01:19,974 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 05:01:19,975 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 05:01:19,976 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:01:19] "GET /health HTTP/1.1" 200 -
+2025-06-21 05:01:19,979 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:01:19] "GET / HTTP/1.1" 200 -
+2025-06-21 05:01:21,290 | pynucleus.api.app | INFO | app.py:574 | Comprehensive diagnostic completed with return code 0
+2025-06-21 05:01:21,291 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:01:21] "GET /comprehensive_diagnostic HTTP/1.1" 200 -
+2025-06-21 05:01:23,144 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 05:01:23,163 | pynucleus.rag.document_processor | ERROR | document_processor.py:466 | Failed to extract tables from data/01_raw/source_documents/Engineering Economics and Economic Design for Process Engineers.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 05:01:23,487 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 05:01:23,488 | pynucleus.rag.document_processor | ERROR | document_processor.py:466 | Failed to extract tables from data/01_raw/source_documents/Process Simulation Specifications.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 05:01:23,772 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:24,054 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:24,229 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:24,309 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:24,387 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:25,029 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:25,134 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:25,348 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:25,818 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:26,121 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:27,099 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:27,637 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:27,918 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:28,642 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:28,883 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:28,967 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:29,888 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:29,892 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:30,431 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:31,053 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:31,056 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:31,165 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:31,165 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:31,379 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:31,506 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:31,507 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:31,860 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:31,864 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:31,870 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:01:31,871 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P3' is an invalid float value
+2025-06-21 05:01:32,276 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:32,523 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:32,621 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:32,623 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:32,745 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:32,756 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:32,862 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:33,533 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:33,738 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:33,738 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:33,739 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:01:33,739 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P3' is an invalid float value
+2025-06-21 05:01:33,740 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P4' is an invalid float value
+2025-06-21 05:01:33,740 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P5' is an invalid float value
+2025-06-21 05:01:34,157 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:34,157 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:34,794 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:35,641 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:35,643 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:35,645 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:01:37,174 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:37,174 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:38,032 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:38,682 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:39,137 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:39,445 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:39,449 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:39,651 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:40,925 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:40,931 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:41,125 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:41,129 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:41,386 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:41,475 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:41,883 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:43,838 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:43,839 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:44,347 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:44,351 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:44,994 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:45,518 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:45,726 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:45,730 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:45,840 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:47,079 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:47,080 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:47,720 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:48,479 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:48,480 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:48,686 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:48,687 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:49,869 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:49,870 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:50,063 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:50,272 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:50,696 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:50,696 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:51,374 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:52,112 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:53,297 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:54,135 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:54,242 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:54,901 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:55,600 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:55,601 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:55,604 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:01:55,698 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:55,700 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:55,705 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:01:55,708 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P3' is an invalid float value
+2025-06-21 05:01:56,135 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:56,139 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:01:56,244 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:56,348 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:56,992 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:57,564 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:58,086 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:58,320 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:59,117 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:59,443 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:01:59,975 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:00,481 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:00,580 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:00,582 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:00,676 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:00,680 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:01,003 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:01,095 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:01,723 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:01,823 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:02,025 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:02,135 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:02,364 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:02,870 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:03,892 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:03,897 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:03,997 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:04,188 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:05,608 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:05,844 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:06,602 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:07,399 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:08,027 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:08,029 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:08,231 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:08,446 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:08,449 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:09,010 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:09,527 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:09,530 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:10,326 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:11,032 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:11,032 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:11,785 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:12,361 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:12,545 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:12,549 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:13,017 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:13,018 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:13,573 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:13,576 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:13,581 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:02:13,685 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:13,694 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:14,005 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:14,089 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:14,801 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:15,534 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:15,870 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:16,211 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:16,224 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:16,430 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:16,444 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:16,763 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:17,057 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:17,474 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:17,474 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:18,196 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:19,077 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:19,081 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:19,083 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:02:19,321 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:19,323 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:19,325 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:02:19,326 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P3' is an invalid float value
+2025-06-21 05:02:19,423 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:19,629 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:19,722 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:19,828 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:20,258 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:20,261 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:20,454 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:20,690 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:20,693 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:20,789 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:20,885 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:21,612 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:22,367 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:22,489 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:22,784 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:22,786 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:22,789 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:02:22,790 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P3' is an invalid float value
+2025-06-21 05:02:23,292 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:23,294 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:23,297 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:02:23,493 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:23,848 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:23,958 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:24,592 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:25,425 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:26,183 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:26,273 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:27,378 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:28,709 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:29,190 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:29,880 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:29,881 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:30,802 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:31,881 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:31,884 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:32,894 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:33,088 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:33,092 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:33,099 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:02:34,561 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:34,561 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:35,047 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:35,396 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:37,087 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:37,184 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:37,188 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:37,190 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P2' is an invalid float value
+2025-06-21 05:02:37,450 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 05:02:37,575 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 05:02:37,575 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 05:02:37,816 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:38,698 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:39,626 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:40,148 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:02:40] "[36mGET /dev HTTP/1.1[0m" 304 -
+2025-06-21 05:02:40,593 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:02:40] "[36mGET /dev HTTP/1.1[0m" 304 -
+2025-06-21 05:02:40,958 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 05:02:40,958 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 05:02:40,966 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
+2025-06-21 05:02:40,967 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:02:40] "GET /health HTTP/1.1" 200 -
+2025-06-21 05:02:41,143 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:41,326 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:41,415 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:41,654 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:41,757 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:41,860 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:41,962 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:42,080 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:42,317 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:42,419 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:42,522 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:42,624 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:42,726 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:42,827 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:43,068 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:43,173 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:43,275 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:43,378 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:43,478 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:43,581 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:43,817 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:43,912 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:44,007 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:44,100 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:44,195 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:44,289 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:44,533 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:44,627 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:44,721 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:44,816 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:44,921 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:45,008 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P0' is an invalid float value
+2025-06-21 05:02:46,626 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'Pattern0' is an invalid float value
+2025-06-21 05:02:46,645 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 05:02:46,676 | pynucleus.rag.document_processor | ERROR | document_processor.py:466 | Failed to extract tables from data/01_raw/source_documents/Engineering-Economy.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 05:02:47,337 | pynucleus.api.app | INFO | app.py:274 | Processing question: what modular plants? 
+...
+2025-06-21 05:02:47,463 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'what modular plants? 
+...' returned 5 results
+2025-06-21 05:02:47,464 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 05:02:50,220 | pynucleus | WARNING | model_loader.py:99 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 05:02:50,330 | pynucleus.api.app | INFO | app.py:319 | Question processed successfully in 2.99s
+2025-06-21 05:02:50,330 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 05:02:50] "POST /ask HTTP/1.1" 200 -
+2025-06-21 05:02:50,368 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 05:02:50,371 | pynucleus.rag.document_processor | ERROR | document_processor.py:466 | Failed to extract tables from data/01_raw/source_documents/Modular Chemical Plant Development Guide.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 05:02:51,393 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 05:02:51,395 | pynucleus.rag.document_processor | ERROR | document_processor.py:466 | Failed to extract tables from data/01_raw/source_documents/Modular Chemical Plant Feasibility Parameters.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 05:02:56,382 | pdfminer.pdfinterp | WARNING | pdfinterp.py:831 | Cannot set gray non-stroke color because /'P1' is an invalid float value
+2025-06-21 05:02:58,286 | pynucleus.api.app | INFO | app.py:64 | Received signal 15, shutting down gracefully...
+2025-06-21 05:02:58,292 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 05:02:58,478 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed
+2025-06-21 05:02:58,989 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 05:02:59,116 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed

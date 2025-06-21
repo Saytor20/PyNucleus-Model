@@ -878,6 +878,7 @@ def main():
     parser.add_argument('--notebook', action='store_true', help='Include notebook validation testing')
     parser.add_argument('--quiet', action='store_true', help='Quiet mode with minimal output')
     parser.add_argument('--validation', action='store_true', help='Run full validation suite (default)')
+    parser.add_argument('--json', action='store_true', help='Output results as JSON to stdout')
     
     args = parser.parse_args()
     
@@ -895,6 +896,21 @@ def main():
                 include_citations=args.citations or not args.quick,
                 include_notebook=args.notebook
             )
+        
+        # Output JSON if requested
+        if args.json:
+            success_rate = validator.passed_tests / validator.total_tests if validator.total_tests > 0 else 0
+            json_output = {
+                "status": "completed",
+                "total_tests": validator.total_tests,
+                "passed_tests": validator.passed_tests,
+                "failed_tests": validator.total_tests - validator.passed_tests,
+                "success_rate": round(success_rate * 100, 1),
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "validation_health": "excellent" if success_rate >= 0.9 else "good" if success_rate >= 0.8 else "warning" if success_rate >= 0.7 else "critical"
+            }
+            print(json.dumps(json_output, indent=2))
+            return
         
         # Exit with appropriate code based on results
         success_rate = validator.passed_tests / validator.total_tests if validator.total_tests > 0 else 0

@@ -1,0 +1,16 @@
+2025-06-21 04:00:41,161 | werkzeug | WARNING | _internal.py:97 |  * Debugger is active!
+2025-06-21 04:00:41,184 | werkzeug | INFO | _internal.py:97 |  * Debugger PIN: 632-374-954
+2025-06-21 04:00:46,691 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:00:46] "GET /dev HTTP/1.1" 200 -
+2025-06-21 04:00:57,101 | pynucleus.api.app | INFO | app.py:326 | Running system diagnostic
+2025-06-21 04:01:38,253 | pynucleus.api.app | INFO | app.py:83 | Health check requested
+2025-06-21 04:01:38,254 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:01:38] "GET /health HTTP/1.1" 200 -
+2025-06-21 04:01:38,255 | pynucleus.api.app | INFO | app.py:164 | Processing question: test...
+2025-06-21 04:01:38,306 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 04:01:38,306 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 04:01:38,384 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3587 documents
+2025-06-21 04:01:38,561 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 04:01:44,367 | pynucleus | WARNING | model_loader.py:80 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 04:01:44,367 | pynucleus.api.app | INFO | app.py:189 | Question processed successfully in 6.11s
+2025-06-21 04:01:44,367 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:01:44] "POST /ask HTTP/1.1" 200 -
+2025-06-21 04:01:45,639 | pynucleus.api.app | INFO | app.py:362 | System diagnostic completed with return code 1
+2025-06-21 04:01:45,639 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 04:01:45] "GET /system_diagnostic HTTP/1.1" 200 -

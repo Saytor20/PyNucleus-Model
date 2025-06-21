@@ -228,12 +228,13 @@ To do:
 3) run system_validator script and start fixing all the problems in it 
 4) update the API script to include costs
 5) create a finanical advisor model that handles the money 
-6) once number 10 is fixed then we can proceed with uploading more data and enhancing the system - 
 7) we need to understand what we have to do with the golden dataset and validation data are we trainning on them or what and what is the difference between the 2? 
 8) we need to create a template so that it understand what it is doing instead of spitting out answers 
-9)enhance the website to include system dignostic and make it into a developer like website where you can view stas and run system_diagonstic
+9) enhance the website to include system dignostic and make it into a developer like website where you can view stas and run system_diagonstic - completed
 10) enable another function inside chat that asks either to chat or build if its a build then we build a template that fetches data from API sources uses finanical analyzer, and system designs to estimate cost using an existing template that we build ourselves using mock dwsim daa using 20 plants for now 
-9) ADD ROBUST ANSWER SYNTHESIS
+11) save the flask format as an image? evaluate anothe container with the current set up  .. add a clear button to the system dignostic also file upload is ugly... also the statisitcs are weird and its still spitting lies - completed 
+12) switch to a better qwen model like qwen 3 0.6b 
+12) ADD ROBUST ANSWER SYNTHESIS
 
 # Update prompting.py build_prompt function:
 """
@@ -259,3 +260,5 @@ Let's think step-by-step:
  2025-06-20 10:25:50 changes made and pushed to origin main
 
  2025-06-21 03:59:48 changes made and pushed to origin main
+
+ 2025-06-21 15:19:59 changes made and pushed to origin main

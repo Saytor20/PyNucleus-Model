@@ -1,0 +1,52 @@
+2025-06-21 14:01:30,479 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-21 14:01:30,525 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.85.81:5001
+2025-06-21 14:01:30,525 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 14:01:42,986 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 14:01:42] "GET / HTTP/1.1" 200 -
+2025-06-21 14:01:56,431 | pynucleus.api.app | INFO | app.py:429 | File uploaded to source_documents: industrialization-for-an-emerging-africa-issuespaper.pdf
+2025-06-21 14:01:56,523 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 14:01:56,524 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 14:01:56,752 | pynucleus | INFO | collector.py:134 | File industrialization-for-an-emerging-africa-issuespaper.pdf has no meaningful chunks or failed processing, needs reprocessing
+2025-06-21 14:01:56,754 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-21 14:01:56,754 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-21 14:01:58,979 | pynucleus | INFO | collector.py:166 | Processing new file: industrialization-for-an-emerging-africa-issuespaper.pdf
+2025-06-21 14:01:59,841 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 14:01:59,842 | pynucleus.rag.document_processor | ERROR | document_processor.py:472 | Failed to extract tables from data/01_raw/source_documents/industrialization-for-an-emerging-africa-issuespaper.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 14:01:59,926 | pynucleus | INFO | collector.py:231 | Successfully processed industrialization-for-an-emerging-africa-issuespaper.pdf: 1 chunks added
+2025-06-21 14:01:59,926 | pynucleus.api.app | INFO | app.py:438 | Document processed successfully: industrialization-for-an-emerging-africa-issuespaper.pdf (1 chunks)
+2025-06-21 14:01:59,926 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 14:01:59] "POST /upload HTTP/1.1" 200 -
+2025-06-21 14:03:08,125 | pynucleus.api.app | INFO | app.py:113 | Health check requested
+2025-06-21 14:03:08,129 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 14:03:08,130 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 14:03:08,131 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3620 documents
+2025-06-21 14:03:08,291 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'test...' returned 5 results
+2025-06-21 14:03:08,291 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 14:03:10,637 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 14:03:10,637 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 14:03:10,637 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3620 documents
+2025-06-21 14:03:10,638 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 14:03:10] "GET /health HTTP/1.1" 200 -
+2025-06-21 14:04:10,267 | pynucleus.api.app | INFO | app.py:429 | File uploaded to source_documents: industrialization-for-an-emerging-africa-issuespaper.pdf
+2025-06-21 14:04:10,271 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 14:04:10,274 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 14:04:10,389 | pynucleus | INFO | collector.py:134 | File industrialization-for-an-emerging-africa-issuespaper.pdf has no meaningful chunks or failed processing, needs reprocessing
+2025-06-21 14:04:10,392 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-21 14:04:10,392 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-21 14:04:11,538 | pynucleus | INFO | collector.py:166 | Processing new file: industrialization-for-an-emerging-africa-issuespaper.pdf
+2025-06-21 14:04:12,087 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 14:04:12,088 | pynucleus.rag.document_processor | ERROR | document_processor.py:472 | Failed to extract tables from data/01_raw/source_documents/industrialization-for-an-emerging-africa-issuespaper.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 14:04:12,129 | pynucleus | INFO | collector.py:231 | Successfully processed industrialization-for-an-emerging-africa-issuespaper.pdf: 1 chunks added
+2025-06-21 14:04:12,129 | pynucleus.api.app | INFO | app.py:438 | Document processed successfully: industrialization-for-an-emerging-africa-issuespaper.pdf (1 chunks)
+2025-06-21 14:04:12,129 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 14:04:12] "POST /upload HTTP/1.1" 200 -
+2025-06-21 14:05:20,846 | pynucleus.api.app | INFO | app.py:289 | Processing question: explain to me distillation columns...
+2025-06-21 14:05:20,962 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'explain to me distillation columns...' returned 5 results
+2025-06-21 14:05:20,962 | pynucleus | WARNING | model_loader.py:62 | Prompt truncated to 1500 characters
+2025-06-21 14:05:21,384 | pynucleus | WARNING | model_loader.py:99 | Model generation failed: Empty or too short response. Using fallback.
+2025-06-21 14:05:21,507 | pynucleus.api.app | INFO | app.py:334 | Question processed successfully in 0.66s
+2025-06-21 14:05:21,507 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 14:05:21] "POST /ask HTTP/1.1" 200 -
+2025-06-21 14:05:49,883 | pynucleus.api.app | INFO | app.py:64 | Received signal 15, shutting down gracefully...
+2025-06-21 14:05:49,883 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 14:05:50,009 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed
+2025-06-21 14:05:50,043 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
+2025-06-21 14:05:50,149 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed

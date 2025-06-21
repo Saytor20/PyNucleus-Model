@@ -166,60 +166,102 @@ def retrieve(q: str, k: int | None = None):
 
 def ask(question: str):
     """Ask a question using RAG pipeline with enhanced prompting and citations."""
-    # Use ChromaVectorStore for optimized retrieval
-    store = _get_vector_store()
-    docs, sources = store.search(question, top_k=5)  # Balanced retrieval
-    
-    # Smart context management: estimate tokens and balance input/output
-    target_input_tokens = 1000  # Reserve ~1000 tokens for response generation
-    chars_per_token = 4  # Rough estimate: 4 chars per token
-    max_context_chars = target_input_tokens * chars_per_token
-    
-    # Calculate per-document allocation
-    if docs:
+    try:
+        # Use ChromaVectorStore for optimized retrieval with error handling
+        store = _get_vector_store()
+        
+        # Handle both possible return formats from ChromaVectorStore.search()
+        try:
+            search_result = store.search(question, top_k=5)
+            
+            # Handle different return formats
+            if isinstance(search_result, tuple) and len(search_result) == 2:
+                # Format: (docs, sources) - expected from ChromaVectorStore
+                docs, sources = search_result
+            elif isinstance(search_result, list):
+                # Format: list of dicts - fallback format
+                docs = [item.get('text', '') if isinstance(item, dict) else str(item) for item in search_result]
+                sources = [item.get('source', f'doc_{i}') if isinstance(item, dict) else f'doc_{i}' for i, item in enumerate(search_result)]
+            else:
+                # Unexpected format - use fallback
+                docs, sources = [], []
+                
+        except Exception as search_error:
+            logger.warning(f"ChromaVectorStore search failed: {search_error}. Using fallback retrieval.")
+            # Fallback to direct collection query
+            docs, sources = _retrieve(question, 5)
+        
+        # If no results, return informative message
+        if not docs or len(docs) == 0:
+            return {
+                "answer": "I don't have enough information in my knowledge base to answer this question. Please try a different question or upload relevant documents.",
+                "sources": []
+            }
+        
+        # Smart context management: estimate tokens and balance input/output
+        target_input_tokens = 1000  # Reserve ~1000 tokens for response generation
+        chars_per_token = 4  # Rough estimate: 4 chars per token
+        max_context_chars = target_input_tokens * chars_per_token
+        
+        # Calculate per-document allocation
         chars_per_doc = min(400, max_context_chars // len(docs))  # Max 400 chars per doc
         chars_per_doc = max(200, chars_per_doc)  # But at least 200 chars
-    else:
-        chars_per_doc = 400
-    
-    # Process documents with intelligent truncation
-    processed_docs = []
-    for doc in docs:
-        if len(doc) <= chars_per_doc:
-            processed_docs.append(doc)
-        else:
-            # Smart truncation: try to preserve complete sentences
-            truncated = doc[:chars_per_doc]
-            
-            # Find the best cut point (sentence ending)
-            for punct in ['. ', '.\n', '! ', '? ']:
-                last_punct = truncated.rfind(punct)
-                if last_punct > chars_per_doc * 0.6:  # If we keep at least 60% of content
-                    truncated = truncated[:last_punct + 1]
-                    break
+        
+        # Process documents with intelligent truncation
+        processed_docs = []
+        for doc in docs:
+            if len(doc) <= chars_per_doc:
+                processed_docs.append(doc)
             else:
-                # If no good sentence boundary found, add ellipsis
-                truncated = truncated.rstrip() + "..."
-            
-            processed_docs.append(truncated)
-    
-    # Build optimized context
-    ctx = "\n\n".join(processed_docs)
-    
-    # Efficient prompt design
-    prompt = (
-        f"You are a chemical process engineer. Using the context below, answer: {question}\n\n"
-        f"Context:\n{ctx}\n\n"
-        f"Provide a detailed answer with citations [1], [2], etc:"
-    )
-    
-    # Generate with appropriate token allocation
-    max_response_tokens = min(400, settings.MAX_TOKENS)  # Cap at 400 tokens for response
-    answer = generate(prompt, max_tokens=max_response_tokens)
-    
-    # Add reference section
-    if sources:
-        refs = "\n\nReferences:\n" + "\n".join(f"[{i+1}] {s}" for i, s in enumerate(sources))
-        answer += refs
-    
-    return {"answer": answer.strip(), "sources": sources} 
+                # Smart truncation: try to preserve complete sentences
+                truncated = doc[:chars_per_doc]
+                
+                # Find the best cut point (sentence ending)
+                for punct in ['. ', '.\n', '! ', '? ']:
+                    last_punct = truncated.rfind(punct)
+                    if last_punct > chars_per_doc * 0.6:  # If we keep at least 60% of content
+                        truncated = truncated[:last_punct + 1]
+                        break
+                else:
+                    # If no good sentence boundary found, add ellipsis
+                    truncated = truncated.rstrip() + "..."
+                
+                processed_docs.append(truncated)
+        
+        # Build optimized context
+        ctx = "\n\n".join(processed_docs)
+        
+        # Improved prompt design for chemical engineering
+        prompt = (
+            f"You are an expert chemical engineer. Based on the provided context, answer the following question comprehensively.\n\n"
+            f"Question: {question}\n\n"
+            f"Context:\n{ctx}\n\n"
+            f"Instructions:\n"
+            f"- Provide a detailed, technical answer based on the context\n"
+            f"- Include specific details, numbers, and technical terms where relevant\n"
+            f"- If the context doesn't fully answer the question, state what information is available\n"
+            f"- Use citations [1], [2], etc. to reference specific sources\n\n"
+            f"Answer:"
+        )
+        
+        # Generate with appropriate token allocation
+        max_response_tokens = min(400, settings.MAX_TOKENS)  # Cap at 400 tokens for response
+        answer = generate(prompt, max_tokens=max_response_tokens)
+        
+        # Validate answer quality
+        if not answer or len(answer.strip()) < 10:
+            answer = "I was unable to generate a complete response. The available context mentions relevant information about your question, but I need more specific details to provide a comprehensive answer."
+        
+        # Add reference section
+        if sources:
+            refs = "\n\nReferences:\n" + "\n".join(f"[{i+1}] {s}" for i, s in enumerate(sources))
+            answer += refs
+        
+        return {"answer": answer.strip(), "sources": sources}
+        
+    except Exception as e:
+        logger.error(f"Ask function failed: {e}")
+        return {
+            "answer": f"I encountered an error while processing your question: {str(e)}. Please try again or contact support.",
+            "sources": []
+        } 
