@@ -1122,7 +1122,7 @@ class ComprehensiveSystemDiagnostic:
                         with open(file_path, 'r') as f:
                             content = f.read()
                         
-                        ui_components = ['textarea', 'button', 'askQuestion', 'typeText', 'tailwindcss']
+                        ui_components = ['textarea', 'button', 'switchMode', 'clearAnswer', 'typeText']
                         for component in ui_components:
                             if component.lower() in content.lower():
                                 self.log_message(f"  ✓ HTML has {component}", "success")

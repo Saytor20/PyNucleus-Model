@@ -21,8 +21,14 @@ def _get_chromadb_client():
             # Ensure directory exists
             Path(settings.CHROMA_PATH).mkdir(parents=True, exist_ok=True)
             
-            # Create client with minimal settings
-            client_settings = ChromaSettings(anonymized_telemetry=False)
+            # Use consistent settings across all modules (match vector_store & collector)
+            client_settings = ChromaSettings(
+                anonymized_telemetry=False,
+                allow_reset=True,
+                chroma_client_auth_provider=None,
+                chroma_server_host=None,
+                chroma_server_http_port=None
+            )
             _client = chromadb.PersistentClient(
                 path=settings.CHROMA_PATH,
                 settings=client_settings

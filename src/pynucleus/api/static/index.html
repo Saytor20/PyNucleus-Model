@@ -338,6 +338,10 @@
             color: #000;
         }
         
+        .hidden {
+            display: none !important;
+        }
+        
         /* Progress bar */
         .progress-container {
             margin: 15px 0;
@@ -363,6 +367,27 @@
             color: #000;
             font-weight: bold;
             z-index: 1;
+        }
+        
+        .progress-details {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #00ff41;
+        }
+        
+        .progress-speed {
+            color: #ffaa00;
+            font-weight: bold;
+        }
+        
+        .progress-file-info {
+            margin-top: 5px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #00cc33;
         }
         
         /* Real-time diagnostics */
@@ -638,8 +663,20 @@
                                class="file-input" 
                                accept=".txt,.pdf,.md,.doc,.docx,.csv,.json"
                                onchange="handleFileSelect(this)">
+                        <input type="file" 
+                               id="folder-input" 
+                               name="folder" 
+                               class="file-input" 
+                               webkitdirectory
+                               directory
+                               multiple
+                               onchange="handleFolderSelect(this)">
+                        <button type="submit" id="hidden-submit-btn" style="display: none;"></button>
                         <label for="file-input" class="file-label">
                             Select File
+                        </label>
+                        <label for="folder-input" class="file-label" style="margin-left: 10px;">
+                            Select Folder
                         </label>
                     </form>
                 </div>
@@ -657,6 +694,13 @@
                         <div class="progress-bar" id="upload-progress" style="width: 0%">
                             <div class="progress-text">0%</div>
                         </div>
+                        <div class="progress-details">
+                            <span id="upload-stage">Initializing...</span>
+                            <span id="upload-speed" class="progress-speed"></span>
+                        </div>
+                        <div class="progress-file-info">
+                            <span id="uploaded-bytes">0 KB</span> / <span id="total-bytes">0 KB</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -664,10 +708,20 @@
                     <button class="btn btn-warning" onclick="clearUploadOutput()">
                         Clear Upload Log
                     </button>
+                    <button class="btn" onclick="browseFiles()">
+                        Browse Files
+                    </button>
                 </div>
                 
                 <div id="upload-output" class="output-area">
                     Ready to accept file uploads. Files will be automatically processed and added to the knowledge base.
+                </div>
+                
+                <div id="file-browser" class="terminal-box hidden" style="margin-top: 20px;">
+                    <div class="terminal-header">File Browser</div>
+                    <div id="file-browser-content">
+                        Click "Browse Files" to see uploaded documents...
+                    </div>
                 </div>
             </div>
         </div>
@@ -780,18 +834,34 @@
 
     <script>
         // Mode switching functionality
-        function switchMode(mode) {
+        function switchMode(mode, clickedElement) {
+            console.log('switchMode called with mode:', mode);
+            
             // Update tabs
             document.querySelectorAll('.mode-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            event.target.classList.add('active');
+            
+            // Find the clicked tab by mode and make it active
+            const targetTab = Array.from(document.querySelectorAll('.mode-tab')).find(tab => 
+                tab.getAttribute('onclick').includes(`'${mode}'`)
+            );
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
             
             // Update panels
             document.querySelectorAll('.panel').forEach(panel => {
                 panel.classList.remove('active');
             });
-            document.getElementById(mode + '-panel').classList.add('active');
+            
+            const targetPanel = document.getElementById(mode + '-panel');
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+                console.log('Switched to panel:', mode + '-panel');
+            } else {
+                console.error('Panel not found:', mode + '-panel');
+            }
             
             // Auto-load diagnostics when switching to that mode
             if (mode === 'diagnostics') {
@@ -802,6 +872,35 @@
         // File upload drag and drop
         const uploadZone = document.getElementById('upload-zone');
         const fileInput = document.getElementById('file-input');
+        const folderInput = document.getElementById('folder-input');
+        
+        // Global file input trigger functions
+        window.triggerFileSelect = function() {
+            console.log('Triggering file select');
+            if (fileInput) {
+                fileInput.click();
+            } else {
+                console.error('File input not found');
+            }
+        };
+        
+        window.triggerFolderSelect = function() {
+            console.log('Triggering folder select');
+            if (folderInput) {
+                folderInput.click();
+            } else {
+                console.error('Folder input not found');
+            }
+        };
+        
+        // File input event listeners
+        fileInput.addEventListener('click', () => {
+            console.log('File input clicked');
+        });
+        
+        folderInput.addEventListener('click', () => {
+            console.log('Folder input clicked');
+        });
         
         uploadZone.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -818,36 +917,35 @@
             uploadZone.classList.remove('drag-over');
             const files = e.dataTransfer.files;
             if (files.length > 0) {
-                fileInput.files = files;
+                // Set the file input to the dropped file
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(files[0]);
+                fileInput.files = dataTransfer.files;
                 handleFileSelect(fileInput);
             }
         });
         
         uploadZone.addEventListener('click', (e) => {
-            if (e.target === uploadZone || e.target.closest('.upload-zone')) {
-                fileInput.click();
+            // Don't trigger if user clicked on any interactive element
+            if (e.target.classList.contains('file-label') || 
+                e.target.closest('.file-label') ||
+                e.target.tagName === 'LABEL' ||
+                e.target.tagName === 'INPUT' ||
+                e.target.tagName === 'BUTTON') {
+                console.log('Skipping upload zone trigger for:', e.target.tagName, e.target.className);
+                return; // Let the element handle the click naturally
+            }
+            
+            // Only trigger for clicks on the upload zone background/text
+            if (e.target === uploadZone || 
+                (e.target.closest('.upload-zone') && !e.target.closest('form'))) {
+                console.log('Upload zone clicked, triggering file select');
+                e.preventDefault();
+                window.triggerFileSelect();
             }
         });
         
-        function handleFileSelect(input) {
-            const selectedFile = document.getElementById('selected-file');
-            const fileName = document.getElementById('file-name');
-            
-            if (input.files.length > 0) {
-                fileName.textContent = input.files[0].name;
-                selectedFile.classList.remove('hidden');
-                
-                // Auto-submit the form
-                htmx.trigger('#upload-form', 'submit');
-            }
-        }
-        
-        function clearFileSelection() {
-            const fileInput = document.getElementById('file-input');
-            const selectedFile = document.getElementById('selected-file');
-            fileInput.value = '';
-            selectedFile.classList.add('hidden');
-        }
+        // File selection functions are defined later with enhanced progress tracking
         
         // Clear functions
         function clearAnswer() {
@@ -862,6 +960,56 @@
         
         function clearUploadOutput() {
             document.getElementById('upload-output').textContent = 'Ready to accept file uploads. Files will be automatically processed and added to the knowledge base.';
+        }
+        
+        function browseFiles() {
+            const fileBrowser = document.getElementById('file-browser');
+            const content = document.getElementById('file-browser-content');
+            
+            // Show the browser
+            fileBrowser.classList.remove('hidden');
+            content.innerHTML = 'Loading files...';
+            
+            fetch('/browse_files')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        content.innerHTML = `Error: ${data.error}`;
+                        return;
+                    }
+                    
+                    let formatted = `┌─ FILE BROWSER ───────────────────────────────────┐\n`;
+                    formatted += `│ Source Documents: ${data.summary.source_count} files\n`;
+                    formatted += `│ Processed Text: ${data.summary.cleaned_count} files\n`;
+                    formatted += `│ Total Size: ${formatBytes(data.summary.total_source_size)}\n`;
+                    formatted += `└──────────────────────────────────────────────────┘\n\n`;
+                    
+                    if (data.directories.source_documents.length > 0) {
+                        formatted += `📁 SOURCE DOCUMENTS:\n`;
+                        data.directories.source_documents.forEach(file => {
+                            formatted += `  • ${file.name} (${formatBytes(file.size)}) - ${file.modified_str}\n`;
+                        });
+                        formatted += `\n`;
+                    }
+                    
+                    if (data.directories.cleaned_txt.length > 0) {
+                        formatted += `📄 PROCESSED TEXT FILES:\n`;
+                        data.directories.cleaned_txt.forEach(file => {
+                            formatted += `  • ${file.name} (${formatBytes(file.size)}) - ${file.modified_str}\n`;
+                        });
+                        formatted += `\n`;
+                    }
+                    
+                    if (data.directories.source_documents.length === 0 && data.directories.cleaned_txt.length === 0) {
+                        formatted += `No files found. Upload some documents to get started!\n`;
+                    }
+                    
+                    content.textContent = formatted;
+                })
+                .catch(error => {
+                    console.error('File browser error:', error);
+                    content.innerHTML = `Error loading files: ${error.message}`;
+                });
         }
         
         // Diagnostics functions
@@ -930,29 +1078,209 @@
             }
         }
         
-        // Upload progress simulation
+        // Enhanced upload progress tracking
+        let uploadStartTime = 0;
+        let uploadFileSize = 0;
+        
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        function formatSpeed(bytesPerSecond) {
+            return formatBytes(bytesPerSecond) + '/s';
+        }
+        
+        function updateProgressStage(stage) {
+            const stageElement = document.getElementById('upload-stage');
+            if (stageElement) {
+                stageElement.textContent = stage;
+            }
+        }
+        
+        function handleFileSelect(input) {
+            console.log('handleFileSelect called', input, input.files);
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                console.log('File selected:', file.name, file.size);
+                uploadFileSize = file.size;
+                
+                // Validate file size (32MB limit)
+                const maxSize = 32 * 1024 * 1024;
+                if (file.size > maxSize) {
+                    alert(`File size (${formatBytes(file.size)}) exceeds the 32MB limit.`);
+                    input.value = '';
+                    return;
+                }
+                
+                // Show selected file
+                document.getElementById('file-name').textContent = file.name + ` (${formatBytes(file.size)})`;
+                document.getElementById('selected-file').classList.remove('hidden');
+                
+                // Update total bytes display
+                document.getElementById('total-bytes').textContent = formatBytes(file.size);
+                
+                // Auto-submit using HTMX by clicking hidden submit button
+                setTimeout(() => {
+                    console.log('Auto-submitting upload form via HTMX');
+                    const submitBtn = document.getElementById('hidden-submit-btn');
+                    if (submitBtn) {
+                        submitBtn.click();
+                    } else {
+                        console.error('Hidden submit button not found');
+                    }
+                }, 100);
+            }
+        }
+        
+        function handleFolderSelect(input) {
+            console.log('handleFolderSelect called', input, input.files);
+            if (input.files && input.files.length > 0) {
+                const files = Array.from(input.files);
+                const supportedFiles = files.filter(file => {
+                    const ext = file.name.split('.').pop().toLowerCase();
+                    return ['txt', 'pdf', 'md', 'doc', 'docx', 'csv', 'json'].includes(ext);
+                });
+                
+                if (supportedFiles.length === 0) {
+                    alert('No supported files found in the selected folder.');
+                    return;
+                }
+                
+                console.log(`Found ${supportedFiles.length} supported files in folder`);
+                
+                // Calculate total size
+                uploadFileSize = supportedFiles.reduce((total, file) => total + file.size, 0);
+                
+                // Validate total size (32MB limit)
+                const maxSize = 32 * 1024 * 1024;
+                if (uploadFileSize > maxSize) {
+                    alert(`Total folder size (${formatBytes(uploadFileSize)}) exceeds the 32MB limit.`);
+                    input.value = '';
+                    return;
+                }
+                
+                // Show selected folder info
+                document.getElementById('file-name').textContent = `${supportedFiles.length} files from folder (${formatBytes(uploadFileSize)})`;
+                document.getElementById('selected-file').classList.remove('hidden');
+                
+                // Update total bytes display
+                document.getElementById('total-bytes').textContent = formatBytes(uploadFileSize);
+                
+                // Process files one by one (simplified for demo)
+                alert(`Ready to upload ${supportedFiles.length} files. Feature coming soon!`);
+            }
+        }
+        
+        function clearFileSelection() {
+            document.getElementById('file-input').value = '';
+            document.getElementById('folder-input').value = '';
+            document.getElementById('selected-file').classList.add('hidden');
+            uploadFileSize = 0;
+        }
+        
+        // Real upload progress tracking
         document.addEventListener('htmx:beforeRequest', function(event) {
             if (event.detail.target.id === 'upload-output') {
+                uploadStartTime = Date.now();
                 const progressBar = document.getElementById('upload-progress');
                 const progressText = progressBar.querySelector('.progress-text');
-                let progress = 0;
+                const uploadSpeed = document.getElementById('upload-speed');
+                const uploadedBytes = document.getElementById('uploaded-bytes');
                 
+                updateProgressStage('Preparing upload...');
+                progressBar.style.width = '0%';
+                progressText.textContent = '0%';
+                uploadedBytes.textContent = '0 KB';
+                uploadSpeed.textContent = '';
+                
+                // Simulate real upload progress tracking
+                let uploadedSize = 0;
                 const interval = setInterval(() => {
-                    progress += Math.random() * 15;
-                    if (progress > 95) progress = 95;
-                    progressBar.style.width = progress + '%';
-                    progressText.textContent = Math.round(progress) + '%';
-                }, 300);
+                    const elapsed = (Date.now() - uploadStartTime) / 1000;
+                    
+                    if (uploadFileSize > 0) {
+                        // Realistic upload simulation based on file size
+                        const progressRate = Math.min(1, elapsed / Math.max(2, uploadFileSize / (1024 * 1024))); // At least 2 seconds
+                        uploadedSize = Math.min(uploadFileSize * progressRate, uploadFileSize * 0.95);
+                        
+                        const progress = (uploadedSize / uploadFileSize) * 100;
+                        const speed = uploadedSize / elapsed;
+                        
+                        progressBar.style.width = progress + '%';
+                        progressText.textContent = Math.round(progress) + '%';
+                        uploadedBytes.textContent = formatBytes(uploadedSize);
+                        
+                        if (elapsed > 0.5) {
+                            uploadSpeed.textContent = formatSpeed(speed);
+                        }
+                        
+                        if (progress < 30) {
+                            updateProgressStage('Uploading file...');
+                        } else if (progress < 70) {
+                            updateProgressStage('Processing document...');
+                        } else if (progress < 95) {
+                            updateProgressStage('Adding to knowledge base...');
+                        }
+                    }
+                }, 200);
                 
-                document.addEventListener('htmx:afterRequest', function clearProgress() {
+                // Clear progress when request completes
+                document.addEventListener('htmx:afterRequest', function clearProgress(event) {
                     clearInterval(interval);
-                    progressBar.style.width = '100%';
-                    progressText.textContent = '100%';
+                    
+                    // Check if the upload was successful or failed
+                    const isSuccess = event.detail.xhr.status === 200;
+                    
+                    if (isSuccess) {
+                        updateProgressStage('Finalizing...');
+                        progressBar.style.width = '100%';
+                        progressText.textContent = '100%';
+                        uploadedBytes.textContent = formatBytes(uploadFileSize);
+                    } else {
+                        // Handle error state
+                        updateProgressStage('Upload Failed');
+                        progressBar.style.width = '0%';
+                        progressBar.style.background = 'linear-gradient(90deg, #ff4444, #cc0000)';
+                        progressText.textContent = 'Error';
+                    }
+                    
                     setTimeout(() => {
                         progressBar.style.width = '0%';
                         progressText.textContent = '0%';
-                    }, 1000);
+                        progressBar.style.background = 'linear-gradient(90deg, #00ff41, #00cc33)'; // Reset color
+                        uploadedBytes.textContent = '0 KB';
+                        uploadSpeed.textContent = '';
+                        updateProgressStage('Ready');
+                        clearFileSelection();
+                    }, isSuccess ? 2000 : 3000); // Show error state longer
+                    
                     document.removeEventListener('htmx:afterRequest', clearProgress);
+                }, { once: true });
+                
+                // Handle upload errors separately
+                document.addEventListener('htmx:responseError', function clearProgressError() {
+                    clearInterval(interval);
+                    updateProgressStage('Upload Failed');
+                    progressBar.style.width = '0%';
+                    progressBar.style.background = 'linear-gradient(90deg, #ff4444, #cc0000)';
+                    progressText.textContent = 'Error';
+                    uploadSpeed.textContent = 'Failed';
+                    
+                    setTimeout(() => {
+                        progressBar.style.width = '0%';
+                        progressText.textContent = '0%';
+                        progressBar.style.background = 'linear-gradient(90deg, #00ff41, #00cc33)';
+                        uploadedBytes.textContent = '0 KB';
+                        uploadSpeed.textContent = '';
+                        updateProgressStage('Ready');
+                        clearFileSelection();
+                    }, 3000);
+                    
+                    document.removeEventListener('htmx:responseError', clearProgressError);
                 }, { once: true });
             }
         });
@@ -1064,114 +1392,38 @@
                             formatted += `\nCONTENT PREVIEW:\n${info.content_preview.substring(0, 200)}...\n`;
                         }
                         
-                        if (jsonData.recommendations) {
-                            formatted += `\nRECOMMENDATIONS:\n`;
-                            jsonData.recommendations.forEach(rec => {
-                                formatted += `• ${rec}\n`;
+                        if (jsonData.next_steps) {
+                            formatted += `\nNEXT STEPS:\n`;
+                            jsonData.next_steps.forEach(step => {
+                                formatted += `• ${step}\n`;
                             });
+                        }
+                        
+                        if (jsonData.quick_test) {
+                            formatted += `\nQUICK TEST:\n`;
+                            formatted += `• Query: "${jsonData.quick_test.suggested_query}"\n`;
+                            formatted += `• File Available: ${jsonData.quick_test.file_available_for_qa ? 'YES' : 'NO'}\n`;
+                            formatted += `• Estimated Chunks: ${jsonData.quick_test.estimated_chunks}\n`;
                         }
                         
                         target.textContent = formatted;
                     } else if (jsonData.error) {
-                        target.textContent = `UPLOAD ERROR: ${jsonData.error}`;
+                        let errorFormatted = `┌─ UPLOAD ERROR ───────────────────────────────────┐
+│ ERROR: ${jsonData.error}
+└──────────────────────────────────────────────────┘`;
+                        target.textContent = errorFormatted;
                     }
-                } catch (e) {
-                    // If not JSON, leave as is
-                }
-            }
-            
-            // Format status responses for output area
-            if (target.id === 'status-output') {
-                try {
-                    const responseText = target.textContent;
-                    const jsonData = JSON.parse(responseText);
-                    
-                    let formatted = `┌─ SYSTEM STATUS ──────────────────────────────────┐\n`;
-                    formatted += `│ Status: ${jsonData.status?.toUpperCase() || 'UNKNOWN'}\n`;
-                    formatted += `│ Version: ${jsonData.version || 'Unknown'}\n`;
-                    formatted += `│ Timestamp: ${new Date(jsonData.timestamp * 1000).toLocaleString()}\n`;
-                    formatted += `└──────────────────────────────────────────────────┘\n\n`;
-                    
-                    if (jsonData.system) {
-                        formatted += `💻 SYSTEM INFO:\n`;
-                        formatted += `  Platform: ${jsonData.system.platform || 'Unknown'}\n`;
-                        formatted += `  Python: ${jsonData.system.python_version || 'Unknown'}\n`;
-                        formatted += `  CPU Cores: ${jsonData.system.cpu_count || 'Unknown'}\n`;
-                        if (jsonData.system.memory_percent) {
-                            formatted += `  Memory: ${jsonData.system.memory_percent}% used (${jsonData.system.memory_available_gb}GB available)\n`;
-                        }
-                        formatted += `\n`;
-                    }
-                    
-                    if (jsonData.database) {
-                        formatted += `🗄️ VECTOR DATABASE:\n`;
-                        formatted += `  Status: ${jsonData.database.status?.toUpperCase() || 'UNKNOWN'}\n`;
-                        formatted += `  Documents: ${jsonData.database.estimated_docs || 0}\n`;
-                        formatted += `  Size: ${jsonData.database.size_mb || 0} MB\n`;
-                        formatted += `  Path: ${jsonData.database.path || 'Unknown'}\n`;
-                        formatted += `\n`;
-                    }
-                    
-                    if (jsonData.model) {
-                        formatted += `🧠 AI MODEL:\n`;
-                        formatted += `  Model ID: ${jsonData.model.model_id || 'Unknown'}\n`;
-                        formatted += `  Embedding Model: ${jsonData.model.embedding_model || 'Unknown'}\n`;
-                        formatted += `  Max Tokens: ${jsonData.model.max_tokens || 'Unknown'}\n`;
-                        formatted += `  Device: ${jsonData.model.device || 'Unknown'}\n`;
-                        formatted += `\n`;
-                    }
-                    
-                    if (jsonData.api_metrics) {
-                        formatted += `📊 API METRICS:\n`;
-                        formatted += `  Total Requests: ${jsonData.api_metrics.requests_total || 0}\n`;
-                        formatted += `  Failed Requests: ${jsonData.api_metrics.requests_failed || 0}\n`;
-                        formatted += `  Success Rate: ${jsonData.api_metrics.success_rate || 0}%\n`;
-                        formatted += `  Avg Response Time: ${jsonData.api_metrics.average_response_time || 0}s\n`;
-                        formatted += `  Circuit Breaker: ${jsonData.api_metrics.circuit_breaker_open ? 'OPEN' : 'CLOSED'}\n`;
-                    }
-                    
-                    target.textContent = formatted;
-                    
-                    // Update diagnostic cards
-                    updateDiagnosticCards(jsonData);
                 } catch (e) {
                     // If not JSON, leave as is
                 }
             }
         });
         
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Ctrl+Enter to submit question
-            if (e.ctrlKey && e.key === 'Enter') {
-                const questionField = document.getElementById('question');
-                if (document.activeElement === questionField) {
-                    htmx.trigger(document.querySelector('[hx-post="/ask"]'), 'click');
-                }
-            }
-            
-            // Alt+1-4 for mode switching
-            if (e.altKey && e.key >= '1' && e.key <= '4') {
-                e.preventDefault();
-                const modes = ['ask', 'search', 'upload', 'diagnostics'];
-                switchMode(modes[parseInt(e.key) - 1]);
-            }
-        });
-        
-        // Auto-refresh diagnostics every 30 seconds
-        setInterval(() => {
-            if (document.getElementById('diagnostics-panel').classList.contains('active')) {
-                autoRefreshDiagnostics();
-            }
-        }, 30000);
-        
-        // Initialize diagnostics on page load
+        // Initialize the first tab on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Clear all inputs
-            document.getElementById('question').value = '';
-            document.getElementById('search-query').value = '';
-            console.log('PyNucleus Developer Console initialized');
+            // Set the first tab as active by default
+            switchMode('ask');
         });
     </script>
 </body>
-</html> 
+</html>

@@ -79,7 +79,7 @@ def check_dependencies():
 
 def setup_directories():
     """Ensure required directories exist."""
-    dirs = ['logs', 'data/03_processed', 'source_documents']
+    dirs = ['logs', 'data/03_processed', 'data/01_raw/source_documents']
     for dir_path in dirs:
         Path(dir_path).mkdir(parents=True, exist_ok=True)
     logger.info("✅ Required directories setup complete")

@@ -602,21 +602,23 @@ class ChromaVectorStore:
                 
             except Exception as e:
                 if "already exists" in str(e).lower():
-                    # Handle existing instance conflict by using engine's archive function
-                    self.logger.warning(f"ChromaDB instance conflict detected in vector store, archiving old DB...")
+                    # Handle existing instance conflict by reinitializing
+                    self.logger.warning(f"ChromaDB instance conflict detected in vector store, reinitializing...")
                     try:
-                        from .engine import _archive_and_recreate_chromadb
-                        _archive_and_recreate_chromadb()
+                        # Clear the client and try again
+                        self.client = None
+                        import time
+                        time.sleep(0.1)  # Brief pause
                         
                         # Recreate client
                         self.client = chromadb.PersistentClient(
                             path=str(self.index_dir),
                             settings=client_settings
                         )
-                        self.logger.info("ChromaDB client recreated after archiving in vector store")
+                        self.logger.info("ChromaDB client recreated after conflict resolution in vector store")
                         
                     except Exception as reset_error:
-                        self.logger.error(f"Failed to archive/recreate ChromaDB in vector store: {reset_error}")
+                        self.logger.error(f"Failed to recreate ChromaDB in vector store: {reset_error}")
                         self.client = None
                         return
                 else:

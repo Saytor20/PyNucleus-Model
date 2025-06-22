@@ -1,0 +1,167 @@
+2025-06-21 23:36:05,007 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-21 23:36:05,031 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-21 23:36:05,031 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 23:36:10,225 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:36:10] "GET / HTTP/1.1" 200 -
+2025-06-21 23:36:26,259 | pynucleus.api.app | INFO | app.py:340 | Processing question: what is modular plants?... (stream: False)
+2025-06-21 23:36:26,359 | pynucleus | INFO | engine.py:36 | ChromaDB client initialized successfully
+2025-06-21 23:36:26,631 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-21 23:36:26,632 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 23:36:30,236 | pynucleus.api.app | INFO | app.py:440 | Question processed successfully in 3.98s
+2025-06-21 23:36:30,236 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:36:30] "POST /ask HTTP/1.1" 200 -
+2025-06-21 23:36:55,231 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 23:36:55,352 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-21 23:36:55,352 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 23:36:58,378 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 23:36:58,378 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 23:36:58,393 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3763 documents
+2025-06-21 23:36:58,394 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:36:58] "GET /health HTTP/1.1" 200 -
+2025-06-21 23:37:14,793 | pynucleus.api.app | INFO | app.py:612 | Uploading file: test_upload_fix.txt -> 20250621_233714_822f5092_test_upload_fix.txt
+2025-06-21 23:37:14,793 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_233714_822f5092_test_upload_fix.txt
+2025-06-21 23:37:14,795 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 23:37:14,796 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 23:37:14,956 | pynucleus | INFO | collector.py:135 | File 20250621_233714_822f5092_test_upload_fix.txt has no meaningful chunks or failed processing, needs reprocessing
+2025-06-21 23:37:14,980 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-21 23:37:14,980 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-21 23:37:16,453 | pynucleus | INFO | collector.py:167 | Processing new file: 20250621_233714_822f5092_test_upload_fix.txt
+2025-06-21 23:37:16,454 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250621_233714_822f5092_test_upload_fix.txt
+2025-06-21 23:37:16,731 | pynucleus | INFO | collector.py:232 | Successfully processed 20250621_233714_822f5092_test_upload_fix.txt: 2 chunks added
+2025-06-21 23:37:16,842 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 23:37:16,843 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250621_233714_822f5092_test_upload_fix.txt
+2025-06-21 23:37:16,843 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:37:16] "POST /upload HTTP/1.1" 200 -
+2025-06-21 23:38:05,392 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:38:05] "GET / HTTP/1.1" 200 -
+2025-06-21 23:40:02,070 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:40:02] "GET / HTTP/1.1" 200 -
+2025-06-21 23:43:24,088 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 23:43:24,216 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-21 23:43:24,216 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 23:43:25,580 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:43:25] "GET / HTTP/1.1" 200 -
+2025-06-21 23:43:27,953 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 23:43:27,953 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 23:43:27,966 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3765 documents
+2025-06-21 23:43:27,966 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:43:27] "GET /health HTTP/1.1" 200 -
+2025-06-21 23:43:31,474 | pynucleus.api.app | INFO | app.py:612 | Uploading file: 1-s2.0-S0925527302003742-main.pdf -> 20250621_234331_b8284890_1-s2.0-S0925527302003742-main.pdf
+2025-06-21 23:43:31,475 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_234331_b8284890_1-s2.0-S0925527302003742-main.pdf
+2025-06-21 23:43:31,694 | pynucleus.rag.document_processor | INFO | document_processor.py:185 | Extracted 48614 characters from PDF: 20250621_234331_b8284890_1-s2.0-S0925527302003742-main.pdf
+2025-06-21 23:43:32,747 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 23:43:32,751 | pynucleus.rag.document_processor | ERROR | document_processor.py:565 | Failed to extract tables from source_documents/20250621_234331_b8284890_1-s2.0-S0925527302003742-main.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 23:43:32,754 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250621_234331_b8284890_1-s2.0-S0925527302003742-main.txt
+2025-06-21 23:43:32,885 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 23:43:32,885 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250621_234331_b8284890_1-s2.0-S0925527302003742-main.pdf
+2025-06-21 23:43:32,886 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:43:32] "POST /upload HTTP/1.1" 200 -
+2025-06-21 23:48:24,992 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:48:24] "GET / HTTP/1.1" 200 -
+2025-06-21 23:48:40,473 | pynucleus.api.app | INFO | app.py:612 | Uploading file: me_2022022315562348.pdf -> 20250621_234840_a2e44ae8_me_2022022315562348.pdf
+2025-06-21 23:48:40,474 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_234840_a2e44ae8_me_2022022315562348.pdf
+2025-06-21 23:48:40,541 | pynucleus.rag.document_processor | INFO | document_processor.py:185 | Extracted 46234 characters from PDF: 20250621_234840_a2e44ae8_me_2022022315562348.pdf
+2025-06-21 23:48:41,666 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 23:48:41,667 | pynucleus.rag.document_processor | ERROR | document_processor.py:565 | Failed to extract tables from source_documents/20250621_234840_a2e44ae8_me_2022022315562348.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 23:48:41,669 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250621_234840_a2e44ae8_me_2022022315562348.txt
+2025-06-21 23:48:41,789 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 23:48:41,789 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250621_234840_a2e44ae8_me_2022022315562348.pdf
+2025-06-21 23:48:41,789 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:48:41] "POST /upload HTTP/1.1" 200 -
+2025-06-21 23:48:54,988 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 23:48:55,085 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-21 23:48:55,085 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 23:48:58,558 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 23:48:58,558 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 23:48:58,559 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3765 documents
+2025-06-21 23:48:58,559 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:48:58] "GET /health HTTP/1.1" 200 -
+2025-06-21 23:49:05,177 | pynucleus.api.app | INFO | app.py:612 | Uploading file: test_final_upload.txt -> 20250621_234905_220541d2_test_final_upload.txt
+2025-06-21 23:49:05,177 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_234905_220541d2_test_final_upload.txt
+2025-06-21 23:49:05,179 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 23:49:05,180 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 23:49:05,346 | pynucleus | INFO | collector.py:135 | File 20250621_234905_220541d2_test_final_upload.txt has no meaningful chunks or failed processing, needs reprocessing
+2025-06-21 23:49:05,349 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-21 23:49:05,349 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-21 23:49:06,339 | pynucleus | INFO | collector.py:167 | Processing new file: 20250621_234905_220541d2_test_final_upload.txt
+2025-06-21 23:49:06,339 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250621_234905_220541d2_test_final_upload.txt
+2025-06-21 23:49:06,527 | pynucleus | INFO | collector.py:232 | Successfully processed 20250621_234905_220541d2_test_final_upload.txt: 2 chunks added
+2025-06-21 23:49:06,610 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 23:49:06,610 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250621_234905_220541d2_test_final_upload.txt
+2025-06-21 23:49:06,611 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:49:06] "POST /upload HTTP/1.1" 200 -
+2025-06-21 23:52:44,190 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 23:52:44,318 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-21 23:52:44,318 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 23:52:46,751 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:52:46] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 23:52:47,964 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 23:52:47,964 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 23:52:47,974 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3767 documents
+2025-06-21 23:52:47,974 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:52:47] "GET /health HTTP/1.1" 200 -
+2025-06-21 23:52:59,348 | pynucleus.api.app | INFO | app.py:612 | Uploading file: 1-s2.0-S0029549306000276-main.pdf -> 20250621_235259_b25e20c6_1-s2.0-S0029549306000276-main.pdf
+2025-06-21 23:52:59,349 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_235259_b25e20c6_1-s2.0-S0029549306000276-main.pdf
+2025-06-21 23:52:59,387 | pynucleus.rag.document_processor | INFO | document_processor.py:185 | Extracted 32702 characters from PDF: 20250621_235259_b25e20c6_1-s2.0-S0029549306000276-main.pdf
+2025-06-21 23:52:59,736 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 23:52:59,737 | pynucleus.rag.document_processor | ERROR | document_processor.py:565 | Failed to extract tables from source_documents/20250621_235259_b25e20c6_1-s2.0-S0029549306000276-main.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 23:52:59,739 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250621_235259_b25e20c6_1-s2.0-S0029549306000276-main.txt
+2025-06-21 23:52:59,838 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 23:52:59,838 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250621_235259_b25e20c6_1-s2.0-S0029549306000276-main.pdf
+2025-06-21 23:52:59,839 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:52:59] "POST /upload HTTP/1.1" 200 -
+2025-06-21 23:55:54,632 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 23:55:54,788 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-21 23:55:54,788 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 23:55:57,414 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:55:57] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 23:55:58,644 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 23:55:58,645 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 23:55:58,645 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3767 documents
+2025-06-21 23:55:58,646 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:55:58] "GET /health HTTP/1.1" 200 -
+2025-06-21 23:56:15,911 | pynucleus.api.app | INFO | app.py:612 | Uploading file: 1-s2.0-S0029549306000276-main.pdf -> 20250621_235615_dfaf52dd_1-s2.0-S0029549306000276-main.pdf
+2025-06-21 23:56:15,914 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_235615_dfaf52dd_1-s2.0-S0029549306000276-main.pdf
+2025-06-21 23:56:15,958 | pynucleus.rag.document_processor | INFO | document_processor.py:185 | Extracted 32702 characters from PDF: 20250621_235615_dfaf52dd_1-s2.0-S0029549306000276-main.pdf
+2025-06-21 23:56:16,845 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-21 23:56:16,846 | pynucleus.rag.document_processor | ERROR | document_processor.py:565 | Failed to extract tables from source_documents/20250621_235615_dfaf52dd_1-s2.0-S0029549306000276-main.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-21 23:56:16,848 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250621_235615_dfaf52dd_1-s2.0-S0029549306000276-main.txt
+2025-06-21 23:56:16,958 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 23:56:16,958 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250621_235615_dfaf52dd_1-s2.0-S0029549306000276-main.pdf
+2025-06-21 23:56:16,958 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:56:16] "POST /upload HTTP/1.1" 200 -
+2025-06-21 23:56:31,853 | pynucleus.api.app | INFO | app.py:612 | Uploading file: test_original_filename.txt -> 20250621_235631_8e1bdb01_test_original_filename.txt
+2025-06-21 23:56:31,854 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_235631_8e1bdb01_test_original_filename.txt
+2025-06-21 23:56:31,856 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 23:56:31,857 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 23:56:32,029 | pynucleus | INFO | collector.py:135 | File 20250621_235631_8e1bdb01_test_original_filename.txt has no meaningful chunks or failed processing, needs reprocessing
+2025-06-21 23:56:32,035 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-21 23:56:32,035 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-21 23:56:33,061 | pynucleus | INFO | collector.py:167 | Processing new file: 20250621_235631_8e1bdb01_test_original_filename.txt
+2025-06-21 23:56:33,062 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250621_235631_8e1bdb01_test_original_filename.txt
+2025-06-21 23:56:33,313 | pynucleus | INFO | collector.py:232 | Successfully processed 20250621_235631_8e1bdb01_test_original_filename.txt: 3 chunks added
+2025-06-21 23:56:33,416 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 23:56:33,416 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250621_235631_8e1bdb01_test_original_filename.txt
+2025-06-21 23:56:33,416 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:56:33] "POST /upload HTTP/1.1" 200 -
+2025-06-21 23:58:22,848 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 23:58:22,972 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-21 23:58:22,972 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 23:58:25,005 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:58:25] "GET / HTTP/1.1" 200 -
+2025-06-21 23:58:26,529 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 23:58:26,529 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 23:58:26,541 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3770 documents
+2025-06-21 23:58:26,542 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:58:26] "GET /health HTTP/1.1" 200 -
+2025-06-22 00:03:02,247 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 00:03:02] "GET / HTTP/1.1" 200 -
+2025-06-22 00:03:06,408 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-22 00:03:06,539 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-22 00:03:06,539 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 00:03:10,107 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 00:03:10,107 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 00:03:10,107 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3770 documents
+2025-06-22 00:03:10,108 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 00:03:10] "GET /health HTTP/1.1" 200 -
+2025-06-22 00:03:10,652 | pynucleus.api.app | INFO | app.py:612 | Uploading file: AIChE2017_Modular_AAM.pdf -> 20250622_000310_0dfd6e34_AIChE2017_Modular_AAM.pdf
+2025-06-22 00:03:10,653 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250622_000310_0dfd6e34_AIChE2017_Modular_AAM.pdf
+2025-06-22 00:03:10,750 | pynucleus.rag.document_processor | INFO | document_processor.py:185 | Extracted 57037 characters from PDF: 20250622_000310_0dfd6e34_AIChE2017_Modular_AAM.pdf
+2025-06-22 00:03:11,457 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-22 00:03:11,458 | pynucleus.rag.document_processor | ERROR | document_processor.py:565 | Failed to extract tables from source_documents/20250622_000310_0dfd6e34_AIChE2017_Modular_AAM.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-22 00:03:11,461 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250622_000310_0dfd6e34_AIChE2017_Modular_AAM.txt
+2025-06-22 00:03:11,573 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 00:03:11,573 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250622_000310_0dfd6e34_AIChE2017_Modular_AAM.pdf
+2025-06-22 00:03:11,573 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 00:03:11] "POST /upload HTTP/1.1" 200 -
+2025-06-22 00:05:14,394 | pynucleus.api.app | INFO | app.py:612 | Uploading file: test_processed_upload.txt -> 20250622_000514_cac88827_test_processed_upload.txt
+2025-06-22 00:05:14,394 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250622_000514_cac88827_test_processed_upload.txt
+2025-06-22 00:05:14,396 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-22 00:05:14,397 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-22 00:05:14,551 | pynucleus | INFO | collector.py:135 | File 20250622_000514_cac88827_test_processed_upload.txt has no meaningful chunks or failed processing, needs reprocessing
+2025-06-22 00:05:14,555 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-22 00:05:14,555 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-22 00:05:15,710 | pynucleus | INFO | collector.py:167 | Processing new file: 20250622_000514_cac88827_test_processed_upload.txt
+2025-06-22 00:05:15,711 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250622_000514_cac88827_test_processed_upload.txt
+2025-06-22 00:05:15,830 | pynucleus | INFO | collector.py:232 | Successfully processed 20250622_000514_cac88827_test_processed_upload.txt: 2 chunks added
+2025-06-22 00:05:15,940 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 00:05:15,940 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250622_000514_cac88827_test_processed_upload.txt
+2025-06-22 00:05:15,940 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 00:05:15] "POST /upload HTTP/1.1" 200 -

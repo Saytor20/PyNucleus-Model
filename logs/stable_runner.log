@@ -746,3 +746,75 @@ app.run(debug=True, host="0.0.0.0", port=5001, use_reloader=False)
 2025-06-21 18:30:17,581 - INFO - ✅ Memory usage acceptable: 51.9%
 2025-06-21 18:30:17,581 - INFO - ✅ Starting application (attempt 1)
 2025-06-21 18:30:25,670 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 22:09:25,377 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 22:09:25,377 - INFO - 📊 Max restarts: 10
+2025-06-21 22:09:25,377 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 22:09:26,265 - INFO - ✅ Core dependencies available
+2025-06-21 22:09:26,265 - INFO - ✅ Required directories setup complete
+2025-06-21 22:09:26,272 - INFO - ✅ Memory usage acceptable: 79.0%
+2025-06-21 22:09:26,272 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 22:09:34,122 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 22:27:51,352 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 22:27:51,352 - INFO - 📊 Max restarts: 10
+2025-06-21 22:27:51,353 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 22:27:52,003 - INFO - ✅ Core dependencies available
+2025-06-21 22:27:52,003 - INFO - ✅ Required directories setup complete
+2025-06-21 22:27:52,008 - INFO - ✅ Memory usage acceptable: 67.7%
+2025-06-21 22:27:52,008 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 22:27:57,762 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 22:37:48,324 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 22:37:48,324 - INFO - 📊 Max restarts: 10
+2025-06-21 22:37:48,324 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 22:37:49,262 - INFO - ✅ Core dependencies available
+2025-06-21 22:37:49,262 - INFO - ✅ Required directories setup complete
+2025-06-21 22:37:49,268 - INFO - ✅ Memory usage acceptable: 61.4%
+2025-06-21 22:37:49,268 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 22:37:55,133 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 22:43:04,073 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 22:43:04,073 - INFO - 📊 Max restarts: 10
+2025-06-21 22:43:04,074 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 22:43:04,996 - INFO - ✅ Core dependencies available
+2025-06-21 22:43:04,996 - INFO - ✅ Required directories setup complete
+2025-06-21 22:43:05,002 - INFO - ✅ Memory usage acceptable: 61.0%
+2025-06-21 22:43:05,002 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 22:43:11,082 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 22:48:22,025 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 22:48:58,054 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 22:48:58,055 - INFO - 📊 Max restarts: 10
+2025-06-21 22:48:58,055 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 22:48:58,744 - INFO - ✅ Core dependencies available
+2025-06-21 22:48:58,744 - INFO - ✅ Required directories setup complete
+2025-06-21 22:48:58,748 - INFO - ✅ Memory usage acceptable: 67.1%
+2025-06-21 22:48:58,748 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 22:49:07,389 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:00:04,461 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:07:01,589 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:08:51,228 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:09:19,540 - INFO - 🎯 PyNucleus Stable Web App Runner Starting...
+2025-06-21 23:09:19,540 - INFO - 📊 Max restarts: 10
+2025-06-21 23:09:19,540 - INFO - ⏱️ Restart delay: 30s
+2025-06-21 23:09:20,150 - INFO - ✅ Core dependencies available
+2025-06-21 23:09:20,151 - INFO - ✅ Required directories setup complete
+2025-06-21 23:09:20,155 - INFO - ✅ Memory usage acceptable: 61.3%
+2025-06-21 23:09:20,155 - INFO - ✅ Starting application (attempt 1)
+2025-06-21 23:09:25,855 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:12:34,719 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:17:26,079 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:20:04,483 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:23:05,005 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:31:02,553 - ERROR - ❌ Failed to start application: unterminated triple-quoted string literal (detected at line 1133) (app.py, line 1112)
+2025-06-21 23:32:32,112 - ERROR - ❌ Failed to start application: unterminated triple-quoted string literal (detected at line 1133) (app.py, line 1112)
+2025-06-21 23:36:04,503 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:39:58,192 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:41:35,934 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:43:18,293 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:48:21,213 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:52:39,235 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:55:50,092 - INFO - PyTorch version 2.7.1 available.
+2025-06-21 23:58:07,790 - INFO - PyTorch version 2.7.1 available.
+2025-06-22 00:02:04,963 - INFO - PyTorch version 2.7.1 available.
+2025-06-22 00:06:01,233 - INFO - PyTorch version 2.7.1 available.
+2025-06-22 00:08:47,343 - INFO - PyTorch version 2.7.1 available.
+2025-06-22 00:11:17,741 - INFO - PyTorch version 2.7.1 available.
+2025-06-22 00:12:20,217 - INFO - PyTorch version 2.7.1 available.
+2025-06-22 00:12:59,356 - INFO - PyTorch version 2.7.1 available.

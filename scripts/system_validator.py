@@ -631,7 +631,7 @@ class SystemValidator:
                     with open(file_path, 'r') as f:
                         content = f.read()
                     
-                    html_requirements = ['id="question"', 'askQuestion', 'typeText', 'fetch']
+                    html_requirements = ['id="question"', 'switchMode', 'typeText', 'fetch']
                     for req in html_requirements:
                         self.total_tests += 1
                         if req in content:

@@ -1,0 +1,78 @@
+2025-06-21 22:48:22,429 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-21 22:48:22,452 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-21 22:48:22,452 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 22:48:35,699 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 22:48:35,778 | pynucleus | INFO | engine.py:36 | ChromaDB client initialized successfully
+2025-06-21 22:48:36,020 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-21 22:48:36,020 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:48:39,299 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-21 22:48:39,299 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-21 22:48:39,312 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3763 documents
+2025-06-21 22:48:39,313 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:48:39] "GET /health HTTP/1.1" 200 -
+2025-06-21 22:49:07,289 | pynucleus.api.app | INFO | app.py:612 | Uploading file: test_doc2.txt -> 20250621_224907_b4234f3c_test_doc2.txt
+2025-06-21 22:49:07,290 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_224907_b4234f3c_test_doc2.txt
+2025-06-21 22:49:07,294 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 22:49:07,373 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-21 22:49:07,374 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-21 22:49:08,453 | pynucleus | INFO | collector.py:271 | Found 0 files total in source_documents/20250621_224907_b4234f3c_test_doc2.txt
+2025-06-21 22:49:08,453 | pynucleus | INFO | collector.py:272 |   - 0 .txt files
+2025-06-21 22:49:08,453 | pynucleus | INFO | collector.py:273 |   - 0 .pdf files
+2025-06-21 22:49:08,453 | pynucleus | INFO | collector.py:274 |   - 0 .md files
+2025-06-21 22:49:08,453 | pynucleus | INFO | collector.py:275 | Files already processed: 0
+2025-06-21 22:49:08,453 | pynucleus | INFO | collector.py:276 | Files to process: 0
+2025-06-21 22:49:08,453 | pynucleus | INFO | collector.py:279 | No new files to process - all files already processed
+2025-06-21 22:49:08,453 | pynucleus.api.app | WARNING | app.py:683 | Failed to ingest file: 20250621_224907_b4234f3c_test_doc2.txt
+2025-06-21 22:49:08,453 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:49:08] "[35m[1mPOST /upload HTTP/1.1[0m" 202 -
+2025-06-21 22:49:11,585 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:49:11] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 22:49:14,162 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:49:14,326 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:49:14,327 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:49:14] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:49:41,873 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:49:42,039 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:49:42,039 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:49:42] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:50:11,958 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:50:12,114 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:50:12,115 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:50:12] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:50:42,087 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:50:42,182 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:50:42,182 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:50:42] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:51:12,163 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:51:12,260 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:51:12,261 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:51:12] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:51:42,279 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:51:42,426 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:51:42,427 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:51:42] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:52:12,405 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:52:12,550 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:52:12,550 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:52:12] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:53:12,988 | pynucleus.api.app | INFO | app.py:612 | Uploading file: test_doc2.txt -> 20250621_225312_868bbd14_test_doc2.txt
+2025-06-21 22:53:12,988 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_225312_868bbd14_test_doc2.txt
+2025-06-21 22:53:12,990 | pynucleus | INFO | collector.py:64 | ChromaDB client initialized successfully in collector
+2025-06-21 22:53:12,992 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:211 | Use pytorch device_name: mps
+2025-06-21 22:53:12,992 | sentence_transformers.SentenceTransformer | INFO | SentenceTransformer.py:219 | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-21 22:53:14,106 | pynucleus | INFO | collector.py:271 | Found 0 files total in source_documents/20250621_225312_868bbd14_test_doc2.txt
+2025-06-21 22:53:14,106 | pynucleus | INFO | collector.py:272 |   - 0 .txt files
+2025-06-21 22:53:14,106 | pynucleus | INFO | collector.py:273 |   - 0 .pdf files
+2025-06-21 22:53:14,106 | pynucleus | INFO | collector.py:274 |   - 0 .md files
+2025-06-21 22:53:14,106 | pynucleus | INFO | collector.py:275 | Files already processed: 0
+2025-06-21 22:53:14,106 | pynucleus | INFO | collector.py:276 | Files to process: 0
+2025-06-21 22:53:14,106 | pynucleus | INFO | collector.py:279 | No new files to process - all files already processed
+2025-06-21 22:53:14,106 | pynucleus.api.app | WARNING | app.py:683 | Failed to ingest file: 20250621_225312_868bbd14_test_doc2.txt
+2025-06-21 22:53:14,106 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:53:14] "[35m[1mPOST /upload HTTP/1.1[0m" 202 -
+2025-06-21 22:53:53,493 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:53:53,650 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:53:53,650 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:53:53] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:55:01,380 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:55:01,522 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:55:01,522 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:55:01] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:58:21,429 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 22:58:21,591 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-21 22:58:21,591 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:58:21] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:59:17,290 | pynucleus.api.app | INFO | app.py:83 | Received signal 15, shutting down gracefully...
+2025-06-21 22:59:17,290 | pynucleus.api.app | INFO | app.py:70 | Cleaning up application resources...
+2025-06-21 22:59:17,458 | pynucleus.api.app | INFO | app.py:74 | Resource cleanup completed
+2025-06-21 22:59:17,558 | pynucleus.api.app | INFO | app.py:70 | Cleaning up application resources...
+2025-06-21 22:59:17,666 | pynucleus.api.app | INFO | app.py:74 | Resource cleanup completed

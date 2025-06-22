@@ -67,10 +67,11 @@ def _get_chromadb_client():
     except Exception as e:
         if "already exists" in str(e).lower():
             # Handle existing instance conflict by using engine's archive function
-            logger.warning(f"ChromaDB instance conflict detected in collector, archiving old DB...")
+            logger.warning(f"ChromaDB instance conflict detected in collector, reinitializing...")
             try:
-                from .engine import _archive_and_recreate_chromadb
-                _archive_and_recreate_chromadb()
+                # Clear any existing ChromaDB instances
+                import time
+                time.sleep(0.1)
                 
                 # Recreate client
                 client = chromadb.PersistentClient(

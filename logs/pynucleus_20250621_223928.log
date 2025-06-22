@@ -1,0 +1,25 @@
+2025-06-21 22:39:28,591 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:39:28,696 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:39:28,696 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:45 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-21 22:39:28,696 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:61 | Loading validation questions from docs/e2e_validation_questions.csv
+2025-06-21 22:39:28,698 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:128 | Loaded 0 questions from CSV
+2025-06-21 22:39:28,698 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:73 | Validating 0 questions...
+2025-06-21 22:39:28,698 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:106 | Validation completed: 0/0 passed
+2025-06-21 22:39:28,699 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:39:28,804 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:39:28,808 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 22:39:28,932 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:39:28,932 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:39:32,635 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:39:32,740 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:39:32,741 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:39:32] "GET /health HTTP/1.1" 200 -
+2025-06-21 22:39:32,744 | pynucleus.api.app | INFO | app.py:340 | Processing question: test... (stream: False)
+2025-06-21 22:39:32,873 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:39:32,873 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:39:36,414 | pynucleus.api.app | INFO | app.py:440 | Question processed successfully in 3.67s
+2025-06-21 22:39:36,414 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:39:36] "POST /ask HTTP/1.1" 200 -
+2025-06-21 22:39:36,415 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:39:36] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-21 22:39:57,169 | pynucleus | INFO | comprehensive_system_diagnostic.py:819 | Test log message from comprehensive diagnostic
+2025-06-21 22:39:57,287 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:40:00,374 | pynucleus | WARNING | qwen_loader.py:36 | bitsandbytes not available, falling back to standard loading
+2025-06-21 22:40:02,764 | pynucleus | INFO | qwen_loader.py:42 | Standard model loaded: Qwen/Qwen3-0.6B

@@ -1,0 +1,21 @@
+2025-06-21 23:08:51,590 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-21 23:08:51,627 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-21 23:08:51,627 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-21 23:09:28,825 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:09:28] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 23:10:02,646 | pynucleus.api.app | INFO | app.py:612 | Uploading file: me_2022022315562348.pdf -> 20250621_231002_dde8df33_me_2022022315562348.pdf
+2025-06-21 23:10:02,647 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_231002_dde8df33_me_2022022315562348.pdf
+2025-06-21 23:10:02,647 | pynucleus.rag.document_processor | ERROR | document_processor.py:91 | Failed to process document source_documents/20250621_231002_dde8df33_me_2022022315562348.pdf: 'str' object has no attribute 'suffix'
+2025-06-21 23:10:02,748 | pynucleus | INFO | engine.py:36 | ChromaDB client initialized successfully
+2025-06-21 23:10:03,021 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-21 23:10:03,021 | pynucleus.api.app | INFO | app.py:673 | File successfully ingested and retrievable: 20250621_231002_dde8df33_me_2022022315562348.pdf
+2025-06-21 23:10:03,021 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:10:03] "POST /upload HTTP/1.1" 200 -
+2025-06-21 23:10:51,290 | pynucleus.api.app | INFO | app.py:340 | Processing question: What does me_2022022315562348.pdf contain?... (stream: False)
+2025-06-21 23:10:51,423 | pynucleus | INFO | engine.py:72 | Retrieved 2 documents for query
+2025-06-21 23:10:51,423 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 23:10:54,861 | pynucleus.api.app | INFO | app.py:440 | Question processed successfully in 3.57s
+2025-06-21 23:10:54,861 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:10:54] "POST /ask HTTP/1.1" 200 -
+2025-06-21 23:12:43,470 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:12:43] "GET / HTTP/1.1" 200 -
+2025-06-21 23:12:55,435 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 23:12:55] "GET / HTTP/1.1" 200 -

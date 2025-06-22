@@ -1,0 +1,126 @@
+2025-06-21 22:30:14,184 | httpx | INFO | _client.py:1025 | HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+2025-06-21 22:30:14,687 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:30:14,687 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:30:14,687 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:45 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-21 22:30:14,707 | pynucleus.rag.vector_store | INFO | vector_store.py:363 | No existing FAISS directories found
+2025-06-21 22:30:14,707 | pynucleus.pipeline.pipeline_utils | INFO | pipeline_utils.py:42 | Pipeline components initialized successfully
+2025-06-21 22:30:14,707 | pynucleus.pipeline.pipeline_utils | WARNING | pipeline_utils.py:46 | FAISS vector store not loaded - using fallback mode
+2025-06-21 22:30:14,708 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:30:14,708 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:30:14,708 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:45 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-21 22:30:14,709 | pynucleus.integration.llm_output_generator | INFO | llm_output_generator.py:21 | Using direct content generation (templates migrated to DSPy)
+2025-06-21 22:30:14,709 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:30:14,709 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:30:14,712 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 22:30:14,822 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:30:14,822 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:30:17,714 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:30:17] "GET /comprehensive_diagnostic HTTP/1.1" 200 -
+2025-06-21 22:30:19,640 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:30:19,641 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:30:19,641 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:30:19] "GET /health HTTP/1.1" 200 -
+2025-06-21 22:30:28,144 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:30:28,144 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:30:28,147 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:30:28] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 22:30:38,346 | pynucleus.api.app | INFO | app.py:340 | Processing question: What is chemical engineering?... (stream: False)
+2025-06-21 22:30:38,449 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:30:38,449 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:30:41,963 | pynucleus.api.app | INFO | app.py:440 | Question processed successfully in 3.62s
+2025-06-21 22:30:41,963 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:30:41] "POST /ask HTTP/1.1" 200 -
+2025-06-21 22:30:52,872 | pynucleus.api.app | INFO | app.py:529 | Document search: chemical engineering... (k=3)
+2025-06-21 22:30:52,985 | pynucleus | INFO | engine.py:66 | Retrieved 3 documents for query
+2025-06-21 22:30:52,986 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:30:52] "POST /search HTTP/1.1" 200 -
+2025-06-21 22:31:14,560 | pynucleus.api.app | INFO | app.py:612 | Uploading file: test_document.txt -> 20250621_223114_f61a270f_test_document.txt
+2025-06-21 22:31:14,560 | pynucleus.api.app | INFO | app.py:634 | Ingesting file into vector database: 20250621_223114_f61a270f_test_document.txt
+2025-06-21 22:31:14,561 | pynucleus | WARNING | collector.py:70 | ChromaDB instance conflict detected in collector, archiving old DB...
+2025-06-21 22:31:14,561 | pynucleus | ERROR | collector.py:84 | Failed to archive/recreate ChromaDB in collector: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:31:14,561 | pynucleus | ERROR | collector.py:248 | Failed to get ChromaDB client for ingestion
+2025-06-21 22:31:14,561 | pynucleus.api.app | WARNING | app.py:683 | Failed to ingest file: 20250621_223114_f61a270f_test_document.txt
+2025-06-21 22:31:14,562 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:31:14] "[35m[1mPOST /upload HTTP/1.1[0m" 202 -
+2025-06-21 22:31:23,959 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:31:23] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-21 22:31:44,508 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:31:44] "GET / HTTP/1.1" 200 -
+2025-06-21 22:31:51,223 | pynucleus.api.app | INFO | app.py:340 | Processing question: what is modular plants?... (stream: False)
+2025-06-21 22:31:51,427 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:31:51,428 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:31:55,791 | pynucleus.api.app | INFO | app.py:440 | Question processed successfully in 4.57s
+2025-06-21 22:31:55,791 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:31:55] "POST /ask HTTP/1.1" 200 -
+2025-06-21 22:32:32,311 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:32:32,481 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:32:32,482 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:32:32] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:32:33,886 | pynucleus | INFO | system_validator.py:206 | Test log message from validator
+2025-06-21 22:32:34,016 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:32:34,016 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:32:36,948 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:32:36,948 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:32:40,263 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:32:40,263 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:32:43,983 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:32:43,983 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:32:44,696 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:32:44,874 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:32:44,875 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:32:44] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:32:48,172 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:32:48,172 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:32:51,757 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:32:51,757 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:32:55,224 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:32:55,224 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:32:58,574 | pynucleus | INFO | golden_eval.py:13 | Randomly sampled 5 questions from 49 total questions
+2025-06-21 22:32:58,661 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:32:58,661 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:33:02,281 | pynucleus | WARNING | golden_eval.py:22 | Q: What is the ANSI flange rating suitable for pressures up to 50 bar? missed keywords: ['ansi', 'class 300', '50 bar']
+2025-06-21 22:33:02,367 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:33:02,367 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:33:05,686 | pynucleus | WARNING | golden_eval.py:22 | Q: What is diffusion-controlled reaction? missed keywords: ['diffusion-controlled', 'reaction rate', 'reactant']
+2025-06-21 22:33:05,773 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:33:05,774 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:33:09,197 | pynucleus | WARNING | golden_eval.py:22 | Q: Define molar flux in mass transfer. missed keywords: ['molar flux', 'mass transfer', 'rate', 'area', 'time']
+2025-06-21 22:33:09,284 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:33:09,284 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:33:12,769 | pynucleus | WARNING | golden_eval.py:22 | Q: What is absorption in mass transfer? missed keywords: ['absorption', 'gas', 'liquid phase', 'mass transfer']
+2025-06-21 22:33:12,853 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:33:12,853 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:33:14,806 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:33:15,056 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:33:15,057 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:33:15] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:33:16,829 | pynucleus | WARNING | golden_eval.py:22 | Q: What influences drying efficiency in industrial dryers? missed keywords: ['temperature', 'velocity', 'humidity', 'drying method']
+2025-06-21 22:33:16,829 | pynucleus | INFO | golden_eval.py:25 | Golden dataset accuracy: 0.00% (0/5 questions)
+2025-06-21 22:33:16,833 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:33:16,833 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:33:16,833 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:45 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-21 22:33:16,833 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:61 | Loading validation questions from docs/e2e_validation_questions.csv
+2025-06-21 22:33:16,834 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:128 | Loaded 0 questions from CSV
+2025-06-21 22:33:16,834 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:73 | Validating 0 questions...
+2025-06-21 22:33:16,834 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:106 | Validation completed: 0/0 passed
+2025-06-21 22:33:16,835 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:33:16,835 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:33:16,840 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 22:33:16,928 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:33:16,928 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:33:21,308 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:33:21,308 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:33:21,312 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:33:21] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 22:33:21,367 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:33:21,367 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:33:21,367 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:33:21] "GET /health HTTP/1.1" 200 -
+2025-06-21 22:33:21,369 | pynucleus.api.app | INFO | app.py:340 | Processing question: test... (stream: False)
+2025-06-21 22:33:21,463 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:33:21,463 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:33:24,229 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:33:24,230 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:33:24,479 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:33:24,481 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:33:24,483 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:33:24] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:33:24,483 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:33:24] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:33:26,192 | pynucleus.api.app | INFO | app.py:440 | Question processed successfully in 4.82s
+2025-06-21 22:33:26,192 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:33:26] "POST /ask HTTP/1.1" 200 -
+2025-06-21 22:33:26,193 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:33:26] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-21 22:33:30,059 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, archiving old DB...
+2025-06-21 22:33:30,060 | pynucleus.rag.vector_store | ERROR | vector_store.py:619 | Failed to archive/recreate ChromaDB in vector store: cannot import name '_archive_and_recreate_chromadb' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-21 22:33:30,062 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:33:30] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 22:33:31,341 | pynucleus | INFO | system_validator.py:206 | Test log message from validator
+2025-06-21 22:33:31,463 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:33:31,463 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:33:34,311 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:33:34,311 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:33:37,877 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:33:37,877 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)

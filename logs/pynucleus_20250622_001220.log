@@ -1,0 +1,18 @@
+2025-06-22 00:12:20,566 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
+2025-06-22 00:12:20,605 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-22 00:12:20,605 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-22 00:12:23,276 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 00:12:23] "GET / HTTP/1.1" 200 -
+2025-06-22 00:12:58,856 | pynucleus.api.app | INFO | app.py:618 | Uploading file: 1-s2.0-S0029549306000276-main.pdf -> 20250622_001258_785c2eda_1-s2.0-S0029549306000276-main.pdf (and original in data/02_processed/)
+2025-06-22 00:12:58,860 | pynucleus.api.app | INFO | app.py:627 | ✅ Also saved as original filename in processed dir: 1-s2.0-S0029549306000276-main.pdf
+2025-06-22 00:12:58,860 | pynucleus.api.app | INFO | app.py:649 | Ingesting file into vector database: 20250622_001258_785c2eda_1-s2.0-S0029549306000276-main.pdf
+2025-06-22 00:12:59,183 | pynucleus.rag.document_processor | INFO | document_processor.py:185 | Extracted 32702 characters from PDF: 20250622_001258_785c2eda_1-s2.0-S0029549306000276-main.pdf
+2025-06-22 00:12:59,866 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-22 00:12:59,867 | pynucleus.rag.document_processor | ERROR | document_processor.py:565 | Failed to extract tables from data/01_raw/source_documents/20250622_001258_785c2eda_1-s2.0-S0029549306000276-main.pdf: Ghostscript is not installed. You can install it using the instructions here: https://camelot-py.readthedocs.io/en/master/user/install-deps.html
+2025-06-22 00:12:59,869 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250622_001258_785c2eda_1-s2.0-S0029549306000276-main.txt
+2025-06-22 00:12:59,971 | pynucleus | INFO | engine.py:36 | ChromaDB client initialized successfully
+2025-06-22 00:13:00,357 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 00:13:00,357 | pynucleus.api.app | INFO | app.py:688 | File successfully ingested and retrievable: 20250622_001258_785c2eda_1-s2.0-S0029549306000276-main.pdf
+2025-06-22 00:13:00,358 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 00:13:00] "POST /upload HTTP/1.1" 200 -

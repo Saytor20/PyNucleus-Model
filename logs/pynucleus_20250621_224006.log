@@ -1,0 +1,109 @@
+2025-06-21 22:40:06,845 | httpx | INFO | _client.py:1025 | HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+2025-06-21 22:40:07,364 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:40:07,470 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:40:07,470 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:45 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-21 22:40:07,496 | pynucleus.rag.vector_store | INFO | vector_store.py:363 | No existing FAISS directories found
+2025-06-21 22:40:07,496 | pynucleus.pipeline.pipeline_utils | INFO | pipeline_utils.py:42 | Pipeline components initialized successfully
+2025-06-21 22:40:07,496 | pynucleus.pipeline.pipeline_utils | WARNING | pipeline_utils.py:46 | FAISS vector store not loaded - using fallback mode
+2025-06-21 22:40:07,497 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:40:07,602 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:40:07,602 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:45 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-21 22:40:07,604 | pynucleus.integration.llm_output_generator | INFO | llm_output_generator.py:21 | Using direct content generation (templates migrated to DSPy)
+2025-06-21 22:40:07,605 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:40:07,710 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:40:07,715 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 22:40:07,882 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:07,883 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:10,716 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:10] "GET /comprehensive_diagnostic HTTP/1.1" 200 -
+2025-06-21 22:40:11,644 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:40:11,749 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:40:11,750 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:11] "GET /health HTTP/1.1" 200 -
+2025-06-21 22:40:16,784 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:40:17,001 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:40:17,002 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:17] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:40:17,031 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:40:17,135 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:40:17,135 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:17] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:40:21,412 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:40:21,515 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:40:21,522 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:21] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 22:40:23,130 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:40:23,233 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:40:23,236 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:23] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 22:40:24,462 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:40:24,560 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:40:24,561 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:24] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:40:26,185 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:40:26,186 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:40:26,357 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:40:26,357 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:26] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:40:26,420 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:40:26,421 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:26] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:40:27,940 | pynucleus | INFO | system_validator.py:206 | Test log message from validator
+2025-06-21 22:40:28,096 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:40:28,096 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:31,172 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:31,172 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:34,572 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:34,572 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:37,848 | pynucleus.api.app | INFO | app.py:340 | Processing question: What are distillation columns?... (stream: False)
+2025-06-21 22:40:37,956 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:37,957 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:38,489 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:38,489 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:43,385 | pynucleus.api.app | INFO | app.py:440 | Question processed successfully in 5.54s
+2025-06-21 22:40:43,385 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:43] "POST /ask HTTP/1.1" 200 -
+2025-06-21 22:40:44,278 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:44,279 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:47,129 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:40:47,248 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:40:47,249 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:40:47] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:40:48,244 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:48,244 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:51,836 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:51,836 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:55,236 | pynucleus | INFO | golden_eval.py:13 | Randomly sampled 5 questions from 49 total questions
+2025-06-21 22:40:55,329 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:55,329 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:40:59,189 | pynucleus | WARNING | golden_eval.py:22 | Q: What is the ANSI flange rating suitable for pressures up to 50 bar? missed keywords: ['ansi', 'class 300', '50 bar']
+2025-06-21 22:40:59,286 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:40:59,287 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:41:02,714 | pynucleus | WARNING | golden_eval.py:22 | Q: What is diffusion-controlled reaction? missed keywords: ['diffusion-controlled', 'reaction rate', 'reactant']
+2025-06-21 22:41:02,800 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:41:02,800 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:41:06,326 | pynucleus | WARNING | golden_eval.py:22 | Q: Define molar flux in mass transfer. missed keywords: ['molar flux', 'mass transfer', 'rate', 'area', 'time']
+2025-06-21 22:41:06,414 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:41:06,415 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:41:09,059 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:41:09,165 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:41:09,169 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:41:09] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-21 22:41:10,212 | pynucleus | WARNING | golden_eval.py:22 | Q: What is absorption in mass transfer? missed keywords: ['absorption', 'gas', 'liquid phase', 'mass transfer']
+2025-06-21 22:41:10,311 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:41:10,311 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:41:13,680 | pynucleus | WARNING | golden_eval.py:22 | Q: What influences drying efficiency in industrial dryers? missed keywords: ['temperature', 'velocity', 'humidity', 'drying method']
+2025-06-21 22:41:13,680 | pynucleus | INFO | golden_eval.py:25 | Golden dataset accuracy: 0.00% (0/5 questions)
+2025-06-21 22:41:13,680 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:41:13,786 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:41:13,786 | pynucleus.pipeline.pipeline_rag | WARNING | pipeline_rag.py:45 | Vector store (chroma) not fully loaded - will use fallback mode
+2025-06-21 22:41:13,786 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:61 | Loading validation questions from docs/e2e_validation_questions.csv
+2025-06-21 22:41:13,788 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:128 | Loaded 0 questions from CSV
+2025-06-21 22:41:13,788 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:73 | Validating 0 questions...
+2025-06-21 22:41:13,788 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:106 | Validation completed: 0/0 passed
+2025-06-21 22:41:13,788 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:41:13,891 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:41:13,898 | pynucleus.api.app | INFO | app.py:148 | Health check requested
+2025-06-21 22:41:14,016 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:41:14,016 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:41:17,227 | pynucleus | INFO | engine.py:66 | Retrieved 1 documents for query
+2025-06-21 22:41:17,339 | pynucleus | INFO | engine.py:66 | Retrieved 1000 documents for query
+2025-06-21 22:41:17,340 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:41:17] "GET /status HTTP/1.1" 200 -
+2025-06-21 22:41:17,807 | pynucleus.rag.vector_store | WARNING | vector_store.py:606 | ChromaDB instance conflict detected in vector store, reinitializing...
+2025-06-21 22:41:17,912 | pynucleus.rag.vector_store | ERROR | vector_store.py:621 | Failed to recreate ChromaDB in vector store: An instance of Chroma already exists for data/03_intermediate/vector_db with different settings
+2025-06-21 22:41:17,913 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:41:17] "GET /health HTTP/1.1" 200 -
+2025-06-21 22:41:17,915 | pynucleus.api.app | INFO | app.py:340 | Processing question: test... (stream: False)
+2025-06-21 22:41:18,038 | pynucleus | INFO | engine.py:66 | Retrieved 2 documents for query
+2025-06-21 22:41:18,038 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-21 22:41:21,521 | pynucleus.api.app | INFO | app.py:440 | Question processed successfully in 3.61s
+2025-06-21 22:41:21,521 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:41:21] "POST /ask HTTP/1.1" 200 -
+2025-06-21 22:41:21,522 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:41:21] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-21 22:41:31,964 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [21/Jun/2025 22:41:31] "GET / HTTP/1.1" 200 -
