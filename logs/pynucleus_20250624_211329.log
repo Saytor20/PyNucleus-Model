@@ -1,0 +1,38 @@
+2025-06-24 21:13:29,695 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 21:13:29,695 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 21:13:29,696 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 21:13:29,696 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-24 21:13:29,696 | pynucleus | INFO | engine.py:58 | ChromaDB collection initialized successfully
+2025-06-24 21:13:29,696 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3772 documents
+2025-06-24 21:13:29,696 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:61 | Loading validation questions from docs/e2e_validation_questions.csv
+2025-06-24 21:13:29,697 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:128 | Loaded 0 questions from CSV
+2025-06-24 21:13:29,697 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:73 | Validating 0 questions...
+2025-06-24 21:13:29,697 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:106 | Validation completed: 0/0 passed
+2025-06-24 21:13:29,847 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-24 21:13:29,847 | pynucleus | INFO | engine.py:203 | Built enhanced context: 3 chunks, 2191 characters
+2025-06-24 21:13:29,848 | pynucleus | INFO | engine.py:406 | Question complexity: Complex, Token limit: 600, Context length: 2191
+2025-06-24 21:13:29,848 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=600, stream=False)
+2025-06-24 21:14:37,001 | pynucleus | INFO | engine.py:433 | Incomplete answer detected for complex question, retry 1/3
+2025-06-24 21:14:37,002 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=600, stream=False)
+2025-06-24 21:15:47,189 | pynucleus | INFO | answer_processing.py:70 | Deduplication: 21 -> 21 sentences
+2025-06-24 21:15:47,342 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-24 21:15:47,343 | pynucleus | INFO | engine.py:203 | Built enhanced context: 3 chunks, 2310 characters
+2025-06-24 21:15:47,343 | pynucleus | INFO | engine.py:406 | Question complexity: Complex, Token limit: 600, Context length: 2310
+2025-06-24 21:15:47,343 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=600, stream=False)
+2025-06-24 21:16:49,687 | pynucleus | INFO | answer_processing.py:70 | Deduplication: 25 -> 25 sentences
+2025-06-24 21:16:49,687 | pynucleus | INFO | answer_processing.py:180 | Added citation to answer lacking proper citations
+2025-06-24 21:16:49,869 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-24 21:16:49,869 | pynucleus | INFO | engine.py:203 | Built enhanced context: 3 chunks, 2330 characters
+2025-06-24 21:16:49,869 | pynucleus | INFO | engine.py:406 | Question complexity: Simple, Token limit: 250, Context length: 2330
+2025-06-24 21:16:49,869 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=250, stream=False)
+2025-06-24 21:17:09,580 | pynucleus | INFO | answer_processing.py:70 | Deduplication: 3 -> 3 sentences
+2025-06-24 21:17:09,581 | pynucleus | INFO | answer_processing.py:180 | Added citation to answer lacking proper citations
+2025-06-24 21:17:09,583 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 21:17:09,583 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 21:17:09,584 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 21:17:09,728 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-24 21:17:09,858 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-24 21:17:09,858 | pynucleus | INFO | engine.py:203 | Built enhanced context: 3 chunks, 1585 characters
+2025-06-24 21:17:09,858 | pynucleus | INFO | engine.py:406 | Question complexity: Simple, Token limit: 250, Context length: 1585
+2025-06-24 21:17:09,859 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=250, stream=False)
+2025-06-24 21:17:28,654 | pynucleus | INFO | answer_processing.py:70 | Deduplication: 7 -> 7 sentences

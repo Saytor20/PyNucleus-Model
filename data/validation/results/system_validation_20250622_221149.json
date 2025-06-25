@@ -1,0 +1,81 @@
+{
+  "timestamp": "20250622_221149",
+  "total_tests": 37,
+  "passed_tests": 27,
+  "success_rate": 0.7297297297297297,
+  "validation_results": [
+    {
+      "test_name": "Ground Truth - chemical_engineering_concepts",
+      "query": "What are the main advantages of modular chemical plants?",
+      "domain": "modular_plants",
+      "difficulty": "intermediate",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.3333333333333333,
+      "response_time": 3.3242874145507812,
+      "sources_used": [
+        "doc_0"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - chemical_engineering_concepts",
+      "query": "How do distillation columns work in chemical separation processes?",
+      "domain": "separation_processes",
+      "difficulty": "basic",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.3333333333333333,
+      "response_time": 3.864122152328491,
+      "sources_used": [
+        "doc_0"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - chemical_engineering_concepts",
+      "query": "What factors affect reactor conversion efficiency in chemical processes?",
+      "domain": "reactor_design",
+      "difficulty": "intermediate",
+      "accuracy_score": 0.16666666666666666,
+      "citation_accuracy": 0.3333333333333333,
+      "response_time": 4.2821738719940186,
+      "sources_used": [
+        "doc_0"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - process_safety",
+      "query": "What are the key principles of process safety management?",
+      "domain": "safety_management",
+      "difficulty": "advanced",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.3333333333333333,
+      "response_time": 3.858351945877075,
+      "sources_used": [
+        "doc_0"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - process_safety",
+      "query": "How do pressure relief systems work in chemical plants?",
+      "domain": "safety_systems",
+      "difficulty": "intermediate",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.6666666666666666,
+      "response_time": 3.328732967376709,
+      "sources_used": [
+        "20250621_233714_822f5092_test_upload_fix.txt",
+        "doc_1"
+      ]
+    },
+    {
+      "test_name": "Ground Truth - environmental_engineering",
+      "query": "What are the main wastewater treatment processes?",
+      "domain": "wastewater_treatment",
+      "difficulty": "basic",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.3333333333333333,
+      "response_time": 3.3297159671783447,
+      "sources_used": [
+        "doc_0"
+      ]
+    }
+  ]
+}

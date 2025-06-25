@@ -1,0 +1,24 @@
+2025-06-24 19:43:23,492 | __main__ | INFO | run_pipeline.py:436 | 🚀 Starting RAG query
+2025-06-24 19:43:23,493 | __main__ | INFO | run_pipeline.py:437 | ❓ Question: What are modular chemical plants?
+2025-06-24 19:43:23,493 | __main__ | INFO | run_pipeline.py:438 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-24 19:43:23,493 | __main__ | INFO | run_pipeline.py:439 | 📊 Top K: 5
+2025-06-24 19:43:23,493 | __main__ | INFO | run_pipeline.py:442 | 🔄 Using RAG system for query processing
+2025-06-24 19:43:23,493 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 19:43:23,494 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 19:43:23,494 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 19:43:23,494 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-24 19:43:23,494 | pynucleus | INFO | engine.py:58 | ChromaDB collection initialized successfully
+2025-06-24 19:43:23,495 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3772 documents
+2025-06-24 19:43:23,495 | __main__ | INFO | run_pipeline.py:449 | 🔄 Processing question...
+2025-06-24 19:43:23,645 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-24 19:43:23,645 | pynucleus | INFO | engine.py:345 | Retrieved 3 documents for query: 'What are modular chemical plants?'
+2025-06-24 19:43:23,645 | pynucleus | INFO | engine.py:347 | Document lengths: [3114, 1637, 2501]
+2025-06-24 19:43:23,645 | pynucleus | INFO | engine.py:189 | Built optimized context: 2 chunks, 2071 characters
+2025-06-24 19:43:23,645 | pynucleus | INFO | engine.py:357 | Using RAG approach with 3 documents
+2025-06-24 19:43:23,645 | pynucleus | INFO | model_loader.py:231 | Generating with HuggingFace model (max_tokens=512, stream=False)
+2025-06-24 19:43:57,550 | pynucleus | INFO | answer_processing.py:46 | Deduplication: 18 -> 18 sentences
+2025-06-24 19:43:57,551 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-24 19:44:07,147 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-24 19:44:07,148 | __main__ | INFO | run_pipeline.py:471 | 🤖 Generating enhanced response with Qwen/Qwen2.5-1.5B-Instruct
+2025-06-24 19:44:18,741 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 11.55s
+2025-06-24 19:44:18,741 | __main__ | INFO | run_pipeline.py:494 | ✅ Question processed successfully

@@ -1,0 +1,15 @@
+2025-06-24 17:42:06,019 | src.pynucleus.api.app | INFO | app.py:247 | PyNucleus Flask API starting up...
+2025-06-24 17:42:06,021 | src.pynucleus.api.app | INFO | app.py:183 | Diagnostics blueprint registered successfully
+2025-06-24 17:42:25,217 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: what is modular plants?... (stream: False)
+2025-06-24 17:42:26,981 | datasets | INFO | config.py:54 | PyTorch version 2.7.1 available.
+2025-06-24 17:42:27,411 | src.pynucleus.api.app | INFO | app.py:74 | RAG engine initialized successfully
+2025-06-24 17:42:27,412 | pynucleus | ERROR | engine.py:106 | Enhanced retrieval failed: cannot import name 'get_vector_store' from 'pynucleus.rag.vector_store' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/vector_store.py)
+2025-06-24 17:42:27,412 | pynucleus | INFO | engine.py:318 | Retrieved 0 documents for query: 'what is modular plants?'
+2025-06-24 17:42:27,412 | pynucleus | INFO | engine.py:334 | No relevant RAG context found for 'what is modular plants?', using LLM general knowledge
+2025-06-24 17:42:27,413 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=2048, stream=False)
+2025-06-24 17:42:57,414 | pynucleus | WARNING | model_loader.py:287 | Generation timed out after 30 seconds
+2025-06-24 17:42:57,416 | pynucleus | INFO | answer_processing.py:46 | Deduplication: 2 -> 2 sentences
+2025-06-24 17:42:57,417 | pynucleus | ERROR | engine.py:106 | Enhanced retrieval failed: cannot import name 'get_vector_store' from 'pynucleus.rag.vector_store' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/vector_store.py)
+2025-06-24 17:42:57,417 | src.pynucleus.api.app | INFO | app.py:564 | Question processed successfully in 32.2s
+2025-06-24 17:43:36,216 | pynucleus | ERROR | engine.py:106 | Enhanced retrieval failed: cannot import name 'get_vector_store' from 'pynucleus.rag.vector_store' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/vector_store.py)
+2025-06-24 17:43:36,219 | pynucleus | ERROR | engine.py:106 | Enhanced retrieval failed: cannot import name 'get_vector_store' from 'pynucleus.rag.vector_store' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/vector_store.py)

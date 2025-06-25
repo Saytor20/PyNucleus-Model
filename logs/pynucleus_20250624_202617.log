@@ -1,0 +1,18 @@
+2025-06-24 20:26:17,807 | __main__ | INFO | run_pipeline.py:517 | 🚀 Starting interactive chat session
+2025-06-24 20:26:17,808 | __main__ | INFO | run_pipeline.py:518 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-24 20:26:17,808 | __main__ | INFO | run_pipeline.py:519 | 📊 Top K: 5
+2025-06-24 20:26:17,808 | __main__ | INFO | run_pipeline.py:532 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-24 20:26:17,809 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 20:26:17,809 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 20:26:17,810 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 20:26:17,810 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-24 20:26:17,810 | pynucleus | INFO | engine.py:58 | ChromaDB collection initialized successfully
+2025-06-24 20:26:17,810 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3772 documents
+2025-06-24 20:26:17,810 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-24 20:26:27,197 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-24 20:26:35,060 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-24 20:26:35,061 | pynucleus | INFO | engine.py:203 | Built enhanced context: 3 chunks, 2286 characters
+2025-06-24 20:26:35,061 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=200, stream=False)
+2025-06-24 20:27:01,775 | pynucleus | INFO | answer_processing.py:70 | Deduplication: 1 -> 1 sentences
+2025-06-24 20:27:01,776 | pynucleus | INFO | answer_processing.py:180 | Added citation to answer lacking proper citations
+2025-06-24 20:28:08,628 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 66.84s

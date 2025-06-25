@@ -1,0 +1,42 @@
+2025-06-23 11:56:40,949 | PyNucleusRunner | INFO | run_web_app.py:64 | ============================================================
+2025-06-23 11:56:40,949 | PyNucleusRunner | INFO | run_web_app.py:65 | 🚀 Starting PyNucleus Web Application...
+2025-06-23 11:56:40,949 | PyNucleusRunner | INFO | run_web_app.py:66 |    • Mode: Development (Debug ON)
+2025-06-23 11:56:40,949 | PyNucleusRunner | INFO | run_web_app.py:67 |    • Model: Qwen/Qwen3-0.6B
+2025-06-23 11:56:40,949 | PyNucleusRunner | INFO | run_web_app.py:68 |    • Vector DB: data/03_intermediate/vector_db
+2025-06-23 11:56:40,949 | PyNucleusRunner | INFO | run_web_app.py:69 | ============================================================
+2025-06-23 11:56:40,949 | PyNucleusRunner | INFO | run_web_app.py:70 |    ►►► Open your browser at http://localhost:5001/ ◄◄◄
+2025-06-23 11:56:40,949 | PyNucleusRunner | INFO | run_web_app.py:71 | ============================================================
+2025-06-23 11:56:40,972 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.145:5001
+2025-06-23 11:56:40,972 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-23 11:57:19,208 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:57:19] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-23 11:57:21,575 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-23 11:57:21,839 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:57:21,991 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:57:21,991 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:57:21] "GET /status HTTP/1.1" 200 -
+2025-06-23 11:57:23,401 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:57:23,500 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:57:23,501 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:57:23] "GET /status HTTP/1.1" 200 -
+2025-06-23 11:57:26,969 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-23 11:57:26,970 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-23 11:57:26,975 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-23 11:57:27,088 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:57:27,179 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:57:27,267 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:57:27,352 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:57:27,456 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:57:27] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-23 11:57:52,109 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:57:52,188 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:57:52,337 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:57:52,338 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:57:52,339 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:57:52] "GET /status HTTP/1.1" 200 -
+2025-06-23 11:57:52,339 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:57:52] "GET /status HTTP/1.1" 200 -
+2025-06-23 12:00:28,133 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:00:28,267 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 12:00:28,268 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 12:00:28] "GET /status HTTP/1.1" 200 -
+2025-06-23 12:00:30,498 | pynucleus | INFO | comprehensive_system_diagnostic.py:819 | Test log message from comprehensive diagnostic
+2025-06-23 12:00:30,613 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:00:31,447 | pynucleus | WARNING | qwen_loader.py:36 | bitsandbytes not available, falling back to standard loading
+2025-06-23 12:00:34,035 | pynucleus | INFO | qwen_loader.py:42 | Standard model loaded: Qwen/Qwen3-0.6B

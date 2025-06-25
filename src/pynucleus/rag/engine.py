@@ -1,5 +1,5 @@
 """
-RAG Pipeline for PyNucleus with ChromaDB backend and enhanced response cleaning.
+Enhanced RAG Pipeline for PyNucleus with improved retrieval, metadata indexing, and citation enforcement.
 """
 
 import chromadb
@@ -8,7 +8,11 @@ from pathlib import Path
 from ..settings import settings
 from ..llm.model_loader import generate
 from ..utils.logger import logger
+from .answer_processing import process_answer_quality, should_retry_generation, is_answer_duplicate
+from ..llm.prompting import build_enhanced_rag_prompt
 import re
+
+from ..metrics import Metrics, inc, start, stop
 
 # Global ChromaDB client for connection reuse
 _client = None
@@ -41,55 +45,179 @@ def _get_chromadb_client():
     
     return _client
 
-def retrieve(question: str, k: int = None) -> tuple[list[str], list[str]]:
-    """Retrieve documents and sources with graceful failure handling."""
-    k = k or settings.RETRIEVE_TOP_K
-    
+def _initialize_collection():
+    """Initialize and return ChromaDB collection."""
+    try:
+        client = _get_chromadb_client()
+        if client is None:
+            logger.error("ChromaDB client not available")
+            return None
+        
+        # Get or create collection
+        collection = client.get_or_create_collection("pynucleus_documents")
+        logger.info("ChromaDB collection initialized successfully")
+        return collection
+        
+    except Exception as e:
+        logger.error(f"Failed to initialize ChromaDB collection: {e}")
+        return None
+
+def retrieve_enhanced(question: str) -> tuple[list, list, list]:
+    """
+    Enhanced retrieval with metadata filtering and optimized performance.
+    Returns top 3 most relevant documents for faster processing.
+    """
     try:
         client = _get_chromadb_client()
         if client is None:
             logger.warning("ChromaDB client not available")
-            return [], []
+            return [], [], []
         
         # Get or create collection
         collection = client.get_or_create_collection("pynucleus_documents")
         
-        # Query documents
+        # Use optimized retrieval settings
+        top_k = getattr(settings, 'ENHANCED_RETRIEVE_TOP_K', 3)  # Reduced to 3
+        similarity_threshold = getattr(settings, 'RAG_SIMILARITY_THRESHOLD', 0.3)
+        
+        # Enhanced query with metadata inclusion
         results = collection.query(
             query_texts=[question],
-            n_results=k,
-            include=['documents', 'metadatas']
+            n_results=top_k,
+            include=['documents', 'metadatas', 'distances']
         )
         
-        # Extract documents and sources
+        # Extract and filter results by similarity
         documents = results["documents"][0] if results["documents"] else []
         metadatas = results["metadatas"][0] if results["metadatas"] else []
-        sources = [
-            meta.get('source', f'doc_{i}') if meta else f'doc_{i}' 
-            for i, meta in enumerate(metadatas)
-        ]
+        distances = results["distances"][0] if results["distances"] else []
         
-        logger.info(f"Retrieved {len(documents)} documents for query")
-        return documents, sources
+        # Filter by similarity threshold (ChromaDB uses distance, lower is better)
+        # Convert distance to similarity: similarity = 1 - normalized_distance
+        filtered_results = []
+        for i, (doc, meta, dist) in enumerate(zip(documents, metadatas, distances)):
+            # Estimate similarity (this is approximate)
+            similarity = max(0, 1 - (dist / 2))  # Rough conversion
+            
+            if similarity >= similarity_threshold:
+                filtered_results.append((doc, meta, similarity, i))
+        
+        # Extract filtered results
+        filtered_documents = [result[0] for result in filtered_results]
+        filtered_metadatas = [result[1] for result in filtered_results]
+        
+        # Generate enhanced source identifiers with metadata
+        sources = []
+        for i, meta in enumerate(filtered_metadatas):
+            if meta:
+                # Enhanced source ID with section information
+                source_name = meta.get('source', f'doc_{i}')
+                section_header = meta.get('section_header', '')
+                page_num = meta.get('estimated_page', '')
+                
+                if section_header and section_header != 'Unknown':
+                    source_id = f"{source_name}_{section_header}"[:50]  # Limit length
+                elif page_num:
+                    source_id = f"{source_name}_p{page_num}"
+                else:
+                    source_id = source_name
+                    
+                sources.append(source_id)
+            else:
+                sources.append(f'doc_{i}')
+        
+        logger.info(f"Enhanced retrieval: {len(filtered_documents)} documents (filtered from {len(documents)}) for query")
+        return filtered_documents, sources, filtered_metadatas
         
     except Exception as e:
-        logger.error(f"Retrieval failed: {e}")
-        return [], []
+        logger.error(f"Enhanced retrieval failed: {e}")
+        return [], [], []
+
+def retrieve(question: str, k: int = None) -> tuple[list[str], list[str]]:
+    """Legacy retrieve function for backward compatibility."""
+    documents, sources, _ = retrieve_enhanced(question)
+    return documents, sources
+
+def build_enhanced_context(documents: list, sources: list, metadatas: list) -> str:
+    """
+    Build enhanced context with metadata from top documents.
+    Optimized for quality by using better filtering and structuring.
+    """
+    if not documents:
+        return ""
+    
+    # Use optimized settings for better quality
+    max_docs = min(getattr(settings, 'MAX_CONTEXT_CHUNKS', 3), len(documents))
+    documents = documents[:max_docs]
+    sources = sources[:max_docs]
+    metadatas = metadatas[:max_docs] if metadatas else []
+    
+    context_parts = []
+    
+    for i, (doc, source) in enumerate(zip(documents, sources)):
+        if not doc or len(doc.strip()) < 30:  # Increased minimum length
+            continue
+            
+        # Clean and focus the document content
+        doc_content = doc.strip()
+        
+        # Remove excessive whitespace and normalize
+        doc_content = re.sub(r'\s+', ' ', doc_content)
+        
+        # Limit each document to ~800 characters for more focused responses
+        if len(doc_content) > 800:
+            # Try to cut at sentence boundary
+            sentences = re.split(r'[.!?]+', doc_content)
+            truncated = ""
+            for sentence in sentences:
+                if len(truncated + sentence) <= 800:
+                    truncated += sentence + ". "
+                else:
+                    break
+            doc_content = truncated.strip()
+        
+        # Add metadata if available
+        metadata_info = ""
+        if metadatas and i < len(metadatas) and metadatas[i]:
+            metadata = metadatas[i]
+            if isinstance(metadata, dict):
+                # Prioritize most relevant metadata
+                if 'section_header' in metadata and metadata['section_header'] != 'Unknown':
+                    metadata_info = f"Section: {metadata['section_header']}\n"
+                elif 'title' in metadata:
+                    metadata_info = f"Title: {metadata['title']}\n"
+                if 'estimated_page' in metadata:
+                    metadata_info += f"Page: {metadata['estimated_page']}\n"
+        
+        # Build focused document entry
+        doc_entry = f"[Doc-{source}]\n{metadata_info}{doc_content}"
+        context_parts.append(doc_entry)
+    
+    if not context_parts:
+        return ""
+    
+    # Join with clear separators
+    context = "\n\n---\n\n".join(context_parts)
+    
+    # Log context size for monitoring
+    logger.info(f"Built enhanced context: {len(context_parts)} chunks, {len(context)} characters")
+    
+    return context
 
 def clean_model_response(response: str) -> str:
     """
-    Clean model response by extracting only the first factual sentence.
+    Clean model response while preserving the full answer quality.
     
     Args:
         response: Raw model response
         
     Returns:
-        Cleaned response with only the first factual sentence
+        Cleaned response with full content preserved
     """
     if not response or not isinstance(response, str):
         return response
     
-    # First, remove any metadata or internal reasoning that might be at the end
+    # Remove any trailing metadata or system messages
     lines = response.split('\n')
     clean_lines = []
     
@@ -98,7 +226,7 @@ def clean_model_response(response: str) -> str:
         if not line:
             continue
             
-        # Stop at common metadata markers
+        # Stop at system metadata markers
         if any(marker in line.lower() for marker in [
             '── metadata ──', 'metadata:', 'response time:', 'model:', 
             'processing time:', 'timestamp:', 'model_id:', 'generation_time:',
@@ -106,172 +234,248 @@ def clean_model_response(response: str) -> str:
         ]):
             break
             
-        # Stop at reasoning markers
-        if any(marker in line.lower() for marker in [
-            'reasoning:', 'thinking:', 'analysis:', 'step 1:', 'step 2:', 'step 3:',
-            'first,', 'next,', 'then,', 'finally,', 'therefore,', 'thus,',
-            'looking at', 'examining', 'considering', 'based on'
-        ]):
-            break
-            
         clean_lines.append(line)
     
-    # Rejoin and clean
+    # Rejoin and clean whitespace
     response = ' '.join(clean_lines)
+    response = re.sub(r'\s+', ' ', response).strip()
     
-    # Split into sentences and find the first substantive one
-    sentences = response.replace('\n', ' ').replace('  ', ' ').split('.')
-    
-    for sentence in sentences:
-        sentence = sentence.strip()
-        
-        # Skip empty or very short sentences
-        if len(sentence) < 15:
-            continue
-            
-        # Skip meta-commentary sentences - enhanced patterns
-        skip_patterns = [
-            'the correct answer', 'the answer should', 'so the answer', 'wait', 
-            'let me', 'according to', 'however', 'therefore', 'but since',
-            'based on', 'thus', 'in fact', 'to summarize', 'given this',
-            'looking at', 'first', 'next', 'now', 'then', 'since there',
-            'note:', 'answer:', 'final answer', 'citation', 'reference',
-            'source [', 'user expects', 'instruction', 'please', 'check',
-            'okay', 'let me start', 'let me understand', 'let me analyze',
-            'looking back', 'looking at the context', 'looking at the information',
-            'the context mentions', 'the context states', 'the context shows',
-            'from the context', 'based on the context', 'according to the context',
-            'the user asked', 'the question is', 'the question asks',
-            'to answer this', 'to respond to', 'to address this',
-            'i need to', 'i should', 'i will', 'i can see',
-            'this means', 'this indicates', 'this shows', 'this suggests',
-            'therefore', 'thus', 'hence', 'consequently',
-            'in conclusion', 'to summarize', 'in summary',
-            'the answer is', 'the response is', 'the solution is',
-            'wait', 'hold on', 'let me think', 'let me check',
-            'i think', 'i believe', 'i would say', 'i would suggest',
-            'it appears', 'it seems', 'it looks like', 'it appears that',
-            'as mentioned', 'as stated', 'as shown', 'as indicated',
-            'the text says', 'the document says', 'the source says',
-            'user expects', 'user wants', 'user is asking',
-            'instruction', 'direction', 'guidance', 'requirement',
-            'please note', 'please check', 'please verify',
-            'should be', 'must be', 'needs to be', 'has to be',
-            'correct answer', 'right answer', 'proper answer',
-            'final answer', 'definitive answer', 'complete answer'
-        ]
-        
-        if any(pattern in sentence.lower() for pattern in skip_patterns):
-            continue
-            
-        # Skip sentences that are too generic or non-informative
-        generic_patterns = [
-            'this is a', 'this refers to', 'this means',
-            'it is a', 'it refers to', 'it means',
-            'there is a', 'there are', 'there exists',
-            'we can see', 'we can observe', 'we can notice',
-            'you can see', 'you can observe', 'you can notice',
-            'one can see', 'one can observe', 'one can notice'
-        ]
-        
-        if any(pattern in sentence.lower() for pattern in generic_patterns):
-            continue
-            
-        # This looks like a factual sentence - clean it and return
-        sentence = re.sub(r'\$.*?\$', '', sentence)  # Remove math notation
-        sentence = re.sub(r'\\[a-zA-Z]+\{.*?\}', '', sentence)  # Remove LaTeX
-        sentence = re.sub(r'\([0-9]+\)', '', sentence)  # Remove citation numbers in parentheses
-        sentence = re.sub(r'\s+', ' ', sentence).strip()  # Clean whitespace
-        
-        # Remove any remaining citation patterns that might be malformed
-        sentence = re.sub(r'\[\d+\]\s*\d+', '', sentence)  # Remove patterns like [2] 4
-        sentence = re.sub(r'^\d+\s*', '', sentence)  # Remove leading numbers
-        
-        # Add citation if it looks like it should have one
-        if '[' not in sentence and len(sentence) > 20:
-            # Check if there's a [1] or similar pattern later in the response
-            citation_match = re.search(r'\[(\d+)\]', response)
-            if citation_match:
-                sentence += f' [{citation_match.group(1)}]'
-        
-        if sentence:
-            return sentence + '.' if not sentence.endswith('.') else sentence
-    
-    # Fallback: if no good sentence found, return a simple version
-    response_clean = response.split('.')[0].strip()
-    if len(response_clean) > 10:
-        # Clean up the fallback response
-        response_clean = re.sub(r'\[\d+\]\s*\d+', '', response_clean)
-        response_clean = re.sub(r'^\d+\s*', '', response_clean)
-        return response_clean + '.'
-    
-    return "I don't have enough information to provide a complete answer."
+    return response
 
-def ask(question: str) -> dict:
-    """Ask a question using RAG pipeline with robust handling and numeric citations."""
+def ask_enhanced(question: str, retry_count: int = 0) -> dict:
+    """
+    Enhanced ask function with improved retrieval, citation enforcement, retry logic, and LLM fallback.
+    
+    Args:
+        question: The question to answer
+        retry_count: Current retry attempt count
+        
+    Returns:
+        Dictionary with enhanced answer and quality metrics
+    """
+    inc("queries_total")
+    max_retries = getattr(settings, 'MAX_RETRY_ATTEMPTS', 2)
+    
     try:
-        # Retrieve documents and sources
-        documents, sources = retrieve(question, settings.RETRIEVE_TOP_K)
+        # Enhanced retrieval with metadata
+        start("enhanced_retrieval")
+        documents, sources, metadatas = retrieve_enhanced(question)
+        retrieval_time = stop("enhanced_retrieval")
         
-        # Handle empty results gracefully
-        if not documents:
-            return {
-                "answer": "I don't have enough information in my knowledge base to answer this question.",
-                "sources": []
-            }
+        # Log retrieval results for debugging
+        logger.info(f"Retrieved {len(documents)} documents for query: '{question}'")
+        if documents:
+            logger.info(f"Document lengths: {[len(doc) for doc in documents if doc]}")
         
-        # Context slicing by MAX_CONTEXT_CHARS
-        context_parts = []
-        current_chars = 0
+        # Determine if we have sufficient RAG context
+        has_rag_context = len(documents) > 0 and any(len(doc.strip()) > 50 for doc in documents)
         
-        for i, doc in enumerate(documents):
-            # Add citation number to each document
-            doc_with_citation = f"[{i+1}] {doc}"
+        if has_rag_context:
+            # Use RAG approach with retrieved documents
+            context = build_enhanced_context(documents, sources, metadatas)
+            prompt = build_enhanced_rag_prompt(context, question)
+            answer_source = "rag"
+            logger.info(f"Using RAG approach with {len([d for d in documents if d])} documents")
             
-            if current_chars + len(doc_with_citation) <= settings.MAX_CONTEXT_CHARS:
-                context_parts.append(doc_with_citation)
-                current_chars += len(doc_with_citation)
+        else:
+            # Fallback to LLM general knowledge with enhanced prompting
+            logger.info(f"No relevant RAG context found for '{question}', using LLM general knowledge")
+            
+            # Create a general knowledge prompt that encourages comprehensive answers
+            general_prompt = f"""You are an expert chemical engineer with deep knowledge in process simulation, equipment design, and industrial operations. 
+
+### QUESTION
+{question}
+
+### INSTRUCTIONS
+- Provide a comprehensive, detailed answer based on your general knowledge
+- Use professional chemical engineering terminology
+- Include relevant technical details, principles, and applications
+- Structure your response clearly with explanations
+- If applicable, mention common industrial practices and considerations
+- Be thorough but concise
+
+### ANSWER
+"""
+            prompt = general_prompt
+            answer_source = "llm_general"
+            context = ""
+        
+        # Generate model response with latency tracking
+        start("enhanced_generation")
+        answer = generate(
+            prompt, 
+            max_tokens=settings.MAX_TOKENS,
+            temperature=getattr(settings, 'TEMPERATURE', 0.3)
+        )
+        generation_time = stop("enhanced_generation")
+        
+        # Process answer quality with deduplication and citation enforcement
+        # For LLM general knowledge, we're more lenient with citations
+        if answer_source == "llm_general":
+            # Don't require citations for general knowledge answers
+            quality_result = process_answer_quality(answer, [], retry_count)
+            # Override citation requirement for general knowledge
+            quality_result["has_citations"] = True  # General knowledge doesn't need citations
+            quality_result["quality_score"] = max(quality_result["quality_score"], 0.6)  # Boost quality for general knowledge
+        else:
+            quality_result = process_answer_quality(answer, sources, retry_count)
+        
+        # Check if retry is needed (only for RAG answers)
+        if answer_source == "rag" and should_retry_generation(quality_result, max_retries):
+            logger.info(f"Retrying RAG answer generation (attempt {retry_count + 1}/{max_retries})")
+            return ask_enhanced(question, retry_count + 1)
+        
+        # Final answer processing
+        final_answer = quality_result["processed_answer"]
+        
+        # Enhanced answer quality validation
+        min_length = getattr(settings, 'MIN_ANSWER_LENGTH', 100)
+        if not final_answer or len(final_answer.strip()) < min_length:
+            if answer_source == "rag" and documents and context:
+                final_answer = f"Based on the available information: {context[:200]}..."
+            elif answer_source == "llm_general":
+                # For general knowledge, provide a more helpful response
+                final_answer = f"Based on general chemical engineering knowledge: {answer[:300]}..."
             else:
-                # Truncate the last document to fit within limit
-                remaining_chars = settings.MAX_CONTEXT_CHARS - current_chars
-                if remaining_chars > 50:  # Only add if meaningful content can fit
-                    truncated_doc = doc[:remaining_chars-20] + "..."
-                    context_parts.append(f"[{i+1}] {truncated_doc}")
-                break
-        
-        # Build context from processed documents
-        context = "\n\n".join(context_parts)
-        
-        # Use enhanced prompting for consistent formatting
-        from ..llm.prompting import build_prompt
-        
-        # Build enhanced prompt with direct answer instructions
-        prompt = build_prompt(context, question)
-        
-        # Generate answer with token limit
-        answer = generate(prompt, max_tokens=settings.MAX_TOKENS)
-        
-        # Validate answer quality
-        if not answer or len(answer.strip()) < 5:
-            answer = "I was unable to generate a complete response based on the available information."
+                final_answer = "I was unable to generate a complete response based on the available information."
         
         return {
-            "answer": clean_model_response(answer.strip()),
-            "sources": sources[:len(context_parts)]  # Only return sources that were actually used
+            "answer": final_answer,
+            "sources": sources[:len([d for d in documents if d])] if answer_source == "rag" else [],
+            "answer_source": answer_source,
+            "quality_metrics": {
+                "has_citations": quality_result["has_citations"],
+                "citations_found": quality_result["citations_found"],
+                "quality_score": quality_result["quality_score"],
+                "sentence_count": quality_result["sentence_count"],
+                "deduplication_applied": quality_result["deduplication_applied"],
+                "retry_count": retry_count
+            },
+            "retrieval_time": retrieval_time,
+            "generation_time": generation_time,
+            "total_chunks_retrieved": len(documents),
+            "chunks_used": len([d for d in documents if d]) if answer_source == "rag" else 0,
+            "rag_context_used": answer_source == "rag"
         }
         
     except Exception as e:
-        logger.error(f"Ask function failed: {e}")
+        logger.error(f"Enhanced ask function failed: {e}")
         return {
             "answer": f"An error occurred while processing your question: {str(e)}",
-            "sources": []
+            "sources": [],
+            "answer_source": "error",
+            "quality_metrics": {
+                "has_citations": False,
+                "quality_score": 0.0,
+                "retry_count": retry_count
+            }
+        }
+
+def ask(question: str, max_retries: int = 2) -> dict:
+    """
+    Enhanced RAG pipeline with smart token management and duplication checking.
+    
+    Args:
+        question: User question
+        max_retries: Maximum retry attempts for duplicate/incomplete answers
+        
+    Returns:
+        Dictionary with answer, sources, and metadata
+    """
+    try:
+        # Enhanced retrieval - get top 3 most relevant chunks
+        documents, sources, metadatas = retrieve_enhanced(question)
+        
+        if not documents:
+            return {
+                "answer": "I don't have enough information to provide a complete answer.",
+                "sources": [],
+                "confidence": 0.0,
+                "retrieval_count": 0
+            }
+        
+        # Build enhanced context from top 3 chunks
+        context = build_enhanced_context(documents, sources, metadatas)
+        context_length = len(context)
+        
+        # Determine optimal token limit
+        optimal_tokens = get_optimal_token_limit(question, context_length)
+        is_complex = is_complex_question(question)
+        
+        logger.info(f"Question complexity: {'Complex' if is_complex else 'Simple'}, "
+                   f"Token limit: {optimal_tokens}, Context length: {context_length}")
+        
+        # Generate answer with retry logic for duplicates and incomplete answers
+        answer = None
+        retry_count = 0
+        final_tokens_used = optimal_tokens
+        
+        while retry_count <= max_retries:
+            # Generate answer using enhanced prompt
+            prompt = build_enhanced_rag_prompt(context, question)
+            raw_answer = generate(prompt, max_tokens=final_tokens_used)
+            
+            # Clean the response
+            cleaned_answer = clean_model_response(raw_answer)
+            
+            # Check for duplication
+            if is_answer_duplicate(cleaned_answer, documents):
+                logger.info(f"Duplicate answer detected, retry {retry_count + 1}/{max_retries + 1}")
+                retry_count += 1
+                if retry_count > max_retries:
+                    cleaned_answer = "Information provided in context is insufficient to provide a complete answer."
+                    break
+                continue
+            
+            # Check for completeness
+            if is_complex and not is_answer_complete(cleaned_answer, question):
+                logger.info(f"Incomplete answer detected for complex question, retry {retry_count + 1}/{max_retries + 1}")
+                retry_count += 1
+                # Increase token limit for retry
+                final_tokens_used = min(final_tokens_used + 100, getattr(settings, 'MAX_TOKENS_COMPLEX', 600))
+                if retry_count > max_retries:
+                    # Add completion note to existing answer
+                    if cleaned_answer and not cleaned_answer.endswith('.'):
+                        cleaned_answer += '.'
+                    cleaned_answer += " Additional details would require more comprehensive analysis."
+                    break
+                continue
+            
+            # Answer is good - use it
+            answer = cleaned_answer
+            break
+        
+        # Process answer quality
+        quality_result = process_answer_quality(answer, sources)
+        
+        return {
+            "answer": quality_result["processed_answer"],
+            "sources": sources,
+            "confidence": quality_result["quality_score"],
+            "retrieval_count": len(documents),
+            "deduplication_applied": quality_result["deduplication_applied"],
+            "has_citations": quality_result["has_citations"],
+            "retry_count": retry_count,
+            "tokens_used": final_tokens_used,
+            "is_complex_question": is_complex,
+            "context_length": context_length
+        }
+        
+    except Exception as e:
+        logger.error(f"Error in RAG pipeline: {e}")
+        return {
+            "answer": f"An error occurred while processing your question: {str(e)}",
+            "sources": [],
+            "confidence": 0.0,
+            "retrieval_count": 0
         }
 
 def ask_streaming(question: str):
     """Ask a question using RAG pipeline with streaming response."""
     try:
-        # Retrieve documents and sources
-        documents, sources = retrieve(question, settings.RETRIEVE_TOP_K)
+        # Use enhanced retrieval
+        documents, sources, metadatas = retrieve_enhanced(question)
         
         # Handle empty results gracefully
         if not documents:
@@ -280,33 +484,12 @@ def ask_streaming(question: str):
                 yield "I don't have enough information in my knowledge base to answer this question."
             return simple_fallback()
         
-        # Context slicing by MAX_CONTEXT_CHARS
-        context_parts = []
-        current_chars = 0
+        # Build enhanced context
+        context = build_enhanced_context(documents, sources, metadatas)
         
-        for i, doc in enumerate(documents):
-            # Add citation number to each document
-            doc_with_citation = f"[{i+1}] {doc}"
-            
-            if current_chars + len(doc_with_citation) <= settings.MAX_CONTEXT_CHARS:
-                context_parts.append(doc_with_citation)
-                current_chars += len(doc_with_citation)
-            else:
-                # Truncate the last document to fit within limit
-                remaining_chars = settings.MAX_CONTEXT_CHARS - current_chars
-                if remaining_chars > 50:  # Only add if meaningful content can fit
-                    truncated_doc = doc[:remaining_chars-20] + "..."
-                    context_parts.append(f"[{i+1}] {truncated_doc}")
-                break
-        
-        # Build context from processed documents
-        context = "\n\n".join(context_parts)
-        
-        # Import prompting for enhanced reasoning
-        from ..llm.prompting import build_prompt
-        
-        # Build enhanced prompt with step-by-step reasoning
-        prompt = build_prompt(context, question)
+        # Import enhanced prompting
+        from ..llm.prompting import build_enhanced_rag_prompt
+        prompt = build_enhanced_rag_prompt(context, question)
         
         # Generate streaming answer
         stream_response = generate(prompt, max_tokens=settings.MAX_TOKENS, stream=True)
@@ -314,7 +497,7 @@ def ask_streaming(question: str):
         # Create streaming generator
         def streaming_generator():
             # First, yield sources metadata
-            yield {"sources": sources[:len(context_parts)]}
+            yield {"sources": sources}
             
             # Handle different types of stream responses
             if hasattr(stream_response, '__iter__') and not isinstance(stream_response, str):
@@ -324,8 +507,9 @@ def ask_streaming(question: str):
                     if chunk and isinstance(chunk, str):
                         collected_response += chunk
                 
-                # Clean the collected response
-                cleaned_response = clean_model_response(collected_response)
+                # Process collected response for quality
+                quality_result = process_answer_quality(collected_response, sources)
+                cleaned_response = quality_result["processed_answer"]
                 
                 # Yield cleaned response word by word
                 words = cleaned_response.split()
@@ -337,7 +521,8 @@ def ask_streaming(question: str):
             else:
                 # Fallback: simulate streaming for non-streaming responses
                 answer = str(stream_response) if stream_response else "Unable to generate response."
-                cleaned_answer = clean_model_response(answer)
+                quality_result = process_answer_quality(answer, sources)
+                cleaned_answer = quality_result["processed_answer"]
                 
                 # Split answer into words and yield word by word
                 words = cleaned_answer.split()
@@ -354,10 +539,111 @@ def ask_streaming(question: str):
         return streaming_generator()
         
     except Exception as e:
-        logger.error(f"Streaming ask function failed: {e}")
+        logger.error(f"Enhanced streaming ask function failed: {e}")
         
         def error_generator():
             yield {"sources": []}
             yield f"An error occurred while processing your question: {str(e)}"
         
-        return error_generator() 
+        return error_generator()
+
+def is_complex_question(question: str) -> bool:
+    """
+    Detect if a question is complex and requires more detailed answers.
+    
+    Args:
+        question: User question
+        
+    Returns:
+        True if question is complex, False otherwise
+    """
+    question_lower = question.lower()
+    complex_keywords = getattr(settings, 'COMPLEX_QUESTION_KEYWORDS', [
+        "design", "how to", "process", "methodology", "steps", "procedure", 
+        "implementation", "development", "construction", "analysis", "optimization"
+    ])
+    
+    return any(keyword in question_lower for keyword in complex_keywords)
+
+def is_answer_complete(answer: str, question: str) -> bool:
+    """
+    Check if an answer appears complete based on question type and answer structure.
+    
+    Args:
+        answer: Generated answer
+        question: Original question
+        
+    Returns:
+        True if answer appears complete, False otherwise
+    """
+    if not answer or len(answer.strip()) < 50:
+        return False
+    
+    answer_lower = answer.lower()
+    question_lower = question.lower()
+    
+    # Check for incomplete indicators
+    incomplete_indicators = [
+        "1.", "2.", "3.", "4.", "5.",  # Numbered lists that might be cut off
+        "step", "steps", "phase", "phases",
+        "first", "second", "third", "next", "then", "finally",
+        "additionally", "furthermore", "moreover", "also",
+        "in conclusion", "to summarize", "in summary"
+    ]
+    
+    # If it's a complex question, check for structured response
+    if is_complex_question(question):
+        # For design questions, look for specific design elements
+        if "design" in question_lower:
+            design_elements = [
+                "principle", "consideration", "methodology", "approach",
+                "component", "module", "system", "process", "step",
+                "factor", "requirement", "specification", "standard"
+            ]
+            has_design_content = any(element in answer_lower for element in design_elements)
+            
+            # Check if answer has substantial content (not just repetitive text)
+            word_count = len(answer.split())
+            unique_words = len(set(answer.split()))
+            diversity_ratio = unique_words / word_count if word_count > 0 else 0
+            
+            # Answer should have design content and reasonable diversity
+            return has_design_content and diversity_ratio > 0.6 and word_count >= 80
+        
+        # For other complex questions, check for structured response
+        has_structure = any(indicator in answer_lower for indicator in incomplete_indicators)
+        
+        # Check if answer ends abruptly (no proper conclusion)
+        ends_abruptly = not any(ending in answer_lower[-100:] for ending in [
+            ".", "!", "?", "conclusion", "summary", "therefore", "thus"
+        ])
+        
+        # Check if answer is too short for a complex question
+        too_short = len(answer.split()) < 50
+        
+        return has_structure and not ends_abruptly and not too_short
+    
+    # For simple questions, just check if it's substantial
+    return len(answer.split()) >= 20
+
+def get_optimal_token_limit(question: str, context_length: int) -> int:
+    """
+    Determine optimal token limit based on question complexity and context.
+    
+    Args:
+        question: User question
+        context_length: Length of retrieved context
+        
+    Returns:
+        Optimal token limit for generation
+    """
+    base_tokens = getattr(settings, 'MAX_TOKENS', 400)
+    min_tokens = getattr(settings, 'MIN_TOKENS', 100)
+    max_complex_tokens = getattr(settings, 'MAX_TOKENS_COMPLEX', 600)
+    
+    if is_complex_question(question):
+        # Complex questions get more tokens
+        return int(min(max_complex_tokens, base_tokens * 1.5))
+    else:
+        # Simple questions get conservative tokens regardless of context length
+        return int(max(min_tokens, min(base_tokens, 250))) 

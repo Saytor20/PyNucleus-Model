@@ -1,0 +1,39 @@
+2025-06-22 22:15:09,368 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:15:09,368 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:15:09,369 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:15:09,369 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-22 22:15:09,369 | pynucleus.pipeline.pipeline_rag | ERROR | pipeline_rag.py:89 | Failed to check/populate ChromaDB: cannot import name '_initialize_collection' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-22 22:15:09,369 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:61 | Loading validation questions from docs/e2e_validation_questions.csv
+2025-06-22 22:15:09,369 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:128 | Loaded 0 questions from CSV
+2025-06-22 22:15:09,369 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:73 | Validating 0 questions...
+2025-06-22 22:15:09,369 | validate_rag_factual_accuracy | INFO | validate_rag_factual_accuracy.py:106 | Validation completed: 0/0 passed
+2025-06-22 22:15:09,370 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:15:09,370 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:15:09,371 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:15:09,454 | pynucleus | INFO | engine.py:74 | Retrieved 3 documents for query
+2025-06-22 22:15:09,539 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:15:09,539 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:15:12,717 | pynucleus.api.app | INFO | app.py:149 | Health check requested
+2025-06-22 22:15:12,801 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:15:12,801 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:15:15,711 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:15:15,711 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:15:15,711 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:15:15,712 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:15:15] "GET /health HTTP/1.1" 200 -
+2025-06-22 22:15:15,713 | pynucleus.api.app | INFO | app.py:341 | Processing question: test... (stream: False)
+2025-06-22 22:15:15,793 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:15:15,793 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:15:18,774 | pynucleus.api.app | INFO | app.py:441 | Question processed successfully in 3.06s
+2025-06-22 22:15:18,774 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:15:18] "POST /ask HTTP/1.1" 200 -
+2025-06-22 22:15:18,775 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:15:18] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-22 22:17:06,156 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:17:06,314 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 22:17:06,315 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:17:06] "GET /status HTTP/1.1" 200 -
+2025-06-22 22:17:17,305 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:17:17,306 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:17:17,308 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:17:17,420 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:17:17,505 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:17:17,585 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:17:17,667 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:17:17,776 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:17:17] "GET /system_statistics HTTP/1.1" 200 -

@@ -1,0 +1,47 @@
+2025-06-23 12:48:58,312 | PyNucleusRunner | INFO | run_web_app.py:64 | ============================================================
+2025-06-23 12:48:58,312 | PyNucleusRunner | INFO | run_web_app.py:65 | 🚀 Starting PyNucleus Web Application...
+2025-06-23 12:48:58,312 | PyNucleusRunner | INFO | run_web_app.py:66 |    • Mode: Development (Debug ON)
+2025-06-23 12:48:58,312 | PyNucleusRunner | INFO | run_web_app.py:67 |    • Model: Qwen/Qwen3-0.6B
+2025-06-23 12:48:58,312 | PyNucleusRunner | INFO | run_web_app.py:68 |    • Vector DB: data/03_intermediate/vector_db
+2025-06-23 12:48:58,312 | PyNucleusRunner | INFO | run_web_app.py:69 | ============================================================
+2025-06-23 12:48:58,312 | PyNucleusRunner | INFO | run_web_app.py:70 |    ►►► Open your browser at http://localhost:5001/ ◄◄◄
+2025-06-23 12:48:58,312 | PyNucleusRunner | INFO | run_web_app.py:71 | ============================================================
+2025-06-23 12:48:58,362 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.145:5001
+2025-06-23 12:48:58,362 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-23 12:49:07,446 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 12:49:07] "GET / HTTP/1.1" 200 -
+2025-06-23 12:49:14,241 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-23 12:49:14,458 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:49:14,611 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 12:49:14,612 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 12:49:14] "GET /status HTTP/1.1" 200 -
+2025-06-23 12:49:23,587 | pynucleus.api.app | INFO | app.py:629 | Uploading file: MarkSheet_TEX5WMHM.pdf -> 20250623_124923_99d2e64d_MarkSheet_TEX5WMHM.pdf (and original in data/02_processed/)
+2025-06-23 12:49:23,589 | pynucleus.api.app | INFO | app.py:638 | ✅ Also saved as original filename in processed dir: MarkSheet_TEX5WMHM.pdf
+2025-06-23 12:49:23,589 | pynucleus.api.app | INFO | app.py:660 | Ingesting file into vector database: 20250623_124923_99d2e64d_MarkSheet_TEX5WMHM.pdf
+2025-06-23 12:49:23,756 | pynucleus.rag.document_processor | INFO | document_processor.py:185 | Extracted 5120 characters from PDF: 20250623_124923_99d2e64d_MarkSheet_TEX5WMHM.pdf
+2025-06-23 12:49:23,929 | pynucleus.rag.document_processor | INFO | document_processor.py:518 | Attempting table extraction from: 20250623_124923_99d2e64d_MarkSheet_TEX5WMHM.pdf
+2025-06-23 12:49:24,283 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-23 12:49:24,284 | pynucleus.rag.document_processor | INFO | document_processor.py:568 | Table extraction skipped for 20250623_124923_99d2e64d_MarkSheet_TEX5WMHM.pdf: Ghostscript not installed (this is optional)
+2025-06-23 12:49:24,286 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250623_124923_99d2e64d_MarkSheet_TEX5WMHM.txt
+2025-06-23 12:49:24,370 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:49:24,370 | pynucleus.api.app | INFO | app.py:699 | File successfully ingested and retrievable: 20250623_124923_99d2e64d_MarkSheet_TEX5WMHM.pdf
+2025-06-23 12:49:24,370 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 12:49:24] "POST /upload HTTP/1.1" 200 -
+2025-06-23 12:50:25,140 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:50:25,298 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 12:50:25,299 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 12:50:25] "GET /status HTTP/1.1" 200 -
+2025-06-23 12:50:28,766 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:50:28,862 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 12:50:28,863 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 12:50:28] "GET /status HTTP/1.1" 200 -
+2025-06-23 12:50:44,797 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-23 12:50:44,798 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-23 12:50:44,811 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-23 12:50:44,931 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:50:45,020 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:50:45,103 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:50:45,185 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:50:45,292 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 12:50:45] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-23 12:50:56,793 | pynucleus | INFO | comprehensive_system_diagnostic.py:819 | Test log message from comprehensive diagnostic
+2025-06-23 12:50:56,892 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 12:50:57,451 | pynucleus | WARNING | qwen_loader.py:36 | bitsandbytes not available, falling back to standard loading
+2025-06-23 12:50:59,882 | pynucleus | INFO | qwen_loader.py:42 | Standard model loaded: Qwen/Qwen3-0.6B

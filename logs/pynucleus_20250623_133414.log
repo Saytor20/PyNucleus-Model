@@ -1,0 +1,42 @@
+2025-06-23 13:34:14,414 | PyNucleusRunner | INFO | run_web_app.py:64 | ============================================================
+2025-06-23 13:34:14,414 | PyNucleusRunner | INFO | run_web_app.py:65 | 🚀 Starting PyNucleus Web Application...
+2025-06-23 13:34:14,414 | PyNucleusRunner | INFO | run_web_app.py:66 |    • Mode: Development (Debug ON)
+2025-06-23 13:34:14,414 | PyNucleusRunner | INFO | run_web_app.py:67 |    • Model: Qwen/Qwen3-0.6B
+2025-06-23 13:34:14,414 | PyNucleusRunner | INFO | run_web_app.py:68 |    • Vector DB: data/03_intermediate/vector_db
+2025-06-23 13:34:14,414 | PyNucleusRunner | INFO | run_web_app.py:69 | ============================================================
+2025-06-23 13:34:14,414 | PyNucleusRunner | INFO | run_web_app.py:70 |    ►►► Open your browser at http://localhost:5001/ ◄◄◄
+2025-06-23 13:34:14,414 | PyNucleusRunner | INFO | run_web_app.py:71 | ============================================================
+2025-06-23 13:34:14,460 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.145:5001
+2025-06-23 13:34:14,460 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-23 13:34:28,272 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:34:28] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-23 13:34:30,296 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-23 13:34:30,497 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-23 13:34:30,647 | pynucleus | INFO | engine.py:91 | Retrieved 1000 documents for query
+2025-06-23 13:34:30,647 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:34:30] "GET /status HTTP/1.1" 200 -
+2025-06-23 13:34:39,002 | pynucleus.api.app | INFO | app.py:160 | Health check requested
+2025-06-23 13:34:39,142 | pynucleus | INFO | engine.py:91 | Retrieved 3 documents for query
+2025-06-23 13:34:39,143 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=1024, stream=False)
+2025-06-23 13:34:49,752 | pynucleus.api.app | INFO | app.py:160 | Health check requested
+2025-06-23 13:34:50,575 | pynucleus | INFO | engine.py:91 | Retrieved 3 documents for query
+2025-06-23 13:34:50,575 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=1024, stream=False)
+2025-06-23 13:34:55,288 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:34:55] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-23 13:35:47,232 | pynucleus.api.app | INFO | app.py:160 | Health check requested
+2025-06-23 13:35:47,409 | pynucleus | INFO | engine.py:91 | Retrieved 3 documents for query
+2025-06-23 13:35:47,409 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=1024, stream=False)
+2025-06-23 13:35:53,465 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:35:53] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-23 13:37:32,691 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-23 13:37:32,693 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-23 13:37:32,703 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-23 13:37:32,707 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:37:32] "GET /health HTTP/1.1" 200 -
+2025-06-23 13:37:48,431 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-23 13:37:48,432 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-23 13:37:48,432 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-23 13:37:48,433 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:37:48] "GET /health HTTP/1.1" 200 -
+2025-06-23 13:37:56,776 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:37:56] "[35m[1mGET /enhanced_diagnostic HTTP/1.1[0m" 500 -
+2025-06-23 13:38:27,215 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-23 13:38:27,215 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-23 13:38:27,216 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-23 13:38:27,216 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:38:27] "GET /health HTTP/1.1" 200 -

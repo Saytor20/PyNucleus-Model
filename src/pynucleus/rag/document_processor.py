@@ -512,9 +512,10 @@ class DocumentProcessor:
         return chunks
     
     def _extract_pdf_tables(self, pdf_path: Path) -> Dict[str, Any]:
-        """Extract and process tables from PDF."""
+        """Extract and process tables from PDF with robust error handling."""
         try:
             import camelot
+            self.logger.info(f"Attempting table extraction from: {pdf_path.name}")
             
             # Extract tables using camelot
             tables = camelot.read_pdf(str(pdf_path), pages="all")
@@ -559,10 +560,17 @@ class DocumentProcessor:
             }
             
         except ImportError:
-            self.logger.warning("Camelot not available. Install with: pip install camelot-py[cv]")
+            self.logger.info("Table extraction disabled: Camelot library not available")
             return {"tables_extracted": 0, "table_files": [], "table_types": []}
         except Exception as e:
-            self.logger.error(f"Failed to extract tables from {pdf_path}: {e}")
+            error_msg = str(e)
+            if "Ghostscript" in error_msg:
+                self.logger.info(f"Table extraction skipped for {pdf_path.name}: Ghostscript not installed (this is optional)")
+            elif "poppler" in error_msg.lower():
+                self.logger.info(f"Table extraction skipped for {pdf_path.name}: Poppler utilities not installed (this is optional)")
+            else:
+                self.logger.warning(f"Table extraction failed for {pdf_path.name}: {error_msg}")
+            
             return {"tables_extracted": 0, "table_files": [], "table_types": []}
     
     def _clean_table(self, df: pd.DataFrame) -> pd.DataFrame:

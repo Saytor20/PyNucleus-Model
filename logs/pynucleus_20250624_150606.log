@@ -1,0 +1,61 @@
+2025-06-24 15:06:06,169 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.85.29:5001
+2025-06-24 15:06:06,169 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-24 15:06:09,386 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:06:09] "GET / HTTP/1.1" 200 -
+2025-06-24 15:06:09,753 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:06:09] "[33mGET /apple-touch-icon-precomposed.png HTTP/1.1[0m" 404 -
+2025-06-24 15:06:09,762 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:06:09] "[33mGET /apple-touch-icon.png HTTP/1.1[0m" 404 -
+2025-06-24 15:06:09,762 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:06:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-24 15:06:20,030 | pynucleus.api.app | INFO | app.py:352 | Processing question: what is modular plants?... (stream: False)
+2025-06-24 15:06:20,117 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-24 15:06:20,379 | pynucleus | INFO | engine.py:91 | Retrieved 5 documents for query
+2025-06-24 15:06:20,379 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=2048, stream=False)
+2025-06-24 15:10:08,443 | pynucleus.api.app | INFO | app.py:629 | Uploading file: MarkSheet_TEX5WMHM.pdf -> 20250624_151008_d78b0c72_MarkSheet_TEX5WMHM.pdf (and original in data/02_processed/)
+2025-06-24 15:10:08,463 | pynucleus.api.app | INFO | app.py:638 | ✅ Also saved as original filename in processed dir: MarkSheet_TEX5WMHM.pdf
+2025-06-24 15:10:08,468 | pynucleus.api.app | INFO | app.py:660 | Ingesting file into vector database: 20250624_151008_d78b0c72_MarkSheet_TEX5WMHM.pdf
+2025-06-24 15:10:11,129 | pynucleus.rag.document_processor | INFO | document_processor.py:185 | Extracted 5120 characters from PDF: 20250624_151008_d78b0c72_MarkSheet_TEX5WMHM.pdf
+2025-06-24 15:10:11,953 | pynucleus.rag.document_processor | INFO | document_processor.py:518 | Attempting table extraction from: 20250624_151008_d78b0c72_MarkSheet_TEX5WMHM.pdf
+2025-06-24 15:10:13,453 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-24 15:10:13,460 | pynucleus.rag.document_processor | INFO | document_processor.py:568 | Table extraction skipped for 20250624_151008_d78b0c72_MarkSheet_TEX5WMHM.pdf: Ghostscript not installed (this is optional)
+2025-06-24 15:10:13,472 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250624_151008_d78b0c72_MarkSheet_TEX5WMHM.txt
+2025-06-24 15:10:14,230 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:10:14,231 | pynucleus.api.app | INFO | app.py:699 | File successfully ingested and retrievable: 20250624_151008_d78b0c72_MarkSheet_TEX5WMHM.pdf
+2025-06-24 15:10:14,244 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:10:14] "POST /upload HTTP/1.1" 200 -
+2025-06-24 15:10:42,257 | pynucleus.api.app | INFO | app.py:452 | Question processed successfully in 262.23s
+2025-06-24 15:10:42,262 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:10:42] "POST /ask HTTP/1.1" 200 -
+2025-06-24 15:10:42,304 | pynucleus.api.app | INFO | app.py:352 | Processing question: Explain in detail the advantages and implementatio... (stream: False)
+2025-06-24 15:10:42,574 | pynucleus | INFO | engine.py:91 | Retrieved 5 documents for query
+2025-06-24 15:10:42,575 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=2048, stream=False)
+2025-06-24 15:10:49,698 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:10:50,311 | pynucleus | INFO | engine.py:91 | Retrieved 1000 documents for query
+2025-06-24 15:10:50,314 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:10:50] "GET /status HTTP/1.1" 200 -
+2025-06-24 15:11:36,427 | pynucleus.api.app | INFO | app.py:160 | Health check requested
+2025-06-24 15:11:36,742 | pynucleus | INFO | engine.py:91 | Retrieved 5 documents for query
+2025-06-24 15:11:36,742 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=2048, stream=False)
+2025-06-24 15:11:43,930 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:11:43] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-24 15:13:52,656 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:13:52] "GET /enhanced_diagnostic HTTP/1.1" 200 -
+2025-06-24 15:15:37,155 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 15:15:37,156 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 15:15:37,169 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 15:15:37,656 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:37,984 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:38,150 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 15:15:38,151 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 15:15:38,153 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 15:15:38,342 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:38,503 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:38,655 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:38,703 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:38,813 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:15:38] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-24 15:15:38,881 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:39,052 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:39,157 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:15:39] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-24 15:15:45,343 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 15:15:45,344 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 15:15:45,345 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 15:15:45,618 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:45,896 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:46,122 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:46,332 | pynucleus | INFO | engine.py:91 | Retrieved 1 documents for query
+2025-06-24 15:15:46,439 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:15:46] "GET /system_statistics HTTP/1.1" 200 -

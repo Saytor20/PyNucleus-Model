@@ -1,0 +1,21 @@
+2025-06-23 13:11:00,969 | PyNucleusRunner | INFO | run_web_app.py:64 | ============================================================
+2025-06-23 13:11:00,969 | PyNucleusRunner | INFO | run_web_app.py:65 | 🚀 Starting PyNucleus Web Application...
+2025-06-23 13:11:00,969 | PyNucleusRunner | INFO | run_web_app.py:66 |    • Mode: Development (Debug ON)
+2025-06-23 13:11:00,969 | PyNucleusRunner | INFO | run_web_app.py:67 |    • Model: Qwen/Qwen3-0.6B
+2025-06-23 13:11:00,969 | PyNucleusRunner | INFO | run_web_app.py:68 |    • Vector DB: data/03_intermediate/vector_db
+2025-06-23 13:11:00,969 | PyNucleusRunner | INFO | run_web_app.py:69 | ============================================================
+2025-06-23 13:11:00,969 | PyNucleusRunner | INFO | run_web_app.py:70 |    ►►► Open your browser at http://localhost:5001/ ◄◄◄
+2025-06-23 13:11:00,969 | PyNucleusRunner | INFO | run_web_app.py:71 | ============================================================
+2025-06-23 13:11:01,012 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.145:5001
+2025-06-23 13:11:01,013 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-23 13:11:06,564 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:11:06] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-23 13:11:06,639 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:11:06] "[33mGET /apple-touch-icon-precomposed.png HTTP/1.1[0m" 404 -
+2025-06-23 13:11:06,639 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:11:06] "[33mGET /apple-touch-icon.png HTTP/1.1[0m" 404 -
+2025-06-23 13:11:06,640 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:11:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-23 13:11:08,549 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-23 13:11:08,752 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 13:11:08,897 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 13:11:08,898 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 13:11:08] "GET /status HTTP/1.1" 200 -

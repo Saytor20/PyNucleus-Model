@@ -1,0 +1,69 @@
+2025-06-22 20:11:19,834 | PyNucleusRunner | INFO | run_web_app.py:64 | ============================================================
+2025-06-22 20:11:19,834 | PyNucleusRunner | INFO | run_web_app.py:65 | 🚀 Starting PyNucleus Web Application...
+2025-06-22 20:11:19,834 | PyNucleusRunner | INFO | run_web_app.py:66 |    • Mode: Development (Debug ON)
+2025-06-22 20:11:19,834 | PyNucleusRunner | INFO | run_web_app.py:67 |    • Model: Qwen/Qwen3-0.6B
+2025-06-22 20:11:19,834 | PyNucleusRunner | INFO | run_web_app.py:68 |    • Vector DB: data/03_intermediate/vector_db
+2025-06-22 20:11:19,834 | PyNucleusRunner | INFO | run_web_app.py:69 | ============================================================
+2025-06-22 20:11:19,834 | PyNucleusRunner | INFO | run_web_app.py:70 |    ►►► Open your browser at http://localhost:5001/ ◄◄◄
+2025-06-22 20:11:19,834 | PyNucleusRunner | INFO | run_web_app.py:71 | ============================================================
+2025-06-22 20:11:19,875 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-22 20:11:19,875 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-22 20:11:24,544 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 20:11:24] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-22 20:11:32,298 | pynucleus.api.app | INFO | app.py:343 | Processing question: what is modular plants?... (stream: False)
+2025-06-22 20:11:32,387 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-22 20:11:32,647 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 20:11:32,648 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 20:11:35,971 | pynucleus.api.app | INFO | app.py:443 | Question processed successfully in 3.68s
+2025-06-22 20:11:35,972 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 20:11:35] "POST /ask HTTP/1.1" 200 -
+2025-06-22 20:11:45,560 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 20:11:45,712 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 20:11:45,712 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 20:11:45] "GET /status HTTP/1.1" 200 -
+2025-06-22 20:11:46,595 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 20:11:46,595 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 20:11:46,599 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 20:11:46,692 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 20:11:46,693 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 20:11:46] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-22 20:11:47,939 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 20:11:48,033 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 20:11:48,034 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 20:11:48] "GET /status HTTP/1.1" 200 -
+2025-06-22 20:11:51,916 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 20:11:51,917 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 20:11:51,919 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 20:11:52,029 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 20:11:52,030 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 20:11:52] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-22 20:12:44,697 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 20:12:44] "GET / HTTP/1.1" 200 -
+2025-06-22 21:22:15,783 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 21:22:15] "GET /dev HTTP/1.1" 200 -
+2025-06-22 21:24:45,897 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 21:24:45] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-22 21:24:52,116 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 21:24:52] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-22 21:24:57,829 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 21:24:57,980 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 21:24:57,980 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 21:24:57] "GET /status HTTP/1.1" 200 -
+2025-06-22 21:24:58,900 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 21:24:58,900 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 21:24:58,908 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 21:24:59,003 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 21:24:59,004 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 21:24:59] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-22 21:25:00,586 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 21:25:00,685 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 21:25:00,685 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 21:25:00] "GET /status HTTP/1.1" 200 -
+2025-06-22 21:25:27,089 | pynucleus.api.app | INFO | app.py:620 | Uploading file: AIChE2017_ModularProcess_AAM.pdf -> 20250622_212527_47b2314f_AIChE2017_ModularProcess_AAM.pdf (and original in data/02_processed/)
+2025-06-22 21:25:27,091 | pynucleus.api.app | INFO | app.py:629 | ✅ Also saved as original filename in processed dir: AIChE2017_ModularProcess_AAM.pdf
+2025-06-22 21:25:27,091 | pynucleus.api.app | INFO | app.py:651 | Ingesting file into vector database: 20250622_212527_47b2314f_AIChE2017_ModularProcess_AAM.pdf
+2025-06-22 21:25:27,271 | pynucleus.rag.document_processor | INFO | document_processor.py:189 | Extracted 56995 characters from PDF: 20250622_212527_47b2314f_AIChE2017_ModularProcess_AAM.pdf
+2025-06-22 21:25:27,466 | pynucleus.rag.document_processor | INFO | document_processor.py:522 | Attempting table extraction from: 20250622_212527_47b2314f_AIChE2017_ModularProcess_AAM.pdf
+2025-06-22 21:25:28,144 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-22 21:25:28,146 | pynucleus.rag.document_processor | INFO | document_processor.py:572 | Table extraction skipped for 20250622_212527_47b2314f_AIChE2017_ModularProcess_AAM.pdf: Ghostscript not installed (this is optional)
+2025-06-22 21:25:28,149 | pynucleus.rag.document_processor | INFO | document_processor.py:135 | Saved cleaned text to: data/02_processed/cleaned_txt/20250622_212527_47b2314f_AIChE2017_ModularProcess_AAM.txt
+2025-06-22 21:25:28,266 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 21:25:28,266 | pynucleus.api.app | INFO | app.py:690 | File successfully ingested and retrievable: 20250622_212527_47b2314f_AIChE2017_ModularProcess_AAM.pdf
+2025-06-22 21:25:28,266 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 21:25:28] "POST /upload HTTP/1.1" 200 -
+2025-06-22 21:28:36,250 | pynucleus.api.app | INFO | app.py:86 | Received signal 15, shutting down gracefully...
+2025-06-22 21:28:36,250 | pynucleus.api.app | INFO | app.py:73 | Cleaning up application resources...
+2025-06-22 21:28:36,400 | pynucleus.api.app | INFO | app.py:77 | Resource cleanup completed
+2025-06-22 21:28:36,703 | pynucleus.api.app | INFO | app.py:73 | Cleaning up application resources...
+2025-06-22 21:28:36,838 | pynucleus.api.app | INFO | app.py:77 | Resource cleanup completed
+2025-06-22 21:28:36,847 | PyNucleusRunner | INFO | run_web_app.py:45 | 🧹 Ensuring port 5001 is free...
+2025-06-22 21:28:36,902 | PyNucleusRunner | INFO | run_web_app.py:53 | ✅ Port 5001 has been cleared.

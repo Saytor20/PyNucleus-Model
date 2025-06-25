@@ -1,0 +1,19 @@
+2025-06-22 22:23:22,893 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:23:22,893 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:23:22,894 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:23:22,894 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-22 22:23:22,894 | pynucleus.pipeline.pipeline_rag | ERROR | pipeline_rag.py:89 | Failed to check/populate ChromaDB: cannot import name '_initialize_collection' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-22 22:23:22,916 | pynucleus.rag.vector_store | INFO | vector_store.py:363 | No existing FAISS directories found
+2025-06-22 22:23:22,916 | pynucleus.pipeline.pipeline_utils | INFO | pipeline_utils.py:42 | Pipeline components initialized successfully
+2025-06-22 22:23:22,916 | pynucleus.pipeline.pipeline_utils | WARNING | pipeline_utils.py:46 | FAISS vector store not loaded - using fallback mode
+2025-06-22 22:23:22,917 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:23:22,917 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:23:22,918 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:23:22,918 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-22 22:23:22,918 | pynucleus.pipeline.pipeline_rag | ERROR | pipeline_rag.py:89 | Failed to check/populate ChromaDB: cannot import name '_initialize_collection' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-22 22:23:22,918 | pynucleus.integration.llm_output_generator | INFO | llm_output_generator.py:21 | Using direct content generation (templates migrated to DSPy)
+2025-06-22 22:23:22,919 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:23:22,919 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:23:22,920 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:23:22,923 | pynucleus.api.app | INFO | app.py:71 | Cleaning up application resources...
+2025-06-22 22:23:23,050 | pynucleus.api.app | INFO | app.py:75 | Resource cleanup completed

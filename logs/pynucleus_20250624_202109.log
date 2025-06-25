@@ -1,0 +1,38 @@
+2025-06-24 20:21:09,755 | __main__ | INFO | run_pipeline.py:517 | 🚀 Starting interactive chat session
+2025-06-24 20:21:09,755 | __main__ | INFO | run_pipeline.py:518 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-24 20:21:09,755 | __main__ | INFO | run_pipeline.py:519 | 📊 Top K: 5
+2025-06-24 20:21:09,755 | __main__ | INFO | run_pipeline.py:532 | 🔧 Initializing RAG pipeline and LLM runner
+2025-06-24 20:21:09,756 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 20:21:09,756 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 20:21:09,756 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 20:21:09,756 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-24 20:21:09,756 | pynucleus | INFO | engine.py:58 | ChromaDB collection initialized successfully
+2025-06-24 20:21:09,757 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3772 documents
+2025-06-24 20:21:09,757 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-24 20:21:24,279 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-24 20:21:29,759 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 5 documents (filtered from 5) for query
+2025-06-24 20:21:29,759 | pynucleus | INFO | engine.py:359 | Retrieved 5 documents for query: 'what is modular plants?'
+2025-06-24 20:21:29,759 | pynucleus | INFO | engine.py:361 | Document lengths: [2501, 1801, 2537, 4187, 1637]
+2025-06-24 20:21:29,759 | pynucleus | INFO | engine.py:203 | Built enhanced context: 3 chunks, 2292 characters
+2025-06-24 20:21:29,759 | pynucleus | INFO | engine.py:371 | Using RAG approach with 5 documents
+2025-06-24 20:21:29,759 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=200, stream=False)
+2025-06-24 20:21:45,683 | pynucleus | INFO | answer_processing.py:46 | Deduplication: 7 -> 7 sentences
+2025-06-24 20:22:06,510 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 20.81s
+2025-06-24 20:23:14,241 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 5 documents (filtered from 5) for query
+2025-06-24 20:23:14,241 | pynucleus | INFO | engine.py:359 | Retrieved 5 documents for query: 'what is the definition of heat capacity?'
+2025-06-24 20:23:14,241 | pynucleus | INFO | engine.py:361 | Document lengths: [2182, 1527, 1666, 1704, 1666]
+2025-06-24 20:23:14,242 | pynucleus | INFO | engine.py:203 | Built enhanced context: 3 chunks, 1436 characters
+2025-06-24 20:23:14,242 | pynucleus | INFO | engine.py:371 | Using RAG approach with 5 documents
+2025-06-24 20:23:14,242 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=200, stream=False)
+2025-06-24 20:23:28,364 | pynucleus | INFO | answer_processing.py:46 | Deduplication: 7 -> 7 sentences
+2025-06-24 20:23:28,365 | pynucleus | INFO | answer_processing.py:156 | Added citation to answer lacking proper citations
+2025-06-24 20:23:47,863 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 19.48s
+2025-06-24 20:24:41,872 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 5 documents (filtered from 5) for query
+2025-06-24 20:24:41,872 | pynucleus | INFO | engine.py:359 | Retrieved 5 documents for query: 'can you explain to me what are the safety implications of modular plants?'
+2025-06-24 20:24:41,872 | pynucleus | INFO | engine.py:361 | Document lengths: [1801, 2517, 1868, 2636, 2687]
+2025-06-24 20:24:41,873 | pynucleus | INFO | engine.py:203 | Built enhanced context: 3 chunks, 2197 characters
+2025-06-24 20:24:41,873 | pynucleus | INFO | engine.py:371 | Using RAG approach with 5 documents
+2025-06-24 20:24:41,873 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=200, stream=False)
+2025-06-24 20:24:59,628 | pynucleus | INFO | answer_processing.py:46 | Deduplication: 8 -> 8 sentences
+2025-06-24 20:24:59,629 | pynucleus | INFO | answer_processing.py:156 | Added citation to answer lacking proper citations
+2025-06-24 20:25:26,823 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 27.16s

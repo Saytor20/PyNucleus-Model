@@ -1,0 +1,35 @@
+2025-06-22 22:30:48,877 | httpx | INFO | _client.py:1025 | HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+2025-06-22 22:30:49,346 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:30:49,347 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:30:49,359 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:30:49,359 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-22 22:30:49,359 | pynucleus.pipeline.pipeline_rag | ERROR | pipeline_rag.py:89 | Failed to check/populate ChromaDB: cannot import name '_initialize_collection' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-22 22:30:49,376 | pynucleus.rag.vector_store | INFO | vector_store.py:363 | No existing FAISS directories found
+2025-06-22 22:30:49,376 | pynucleus.pipeline.pipeline_utils | INFO | pipeline_utils.py:42 | Pipeline components initialized successfully
+2025-06-22 22:30:49,376 | pynucleus.pipeline.pipeline_utils | WARNING | pipeline_utils.py:46 | FAISS vector store not loaded - using fallback mode
+2025-06-22 22:30:49,377 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:30:49,377 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:30:49,378 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:30:49,378 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-22 22:30:49,378 | pynucleus.pipeline.pipeline_rag | ERROR | pipeline_rag.py:89 | Failed to check/populate ChromaDB: cannot import name '_initialize_collection' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-22 22:30:49,378 | pynucleus.integration.llm_output_generator | INFO | llm_output_generator.py:21 | Using direct content generation (templates migrated to DSPy)
+2025-06-22 22:30:49,379 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:30:49,379 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:30:49,379 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:30:49,383 | pynucleus.api.app | INFO | app.py:160 | Health check requested
+2025-06-22 22:30:49,494 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:30:49,494 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:30:52,385 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:30:52] "GET /enhanced_diagnostic HTTP/1.1" 200 -
+2025-06-22 22:30:53,138 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:30:53,139 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:30:53,139 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:30:53,139 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:30:53] "GET /health HTTP/1.1" 200 -
+2025-06-22 22:31:15,764 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:31:15] "GET /enhanced_diagnostic?mode=test HTTP/1.1" 200 -
+2025-06-22 22:31:51,222 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:31:51,223 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:31:51,224 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:31:51,349 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:31:51,440 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:31:51,522 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:31:51,604 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:31:51,712 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:31:51] "GET /system_statistics HTTP/1.1" 200 -

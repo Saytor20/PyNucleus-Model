@@ -1,0 +1,42 @@
+2025-06-22 22:37:02,973 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:37:02,974 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:37:02,974 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:37:02,974 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-22 22:37:02,974 | pynucleus.pipeline.pipeline_rag | ERROR | pipeline_rag.py:89 | Failed to check/populate ChromaDB: cannot import name '_initialize_collection' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-22 22:37:02,994 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:37:02,994 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:37:02,995 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:37:02,995 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-22 22:37:02,995 | pynucleus.pipeline.pipeline_rag | ERROR | pipeline_rag.py:89 | Failed to check/populate ChromaDB: cannot import name '_initialize_collection' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-22 22:37:03,015 | pynucleus.rag.vector_store | INFO | vector_store.py:363 | No existing FAISS directories found
+2025-06-22 22:37:03,015 | pynucleus.pipeline.pipeline_utils | INFO | pipeline_utils.py:42 | Pipeline components initialized successfully
+2025-06-22 22:37:03,015 | pynucleus.pipeline.pipeline_utils | WARNING | pipeline_utils.py:46 | FAISS vector store not loaded - using fallback mode
+2025-06-22 22:37:03,016 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:37:03,016 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:37:03,016 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:37:03,016 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-22 22:37:03,016 | pynucleus.pipeline.pipeline_rag | ERROR | pipeline_rag.py:89 | Failed to check/populate ChromaDB: cannot import name '_initialize_collection' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)
+2025-06-22 22:37:03,017 | pynucleus.integration.llm_output_generator | INFO | llm_output_generator.py:21 | Using direct content generation (templates migrated to DSPy)
+2025-06-22 22:37:03,018 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:37:03,018 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:37:03,018 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:37:03,023 | pynucleus.api.app | INFO | app.py:160 | Health check requested
+2025-06-22 22:37:03,110 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:37:03,110 | pynucleus | ERROR | model_loader.py:192 | No working model available
+2025-06-22 22:37:03,111 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:37:03,111 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:37:03,111 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:37:03,112 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:37:03] "GET /health HTTP/1.1" 200 -
+2025-06-22 22:37:03,114 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:37:03] "GET / HTTP/1.1" 200 -
+2025-06-22 22:37:03,114 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:37:03] "GET /enhanced_diagnostic HTTP/1.1" 200 -
+2025-06-22 22:37:32,885 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:37:32,885 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:37:33,107 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 22:37:33,108 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 22:37:33,109 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:37:33] "GET /status HTTP/1.1" 200 -
+2025-06-22 22:37:33,109 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:37:33] "GET /status HTTP/1.1" 200 -
+2025-06-22 22:37:40,005 | pynucleus.api.app | INFO | app.py:352 | Processing question: what is modular plants?... (stream: False)
+2025-06-22 22:37:40,129 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:37:40,129 | pynucleus | ERROR | model_loader.py:192 | No working model available
+2025-06-22 22:37:40,129 | pynucleus.api.app | INFO | app.py:452 | Question processed successfully in 0.13s
+2025-06-22 22:37:40,129 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:37:40] "POST /ask HTTP/1.1" 200 -

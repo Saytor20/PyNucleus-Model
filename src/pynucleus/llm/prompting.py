@@ -1,86 +1,117 @@
 """
-Enhanced prompting system with concise, direct responses.
+Enhanced RAG Prompting System
 """
 
-from ..utils.logger import logger
+try:
+    from ..utils.logger import logger
+except ImportError:
+    # Fallback for when module is run directly
+    import logging
+    logger = logging.getLogger(__name__)
+
 from ..settings import settings
 
-def build_prompt(context: str, question: str, max_context_chars=None) -> str:
-    """
-    Build a concise prompt that produces direct answers without showing reasoning.
-    
-    Args:
-        context: The retrieved context documents
-        question: The user's question
-        max_context_chars: Optional context truncation limit (backward-compatible)
-    
-    Returns:
-        Concise prompt designed for direct answers
-    """
-    # Handle backward compatibility - use setting if not provided
+def build_enhanced_rag_prompt(context: str, question: str, max_context_chars=None) -> str:
     if max_context_chars is None:
-        max_context_chars = getattr(settings, 'MAX_CONTEXT_CHARS', 1200)
-    
-    # Truncate context if needed
+        max_context_chars = getattr(settings, 'MAX_CONTEXT_CHARS', 5000)
+
     if len(context) > max_context_chars:
         context = context[:max_context_chars]
         logger.info(f"Context truncated to {max_context_chars} characters")
+
+    # Detect if this is a complex question
+    from ..rag.engine import is_complex_question
+    is_complex = is_complex_question(question)
     
-    # Ultra-direct prompt with strong constraints
-    prompt = f"""You are a chemical engineering expert. Answer the question using only the provided context.
+    if is_complex:
+        # Enhanced prompt for complex questions
+        prompt = f"""You are an expert chemical engineer assistant. Provide a comprehensive, structured answer using the given context. Summarize in your own words.
 
-STRICT RULES:
-- Give only the direct answer
-- Use facts from the context
-- Cite sources as [1], [2], etc.
-- Do NOT explain your reasoning
-- Do NOT mention what you're thinking
-- Do NOT discuss how to answer
-- Do NOT repeat text from the context
-- Do NOT start with "The following" or similar phrases
-- Give a single, clear sentence that directly answers the question
-- STOP after giving the answer
+### QUESTION:
+{question}
 
-CONTEXT:
+### RETRIEVED CONTEXT:
 {context}
 
-QUESTION: {question}
+### INSTRUCTIONS:
+- Provide a complete, structured answer with clear steps or components.
+- For design questions, include key design principles, considerations, and methodology.
+- Avoid repetition and stay focused on the specific question.
+- Clearly enumerate sources like [Doc-XX] after your synthesized answer.
+- If context is insufficient, state clearly that more information is needed.
+- Keep your answer comprehensive but concise and well-organized.
 
-DIRECT ANSWER:"""
+### ANSWER:
+"""
+    else:
+        # Standard prompt for simple questions
+        prompt = f"""You are an expert chemical engineer assistant. Provide a concise, clear answer using the given context. Summarize in your own words.
 
+### QUESTION:
+{question}
+
+### RETRIEVED CONTEXT:
+{context}
+
+### INSTRUCTIONS:
+- Synthesize a short, clear, original answer based on the context.
+- Avoid copying long phrases verbatim.
+- Clearly enumerate sources like [Doc-XX] after your synthesized answer.
+- If context is insufficient, state clearly that more information is needed.
+
+### ANSWER:
+"""
+    
     return prompt
 
+def build_prompt(context: str, question: str, max_context_chars=None) -> str:
+    return build_enhanced_rag_prompt(context, question, max_context_chars)
 
 def build_simple_prompt(context: str, question: str, max_context_chars=None) -> str:
-    """
-    Build a simpler prompt for basic queries (backward compatibility).
-    
-    Args:
-        context: The retrieved context documents
-        question: The user's question
-        max_context_chars: Optional context truncation limit
-    
-    Returns:
-        Simple prompt without step-by-step reasoning
-    """
-    # Handle backward compatibility
     if max_context_chars is None:
-        max_context_chars = getattr(settings, 'MAX_CONTEXT_CHARS', 1200)
-    
-    # Truncate context if needed
+        max_context_chars = getattr(settings, 'MAX_CONTEXT_CHARS', 5000)
+
     if len(context) > max_context_chars:
         context = context[:max_context_chars]
-    
-    return f"""You are an expert chemical process engineer.
-Use the context below to answer the question clearly and precisely. Include citations [1], [2], etc. when referencing specific sources.
+
+    return f"""
+You are an experienced chemical engineer. Provide a clear answer based on the context provided.
 
 Context:
 {context}
 
-Question: {question}
+Question:
+{question}
 
-Answer:"""
+Answer concisely with citations as [Source: name].
 
+Answer:
+"""
 
-# Export the main function and backward compatibility
-__all__ = ["build_prompt", "build_simple_prompt"] 
+def build_detailed_prompt(context: str, question: str, max_context_chars=None) -> str:
+    if max_context_chars is None:
+        max_context_chars = getattr(settings, 'MAX_CONTEXT_CHARS', 5000)
+
+    if len(context) > max_context_chars:
+        context = context[:max_context_chars]
+
+    return f"""
+You are a senior chemical engineering consultant.
+
+### TECHNICAL QUESTION:
+{question}
+
+### TECHNICAL CONTEXT:
+{context}
+
+### RESPONSE REQUIREMENTS:
+- Provide detailed technical explanations with clarity.
+- Structure logically with relevant technical details and terminology.
+- Include citations clearly as [Source: name].
+- Provide examples or practical applications if contextually available.
+- If insufficient information is available, explicitly mention that.
+
+### DETAILED ANSWER:
+"""
+
+__all__ = ["build_prompt", "build_enhanced_rag_prompt", "build_simple_prompt", "build_detailed_prompt"]

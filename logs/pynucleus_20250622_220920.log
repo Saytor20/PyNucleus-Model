@@ -1,0 +1,59 @@
+2025-06-22 22:09:20,248 | PyNucleusRunner | INFO | run_web_app.py:64 | ============================================================
+2025-06-22 22:09:20,248 | PyNucleusRunner | INFO | run_web_app.py:65 | 🚀 Starting PyNucleus Web Application...
+2025-06-22 22:09:20,248 | PyNucleusRunner | INFO | run_web_app.py:66 |    • Mode: Development (Debug ON)
+2025-06-22 22:09:20,248 | PyNucleusRunner | INFO | run_web_app.py:67 |    • Model: Qwen/Qwen3-0.6B
+2025-06-22 22:09:20,248 | PyNucleusRunner | INFO | run_web_app.py:68 |    • Vector DB: data/03_intermediate/vector_db
+2025-06-22 22:09:20,248 | PyNucleusRunner | INFO | run_web_app.py:69 | ============================================================
+2025-06-22 22:09:20,248 | PyNucleusRunner | INFO | run_web_app.py:70 |    ►►► Open your browser at http://localhost:5001/ ◄◄◄
+2025-06-22 22:09:20,248 | PyNucleusRunner | INFO | run_web_app.py:71 | ============================================================
+2025-06-22 22:09:20,285 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-22 22:09:20,285 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-22 22:09:32,828 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:09:32] "GET / HTTP/1.1" 200 -
+2025-06-22 22:09:50,387 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-22 22:09:50,645 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:09:50,798 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 22:09:50,799 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:09:50] "GET /status HTTP/1.1" 200 -
+2025-06-22 22:09:51,385 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:09:51,385 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:09:51,390 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:09:51,499 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:09:51,585 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:09:51,667 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:09:51,747 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:09:51,855 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:09:51] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-22 22:10:56,996 | pynucleus | INFO | system_validator.py:206 | Test log message from validator
+2025-06-22 22:10:57,265 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:10:57,265 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:00,227 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:00,228 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:03,553 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:03,553 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:07,413 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:07,414 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:11,695 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:11,695 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:15,557 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:15,557 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:18,880 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:18,880 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:22,134 | pynucleus | INFO | golden_eval.py:44 | 🔍 Starting comprehensive evaluation...
+2025-06-22 22:11:22,141 | pynucleus | INFO | golden_eval.py:58 | Randomly sampled 5 questions from 49 total questions
+2025-06-22 22:11:22,236 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:22,236 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:26,039 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:26,040 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:29,319 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:29,319 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:32,824 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:32,824 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:36,414 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:11:36,414 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:11:39,753 | pynucleus | INFO | golden_eval.py:89 | Evaluation completed: 0.0% success rate
+2025-06-22 22:11:39,757 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:11:39,757 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:11:39,757 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:11:39,757 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-22 22:11:39,757 | pynucleus.pipeline.pipeline_rag | ERROR | pipeline_rag.py:89 | Failed to check/populate ChromaDB: cannot import name '_initialize_collection' from 'pynucleus.rag.engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/engine.py)

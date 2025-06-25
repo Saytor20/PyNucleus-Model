@@ -1,0 +1,20 @@
+2025-06-24 15:29:13,124 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.85.29:5001
+2025-06-24 15:29:13,124 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-24 15:29:44,404 | pynucleus.api.app | INFO | app.py:862 | System statistics requested
+2025-06-24 15:29:44,485 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 15:29:44,485 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 15:29:44,583 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 15:29:44,709 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:29:44] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-24 15:29:54,759 | pynucleus.api.app | INFO | app.py:768 | System diagnostic requested
+2025-06-24 15:29:54,760 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 15:29:54,761 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 15:29:54,761 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 15:29:54,762 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:29:54] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-24 15:30:02,396 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [24/Jun/2025 15:30:02] "GET / HTTP/1.1" 200 -
+2025-06-24 15:30:11,999 | pynucleus.api.app | INFO | app.py:352 | Processing question: what is modular plants?... (stream: False)
+2025-06-24 15:30:12,002 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-24 15:30:12,272 | pynucleus | INFO | engine.py:91 | Retrieved 5 documents for query
+2025-06-24 15:30:12,273 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=2048, stream=False)

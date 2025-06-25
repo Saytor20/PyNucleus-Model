@@ -1,0 +1,36 @@
+2025-06-22 22:21:03,991 | PyNucleusRunner | INFO | run_web_app.py:64 | ============================================================
+2025-06-22 22:21:03,992 | PyNucleusRunner | INFO | run_web_app.py:65 | 🚀 Starting PyNucleus Web Application...
+2025-06-22 22:21:03,992 | PyNucleusRunner | INFO | run_web_app.py:66 |    • Mode: Development (Debug ON)
+2025-06-22 22:21:03,992 | PyNucleusRunner | INFO | run_web_app.py:67 |    • Model: Qwen/Qwen3-0.6B
+2025-06-22 22:21:03,992 | PyNucleusRunner | INFO | run_web_app.py:68 |    • Vector DB: data/03_intermediate/vector_db
+2025-06-22 22:21:03,992 | PyNucleusRunner | INFO | run_web_app.py:69 | ============================================================
+2025-06-22 22:21:03,992 | PyNucleusRunner | INFO | run_web_app.py:70 |    ►►► Open your browser at http://localhost:5001/ ◄◄◄
+2025-06-22 22:21:03,992 | PyNucleusRunner | INFO | run_web_app.py:71 | ============================================================
+2025-06-22 22:21:04,025 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-22 22:21:04,025 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-22 22:21:10,879 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:21:10] "GET / HTTP/1.1" 200 -
+2025-06-22 22:21:14,938 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-22 22:21:15,180 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:21:15,329 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 22:21:15,329 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:21:15] "GET /status HTTP/1.1" 200 -
+2025-06-22 22:21:16,760 | pynucleus | INFO | engine.py:74 | Retrieved 2 documents for query
+2025-06-22 22:21:16,761 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=50, stream=False)
+2025-06-22 22:21:19,825 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:21:19,826 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:21:19,830 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:21:20,234 | httpx | INFO | _client.py:1025 | HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+2025-06-22 22:21:20,613 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:21:20] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-22 22:21:36,261 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 22:21:36,262 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 22:21:36,263 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 22:21:36,375 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:21:36,465 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:21:36,556 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:21:36,638 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:21:36,746 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:21:36] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-22 22:21:45,585 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-22 22:21:45,734 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-22 22:21:45,735 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 22:21:45] "GET /status HTTP/1.1" 200 -

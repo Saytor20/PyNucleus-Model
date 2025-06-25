@@ -1,0 +1,18 @@
+2025-06-24 19:26:16,653 | __main__ | INFO | run_pipeline.py:436 | 🚀 Starting RAG query
+2025-06-24 19:26:16,654 | __main__ | INFO | run_pipeline.py:437 | ❓ Question: What are modular chemical plants?
+2025-06-24 19:26:16,654 | __main__ | INFO | run_pipeline.py:438 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-24 19:26:16,654 | __main__ | INFO | run_pipeline.py:439 | 📊 Top K: 5
+2025-06-24 19:26:16,654 | __main__ | INFO | run_pipeline.py:442 | 🔄 Using RAG system for query processing
+2025-06-24 19:26:16,657 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-24 19:26:16,657 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 19:26:16,673 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-24 19:26:16,673 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:37 | Vector store (chroma) initialized successfully
+2025-06-24 19:26:16,674 | pynucleus | INFO | engine.py:58 | ChromaDB collection initialized successfully
+2025-06-24 19:26:16,676 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:73 | ChromaDB collection contains 3772 documents
+2025-06-24 19:26:16,676 | __main__ | INFO | run_pipeline.py:449 | 🔄 Processing question...
+2025-06-24 19:26:17,083 | pynucleus | INFO | engine.py:129 | Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-24 19:26:17,083 | pynucleus | INFO | engine.py:345 | Retrieved 3 documents for query: 'What are modular chemical plants?'
+2025-06-24 19:26:17,083 | pynucleus | INFO | engine.py:347 | Document lengths: [3114, 1637, 2501]
+2025-06-24 19:26:17,083 | pynucleus | INFO | engine.py:189 | Built optimized context: 2 chunks, 2071 characters
+2025-06-24 19:26:17,084 | pynucleus | INFO | engine.py:357 | Using RAG approach with 3 documents
+2025-06-24 19:26:17,084 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=2048, stream=False)

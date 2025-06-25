@@ -1,0 +1,85 @@
+2025-06-23 11:03:59,511 | PyNucleusRunner | INFO | run_web_app.py:64 | ============================================================
+2025-06-23 11:03:59,512 | PyNucleusRunner | INFO | run_web_app.py:65 | 🚀 Starting PyNucleus Web Application...
+2025-06-23 11:03:59,512 | PyNucleusRunner | INFO | run_web_app.py:66 |    • Mode: Development (Debug ON)
+2025-06-23 11:03:59,512 | PyNucleusRunner | INFO | run_web_app.py:67 |    • Model: Qwen/Qwen3-0.6B
+2025-06-23 11:03:59,512 | PyNucleusRunner | INFO | run_web_app.py:68 |    • Vector DB: data/03_intermediate/vector_db
+2025-06-23 11:03:59,512 | PyNucleusRunner | INFO | run_web_app.py:69 | ============================================================
+2025-06-23 11:03:59,512 | PyNucleusRunner | INFO | run_web_app.py:70 |    ►►► Open your browser at http://localhost:5001/ ◄◄◄
+2025-06-23 11:03:59,512 | PyNucleusRunner | INFO | run_web_app.py:71 | ============================================================
+2025-06-23 11:03:59,547 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.145:5001
+2025-06-23 11:03:59,547 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m
+2025-06-23 11:04:26,456 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:04:26] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-23 11:04:26,543 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:04:26] "[33mGET /apple-touch-icon-precomposed.png HTTP/1.1[0m" 404 -
+2025-06-23 11:04:26,544 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:04:26] "[33mGET /apple-touch-icon.png HTTP/1.1[0m" 404 -
+2025-06-23 11:04:26,544 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:04:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-23 11:04:33,405 | pynucleus.api.app | INFO | app.py:352 | Processing question: What is modular plants?... (stream: False)
+2025-06-23 11:04:33,503 | pynucleus | INFO | engine.py:38 | ChromaDB client initialized successfully
+2025-06-23 11:04:33,769 | pynucleus | INFO | engine.py:74 | Retrieved 3 documents for query
+2025-06-23 11:04:33,771 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=512, stream=False)
+2025-06-23 11:04:56,180 | pynucleus.api.app | INFO | app.py:452 | Question processed successfully in 22.78s
+2025-06-23 11:04:56,181 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:04:56] "POST /ask HTTP/1.1" 200 -
+2025-06-23 11:08:28,644 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:08:28] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-23 11:08:38,903 | pynucleus.api.app | INFO | app.py:352 | Processing question: what is modular plants?... (stream: False)
+2025-06-23 11:08:39,080 | pynucleus | INFO | engine.py:74 | Retrieved 3 documents for query
+2025-06-23 11:08:39,080 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=512, stream=False)
+2025-06-23 11:09:03,331 | pynucleus.api.app | INFO | app.py:452 | Question processed successfully in 24.43s
+2025-06-23 11:09:03,332 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:09:03] "POST /ask HTTP/1.1" 200 -
+2025-06-23 11:09:35,203 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:09:35] "GET / HTTP/1.1" 200 -
+2025-06-23 11:09:40,927 | pynucleus.api.app | INFO | app.py:352 | Processing question: what is modular plants?... (stream: False)
+2025-06-23 11:09:41,072 | pynucleus | INFO | engine.py:74 | Retrieved 3 documents for query
+2025-06-23 11:09:41,072 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=512, stream=False)
+2025-06-23 11:10:00,144 | pynucleus.api.app | INFO | app.py:452 | Question processed successfully in 19.22s
+2025-06-23 11:10:00,146 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:10:00] "POST /ask HTTP/1.1" 200 -
+2025-06-23 11:10:27,582 | pynucleus.api.app | INFO | app.py:352 | Processing question: explain to me how distillation columns work... (stream: False)
+2025-06-23 11:10:27,735 | pynucleus | INFO | engine.py:74 | Retrieved 3 documents for query
+2025-06-23 11:10:27,735 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=512, stream=False)
+2025-06-23 11:10:46,074 | pynucleus.api.app | INFO | app.py:452 | Question processed successfully in 18.49s
+2025-06-23 11:10:46,074 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:10:46] "POST /ask HTTP/1.1" 200 -
+2025-06-23 11:11:32,609 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:11:32] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-23 11:12:14,841 | pynucleus.api.app | INFO | app.py:629 | Uploading file: 1-s2.0-S0925527302003742-main.pdf -> 20250623_111214_6b3c33b1_1-s2.0-S0925527302003742-main.pdf (and original in data/02_processed/)
+2025-06-23 11:12:14,844 | pynucleus.api.app | INFO | app.py:638 | ✅ Also saved as original filename in processed dir: 1-s2.0-S0925527302003742-main.pdf
+2025-06-23 11:12:14,844 | pynucleus.api.app | INFO | app.py:660 | Ingesting file into vector database: 20250623_111214_6b3c33b1_1-s2.0-S0925527302003742-main.pdf
+2025-06-23 11:12:15,017 | pynucleus.rag.document_processor | INFO | document_processor.py:185 | Extracted 48614 characters from PDF: 20250623_111214_6b3c33b1_1-s2.0-S0925527302003742-main.pdf
+2025-06-23 11:12:15,209 | pynucleus.rag.document_processor | INFO | document_processor.py:518 | Attempting table extraction from: 20250623_111214_6b3c33b1_1-s2.0-S0925527302003742-main.pdf
+2025-06-23 11:12:16,039 | camelot | INFO | lattice.py:407 | Processing page-1
+2025-06-23 11:12:16,043 | pynucleus.rag.document_processor | INFO | document_processor.py:568 | Table extraction skipped for 20250623_111214_6b3c33b1_1-s2.0-S0925527302003742-main.pdf: Ghostscript not installed (this is optional)
+2025-06-23 11:12:16,046 | pynucleus.rag.document_processor | INFO | document_processor.py:131 | Saved cleaned text to: data/02_processed/cleaned_txt/20250623_111214_6b3c33b1_1-s2.0-S0925527302003742-main.txt
+2025-06-23 11:12:16,205 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:12:16,206 | pynucleus.api.app | INFO | app.py:699 | File successfully ingested and retrievable: 20250623_111214_6b3c33b1_1-s2.0-S0925527302003742-main.pdf
+2025-06-23 11:12:16,207 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:12:16] "POST /upload HTTP/1.1" 200 -
+2025-06-23 11:12:43,207 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:12:43,388 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:12:43,389 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:12:43] "GET /status HTTP/1.1" 200 -
+2025-06-23 11:12:54,129 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:12:54,129 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:12:54,353 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:12:54,355 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:12:54,356 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:12:54] "GET /status HTTP/1.1" 200 -
+2025-06-23 11:12:54,356 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:12:54] "GET /status HTTP/1.1" 200 -
+2025-06-23 11:12:59,833 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:12:59,969 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:12:59,970 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:12:59] "GET /status HTTP/1.1" 200 -
+2025-06-23 11:13:04,501 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-23 11:13:04,502 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-23 11:13:04,508 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-23 11:13:04,615 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:13:04,701 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:13:04,779 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:13:04,858 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:13:04,966 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:13:04] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-23 11:13:23,898 | pynucleus | INFO | engine.py:74 | Retrieved 3 documents for query
+2025-06-23 11:13:23,898 | pynucleus | INFO | model_loader.py:195 | Generating with HuggingFace model (max_tokens=512, stream=False)
+2025-06-23 11:13:42,707 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-23 11:13:42,708 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-23 11:13:42,717 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-23 11:13:43,449 | httpx | INFO | _client.py:1025 | HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+2025-06-23 11:13:43,992 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:13:43] "GET /system_diagnostic HTTP/1.1" 200 -
+2025-06-23 11:15:43,580 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:15:43,581 | pynucleus | INFO | engine.py:74 | Retrieved 1 documents for query
+2025-06-23 11:15:43,747 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:15:43,751 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:15:43] "GET /status HTTP/1.1" 200 -
+2025-06-23 11:15:43,790 | pynucleus | INFO | engine.py:74 | Retrieved 1000 documents for query
+2025-06-23 11:15:43,790 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [23/Jun/2025 11:15:43] "GET /status HTTP/1.1" 200 -

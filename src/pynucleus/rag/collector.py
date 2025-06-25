@@ -6,6 +6,7 @@ from transformers import logging as hf_logging
 from ..settings import settings
 from ..utils.logger import logger
 from .document_processor import DocumentProcessor  # Import enhanced document processor
+from ..metrics import Metrics, inc
 import tiktoken  # for byte-pair encoding token counts
 
 # disable HF user warnings
@@ -13,7 +14,8 @@ hf_logging.set_verbosity_error()
 
 # choose a tokenizer compatible with your embedder
 enc = tiktoken.get_encoding("cl100k_base")
-MAX_TOKENS_PER_CHUNK = 512
+# Use enhanced chunking settings from configuration
+MAX_TOKENS_PER_CHUNK = getattr(settings, 'CHUNK_SIZE', 400)
 
 def chunk_text(text: str):
     """Legacy chunking function - kept for backward compatibility."""
@@ -21,6 +23,15 @@ def chunk_text(text: str):
     for i in range(0, len(tokens), MAX_TOKENS_PER_CHUNK):
         chunk = enc.decode(tokens[i : i + MAX_TOKENS_PER_CHUNK])
         yield chunk
+
+def count_tokens(text: str) -> int:
+    """Count tokens in text using tiktoken."""
+    if not text:
+        return 0
+    try:
+        return len(enc.encode(text))
+    except Exception:
+        return len(text.split())  # Fallback to word count
 
 def extract_pdf_text(pdf_path):
     """Extract text from PDF file."""
@@ -40,12 +51,12 @@ def extract_pdf_text(pdf_path):
         return f"PDF file: {pdf_path.name} (extraction failed)"
 
 def _get_chromadb_client():
-    """Get or create ChromaDB client with consistent settings."""
+    """Get or create ChromaDB client with robust error handling."""
     try:
         # Ensure directory exists
         Path(settings.CHROMA_PATH).mkdir(parents=True, exist_ok=True)
         
-        # Create client with consistent settings (same as engine.py)
+        # Use consistent settings across all modules (match vector_store & collector)
         client_settings = Settings(
             anonymized_telemetry=False,
             allow_reset=True,
@@ -53,94 +64,51 @@ def _get_chromadb_client():
             chroma_server_host=None,
             chroma_server_http_port=None
         )
-        
         client = chromadb.PersistentClient(
             path=settings.CHROMA_PATH,
             settings=client_settings
         )
-        
-        # Test client connectivity
-        client.list_collections()
         logger.info("ChromaDB client initialized successfully in collector")
         return client
         
     except Exception as e:
-        if "already exists" in str(e).lower():
-            # Handle existing instance conflict by using engine's archive function
-            logger.warning(f"ChromaDB instance conflict detected in collector, reinitializing...")
-            try:
-                # Clear any existing ChromaDB instances
-                import time
-                time.sleep(0.1)
-                
-                # Recreate client
-                client = chromadb.PersistentClient(
-                    path=settings.CHROMA_PATH,
-                    settings=client_settings
-                )
-                logger.info("ChromaDB client recreated after archiving in collector")
-                return client
-                
-            except Exception as reset_error:
-                logger.error(f"Failed to archive/recreate ChromaDB in collector: {reset_error}")
-                return None
-        else:
-            logger.error(f"ChromaDB initialization failed in collector: {e}")
-            return None
+        logger.error(f"ChromaDB initialization failed in collector: {e}")
+        return None
 
 def _is_already_processed(file_path: pathlib.Path) -> bool:
-    """Check if a file has been successfully processed by looking for meaningful content in ChromaDB."""
+    """Check if a file has already been processed by checking ChromaDB."""
     try:
         client = _get_chromadb_client()
         if client is None:
             return False
         
+        # Use consistent collection name with other modules
         coll = client.get_or_create_collection("pynucleus_documents")
         
-        # Query for chunks from this specific file
-        file_stem = file_path.stem
-        
-        # Get all documents with metadata to check content quality
-        all_docs = coll.get(include=['documents', 'metadatas'])
-        if not all_docs or not all_docs.get('ids'):
-            return False
-        
-        matching_chunks = []
-        
-        # Check for chunks from this file and evaluate their quality
-        for i, doc_id in enumerate(all_docs['ids']):
-            if doc_id.startswith(f"{file_stem}__"):
-                # Check the content quality
-                document_content = all_docs['documents'][i] if all_docs['documents'] else ""
-                metadata = all_docs['metadatas'][i] if all_docs['metadatas'] else {}
-                
-                # Skip failed/placeholder chunks
-                if (document_content.startswith("No tables extracted") or 
-                    document_content.startswith("Failed to") or
-                    document_content.startswith("Error:") or
-                    len(document_content.strip()) < 50):  # Less than 50 chars = probably failed
-                    continue
-                    
-                matching_chunks.append(doc_id)
-        
-        # Consider processed only if we have multiple meaningful chunks
-        # (Most successful documents produce several chunks)
-        if len(matching_chunks) >= 2:
-            logger.debug(f"File {file_path.name} already processed with {len(matching_chunks)} meaningful chunks")
-            return True
-        elif len(matching_chunks) == 1:
-            logger.info(f"File {file_path.name} has only 1 meaningful chunk, may need reprocessing")
-            return False
-        else:
-            logger.info(f"File {file_path.name} has no meaningful chunks or failed processing, needs reprocessing")
-            return False
+        # Search for documents from this file
+        results = coll.get(where={"source": str(file_path.name)})
+        return len(results['ids']) > 0
         
     except Exception as e:
-        logger.warning(f"Could not check if {file_path.name} is already processed: {e}")
-        return False  # If we can't check, assume not processed
+        logger.warning(f"Could not check if file {file_path.name} is already processed: {e}")
+        return False
+
+def _get_file_stats(file_path: pathlib.Path) -> dict:
+    """Get comprehensive file statistics."""
+    try:
+        stat = file_path.stat()
+        return {
+            "size_bytes": stat.st_size,
+            "size_mb": round(stat.st_size / (1024 * 1024), 2),
+            "modified_time": stat.st_mtime,
+            "extension": file_path.suffix.lower()
+        }
+    except Exception as e:
+        logger.warning(f"Could not get stats for {file_path}: {e}")
+        return {"size_bytes": 0, "size_mb": 0, "modified_time": 0, "extension": ""}
 
 def ingest_single_file(file_path: str):
-    """Ingest a single new document into ChromaDB without reprocessing existing ones."""
+    """Ingest a single new document into ChromaDB using enhanced chunking and metadata."""
     client = _get_chromadb_client()
     if client is None:
         logger.error("Failed to get ChromaDB client for single file ingestion")
@@ -161,37 +129,43 @@ def ingest_single_file(file_path: str):
     coll = client.get_or_create_collection("pynucleus_documents")
     embedder = SentenceTransformer(settings.EMB_MODEL)
     
-    # Initialize enhanced document processor
-    processor = DocumentProcessor(chunk_size=300, chunk_overlap=150)
+    # Initialize enhanced document processor with enhanced settings
+    chunk_size = getattr(settings, 'CHUNK_SIZE', 400)
+    chunk_overlap = getattr(settings, 'CHUNK_OVERLAP', 100)
+    processor = DocumentProcessor(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     
-    logger.info(f"Processing new file: {file_path_obj.name}")
+    logger.info(f"Processing new file: {file_path_obj.name} with enhanced chunking (size: {chunk_size}, overlap: {chunk_overlap})")
     
     try:
-        # Use enhanced document processor
-        result = processor.process_document(file_path_obj)
+        # Process document with enhanced chunking
+        processing_result = processor.process_document(file_path_obj)
         
-        if result["status"] == "error":
-            error_msg = f"Document processor failed for {file_path_obj.name}: {result.get('error', 'Unknown error')}"
-            logger.error(error_msg)
-            return {"status": "error", "message": error_msg, "chunks_added": 0}
+        if processing_result["status"] != "success":
+            return {
+                "status": "error",
+                "message": f"Document processing failed: {processing_result.get('error', 'Unknown error')}",
+                "chunks_added": 0
+            }
         
-        # Process enhanced chunks with enriched metadata
-        chunks = result.get("chunks", [])
+        chunks_data = processing_result.get("chunks", [])
+        file_stats = _get_file_stats(file_path_obj)
+        
         chunks_added = 0
         
-        for chunk_data in chunks:
+        # Process each chunk with enhanced metadata
+        for chunk_data in tqdm.tqdm(chunks_data, desc=f"Processing {file_path_obj.name}"):
             try:
-                chunk_text = chunk_data["text"]
-                if not chunk_text.strip():
+                chunk_text = chunk_data.get("chunk_text", "")
+                if not chunk_text or len(chunk_text.strip()) < 10:
                     continue
                 
-                # Generate embedding
+                # Generate embeddings
                 emb = embedder.encode(chunk_text).tolist()
                 
                 # Create unique document ID
-                doc_id = f"{file_path_obj.stem}__{chunk_data['chunk_id']}"
+                doc_id = f"{file_path_obj.stem}_{chunk_data.get('chunk_id', chunks_added)}"
                 
-                # Enriched metadata from enhanced chunking
+                # Enhanced metadata with more indexable fields
                 metadata = {
                     "source": str(file_path_obj.name),
                     "source_path": str(file_path_obj),
@@ -205,13 +179,27 @@ def ingest_single_file(file_path: str):
                     "character_count": chunk_data.get("character_count", 0),
                     "contains_technical_terms": chunk_data.get("contains_technical_terms", False),
                     "readability_score": chunk_data.get("readability_score", 0.0),
-                    # Additional processing metadata
-                    "processed_with": "enhanced_chunking_v1",
-                    "chunk_size_setting": processor.chunk_size,
-                    "chunk_overlap_setting": processor.chunk_overlap
+                    
+                    # Enhanced indexable metadata for improved retrieval
+                    "token_count": count_tokens(chunk_text),
+                    "file_size_mb": file_stats["size_mb"],
+                    "file_extension": file_stats["extension"],
+                    
+                    # Processing metadata with enhanced settings
+                    "processed_with": "enhanced_chunking_v2",
+                    "chunk_size_setting": chunk_size,
+                    "chunk_overlap_setting": chunk_overlap,
+                    "enhanced_metadata": getattr(settings, 'ENHANCED_METADATA', True),
+                    "index_section_titles": getattr(settings, 'INDEX_SECTION_TITLES', True),
+                    "index_page_numbers": getattr(settings, 'INDEX_PAGE_NUMBERS', True),
+                    "index_technical_terms": getattr(settings, 'INDEX_TECHNICAL_TERMS', True),
+                    
+                    # Quality metrics for retrieval optimization
+                    "content_density": len(chunk_text) / max(1, chunk_data.get("word_count", 1)),
+                    "semantic_coherence_score": chunk_data.get("readability_score", 0.0),
                 }
                 
-                # Store in ChromaDB with enriched metadata
+                # Store in ChromaDB with enhanced metadata
                 coll.add(
                     documents=[chunk_text], 
                     embeddings=[emb], 
@@ -225,22 +213,24 @@ def ingest_single_file(file_path: str):
                 continue
         
         # Log processing results
-        success_msg = f"Successfully processed {file_path_obj.name}: {chunks_added} chunks added"
-        if result.get("tables_extracted", 0) > 0:
-            success_msg += f", {result['tables_extracted']} tables extracted"
-        
+        success_msg = f"Successfully processed {file_path_obj.name}: {chunks_added} chunks added with enhanced metadata"
         logger.info(success_msg)
+        
         return {
-            "status": "success", 
+            "status": "success",
             "message": success_msg,
             "chunks_added": chunks_added,
-            "tables_extracted": result.get("tables_extracted", 0)
+            "processing_result": processing_result
         }
         
     except Exception as e:
         error_msg = f"Failed to process file {file_path_obj.name}: {e}"
         logger.error(error_msg)
-        return {"status": "error", "message": error_msg, "chunks_added": 0}
+        return {
+            "status": "error",
+            "message": error_msg,
+            "chunks_added": 0
+        }
 
 def ingest(source_dir: str):
     """Ingest documents into ChromaDB using enhanced document processor and enriched metadata with incremental processing."""
@@ -253,8 +243,12 @@ def ingest(source_dir: str):
     coll = client.get_or_create_collection("pynucleus_documents")
     embedder = SentenceTransformer(settings.EMB_MODEL)
     
-    # Initialize enhanced document processor with Step 4 parameters
-    processor = DocumentProcessor(chunk_size=300, chunk_overlap=150)
+    # Initialize enhanced document processor with enhanced settings
+    chunk_size = getattr(settings, 'CHUNK_SIZE', 400)
+    chunk_overlap = getattr(settings, 'CHUNK_OVERLAP', 100)
+    processor = DocumentProcessor(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+    
+    logger.info(f"Starting enhanced ingestion with chunk_size={chunk_size}, chunk_overlap={chunk_overlap}")
 
     # Support broader corpus coverage
     source_path = pathlib.Path(source_dir)
@@ -283,32 +277,37 @@ def ingest(source_dir: str):
     processed_files = 0
     failed_files = 0
     
-    for f in tqdm.tqdm(unprocessed_files, desc="Enhanced ingestion & chunking"):
+    # Get total file size for progress tracking
+    total_size_mb = sum(_get_file_stats(f)["size_mb"] for f in unprocessed_files)
+    logger.info(f"Total size to process: {total_size_mb:.2f} MB")
+    
+    for f in tqdm.tqdm(unprocessed_files, desc="Processing files"):
         try:
-            # Use enhanced document processor
-            result = processor.process_document(f)
+            # Process document with enhanced chunking
+            processing_result = processor.process_document(f)
             
-            if result["status"] == "error":
-                logger.warning(f"Document processor failed for {f}: {result.get('error', 'Unknown error')}")
+            if processing_result["status"] != "success":
+                logger.warning(f"Skipping {f.name}: {processing_result.get('error', 'Processing failed')}")
                 failed_files += 1
                 continue
+                
+            chunks_data = processing_result.get("chunks", [])
+            file_stats = _get_file_stats(f)
             
-            # Process enhanced chunks with enriched metadata
-            chunks = result.get("chunks", [])
-            
-            for chunk_data in chunks:
+            # Process each chunk with enhanced metadata
+            for chunk_data in chunks_data:
                 try:
-                    chunk_text = chunk_data["text"]
-                    if not chunk_text.strip():
+                    chunk_text = chunk_data.get("chunk_text", "")
+                    if not chunk_text or len(chunk_text.strip()) < 10:
                         continue
                     
-                    # Generate embedding
+                    # Generate embeddings
                     emb = embedder.encode(chunk_text).tolist()
                     
                     # Create unique document ID
-                    doc_id = f"{f.stem}__{chunk_data['chunk_id']}"
+                    doc_id = f"{f.stem}_{chunk_data.get('chunk_id', total)}"
                     
-                    # Enriched metadata from enhanced chunking
+                    # Enhanced metadata with improved indexing capabilities
                     metadata = {
                         "source": str(f.name),
                         "source_path": str(f),
@@ -322,13 +321,29 @@ def ingest(source_dir: str):
                         "character_count": chunk_data.get("character_count", 0),
                         "contains_technical_terms": chunk_data.get("contains_technical_terms", False),
                         "readability_score": chunk_data.get("readability_score", 0.0),
-                        # Additional processing metadata
-                        "processed_with": "enhanced_chunking_v1",
-                        "chunk_size_setting": processor.chunk_size,
-                        "chunk_overlap_setting": processor.chunk_overlap
+                        
+                        # Enhanced indexable metadata for retrieval optimization
+                        "token_count": count_tokens(chunk_text),
+                        "file_size_mb": file_stats["size_mb"],
+                        "file_extension": file_stats["extension"],
+                        
+                        # Processing metadata with enhanced settings
+                        "processed_with": "enhanced_chunking_v2",
+                        "chunk_size_setting": chunk_size,
+                        "chunk_overlap_setting": chunk_overlap,
+                        "enhanced_metadata": getattr(settings, 'ENHANCED_METADATA', True),
+                        "index_section_titles": getattr(settings, 'INDEX_SECTION_TITLES', True),
+                        "index_page_numbers": getattr(settings, 'INDEX_PAGE_NUMBERS', True),
+                        "index_technical_terms": getattr(settings, 'INDEX_TECHNICAL_TERMS', True),
+                        
+                        # Advanced retrieval optimization metadata
+                        "content_density": len(chunk_text) / max(1, chunk_data.get("word_count", 1)),
+                        "semantic_coherence_score": chunk_data.get("readability_score", 0.0),
+                        "chunk_position_in_document": chunk_data.get("section_index", 0),
+                        "total_chunks_in_document": len(chunks_data),
                     }
                     
-                    # Store in ChromaDB with enriched metadata
+                    # Store in ChromaDB with enhanced metadata
                     coll.add(
                         documents=[chunk_text], 
                         embeddings=[emb], 
@@ -342,21 +357,33 @@ def ingest(source_dir: str):
                     continue
                     
             processed_files += 1
+            logger.info(f"✅ Processed {f.name}: {len(chunks_data)} chunks with enhanced metadata")
             
-            # Log additional processing details
-            if result.get("tables_extracted", 0) > 0:
-                logger.info(f"Extracted {result['tables_extracted']} tables from {f.name}")
-                
-        except Exception as e:
-            logger.warning(f"Failed to process file {f}: {e}")
+        except Exception as file_error:
             failed_files += 1
+            logger.error(f"❌ Failed to process {f.name}: {file_error}")
             continue
-            
-    logger.info(f"Enhanced ingestion completed:")
-    logger.info(f"  - Total chunks ingested: {total}")
-    logger.info(f"  - Files processed successfully: {processed_files}")
-    logger.info(f"  - Files failed: {failed_files}")
-    logger.info(f"  - Enhanced metadata fields: section_header, document_type, chunk_type, readability_score, etc.")
+    
+    # Final report with enhanced statistics
+    logger.info(f"""
+    ======== ENHANCED INGESTION COMPLETE ========
+    📁 Files processed: {processed_files}/{len(unprocessed_files)}
+    📊 Total chunks created: {total}
+    ❌ Failed files: {failed_files}
+    🔧 Chunk settings: size={chunk_size}, overlap={chunk_overlap}
+    📈 Average chunks per file: {total/max(1, processed_files):.1f}
+    💾 Total size processed: {total_size_mb:.2f} MB
+    ✨ Enhanced metadata enabled: {getattr(settings, 'ENHANCED_METADATA', True)}
+    ============================================
+    """)
+    
+    return {
+        "total_chunks": total,
+        "processed_files": processed_files,
+        "failed_files": failed_files,
+        "chunk_settings": {"size": chunk_size, "overlap": chunk_overlap},
+        "enhanced_metadata": True
+    }
 
 def ingest_legacy(source_dir: str):
     """Legacy ingestion function using simple chunking - kept for backward compatibility."""

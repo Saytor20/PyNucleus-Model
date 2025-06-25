@@ -1,0 +1,13 @@
+2025-06-22 21:50:41,681 | PyNucleusRunner | INFO | run_web_app.py:64 | ============================================================
+2025-06-22 21:50:41,681 | PyNucleusRunner | INFO | run_web_app.py:65 | 🚀 Starting PyNucleus Web Application...
+2025-06-22 21:50:41,681 | PyNucleusRunner | INFO | run_web_app.py:66 |    • Mode: Development (Debug ON)
+2025-06-22 21:50:41,681 | PyNucleusRunner | INFO | run_web_app.py:67 |    • Model: Qwen/Qwen3-0.6B
+2025-06-22 21:50:41,681 | PyNucleusRunner | INFO | run_web_app.py:68 |    • Vector DB: data/03_intermediate/vector_db
+2025-06-22 21:50:41,681 | PyNucleusRunner | INFO | run_web_app.py:69 | ============================================================
+2025-06-22 21:50:41,681 | PyNucleusRunner | INFO | run_web_app.py:70 |    ►►► Open your browser at http://localhost:5001/ ◄◄◄
+2025-06-22 21:50:41,681 | PyNucleusRunner | INFO | run_web_app.py:71 | ============================================================
+2025-06-22 21:50:41,736 | werkzeug | INFO | _internal.py:97 | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.43:5001
+2025-06-22 21:50:41,736 | werkzeug | INFO | _internal.py:97 | [33mPress CTRL+C to quit[0m

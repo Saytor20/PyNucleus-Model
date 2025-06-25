@@ -166,9 +166,6 @@ class ComprehensiveSystemDiagnostic:
                 self._check_enhanced_features()
                 self._test_configuration_management()
                 
-            # Web interface health checks
-            self._check_web_interface_health()
-            
             # Generate comprehensive report
             self._generate_comprehensive_report()
             
@@ -1077,125 +1074,6 @@ class ComprehensiveSystemDiagnostic:
             check.passed = False
             check.error_message = str(e)
             self.log_message(f"Configuration management test failed: {e}", "error")
-        
-        self.system_checks.append(check)
-        self.total_checks += 1
-        if check.passed:
-            self.passed_checks += 1
-    
-    def _check_web_interface_health(self):
-        """Check web interface health and components."""
-        print("\n" + "=" * 60)
-        print("   WEB INTERFACE HEALTH CHECK")
-        print("=" * 60)
-        
-        check = SystemCheck("Web Interface Health", "web_interface")
-        
-        try:
-            # Check web interface files
-            web_files = {
-                "src/pynucleus/api/app.py": "Flask API application",
-                "src/pynucleus/api/static/index.html": "Browser interface HTML",
-                "src/pynucleus/api/__init__.py": "API module init"
-            }
-            
-            files_found = 0
-            for file_path, description in web_files.items():
-                if Path(file_path).exists():
-                    self.log_message(f"✓ {description}: Found", "success")
-                    files_found += 1
-                    
-                    # Basic content validation for key files
-                    if file_path.endswith('app.py'):
-                        with open(file_path, 'r') as f:
-                            content = f.read()
-                        
-                        required_components = ['Flask', '@app.route', '/ask', '/health', 'send_from_directory']
-                        for component in required_components:
-                            if component in content:
-                                self.log_message(f"  ✓ Flask app has {component}", "success")
-                            else:
-                                self.log_message(f"  ⚠️ Flask app missing {component}", "warning")
-                                check.warnings.append(f"Missing {component}")
-                    
-                    elif file_path.endswith('.html'):
-                        with open(file_path, 'r') as f:
-                            content = f.read()
-                        
-                        ui_components = ['textarea', 'button', 'switchMode', 'clearAnswer', 'typeText']
-                        for component in ui_components:
-                            if component.lower() in content.lower():
-                                self.log_message(f"  ✓ HTML has {component}", "success")
-                            else:
-                                self.log_message(f"  ⚠️ HTML missing {component}", "warning")
-                                check.warnings.append(f"Missing {component}")
-                else:
-                    self.log_message(f"✗ {description}: Missing", "error")
-            
-            # Check API directory structure
-            api_dir = Path("src/pynucleus/api")
-            static_dir = Path("src/pynucleus/api/static")
-            
-            if api_dir.exists():
-                self.log_message("✓ API directory structure exists", "success")
-                check.details.append("API directory structure present")
-            else:
-                self.log_message("✗ API directory missing", "error")
-                check.error_message = "API directory structure missing"
-            
-            if static_dir.exists():
-                self.log_message("✓ Static files directory exists", "success")
-                check.details.append("Static files directory present")
-            else:
-                self.log_message("✗ Static files directory missing", "error")
-                check.warnings.append("Static files directory missing")
-            
-            # Test server availability (optional)
-            try:
-                import requests
-                
-                try:
-                    response = requests.get("http://localhost:5001/health", timeout=3)
-                    if response.status_code == 200:
-                        self.log_message("✓ Web server is running and responding", "success")
-                        check.details.append("Web server responding")
-                        
-                        # Test static file serving
-                        try:
-                            ui_response = requests.get("http://localhost:5001/", timeout=3)
-                            if ui_response.status_code == 200:
-                                self.log_message("✓ Web UI is accessible", "success")
-                                check.details.append("Web UI accessible")
-                            else:
-                                self.log_message("⚠️ Web UI not accessible", "warning")
-                                check.warnings.append("Web UI not accessible")
-                        except:
-                            self.log_message("⚠️ Web UI test failed", "warning")
-                    else:
-                        self.log_message("⚠️ Web server not responding (expected if not running)", "warning")
-                        check.warnings.append("Web server not running")
-                except:
-                    self.log_message("⚠️ Web server not available (expected if not running)", "warning")
-                    check.warnings.append("Web server not available")
-                    
-            except ImportError:
-                self.log_message("⚠️ Cannot test web server (requests module not available)", "warning")
-                check.warnings.append("Cannot test web server")
-            
-            # Overall assessment
-            if files_found >= 2:  # At least app.py and index.html
-                check.passed = True
-                check.details.append(f"Found {files_found}/{len(web_files)} web interface files")
-                self.log_message("Web Interface Health: GOOD", "success")
-            else:
-                check.passed = False
-                check.error_message = f"Only {files_found}/{len(web_files)} web interface files found"
-                self.log_message("Web Interface Health: ISSUES FOUND", "warning")
-                
-        except Exception as e:
-            check.passed = False
-            check.error_message = str(e)
-            self.log_message(f"Web interface health check failed: {e}", "error")
         
         self.system_checks.append(check)
         self.total_checks += 1

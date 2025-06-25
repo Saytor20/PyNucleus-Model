@@ -1,0 +1,534 @@
+================================================================================
+DIAGNOSTIC SCRIPTS OUTPUT
+================================================================================
+
+SCRIPT: comprehensive_system_diagnostic.py
+----------------------------------------
+Success: True
+Return Code: 0
+
+STDOUT:
+ℹ️  🚀 Starting Comprehensive PyNucleus Clean System Diagnostic...
+ℹ️  Started at: 2025-06-24 16:08:25
+============================================================
+   COMPREHENSIVE PYNUCLEUS CLEAN HEALTH DIAGNOSTIC
+============================================================
+Focus: ChromaDB, Qwen Models, PDF Processing, and Clean Architecture
+
+
+============================================================
+   PYTHON ENVIRONMENT CHECK
+============================================================
+ℹ️  Python Version: 3.13.4 (main, Jun  3 2025, 15:34:24) [Clang 17.0.0 (clang-1700.0.13.3)]
+✅ Python Version: PASSED
+ℹ️  Python executable: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python
+ℹ️  Python path includes src: True
+
+============================================================
+   COMPREHENSIVE DEPENDENCIES CHECK
+============================================================
+ℹ️  Core Dependencies:
+✅ numpy: PASSED
+✅ pandas: PASSED
+✅ requests: PASSED
+✅ tqdm: PASSED
+✅ typer: PASSED
+✅ pathlib: PASSED
+✅ dataclasses: PASSED
+✅ asyncio: PASSED
+✅ concurrent: PASSED
+✅ flask: PASSED
+ℹ️  
+PyNucleus Clean Dependencies:
+✅ chromadb: PASSED
+✅ transformers: PASSED
+✅ torch: PASSED
+✅ sentence-transformers: PASSED
+✅ pydantic: PASSED
+✅ loguru: PASSED
+✅ tiktoken: PASSED
+ℹ️  
+PDF Processing Dependencies:
+✅ camelot: PASSED
+❌ PyMuPDF: MISSING
+✅ pypdf: PASSED
+✅ PIL: PASSED
+✅ cv2: PASSED
+ℹ️  
+Optional Dependencies:
+✅ jupyter: PASSED
+⚠️  notebook: MISSING (optional)
+⚠️  llama-cpp-python: MISSING (optional)
+'NoneType' object has no attribute 'cadam32bit_grad_fp32'
+✅ bitsandbytes: PASSED
+✅ accelerate: PASSED
+✅ langchain: PASSED
+✅ guidance: PASSED
+
+============================================================
+   DOCKER ENVIRONMENT CHECK
+============================================================
+✅ Docker Availability: PASSED
+ℹ️  Version: Docker version 28.1.1, build 4eba377
+
+============================================================
+   DIRECTORY STRUCTURE CHECK
+============================================================
+✅ Directory: src/pynucleus: PASSED
+✅ Directory: src/pynucleus/data: PASSED
+✅ Directory: configs: PASSED
+✅ Directory: data: PASSED
+✅ Directory: data/02_processed: PASSED
+✅ Directory: logs: PASSED
+✅ Directory: scripts: PASSED
+✅ Optional directory found: data/02_processed/tables
+✅ Optional directory found: data/05_output/llm_reports
+✅ Optional directory found: data/validation
+✅ Optional directory found: dwsim_rag_integration
+✅ Optional directory found: tests
+
+============================================================
+   PYNUCLEUS CLEAN ARCHITECTURE CHECK
+============================================================
+✅ ✓ Pydantic Settings validation PASSED
+ℹ️     ChromaDB Path: data/03_intermediate/vector_db
+ℹ️     Model ID: Qwen/Qwen3-0.6B
+ℹ️     Embedding Model: all-MiniLM-L6-v2
+[06/24/25 16:08:29] INFO     Test log message from comprehensive diagnostic                                 
+✅ ✓ Loguru Logger validation PASSED
+
+============================================================
+   CHROMADB HEALTH CHECK
+============================================================
+🚀 Initializing PyNucleus Model Loader
+==================================================
+❌ GGUF model not found: path/to/Qwen3-0.6B-Instruct.gguf
+
+🤗 Attempting HuggingFace loading...
+🔧 Loading HuggingFace model: Qwen/Qwen3-0.6B
+📝 Loading tokenizer...
+💻 Loading model on CPU...
+✅ HuggingFace model loaded with CPU FP32
+🎯 Model loading complete: HuggingFace
+✅ ✓ ChromaDB directory exists: data/03_intermediate/vector_db
+[06/24/25 16:08:33] INFO     ChromaDB client initialized successfully                                       
+                    INFO     Retrieved 1 documents for query                                                
+✅ ✓ ChromaDB retrieval PASSED
+ℹ️     Retrieved 2 documents
+
+============================================================
+   QWEN MODEL HEALTH CHECK
+============================================================
+ℹ️  Testing Qwen model: Qwen/Qwen3-0.6B
+                    WARNING  bitsandbytes not available, falling back to standard loading                   
+[06/24/25 16:08:36] INFO     Standard model loaded: Qwen/Qwen3-0.6B                                         
+✅ ✓ Qwen model generation PASSED
+ℹ️     Response time: 6.49s
+ℹ️     Response length: 320 characters
+
+============================================================
+   PDF PROCESSING SYSTEM CHECK
+============================================================
+ℹ️  PDF Processing Components:
+ℹ️    Table Cleaner: ✓ Available
+ℹ️    Document Processor: ✓ Initialized
+ℹ️    Tables Output Dir: data/02_processed/tables
+✅   Camelot PDF Parser: ✓ Available
+
+============================================================
+   COMPREHENSIVE SCRIPT VALIDATION
+============================================================
+ℹ️  
+--- Validating Core Pipeline Scripts ---
+✅    src/pynucleus/pipeline/results_exporter.py - Syntax OK
+✅    src/pynucleus/pipeline/results_exporter.py - Imports OK
+✅    src/pynucleus/pipeline/results_exporter.py - Execution OK
+✅    src/pynucleus/pipeline/results_exporter.py - Overall: HEALTHY
+✅    src/pynucleus/pipeline/pipeline_rag.py - Syntax OK
+✅    src/pynucleus/pipeline/pipeline_rag.py - Imports OK
+✅    src/pynucleus/pipeline/pipeline_rag.py - Package module (relative imports detected)
+✅    src/pynucleus/pipeline/pipeline_rag.py - Overall: HEALTHY
+✅    src/pynucleus/pipeline/pipeline_dwsim.py - Syntax OK
+✅    src/pynucleus/pipeline/pipeline_dwsim.py - Imports OK
+✅    src/pynucleus/pipeline/pipeline_dwsim.py - Execution OK
+✅    src/pynucleus/pipeline/pipeline_dwsim.py - Overall: HEALTHY
+✅    src/pynucleus/pipeline/__init__.py - Syntax OK
+✅    src/pynucleus/pipeline/__init__.py - Imports OK
+✅    src/pynucleus/pipeline/__init__.py - Package module (relative imports detected)
+✅    src/pynucleus/pipeline/__init__.py - Overall: HEALTHY
+✅    src/pynucleus/pipeline/pipeline_utils.py - Syntax OK
+✅    src/pynucleus/pipeline/pipeline_utils.py - Imports OK
+✅    src/pynucleus/pipeline/pipeline_utils.py - Package module (relative imports detected)
+✅    src/pynucleus/pipeline/pipeline_utils.py - Overall: HEALTHY
+✅    src/pynucleus/rag/vector_store_remote.py - Syntax OK
+✅    src/pynucleus/rag/vector_store_remote.py - Imports OK
+✅    src/pynucleus/rag/vector_store_remote.py - Package module (relative imports detected)
+✅    src/pynucleus/rag/vector_store_remote.py - Overall: HEALTHY
+✅    src/pynucleus/rag/vector_store.py - Syntax OK
+✅    src/pynucleus/rag/vector_store.py - Imports OK
+✅    src/pynucleus/rag/vector_store.py - Package module (relative imports detected)
+✅    src/pynucleus/rag/vector_store.py - Overall: HEALTHY
+✅    src/pynucleus/rag/wiki_scraper.py - Syntax OK
+✅    src/pynucleus/rag/wiki_scraper.py - Imports OK
+✅    src/pynucleus/rag/wiki_scraper.py - Execution OK
+✅    src/pynucleus/rag/wiki_scraper.py - Overall: HEALTHY
+✅    src/pynucleus/rag/embedding_monitor.py - Syntax OK
+✅    src/pynucleus/rag/embedding_monitor.py - Imports OK
+✅    src/pynucleus/rag/embedding_monitor.py - Execution OK
+✅    src/pynucleus/rag/embedding_monitor.py - Overall: HEALTHY
+✅    src/pynucleus/rag/document_processor.py - Syntax OK
+✅    src/pynucleus/rag/document_processor.py - Imports OK
+✅    src/pynucleus/rag/document_processor.py - Execution OK
+✅    src/pynucleus/rag/document_processor.py - Overall: HEALTHY
+✅    src/pynucleus/rag/collector.py - Syntax OK
+✅    src/pynucleus/rag/collector.py - Imports OK
+✅    src/pynucleus/rag/collector.py - Package module (relative imports detected)
+✅    src/pynucleus/rag/collector.py - Overall: HEALTHY
+✅    src/pynucleus/rag/__init__.py - Syntax OK
+✅    src/pynucleus/rag/__init__.py - Imports OK
+✅    src/pynucleus/rag/__init__.py - Package module (relative imports detected)
+✅    src/pynucleus/rag/__init__.py - Overall: HEALTHY
+✅    src/pynucleus/rag/rag_core.py - Syntax OK
+✅    src/pynucleus/rag/rag_core.py - Imports OK
+✅    src/pynucleus/rag/rag_core.py - Package module (relative imports detected)
+✅    src/pynucleus/rag/rag_core.py - Overall: HEALTHY
+✅    src/pynucleus/rag/engine.py - Syntax OK
+✅    src/pynucleus/rag/engine.py - Imports OK
+✅    src/pynucleus/rag/engine.py - Package module (relative imports detected)
+✅    src/pynucleus/rag/engine.py - Overall: HEALTHY
+ℹ️  
+--- Validating Data Processing Scripts ---
+✅    src/pynucleus/data/table_cleaner.py - Syntax OK
+✅    src/pynucleus/data/table_cleaner.py - Imports OK
+✅    src/pynucleus/data/table_cleaner.py - Package module (relative imports detected)
+✅    src/pynucleus/data/table_cleaner.py - Overall: HEALTHY
+ℹ️  
+--- Validating LLM & Model Scripts ---
+✅    src/pynucleus/llm/answer_engine.py - Syntax OK
+✅    src/pynucleus/llm/answer_engine.py - Imports OK
+✅    src/pynucleus/llm/answer_engine.py - Package module (relative imports detected)
+✅    src/pynucleus/llm/answer_engine.py - Overall: HEALTHY
+✅    src/pynucleus/llm/retriever_adapter.py - Syntax OK
+✅    src/pynucleus/llm/retriever_adapter.py - Imports OK
+2025-06-24 16:08:40,576 - httpx - INFO - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+✅    src/pynucleus/llm/retriever_adapter.py - Execution OK
+✅    src/pynucleus/llm/retriever_adapter.py - Overall: HEALTHY
+✅    src/pynucleus/llm/prompting.py - Syntax OK
+✅    src/pynucleus/llm/prompting.py - Imports OK
+✅    src/pynucleus/llm/prompting.py - Package module (relative imports detected)
+✅    src/pynucleus/llm/prompting.py - Overall: HEALTHY
+✅    src/pynucleus/llm/query_llm.py - Syntax OK
+✅    src/pynucleus/llm/query_llm.py - Imports OK
+✅    src/pynucleus/llm/query_llm.py - Package module (relative imports detected)
+✅    src/pynucleus/llm/query_llm.py - Overall: HEALTHY
+✅    src/pynucleus/llm/__init__.py - Syntax OK
+✅    src/pynucleus/llm/__init__.py - Imports OK
+✅    src/pynucleus/llm/__init__.py - Package module (relative imports detected)
+✅    src/pynucleus/llm/__init__.py - Overall: HEALTHY
+✅    src/pynucleus/llm/simple_local_adapter.py - Syntax OK
+✅    src/pynucleus/llm/simple_local_adapter.py - Imports OK
+✅    src/pynucleus/llm/simple_local_adapter.py - Execution OK
+✅    src/pynucleus/llm/simple_local_adapter.py - Overall: HEALTHY
+✅    src/pynucleus/llm/device_manager.py - Syntax OK
+✅    src/pynucleus/llm/device_manager.py - Imports OK
+✅    src/pynucleus/llm/device_manager.py - Package module (relative imports detected)
+✅    src/pynucleus/llm/device_manager.py - Overall: HEALTHY
+✅    src/pynucleus/llm/model_loader.py - Syntax OK
+✅    src/pynucleus/llm/model_loader.py - Imports OK
+✅    src/pynucleus/llm/model_loader.py - Package module (relative imports detected)
+✅    src/pynucleus/llm/model_loader.py - Overall: HEALTHY
+✅    src/pynucleus/llm/qwen_loader.py - Syntax OK
+✅    src/pynucleus/llm/qwen_loader.py - Imports OK
+✅    src/pynucleus/llm/qwen_loader.py - Package module (relative imports detected)
+✅    src/pynucleus/llm/qwen_loader.py - Overall: HEALTHY
+✅    src/pynucleus/llm/llm_runner.py - Syntax OK
+✅    src/pynucleus/llm/llm_runner.py - Imports OK
+✅    src/pynucleus/llm/llm_runner.py - Execution OK
+✅    src/pynucleus/llm/llm_runner.py - Overall: HEALTHY
+✅    src/pynucleus/integration/config_manager.py - Syntax OK
+✅    src/pynucleus/integration/config_manager.py - Imports OK
+✅    src/pynucleus/integration/config_manager.py - Execution OK
+✅    src/pynucleus/integration/config_manager.py - Overall: HEALTHY
+✅    src/pynucleus/integration/__init__.py - Syntax OK
+✅    src/pynucleus/integration/__init__.py - Imports OK
+✅    src/pynucleus/integration/__init__.py - Package module (relative imports detected)
+✅    src/pynucleus/integration/__init__.py - Overall: HEALTHY
+✅    src/pynucleus/integration/llm_output_generator.py - Syntax OK
+✅    src/pynucleus/integration/llm_output_generator.py - Imports OK
+✅    src/pynucleus/integration/llm_output_generator.py - Execution OK
+✅    src/pynucleus/integration/llm_output_generator.py - Overall: HEALTHY
+✅    src/pynucleus/integration/dwsim_rag_integrator.py - Syntax OK
+✅    src/pynucleus/integration/dwsim_rag_integrator.py - Imports OK
+✅    src/pynucleus/integration/dwsim_rag_integrator.py - Execution OK
+✅    src/pynucleus/integration/dwsim_rag_integrator.py - Overall: HEALTHY
+✅    src/pynucleus/utils/logging_config.py - Syntax OK
+✅    src/pynucleus/utils/logging_config.py - Imports OK
+✅    src/pynucleus/utils/logging_config.py - Execution OK
+✅    src/pynucleus/utils/logging_config.py - Overall: HEALTHY
+✅    src/pynucleus/utils/env.py - Syntax OK
+✅    src/pynucleus/utils/env.py - Imports OK
+✅    src/pynucleus/utils/env.py - Execution OK
+✅    src/pynucleus/utils/env.py - Overall: HEALTHY
+✅    src/pynucleus/utils/__init__.py - Syntax OK
+✅    src/pynucleus/utils/__init__.py - Imports OK
+✅    src/pynucleus/utils/__init__.py - Package module (relative imports detected)
+✅    src/pynucleus/utils/__init__.py - Overall: HEALTHY
+✅    src/pynucleus/utils/logger.py - Syntax OK
+✅    src/pynucleus/utils/logger.py - Imports OK
+✅    src/pynucleus/utils/logger.py - Package module (relative imports detected)
+✅    src/pynucleus/utils/logger.py - Overall: HEALTHY
+✅    src/pynucleus/utils/pretty_formatter.py - Syntax OK
+✅    src/pynucleus/utils/pretty_formatter.py - Imports OK
+✅    src/pynucleus/utils/pretty_formatter.py - Execution OK
+✅    src/pynucleus/utils/pretty_formatter.py - Overall: HEALTHY
+✅    src/pynucleus/utils/token_utils.py - Syntax OK
+✅    src/pynucleus/utils/token_utils.py - Imports OK
+✅    src/pynucleus/utils/token_utils.py - Execution OK
+✅    src/pynucleus/utils/token_utils.py - Overall: HEALTHY
+ℹ️  
+--- Validating API & Interface Scripts ---
+✅    src/pynucleus/api/__init__.py - Syntax OK
+✅    src/pynucleus/api/__init__.py - Imports OK
+✅    src/pynucleus/api/__init__.py - Execution OK
+✅    src/pynucleus/api/__init__.py - Overall: HEALTHY
+✅    src/pynucleus/api/app.py - Syntax OK
+✅    src/pynucleus/api/app.py - Imports OK
+✅    src/pynucleus/api/app.py - Package module (relative imports detected)
+✅    src/pynucleus/api/app.py - Overall: HEALTHY
+✅    src/pynucleus/diagnostics/runner.py - Syntax OK
+✅    src/pynucleus/diagnostics/runner.py - Imports OK
+✅    src/pynucleus/diagnostics/runner.py - Execution OK
+✅    src/pynucleus/diagnostics/runner.py - Overall: HEALTHY
+✅    src/pynucleus/diagnostics/__init__.py - Syntax OK
+✅    src/pynucleus/diagnostics/__init__.py - Imports OK
+✅    src/pynucleus/diagnostics/__init__.py - Package module (relative imports detected)
+✅    src/pynucleus/diagnostics/__init__.py - Overall: HEALTHY
+ℹ️  
+--- Validating Entry Point Scripts ---
+✅    run_pipeline.py - Syntax OK
+✅    run_pipeline.py - Imports OK
+✅    run_pipeline.py - Entry point (skipped execution)
+✅    run_pipeline.py - Overall: HEALTHY
+✅    run_answer_engine.py - Syntax OK
+✅    run_answer_engine.py - Imports OK
+✅    run_answer_engine.py - Entry point (skipped execution)
+✅    run_answer_engine.py - Overall: HEALTHY
+✅    src/pynucleus/cli.py - Syntax OK
+✅    src/pynucleus/cli.py - Imports OK
+✅    src/pynucleus/cli.py - Entry point (skipped execution)
+✅    src/pynucleus/cli.py - Overall: HEALTHY
+ℹ️  
+--- Validating Test Scripts ---
+✅    tests/test_vector_robustness.py - Syntax OK
+✅    tests/test_vector_robustness.py - Imports OK
+2025-06-24 16:08:41,217 - pynucleus.rag.vector_store - INFO - ChromaDB client initialized successfully in vector store
+2025-06-24 16:08:41,217 - pynucleus.rag.vector_store - INFO - Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 16:08:41,230 - pynucleus.rag.vector_store - INFO - ChromaDB collection contains 3772 documents
+2025-06-24 16:08:41,230 - pynucleus.pipeline.pipeline_rag - INFO - Vector store (chroma) initialized successfully
+2025-06-24 16:08:41,231 - pynucleus - INFO - ChromaDB collection initialized successfully
+2025-06-24 16:08:41,231 - pynucleus.pipeline.pipeline_rag - INFO - ChromaDB collection contains 3772 documents
+✅    tests/test_vector_robustness.py - Execution OK
+✅    tests/test_vector_robustness.py - Overall: HEALTHY
+✅    tests/test_ask_basic.py - Syntax OK
+✅    tests/test_ask_basic.py - Imports OK
+✅    tests/test_ask_basic.py - Execution OK
+✅    tests/test_ask_basic.py - Overall: HEALTHY
+✅    tests/test_prompt_backend.py - Syntax OK
+✅    tests/test_prompt_backend.py - Imports OK
+❌    tests/test_prompt_backend.py - Execution ERROR
+⚠️     tests/test_prompt_backend.py - Overall: ISSUES FOUND
+✅    tests/test_ground_truth_slice.py - Syntax OK
+✅    tests/test_ground_truth_slice.py - Imports OK
+✅    tests/test_ground_truth_slice.py - Execution OK
+✅    tests/test_ground_truth_slice.py - Overall: HEALTHY
+✅    tests/test_document_processor_tables.py - Syntax OK
+✅    tests/test_document_processor_tables.py - Imports OK
+✅    tests/test_document_processor_tables.py - Execution OK
+✅    tests/test_document_processor_tables.py - Overall: HEALTHY
+✅    tests/test_backend_choice.py - Syntax OK
+✅    tests/test_backend_choice.py - Imports OK
+✅    tests/test_backend_choice.py - Execution OK
+✅    tests/test_backend_choice.py - Overall: HEALTHY
+✅    tests/test_context_size.py - Syntax OK
+✅    tests/test_context_size.py - Imports OK
+✅    tests/test_context_size.py - Execution OK
+✅    tests/test_context_size.py - Overall: HEALTHY
+✅    tests/test_dev_console.py - Syntax OK
+✅    tests/test_dev_console.py - Imports OK
+✅    tests/test_dev_console.py - Execution OK
+✅    tests/test_dev_console.py - Overall: HEALTHY
+✅    tests/test_table_cleaner.py - Syntax OK
+✅    tests/test_table_cleaner.py - Imports OK
+✅    tests/test_table_cleaner.py - Execution OK
+✅    tests/test_table_cleaner.py - Overall: HEALTHY
+✅    tests/test_citation_stub.py - Syntax OK
+✅    tests/test_citation_stub.py - Imports OK
+✅    tests/test_citation_stub.py - Execution OK
+✅    tests/test_citation_stub.py - Overall: HEALTHY
+✅    tests/test_accuracy_small.py - Syntax OK
+✅    tests/test_accuracy_small.py - Imports OK
+✅    tests/test_accuracy_small.py - Execution OK
+✅    tests/test_accuracy_small.py - Overall: HEALTHY
+✅    tests/test_reasoning_quality.py - Syntax OK
+✅    tests/test_reasoning_quality.py - Imports OK
+✅    tests/test_reasoning_quality.py - Execution OK
+✅    tests/test_reasoning_quality.py - Overall: HEALTHY
+✅    tests/test_prompt_and_rag.py - Syntax OK
+✅    tests/test_prompt_and_rag.py - Imports OK
+✅    tests/test_prompt_and_rag.py - Execution OK
+✅    tests/test_prompt_and_rag.py - Overall: HEALTHY
+✅    tests/test_vector_backend.py - Syntax OK
+✅    tests/test_vector_backend.py - Imports OK
+✅    tests/test_vector_backend.py - Execution OK
+✅    tests/test_vector_backend.py - Overall: HEALTHY
+✅    tests/test_golden_cli.py - Syntax OK
+✅    tests/test_golden_cli.py - Imports OK
+✅    tests/test_golden_cli.py - Entry point (skipped execution)
+✅    tests/test_golden_cli.py - Overall: HEALTHY
+✅    scripts/test_production_monitoring.py - Syntax OK
+✅    scripts/test_production_monitoring.py - Imports OK
+✅    scripts/test_production_monitoring.py - Execution OK
+✅    scripts/test_production_monitoring.py - Overall: HEALTHY
+✅    scripts/test_production_monitoring.py - Syntax OK
+✅    scripts/test_production_monitoring.py - Imports OK
+✅    scripts/test_production_monitoring.py - Execution OK
+✅    scripts/test_production_monitoring.py - Overall: HEALTHY
+ℹ️  
+--- Validating Evaluation Scripts ---
+✅    src/pynucleus/eval/golden_eval.py - Syntax OK
+✅    src/pynucleus/eval/golden_eval.py - Imports OK
+✅    src/pynucleus/eval/golden_eval.py - Package module (relative imports detected)
+✅    src/pynucleus/eval/golden_eval.py - Overall: HEALTHY
+✅    src/pynucleus/eval/__init__.py - Syntax OK
+✅    src/pynucleus/eval/__init__.py - Imports OK
+✅    src/pynucleus/eval/__init__.py - Execution OK
+✅    src/pynucleus/eval/__init__.py - Overall: HEALTHY
+
+============================================================
+   PIPELINE COMPONENTS CHECK
+============================================================
+2025-06-24 16:08:41,269 - pynucleus.rag.vector_store - INFO - ChromaDB client initialized successfully in vector store
+2025-06-24 16:08:41,269 - pynucleus.rag.vector_store - INFO - Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 16:08:41,270 - pynucleus.rag.vector_store - INFO - ChromaDB collection contains 3772 documents
+2025-06-24 16:08:41,270 - pynucleus.pipeline.pipeline_rag - INFO - Vector store (chroma) initialized successfully
+2025-06-24 16:08:41,270 - pynucleus - INFO - ChromaDB collection initialized successfully
+2025-06-24 16:08:41,270 - pynucleus.pipeline.pipeline_rag - INFO - ChromaDB collection contains 3772 documents
+2025-06-24 16:08:41,291 - pynucleus.rag.vector_store - INFO - No existing FAISS directories found
+2025-06-24 16:08:41,291 - pynucleus.pipeline.pipeline_utils - INFO - Pipeline components initialized successfully
+2025-06-24 16:08:41,291 - pynucleus.pipeline.pipeline_utils - WARNING - FAISS vector store not loaded - using fallback mode
+2025-06-24 16:08:41,292 - pynucleus.rag.vector_store - INFO - ChromaDB client initialized successfully in vector store
+2025-06-24 16:08:41,292 - pynucleus.rag.vector_store - INFO - Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 16:08:41,293 - pynucleus.rag.vector_store - INFO - ChromaDB collection contains 3772 documents
+2025-06-24 16:08:41,293 - pynucleus.pipeline.pipeline_rag - INFO - Vector store (chroma) initialized successfully
+2025-06-24 16:08:41,293 - pynucleus - INFO - ChromaDB collection initialized successfully
+2025-06-24 16:08:41,293 - pynucleus.pipeline.pipeline_rag - INFO - ChromaDB collection contains 3772 documents
+ℹ️  Pipeline Components:
+ℹ️    PipelineUtils: ✓ Initialized
+ℹ️    RAG Pipeline: ✓ Initialized
+ℹ️    DWSIM Pipeline: ✓ Initialized
+
+============================================================
+   INTEGRATION COMPONENTS CHECK
+============================================================
+2025-06-24 16:08:41,294 - pynucleus.integration.llm_output_generator - INFO - Using direct content generation (templates migrated to DSPy)
+2025-06-24 16:08:41,294 - pynucleus.rag.vector_store - INFO - ChromaDB client initialized successfully in vector store
+2025-06-24 16:08:41,294 - pynucleus.rag.vector_store - INFO - Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-24 16:08:41,295 - pynucleus.rag.vector_store - INFO - ChromaDB collection contains 3772 documents
+ℹ️  Integration Components:
+ℹ️    Config Manager: ✓ Initialized
+ℹ️    LLM Generator: ✓ Initialized
+ℹ️    ChromaDB Store: ✓ Loaded
+
+============================================================
+   BASIC FUNCTIONALITY TEST
+============================================================
+ℹ️  Configuration Management:
+ℹ️    JSON configs: 5
+ℹ️    CSV configs: 1
+ℹ️    Total configs: 6
+
+============================================================
+   ENHANCED FEATURES CHECK
+============================================================
+✅ ✓ Extracted tables directory: 2 items
+✅ ✓ Results output directory: 0 items
+✅ ✓ LLM reports directory: 0 items
+✅ ✓ Validation data directory: 2 items
+ℹ️  
+New Test File Validation:
+✅ ✓ Document processor table tests: Found
+✅ ✓ Table cleaner tests: Found
+
+============================================================
+   CONFIGURATION MANAGEMENT TEST
+============================================================
+ℹ️  Configuration Management:
+ℹ️    JSON configs: 5
+ℹ️    CSV configs: 1
+ℹ️    Total configs: 6
+
+============================================================
+   WEB INTERFACE HEALTH CHECK
+============================================================
+✅ ✓ Flask API application: Found
+✅   ✓ Flask app has Flask
+✅   ✓ Flask app has @app.route
+✅   ✓ Flask app has /ask
+✅   ✓ Flask app has /health
+✅   ✓ Flask app has send_from_directory
+✅ ✓ Browser interface HTML: Found
+✅   ✓ HTML has textarea
+✅   ✓ HTML has button
+✅   ✓ HTML has switchMode
+✅   ✓ HTML has clearAnswer
+✅   ✓ HTML has typeText
+✅ ✓ API module init: Found
+✅ ✓ API directory structure exists
+✅ ✓ Static files directory exists
+⚠️  ⚠️ Web server not available (expected if not running)
+✅ Web Interface Health: GOOD
+
+============================================================
+   COMPREHENSIVE DIAGNOSTIC REPORT
+============================================================
+ℹ️  PYNUCLEUS COMPREHENSIVE DIAGNOSTIC REPORT
+ℹ️  Generated: 2025-06-24 16:08:41
+ℹ️  Duration: 16.3 seconds
+ℹ️  
+EXECUTIVE SUMMARY
+ℹ️  System Health: 98.1%
+ℹ️  Checks Performed: 52
+ℹ️  Checks Passed: 51
+ℹ️  Checks Failed: 1
+ℹ️  Script Health: 98.4%
+ℹ️  Scripts Tested: 61
+ℹ️  Healthy Scripts: 60
+ℹ️  
+COMPONENT HEALTH BREAKDOWN
+ℹ️  Environment: ✅ HEALTHY
+ℹ️  Dependencies: ✅ HEALTHY
+ℹ️  Scripts: ✅ HEALTHY
+ℹ️  Components: ✅ HEALTHY
+ℹ️  Docker: ✅ AVAILABLE
+ℹ️  PDF Processing: ✅ HEALTHY
+✅ Overall System Status: EXCELLENT 🎉
+✅ 🎉 System diagnostic completed successfully!
+2025-06-24 16:08:41,300 - pynucleus.api.app - INFO - Cleaning up application resources...
+2025-06-24 16:08:41,427 - pynucleus.api.app - INFO - Resource cleanup completed
+
+
+STDERR:
+/Users/mohammadalmusaiteer/PyNucleus-Model/.venv/lib/python3.13/site-packages/bitsandbytes/cextension.py:34: UserWarning: The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers, 8-bit multiplication, and GPU quantization are unavailable.
+  warn("The installed version of bitsandbytes was compiled without GPU support. "
+
+================================================================================
+
+SCRIPT: system_validator.py
+----------------------------------------
+Success: False
+Return Code: N/A
+
+Error: Script timed out after 120 seconds
+
+================================================================================
+

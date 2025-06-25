@@ -16,3 +16,47 @@
 2025-06-22 00:13:00,357 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
 2025-06-22 00:13:00,357 | pynucleus.api.app | INFO | app.py:688 | File successfully ingested and retrievable: 20250622_001258_785c2eda_1-s2.0-S0029549306000276-main.pdf
 2025-06-22 00:13:00,358 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 00:13:00] "POST /upload HTTP/1.1" 200 -
+2025-06-22 09:00:39,775 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 09:00:39] "GET / HTTP/1.1" 200 -
+2025-06-22 09:00:44,919 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 09:00:45,105 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-22 09:00:45,107 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 09:00:45] "GET /status HTTP/1.1" 200 -
+2025-06-22 09:00:48,984 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 09:00:48,985 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 09:00:48,990 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 09:00:49,099 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 09:00:49,104 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 09:00:49] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-22 16:59:11,069 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 16:59:11] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-22 18:29:59,866 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 18:29:59] "[36mGET / HTTP/1.1[0m" 304 -
+2025-06-22 18:30:02,135 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 18:30:02,305 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-22 18:30:02,306 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 18:30:02] "GET /status HTTP/1.1" 200 -
+2025-06-22 18:30:04,021 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 18:30:04,022 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 18:30:04,037 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 18:30:04,139 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 18:30:04,147 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 18:30:04] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-22 18:30:23,783 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 18:30:23,879 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 18:30:24,070 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-22 18:30:24,074 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-22 18:30:24,075 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 18:30:24] "GET /status HTTP/1.1" 200 -
+2025-06-22 18:30:24,076 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 18:30:24] "GET /status HTTP/1.1" 200 -
+2025-06-22 18:30:30,737 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-22 18:30:30,737 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-22 18:30:30,741 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-22 18:30:30,862 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 18:30:30,863 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 18:30:30] "GET /system_statistics HTTP/1.1" 200 -
+2025-06-22 18:30:36,369 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 18:30:36,547 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-22 18:30:36,548 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 18:30:36] "GET /status HTTP/1.1" 200 -
+2025-06-22 18:30:38,783 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 18:30:38,784 | pynucleus | INFO | engine.py:72 | Retrieved 1 documents for query
+2025-06-22 18:30:38,979 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-22 18:30:38,980 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 18:30:38] "GET /status HTTP/1.1" 200 -
+2025-06-22 18:30:39,008 | pynucleus | INFO | engine.py:72 | Retrieved 1000 documents for query
+2025-06-22 18:30:39,009 | werkzeug | INFO | _internal.py:97 | 127.0.0.1 - - [22/Jun/2025 18:30:39] "GET /status HTTP/1.1" 200 -
+2025-06-22 18:31:37,885 | pynucleus.api.app | INFO | app.py:84 | Received signal 15, shutting down gracefully...
+2025-06-22 18:31:37,885 | pynucleus.api.app | INFO | app.py:71 | Cleaning up application resources...
+2025-06-22 18:31:38,381 | pynucleus.api.app | INFO | app.py:75 | Resource cleanup completed
+2025-06-22 18:31:38,892 | pynucleus.api.app | INFO | app.py:71 | Cleaning up application resources...
+2025-06-22 18:31:39,019 | pynucleus.api.app | INFO | app.py:75 | Resource cleanup completed
