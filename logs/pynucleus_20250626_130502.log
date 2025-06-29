@@ -1,0 +1,12 @@
+2025-06-26 13:05:02,609 | __main__ | INFO | run_pipeline.py:661 | 🚀 Starting Interactive Plant Builder
+2025-06-26 13:05:02,609 | pynucleus.pipeline.plant_builder | INFO | plant_builder.py:19 | PlantBuilder initialized with mock data manager
+2025-06-26 13:05:02,609 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-26 13:05:05,859 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-26 13:05:05,864 | pynucleus.data.mock_data_manager | INFO | mock_data_manager.py:46 | Loaded mock data from configs/mock_data_config.json
+2025-06-26 13:05:05,864 | pynucleus.data.mock_data_manager | INFO | mock_data_manager.py:47 | Available: 22 plant templates, 5 technical documents
+2025-06-26 13:05:05,865 | pynucleus.pipeline.plant_builder | INFO | plant_builder.py:126 | Built plant configuration for template 2
+2025-06-26 13:05:05,865 | pynucleus.pipeline.financial_analyzer | INFO | financial_analyzer.py:127 | Requesting financial analysis from LLM
+2025-06-26 13:05:29,827 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 23.90s
+2025-06-26 13:05:29,828 | pynucleus.pipeline.financial_analyzer | ERROR | financial_analyzer.py:80 | Failed to parse financial response JSON: Extra data: line 1 column 50 (char 49)
+2025-06-26 13:05:29,828 | pynucleus.pipeline.financial_analyzer | INFO | financial_analyzer.py:152 | Financial analysis completed successfully
+2025-06-26 13:05:29,828 | __main__ | INFO | run_pipeline.py:900 | ✅ Plant build and analysis completed successfully

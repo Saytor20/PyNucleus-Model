@@ -1,0 +1,15 @@
+2025-06-26 13:00:56,038 | __main__ | INFO | run_pipeline.py:661 | 🚀 Starting Plant Builder
+2025-06-26 13:00:56,038 | __main__ | INFO | run_pipeline.py:662 | 📋 Template ID: 1
+2025-06-26 13:00:56,038 | __main__ | INFO | run_pipeline.py:663 | 🌿 Feedstock: Natural Gas
+2025-06-26 13:00:56,038 | __main__ | INFO | run_pipeline.py:664 | 📊 Production Capacity: 100000 tons/year
+2025-06-26 13:00:56,038 | __main__ | INFO | run_pipeline.py:665 | 📍 Location: Texas, USA
+2025-06-26 13:00:56,038 | __main__ | INFO | run_pipeline.py:666 | ⏰ Operating Hours: 8000
+2025-06-26 13:00:56,038 | pynucleus.pipeline.plant_builder | INFO | plant_builder.py:19 | PlantBuilder initialized with mock data manager
+2025-06-26 13:00:56,039 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-06-26 13:01:01,247 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-06-26 13:01:01,248 | pynucleus.pipeline.plant_builder | INFO | plant_builder.py:126 | Built plant configuration for template 1
+2025-06-26 13:01:01,248 | pynucleus.pipeline.financial_analyzer | INFO | financial_analyzer.py:127 | Requesting financial analysis from LLM
+2025-06-26 13:01:25,489 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 24.23s
+2025-06-26 13:01:25,490 | pynucleus.pipeline.financial_analyzer | ERROR | financial_analyzer.py:80 | Failed to parse financial response JSON: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2025-06-26 13:01:25,490 | pynucleus.pipeline.financial_analyzer | INFO | financial_analyzer.py:152 | Financial analysis completed successfully
+2025-06-26 13:01:25,490 | __main__ | INFO | run_pipeline.py:767 | ✅ Plant build and analysis completed successfully

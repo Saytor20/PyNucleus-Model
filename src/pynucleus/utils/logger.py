@@ -39,4 +39,12 @@ except ImportError:
     def success(message: str):
         logger.info(f"✅ {message}")
     
-    logger.success = success 
+    logger.success = success
+
+# Export get_logger for compatibility
+
+def get_logger(name: str = None) -> logging.Logger:
+    """Return the configured logger instance (optionally with a custom name)."""
+    if name:
+        return logging.getLogger(name)
+    return logger 

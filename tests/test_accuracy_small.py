@@ -17,7 +17,7 @@ def test_keyword_hit():
     assert len(answer.strip()) > 0, "Answer should not be empty"
     
     # Check for citations - either in answer text or references section
-    has_citations = 'References:' in answer or '[1]' in answer or '[2]' in answer
+    has_citations = 'References:' in answer or '[Doc-' in answer or '[1]' in answer or '[2]' in answer
     assert has_citations, "Answer should include citations or references section"
     
     # Verify sources are returned
@@ -58,6 +58,12 @@ def test_citation_format():
         # Verify references section formatting
         refs_section = answer.split('References:')[1] if 'References:' in answer else ""
         assert len(refs_section.strip()) > 0, "References section should not be empty"
+    elif '[Doc-' in answer:
+        # Check for Doc-XX citation format
+        import re
+        citation_pattern = r'\[Doc-[A-Za-z0-9_-]+\]'
+        citations = re.findall(citation_pattern, answer)
+        assert len(citations) > 0, "Should have Doc-XX citations in square brackets"
     
     # Test passes if structure is correct, even without specific content
     assert True, "Test passes with proper structure" 

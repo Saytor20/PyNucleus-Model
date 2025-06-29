@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     
     # Enhanced retrieval settings - OPTIMIZED FOR QUALITY
     ENHANCED_RETRIEVE_TOP_K: int = 3  # Consistent with main retrieval
-    RAG_SIMILARITY_THRESHOLD: float = 0.4  # Higher threshold for better relevance
+    RAG_SIMILARITY_THRESHOLD: float = 0.2  # Lower threshold for better recall
     MAX_CONTEXT_CHUNKS: int = 3  # Limit context to top 3 chunks
     
     # Citation and quality settings
@@ -51,6 +51,20 @@ class Settings(BaseSettings):
         "design", "how to", "process", "methodology", "steps", "procedure", 
         "implementation", "development", "construction", "analysis", "optimization"
     ]
+    
+    # Enhanced Model Selection for Better Answer Quality
+    # Priority order: Use best available model for improved responses
+    PREFERRED_MODELS: List[str] = [
+        "Qwen/Qwen2.5-7B-Instruct",    # Best for complex chemical engineering
+        "Qwen/Qwen2.5-3B-Instruct",    # Good balance of quality and speed
+        "Qwen/Qwen2.5-1.5B-Instruct",  # Decent for simpler questions
+        "Qwen/Qwen3-0.6B",             # Current fallback model
+    ]
+    
+    # Quality-based answer improvement
+    USE_QUALITY_MODEL_SELECTION: bool = True
+    MIN_QUALITY_THRESHOLD_FOR_RETRY: float = 0.3
+    ENABLE_ANSWER_IMPROVEMENT: bool = True
 
     class Config:
         extra = "forbid"

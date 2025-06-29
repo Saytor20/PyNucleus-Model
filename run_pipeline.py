@@ -642,5 +642,274 @@ def interactive_chat(
         print(f"❌ Error starting chat: {str(e)}")
         raise typer.Exit(1)
 
+@app.command("build")
+def build_plant(
+    template_id: Optional[int] = typer.Option(None, "--template-id", help="Plant template ID (1-22) - if not provided, will prompt interactively"),
+    feedstock: Optional[str] = typer.Option(None, "--feedstock", help="Feedstock type - if not provided, will prompt interactively"),
+    production_capacity: Optional[int] = typer.Option(None, "--production-capacity", help="Production capacity in tons/year - if not provided, will prompt interactively"),
+    plant_location: Optional[str] = typer.Option(None, "--plant-location", help="Plant location - if not provided, will prompt interactively"),
+    operating_hours: Optional[int] = typer.Option(None, "--operating-hours", help="Operating hours per year - if not provided, will prompt interactively"),
+    verbose: bool = typer.Option(False, "--verbose/--no-verbose", help="Verbose logging"),
+    output_file: Optional[Path] = typer.Option(None, "--output-file", help="Save results to JSON file"),
+):
+    """Build a modular chemical plant and perform financial analysis with interactive prompts."""
+    try:
+        # Setup logging
+        logger = configure_logging(level="DEBUG" if verbose else "INFO")
+        cli_logger = get_logger(__name__)
+        
+        cli_logger.info("🚀 Starting Interactive Plant Builder")
+        
+        # Import required components
+        from pynucleus.pipeline.plant_builder import PlantBuilder
+        from pynucleus.pipeline.financial_analyzer import FinancialAnalyzer
+        from pynucleus.data.mock_data_manager import MockDataManager
+        
+        # Initialize components
+        plant_builder = PlantBuilder()
+        financial_analyzer = FinancialAnalyzer()
+        mock_data_manager = MockDataManager()
+        
+        # Get available templates
+        templates = mock_data_manager.get_all_plant_templates()
+        
+        print("=" * 60)
+        print("🏭 INTERACTIVE MODULAR PLANT BUILDER")
+        print("=" * 60)
+        
+        # Step 1: Template Selection
+        if template_id is None:
+            print("\n📋 Available Plant Templates:")
+            print("-" * 40)
+            for template in templates:
+                print(f"{template['id']:2d}. {template['name']}")
+                print(f"    Technology: {template['technology']}")
+                print(f"    Description: {template['description']}")
+                print()
+            
+            while True:
+                try:
+                    template_id = int(input("Enter template ID (1-22): ").strip())
+                    if 1 <= template_id <= 22:
+                        break
+                    else:
+                        print("❌ Please enter a valid template ID between 1 and 22.")
+                except ValueError:
+                    print("❌ Please enter a valid number.")
+        
+        # Get selected template details
+        selected_template = next((t for t in templates if t['id'] == template_id), None)
+        if not selected_template:
+            raise ValueError(f"Template ID {template_id} not found")
+        
+        print(f"\n✅ Selected: {selected_template['name']}")
+        print(f"   Technology: {selected_template['technology']}")
+        print(f"   Description: {selected_template['description']}")
+        
+        # Step 2: Feedstock Selection
+        if feedstock is None:
+            print(f"\n🌿 Available feedstock options for {selected_template['name']}:")
+            for i, option in enumerate(selected_template['feedstock_options'], 1):
+                print(f"   {i}. {option}")
+            
+            while True:
+                try:
+                    choice = int(input(f"\nSelect feedstock (1-{len(selected_template['feedstock_options'])}): ").strip())
+                    if 1 <= choice <= len(selected_template['feedstock_options']):
+                        feedstock = selected_template['feedstock_options'][choice - 1]
+                        break
+                    else:
+                        print(f"❌ Please enter a valid choice between 1 and {len(selected_template['feedstock_options'])}.")
+                except ValueError:
+                    print("❌ Please enter a valid number.")
+        
+        print(f"✅ Selected feedstock: {feedstock}")
+        
+        # Step 3: Production Capacity
+        if production_capacity is None:
+            valid_range = selected_template['valid_ranges']['production_capacity_tpd']
+            default_capacity = selected_template['default_parameters']['production_capacity_tpd']
+            
+            print(f"\n📊 Production Capacity:")
+            print(f"   Valid range: {valid_range['min']:,} - {valid_range['max']:,} tons/day")
+            print(f"   Default: {default_capacity:,} tons/day")
+            
+            while True:
+                try:
+                    user_input = input(f"Enter production capacity in tons/day (or press Enter for default): ").strip()
+                    if user_input == "":
+                        production_capacity = default_capacity
+                        break
+                    else:
+                        production_capacity = int(user_input)
+                        if valid_range['min'] <= production_capacity <= valid_range['max']:
+                            break
+                        else:
+                            print(f"❌ Please enter a value between {valid_range['min']:,} and {valid_range['max']:,}.")
+                except ValueError:
+                    print("❌ Please enter a valid number.")
+        
+        print(f"✅ Production capacity: {production_capacity:,} tons/day")
+        
+        # Step 4: Plant Location
+        if plant_location is None:
+            print(f"\n📍 Available locations (with cost factors):")
+            for location, factor in selected_template['location_factors'].items():
+                factor_text = "Standard" if factor == 1.0 else f"{factor:.1f}x cost"
+                print(f"   • {location} ({factor_text})")
+            
+            while True:
+                plant_location = input(f"\nEnter plant location (or press Enter for 'Texas, USA'): ").strip()
+                if plant_location == "":
+                    plant_location = "Texas, USA"
+                    break
+                elif plant_location in selected_template['location_factors']:
+                    break
+                else:
+                    print("❌ Please enter a valid location from the list above.")
+        
+        print(f"✅ Plant location: {plant_location}")
+        
+        # Step 5: Operating Hours
+        if operating_hours is None:
+            valid_range = selected_template['valid_ranges']['operating_hours']
+            default_hours = selected_template['default_parameters']['operating_hours']
+            
+            print(f"\n⏰ Operating Hours:")
+            print(f"   Valid range: {valid_range['min']:,} - {valid_range['max']:,} hours/year")
+            print(f"   Default: {default_hours:,} hours/year")
+            
+            while True:
+                try:
+                    user_input = input(f"Enter operating hours per year (or press Enter for default): ").strip()
+                    if user_input == "":
+                        operating_hours = default_hours
+                        break
+                    else:
+                        operating_hours = int(user_input)
+                        if valid_range['min'] <= operating_hours <= valid_range['max']:
+                            break
+                        else:
+                            print(f"❌ Please enter a value between {valid_range['min']:,} and {valid_range['max']:,}.")
+                except ValueError:
+                    print("❌ Please enter a valid number.")
+        
+        print(f"✅ Operating hours: {operating_hours:,} hours/year")
+        
+        # Convert production capacity from tons/day to tons/year for the API
+        production_capacity_tpy = production_capacity * 365
+        
+        # Prepare custom parameters
+        custom_parameters = {
+            "feedstock": feedstock,
+            "production_capacity": production_capacity_tpy,  # API expects tons/year
+            "plant_location": plant_location,
+            "operating_hours": operating_hours
+        }
+        
+        print("\n" + "=" * 60)
+        print("📋 BUILD SUMMARY")
+        print("=" * 60)
+        print(f"Template: {selected_template['name']}")
+        print(f"Technology: {selected_template['technology']}")
+        print(f"Feedstock: {feedstock}")
+        print(f"Production Capacity: {production_capacity:,} tons/day ({production_capacity_tpy:,} tons/year)")
+        print(f"Location: {plant_location}")
+        print(f"Operating Hours: {operating_hours:,} hours/year")
+        print("=" * 60)
+        
+        # Confirm before proceeding
+        proceed = input("\nProceed with plant build? (y/N): ").strip().lower()
+        if proceed not in ['y', 'yes']:
+            print("❌ Plant build cancelled.")
+            return
+        
+        # Step 6: Build plant configuration
+        print("\n🔄 Step 1: Building plant configuration...")
+        plant_config = plant_builder.build_plant(template_id, custom_parameters)
+        
+        print("✅ Plant configuration built successfully!")
+        print(f"   Template: {plant_config['template_info']['name']}")
+        print(f"   Technology: {plant_config['template_info']['technology']}")
+        print(f"   Capital Cost: ${plant_config['financial_parameters']['capital_cost']:,.0f}")
+        print(f"   Operating Cost: ${plant_config['financial_parameters']['operating_cost']:,.0f}/year")
+        print(f"   Product Price: ${plant_config['financial_parameters']['product_price']}/ton")
+        
+        # Step 7: Perform financial analysis
+        print("\n🔄 Step 2: Performing financial analysis...")
+        financial_analysis = financial_analyzer.analyze_financials(plant_config)
+        
+        print("✅ Financial analysis completed!")
+        
+        # Display results
+        print("\n" + "=" * 60)
+        print("💰 FINANCIAL ANALYSIS RESULTS")
+        print("=" * 60)
+        
+        llm_analysis = financial_analysis.get("llm_analysis", {})
+        basic_calc = financial_analysis.get("basic_calculations", {})
+        
+        print(f"Annual Revenue: ${llm_analysis.get('annual_revenue', 0):,.0f}")
+        print(f"Profit Margin: {llm_analysis.get('profit_margin_percent', 0):.1f}%")
+        print(f"ROI: {llm_analysis.get('roi_percent', 0):.1f}%")
+        
+        # Display risks
+        risks = llm_analysis.get('financial_risks', [])
+        if risks:
+            print(f"\n⚠️  Financial Risks:")
+            for i, risk in enumerate(risks, 1):
+                print(f"   {i}. {risk}")
+        
+        # Display recommendations
+        recommendations = llm_analysis.get('strategic_recommendations', '')
+        if recommendations:
+            print(f"\n💡 Strategic Recommendations:")
+            print(f"   {recommendations}")
+        
+        # Display basic calculations for verification
+        print(f"\n📊 Basic Calculations (Verification):")
+        print(f"   Annual Revenue: ${basic_calc.get('annual_revenue', 0):,.0f}")
+        print(f"   Profit Margin: {basic_calc.get('profit_margin_percent', 0):.1f}%")
+        print(f"   ROI: {basic_calc.get('roi_percent', 0):.1f}%")
+        
+        # Save results if output file specified
+        if output_file:
+            import json
+            results = {
+                "plant_configuration": plant_config,
+                "financial_analysis": financial_analysis,
+                "build_metadata": {
+                    "template_id": template_id,
+                    "custom_parameters": custom_parameters,
+                    "build_timestamp": datetime.now().isoformat()
+                }
+            }
+            
+            output_file = Path(output_file)
+            output_file.parent.mkdir(parents=True, exist_ok=True)
+            
+            with open(output_file, 'w') as f:
+                json.dump(results, f, indent=2)
+            
+            print(f"\n💾 Results saved to: {output_file}")
+        
+        print("=" * 60)
+        print("🎉 Plant build and analysis completed successfully!")
+        print("=" * 60)
+        
+        cli_logger.info("✅ Plant build and analysis completed successfully")
+        
+    except ValueError as e:
+        cli_logger.error(f"❌ Validation error: {str(e)}")
+        print(f"❌ Validation error: {str(e)}")
+        raise typer.Exit(1)
+    except Exception as e:
+        cli_logger.error(f"❌ Plant build failed: {str(e)}")
+        print(f"❌ Plant build failed: {str(e)}")
+        if verbose:
+            import traceback
+            traceback.print_exc()
+        raise typer.Exit(1)
+
 if __name__ == "__main__":
     app() 

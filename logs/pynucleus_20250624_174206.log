@@ -13,3 +13,12 @@
 2025-06-24 17:42:57,417 | src.pynucleus.api.app | INFO | app.py:564 | Question processed successfully in 32.2s
 2025-06-24 17:43:36,216 | pynucleus | ERROR | engine.py:106 | Enhanced retrieval failed: cannot import name 'get_vector_store' from 'pynucleus.rag.vector_store' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/vector_store.py)
 2025-06-24 17:43:36,219 | pynucleus | ERROR | engine.py:106 | Enhanced retrieval failed: cannot import name 'get_vector_store' from 'pynucleus.rag.vector_store' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/rag/vector_store.py)
+2025-06-26 12:17:00,873 | src.pynucleus.api.app | INFO | app.py:267 | Health check requested
+2025-06-26 12:17:01,805 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-26 12:17:01,806 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-26 12:17:02,237 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-06-26 12:17:02,238 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-06-26 12:17:02,401 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-06-26 12:17:02,516 | src.pynucleus.api.app | WARNING | app.py:130 | 404 error: http://localhost:5001/apple-touch-icon-precomposed.png
+2025-06-26 12:17:02,547 | src.pynucleus.api.app | WARNING | app.py:130 | 404 error: http://localhost:5001/favicon.ico
+2025-06-26 12:17:02,619 | src.pynucleus.api.app | WARNING | app.py:130 | 404 error: http://localhost:5001/apple-touch-icon.png

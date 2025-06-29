@@ -36,4 +36,10 @@ def extract_tables(pdf_path: str, out_dir: str, max_pages: int | None = None) ->
         csv_files.append(str(csv_file))
         logger.info(f"Saved cleaned table → {csv_file}")
     
-    return csv_files 
+    return csv_files
+
+# Export TableCleaner class for compatibility
+class TableCleaner:
+    @staticmethod
+    def extract_tables(pdf_path: str, out_dir: str, max_pages: int | None = None) -> list[str]:
+        return extract_tables(pdf_path, out_dir, max_pages) 

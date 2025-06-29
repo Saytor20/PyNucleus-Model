@@ -1,50 +1,101 @@
 question,expected_answer,expected_keywords,domain,difficulty
-"What is distillation?","Distillation separates mixtures based on volatility differences via vaporization and condensation.","distillation,vaporization,condensation,volatility",separation,easy
-"Explain the Haber-Bosch process.","A catalytic process synthesizing ammonia from nitrogen and hydrogen at high pressures and temperatures.","haber-bosch,ammonia,nitrogen,hydrogen,catalytic,high pressure",reaction_engineering,medium
-"Describe the concept of heat integration in chemical processes.","Heat integration minimizes energy usage by recovering and reusing heat from process streams.","heat integration,energy,recovering,reusing,streams",energy_efficiency,medium
-"What is the main advantage of modular chemical plant design?","Reduced construction time, lower capital cost, and scalability due to prefabrication and standardization.","modular,prefabrication,scalability,cost,reduced construction",plant_design,easy
-"List three key principles of process safety management.","Risk management, hazard identification, and incident investigation.","risk management,hazard identification,incident investigation",safety_management,easy
-"What defines an azeotropic mixture?","A mixture whose composition does not change upon boiling, exhibiting a constant boiling point.","azeotropic,constant boiling point,composition",thermodynamics,medium
-"How is Reynolds number calculated in fluid flow?","Re = (density × velocity × characteristic length) / viscosity.","reynolds number,density,velocity,length,viscosity",fluid_mechanics,easy
-"What factors influence reactor conversion in a plug flow reactor?","Reaction kinetics, residence time, temperature, and reactant concentration.","reaction kinetics,residence time,temperature,concentration",reaction_engineering,medium
-"What is the typical operating temperature range for ethanol distillation?","Typically between 78–85°C at atmospheric pressure.","78–85°C,ethanol,atmospheric pressure",distillation,easy
-"What method is commonly used for liquid nitrogen production?","Air liquefaction via Joule-Thomson expansion or refrigeration cycles.","air liquefaction,joule-thomson,refrigeration",thermodynamics,medium
-"Why is stainless steel preferred for piping in coastal modular plants?","Stainless steel resists corrosion from salt spray, reducing maintenance.","stainless steel,corrosion,salt spray,maintenance",material_selection,easy
-"Give the general mass balance equation for a CSTR.","F_in×C_in - F_out×C_out = V×r, where V is reactor volume and r reaction rate.","mass balance,cstr,volume,reaction rate",reaction_engineering,hard
-"What typical heat-transfer safety margin is used for shell-and-tube exchangers?","A margin of about 10–15% to account for fouling.","10–15%,fouling,shell-and-tube,heat-transfer",heat_transfer,easy
-"What is the ANSI flange rating suitable for pressures up to 50 bar?","ANSI Class #300 flanges.","ansi,class 300,50 bar",equipment_standards,easy
-"List three advantages of shipping skid-mounted modules.","Standardized transport, reduced heavy-lift requirements, minimized on-site labor.","standardized transport,heavy-lift,minimized labor",logistics,medium
-"What is carbon intensity in sustainability reporting?","Carbon emitted per unit of product throughput.","carbon intensity,emissions,throughput,sustainability",environmental,medium
-"Define the term GHSV used in reactor design.","Gas Hourly Space Velocity; volumetric flow rate per reactor volume per hour.","ghsv,gas hourly space velocity,reactor design",reaction_engineering,medium
-"What influences drying efficiency in industrial dryers?","Temperature, air velocity, humidity, and drying method used.","temperature,velocity,humidity,drying method",drying_processes,medium
-"What hydrogen purity is required to prevent catalyst poisoning in ammonia synthesis?","≥99.9% hydrogen with sulfur levels below 0.1 ppm.","99.9%,hydrogen,sulfur,0.1 ppm,ammonia,catalyst poisoning",reaction_engineering,hard
-"What key financial metrics evaluate modular chemical plant viability?","NPV and discounted payback period.","npv,payback,discounted",economics,medium
-"What is the main limitation for modularizing large distillation columns?","Transport width restrictions and pressure drop concerns.","width,transport,pressure drop,modularization,distillation",plant_design,hard
-"How do modular plants reduce construction CO₂ emissions?","By minimizing site concrete usage and construction duration.","co2,emissions,concrete,duration,modular",sustainability,medium
-"What equation defines the Sherwood number for laminar flow?","Sh = 0.664(Re^0.5)(Sc^(1/3))","sherwood,0.664,reynolds,schmidt,mass transfer",mass_transfer,hard
-"What cooling water temperature rise is typical in site utility models?","10°C rise, typically from 30°C to 40°C.","10°C,cooling water,utilities",utilities,easy
-"Why use electric heaters instead of fired heaters in small plants?","Electric heaters simplify permitting and reduce emissions.","electric heaters,permitting,emissions,small plants",equipment_selection,easy
-"What role does slug flow play in modular LPG separation units?","Enhances gravity-based liquid-gas separation efficiency.","slug flow,liquid-gas separation,efficiency",separation_process,medium
-"Describe osmotic pressure in separation processes.","Pressure required to prevent solvent flow through a semi-permeable membrane.","osmotic pressure,semi-permeable membrane,solvent",separation,medium
-"What causes corrosion in steam generation systems?","Dissolved gases and impurities causing oxidation.","corrosion,dissolved gases,oxidation,steam",maintenance,medium
-"Give the Chen correlation parameter for boiling suppression.","Suppression factor S = [1 + 0.55(Pr^0.1 - 1)]","chen correlation,boiling,suppression factor",heat_transfer,hard
-"What is liquefaction in thermodynamics?","Converting gas to liquid via temperature and pressure control.","liquefaction,gas to liquid,temperature,pressure",thermodynamics,medium
-"What is the critical temperature in thermodynamics?","Temperature above which a gas can't be liquefied by pressure alone.","critical temperature,liquefied,pressure",thermodynamics,medium
-"How do factory acceptance tests enhance modular plant safety?","Identifying and fixing defects before shipment.","factory acceptance tests,defects,safety",safety_management,easy
-"Define overall heat-transfer coefficient (U).","Inverse sum of thermal resistances in a heat exchanger.","overall heat-transfer,thermal resistance",heat_transfer,easy
-"What is an example of indirect heating in drying processes?","Rotary dryers with internal heat exchanger coils.","indirect heating,rotary dryers,heat exchanger coils",drying_processes,medium
-"What is BM25 algorithm used for?","Ranking document relevance based on keyword frequency.","bm25,relevance,keyword,ranking",information_retrieval,medium
-"What differentiates turbulent flow from laminar flow?","Turbulent flow has chaotic velocity fluctuations, laminar flow is streamlined.","turbulent,chaotic,laminar,streamlined",fluid_mechanics,easy
-"What causes cavitation in pumps?","Low-pressure areas causing vapor bubbles that collapse.","cavitation,pumps,vapor bubbles,pressure",fluid_mechanics,medium
-"What defines a plug flow reactor (PFR)?","Reactor where fluid moves in discrete plugs without back mixing.","plug flow,reactor,no back mixing",reaction_engineering,medium
-"Explain pinch analysis in process integration.","Methodology for identifying minimum energy consumption by heat exchanger network.","pinch analysis,minimum energy,heat exchanger network",energy_efficiency,hard
-"What are common solvents in liquid-liquid extraction?","Ethyl acetate, hexane, and dichloromethane.","ethyl acetate,hexane,dichloromethane,extraction",separation_process,medium
-"What safety considerations apply to modular plant design?","Material selection, mechanical integrity, fire and explosion hazards.","material selection,mechanical integrity,fire,explosion hazards",safety_management,medium
-"How does catalyst poisoning occur?","Impurities binding irreversibly to active catalyst sites.","catalyst poisoning,impurities,irreversible binding",reaction_engineering,medium
-"Describe flash distillation.","Partial vaporization separating components based on volatility.","flash distillation,partial vaporization,volatility",separation,easy
-"What causes fouling in heat exchangers?","Deposits from fluid impurities reducing thermal efficiency.","fouling,deposits,heat exchangers,efficiency",heat_transfer,medium
-"What is absorption in mass transfer?","Transfer of a gas into a liquid phase.","absorption,gas,liquid phase,mass transfer",mass_transfer,easy
-"What is diffusion-controlled reaction?","Reaction rate limited by reactant diffusion.","diffusion-controlled,reaction rate,reactant",reaction_engineering,medium
-"What is osmotic equilibrium?","Condition where osmotic pressures balance solvent flow across membranes.","osmotic equilibrium,osmotic pressure,membrane",thermodynamics,medium
-"Define molar flux in mass transfer.","Rate of substance transfer per unit area per unit time.","molar flux,mass transfer,rate,area,time",mass_transfer,easy
-"What impacts labor productivity in modular construction?","Standardization, controlled environment, repetitive tasks.","labor productivity,standardization,controlled environment",economics,medium
+What is distillation?,Distillation separates mixtures based on volatility differences via vaporization and condensation.,"distillation,vaporization,condensation,volatility",separation,easy
+Explain the Haber-Bosch process.,A catalytic process synthesizing ammonia from nitrogen and hydrogen at high pressures and temperatures.,"haber-bosch,ammonia,nitrogen,hydrogen,catalytic,high pressure",reaction_engineering,medium
+Describe the concept of heat integration in chemical processes.,Heat integration minimizes energy usage by recovering and reusing heat from process streams.,"heat integration,energy,recovering,reusing,streams",energy_efficiency,medium
+What is the main advantage of modular chemical plant design?,"Reduced construction time, lower capital cost, and scalability due to prefabrication and standardization.","modular,prefabrication,scalability,cost,reduced construction",plant_design,easy
+List three key principles of process safety management.,"Risk management, hazard identification, and incident investigation.","risk management,hazard identification,incident investigation",safety_management,easy
+What defines an azeotropic mixture?,"A mixture whose composition does not change upon boiling, exhibiting a constant boiling point.","azeotropic,constant boiling point,composition",thermodynamics,medium
+How is Reynolds number calculated in fluid flow?,Re = (density × velocity × characteristic length) / viscosity.,"reynolds number,density,velocity,length,viscosity",fluid_mechanics,easy
+What factors influence reactor conversion in a plug flow reactor?,"Reaction kinetics, residence time, temperature, and reactant concentration.","reaction kinetics,residence time,temperature,concentration",reaction_engineering,medium
+What is the typical operating temperature range for ethanol distillation?,Typically between 78–85°C at atmospheric pressure.,"78–85°C,ethanol,atmospheric pressure",distillation,easy
+What method is commonly used for liquid nitrogen production?,Air liquefaction via Joule-Thomson expansion or refrigeration cycles.,"air liquefaction,joule-thomson,refrigeration",thermodynamics,medium
+Why is stainless steel preferred for piping in coastal modular plants?,"Stainless steel resists corrosion from salt spray, reducing maintenance.","stainless steel,corrosion,salt spray,maintenance",material_selection,easy
+Give the general mass balance equation for a CSTR.,"F_in×C_in - F_out×C_out = V×r, where V is reactor volume and r reaction rate.","mass balance,cstr,volume,reaction rate",reaction_engineering,hard
+What typical heat-transfer safety margin is used for shell-and-tube exchangers?,A margin of about 10–15% to account for fouling.,"10–15%,fouling,shell-and-tube,heat-transfer",heat_transfer,easy
+What is the ANSI flange rating suitable for pressures up to 50 bar?,ANSI Class #300 flanges are suitable for pressures up to 50 bar in standard applications.,"ansi,class 300,50 bar",equipment_standards,easy
+List three advantages of shipping skid-mounted modules.,"Standardized transport, reduced heavy-lift requirements, minimized on-site labor.","standardized transport,heavy-lift,minimized labor",logistics,medium
+What is carbon intensity in sustainability reporting?,Carbon emitted per unit of product throughput.,"carbon intensity,emissions,throughput,sustainability",environmental,medium
+Define the term GHSV used in reactor design.,Gas Hourly Space Velocity; volumetric flow rate per reactor volume per hour.,"ghsv,gas hourly space velocity,reactor design",reaction_engineering,medium
+What influences drying efficiency in industrial dryers?,"Temperature, air velocity, humidity, and drying method used.","temperature,velocity,humidity,drying method",drying_processes,medium
+What hydrogen purity is required to prevent catalyst poisoning in ammonia synthesis?,≥99.9% hydrogen with sulfur levels below 0.1 ppm.,"99.9%,hydrogen,sulfur,0.1 ppm,ammonia,catalyst poisoning",reaction_engineering,hard
+What key financial metrics evaluate modular chemical plant viability?,NPV and discounted payback period.,"npv,payback,discounted",economics,medium
+What is the main limitation for modularizing large distillation columns?,Transport width restrictions and pressure drop concerns.,"width,transport,pressure drop,modularization,distillation",plant_design,hard
+How do modular plants reduce construction CO₂ emissions?,By minimizing site concrete usage and construction duration.,"co2,emissions,concrete,duration,modular",sustainability,medium
+What equation defines the Sherwood number for laminar flow?,The Sherwood number for laminar flow is defined as Sh = 0.664(Re^0.5)(Sc^(1/3)).,"sherwood,0.664,reynolds,schmidt,mass transfer",mass_transfer,hard
+What cooling water temperature rise is typical in site utility models?,"10°C rise, typically from 30°C to 40°C.","10°C,cooling water,utilities",utilities,easy
+Why use electric heaters instead of fired heaters in small plants?,Electric heaters simplify permitting and reduce emissions.,"electric heaters,permitting,emissions,small plants",equipment_selection,easy
+What role does slug flow play in modular LPG separation units?,Enhances gravity-based liquid-gas separation efficiency.,"slug flow,liquid-gas separation,efficiency",separation_process,medium
+Describe osmotic pressure in separation processes.,Pressure required to prevent solvent flow through a semi-permeable membrane.,"osmotic pressure,semi-permeable membrane,solvent",separation,medium
+What causes corrosion in steam generation systems?,Dissolved gases and impurities causing oxidation.,"corrosion,dissolved gases,oxidation,steam",maintenance,medium
+Give the Chen correlation parameter for boiling suppression.,Suppression factor S = [1 + 0.55(Pr^0.1 - 1)],"chen correlation,boiling,suppression factor",heat_transfer,hard
+What is liquefaction in thermodynamics?,Converting gas to liquid via temperature and pressure control.,"liquefaction,gas to liquid,temperature,pressure",thermodynamics,medium
+What is the critical temperature in thermodynamics?,Temperature above which a gas can't be liquefied by pressure alone.,"critical temperature,liquefied,pressure",thermodynamics,medium
+How do factory acceptance tests enhance modular plant safety?,Identifying and fixing defects before shipment.,"factory acceptance tests,defects,safety",safety_management,easy
+Define overall heat-transfer coefficient (U).,Inverse sum of thermal resistances in a heat exchanger.,"overall heat-transfer,thermal resistance",heat_transfer,easy
+What is an example of indirect heating in drying processes?,Rotary dryers with internal heat exchanger coils.,"indirect heating,rotary dryers,heat exchanger coils",drying_processes,medium
+What is BM25 algorithm used for?,Ranking document relevance based on keyword frequency.,"bm25,relevance,keyword,ranking",information_retrieval,medium
+What differentiates turbulent flow from laminar flow?,"Turbulent flow has chaotic velocity fluctuations, laminar flow is streamlined.","turbulent,chaotic,laminar,streamlined",fluid_mechanics,easy
+What causes cavitation in pumps?,Low-pressure areas causing vapor bubbles that collapse.,"cavitation,pumps,vapor bubbles,pressure",fluid_mechanics,medium
+What defines a plug flow reactor (PFR)?,Reactor where fluid moves in discrete plugs without back mixing.,"plug flow,reactor,no back mixing",reaction_engineering,medium
+Explain pinch analysis in process integration.,Methodology for identifying minimum energy consumption by heat exchanger network.,"pinch analysis,minimum energy,heat exchanger network",energy_efficiency,hard
+What are common solvents in liquid-liquid extraction?,"Ethyl acetate, hexane, and dichloromethane.","ethyl acetate,hexane,dichloromethane,extraction",separation_process,medium
+What safety considerations apply to modular plant design?,"Material selection, mechanical integrity, fire and explosion hazards.","material selection,mechanical integrity,fire,explosion hazards",safety_management,medium
+How does catalyst poisoning occur?,Impurities binding irreversibly to active catalyst sites.,"catalyst poisoning,impurities,irreversible binding",reaction_engineering,medium
+Describe flash distillation.,Partial vaporization separating components based on volatility.,"flash distillation,partial vaporization,volatility",separation,easy
+What causes fouling in heat exchangers?,Deposits from fluid impurities reducing thermal efficiency.,"fouling,deposits,heat exchangers,efficiency",heat_transfer,medium
+What is absorption in mass transfer?,Transfer of a gas into a liquid phase.,"absorption,gas,liquid phase,mass transfer",mass_transfer,easy
+What is diffusion-controlled reaction?,Reaction rate limited by reactant diffusion.,"diffusion-controlled,reaction rate,reactant",reaction_engineering,medium
+What is osmotic equilibrium?,Condition where osmotic pressures balance solvent flow across membranes.,"osmotic equilibrium,osmotic pressure,membrane",thermodynamics,medium
+Define molar flux in mass transfer.,Rate of substance transfer per unit area per unit time.,"molar flux,mass transfer,rate,area,time",mass_transfer,easy
+What impacts labor productivity in modular construction?,"Standardization, controlled environment, repetitive tasks.","labor productivity,standardization,controlled environment",economics,medium
+What is the Antoine equation used for?,Calculating vapor pressure as a function of temperature for pure components.,"antoine equation,vapor pressure,temperature,pure components",thermodynamics,medium
+How does pH affect chemical precipitation processes?,pH controls solubility and precipitation equilibria of ionic species.,"ph,precipitation,solubility,equilibria,ionic",water_treatment,medium
+What is the purpose of a knock-out drum in gas processing?,Separates entrained liquids from gas streams to protect downstream equipment.,"knock-out drum,gas processing,entrained liquids,protection",separation_process,easy
+Define selectivity in catalytic reactions.,Ratio of desired product formation rate to total reactant consumption rate.,"selectivity,catalytic,desired product,formation rate",reaction_engineering,medium
+What is the Ergun equation used for?,Predicting pressure drop through packed beds in chemical processes.,"ergun equation,pressure drop,packed beds",fluid_mechanics,hard
+How does crystallization differ from precipitation?,Crystallization forms ordered structures; precipitation forms amorphous solids.,"crystallization,precipitation,ordered structures,amorphous",separation,medium
+What are the key parameters in membrane separation design?,"Permeability, selectivity, operating pressure, and membrane area.","permeability,selectivity,operating pressure,membrane area",membrane_separation,medium
+Define residence time distribution in reactor design.,Statistical distribution of time particles spend in a reactor system.,"residence time distribution,reactor design,statistical,particles",reaction_engineering,hard
+What is the McCabe-Thiele method used for?,Graphical design of binary distillation columns with multiple stages.,"mccabe-thiele,distillation,binary,graphical design",separation,hard
+How does supercritical fluid extraction work?,Uses supercritical fluids as solvents with enhanced mass transfer properties.,"supercritical fluid,extraction,enhanced mass transfer",separation_process,hard
+What is the difference between batch and continuous crystallization?,Batch operates in discrete cycles; continuous operates with steady feed and withdrawal.,"batch,continuous,crystallization,cycles,steady feed",crystallization,medium
+Define fugacity in thermodynamics.,Effective pressure accounting for non-ideal gas behavior in phase equilibria.,"fugacity,effective pressure,non-ideal gas,phase equilibria",thermodynamics,hard
+What causes channeling in packed tower operations?,Uneven liquid distribution leading to preferential flow paths.,"channeling,packed tower,uneven distribution,flow paths",separation_process,medium
+How is the overall mass transfer coefficient calculated?,"1/Kov = 1/(kL×H) + 1/kG, where H is Henry's law constant.","overall mass transfer,kL,kG,henry's law",mass_transfer,hard
+What is the role of reflux in distillation columns?,Provides liquid flow to enhance separation efficiency between stages.,"reflux,distillation,liquid flow,separation efficiency",separation,medium
+Define minimum fluidization velocity.,Superficial gas velocity at which particles begin to fluidize in a bed.,"minimum fluidization,superficial velocity,particles,fluidize",fluidization,medium
+What is the Hatta number in gas-liquid reactions?,Ratio of reaction rate to mass transfer rate in gas-liquid systems.,"hatta number,reaction rate,mass transfer,gas-liquid",reaction_engineering,hard
+How does temperature affect membrane permeability?,Higher temperatures generally increase permeability due to enhanced molecular motion.,"temperature,membrane permeability,molecular motion",membrane_separation,medium
+What is the purpose of a reboiler in distillation?,Provides heat to vaporize liquid at the bottom of the column.,"reboiler,distillation,heat,vaporize,bottom",separation,easy
+Define the concept of minimum energy requirement in separation.,Theoretical minimum energy needed for a given separation task.,"minimum energy,separation,theoretical",energy_efficiency,hard
+What is adsorption isotherm?,Relationship between adsorbate concentration and amount adsorbed at equilibrium.,"adsorption isotherm,adsorbate,concentration,equilibrium",adsorption,medium
+How does particle size affect filtration efficiency?,Smaller particles are harder to filter and may require finer filter media.,"particle size,filtration efficiency,filter media",filtration,medium
+What is the Damköhler number in reactor design?,Ratio of reaction rate to convective transport rate in chemical reactors.,"damköhler number,reaction rate,convective transport",reaction_engineering,hard
+Define extraction factor in liquid-liquid extraction.,Ratio of solute distribution coefficient to solvent-to-feed ratio.,"extraction factor,distribution coefficient,solvent-to-feed",separation_process,hard
+What causes pressure swing in adsorption processes?,Alternating high and low pressures to adsorb and desorb components cyclically.,"pressure swing,adsorption,high pressure,low pressure,cyclically",adsorption,medium
+How is separation factor calculated in distillation?,Ratio of relative volatilities: α = (y1/x1)/(y2/x2).,"separation factor,relative volatilities,distillation",separation,hard
+What is the Lewis number in heat and mass transfer?,Ratio of thermal diffusivity to mass diffusivity in transport processes.,"lewis number,thermal diffusivity,mass diffusivity",heat_mass_transfer,hard
+Define breakthrough time in adsorption columns.,Time when adsorbate concentration in effluent reaches a specified level.,"breakthrough time,adsorption,effluent,concentration",adsorption,medium
+What is the Schmidt number in mass transfer?,Ratio of momentum diffusivity to mass diffusivity in fluid flow.,"schmidt number,momentum diffusivity,mass diffusivity",mass_transfer,medium
+How does staging affect separation efficiency?,More stages provide better separation but increase capital and operating costs.,"staging,separation efficiency,capital costs,operating costs",separation,medium
+What is the Prandtl number in heat transfer?,Ratio of momentum diffusivity to thermal diffusivity in heat transfer.,"prandtl number,momentum diffusivity,thermal diffusivity",heat_transfer,medium
+Define mass transfer driving force.,Concentration difference that drives mass transfer between phases.,"mass transfer,driving force,concentration difference",mass_transfer,medium
+What is the purpose of stripping in distillation?,Removes light components from liquid using vapor generated by reboiler.,"stripping,distillation,light components,vapor,reboiler",separation,medium
+How does surface area affect adsorption capacity?,Larger surface area provides more adsorption sites and higher capacity.,"surface area,adsorption capacity,adsorption sites",adsorption,easy
+What is counter-current flow in separation processes?,Flow pattern where phases move in opposite directions for enhanced mass transfer.,"counter-current,flow pattern,opposite directions,mass transfer",separation_process,medium
+Define stage efficiency in separation equipment.,Actual separation achieved compared to theoretical equilibrium separation.,"stage efficiency,separation,theoretical equilibrium",separation,medium
+What causes flooding in packed columns?,Excessive gas velocity preventing proper liquid flow downward.,"flooding,packed columns,gas velocity,liquid flow",separation_process,medium
+How is heat duty calculated for condensers?,"Q = m × λ, where m is mass flow rate and λ is latent heat.","heat duty,condensers,mass flow,latent heat",heat_transfer,easy
+What is the effectiveness-NTU method?,Heat exchanger design method relating effectiveness to number of transfer units.,"effectiveness-NTU,heat exchanger,transfer units",heat_transfer,hard
+Define LMTD in heat exchanger design.,Logarithmic Mean Temperature Difference used for heat transfer calculations.,"lmtd,logarithmic mean,temperature difference,heat transfer",heat_transfer,medium
+What causes temperature pinch in heat exchangers?,Minimum allowable temperature difference between hot and cold streams.,"temperature pinch,heat exchangers,minimum temperature difference",heat_transfer,medium
+How does fouling factor affect heat transfer design?,Accounts for reduced heat transfer due to deposit formation over time.,"fouling factor,heat transfer,deposit formation",heat_transfer,medium
+What is co-current flow in heat exchangers?,Flow arrangement where both fluids move in the same direction.,"co-current flow,heat exchangers,same direction",heat_transfer,easy
+Define thermal effectiveness of heat exchangers.,Ratio of actual heat transfer to maximum possible heat transfer.,"thermal effectiveness,actual heat transfer,maximum possible",heat_transfer,medium
+What is the purpose of baffles in shell-and-tube exchangers?,Direct shell-side flow across tubes to enhance heat transfer coefficient.,"baffles,shell-and-tube,shell-side flow,heat transfer coefficient",heat_transfer,medium
+How does Reynolds number affect heat transfer?,Higher Reynolds number (turbulent flow) increases heat transfer coefficients.,"reynolds number,heat transfer,turbulent flow,coefficients",heat_transfer,medium
+What is film temperature in heat transfer calculations?,Average temperature between surface and bulk fluid temperatures.,"film temperature,surface temperature,bulk fluid",heat_transfer,medium
+Define Nusselt number in convective heat transfer.,Dimensionless ratio of convective to conductive heat transfer.,"nusselt number,convective,conductive,heat transfer",heat_transfer,medium
+What causes thermal stress in heat exchangers?,Temperature differences causing differential thermal expansion.,"thermal stress,temperature differences,thermal expansion",heat_transfer,medium
+How is approach temperature defined in heat exchangers?,Temperature difference between outlet streams in heat exchange process.,"approach temperature,outlet streams,heat exchange",heat_transfer,medium
+What is the log mean temperature difference correction factor?,Factor accounting for flow arrangement in multi-pass heat exchangers.,"lmtd correction,flow arrangement,multi-pass",heat_transfer,hard

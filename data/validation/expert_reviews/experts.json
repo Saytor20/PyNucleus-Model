@@ -1,0 +1,56 @@
+{
+  "expert_001": {
+    "expert_id": "expert_001",
+    "name": "Dr. Sarah Chen",
+    "email": "s.chen@university.edu",
+    "level": "ExpertLevel.PRINCIPAL",
+    "domains": [
+      "separation",
+      "distillation",
+      "thermodynamics"
+    ],
+    "specializations": [
+      "distillation_design",
+      "heat_integration"
+    ],
+    "validation_count": 2,
+    "accuracy_score": 0.0,
+    "last_activity": "2025-06-29T14:09:37.309939"
+  },
+  "expert_002": {
+    "expert_id": "expert_002",
+    "name": "Prof. Michael Rodriguez",
+    "email": "m.rodriguez@institute.org",
+    "level": "ExpertLevel.DOMAIN_EXPERT",
+    "domains": [
+      "reaction_engineering",
+      "catalysis",
+      "safety_management"
+    ],
+    "specializations": [
+      "reactor_design",
+      "process_safety"
+    ],
+    "validation_count": 0,
+    "accuracy_score": 0.0,
+    "last_activity": null
+  },
+  "expert_003": {
+    "expert_id": "expert_003",
+    "name": "Dr. Lisa Wang",
+    "email": "l.wang@company.com",
+    "level": "ExpertLevel.SENIOR",
+    "domains": [
+      "heat_transfer",
+      "equipment_design",
+      "energy_efficiency"
+    ],
+    "specializations": [
+      "heat_exchanger_design",
+      "process_optimization"
+    ],
+    "validation_count": 0,
+    "accuracy_score": 0.0,
+    "last_activity": null
+  }
+}

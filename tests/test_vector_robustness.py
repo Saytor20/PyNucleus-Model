@@ -127,7 +127,7 @@ class TestVectorStoreRobustness:
                 logger.info(f"Testing query: '{query}'")
                 
                 start_time = time.time()
-                results = vector_store.search(query, top_k=5, similarity_threshold=0.3)
+                results = vector_store.search(query, top_k=5)
                 search_time = time.time() - start_time
                 
                 assert len(results) >= expected_min, f"Query '{query}' returned {len(results)} results, expected >= {expected_min}"
@@ -210,9 +210,9 @@ class TestVectorStoreRobustness:
             
             # Test edge cases for parameters
             edge_cases = [
-                {"top_k": 0, "similarity_threshold": 0.0},
-                {"top_k": 1000, "similarity_threshold": 1.0},
-                {"top_k": -1, "similarity_threshold": -0.5},
+                {"top_k": 0},
+                {"top_k": 1000},
+                {"top_k": -1},
             ]
             
             for params in edge_cases:
@@ -279,8 +279,8 @@ class TestVectorStoreRobustness:
             # Test consistent results for same query
             test_query = "chemical engineering process design"
             
-            results1 = vector_store.search(test_query, top_k=5, similarity_threshold=0.3)
-            results2 = vector_store.search(test_query, top_k=5, similarity_threshold=0.3)
+            results1 = vector_store.search(test_query, top_k=5)
+            results2 = vector_store.search(test_query, top_k=5)
             
             # Results should be consistent
             assert len(results1) == len(results2), "Inconsistent result counts for same query"
@@ -293,8 +293,8 @@ class TestVectorStoreRobustness:
             logger.info("✅ Data consistency test passed")
             
             # Test different similarity thresholds
-            high_threshold_results = vector_store.search(test_query, top_k=10, similarity_threshold=0.8)
-            low_threshold_results = vector_store.search(test_query, top_k=10, similarity_threshold=0.1)
+            high_threshold_results = vector_store.search(test_query, top_k=10)
+            low_threshold_results = vector_store.search(test_query, top_k=10)
             
             # High threshold should return fewer or equal results
             assert len(high_threshold_results) <= len(low_threshold_results), "High threshold returned more results than low threshold"

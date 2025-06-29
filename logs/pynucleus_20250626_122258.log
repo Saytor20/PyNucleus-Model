@@ -1,0 +1,7 @@
+2025-06-26 12:22:58,530 | __main__ | INFO | run_pipeline.py:661 | 🚀 Starting Plant Builder
+2025-06-26 12:22:58,530 | __main__ | INFO | run_pipeline.py:662 | 📋 Template ID: 1
+2025-06-26 12:22:58,530 | __main__ | INFO | run_pipeline.py:663 | 🌿 Feedstock: Natural Gas
+2025-06-26 12:22:58,530 | __main__ | INFO | run_pipeline.py:664 | 📊 Production Capacity: 150000 tons/year
+2025-06-26 12:22:58,530 | __main__ | INFO | run_pipeline.py:665 | 📍 Location: Texas, USA
+2025-06-26 12:22:58,530 | __main__ | INFO | run_pipeline.py:666 | ⏰ Operating Hours: 8000
+2025-06-26 12:22:58,531 | __main__ | ERROR | run_pipeline.py:774 | ❌ Plant build failed: cannot import name 'get_logger' from 'pynucleus.utils.logger' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/utils/logger.py)

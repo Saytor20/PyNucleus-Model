@@ -1,0 +1,139 @@
+{
+  "templates": [
+    {
+      "id": 1,
+      "name": "Methanol Production Plant",
+      "description": "Modular methanol production from natural gas",
+      "technology": "Steam Methane Reforming",
+      "default_parameters": {
+        "feedstock": "Natural Gas",
+        "production_capacity": 100000,
+        "plant_location": "Texas, USA",
+        "operating_hours": 8000,
+        "capital_cost": 150000000,
+        "operating_cost": 45000000,
+        "product_price": 350
+      },
+      "valid_ranges": {
+        "production_capacity": {"min": 50000, "max": 500000},
+        "operating_hours": {"min": 6000, "max": 8760}
+      },
+      "feedstock_options": ["Natural Gas", "Coal", "Biomass"],
+      "location_factors": {
+        "Texas, USA": 1.0,
+        "Louisiana, USA": 1.05,
+        "Alberta, Canada": 0.95,
+        "Qatar": 0.90,
+        "Australia": 1.10
+      }
+    },
+    {
+      "id": 2,
+      "name": "Ammonia Production Plant",
+      "description": "Modular ammonia synthesis from hydrogen and nitrogen",
+      "technology": "Haber-Bosch Process",
+      "default_parameters": {
+        "feedstock": "Natural Gas",
+        "production_capacity": 200000,
+        "plant_location": "Texas, USA",
+        "operating_hours": 8000,
+        "capital_cost": 300000000,
+        "operating_cost": 80000000,
+        "product_price": 400
+      },
+      "valid_ranges": {
+        "production_capacity": {"min": 100000, "max": 1000000},
+        "operating_hours": {"min": 6000, "max": 8760}
+      },
+      "feedstock_options": ["Natural Gas", "Coal", "Electrolysis"],
+      "location_factors": {
+        "Texas, USA": 1.0,
+        "Louisiana, USA": 1.05,
+        "Alberta, Canada": 0.95,
+        "Qatar": 0.90,
+        "Australia": 1.10
+      }
+    },
+    {
+      "id": 3,
+      "name": "Ethylene Production Plant",
+      "description": "Modular ethylene production via steam cracking",
+      "technology": "Steam Cracking",
+      "default_parameters": {
+        "feedstock": "Ethane",
+        "production_capacity": 150000,
+        "plant_location": "Texas, USA",
+        "operating_hours": 8000,
+        "capital_cost": 250000000,
+        "operating_cost": 60000000,
+        "product_price": 800
+      },
+      "valid_ranges": {
+        "production_capacity": {"min": 75000, "max": 750000},
+        "operating_hours": {"min": 6000, "max": 8760}
+      },
+      "feedstock_options": ["Ethane", "Propane", "Naphtha"],
+      "location_factors": {
+        "Texas, USA": 1.0,
+        "Louisiana, USA": 1.05,
+        "Alberta, Canada": 0.95,
+        "Qatar": 0.90,
+        "Australia": 1.10
+      }
+    },
+    {
+      "id": 4,
+      "name": "Polyethylene Plant",
+      "description": "Modular polyethylene production from ethylene",
+      "technology": "Polymerization",
+      "default_parameters": {
+        "feedstock": "Ethylene",
+        "production_capacity": 120000,
+        "plant_location": "Texas, USA",
+        "operating_hours": 8000,
+        "capital_cost": 180000000,
+        "operating_cost": 50000000,
+        "product_price": 1200
+      },
+      "valid_ranges": {
+        "production_capacity": {"min": 60000, "max": 600000},
+        "operating_hours": {"min": 6000, "max": 8760}
+      },
+      "feedstock_options": ["Ethylene", "Propylene"],
+      "location_factors": {
+        "Texas, USA": 1.0,
+        "Louisiana, USA": 1.05,
+        "Alberta, Canada": 0.95,
+        "Qatar": 0.90,
+        "Australia": 1.10
+      }
+    },
+    {
+      "id": 5,
+      "name": "Urea Production Plant",
+      "description": "Modular urea synthesis from ammonia and CO2",
+      "technology": "Bosch-Meiser Process",
+      "default_parameters": {
+        "feedstock": "Ammonia",
+        "production_capacity": 180000,
+        "plant_location": "Texas, USA",
+        "operating_hours": 8000,
+        "capital_cost": 120000000,
+        "operating_cost": 35000000,
+        "product_price": 300
+      },
+      "valid_ranges": {
+        "production_capacity": {"min": 90000, "max": 900000},
+        "operating_hours": {"min": 6000, "max": 8760}
+      },
+      "feedstock_options": ["Ammonia", "CO2"],
+      "location_factors": {
+        "Texas, USA": 1.0,
+        "Louisiana, USA": 1.05,
+        "Alberta, Canada": 0.95,
+        "Qatar": 0.90,
+        "Australia": 1.10
+      }
+    }
+  ]
+} 

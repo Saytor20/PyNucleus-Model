@@ -1,0 +1,34 @@
+2025-06-26 12:23:54,675 | __main__ | INFO | run_pipeline.py:661 | 🚀 Starting Plant Builder
+2025-06-26 12:23:54,675 | __main__ | INFO | run_pipeline.py:662 | 📋 Template ID: 1
+2025-06-26 12:23:54,675 | __main__ | INFO | run_pipeline.py:663 | 🌿 Feedstock: Natural Gas
+2025-06-26 12:23:54,675 | __main__ | INFO | run_pipeline.py:664 | 📊 Production Capacity: 150000 tons/year
+2025-06-26 12:23:54,675 | __main__ | INFO | run_pipeline.py:665 | 📍 Location: Texas, USA
+2025-06-26 12:23:54,675 | __main__ | INFO | run_pipeline.py:666 | ⏰ Operating Hours: 8000
+2025-06-26 12:23:54,993 | LiteLLM | DEBUG | http_handler.py:533 | Using AiohttpTransport...
+2025-06-26 12:23:54,994 | LiteLLM | DEBUG | http_handler.py:557 | Creating AiohttpTransport...
+2025-06-26 12:23:55,016 | httpcore.connection | DEBUG | _trace.py:47 | connect_tcp.started host='raw.githubusercontent.com' port=443 local_address=None timeout=5 socket_options=None
+2025-06-26 12:23:55,067 | httpcore.connection | DEBUG | _trace.py:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x310d9d010>
+2025-06-26 12:23:55,067 | httpcore.connection | DEBUG | _trace.py:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x310d13920> server_hostname='raw.githubusercontent.com' timeout=5
+2025-06-26 12:23:55,113 | httpcore.connection | DEBUG | _trace.py:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x310b81a90>
+2025-06-26 12:23:55,113 | httpcore.http11 | DEBUG | _trace.py:47 | send_request_headers.started request=<Request [b'GET']>
+2025-06-26 12:23:55,113 | httpcore.http11 | DEBUG | _trace.py:47 | send_request_headers.complete
+2025-06-26 12:23:55,113 | httpcore.http11 | DEBUG | _trace.py:47 | send_request_body.started request=<Request [b'GET']>
+2025-06-26 12:23:55,113 | httpcore.http11 | DEBUG | _trace.py:47 | send_request_body.complete
+2025-06-26 12:23:55,113 | httpcore.http11 | DEBUG | _trace.py:47 | receive_response_headers.started request=<Request [b'GET']>
+2025-06-26 12:23:55,140 | httpcore.http11 | DEBUG | _trace.py:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'keep-alive'), (b'Content-Length', b'25828'), (b'Cache-Control', b'max-age=300'), (b'Content-Security-Policy', b"default-src 'none'; style-src 'unsafe-inline'; sandbox"), (b'Content-Type', b'text/plain; charset=utf-8'), (b'ETag', b'W/"d7fdb07cfed9f52266c17256aa1c24ee245ba4d623ef64a168435fbec1a32446"'), (b'Strict-Transport-Security', b'max-age=31536000'), (b'X-Content-Type-Options', b'nosniff'), (b'X-Frame-Options', b'deny'), (b'X-XSS-Protection', b'1; mode=block'), (b'X-GitHub-Request-Id', b'441C:147F16:2B57A:334FE:685C061A'), (b'Content-Encoding', b'gzip'), (b'Accept-Ranges', b'bytes'), (b'Date', b'Thu, 26 Jun 2025 16:23:55 GMT'), (b'Via', b'1.1 varnish'), (b'X-Served-By', b'cache-cmh1290121-CMH'), (b'X-Cache', b'HIT'), (b'X-Cache-Hits', b'3'), (b'X-Timer', b'S1750955035.205028,VS0,VE0'), (b'Vary', b'Authorization,Accept-Encoding'), (b'Access-Control-Allow-Origin', b'*'), (b'Cross-Origin-Resource-Policy', b'cross-origin'), (b'X-Fastly-Request-ID', b'f71ef7320e086140e0a33fe398bcaa34b6554006'), (b'Expires', b'Thu, 26 Jun 2025 16:28:55 GMT'), (b'Source-Age', b'77')])
+2025-06-26 12:23:55,141 | httpx | INFO | _client.py:1025 | HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+2025-06-26 12:23:55,141 | httpcore.http11 | DEBUG | _trace.py:47 | receive_response_body.started request=<Request [b'GET']>
+2025-06-26 12:23:55,144 | httpcore.http11 | DEBUG | _trace.py:47 | receive_response_body.complete
+2025-06-26 12:23:55,144 | httpcore.http11 | DEBUG | _trace.py:47 | response_closed.started
+2025-06-26 12:23:55,144 | httpcore.http11 | DEBUG | _trace.py:47 | response_closed.complete
+2025-06-26 12:23:55,144 | httpcore.connection | DEBUG | _trace.py:47 | close.started
+2025-06-26 12:23:55,145 | httpcore.connection | DEBUG | _trace.py:47 | close.complete
+2025-06-26 12:23:55,226 | LiteLLM | DEBUG | http_handler.py:533 | Using AiohttpTransport...
+2025-06-26 12:23:55,226 | LiteLLM | DEBUG | http_handler.py:557 | Creating AiohttpTransport...
+2025-06-26 12:23:55,243 | LiteLLM | DEBUG | litellm_logging.py:170 | [Non-Blocking] Unable to import GenericAPILogger - LiteLLM Enterprise Feature - No module named 'litellm_enterprise'
+2025-06-26 12:23:55,327 | LiteLLM | DEBUG | transformation.py:17 | [Non-Blocking] Unable to import _ENTERPRISE_ResponsesSessionHandler - LiteLLM Enterprise Feature - No module named 'litellm_enterprise'
+2025-06-26 12:23:55,330 | LiteLLM | DEBUG | http_handler.py:533 | Using AiohttpTransport...
+2025-06-26 12:23:55,330 | LiteLLM | DEBUG | http_handler.py:557 | Creating AiohttpTransport...
+2025-06-26 12:23:55,332 | LiteLLM | DEBUG | http_handler.py:533 | Using AiohttpTransport...
+2025-06-26 12:23:55,332 | LiteLLM | DEBUG | http_handler.py:557 | Creating AiohttpTransport...
+2025-06-26 12:23:55,530 | __main__ | ERROR | run_pipeline.py:774 | ❌ Plant build failed: cannot import name 'AnswerEngine' from 'pynucleus.llm.answer_engine' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/llm/answer_engine.py)

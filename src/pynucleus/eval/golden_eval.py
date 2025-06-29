@@ -8,6 +8,11 @@ from dataclasses import dataclass
 from ..rag.engine import ask
 from ..utils.logger import logger
 from ..metrics import Metrics
+from .semantic_validation import (
+    calculate_semantic_similarity, 
+    evaluate_answer_semantically,
+    get_semantic_validation_info
+)
 
 CSV_PATH = "data/validation/golden_dataset.csv"
 
@@ -21,13 +26,16 @@ class EvaluationResult:
     expected_keywords: List[str]
     generated_answer: str
     sources_used: List[str]
-    keyword_matches: List[str]
-    keyword_score: float
+    keyword_matches: List[str]  # Keep for backward compatibility
+    keyword_score: float  # Keep for backward compatibility
     response_time: float
     answer_length: int
     confidence_score: float
     success: bool
     error_message: str = ""
+    # New semantic similarity fields
+    semantic_scores: Optional[Dict[str, float]] = None
+    semantic_score: float = 0.0  # Combined semantic score
 
 
 class EnhancedEvaluator:
@@ -115,16 +123,23 @@ class EnhancedEvaluator:
             answer = response.get("answer", "")
             sources = response.get("sources", [])
             
-            # Calculate metrics
+            # Calculate semantic similarity metrics (primary evaluation)
+            semantic_eval = evaluate_answer_semantically(answer, expected_keywords, threshold=0.3)
+            semantic_scores = semantic_eval.get("semantic_scores", {})
+            semantic_score = semantic_scores.get("combined_score", 0.0)
+            semantic_success = semantic_eval.get("success", False)
+            
+            # Keep keyword matching for backward compatibility and comparison
             keyword_matches = [kw for kw in expected_keywords if kw in answer.lower()]
             keyword_score = len(keyword_matches) / len(expected_keywords) if expected_keywords else 0
             
-            # Calculate confidence score based on multiple factors
-            confidence_score = self._calculate_confidence_score(
-                keyword_score, len(sources), len(answer), response_time
+            # Calculate confidence score based on semantic metrics
+            confidence_score = self._calculate_confidence_score_semantic(
+                semantic_score, len(sources), len(answer), response_time
             )
             
-            success = keyword_score >= 0.5  # At least 50% keywords matched
+            # Success based on semantic similarity (more robust than keyword matching)
+            success = semantic_success
             
             return EvaluationResult(
                 question=question,
@@ -138,7 +153,9 @@ class EnhancedEvaluator:
                 response_time=response_time,
                 answer_length=len(answer),
                 confidence_score=confidence_score,
-                success=success
+                success=success,
+                semantic_scores=semantic_scores,
+                semantic_score=semantic_score
             )
             
         except Exception as e:
@@ -158,12 +175,14 @@ class EnhancedEvaluator:
                 answer_length=0,
                 confidence_score=0.0,
                 success=False,
-                error_message=str(e)
+                error_message=str(e),
+                semantic_scores=None,
+                semantic_score=0.0
             )
     
     def _calculate_confidence_score(self, keyword_score: float, sources_count: int, 
                                   answer_length: int, response_time: float) -> float:
-        """Calculate confidence score based on multiple factors."""
+        """Calculate confidence score based on multiple factors (legacy method)."""
         # Keyword match weight (50%)
         keyword_weight = keyword_score * 0.5
         
@@ -177,6 +196,52 @@ class EnhancedEvaluator:
         time_weight = max(0, 1.0 - (response_time / 10.0)) * 0.1
         
         return round(keyword_weight + source_weight + completeness_weight + time_weight, 3)
+    
+    def _calculate_confidence_score_semantic(self, semantic_score: float, sources_count: int, 
+                                           answer_length: int, response_time: float) -> float:
+        """Calculate confidence score based on semantic similarity and other factors."""
+        # Semantic similarity weight (60%) - higher weight for semantic accuracy
+        semantic_weight = semantic_score * 0.6
+        
+        # Source quality weight (20%)
+        source_weight = min(sources_count / 3.0, 1.0) * 0.2
+        
+        # Answer completeness weight (15%)
+        completeness_weight = min(answer_length / 200.0, 1.0) * 0.15
+        
+        # Response time weight (5%) - less important with semantic evaluation
+        time_weight = max(0, 1.0 - (response_time / 10.0)) * 0.05
+        
+        return round(semantic_weight + source_weight + completeness_weight + time_weight, 3)
+    
+    def _calculate_avg_semantic_metrics(self) -> Dict[str, float]:
+        """Calculate average semantic metrics across all results."""
+        if not self.results:
+            return {}
+        
+        # Filter results with semantic scores
+        results_with_semantics = [r for r in self.results if r.semantic_scores]
+        
+        if not results_with_semantics:
+            return {
+                "avg_bleu_score": 0.0,
+                "avg_rouge_1_f": 0.0,
+                "avg_rouge_2_f": 0.0,
+                "avg_rouge_l_f": 0.0,
+                "avg_bert_score_f1": 0.0,
+                "semantic_evaluation_count": 0
+            }
+        
+        count = len(results_with_semantics)
+        
+        return {
+            "avg_bleu_score": round(sum(r.semantic_scores.get("bleu_score", 0) for r in results_with_semantics) / count, 4),
+            "avg_rouge_1_f": round(sum(r.semantic_scores.get("rouge_1_f", 0) for r in results_with_semantics) / count, 4),
+            "avg_rouge_2_f": round(sum(r.semantic_scores.get("rouge_2_f", 0) for r in results_with_semantics) / count, 4),
+            "avg_rouge_l_f": round(sum(r.semantic_scores.get("rouge_l_f", 0) for r in results_with_semantics) / count, 4),
+            "avg_bert_score_f1": round(sum(r.semantic_scores.get("bert_score_f1", 0) for r in results_with_semantics) / count, 4),
+            "semantic_evaluation_count": count
+        }
     
     def _generate_comprehensive_analysis(self) -> Dict[str, Any]:
         """Generate comprehensive analysis of evaluation results."""
@@ -193,9 +258,13 @@ class EnhancedEvaluator:
         # Performance metrics
         avg_response_time = sum(r.response_time for r in self.results) / total_questions
         avg_keyword_score = sum(r.keyword_score for r in self.results) / total_questions
+        avg_semantic_score = sum(r.semantic_score for r in self.results) / total_questions
         avg_confidence = sum(r.confidence_score for r in self.results) / total_questions
         avg_answer_length = sum(r.answer_length for r in self.results) / total_questions
         avg_sources_used = sum(len(r.sources_used) for r in self.results) / total_questions
+        
+        # Semantic metrics breakdown
+        semantic_metrics = self._calculate_avg_semantic_metrics()
         
         # Domain analysis
         domain_stats = self._analyze_by_category("domain")
@@ -224,9 +293,11 @@ class EnhancedEvaluator:
                 "success_rate": round(success_rate, 3),
                 "avg_response_time": round(avg_response_time, 3),
                 "avg_keyword_score": round(avg_keyword_score, 3),
+                "avg_semantic_score": round(avg_semantic_score, 3),
                 "avg_confidence_score": round(avg_confidence, 3),
                 "avg_answer_length": round(avg_answer_length, 1),
-                "avg_sources_used": round(avg_sources_used, 1)
+                "avg_sources_used": round(avg_sources_used, 1),
+                "semantic_metrics": semantic_metrics
             },
             "domain_analysis": domain_stats,
             "difficulty_analysis": difficulty_stats,
@@ -249,6 +320,7 @@ class EnhancedEvaluator:
                     "successful": 0,
                     "total_response_time": 0,
                     "total_keyword_score": 0,
+                    "total_semantic_score": 0,
                     "total_confidence": 0
                 }
             
@@ -258,6 +330,7 @@ class EnhancedEvaluator:
                 stats["successful"] += 1
             stats["total_response_time"] += result.response_time
             stats["total_keyword_score"] += result.keyword_score
+            stats["total_semantic_score"] += result.semantic_score
             stats["total_confidence"] += result.confidence_score
         
         # Calculate averages
@@ -265,11 +338,13 @@ class EnhancedEvaluator:
             stats["success_rate"] = round(stats["successful"] / stats["questions"], 3)
             stats["avg_response_time"] = round(stats["total_response_time"] / stats["questions"], 3)
             stats["avg_keyword_score"] = round(stats["total_keyword_score"] / stats["questions"], 3)
+            stats["avg_semantic_score"] = round(stats["total_semantic_score"] / stats["questions"], 3)
             stats["avg_confidence"] = round(stats["total_confidence"] / stats["questions"], 3)
             
             # Remove totals for cleaner output
             del stats["total_response_time"]
             del stats["total_keyword_score"]
+            del stats["total_semantic_score"]
             del stats["total_confidence"]
         
         return category_stats
@@ -278,6 +353,7 @@ class EnhancedEvaluator:
         """Analyze quality score distribution."""
         confidence_scores = [r.confidence_score for r in self.results]
         keyword_scores = [r.keyword_score for r in self.results]
+        semantic_scores = [r.semantic_score for r in self.results]
         
         return {
             "confidence_scores": {
@@ -285,6 +361,12 @@ class EnhancedEvaluator:
                 "good": sum(1 for s in confidence_scores if 0.6 <= s < 0.8),
                 "fair": sum(1 for s in confidence_scores if 0.4 <= s < 0.6),
                 "poor": sum(1 for s in confidence_scores if s < 0.4)
+            },
+            "semantic_accuracy": {
+                "excellent": sum(1 for s in semantic_scores if s >= 0.7),
+                "good": sum(1 for s in semantic_scores if 0.5 <= s < 0.7),
+                "fair": sum(1 for s in semantic_scores if 0.3 <= s < 0.5),
+                "poor": sum(1 for s in semantic_scores if s < 0.3)
             },
             "keyword_accuracy": {
                 "perfect": sum(1 for s in keyword_scores if s == 1.0),
@@ -412,6 +494,8 @@ class EnhancedEvaluator:
                     "expected_keywords": r.expected_keywords,
                     "keyword_matches": r.keyword_matches,
                     "keyword_score": r.keyword_score,
+                    "semantic_scores": r.semantic_scores,
+                    "semantic_score": r.semantic_score,
                     "response_time": r.response_time,
                     "answer_length": r.answer_length,
                     "sources_count": len(r.sources_used),

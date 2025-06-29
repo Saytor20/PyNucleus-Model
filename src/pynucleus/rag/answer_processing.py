@@ -3,8 +3,10 @@ Answer processing module for RAG pipeline with deduplication and citation enforc
 """
 
 import re
-from typing import List, Dict, Any, Optional
+import logging
+from typing import List, Dict, Any, Optional, Tuple
 from rapidfuzz import fuzz
+from collections import Counter
 from ..utils.logger import logger
 from ..settings import settings
 
@@ -181,101 +183,299 @@ def enforce_citation_format(text: str, available_sources: List[str]) -> str:
     
     return text
 
-def process_answer_quality(answer: str, sources: List[str], retry_count: int = 0) -> Dict[str, Any]:
+def process_answer_quality(answer: str, sources: List[str], retry_count: int = 0, 
+                          question: str = None, expected_keywords: List[str] = None) -> Dict[str, Any]:
     """
-    Process answer for quality, deduplication, and citation enforcement.
+    Enhanced answer processing with quality validation and improvement for chemical engineering.
     
     Args:
-        answer: Raw answer text
-        sources: List of source IDs used
-        retry_count: Number of retries attempted
+        answer: Generated answer text
+        sources: List of source documents
+        retry_count: Current retry attempt number
+        question: Original question (for validation)
+        expected_keywords: Expected keywords for domain validation
         
     Returns:
         Dictionary with processed answer and quality metrics
     """
+    logger = logging.getLogger(__name__)
+    
     if not answer:
         return {
-            "processed_answer": "I don't have enough information to provide a complete answer.",
-            "has_citations": False,
-            "sentence_count": 0,
-            "citations_found": [],
+            "processed_answer": "",
+            "quality_score": 0.0,
             "deduplication_applied": False,
-            "retry_count": retry_count,
-            "quality_score": 0.0
+            "has_citations": False,
+            "domain_relevance": 0.0,
+            "technical_accuracy": 0.0,
+            "improvement_applied": False
         }
     
-    # Extract sentences for deduplication
+    original_answer = answer
+    
+    # Step 1: Clean and deduplicate
     sentences = extract_sentences(answer)
-    original_sentence_count = len(sentences)
+    unique_sentences = deduplicate_answer(sentences)
+    logger.info(f"Deduplication: {len(sentences)} -> {len(unique_sentences)} sentences")
     
-    # Apply deduplication
-    threshold = getattr(settings, 'DEDUPLICATION_THRESHOLD', 90.0)
-    deduplicated_sentences = deduplicate_answer(sentences, threshold)
-    deduplication_applied = len(deduplicated_sentences) < len(sentences)
+    # Step 2: Remove low-quality sentences
+    filtered_sentences = _filter_low_quality_sentences(unique_sentences)
     
-    # Reconstruct answer from deduplicated sentences
-    processed_answer = ' '.join(deduplicated_sentences)
+    # Step 3: Chemical engineering domain validation
+    domain_score = _assess_domain_relevance(filtered_sentences, expected_keywords)
     
-    # Enforce citation format
-    processed_answer = enforce_citation_format(processed_answer, sources)
+    # Step 4: Technical accuracy assessment
+    technical_score = _assess_technical_accuracy(filtered_sentences, question)
     
-    # Check citation quality
-    has_citations = has_valid_citations(processed_answer)
-    citations_found = extract_citations(processed_answer)
+    # Step 5: Reconstruct answer
+    processed_answer = ' '.join(filtered_sentences)
     
-    # Calculate quality score
-    quality_score = calculate_answer_quality(processed_answer, has_citations, len(citations_found))
+    # Step 6: Add citations if missing
+    has_citations = bool(re.search(r'\[Doc-\w+\]', processed_answer))
+    if not has_citations and sources:
+        processed_answer = enforce_citation_format(processed_answer, sources)
+        has_citations = True
+        logger.info("Added citation to answer lacking proper citations")
+    
+    # Step 7: Quality improvement for poor answers
+    improvement_applied = False
+    if (domain_score < 0.3 or technical_score < 0.3) and question and retry_count == 0:
+        improved_answer = _attempt_answer_improvement(question, processed_answer, sources)
+        if improved_answer and improved_answer != processed_answer:
+            processed_answer = improved_answer
+            improvement_applied = True
+            logger.info("Applied answer improvement due to low quality scores")
+    
+    # Step 8: Final quality assessment
+    quality_score = _calculate_quality_score(
+        processed_answer, sources, domain_score, technical_score, 
+        has_citations, len(filtered_sentences)
+    )
     
     return {
         "processed_answer": processed_answer,
+        "quality_score": quality_score,
+        "deduplication_applied": len(sentences) != len(unique_sentences),
         "has_citations": has_citations,
-        "sentence_count": len(deduplicated_sentences),
-        "original_sentence_count": original_sentence_count,
-        "citations_found": citations_found,
-        "deduplication_applied": deduplication_applied,
-        "retry_count": retry_count,
-        "quality_score": quality_score
+        "domain_relevance": domain_score,
+        "technical_accuracy": technical_score,
+        "improvement_applied": improvement_applied,
+        "sentence_count": len(filtered_sentences),
+        "original_sentence_count": len(sentences)
     }
 
-def calculate_answer_quality(answer: str, has_citations: bool, citation_count: int) -> float:
-    """
-    Calculate a quality score for the answer based on various factors.
+def _filter_low_quality_sentences(sentences: List[str]) -> List[str]:
+    """Filter out low-quality sentences that don't contribute to answer quality."""
+    filtered = []
     
-    Args:
-        answer: The answer text
-        has_citations: Whether the answer has citations
-        citation_count: Number of citations found
+    for sentence in sentences:
+        # Skip very short sentences (unless they're important statements)
+        if len(sentence.strip()) < 20 and not _is_important_short_statement(sentence):
+            continue
+            
+        # Skip repetitive or filler sentences
+        if _is_filler_sentence(sentence):
+            continue
+            
+        # Skip sentences that are mostly formatting or navigation
+        if _is_formatting_sentence(sentence):
+            continue
+            
+        # Skip sentences with too many repeated words
+        if _has_excessive_repetition(sentence):
+            continue
+            
+        filtered.append(sentence)
+    
+    return filtered
+
+def _is_important_short_statement(sentence: str) -> bool:
+    """Check if a short sentence contains important information."""
+    important_patterns = [
+        r'\b(yes|no)\b',  # Direct answers
+        r'\b\d+(\.\d+)?\s*(°C|°F|K|bar|psi|atm)\b',  # Temperature/pressure values
+        r'\b\d+(\.\d+)?\s*(mol|kg|L|m³)\b',  # Quantities
+    ]
+    
+    return any(re.search(pattern, sentence, re.IGNORECASE) for pattern in important_patterns)
+
+def _is_filler_sentence(sentence: str) -> bool:
+    """Identify filler sentences that don't add value."""
+    filler_patterns = [
+        r'^(please|thank you|you\'re welcome)',
+        r'(let me know|feel free to ask|any questions)',
+        r'^(as mentioned|as stated|as discussed)',
+        r'^(in conclusion|to summarize|in summary)',
+        r'(hope this helps|hope that helps)',
+    ]
+    
+    sentence_lower = sentence.lower().strip()
+    return any(re.search(pattern, sentence_lower) for pattern in filler_patterns)
+
+def _is_formatting_sentence(sentence: str) -> bool:
+    """Identify sentences that are primarily formatting or navigation."""
+    formatting_patterns = [
+        r'^(answer:|question:|context:)',
+        r'^(step \d+|stage \d+|phase \d+):\s*$',
+        r'^(###|##|\*\*)',  # Markdown headers
+        r'^\s*[-\*]\s*$',  # Empty list items
+    ]
+    
+    return any(re.search(pattern, sentence, re.IGNORECASE) for pattern in formatting_patterns)
+
+def _has_excessive_repetition(sentence: str) -> bool:
+    """Check if sentence has excessive word repetition."""
+    words = sentence.lower().split()
+    if len(words) < 5:
+        return False
+    
+    word_counts = Counter(words)
+    max_count = max(word_counts.values())
+    
+    # If any word appears more than 3 times in a sentence, it's likely repetitive
+    return max_count > 3
+
+def _assess_domain_relevance(sentences: List[str], expected_keywords: List[str] = None) -> float:
+    """Assess how relevant the answer is to chemical engineering domain."""
+    if not sentences:
+        return 0.0
+    
+    text = ' '.join(sentences).lower()
+    
+    # Chemical engineering domain indicators
+    domain_keywords = [
+        'chemical', 'engineering', 'process', 'reactor', 'distillation', 'separation',
+        'heat exchanger', 'mass transfer', 'heat transfer', 'fluid', 'pressure', 'temperature',
+        'catalyst', 'reaction', 'equilibrium', 'thermodynamics', 'kinetics', 'phase',
+        'absorption', 'adsorption', 'extraction', 'crystallization', 'evaporation',
+        'filtration', 'membrane', 'pump', 'compressor', 'turbine', 'vessel', 'column',
+        'efficiency', 'optimization', 'design', 'operation', 'control', 'safety',
+        'plant', 'unit operation', 'flowsheet', 'piping', 'instrumentation'
+    ]
+    
+    # Count domain keyword matches
+    domain_matches = sum(1 for keyword in domain_keywords if keyword in text)
+    domain_score = min(domain_matches / 10, 1.0)  # Normalize to 0-1
+    
+    # Boost score if expected keywords are present
+    if expected_keywords:
+        expected_matches = sum(1 for keyword in expected_keywords if keyword.lower() in text)
+        expected_score = expected_matches / len(expected_keywords) if expected_keywords else 0
+        domain_score = (domain_score + expected_score) / 2
+    
+    return domain_score
+
+def _assess_technical_accuracy(sentences: List[str], question: str = None) -> float:
+    """Assess the technical accuracy indicators in the answer."""
+    if not sentences:
+        return 0.0
+    
+    text = ' '.join(sentences).lower()
+    accuracy_score = 0.5  # Start with neutral score
+    
+    # Positive indicators (increase score)
+    positive_indicators = [
+        r'\b\d+(\.\d+)?\s*(°C|°F|K|bar|psi|atm|kPa|MPa)\b',  # Specific values with units
+        r'\b(equation|formula|principle|law|theory)\b',  # References to established knowledge
+        r'\b(typically|usually|generally|commonly)\b',  # Appropriate qualifiers
+        r'\b(according to|based on|studies show)\b',  # Evidence-based language
+    ]
+    
+    for pattern in positive_indicators:
+        if re.search(pattern, text):
+            accuracy_score += 0.1
+    
+    # Negative indicators (decrease score)
+    negative_indicators = [
+        r'\b(always|never|all|every|none)\b(?!\s+(?:chemical|engineering))',  # Overgeneralizations
+        r'\b(might be|could be|perhaps|maybe)\b.*\b(is|are)\b',  # Uncertain statements presented as facts
+        r'\b(cats|dogs|animals|weather|food|sports)\b',  # Completely unrelated content
+        r'\b(i think|i believe|in my opinion)\b',  # Personal opinions in technical context
+    ]
+    
+    for pattern in negative_indicators:
+        if re.search(pattern, text):
+            accuracy_score -= 0.2
+    
+    # Specific chemical engineering accuracy checks
+    if question:
+        question_lower = question.lower()
+        if 'distillation' in question_lower and 'distillation' in text:
+            # Check for correct distillation concepts
+            if any(term in text for term in ['boiling point', 'vapor', 'liquid', 'separation']):
+                accuracy_score += 0.1
+            if 'cat' in text or 'animal' in text:  # Wrong context
+                accuracy_score -= 0.3
+    
+    return max(0.0, min(1.0, accuracy_score))
+
+def _attempt_answer_improvement(question: str, poor_answer: str, sources: List[str]) -> Optional[str]:
+    """Attempt to improve a poor quality answer using enhanced prompting."""
+    try:
+        from ..llm.prompting import build_answer_improvement_prompt
+        from ..llm.model_loader import generate
         
-    Returns:
-        Quality score between 0.0 and 1.0
-    """
+        # Build context from sources for improvement
+        context = f"Sources: {'; '.join(sources[:3])}" if sources else "No specific sources available"
+        
+        improvement_prompt = build_answer_improvement_prompt(question, poor_answer, context)
+        
+        # Generate improved answer with conservative settings
+        improved_answer = generate(
+            improvement_prompt,
+            max_tokens=300,  # Shorter for focused improvement
+            temperature=0.1  # Low temperature for accuracy
+        )
+        
+        if improved_answer and len(improved_answer.strip()) > 50:
+            # Clean the improved answer
+            improved_answer = improved_answer.strip()
+            
+            # Basic validation - ensure it's actually better
+            if (len(improved_answer) > len(poor_answer) * 0.8 and  # Not too short
+                not _is_filler_sentence(improved_answer) and  # Not just filler
+                _assess_domain_relevance([improved_answer]) > 0.3):  # Domain relevant
+                return improved_answer
+    
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Answer improvement failed: {e}")
+    
+    return None
+
+def _calculate_quality_score(answer: str, sources: List[str], domain_score: float, 
+                           technical_score: float, has_citations: bool, 
+                           sentence_count: int) -> float:
+    """Calculate overall quality score for the processed answer."""
     if not answer:
         return 0.0
     
-    score = 0.0
+    # Base score components
+    domain_weight = 0.3
+    technical_weight = 0.3
+    citation_weight = 0.2
+    completeness_weight = 0.2
     
-    # Length factor (reasonable length gets points)
-    length = len(answer)
-    if 50 <= length <= 1000:
-        score += 0.3
-    elif length > 1000:
-        score += 0.2  # Very long answers might be verbose
+    # Domain relevance score
+    domain_component = domain_score * domain_weight
     
-    # Citation factor
-    if has_citations:
-        score += 0.4
-        # Bonus for multiple citations
-        if citation_count > 1:
-            score += min(0.2, citation_count * 0.05)
+    # Technical accuracy score
+    technical_component = technical_score * technical_weight
     
-    # Content quality factors
-    if re.search(r'\b(process|system|method|technique|procedure)\b', answer.lower()):
-        score += 0.1  # Technical content
+    # Citation score
+    citation_component = (1.0 if has_citations else 0.0) * citation_weight
     
-    if re.search(r'\b(because|therefore|thus|due to|result)\b', answer.lower()):
-        score += 0.1  # Explanatory content
+    # Completeness score (based on length and sentence count)
+    answer_length = len(answer)
+    completeness_score = min(1.0, answer_length / 200)  # Normalize to reasonable length
+    sentence_factor = min(1.0, sentence_count / 3)  # Prefer multi-sentence answers
+    completeness_component = (completeness_score * sentence_factor) * completeness_weight
     
-    return min(1.0, score)
+    # Calculate final score
+    quality_score = (domain_component + technical_component + 
+                    citation_component + completeness_component)
+    
+    return round(min(1.0, max(0.0, quality_score)), 3)
 
 def should_retry_generation(quality_result: Dict[str, Any], max_retries: int = 2) -> bool:
     """
@@ -317,6 +517,5 @@ __all__ = [
     "extract_citations",
     "enforce_citation_format",
     "process_answer_quality",
-    "calculate_answer_quality",
     "should_retry_generation"
 ] 

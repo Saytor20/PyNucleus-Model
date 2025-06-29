@@ -310,16 +310,23 @@ def ask_enhanced(question: str, retry_count: int = 0) -> dict:
         )
         generation_time = stop("enhanced_generation")
         
-        # Process answer quality with deduplication and citation enforcement
+        # Process answer quality with enhanced validation and improvement
         # For LLM general knowledge, we're more lenient with citations
         if answer_source == "llm_general":
             # Don't require citations for general knowledge answers
-            quality_result = process_answer_quality(answer, [], retry_count)
+            quality_result = process_answer_quality(
+                answer, [], retry_count, 
+                question=question, expected_keywords=[]
+            )
             # Override citation requirement for general knowledge
             quality_result["has_citations"] = True  # General knowledge doesn't need citations
             quality_result["quality_score"] = max(quality_result["quality_score"], 0.6)  # Boost quality for general knowledge
         else:
-            quality_result = process_answer_quality(answer, sources, retry_count)
+            # Enhanced processing with question context for better validation
+            quality_result = process_answer_quality(
+                answer, sources, retry_count,
+                question=question, expected_keywords=[]
+            )
         
         # Check if retry is needed (only for RAG answers)
         if answer_source == "rag" and should_retry_generation(quality_result, max_retries):
@@ -383,6 +390,9 @@ def ask(question: str, max_retries: int = 2) -> dict:
     Returns:
         Dictionary with answer, sources, and metadata
     """
+    import time
+    start_time = time.time()
+    
     try:
         # Enhanced retrieval - get top 3 most relevant chunks
         documents, sources, metadatas = retrieve_enhanced(question)
@@ -446,10 +456,14 @@ def ask(question: str, max_retries: int = 2) -> dict:
             answer = cleaned_answer
             break
         
-        # Process answer quality
-        quality_result = process_answer_quality(answer, sources)
+        # Process answer quality with enhanced validation
+        quality_result = process_answer_quality(
+            answer, sources, retry_count,
+            question=question, expected_keywords=[]
+        )
         
-        return {
+        # Create initial result dictionary
+        result = {
             "answer": quality_result["processed_answer"],
             "sources": sources,
             "confidence": quality_result["quality_score"],
@@ -459,8 +473,20 @@ def ask(question: str, max_retries: int = 2) -> dict:
             "retry_count": retry_count,
             "tokens_used": final_tokens_used,
             "is_complex_question": is_complex,
-            "context_length": context_length
+            "context_length": context_length,
+            "response_time": time.time() - start_time,
+            "retrieval_score": 0.5  # Placeholder - should come from actual retrieval scoring
         }
+        
+        # Apply confidence calibration
+        try:
+            from ..eval.confidence_calibration import calibrate_rag_confidence
+            result = calibrate_rag_confidence(result, question)
+            logger.info(f"Applied confidence calibration: {result.get('confidence_calibration', {})}")
+        except Exception as e:
+            logger.warning(f"Failed to apply confidence calibration: {e}")
+        
+        return result
         
     except Exception as e:
         logger.error(f"Error in RAG pipeline: {e}")
@@ -507,8 +533,11 @@ def ask_streaming(question: str):
                     if chunk and isinstance(chunk, str):
                         collected_response += chunk
                 
-                # Process collected response for quality
-                quality_result = process_answer_quality(collected_response, sources)
+                # Process collected response for quality with enhanced validation
+                quality_result = process_answer_quality(
+                    collected_response, sources, 0,
+                    question=question, expected_keywords=[]
+                )
                 cleaned_response = quality_result["processed_answer"]
                 
                 # Yield cleaned response word by word
@@ -521,7 +550,10 @@ def ask_streaming(question: str):
             else:
                 # Fallback: simulate streaming for non-streaming responses
                 answer = str(stream_response) if stream_response else "Unable to generate response."
-                quality_result = process_answer_quality(answer, sources)
+                quality_result = process_answer_quality(
+                    answer, sources, 0,
+                    question=question, expected_keywords=[]
+                )
                 cleaned_answer = quality_result["processed_answer"]
                 
                 # Split answer into words and yield word by word

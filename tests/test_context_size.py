@@ -1,5 +1,5 @@
-from src.pynucleus.settings import settings
-from src.pynucleus.rag.collector import chunk_text
+from pynucleus.settings import settings
+from pynucleus.rag.collector import chunk_text
 import pytest
 
 def test_chunk_size():
