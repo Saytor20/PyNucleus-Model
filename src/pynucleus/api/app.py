@@ -5,6 +5,8 @@ Production-ready Flask app with:
 - Application factory pattern  
 - Confidence calibration integration
 - RAG pipeline integration
+- Redis distributed caching
+- Horizontal scaling support
 - Comprehensive error handling
 - Health monitoring
 """
@@ -60,7 +62,9 @@ def create_app(config: Optional[Dict[str, Any]] = None) -> Flask:
         'DEBUG': os.getenv('FLASK_DEBUG', 'false').lower() == 'true',
         'TESTING': False,
         'SECRET_KEY': os.getenv('SECRET_KEY', 'dev-key-change-in-production'),
-        'JSON_SORT_KEYS': False
+        'JSON_SORT_KEYS': False,
+        'REDIS_URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'),
+        'PYNUCLEUS_INSTANCE_ID': os.getenv('PYNUCLEUS_INSTANCE_ID', 'api-default')
     })
     
     # Apply additional config if provided
@@ -70,13 +74,16 @@ def create_app(config: Optional[Dict[str, Any]] = None) -> Flask:
     # Setup logging
     configure_logging(app)
     
+    # Initialize Redis cache
+    initialize_cache(app)
+    
     # Register routes
     register_routes(app)
     
     # Setup cleanup handlers
     setup_cleanup_handlers(app)
     
-    logger.info("PyNucleus Flask API starting up...")
+    logger.info(f"PyNucleus Flask API starting up (Instance: {app.config['PYNUCLEUS_INSTANCE_ID']})...")
     
     return app
 
@@ -96,31 +103,80 @@ def configure_logging(app: Flask) -> None:
         app.logger.addHandler(file_handler)
         app.logger.setLevel(logging.INFO)
 
+def initialize_cache(app: Flask) -> None:
+    """Initialize Redis distributed cache"""
+    try:
+        from pynucleus.deployment.cache_integration import get_cache
+        cache = get_cache()
+        app.cache = cache
+        logger.info("Redis distributed cache initialized")
+    except Exception as e:
+        logger.warning(f"Cache initialization failed: {e}")
+        app.cache = None
+
 def register_routes(app: Flask) -> None:
     """Register all application routes"""
     
     @app.route('/health', methods=['GET'])
     def health_check():
-        """Health check endpoint"""
+        """Health check endpoint with cache status"""
+        cache_status = False
+        cache_stats = {}
+        
+        if hasattr(app, 'cache') and app.cache:
+            cache_status = app.cache.enabled
+            if cache_status:
+                cache_stats = app.cache.get_stats()
+        
         logger.info("Health check requested")
         return jsonify({
             "status": "healthy",
             "version": "1.0.0",
+            "instance_id": app.config.get('PYNUCLEUS_INSTANCE_ID'),
             "components": {
                 "rag_engine": _rag_engine is not None,
-                "confidence_calibration": True
+                "confidence_calibration": True,
+                "cache": cache_status,
+                "cache_stats": cache_stats
             }
         })
+    
+    @app.route('/metrics', methods=['GET'])
+    def metrics():
+        """Prometheus-style metrics endpoint"""
+        try:
+            from pynucleus.deployment.cache_integration import get_cache_metrics
+            metrics_data = get_cache_metrics().get_metrics()
+            
+            # Format as Prometheus metrics
+            response = []
+            response.append(f"# HELP pynucleus_cache_hits_total Total cache hits")
+            response.append(f"# TYPE pynucleus_cache_hits_total counter")
+            response.append(f"pynucleus_cache_hits_total {{instance=\"{app.config['PYNUCLEUS_INSTANCE_ID']}\"}} {metrics_data['hit_count']}")
+            
+            response.append(f"# HELP pynucleus_cache_misses_total Total cache misses")
+            response.append(f"# TYPE pynucleus_cache_misses_total counter")
+            response.append(f"pynucleus_cache_misses_total {{instance=\"{app.config['PYNUCLEUS_INSTANCE_ID']}\"}} {metrics_data['miss_count']}")
+            
+            response.append(f"# HELP pynucleus_cache_hit_rate Cache hit rate")
+            response.append(f"# TYPE pynucleus_cache_hit_rate gauge")
+            response.append(f"pynucleus_cache_hit_rate {{instance=\"{app.config['PYNUCLEUS_INSTANCE_ID']}\"}} {metrics_data['hit_rate']}")
+            
+            return "\n".join(response), 200, {'Content-Type': 'text/plain'}
+        except Exception as e:
+            logger.error(f"Metrics endpoint error: {e}")
+            return "# Error generating metrics", 500, {'Content-Type': 'text/plain'}
     
     @app.route('/ask', methods=['POST'])
     def ask_question():
         """
-        Main RAG query endpoint with confidence calibration.
+        Main RAG query endpoint with confidence calibration and caching.
         
         Request JSON:
         {
             "question": "What is distillation?",
-            "user_feedback": 0.8  // Optional: for calibration training
+            "user_feedback": 0.8,  // Optional: for calibration training
+            "use_cache": true       // Optional: enable/disable caching
         }
         
         Response JSON:
@@ -145,11 +201,25 @@ def register_routes(app: Flask) -> None:
             data = request.get_json()
             question = data.get('question', '').strip()
             user_feedback = data.get('user_feedback')  # Optional for training
+            use_cache = data.get('use_cache', True)  # Cache enabled by default
             
             if not question:
                 return jsonify({"error": "Question is required"}), 400
             
-            logger.info(f"Processing question: {question[:50]}... (stream: False)")
+            logger.info(f"Processing question: {question[:50]}... (cache: {use_cache})")
+            
+            # Check cache first if enabled
+            cached_response = None
+            if use_cache and hasattr(app, 'cache') and app.cache:
+                cached_response = app.cache.get(question)
+                if cached_response:
+                    from pynucleus.deployment.cache_integration import get_cache_metrics
+                    get_cache_metrics().record_hit()
+                    logger.info("Returning cached response")
+                    return jsonify(cached_response)
+                else:
+                    from pynucleus.deployment.cache_integration import get_cache_metrics
+                    get_cache_metrics().record_miss()
             
             # Get RAG engine
             rag_ask = get_rag_engine()
@@ -183,13 +253,30 @@ def register_routes(app: Flask) -> None:
                     "retrieval_count": result.get("retrieval_count", 0),
                     "has_citations": result.get("has_citations", False),
                     "tokens_used": result.get("tokens_used", 0),
-                    "is_complex_question": result.get("is_complex_question", False)
+                    "is_complex_question": result.get("is_complex_question", False),
+                    "instance_id": app.config['PYNUCLEUS_INSTANCE_ID'],
+                    "cache_hit": False
                 }
             }
             
             # Include confidence calibration details if available
             if "confidence_calibration" in result:
                 response["confidence_calibration"] = result["confidence_calibration"]
+            
+            # Cache the response if enabled and successful
+            if use_cache and hasattr(app, 'cache') and app.cache and not result.get("error"):
+                try:
+                    # Determine cache TTL based on confidence and complexity
+                    cache_ttl = 3600  # Default 1 hour
+                    if result.get("confidence", 0) > 0.8:
+                        cache_ttl = 7200  # 2 hours for high confidence
+                    elif result.get("is_complex_question", False):
+                        cache_ttl = 1800  # 30 minutes for complex questions
+                    
+                    app.cache.set(question, response, ttl=cache_ttl)
+                    logger.debug(f"Cached response with TTL: {cache_ttl}s")
+                except Exception as e:
+                    logger.warning(f"Failed to cache response: {e}")
             
             logger.info(f"Question processed successfully in {result.get('response_time', 0):.2f}s")
             return jsonify(response)
@@ -198,8 +285,12 @@ def register_routes(app: Flask) -> None:
             logger.error(f"Ask endpoint error: {e}")
             return jsonify({
                 "error": "Internal server error",
-                "answer": "An error occurred while processing your question",
-                "confidence": 0.0
+                "answer": "I apologize, but I encountered an error processing your question.",
+                "confidence": 0.0,
+                "metadata": {
+                    "instance_id": app.config['PYNUCLEUS_INSTANCE_ID'],
+                    "error_type": type(e).__name__
+                }
             }), 500
     
     @app.route('/calibration/report', methods=['GET'])

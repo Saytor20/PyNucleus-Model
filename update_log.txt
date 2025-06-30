@@ -283,11 +283,32 @@ All comprehensive_system_diagnostic and system_validator are actually giving som
 The next step is to work on the "build" mode which includes the feasibility study and mock data. 
 
 To Do: 
-1) Modular Plant "Build" Endpoint Setup
-2) Financial Expert Tool Integration
-3) Modular Plant Templates & Price Database Setup
-4) integration and Diagnostics, Health Checks, and Logging
-5)Automated Backend Testing & CI/CD Preparation
- 2025-06-24 21:26:32 changes made and pushed to origin main
+1) Modular Plant "Build" Endpoint Setup - Completed but needs verification
+2) Financial Expert Tool Integration - Completed but needs confirmation 
+3) Modular Plant Templates & Price Database Setup - Completed but needs review
+4) integration and Diagnostics, Health Checks, and Logging - completed
+6) Enhanced Semantic Validation - completed
+7) Dynamic Confidence Scoring System - completed 
+8) Golden Dataset Expansion & Expert Validation - completed
+9) Robustness and Error Analysis Dashboard - completed 
+10)Scalability & Deployment Enhancements (Final Phase)
+
+
+Main things to Do:
+1) Deploy the model to google colab and test it... make sure the set up for github pipeline to pull is there to always test it 
+2) update the API script to include costs  - completed 
+3) create a finanical advisor model that handles the money - completed
+5) Robustness and Error Analysis Dashboard - completed but needs checks 
+6) Scalability & Deployment Enhancements - completed 
 
  2025-06-29 14:16:44 changes made and pushed to origin main
+
+To Do) 
+1) Deploy the model to google colab / windows and test it... make sure the set up for github pipeline to pull is there to always test it 
+2) we need to understand what we have to do with the golden dataset and validation data are we trainning on them or what and what is the difference between the 2? 
+3) Automated Backend Testing & CI/CD Preparation
+4) Test the components of the RAG and LLM and make sure all scenarios are covered. The $$ advisor info and output should be checked 
+5) Choose the UI either Flask or the other one 
+6) MAJOR clean house is needed to determine the files needed and not needed 
+7) 
+ 2025-06-30 14:44:22 changes made and pushed to origin main

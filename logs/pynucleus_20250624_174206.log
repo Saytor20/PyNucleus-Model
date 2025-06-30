@@ -22,3 +22,704 @@
 2025-06-26 12:17:02,516 | src.pynucleus.api.app | WARNING | app.py:130 | 404 error: http://localhost:5001/apple-touch-icon-precomposed.png
 2025-06-26 12:17:02,547 | src.pynucleus.api.app | WARNING | app.py:130 | 404 error: http://localhost:5001/favicon.ico
 2025-06-26 12:17:02,619 | src.pynucleus.api.app | WARNING | app.py:130 | 404 error: http://localhost:5001/apple-touch-icon.png
+2025-06-30 14:26:56,966 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:26:57,014 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:26:57,015 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:26:57,017 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:26:57,017 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:26:57,022 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:26:57,024 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:26:57,024 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:26:57,025 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:26:57,025 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:26:57,026 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Residence time distribution concept... (stream: False)
+2025-06-30 14:26:57,027 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:26:57,027 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:26:57,028 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:26:57,028 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:26:57,029 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:26:57,029 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:26:57,509 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:26:58,141 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:26:59,013 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Principles of mass transfer... (stream: False)
+2025-06-30 14:26:59,365 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:26:59,365 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:26:59,366 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:26:59,366 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:26:59,367 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:26:59,368 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:26:59,368 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:26:59,368 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:26:59,369 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:26:59,369 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Principles of mass transfer... (stream: False)
+2025-06-30 14:26:59,370 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:26:59,370 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:26:59,370 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:26:59,371 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:26:59,371 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:26:59,371 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:26:59,410 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:26:59,511 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:26:59,990 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:00,172 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:00,172 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:00,173 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,173 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,174 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:00,175 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:00,175 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:00,175 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,175 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,176 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:00,177 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:00,177 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:00,177 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,177 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:00,178 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,178 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:00,216 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:00,312 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:00,776 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:00,957 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:00,958 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:00,958 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,958 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,959 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:00,960 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:00,960 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:00,960 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,961 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,961 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:00,962 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:00,962 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:00,962 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,963 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:00,963 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:00,963 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:01,001 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:01,098 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:01,554 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:01,738 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:01,738 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:01,738 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:01,739 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:01,740 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:01,741 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:01,741 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:01,741 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:01,741 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:01,742 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:01,743 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:01,743 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:01,743 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:01,743 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:01,744 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:01,744 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:01,776 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:01,872 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:02,325 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Principles of mass transfer... (stream: False)
+2025-06-30 14:27:02,507 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:02,508 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:02,508 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:02,508 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:02,509 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to design cooling towers?... (stream: False)
+2025-06-30 14:27:02,510 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:02,510 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:02,510 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:02,511 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:02,511 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:02,512 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:02,512 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:02,512 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:02,513 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:02,513 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:02,513 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:02,548 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:02,644 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:03,097 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:03,279 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:03,279 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:03,279 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:03,280 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:03,281 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:03,281 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:03,281 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:03,282 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:03,282 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:03,283 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:03,283 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:03,284 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:03,284 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:03,284 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:03,284 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:03,285 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:03,323 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:03,418 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:03,875 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:04,061 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:04,062 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:04,062 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,062 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,064 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:04,064 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:04,064 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:04,065 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,065 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,066 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:04,066 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:04,066 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:04,067 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,067 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:04,067 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,068 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:04,107 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:04,209 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:04,694 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:04,877 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:04,878 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:04,878 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,878 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,879 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:04,880 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:04,880 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:04,880 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,881 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,882 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:04,882 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:04,882 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:04,883 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,883 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:04,883 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:04,883 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:04,924 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:05,019 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:05,472 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:05,656 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:05,657 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:05,657 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:05,657 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:05,658 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:05,659 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:05,659 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:05,659 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:05,660 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:05,660 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:05,661 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:05,661 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:05,661 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:05,662 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:05,662 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:05,662 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:05,699 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:05,799 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:06,250 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:06,435 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:06,435 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:06,435 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:06,436 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:06,437 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:06,437 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:06,437 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:06,438 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:06,438 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:06,439 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:06,439 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:06,439 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:06,440 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:06,440 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:06,440 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:06,441 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:06,478 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:06,572 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:07,027 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:07,211 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:07,211 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:07,212 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:07,212 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:07,213 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:07,214 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:07,214 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:07,214 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:07,215 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:07,215 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:07,216 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:07,216 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:07,216 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:07,217 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:07,217 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:07,217 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:07,255 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:07,351 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:07,813 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:08,001 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:08,002 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:08,002 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,002 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,004 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to design cooling towers?... (stream: False)
+2025-06-30 14:27:08,004 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:08,004 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:08,005 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,005 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,006 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:08,006 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:08,006 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:08,007 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,007 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:08,008 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,008 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:08,044 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:08,139 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:08,599 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:08,783 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:08,783 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:08,784 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,784 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,785 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:08,786 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:08,786 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:08,786 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,787 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,787 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:08,788 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:08,788 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:08,788 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,789 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:08,789 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:08,789 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:08,823 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:08,920 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:09,373 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to design cooling towers?... (stream: False)
+2025-06-30 14:27:09,574 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:09,574 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:09,575 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:09,575 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:09,576 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:09,577 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:09,577 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:09,577 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:09,578 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:09,579 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:09,579 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:09,579 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:09,580 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:09,580 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:09,580 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:09,581 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:09,617 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:09,719 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:10,339 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:10,536 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:10,537 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:10,537 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:10,538 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:10,539 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Principles of mass transfer... (stream: False)
+2025-06-30 14:27:10,540 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:10,540 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:10,540 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:10,541 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:10,542 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:10,542 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:10,543 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:10,543 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:10,543 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:10,544 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:10,544 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:10,593 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:10,706 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:11,216 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:11,411 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:11,411 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:11,411 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:11,412 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:11,413 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:11,413 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:11,414 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:11,414 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:11,414 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:11,415 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:11,415 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:11,416 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:11,416 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:11,416 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:11,417 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:11,417 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:11,456 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:11,555 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:12,029 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Residence time distribution concept... (stream: False)
+2025-06-30 14:27:12,224 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:12,224 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:12,224 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:12,225 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:12,226 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:12,226 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:12,227 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:12,227 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:12,227 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:12,228 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:12,229 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:12,229 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:12,229 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:12,229 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:12,230 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:12,230 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:12,272 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:12,370 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:12,827 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:13,014 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:13,014 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:13,015 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,015 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,016 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:13,017 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:13,017 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:13,017 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,018 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,018 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:13,019 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:13,019 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:13,019 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,020 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:13,020 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,020 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:13,059 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:13,158 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:13,635 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:13,822 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:13,822 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:13,823 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,823 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,824 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:13,825 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:13,825 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:13,825 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,826 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,826 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:13,827 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:13,827 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:13,828 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,828 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:13,828 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:13,829 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:13,867 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:13,964 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:14,440 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:14,630 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:14,630 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:14,630 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:14,631 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:14,632 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:14,632 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:14,633 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:14,633 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:14,633 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:14,634 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:14,635 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:14,635 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:14,635 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:14,636 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:14,636 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:14,636 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:14,675 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:14,786 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:15,275 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Role of catalysts in reactions... (stream: False)
+2025-06-30 14:27:15,473 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:15,473 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:15,473 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:15,474 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:15,475 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:15,475 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:15,476 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:15,476 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:15,476 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:15,477 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:15,478 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:15,478 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:15,478 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:15,478 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:15,479 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:15,479 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:15,517 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:15,618 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:16,075 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:16,265 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:16,266 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:16,266 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:16,266 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:16,267 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:16,268 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:16,268 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:16,268 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:16,269 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:16,269 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:16,270 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:16,270 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:16,271 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:16,271 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:16,271 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:16,272 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:16,310 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:16,404 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:16,850 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Residence time distribution concept... (stream: False)
+2025-06-30 14:27:17,043 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:17,043 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:17,043 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,044 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,045 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Residence time distribution concept... (stream: False)
+2025-06-30 14:27:17,045 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:17,046 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:17,046 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,046 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,047 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:17,047 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:17,048 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:17,048 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,048 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:17,049 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,049 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:17,086 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:17,178 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:17,664 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:17,854 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:17,855 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:17,855 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,855 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,857 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Role of catalysts in reactions... (stream: False)
+2025-06-30 14:27:17,857 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:17,857 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:17,858 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,858 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,859 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:17,859 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:17,860 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:17,860 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,860 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:17,861 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:17,861 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:17,898 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:17,992 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:18,440 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:18,630 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:18,630 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:18,630 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:18,631 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:18,632 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:18,632 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:18,633 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:18,633 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:18,633 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:18,634 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:18,635 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:18,635 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:18,635 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:18,636 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:18,636 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:18,636 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:18,674 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:18,766 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:19,250 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to design cooling towers?... (stream: False)
+2025-06-30 14:27:19,439 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:19,439 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:19,439 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:19,440 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:19,441 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:19,441 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:19,442 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:19,442 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:19,442 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:19,443 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:19,444 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:19,444 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:19,444 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:19,444 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:19,445 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:19,445 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:19,482 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:19,576 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:20,051 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:20,239 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:20,240 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:20,240 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:20,240 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:20,242 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:20,242 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:20,242 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:20,243 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:20,243 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:20,244 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:20,244 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:20,245 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:20,245 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:20,245 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:20,246 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:20,246 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:20,282 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:20,374 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:21,029 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:21,229 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:21,230 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:21,230 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:21,231 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:21,232 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:21,232 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:21,233 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:21,233 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:21,233 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:21,234 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:21,235 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:21,235 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:21,235 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:21,236 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:21,236 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:21,236 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:21,275 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:21,370 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:21,827 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:22,025 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:22,025 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:22,026 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,026 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,027 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:22,028 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:22,028 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:22,028 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,029 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,029 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Residence time distribution concept... (stream: False)
+2025-06-30 14:27:22,030 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:22,030 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:22,030 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,031 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:22,031 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,031 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:22,068 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:22,163 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:22,630 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:22,820 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:22,820 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:22,821 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,821 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,822 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:22,823 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:22,823 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:22,823 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,823 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,824 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:22,825 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:22,825 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:22,825 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,826 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:22,826 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:22,826 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:22,868 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:22,967 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:23,436 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Principles of mass transfer... (stream: False)
+2025-06-30 14:27:23,625 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:23,625 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:23,625 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:23,626 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:23,627 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What is distillation and how does it work?... (stream: False)
+2025-06-30 14:27:23,627 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:23,628 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:23,628 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:23,628 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:23,629 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: What are heat exchanger types?... (stream: False)
+2025-06-30 14:27:23,630 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:23,630 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:23,630 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:23,630 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:23,631 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:23,631 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:23,671 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:23,767 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:24,224 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:24,415 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:24,415 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:24,415 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:24,416 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:24,417 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:24,417 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:24,418 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:24,418 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:24,418 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:24,419 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to design cooling towers?... (stream: False)
+2025-06-30 14:27:24,420 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:24,420 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:24,420 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:24,420 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:24,421 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:24,421 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:24,460 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:24,556 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:25,033 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to design cooling towers?... (stream: False)
+2025-06-30 14:27:25,226 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:25,226 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:25,227 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:25,227 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:25,228 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:25,229 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:25,229 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:25,230 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:25,230 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:25,231 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Principles of mass transfer... (stream: False)
+2025-06-30 14:27:25,231 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:25,231 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:25,232 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:25,232 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:25,233 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:25,233 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:25,271 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:25,366 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:25,810 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Principles of mass transfer... (stream: False)
+2025-06-30 14:27:26,001 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:26,002 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:26,002 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,002 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,004 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:26,004 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:26,004 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:26,005 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,005 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,006 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Explain vapor-liquid equilibrium... (stream: False)
+2025-06-30 14:27:26,006 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:26,007 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:26,007 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,007 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:26,008 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,008 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:26,041 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:26,134 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:26,570 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Chemical reactor applications... (stream: False)
+2025-06-30 14:27:26,759 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:26,759 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:26,759 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,760 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,761 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:26,761 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:26,762 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:26,762 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,762 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,763 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:26,764 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:26,764 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:26,764 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,764 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:26,765 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:26,765 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures
+2025-06-30 14:27:26,804 | src.pynucleus.api.app | INFO | app.py:159 | Cleaning up application resources...
+2025-06-30 14:27:26,895 | src.pynucleus.api.app | INFO | app.py:163 | Resource cleanup completed
+2025-06-30 14:27:27,330 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Role of catalysts in reactions... (stream: False)
+2025-06-30 14:27:27,520 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:27,520 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:27,520 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:27,521 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:27,522 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: How to calculate theoretical plates?... (stream: False)
+2025-06-30 14:27:27,522 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:27,523 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:27,523 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:27,523 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:27,524 | src.pynucleus.api.app | INFO | app.py:464 | Processing question: Difference between absorption and adsorption?... (stream: False)
+2025-06-30 14:27:27,524 | pynucleus | INFO | model_loader.py:32 | ModelLoader singleton initialized
+2025-06-30 14:27:27,525 | src.pynucleus.api.app | ERROR | app.py:76 | Failed to initialize RAG engine: [Errno 32] Broken pipe
+2025-06-30 14:27:27,525 | src.pynucleus.api.app | ERROR | app.py:570 | Error in regular ask handling: 'NoneType' object is not subscriptable
+2025-06-30 14:27:27,525 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 5 failures
+2025-06-30 14:27:27,526 | src.pynucleus.api.app | ERROR | app.py:472 | Ask endpoint error: 'NoneType' object is not subscriptable
+2025-06-30 14:27:27,526 | src.pynucleus.api.app | WARNING | app.py:443 | Circuit breaker opened after 6 failures

@@ -1,0 +1,830 @@
+{
+  "test_timestamp": "20250630_142916",
+  "test_config": {
+    "base_url": "http://localhost",
+    "port": 80,
+    "num_concurrent_users": 20,
+    "num_requests_per_user": 50,
+    "ramp_up_time": 30,
+    "test_duration": 300,
+    "request_timeout": 30,
+    "think_time": 0.5
+  },
+  "results": {
+    "total_requests": 1000,
+    "successful_requests": 0,
+    "failed_requests": 1000,
+    "average_response_time": 0.0031355652809143065,
+    "median_response_time": 0.0030556917190551758,
+    "p95_response_time": 0.004950833320617676,
+    "p99_response_time": 0.00693906307220459,
+    "min_response_time": 0.0007770061492919922,
+    "max_response_time": 0.014596939086914062,
+    "requests_per_second": 18.730493244875706,
+    "error_rate": 100.0,
+    "test_duration": 53.388877,
+    "concurrent_users": 20
+  },
+  "detailed_results": [
+    {
+      "timestamp": "2025-06-30 14:29:04.913428",
+      "response_time": 0.002640962600708008,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b680>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:04.933284",
+      "response_time": 0.002232074737548828,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99260>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:04.933079",
+      "response_time": 0.002537965774536133,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a030>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:04.960347",
+      "response_time": 0.003328084945678711,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b350>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:04.983357",
+      "response_time": 0.0023107528686523438,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9abe0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:04.983983",
+      "response_time": 0.0017578601837158203,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f749e0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.013592",
+      "response_time": 0.0018749237060546875,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f758c0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.052716",
+      "response_time": 0.0036432743072509766,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9abe0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.417870",
+      "response_time": 0.003434896469116211,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a140>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.438571",
+      "response_time": 0.0035791397094726562,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a690>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.440575",
+      "response_time": 0.002285003662109375,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99260>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.466908",
+      "response_time": 0.002855062484741211,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e98e20>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.489146",
+      "response_time": 0.0032300949096679688,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b790>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.488950",
+      "response_time": 0.0036051273345947266,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99f20>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.516963",
+      "response_time": 0.003055095672607422,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9aad0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.560654",
+      "response_time": 0.003119945526123047,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b9b0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.921474",
+      "response_time": 0.0032739639282226562,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a360>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.947210",
+      "response_time": 0.0039348602294921875,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9bf00>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.947921",
+      "response_time": 0.0036630630493164062,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a7a0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.974817",
+      "response_time": 0.003061056137084961,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a580>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.995514",
+      "response_time": 0.0033500194549560547,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9af10>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:05.997513",
+      "response_time": 0.002763986587524414,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f758c0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.022075",
+      "response_time": 0.002914905548095703,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /docs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f749e0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.428380",
+      "response_time": 0.005864858627319336,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9af10>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.455103",
+      "response_time": 0.0030891895294189453,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a580>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.455947",
+      "response_time": 0.002371072769165039,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b570>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.482950",
+      "response_time": 0.0019860267639160156,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9bf00>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.500774",
+      "response_time": 0.002477884292602539,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a360>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.500893",
+      "response_time": 0.002620220184326172,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99150>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.530047",
+      "response_time": 0.0031931400299072266,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9aad0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.939317",
+      "response_time": 0.003927707672119141,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99f20>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.963286",
+      "response_time": 0.0034520626068115234,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b790>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.963600",
+      "response_time": 0.0035829544067382812,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99370>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:06.986983",
+      "response_time": 0.0032227039337158203,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99260>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.005976",
+      "response_time": 0.0034182071685791016,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /docs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a690>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.006584",
+      "response_time": 0.0031828880310058594,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b020>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.033746",
+      "response_time": 0.004518985748291016,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9abe0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.448366",
+      "response_time": 0.004746913909912109,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f749e0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.471979",
+      "response_time": 0.005248069763183594,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f758c0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.471723",
+      "response_time": 0.00587916374206543,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f75040>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.494870",
+      "response_time": 0.0032510757446289062,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b350>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.513382",
+      "response_time": 0.003526926040649414,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a030>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.514816",
+      "response_time": 0.002825021743774414,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a690>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.955004",
+      "response_time": 0.0040607452392578125,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b680>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.983013",
+      "response_time": 0.0032989978790283203,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b130>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:07.982530",
+      "response_time": 0.004012107849121094,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b790>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.003195",
+      "response_time": 0.003467082977294922,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a470>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.021967",
+      "response_time": 0.003258943557739258,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99150>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.021729",
+      "response_time": 0.0036630630493164062,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b8a0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.463435",
+      "response_time": 0.0038499832153320312,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /docs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b9b0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.491693",
+      "response_time": 0.004016876220703125,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /docs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9bbd0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.491406",
+      "response_time": 0.004685878753662109,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b570>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.508340",
+      "response_time": 0.0034089088439941406,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a7a0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.528070",
+      "response_time": 0.003957986831665039,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b460>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.528914",
+      "response_time": 0.0033571720123291016,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /docs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f749e0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.972397",
+      "response_time": 0.004038095474243164,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f74050>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:08.998012",
+      "response_time": 0.006014823913574219,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b460>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:09.000732",
+      "response_time": 0.0036308765411376953,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a7a0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:09.016810",
+      "response_time": 0.002969026565551758,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a580>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:09.033133",
+      "response_time": 0.003100872039794922,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /docs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a8b0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:09.481532",
+      "response_time": 0.004230022430419922,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9bf00>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:09.509781",
+      "response_time": 0.003041982650756836,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99150>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:09.509099",
+      "response_time": 0.003843069076538086,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a360>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:09.524836",
+      "response_time": 0.0029916763305664062,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9aad0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:09.537555",
+      "response_time": 0.002710103988647461,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99f20>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:09.990867",
+      "response_time": 0.00395512580871582,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e98e20>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:10.016945",
+      "response_time": 0.003693819046020508,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99370>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:10.017987",
+      "response_time": 0.002763032913208008,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a690>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:10.032893",
+      "response_time": 0.0033049583435058594,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a140>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:10.041245",
+      "response_time": 0.00286102294921875,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b020>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:10.499946",
+      "response_time": 0.004086017608642578,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f74050>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:10.522266",
+      "response_time": 0.0054531097412109375,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f749e0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:10.524710",
+      "response_time": 0.004315853118896484,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b020>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:10.538378",
+      "response_time": 0.0032100677490234375,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a140>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:11.005103",
+      "response_time": 0.0037949085235595703,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a690>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:11.032798",
+      "response_time": 0.003936052322387695,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99370>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:11.033619",
+      "response_time": 0.0034902095794677734,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99260>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:11.046649",
+      "response_time": 0.002961874008178711,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /docs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99f20>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:11.513971",
+      "response_time": 0.00489497184753418,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9aad0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:11.538945",
+      "response_time": 0.00401616096496582,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a360>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:11.541802",
+      "response_time": 0.0026841163635253906,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e99150>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:11.552609",
+      "response_time": 0.0016009807586669922,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9bf00>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:12.023983",
+      "response_time": 0.003964900970458984,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /docs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a8b0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:12.048016",
+      "response_time": 0.0037200450897216797,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /docs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a580>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:12.049661",
+      "response_time": 0.003080129623413086,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9bbd0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:12.533055",
+      "response_time": 0.004170894622802734,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b460>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:12.555113",
+      "response_time": 0.0036399364471435547,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f74050>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:12.555427",
+      "response_time": 0.003473997116088867,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f75260>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:13.042335",
+      "response_time": 0.005883932113647461,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104f75370>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:13.063420",
+      "response_time": 0.004162788391113281,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9af10>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:13.064246",
+      "response_time": 0.004662990570068359,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9bbd0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:13.553362",
+      "response_time": 0.0038480758666992188,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a7a0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:13.572695",
+      "response_time": 0.002017974853515625,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b9b0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:14.059279",
+      "response_time": 0.003170013427734375,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b8a0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:14.079759",
+      "response_time": 0.0025110244750976562,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9acf0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:14.567008",
+      "response_time": 0.003918886184692383,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9a470>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:14.584055",
+      "response_time": 0.0041179656982421875,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b790>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:15.071518",
+      "response_time": 0.003821134567260742,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b130>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:15.580436",
+      "response_time": 0.0033538341522216797,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e9b680>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    },
+    {
+      "timestamp": "2025-06-30 14:29:16.088890",
+      "response_time": 0.004067182540893555,
+      "status_code": 0,
+      "success": false,
+      "error_message": "HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104e98e20>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "response_size": 0
+    }
+  ]
+}

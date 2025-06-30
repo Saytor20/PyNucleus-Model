@@ -57,3 +57,4 @@
 2025-06-29 14:15:55,992 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=300, stream=False)
 2025-06-29 14:16:14,192 | pynucleus.eval.confidence_calibration | WARNING | confidence_calibration.py:313 | Calibration models not trained, returning original confidence
 2025-06-29 14:16:14,192 | pynucleus | INFO | engine.py:485 | Applied confidence calibration: {'original': 0.483, 'calibrated': 0.483}
+2025-06-29 14:17:07,143 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 52.84s

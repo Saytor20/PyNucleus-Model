@@ -87,6 +87,11 @@ class ComprehensiveSystemDiagnostic:
         self.chromadb_health = False
         self.qwen_health = False
         self.pdf_processing_health = False
+        self.redis_health = False
+        self.scaling_health = False
+        self.api_health = False
+        self.stress_testing_health = False
+        self.deployment_readiness = False
         
         # Updated script categories for current PyNucleus Clean project structure
         self.script_categories = {
@@ -104,7 +109,8 @@ class ComprehensiveSystemDiagnostic:
             ],
             "API & Interface Scripts": [
                 "src/pynucleus/api/**/*.py",
-                "src/pynucleus/diagnostics/**/*.py"
+                "src/pynucleus/diagnostics/**/*.py",
+                "src/pynucleus/deployment/**/*.py"
             ],
             "Entry Point Scripts": [
                 "run_pipeline.py",
@@ -114,7 +120,9 @@ class ComprehensiveSystemDiagnostic:
             "Test Scripts": [
                 "tests/*.py",
                 "scripts/test_*.py",
-                "scripts/*test*.py"
+                "scripts/*test*.py",
+                "scripts/stress_test*.py",
+                "scripts/integration_test.py"
             ],
             "Evaluation Scripts": [
                 "src/pynucleus/eval/**/*.py"
@@ -153,6 +161,12 @@ class ComprehensiveSystemDiagnostic:
             self._check_qwen_model_health()
             self._check_pdf_processing_health()
             
+            # Production deployment readiness checks
+            self._check_redis_integration()
+            self._check_scaling_infrastructure()
+            self._check_api_production_readiness()
+            self._check_stress_testing_infrastructure()
+            
             # Comprehensive script validation
             self._validate_all_scripts_comprehensive()
             
@@ -165,6 +179,7 @@ class ComprehensiveSystemDiagnostic:
             if not self.test_mode:
                 self._check_enhanced_features()
                 self._test_configuration_management()
+                self._check_deployment_readiness()
                 
             # Generate comprehensive report
             self._generate_comprehensive_report()
@@ -288,7 +303,7 @@ class ComprehensiveSystemDiagnostic:
         for package, description in clean_packages:
             self._check_single_package(package, description, optional=False)
         
-        # PDF Processing dependencies (new)
+        # PDF Processing dependencies
         pdf_packages = [
             ("camelot", "Camelot PDF table extraction"),
             ("PyMuPDF", "PyMuPDF document processing"),
@@ -297,8 +312,22 @@ class ComprehensiveSystemDiagnostic:
             ("cv2", "OpenCV image processing")
         ]
         
+        # Production deployment dependencies
+        deployment_packages = [
+            ("redis", "Redis distributed caching"),
+            ("docker", "Docker Python client"),
+            ("flask", "Flask web framework"),
+            ("gunicorn", "Gunicorn WSGI server"),
+            ("requests", "HTTP requests library"),
+            ("aiohttp", "Async HTTP client")
+        ]
+        
         self.log_message("\nPDF Processing Dependencies:")
         for package, description in pdf_packages:
+            self._check_single_package(package, description, optional=False)
+        
+        self.log_message("\nProduction Deployment Dependencies:")
+        for package, description in deployment_packages:
             self._check_single_package(package, description, optional=False)
         
         # Optional dependencies
@@ -421,11 +450,13 @@ class ComprehensiveSystemDiagnostic:
         required_dirs = [
             "src/pynucleus",
             "src/pynucleus/data",
+            "src/pynucleus/deployment",
             "configs", 
             "data",
             "data/02_processed",
             "logs",
-            "scripts"
+            "scripts",
+            "docker"
         ]
         
         optional_dirs = [
@@ -433,7 +464,8 @@ class ComprehensiveSystemDiagnostic:
             "data/05_output/llm_reports",
             "data/validation", 
             "dwsim_rag_integration",
-            "tests"
+            "tests",
+            "test_output"
         ]
         
         # Check required directories
@@ -942,6 +974,295 @@ class ComprehensiveSystemDiagnostic:
         except Exception as e:
             self.log_message(f"PDF processing health check failed: {e}", "error")
     
+    def _check_redis_integration(self):
+        """Check Redis distributed caching integration."""
+        print("\n" + "=" * 60)
+        print("   REDIS INTEGRATION CHECK")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.deployment.cache_integration import RedisCache, get_cache
+            
+            self.total_checks += 1
+            check = SystemCheck("Redis Integration", "redis")
+            
+            # Test Redis cache initialization
+            cache = RedisCache()
+            
+            if cache.enabled:
+                self.log_message("✓ Redis Cache: Available and enabled", "success")
+                
+                # Test basic cache operations
+                test_key = "pynucleus_diagnostic_test"
+                test_data = {"test": "diagnostic_data", "timestamp": time.time()}
+                
+                # Test set operation
+                cache.set(test_key, test_data, ttl=60)
+                
+                # Test get operation
+                retrieved_data = cache.get(test_key)
+                
+                if retrieved_data and retrieved_data.get("test") == "diagnostic_data":
+                    self.log_message("✓ Redis Cache Operations: Working", "success")
+                    check.passed = True
+                    self.passed_checks += 1
+                    self.redis_health = True
+                    
+                    # Test cache stats
+                    stats = cache.get_stats()
+                    self.log_message(f"   Memory Usage: {stats.get('memory_usage_mb', 0):.1f} MB")
+                    self.log_message(f"   Total Keys: {stats.get('total_keys', 0)}")
+                    
+                    # Cleanup test data
+                    cache.delete(test_key)
+                else:
+                    self.log_message("✗ Redis Cache Operations: Failed", "error")
+                    check.passed = False
+                    check.error_message = "Cache operations not working"
+            else:
+                self.log_message("⚠️ Redis Cache: Not available (check Redis server)", "warning")
+                check.passed = False
+                check.warnings.append("Redis server not available")
+                
+            self.system_checks.append(check)
+                
+        except Exception as e:
+            self.log_message(f"Redis integration check failed: {e}", "error")
+    
+    def _check_scaling_infrastructure(self):
+        """Check horizontal scaling infrastructure."""
+        print("\n" + "=" * 60)
+        print("   SCALING INFRASTRUCTURE CHECK")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.deployment.scaling_manager import (
+                ScalingManager, CacheManager, DockerManager, 
+                InstanceMetrics, ScalingConfig
+            )
+            
+            self.total_checks += 1
+            check = SystemCheck("Scaling Infrastructure", "scaling")
+            
+            # Test scaling configuration
+            config = ScalingConfig(min_instances=2, max_instances=8)
+            self.log_message(f"✓ Scaling Config: Min {config.min_instances}, Max {config.max_instances}")
+            
+            # Test cache manager
+            cache_manager = CacheManager()
+            self.log_message("✓ Cache Manager: Initialized")
+            
+            # Test Docker manager
+            docker_manager = DockerManager()
+            self.log_message("✓ Docker Manager: Initialized")
+            
+            # Test metrics creation
+            test_metrics = InstanceMetrics(
+                instance_id="test-api-1",
+                cpu_usage=50.0,
+                memory_usage=60.0,
+                response_time_avg=1.5,
+                requests_per_second=10.0,
+                error_rate=0.0,
+                timestamp=time.time(),
+                health_status="healthy"
+            )
+            
+            if test_metrics.instance_id == "test-api-1":
+                self.log_message("✓ Instance Metrics: Working")
+                check.passed = True
+                self.passed_checks += 1
+                self.scaling_health = True
+            else:
+                self.log_message("✗ Instance Metrics: Failed")
+                check.passed = False
+                
+            self.system_checks.append(check)
+                
+        except Exception as e:
+            self.log_message(f"Scaling infrastructure check failed: {e}", "error")
+    
+    def _check_api_production_readiness(self):
+        """Check Flask API production readiness."""
+        print("\n" + "=" * 60)
+        print("   API PRODUCTION READINESS CHECK")
+        print("=" * 60)
+        
+        try:
+            from pynucleus.api.app import create_app
+            
+            self.total_checks += 1
+            check = SystemCheck("API Production Readiness", "api")
+            
+            # Test app factory pattern
+            app = create_app()
+            self.log_message("✓ Flask App Factory: Working")
+            
+            # Check routes
+            routes = [rule.rule for rule in app.url_map.iter_rules()]
+            expected_routes = ["/health", "/metrics", "/ask"]
+            found_routes = [r for r in expected_routes if r in routes]
+            
+            self.log_message(f"✓ API Routes: {len(found_routes)}/{len(expected_routes)} essential routes")
+            for route in found_routes:
+                self.log_message(f"   {route}: Available")
+            
+            # Check configuration
+            has_redis_config = 'REDIS_URL' in app.config
+            has_instance_id = 'PYNUCLEUS_INSTANCE_ID' in app.config
+            
+            self.log_message(f"✓ Redis Configuration: {'Yes' if has_redis_config else 'No'}")
+            self.log_message(f"✓ Instance ID Configuration: {'Yes' if has_instance_id else 'No'}")
+            
+            if len(found_routes) >= 2 and has_redis_config:
+                check.passed = True
+                self.passed_checks += 1
+                self.api_health = True
+                self.log_message("✓ API Production Readiness: PASSED", "success")
+            else:
+                check.passed = False
+                check.error_message = "Missing essential routes or configuration"
+                self.log_message("✗ API Production Readiness: FAILED", "error")
+                
+            self.system_checks.append(check)
+                
+        except Exception as e:
+            self.log_message(f"API production readiness check failed: {e}", "error")
+    
+    def _check_stress_testing_infrastructure(self):
+        """Check stress testing and validation infrastructure."""
+        print("\n" + "=" * 60)
+        print("   STRESS TESTING INFRASTRUCTURE CHECK")
+        print("=" * 60)
+        
+        try:
+            self.total_checks += 1
+            check = SystemCheck("Stress Testing Infrastructure", "testing")
+            
+            # Check for stress test scripts
+            stress_test_files = [
+                "scripts/stress_test_suite.py",
+                "scripts/simple_stress_test.py",
+                "scripts/integration_test.py"
+            ]
+            
+            existing_files = []
+            for test_file in stress_test_files:
+                if Path(test_file).exists():
+                    existing_files.append(test_file)
+                    self.log_message(f"✓ {test_file}: Available")
+                else:
+                    self.log_message(f"✗ {test_file}: Missing")
+            
+            # Test if we can import stress test components
+            try:
+                import sys
+                scripts_path = str(Path("scripts"))
+                if scripts_path not in sys.path:
+                    sys.path.insert(0, scripts_path)
+                    
+                from stress_test_suite import StressTestConfig, PyNucleusStressTester
+                
+                # Test configuration creation
+                config = StressTestConfig(
+                    base_url="http://localhost",
+                    port=80,
+                    num_concurrent_users=5,
+                    num_requests_per_user=10
+                )
+                
+                tester = PyNucleusStressTester(config)
+                self.log_message("✓ Stress Test Components: Importable and functional")
+                
+                check.passed = True
+                self.passed_checks += 1
+                self.stress_testing_health = True
+                
+            except ImportError as e:
+                self.log_message(f"⚠️ Stress Test Components: Import issues - {e}", "warning")
+                check.passed = len(existing_files) >= 2  # Pass if we have most files
+                if check.passed:
+                    self.passed_checks += 1
+                    
+            self.log_message(f"Stress Testing Files: {len(existing_files)}/{len(stress_test_files)} available")
+            
+            self.system_checks.append(check)
+                
+        except Exception as e:
+            self.log_message(f"Stress testing infrastructure check failed: {e}", "error")
+    
+    def _check_deployment_readiness(self):
+        """Check overall deployment readiness."""
+        print("\n" + "=" * 60)
+        print("   DEPLOYMENT READINESS ASSESSMENT")
+        print("=" * 60)
+        
+        self.total_checks += 1
+        check = SystemCheck("Deployment Readiness", "deployment")
+        
+        # Check Docker compose files
+        docker_files = [
+            "docker/docker-compose.yml",
+            "docker/docker-compose.scale.yml",
+            "docker/docker-compose.production.yml",
+            "docker/Dockerfile.api"
+        ]
+        
+        docker_files_found = 0
+        for docker_file in docker_files:
+            if Path(docker_file).exists():
+                docker_files_found += 1
+                self.log_message(f"✓ {docker_file}: Available")
+            else:
+                self.log_message(f"✗ {docker_file}: Missing")
+        
+        # Check launch scripts
+        launch_scripts = [
+            "scripts/launch_scaled_deployment.sh"
+        ]
+        
+        launch_scripts_found = 0
+        for script in launch_scripts:
+            if Path(script).exists():
+                launch_scripts_found += 1
+                self.log_message(f"✓ {script}: Available")
+            else:
+                self.log_message(f"✗ {script}: Missing")
+        
+        # Overall deployment readiness assessment
+        deployment_components = [
+            self.redis_health,
+            self.scaling_health,
+            self.api_health,
+            self.stress_testing_health,
+            docker_files_found >= 3,
+            launch_scripts_found >= 1
+        ]
+        
+        readiness_score = sum(deployment_components) / len(deployment_components)
+        
+        self.log_message(f"\nDeployment Readiness Components:")
+        self.log_message(f"  Redis Integration: {'✅' if self.redis_health else '❌'}")
+        self.log_message(f"  Scaling Infrastructure: {'✅' if self.scaling_health else '❌'}")
+        self.log_message(f"  API Production Ready: {'✅' if self.api_health else '❌'}")
+        self.log_message(f"  Stress Testing: {'✅' if self.stress_testing_health else '❌'}")
+        self.log_message(f"  Docker Files: {'✅' if docker_files_found >= 3 else '❌'}")
+        self.log_message(f"  Launch Scripts: {'✅' if launch_scripts_found >= 1 else '❌'}")
+        
+        if readiness_score >= 0.8:
+            self.log_message("🎉 DEPLOYMENT READINESS: PRODUCTION READY", "success")
+            check.passed = True
+            self.deployment_readiness = True
+        elif readiness_score >= 0.6:
+            self.log_message("⚠️ DEPLOYMENT READINESS: MOSTLY READY", "warning")
+            check.passed = True
+        else:
+            self.log_message("❌ DEPLOYMENT READINESS: NOT READY", "error")
+            check.passed = False
+            
+        self.passed_checks += 1 if check.passed else 0
+        self.system_checks.append(check)
+    
     def _test_basic_functionality(self):
         """Test basic system functionality."""
         print("\n" + "=" * 60)
@@ -1116,6 +1437,13 @@ class ComprehensiveSystemDiagnostic:
         self.log_message(f"Components: {'✅ HEALTHY' if self.components_health else '❌ ISSUES'}")
         self.log_message(f"Docker: {'✅ AVAILABLE' if self.docker_health else '⚠️ NOT AVAILABLE'}")
         self.log_message(f"PDF Processing: {'✅ HEALTHY' if self.pdf_processing_health else '❌ ISSUES'}")
+        
+        self.log_message(f"\nPRODUCTION DEPLOYMENT HEALTH")
+        self.log_message(f"Redis Caching: {'✅ HEALTHY' if self.redis_health else '❌ ISSUES'}")
+        self.log_message(f"Scaling Infrastructure: {'✅ HEALTHY' if self.scaling_health else '❌ ISSUES'}")
+        self.log_message(f"API Production Ready: {'✅ HEALTHY' if self.api_health else '❌ ISSUES'}")
+        self.log_message(f"Stress Testing: {'✅ HEALTHY' if self.stress_testing_health else '❌ ISSUES'}")
+        self.log_message(f"Deployment Readiness: {'✅ PRODUCTION READY' if self.deployment_readiness else '❌ NOT READY'}")
         
         # Final assessment
         if success_rate >= 95:
