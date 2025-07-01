@@ -43,6 +43,13 @@ def pretty_print_answer(result: Dict[str, Any], use_rich: bool = True) -> str:
         # Fallback to plain text with basic formatting
         formatted = format_equations(answer)
         formatted = format_citations(formatted)
+        # Add sources section for plain text
+        if sources:
+            formatted += "\n\n📚 Sources:\n"
+            for i, src in enumerate(sources, 1):
+                formatted += f"  {i}. {src}\n"
+        else:
+            formatted += "\n\n📚 Sources:\nNo sources found."
         return formatted
     
     console = Console()
@@ -65,6 +72,18 @@ def pretty_print_answer(result: Dict[str, Any], use_rich: bool = True) -> str:
         Markdown(formatted_answer), 
         title="[bold cyan]Answer[/bold cyan]",
         border_style="cyan"
+    ))
+    
+    # Add sources panel
+    if sources:
+        sources_text = "\n".join([f"{i}. {src}" for i, src in enumerate(sources, 1)])
+    else:
+        sources_text = "No sources found."
+    
+    console.print(Panel(
+        sources_text,
+        title="[bold blue]📚 Sources[/bold blue]",
+        border_style="blue"
     ))
     
     if references:

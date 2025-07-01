@@ -4,8 +4,8 @@ from typing import List
 
 class Settings(BaseSettings):
     CHROMA_PATH: str = "data/03_intermediate/vector_db"
-    MODEL_ID: str = "Qwen/Qwen3-0.6B"  # Back to original model with optimized loading
-    GGUF_PATH: str = "path/to/Qwen3-0.6B-Instruct.gguf"
+    MODEL_ID: str = "Qwen/Qwen2.5-1.5B-Instruct"  # Fixed: Use real Qwen model
+    GGUF_PATH: str = "path/to/Qwen2.5-1.5B-Instruct.gguf"  # Updated to match real model
     USE_CUDA: bool = True  # Enable GPU detection by default
     USE_GPU_QUANTIZATION: bool = True  # Use 8-bit quantization on GPU for memory efficiency
     EMB_MODEL: str = "BAAI/bge-small-en-v1.5"  # High-performance embedding model
@@ -58,7 +58,7 @@ class Settings(BaseSettings):
         "Qwen/Qwen2.5-7B-Instruct",    # Best for complex chemical engineering
         "Qwen/Qwen2.5-3B-Instruct",    # Good balance of quality and speed
         "Qwen/Qwen2.5-1.5B-Instruct",  # Decent for simpler questions
-        "Qwen/Qwen3-0.6B",             # Current fallback model
+        "Qwen/Qwen2.5-1.5B-Instruct",  # Updated: Use real model as fallback
     ]
     
     # Quality-based answer improvement

@@ -1,0 +1,23 @@
+2025-07-01 03:11:48,740 | __main__ | INFO | run_pipeline.py:519 | 🚀 Starting interactive chat session
+2025-07-01 03:11:48,740 | __main__ | INFO | run_pipeline.py:520 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-07-01 03:11:48,740 | __main__ | INFO | run_pipeline.py:521 | 📊 Top K: 5
+2025-07-01 03:11:48,740 | __main__ | INFO | run_pipeline.py:534 | 🔧 Initializing RAG pipeline and LLM runner
+2025-07-01 03:11:48,741 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-07-01 03:11:48,741 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-07-01 03:11:48,741 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 3772 documents
+2025-07-01 03:11:48,741 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:41 | Vector store (chroma) initialized successfully
+2025-07-01 03:11:48,741 | pynucleus | INFO | engine.py:78 | ChromaDB collection initialized successfully
+2025-07-01 03:11:48,742 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:77 | ChromaDB collection contains 3772 documents
+2025-07-01 03:11:48,742 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-07-01 03:11:51,784 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-07-01 03:12:18,311 | pynucleus | INFO | engine.py:149 | Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-07-01 03:12:18,312 | pynucleus | INFO | engine.py:223 | Built enhanced context: 3 chunks, 2264 characters
+2025-07-01 03:12:18,312 | pynucleus | INFO | engine.py:464 | Question complexity: Simple, Token limit: 250, Context length: 2264
+2025-07-01 03:12:18,312 | pynucleus | INFO | model_loader.py:262 | Generating with HuggingFace model (max_tokens=250, stream=False)
+2025-07-01 03:13:03,679 | pynucleus | INFO | answer_processing.py:72 | Deduplication: 7 -> 7 sentences
+2025-07-01 03:13:03,679 | pynucleus.rag.answer_processing | INFO | answer_processing.py:219 | Deduplication: 7 -> 7 sentences
+2025-07-01 03:13:03,683 | pynucleus | INFO | answer_processing.py:182 | Added citation to answer lacking proper citations
+2025-07-01 03:13:03,683 | pynucleus.rag.answer_processing | INFO | answer_processing.py:238 | Added citation to answer lacking proper citations
+2025-07-01 03:13:04,159 | pynucleus.eval | WARNING | __init__.py:42 | No calibration model found at data/calibration/models/calibration_isotonic.pkl
+2025-07-01 03:13:04,159 | pynucleus | INFO | engine.py:28 | No trained confidence calibration model found, using identity function
+2025-07-01 03:14:06,930 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 62.74s

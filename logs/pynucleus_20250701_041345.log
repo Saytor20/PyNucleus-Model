@@ -1,0 +1,16 @@
+2025-07-01 04:13:45,387 | __main__ | INFO | run_pipeline.py:519 | 🚀 Starting interactive chat session
+2025-07-01 04:13:45,388 | __main__ | INFO | run_pipeline.py:520 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
+2025-07-01 04:13:45,388 | __main__ | INFO | run_pipeline.py:521 | 📊 Top K: 5
+2025-07-01 04:13:45,388 | __main__ | INFO | run_pipeline.py:534 | 🔧 Initializing RAG pipeline and LLM runner
+2025-07-01 04:13:45,388 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
+2025-07-01 04:13:45,389 | pynucleus.rag.vector_store | INFO | vector_store.py:632 | Loaded existing ChromaDB collection: pynucleus_documents
+2025-07-01 04:13:45,389 | pynucleus.rag.vector_store | INFO | vector_store.py:637 | ChromaDB collection contains 5305 documents
+2025-07-01 04:13:45,389 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:41 | Vector store (chroma) initialized successfully
+2025-07-01 04:13:45,389 | pynucleus | INFO | engine.py:78 | ChromaDB collection initialized successfully
+2025-07-01 04:13:45,390 | pynucleus.pipeline.pipeline_rag | INFO | pipeline_rag.py:77 | ChromaDB collection contains 5305 documents
+2025-07-01 04:13:45,390 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
+2025-07-01 04:13:50,622 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
+2025-07-01 04:13:59,968 | pynucleus | INFO | engine.py:137 | Enhanced retrieval: 0 documents (filtered from 3) for query
+2025-07-01 04:14:00,207 | pynucleus.eval | WARNING | __init__.py:42 | No calibration model found at data/calibration/models/calibration_isotonic.pkl
+2025-07-01 04:14:00,207 | pynucleus | INFO | engine.py:28 | No trained confidence calibration model found, using identity function
+2025-07-01 04:14:44,415 | pynucleus.llm.llm_runner | INFO | llm_runner.py:201 | Generated response in 44.20s

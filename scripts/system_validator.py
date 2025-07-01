@@ -130,11 +130,11 @@ class SystemValidator:
         self.log_message("🚀 Starting PyNucleus Clean Validation Suite...")
         self.log_message(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
-        print("=" * 60)
-        print("   PYNUCLEUS CLEAN VALIDATION TESTING SUITE")
-        print("=" * 60)
-        print("Focus: ChromaDB, Qwen Model, and Clean Architecture Validation")
-        print()
+        self.log_message("=" * 60)
+        self.log_message("   PYNUCLEUS CLEAN VALIDATION TESTING SUITE")
+        self.log_message("=" * 60)
+        self.log_message("Focus: ChromaDB, Qwen Model, and Clean Architecture Validation")
+        self.log_message("")
         
         try:
             # Core validation tests for Clean architecture
@@ -178,9 +178,9 @@ class SystemValidator:
     
     def _run_clean_architecture_validation(self):
         """Run validation for PyNucleus Clean architecture components."""
-        print("\n" + "=" * 60)
-        print("   CLEAN ARCHITECTURE VALIDATION")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   CLEAN ARCHITECTURE VALIDATION")
+        self.log_message("=" * 60)
         
         # Test Pydantic Settings
         try:
@@ -245,9 +245,9 @@ class SystemValidator:
     
     def _run_chromadb_validation(self):
         """Run ChromaDB-specific validation tests."""
-        print("\n" + "=" * 60)
-        print("   CHROMADB VALIDATION TESTING")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   CHROMADB VALIDATION TESTING")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.rag.engine import retrieve
@@ -276,9 +276,9 @@ class SystemValidator:
     
     def _run_qwen_model_validation(self):
         """Run Qwen model validation tests."""
-        print("\n" + "=" * 60)
-        print("   QWEN MODEL VALIDATION TESTING")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   QWEN MODEL VALIDATION TESTING")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.llm.model_loader import generate
@@ -308,9 +308,9 @@ class SystemValidator:
     
     def _run_pdf_processing_validation(self):
         """Run PDF processing system validation tests."""
-        print("\n" + "=" * 60)
-        print("   PDF PROCESSING VALIDATION TESTING")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   PDF PROCESSING VALIDATION TESTING")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.data.table_cleaner import extract_tables
@@ -356,9 +356,9 @@ class SystemValidator:
     
     def _run_redis_validation(self):
         """Run Redis distributed caching validation."""
-        print("\n" + "=" * 60)
-        print("   REDIS CACHING VALIDATION")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   REDIS CACHING VALIDATION")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.deployment.cache_integration import RedisCache, get_cache
@@ -408,9 +408,9 @@ class SystemValidator:
     
     def _run_scaling_validation(self):
         """Run horizontal scaling infrastructure validation."""
-        print("\n" + "=" * 60)
-        print("   SCALING INFRASTRUCTURE VALIDATION")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   SCALING INFRASTRUCTURE VALIDATION")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.deployment.scaling_manager import (
@@ -463,9 +463,9 @@ class SystemValidator:
     
     def _run_api_validation(self):
         """Run Flask API production readiness validation."""
-        print("\n" + "=" * 60)
-        print("   API PRODUCTION READINESS VALIDATION")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   API PRODUCTION READINESS VALIDATION")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.api.app import create_app
@@ -515,9 +515,9 @@ class SystemValidator:
     
     def _run_stress_testing_validation(self):
         """Run stress testing infrastructure validation."""
-        print("\n" + "=" * 60)
-        print("   STRESS TESTING VALIDATION")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   STRESS TESTING VALIDATION")
+        self.log_message("=" * 60)
         
         try:
             self.total_tests += 1
@@ -580,9 +580,9 @@ class SystemValidator:
     
     def _run_deployment_readiness_validation(self):
         """Run overall deployment readiness validation."""
-        print("\n" + "=" * 60)
-        print("   DEPLOYMENT READINESS VALIDATION")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   DEPLOYMENT READINESS VALIDATION")
+        self.log_message("=" * 60)
         
         try:
             self.total_tests += 1
@@ -639,9 +639,9 @@ class SystemValidator:
     
     def _run_golden_dataset_validation(self):
         """Run validation against the golden dataset."""
-        print("\n" + "=" * 60)
-        print("   GOLDEN DATASET VALIDATION")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   GOLDEN DATASET VALIDATION")
+        self.log_message("=" * 60)
         
         if not Path(self.golden_dataset_path).exists():
             self.log_message(f"Golden dataset not found at {self.golden_dataset_path}", "warning")
@@ -670,9 +670,9 @@ class SystemValidator:
     
     def _run_e2e_validation(self):
         """Run E2E validation using factual accuracy validator with random sampling."""
-        print("\n" + "=" * 60)
-        print("   E2E VALIDATION TESTING")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   E2E VALIDATION TESTING")
+        self.log_message("=" * 60)
         
         e2e_csv_path = Path("docs/e2e_validation_questions.csv")
         
@@ -717,9 +717,9 @@ class SystemValidator:
     
     def _run_ground_truth_validation(self):
         """Run ground-truth validation tests."""
-        print("\n" + "=" * 60)
-        print("   GROUND-TRUTH VALIDATION TESTING")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   GROUND-TRUTH VALIDATION TESTING")
+        self.log_message("=" * 60)
         
         total_questions = 0
         successful_validations = 0
@@ -787,9 +787,9 @@ class SystemValidator:
     
     def _run_citation_validation(self):
         """Run citation accuracy and backtracking validation."""
-        print("\n" + "=" * 60)
-        print("   CITATION VALIDATION TESTING")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   CITATION VALIDATION TESTING")
+        self.log_message("=" * 60)
         
         citation_tests = [
             {
@@ -852,9 +852,9 @@ class SystemValidator:
     
     def _run_rag_accuracy_tests(self):
         """Run RAG system accuracy tests."""
-        print("\n" + "=" * 60)
-        print("   RAG SYSTEM ACCURACY TESTING")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   RAG SYSTEM ACCURACY TESTING")
+        self.log_message("=" * 60)
         
         # Test ChromaDB RAG system basic functionality
         try:
@@ -898,9 +898,9 @@ class SystemValidator:
     
     def _run_notebook_validation(self):
         """Run notebook validation tests."""
-        print("\n" + "=" * 60)
-        print("   NOTEBOOK VALIDATION TESTING")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   NOTEBOOK VALIDATION TESTING")
+        self.log_message("=" * 60)
         
         notebooks_to_test = [
             "Capstone_Project_Clean.ipynb",
@@ -919,9 +919,9 @@ class SystemValidator:
     
     def _run_cli_enhancement_validation(self):
         """Run validation tests for enhanced CLI features."""
-        print("\n" + "=" * 60)
-        print("   CLI ENHANCEMENT VALIDATION TESTING")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   CLI ENHANCEMENT VALIDATION TESTING")
+        self.log_message("=" * 60)
         
         # Check CLI file for enhanced features
         cli_file = "src/pynucleus/cli.py"
@@ -997,9 +997,9 @@ class SystemValidator:
     
     def _generate_validation_report(self):
         """Generate comprehensive validation report."""
-        print("\n" + "=" * 60)
-        print("   VALIDATION REPORT SUMMARY")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   VALIDATION REPORT SUMMARY")
+        self.log_message("=" * 60)
         
         end_time = datetime.now()
         duration = (end_time - self.start_time).total_seconds()

@@ -7,3 +7,188 @@
 2025-06-30 14:25:18,103 - src.pynucleus.api.app - INFO - Cleaning up application resources...
 2025-06-30 14:25:18,103 - src.pynucleus.api.app - INFO - Resource cleanup completed
 2025-06-30 14:25:58,952 - src.pynucleus.deployment.cache_integration - INFO - Redis cache initialized: redis://localhost:6379/0
+2025-06-30 17:26:59,925 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:26:59,925 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:26:59,927 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:26:59,927 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:26:59,928 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:26:59,952 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.68.50:5001
+2025-06-30 17:26:59,952 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 17:26:59,953 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 17:27:00,151 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:27:00,151 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:27:00,152 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:27:00,152 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:27:00,154 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:27:00,166 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 17:27:00,171 - werkzeug - INFO -  * Debugger PIN: 632-374-954
+2025-06-30 17:27:22,776 - pynucleus.api.app - INFO - Health check requested
+2025-06-30 17:27:22,777 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:27:22] "GET /health HTTP/1.1" 200 -
+2025-06-30 17:27:28,973 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:27:28] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-06-30 17:27:39,542 - werkzeug - INFO -  * Detected change in '/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/api/app.py', reloading
+2025-06-30 17:27:39,543 - pynucleus.api.app - INFO - Cleaning up application resources...
+2025-06-30 17:27:39,543 - pynucleus.api.app - INFO - Resource cleanup completed
+2025-06-30 17:27:39,544 - pynucleus.api.app - INFO - Cleaning up application resources...
+2025-06-30 17:27:39,544 - pynucleus.api.app - INFO - Resource cleanup completed
+2025-06-30 17:27:39,599 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 17:27:39,810 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:27:39,810 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:27:39,811 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:27:39,812 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:27:39,813 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:27:39,827 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 17:27:39,831 - werkzeug - INFO -  * Debugger PIN: 632-374-954
+2025-06-30 17:27:55,047 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:27:55,047 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:27:55,049 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:27:55,049 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:27:55,050 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:27:55,064 - pynucleus.api.app - INFO - Cleaning up application resources...
+2025-06-30 17:27:55,064 - pynucleus.api.app - INFO - Resource cleanup completed
+2025-06-30 17:27:55,064 - pynucleus.api.app - INFO - Cleaning up application resources...
+2025-06-30 17:27:55,064 - pynucleus.api.app - INFO - Resource cleanup completed
+2025-06-30 17:28:16,074 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:28:16] "GET /dashboard HTTP/1.1" 200 -
+2025-06-30 17:28:21,600 - pynucleus - INFO - ModelLoader singleton initialized
+2025-06-30 17:28:26,285 - pynucleus.api.app - INFO - RAG engine initialized successfully
+2025-06-30 17:28:26,361 - pynucleus - INFO - ChromaDB client initialized successfully
+2025-06-30 17:28:26,749 - pynucleus - INFO - Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-30 17:28:26,749 - pynucleus - INFO - Built enhanced context: 3 chunks, 1735 characters
+2025-06-30 17:28:26,749 - pynucleus - INFO - Question complexity: Simple, Token limit: 250, Context length: 1735
+2025-06-30 17:28:26,749 - pynucleus - INFO - Generating with HuggingFace model (max_tokens=250, stream=False)
+2025-06-30 17:28:58,303 - pynucleus - INFO - Deduplication: 6 -> 6 sentences
+2025-06-30 17:28:58,303 - pynucleus.rag.answer_processing - INFO - Deduplication: 6 -> 6 sentences
+2025-06-30 17:28:58,304 - pynucleus.rag.answer_processing - INFO - Added citation to answer lacking proper citations
+2025-06-30 17:28:58,304 - pynucleus - INFO - Generating with HuggingFace model (max_tokens=300, stream=False)
+2025-06-30 17:29:34,534 - pynucleus.rag.answer_processing - INFO - Applied answer improvement due to low quality scores
+2025-06-30 17:29:34,917 - pynucleus.eval - WARNING - No calibration model found at data/calibration/models/calibration_isotonic.pkl
+2025-06-30 17:29:34,917 - pynucleus - INFO - No trained confidence calibration model found, using identity function
+2025-06-30 17:29:34,918 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:29:34] "POST /api/ask HTTP/1.1" 200 -
+2025-06-30 17:29:52,774 - werkzeug - INFO -  * Detected change in '/Users/mohammadalmusaiteer/PyNucleus-Model/scripts/launch_enhanced_dashboard.py', reloading
+2025-06-30 17:29:53,113 - pynucleus.api.app - INFO - Cleaning up application resources...
+2025-06-30 17:29:53,114 - pynucleus.api.app - INFO - Resource cleanup completed
+2025-06-30 17:29:53,114 - pynucleus.api.app - INFO - Cleaning up application resources...
+2025-06-30 17:29:53,114 - pynucleus.api.app - INFO - Resource cleanup completed
+2025-06-30 17:29:53,759 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 17:29:54,084 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:29:54,084 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:29:54,086 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:29:54,086 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:29:54,087 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:29:54,105 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 17:29:54,109 - werkzeug - INFO -  * Debugger PIN: 632-374-954
+2025-06-30 17:30:57,258 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:30:57,259 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:30:57,260 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:30:57,507 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:30:57,507 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:30:57,508 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:30:57,508 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:30:57,510 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:30:57,525 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.68.50:5001
+2025-06-30 17:30:57,525 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 17:30:57,525 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 17:30:57,725 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:30:57,725 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:30:57,727 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:30:57,727 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:30:57,728 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:30:57,741 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 17:30:57,744 - werkzeug - INFO -  * Debugger PIN: 632-374-954
+2025-06-30 17:34:36,661 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:34:36,661 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:34:36,663 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:34:36,663 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:34:36,664 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:34:36,680 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.68.50:5001
+2025-06-30 17:34:36,680 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 17:34:36,680 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 17:34:36,876 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:34:36,876 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:34:36,877 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:34:36,878 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:34:36,879 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:34:36,891 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 17:34:36,895 - werkzeug - INFO -  * Debugger PIN: 632-374-954
+2025-06-30 17:34:46,012 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:34:46] "GET / HTTP/1.1" 200 -
+2025-06-30 17:35:03,756 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:35:03] "GET /dashboard HTTP/1.1" 200 -
+2025-06-30 17:35:10,794 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:35:10] "POST /api/diagnostics HTTP/1.1" 200 -
+2025-06-30 17:35:23,797 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:35:23] "POST /api/validation HTTP/1.1" 200 -
+2025-06-30 17:36:25,942 - pynucleus.api.app - INFO - Health check requested
+2025-06-30 17:36:25,943 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:36:25] "GET /health HTTP/1.1" 200 -
+2025-06-30 17:38:14,590 - pynucleus - INFO - ModelLoader singleton initialized
+2025-06-30 17:38:18,299 - pynucleus.api.app - INFO - RAG engine initialized successfully
+2025-06-30 17:38:18,388 - pynucleus - INFO - ChromaDB client initialized successfully
+2025-06-30 17:38:18,724 - pynucleus - INFO - Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-30 17:38:18,725 - pynucleus - INFO - Built enhanced context: 3 chunks, 2083 characters
+2025-06-30 17:38:18,725 - pynucleus - INFO - Question complexity: Simple, Token limit: 250, Context length: 2083
+2025-06-30 17:38:18,725 - pynucleus - INFO - Generating with HuggingFace model (max_tokens=250, stream=False)
+2025-06-30 17:38:50,278 - pynucleus - INFO - Deduplication: 9 -> 9 sentences
+2025-06-30 17:38:50,279 - pynucleus.rag.answer_processing - INFO - Deduplication: 9 -> 9 sentences
+2025-06-30 17:38:50,280 - pynucleus - INFO - Added citation to answer lacking proper citations
+2025-06-30 17:38:50,280 - pynucleus.rag.answer_processing - INFO - Added citation to answer lacking proper citations
+2025-06-30 17:38:50,280 - pynucleus - INFO - Generating with HuggingFace model (max_tokens=300, stream=False)
+2025-06-30 17:39:26,454 - pynucleus.rag.answer_processing - INFO - Applied answer improvement due to low quality scores
+2025-06-30 17:39:26,935 - pynucleus.eval - WARNING - No calibration model found at data/calibration/models/calibration_isotonic.pkl
+2025-06-30 17:39:26,935 - pynucleus - INFO - No trained confidence calibration model found, using identity function
+2025-06-30 17:39:26,936 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:39:26] "POST /api/ask HTTP/1.1" 200 -
+2025-06-30 17:39:41,444 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:39:41] "POST /api/diagnostics HTTP/1.1" 200 -
+2025-06-30 17:40:05,355 - pynucleus.api.app - INFO - Health check requested
+2025-06-30 17:40:05,356 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:40:05] "GET /health HTTP/1.1" 200 -
+2025-06-30 17:40:10,018 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:40:10] "GET /dashboard HTTP/1.1" 200 -
+2025-06-30 17:42:40,926 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:42:40,926 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:42:40,928 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:42:40,929 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:42:40,930 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:42:40,953 - pynucleus.api.app - INFO - Cleaning up application resources...
+2025-06-30 17:42:40,953 - pynucleus.api.app - INFO - Resource cleanup completed
+2025-06-30 17:42:40,953 - pynucleus.api.app - INFO - Cleaning up application resources...
+2025-06-30 17:42:40,953 - pynucleus.api.app - INFO - Resource cleanup completed
+2025-06-30 17:42:44,723 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:42:44] "GET /dashboard HTTP/1.1" 200 -
+2025-06-30 17:42:49,368 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:42:49] "POST /api/diagnostics HTTP/1.1" 200 -
+2025-06-30 17:42:55,736 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:42:55] "POST /api/validation HTTP/1.1" 200 -
+2025-06-30 17:42:59,549 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:42:59] "POST /api/statistics HTTP/1.1" 200 -
+2025-06-30 17:43:12,178 - pynucleus - INFO - Enhanced retrieval: 3 documents (filtered from 3) for query
+2025-06-30 17:43:12,178 - pynucleus - INFO - Built enhanced context: 3 chunks, 2400 characters
+2025-06-30 17:43:12,178 - pynucleus - INFO - Question complexity: Simple, Token limit: 250, Context length: 2400
+2025-06-30 17:43:12,178 - pynucleus - INFO - Generating with HuggingFace model (max_tokens=250, stream=False)
+2025-06-30 17:43:42,652 - pynucleus - INFO - Deduplication: 10 -> 10 sentences
+2025-06-30 17:43:42,654 - pynucleus.rag.answer_processing - INFO - Deduplication: 10 -> 10 sentences
+2025-06-30 17:43:42,656 - pynucleus - INFO - Added citation to answer lacking proper citations
+2025-06-30 17:43:42,656 - pynucleus.rag.answer_processing - INFO - Added citation to answer lacking proper citations
+2025-06-30 17:43:42,656 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:43:42] "POST /api/ask HTTP/1.1" 200 -
+2025-06-30 17:43:55,451 - pynucleus.api.app - INFO - Confidence rating submitted: {'question': 'what is distillation columns?', 'answer': 'What is a distillation column? --- The answer is: A distillation tower is a piece of equipment used in chemical processes where liquid substances are separated based on their different boiling points In this process, the mixture of liquids is fed into an apparatus known as a distiller, where heat energy causes some components to vaporize more readily than others These vapors then pass through a series of trays or plates inside the column As they move upward, gravity forces heavier components down onto the tray below them, while lighter ones rise upwards Through multiple stages, pure products with specific compositions can be collected Distillation towers play a crucial role in refining crude oils, separating ethanol from water in alcoholic beverages, and other industrial applications requiring separation of mixtures by temperature-based differences Their design often involves precise control over parameters such as fluid dynamics, temperature gradients, and vapor–liquid equilibrium to ensure efficient separation of desired compounds The efficiency of these devices depends significantly on factors including packing geometry, number of trays, type of solvent, and operational conditions [Doc-doc_0]', 'rating': 9, 'timestamp': '2025-06-30T17:43:55.451043'}
+2025-06-30 17:43:55,452 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:43:55] "POST /api/confidence-rating HTTP/1.1" 200 -
+2025-06-30 17:44:15,102 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:44:15] "POST /api/diagnostics HTTP/1.1" 200 -
+2025-06-30 17:45:32,812 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:45:32,812 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:45:32,813 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:45:32,814 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:45:32,815 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:45:32,835 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.68.50:5001
+2025-06-30 17:45:32,835 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 17:45:32,836 - werkzeug - INFO -  * Restarting with stat
+2025-06-30 17:45:33,033 - pynucleus.deployment.cache_integration - WARNING - Redis unavailable, caching disabled: Error 61 connecting to localhost:6379. Connection refused.
+2025-06-30 17:45:33,033 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:45:33,034 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:45:33,035 - pynucleus.api.app - INFO - Redis distributed cache initialized
+2025-06-30 17:45:33,036 - pynucleus.api.app - INFO - PyNucleus Flask API starting up (Instance: api-default)...
+2025-06-30 17:45:33,049 - werkzeug - WARNING -  * Debugger is active!
+2025-06-30 17:45:33,054 - werkzeug - INFO -  * Debugger PIN: 632-374-954
+2025-06-30 17:45:37,270 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:45:37] "GET /dashboard HTTP/1.1" 200 -
+2025-06-30 17:47:38,086 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:47:38] "POST /api/diagnostics HTTP/1.1" 200 -
+2025-06-30 17:51:06,402 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:51:06] "GET /dashboard HTTP/1.1" 200 -
+2025-06-30 17:52:48,419 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:52:48] "[31m[1mPOST /api/validation HTTP/1.1[0m" 408 -
+2025-06-30 17:53:50,790 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 17:53:50] "POST /api/statistics HTTP/1.1" 200 -

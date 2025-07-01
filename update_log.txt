@@ -300,6 +300,9 @@ Main things to Do:
 3) create a finanical advisor model that handles the money - completed
 5) Robustness and Error Analysis Dashboard - completed but needs checks 
 6) Scalability & Deployment Enhancements - completed 
+7) calibration for the confidence level is completed 
+8) Finish the UI either Flask - completed 
+
 
  2025-06-29 14:16:44 changes made and pushed to origin main
 
@@ -307,8 +310,15 @@ To Do)
 1) Deploy the model to google colab / windows and test it... make sure the set up for github pipeline to pull is there to always test it 
 2) we need to understand what we have to do with the golden dataset and validation data are we trainning on them or what and what is the difference between the 2? 
 3) Automated Backend Testing & CI/CD Preparation
-4) Test the components of the RAG and LLM and make sure all scenarios are covered. The $$ advisor info and output should be checked 
-5) Choose the UI either Flask or the other one 
-6) MAJOR clean house is needed to determine the files needed and not needed 
-7) 
+5) MAJOR clean house is needed to determine the files needed and not needed 
+6) we need to cover how we can reset the chunks and are they stored 
+9) check the money guy
+
  2025-06-30 14:44:22 changes made and pushed to origin main
+
+Completed: 
+7) fix the citation problem - completed
+4) Test the components of the RAG and LLM and make sure all scenarios are covered - completed
+8) review the output context size - completed
+
+ 2025-07-01 04:30:28 changes made and pushed to origin main

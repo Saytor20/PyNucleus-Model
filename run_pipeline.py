@@ -470,16 +470,18 @@ def ask_question(
             
             cli_logger.info(f"🤖 Generating enhanced response with {model_id}")
             
-            # Create enhanced prompt with context using Guidance integration
+            # Get enhanced LLM response using Guidance integration
             from pynucleus.llm.prompting import build_prompt
             context = result.get('answer', '')
             enhanced_prompt = build_prompt(context, question)
             
-            llm_response = llm_runner.ask(
-                question=enhanced_prompt,
+            # Use generate_response directly with the enhanced prompt
+            llm_result = llm_runner.generate_response(
+                prompt=enhanced_prompt,
                 max_length=500,
                 temperature=0.7
             )
+            llm_response = llm_result.get('response', 'No response generated')
             
             print("\n🤖 ENHANCED LLM RESPONSE")
             print("-" * 60)
@@ -546,6 +548,7 @@ def interactive_chat(
         print("📝 Type 'quit', 'exit', or press Ctrl+C to end the session")
         print("🔄 Type 'clear' to clear the screen")
         print("❓ Type 'help' for more commands")
+        print("📊 After each answer, you'll be asked to rate it (0-10) for calibration training")
         print("=" * 60)
         
         question_count = 0
@@ -569,6 +572,13 @@ def interactive_chat(
                     print("  • clear        - Clear screen")
                     print("  • help         - Show this help")
                     print("  • Any question - Ask the AI system")
+                    print("\n📊 Feedback System:")
+                    print("  • After each answer, rate it 0-10")
+                    print("  • 0 = Completely wrong/unhelpful")
+                    print("  • 5 = Somewhat helpful but incomplete")
+                    print("  • 10 = Perfect, exactly what you needed")
+                    print("  • Press Enter to skip feedback")
+                    print("  • Feedback helps train confidence calibration")
                     continue
                 elif not question:
                     print("❌ Please enter a question or command")
@@ -589,11 +599,13 @@ def interactive_chat(
                     context = rag_result.get('answer', '')
                     enhanced_prompt = build_prompt(context, question)
                     
-                    llm_response = llm_runner.ask(
-                        question=enhanced_prompt,
+                    # Use generate_response directly with the enhanced prompt
+                    llm_result = llm_runner.generate_response(
+                        prompt=enhanced_prompt,
                         max_length=500,
                         temperature=0.7
                     )
+                    llm_response = llm_result.get('response', 'No response generated')
                     
                     # Display results
                     print("\n" + "📋 " + "=" * 58)
@@ -612,6 +624,80 @@ def interactive_chat(
                     print(f"⏱️  Response time: {duration:.2f}s")
                     print(f"🤖 Model: {model_id}")
                     print(f"📊 Confidence: {rag_result.get('confidence', 0):.2f}")
+                    
+                    # NEW: Ask for user feedback
+                    print("\n" + "=" * 60)
+                    print("📝 FEEDBACK REQUEST")
+                    print("=" * 60)
+                    print("How would you rate this answer? (0-10 scale)")
+                    print("  0 = Completely wrong/unhelpful")
+                    print("  5 = Somewhat helpful but incomplete")
+                    print("  10 = Perfect, exactly what I needed")
+                    print("  (Press Enter to skip feedback)")
+                    
+                    while True:
+                        try:
+                            feedback_input = input("\n💭 Your rating (0-10): ").strip()
+                            if feedback_input == "":
+                                print("⏭️  Skipping feedback")
+                                break
+                            
+                            feedback_score = float(feedback_input)
+                            if 0 <= feedback_score <= 10:
+                                # Normalize to 0-1 scale for calibration
+                                normalized_feedback = feedback_score / 10.0
+                                
+                                # Collect calibration training data
+                                try:
+                                    from pynucleus.eval.confidence_calibration import get_calibrator
+                                    calibrator = get_calibrator()
+                                    
+                                    # Create result dict for calibration
+                                    calibration_result = {
+                                        "answer": llm_response,
+                                        "confidence": rag_result.get('confidence', 0.0),
+                                        "response_time": duration,
+                                        "sources": sources,
+                                        "has_citations": bool(sources),
+                                        "retrieval_score": rag_result.get('retrieval_score', 0.5),
+                                        "context_length": len(llm_response)
+                                    }
+                                    
+                                    sample = calibrator.collect_interaction_data(
+                                        question=question,
+                                        rag_result=calibration_result,
+                                        user_feedback=normalized_feedback
+                                    )
+                                    
+                                    print(f"✅ Feedback recorded! Training samples: {len(calibrator.training_samples)}")
+                                    
+                                    # Show progress towards training
+                                    if not calibrator.is_trained:
+                                        remaining = calibrator.min_samples - len(calibrator.training_samples)
+                                        if remaining > 0:
+                                            print(f"📈 Need {remaining} more samples to train calibration model")
+                                        else:
+                                            print("🎯 Ready to train calibration model!")
+                                    
+                                    # Auto-train if we have enough samples (using calibrator's min_samples)
+                                    if len(calibrator.training_samples) >= calibrator.min_samples and not calibrator.is_trained:
+                                        print("🔄 Training calibration model...")
+                                        if calibrator.train():
+                                            print("✅ Calibration model trained successfully!")
+                                        else:
+                                            print("⚠️  Calibration training failed")
+                                    
+                                except Exception as e:
+                                    cli_logger.warning(f"Failed to record feedback: {e}")
+                                    print(f"⚠️  Could not record feedback: {e}")
+                                
+                                break
+                            else:
+                                print("❌ Please enter a number between 0 and 10")
+                        except ValueError:
+                            print("❌ Please enter a valid number")
+                    
+                    print("=" * 60)
                     
                 except Exception as e:
                     cli_logger.error(f"❌ RAG/LLM processing failed: {e}")
@@ -634,6 +720,15 @@ def interactive_chat(
         print(f"  • Questions asked: {question_count}")
         print(f"  • System used: RAG + LLM")
         print(f"  • Model: {model_id}")
+        
+        # Show calibration status
+        try:
+            from pynucleus.eval.confidence_calibration import get_calibrator
+            calibrator = get_calibrator()
+            print(f"  • Calibration samples collected: {len(calibrator.training_samples)}")
+            print(f"  • Calibration model trained: {'Yes' if calibrator.is_trained else 'No'}")
+        except Exception as e:
+            print(f"  • Calibration status: Unable to retrieve")
         
         cli_logger.info(f"✅ Chat session ended. Questions processed: {question_count}")
         

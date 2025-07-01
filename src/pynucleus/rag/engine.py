@@ -14,6 +14,26 @@ import re
 
 from ..metrics import Metrics, inc, start, stop
 
+# Confidence calibration integration
+_confidence_calibrator = None
+
+def _load_confidence_calibrator():
+    """Load confidence calibration model on startup."""
+    global _confidence_calibrator
+    if _confidence_calibrator is None:
+        try:
+            from ..eval import load_latest_model
+            _confidence_calibrator = load_latest_model()
+            if _confidence_calibrator is None:
+                logger.info("No trained confidence calibration model found, using identity function")
+                _confidence_calibrator = lambda x: x  # Identity function
+            else:
+                logger.info("Confidence calibration model loaded successfully")
+        except Exception as e:
+            logger.warning(f"Failed to load confidence calibration model: {e}")
+            _confidence_calibrator = lambda x: x  # Fallback to identity
+    return _confidence_calibrator
+
 # Global ChromaDB client for connection reuse
 _client = None
 
@@ -106,25 +126,13 @@ def retrieve_enhanced(question: str) -> tuple[list, list, list]:
         filtered_documents = [result[0] for result in filtered_results]
         filtered_metadatas = [result[1] for result in filtered_results]
         
-        # Generate enhanced source identifiers with metadata
+        # Generate sources list using only the real document name, fallback to 'Unknown Source'
         sources = []
         for i, meta in enumerate(filtered_metadatas):
-            if meta:
-                # Enhanced source ID with section information
-                source_name = meta.get('source', f'doc_{i}')
-                section_header = meta.get('section_header', '')
-                page_num = meta.get('estimated_page', '')
-                
-                if section_header and section_header != 'Unknown':
-                    source_id = f"{source_name}_{section_header}"[:50]  # Limit length
-                elif page_num:
-                    source_id = f"{source_name}_p{page_num}"
-                else:
-                    source_id = source_name
-                    
-                sources.append(source_id)
+            if meta and 'source' in meta:
+                sources.append(meta['source'])
             else:
-                sources.append(f'doc_{i}')
+                sources.append('Unknown Source')
         
         logger.info(f"Enhanced retrieval: {len(filtered_documents)} documents (filtered from {len(documents)}) for query")
         return filtered_documents, sources, filtered_metadatas
@@ -381,14 +389,20 @@ def ask_enhanced(question: str, retry_count: int = 0) -> dict:
 
 def ask(question: str, max_retries: int = 2) -> dict:
     """
-    Enhanced RAG pipeline with smart token management and duplication checking.
+    Enhanced RAG pipeline with smart token management, duplication checking, and confidence calibration.
     
     Args:
         question: User question
         max_retries: Maximum retry attempts for duplicate/incomplete answers
         
     Returns:
-        Dictionary with answer, sources, and metadata
+        Dictionary with answer, sources, metadata, and calibrated confidence scores:
+        - answer: Generated response text
+        - sources: List of source identifiers used
+        - confidence_raw: Original confidence score from quality assessment [0.0-1.0]
+        - confidence_cal: Calibrated confidence score using trained isotonic regression [0.0-1.0]
+        - confidence: Alias for confidence_cal (backward compatibility)
+        - Additional metadata: retrieval_count, retry_count, response_time, etc.
     """
     import time
     start_time = time.time()
@@ -398,10 +412,32 @@ def ask(question: str, max_retries: int = 2) -> dict:
         documents, sources, metadatas = retrieve_enhanced(question)
         
         if not documents:
+            # Apply confidence calibration even for no-document case
+            raw_confidence = 0.0
+            calibrator = _load_confidence_calibrator()
+            
+            try:
+                calibrated_confidence = calibrator(raw_confidence)
+                calibrated_confidence = max(0.0, min(1.0, calibrated_confidence))
+                
+                # Record metrics
+                from ..metrics.prometheus import record_confidence_calibration
+                record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
+                
+            except Exception as e:
+                logger.warning(f"Failed to apply confidence calibration for empty result: {e}")
+                calibrated_confidence = raw_confidence
+                
+                # Record failure metrics
+                from ..metrics.prometheus import record_confidence_calibration
+                record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
+            
             return {
                 "answer": "I don't have enough information to provide a complete answer.",
                 "sources": [],
-                "confidence": 0.0,
+                "confidence_raw": raw_confidence,
+                "confidence_cal": calibrated_confidence,
+                "confidence": calibrated_confidence,
                 "retrieval_count": 0
             }
         
@@ -462,11 +498,38 @@ def ask(question: str, max_retries: int = 2) -> dict:
             question=question, expected_keywords=[]
         )
         
-        # Create initial result dictionary
+        # Apply confidence calibration and record metrics
+        raw_confidence = quality_result["quality_score"]
+        calibrator = _load_confidence_calibrator()
+        
+        try:
+            # Apply calibration
+            calibrated_confidence = calibrator(raw_confidence)
+            
+            # Ensure calibrated confidence is in valid range [0, 1]
+            calibrated_confidence = max(0.0, min(1.0, calibrated_confidence))
+            
+            # Record Prometheus metrics
+            from ..metrics.prometheus import record_confidence_calibration
+            record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
+            
+            logger.debug(f"Confidence calibration applied: {raw_confidence:.3f} -> {calibrated_confidence:.3f}")
+            
+        except Exception as e:
+            logger.warning(f"Failed to apply confidence calibration: {e}")
+            calibrated_confidence = raw_confidence
+            
+            # Record failure metrics
+            from ..metrics.prometheus import record_confidence_calibration
+            record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
+        
+        # Create result dictionary with both confidence scores
         result = {
             "answer": quality_result["processed_answer"],
             "sources": sources,
-            "confidence": quality_result["quality_score"],
+            "confidence_raw": raw_confidence,
+            "confidence_cal": calibrated_confidence,
+            "confidence": calibrated_confidence,  # Backward compatibility - use calibrated
             "retrieval_count": len(documents),
             "deduplication_applied": quality_result["deduplication_applied"],
             "has_citations": quality_result["has_citations"],
@@ -478,22 +541,34 @@ def ask(question: str, max_retries: int = 2) -> dict:
             "retrieval_score": 0.5  # Placeholder - should come from actual retrieval scoring
         }
         
-        # Apply confidence calibration
-        try:
-            from ..eval.confidence_calibration import calibrate_rag_confidence
-            result = calibrate_rag_confidence(result, question)
-            logger.info(f"Applied confidence calibration: {result.get('confidence_calibration', {})}")
-        except Exception as e:
-            logger.warning(f"Failed to apply confidence calibration: {e}")
-        
         return result
         
     except Exception as e:
         logger.error(f"Error in RAG pipeline: {e}")
+        
+        # Apply confidence calibration for error case
+        raw_confidence = 0.0
+        try:
+            calibrator = _load_confidence_calibrator()
+            calibrated_confidence = calibrator(raw_confidence)
+            calibrated_confidence = max(0.0, min(1.0, calibrated_confidence))
+            
+            # Record metrics
+            from ..metrics.prometheus import record_confidence_calibration
+            record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
+        except:
+            calibrated_confidence = raw_confidence
+            
+            # Record failure metrics  
+            from ..metrics.prometheus import record_confidence_calibration
+            record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
+        
         return {
             "answer": f"An error occurred while processing your question: {str(e)}",
             "sources": [],
-            "confidence": 0.0,
+            "confidence_raw": raw_confidence,
+            "confidence_cal": calibrated_confidence,
+            "confidence": calibrated_confidence,
             "retrieval_count": 0
         }
 

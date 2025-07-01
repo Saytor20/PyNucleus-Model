@@ -17,10 +17,11 @@ import atexit
 import signal
 import logging
 from pathlib import Path
-from flask import Flask, request, jsonify, g
+from flask import Flask, request, jsonify, g, render_template
 from flask.logging import default_handler
 import json
 from typing import Optional, Dict, Any
+from datetime import datetime
 
 # Setup path for imports
 app_root = Path(__file__).parent.parent.parent.parent
@@ -55,7 +56,9 @@ def create_app(config: Optional[Dict[str, Any]] = None) -> Flask:
     Returns:
         Configured Flask application
     """
-    app = Flask(__name__)
+    # Set template folder path
+    template_dir = Path(__file__).parent.parent / "templates"
+    app = Flask(__name__, template_folder=str(template_dir))
     
     # Basic configuration
     app.config.update({
@@ -380,6 +383,188 @@ def register_routes(app: Flask) -> None:
             },
             "confidence_calibration": "enabled"
         })
+
+    @app.route('/dashboard', methods=['GET'])
+    def dashboard():
+        """Main dashboard page with Q&A and system diagnostics."""
+        return render_template('dashboard.html')
+    
+    @app.route('/api/ask', methods=['POST'])
+    def api_ask():
+        """Enhanced Q&A endpoint with confidence rating."""
+        try:
+            if not request.is_json:
+                return jsonify({"error": "Request must be JSON"}), 400
+            
+            data = request.get_json()
+            question = data.get('question', '').strip()
+            
+            if not question:
+                return jsonify({"error": "Question is required"}), 400
+            
+            # Get RAG engine
+            rag_engine = get_rag_engine()
+            if not rag_engine:
+                return jsonify({"error": "RAG engine not available"}), 503
+            
+            # Get answer from RAG system
+            result = rag_engine(question)
+            
+            response = {
+                "answer": result.get("answer", ""),
+                "sources": result.get("sources", []),
+                "confidence": result.get("confidence", 0.5),
+                "timestamp": datetime.now().isoformat()
+            }
+            
+            return jsonify(response)
+            
+        except Exception as e:
+            logger.error(f"API ask error: {e}")
+            return jsonify({"error": str(e)}), 500
+    
+    @app.route('/api/confidence-rating', methods=['POST'])
+    def submit_confidence_rating():
+        """Submit confidence rating for Q&A responses."""
+        try:
+            if not request.is_json:
+                return jsonify({"error": "Request must be JSON"}), 400
+            
+            data = request.get_json()
+            question = data.get('question', '').strip()
+            answer = data.get('answer', '').strip()
+            rating = data.get('rating', 0)
+            
+            if not question or not answer:
+                return jsonify({"error": "Question and answer are required"}), 400
+            
+            if not isinstance(rating, int) or rating < 1 or rating > 10:
+                return jsonify({"error": "Rating must be integer between 1-10"}), 400
+            
+            # Save confidence rating (you can extend this to save to database)
+            confidence_data = {
+                "question": question,
+                "answer": answer,
+                "rating": rating,
+                "timestamp": datetime.now().isoformat()
+            }
+            
+            # For now, just log it (you can save to file/database later)
+            logger.info(f"Confidence rating submitted: {confidence_data}")
+            
+            return jsonify({
+                "message": "Confidence rating submitted successfully",
+                "rating": rating
+            })
+            
+        except Exception as e:
+            logger.error(f"Confidence rating error: {e}")
+            return jsonify({"error": str(e)}), 500
+    
+    @app.route('/api/diagnostics', methods=['POST'])
+    def run_diagnostics():
+        """Run comprehensive system diagnostics and return terminal output."""
+        try:
+            import subprocess
+            import time
+            
+            # Run comprehensive system diagnostic
+            cmd = ['python3', 'scripts/comprehensive_system_diagnostic.py']
+            
+            start_time = time.time()
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=300  # 5 minute timeout
+            )
+            execution_time = time.time() - start_time
+            
+            response = {
+                "return_code": result.returncode,
+                "output": result.stdout,
+                "error": result.stderr,
+                "execution_time": execution_time,
+                "timestamp": datetime.now().isoformat()
+            }
+            
+            return jsonify(response)
+            
+        except subprocess.TimeoutExpired:
+            return jsonify({"error": "Diagnostics timed out after 5 minutes"}), 408
+        except Exception as e:
+            logger.error(f"Diagnostics error: {e}")
+            return jsonify({"error": str(e)}), 500
+    
+    @app.route('/api/validation', methods=['POST'])
+    def run_validation():
+        """Run system validation and return terminal output."""
+        try:
+            import subprocess
+            import time
+            
+            # Run system validator
+            cmd = ['python3', 'scripts/system_validator.py']
+            
+            start_time = time.time()
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=300  # 5 minute timeout
+            )
+            execution_time = time.time() - start_time
+            
+            response = {
+                "return_code": result.returncode,
+                "output": result.stdout,
+                "error": result.stderr,
+                "execution_time": execution_time,
+                "timestamp": datetime.now().isoformat()
+            }
+            
+            return jsonify(response)
+            
+        except subprocess.TimeoutExpired:
+            return jsonify({"error": "Validation timed out after 5 minutes"}), 408
+        except Exception as e:
+            logger.error(f"Validation error: {e}")
+            return jsonify({"error": str(e)}), 500
+    
+    @app.route('/api/statistics', methods=['POST'])
+    def run_statistics():
+        """Run system statistics and return terminal output."""
+        try:
+            import subprocess
+            import time
+            
+            # Run system statistics
+            cmd = ['python3', 'scripts/system_statistics.py']
+            
+            start_time = time.time()
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=120  # 2 minute timeout
+            )
+            execution_time = time.time() - start_time
+            
+            response = {
+                "return_code": result.returncode,
+                "output": result.stdout,
+                "error": result.stderr,
+                "execution_time": execution_time,
+                "timestamp": datetime.now().isoformat()
+            }
+            
+            return jsonify(response)
+            
+        except subprocess.TimeoutExpired:
+            return jsonify({"error": "Statistics timed out after 2 minutes"}), 408
+        except Exception as e:
+            logger.error(f"Statistics error: {e}")
+            return jsonify({"error": str(e)}), 500
 
 def setup_cleanup_handlers(app: Flask) -> None:
     """Setup graceful shutdown handlers"""

@@ -1,0 +1,68 @@
+{
+  "timestamp": "20250630_173523",
+  "total_tests": 21,
+  "passed_tests": 11,
+  "success_rate": 0.5238095238095238,
+  "validation_results": [
+    {
+      "test_name": "Ground Truth - chemical_engineering_concepts",
+      "query": "What are the main advantages of modular chemical plants?",
+      "domain": "modular_plants",
+      "difficulty": "intermediate",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.0,
+      "response_time": 0.0002219676971435547,
+      "sources_used": []
+    },
+    {
+      "test_name": "Ground Truth - chemical_engineering_concepts",
+      "query": "How do distillation columns work in chemical separation processes?",
+      "domain": "separation_processes",
+      "difficulty": "basic",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.0,
+      "response_time": 0.0001728534698486328,
+      "sources_used": []
+    },
+    {
+      "test_name": "Ground Truth - chemical_engineering_concepts",
+      "query": "What factors affect reactor conversion efficiency in chemical processes?",
+      "domain": "reactor_design",
+      "difficulty": "intermediate",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.0,
+      "response_time": 0.00015497207641601562,
+      "sources_used": []
+    },
+    {
+      "test_name": "Ground Truth - process_safety",
+      "query": "What are the key principles of process safety management?",
+      "domain": "safety_management",
+      "difficulty": "advanced",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.0,
+      "response_time": 0.00015115737915039062,
+      "sources_used": []
+    },
+    {
+      "test_name": "Ground Truth - process_safety",
+      "query": "How do pressure relief systems work in chemical plants?",
+      "domain": "safety_systems",
+      "difficulty": "intermediate",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.0,
+      "response_time": 0.00014901161193847656,
+      "sources_used": []
+    },
+    {
+      "test_name": "Ground Truth - environmental_engineering",
+      "query": "What are the main wastewater treatment processes?",
+      "domain": "wastewater_treatment",
+      "difficulty": "basic",
+      "accuracy_score": 0.0,
+      "citation_accuracy": 0.0,
+      "response_time": 0.0001480579376220703,
+      "sources_used": []
+    }
+  ]
+}

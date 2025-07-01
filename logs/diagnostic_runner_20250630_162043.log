@@ -1,0 +1,55 @@
+2025-06-30 16:20:43,447 | INFO | Starting Quick PyNucleus System Diagnostic...
+2025-06-30 16:20:43,449 | INFO | Started at: 2025-06-30 16:20:43
+2025-06-30 16:20:43,450 | INFO | === PYTHON ENVIRONMENT CHECK ===
+2025-06-30 16:20:43,451 | INFO | Python Version: 3.13.4 (main, Jun 3 2025, 15:34:24) [Clang 17.0.0 (clang-1700.0.13.3)]
+2025-06-30 16:20:43,452 | INFO | Python Version: PASSED
+2025-06-30 16:20:43,452 | WARNING | - Version 3.13 meets requirements
+2025-06-30 16:20:43,453 | INFO | Python executable: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python
+2025-06-30 16:20:43,454 | INFO | Python path includes src: True
+2025-06-30 16:20:43,455 | INFO | === ESSENTIAL DEPENDENCIES CHECK ===
+2025-06-30 16:20:43,457 | INFO | numpy: PASSED
+2025-06-30 16:20:43,459 | WARNING | - Package available
+2025-06-30 16:20:43,461 | INFO | pandas: PASSED
+2025-06-30 16:20:43,463 | WARNING | - Package available
+2025-06-30 16:20:43,464 | INFO | requests: PASSED
+2025-06-30 16:20:43,466 | WARNING | - Package available
+2025-06-30 16:20:43,467 | INFO | tqdm: PASSED
+2025-06-30 16:20:43,468 | WARNING | - Package available
+2025-06-30 16:20:43,468 | INFO | jinja2: PASSED
+2025-06-30 16:20:43,469 | WARNING | - Package available
+2025-06-30 16:20:43,470 | INFO | typer: PASSED
+2025-06-30 16:20:43,471 | WARNING | - Package available
+2025-06-30 16:20:43,473 | INFO | === CORE SCRIPT VALIDATION ===
+2025-06-30 16:20:43,481 | INFO | src/pynucleus/cli.py - Syntax OK
+2025-06-30 16:20:43,488 | INFO | src/pynucleus/cli.py - Imports OK
+2025-06-30 16:20:43,488 | INFO | src/pynucleus/cli.py - Entry point (skipped execution)
+2025-06-30 16:20:43,489 | INFO | src/pynucleus/cli.py - Overall: HEALTHY
+2025-06-30 16:20:43,494 | INFO | src/pynucleus/pipeline/pipeline_rag.py - Syntax OK
+2025-06-30 16:20:43,496 | INFO | src/pynucleus/pipeline/pipeline_rag.py - Imports OK
+2025-06-30 16:20:43,505 | WARNING | src/pynucleus/pipeline/pipeline_rag.py - Execution warning: attempted relative import with no known parent package...
+2025-06-30 16:20:43,506 | WARNING | src/pynucleus/pipeline/pipeline_rag.py - Overall: ISSUES FOUND
+2025-06-30 16:20:43,509 | INFO | src/pynucleus/rag/rag_core.py - Syntax OK
+2025-06-30 16:20:43,510 | INFO | src/pynucleus/rag/rag_core.py - Imports OK
+2025-06-30 16:20:43,512 | INFO | src/pynucleus/rag/rag_core.py - Execution OK
+2025-06-30 16:20:43,513 | INFO | src/pynucleus/rag/rag_core.py - Overall: HEALTHY
+2025-06-30 16:20:43,524 | INFO | run_pipeline.py - Syntax OK
+2025-06-30 16:20:43,526 | INFO | run_pipeline.py - Imports OK
+2025-06-30 16:20:43,527 | INFO | run_pipeline.py - Entry point (skipped execution)
+2025-06-30 16:20:43,528 | INFO | run_pipeline.py - Overall: HEALTHY
+2025-06-30 16:20:43,530 | INFO | === RAG SYSTEM HEALTH CHECK ===
+2025-06-30 16:20:43,531 | INFO | RAG Core Import: PASSED
+2025-06-30 16:20:43,532 | WARNING | - RAG modules successfully imported
+2025-06-30 16:20:43,532 | INFO | Testing RAG system components...
+2025-06-30 16:20:43,533 | INFO | RAG System Components: PASSED
+2025-06-30 16:20:43,533 | WARNING | - RAG system accessible
+2025-06-30 16:20:43,534 | INFO | === BASIC INTEGRATION CHECK ===
+2025-06-30 16:20:43,534 | INFO | Basic Integration: PASSED
+2025-06-30 16:20:43,535 | WARNING | - Core integration modules accessible
+2025-06-30 16:20:43,536 | INFO | === QUICK DIAGNOSTIC SUMMARY ===
+2025-06-30 16:20:43,537 | INFO | Execution Time: 0.09 seconds
+2025-06-30 16:20:43,538 | INFO | Total Checks: 10
+2025-06-30 16:20:43,539 | INFO | Passed Checks: 10
+2025-06-30 16:20:43,540 | INFO | Scripts Validated: 4
+2025-06-30 16:20:43,541 | INFO | Healthy Scripts: 3
+2025-06-30 16:20:43,541 | INFO | Success Rate: 100.0%
+2025-06-30 16:20:43,542 | INFO | Overall Status: EXCELLENT

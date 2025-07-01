@@ -177,6 +177,26 @@ python run_pipeline.py status
 python run_pipeline.py test
 ```
 
+### **🎯 PyNucleus Dashboard**
+
+#### **Quick Start**
+
+### 1. Launch Dashboard
+```bash
+python scripts/launch_dashboard.py
+```
+
+### 2. Open Browser
+Go to: http://localhost:5001/dashboard
+
+### 3. Use Features
+- **Q&A**: Ask questions, rate answers (1-10)
+- **Diagnostics**: Check system health
+- **Validation**: Test system accuracy
+- **Statistics**: View system capabilities
+
+That's it! 🎉
+
 ---
 
 ## 📁 **Project Structure**

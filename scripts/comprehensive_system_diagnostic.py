@@ -142,11 +142,11 @@ class ComprehensiveSystemDiagnostic:
         self.log_message("🚀 Starting Comprehensive PyNucleus Clean System Diagnostic...")
         self.log_message(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
-        print("=" * 60)
-        print("   COMPREHENSIVE PYNUCLEUS CLEAN HEALTH DIAGNOSTIC")
-        print("=" * 60)
-        print("Focus: ChromaDB, Qwen Models, PDF Processing, and Clean Architecture")
-        print()
+        self.log_message("=" * 60)
+        self.log_message("   COMPREHENSIVE PYNUCLEUS CLEAN HEALTH DIAGNOSTIC")
+        self.log_message("=" * 60)
+        self.log_message("Focus: ChromaDB, Qwen Models, PDF Processing, and Clean Architecture")
+        self.log_message("")
         
         try:
             # Core system environment checks
@@ -192,11 +192,11 @@ class ComprehensiveSystemDiagnostic:
         """Run lightweight test mode diagnostic."""
         self.log_message("🧪 Starting Test Mode System Diagnostic...")
         
-        print("=" * 60)
-        print("   SYSTEM DIAGNOSTIC - TEST MODE")
-        print("=" * 60)
-        print("Focus: Essential System Health Checks")
-        print()
+        self.log_message("=" * 60)
+        self.log_message("   SYSTEM DIAGNOSTIC - TEST MODE")
+        self.log_message("=" * 60)
+        self.log_message("Focus: Essential System Health Checks")
+        self.log_message("")
         
         try:
             # Essential checks only
@@ -217,9 +217,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_python_environment(self):
         """Check Python environment and version."""
-        print("\n" + "=" * 60)
-        print("   PYTHON ENVIRONMENT CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   PYTHON ENVIRONMENT CHECK")
+        self.log_message("=" * 60)
         
         start_time = time.time()
         check = SystemCheck("Python Environment", "environment")
@@ -262,9 +262,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_essential_dependencies(self):
         """Check essential dependencies only (for test mode)."""
-        print("\n" + "=" * 60)
-        print("   ESSENTIAL DEPENDENCIES CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   ESSENTIAL DEPENDENCIES CHECK")
+        self.log_message("=" * 60)
         
         essential_packages = [
             "numpy", "pandas", "requests", "tqdm", "typer", 
@@ -275,9 +275,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_comprehensive_dependencies(self):
         """Check comprehensive dependencies for PyNucleus Clean."""
-        print("\n" + "=" * 60)
-        print("   COMPREHENSIVE DEPENDENCIES CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   COMPREHENSIVE DEPENDENCIES CHECK")
+        self.log_message("=" * 60)
         
         # Core dependencies for PyNucleus Clean
         core_packages = [
@@ -403,9 +403,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_docker_environment(self):
         """Check Docker environment availability."""
-        print("\n" + "=" * 60)
-        print("   DOCKER ENVIRONMENT CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   DOCKER ENVIRONMENT CHECK")
+        self.log_message("=" * 60)
         
         start_time = time.time()
         check = SystemCheck("Docker Environment", "environment")
@@ -443,9 +443,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _validate_directory_structure(self):
         """Validate comprehensive directory structure."""
-        print("\n" + "=" * 60)
-        print("   DIRECTORY STRUCTURE CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   DIRECTORY STRUCTURE CHECK")
+        self.log_message("=" * 60)
         
         required_dirs = [
             "src/pynucleus",
@@ -493,9 +493,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _validate_core_directory_structure(self):
         """Validate core directory structure only (for test mode)."""
-        print("\n" + "=" * 60)
-        print("   CORE DIRECTORY STRUCTURE CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   CORE DIRECTORY STRUCTURE CHECK")
+        self.log_message("=" * 60)
         
         core_dirs = ["src/pynucleus", "src/pynucleus/data", "configs", "data"]
         
@@ -516,9 +516,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _validate_all_scripts_comprehensive(self):
         """Comprehensive script validation by categories."""
-        print("\n" + "=" * 60)
-        print("   COMPREHENSIVE SCRIPT VALIDATION")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   COMPREHENSIVE SCRIPT VALIDATION")
+        self.log_message("=" * 60)
         
         for category, patterns in self.script_categories.items():
             self.log_message(f"\n--- Validating {category} ---")
@@ -564,9 +564,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _validate_core_scripts(self):
         """Validate core scripts only (for test mode)."""
-        print("\n" + "=" * 60)
-        print("   CORE SCRIPT VALIDATION")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   CORE SCRIPT VALIDATION")
+        self.log_message("=" * 60)
         
         core_scripts = [
             "run_pipeline.py",
@@ -693,9 +693,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_pipeline_components(self):
         """Check pipeline component health."""
-        print("\n" + "=" * 60)
-        print("   PIPELINE COMPONENTS CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   PIPELINE COMPONENTS CHECK")
+        self.log_message("=" * 60)
         
         check = SystemCheck("Pipeline Components", "components")
         
@@ -740,9 +740,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_basic_pipeline_health(self):
         """Basic pipeline health check (for test mode)."""
-        print("\n" + "=" * 60)
-        print("   BASIC PIPELINE HEALTH CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   BASIC PIPELINE HEALTH CHECK")
+        self.log_message("=" * 60)
         
         check = SystemCheck("Basic Pipeline Health", "components")
         
@@ -767,9 +767,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_integration_components(self):
         """Check integration component health."""
-        print("\n" + "=" * 60)
-        print("   INTEGRATION COMPONENTS CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   INTEGRATION COMPONENTS CHECK")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.integration.config_manager import ConfigManager
@@ -806,9 +806,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_pynucleus_clean_architecture(self):
         """Check PyNucleus Clean architecture components."""
-        print("\n" + "=" * 60)
-        print("   PYNUCLEUS CLEAN ARCHITECTURE CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   PYNUCLEUS CLEAN ARCHITECTURE CHECK")
+        self.log_message("=" * 60)
         
         # Test Pydantic Settings
         try:
@@ -857,9 +857,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_chromadb_health(self):
         """Check ChromaDB health and connectivity."""
-        print("\n" + "=" * 60)
-        print("   CHROMADB HEALTH CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   CHROMADB HEALTH CHECK")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.rag.engine import retrieve
@@ -897,9 +897,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_qwen_model_health(self):
         """Check Qwen model health and performance."""
-        print("\n" + "=" * 60)
-        print("   QWEN MODEL HEALTH CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   QWEN MODEL HEALTH CHECK")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.llm.qwen_loader import generate
@@ -936,9 +936,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_pdf_processing_health(self):
         """Check PDF processing system health and functionality."""
-        print("\n" + "=" * 60)
-        print("   PDF PROCESSING SYSTEM CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   PDF PROCESSING SYSTEM CHECK")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.data.table_cleaner import extract_tables
@@ -976,9 +976,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_redis_integration(self):
         """Check Redis distributed caching integration."""
-        print("\n" + "=" * 60)
-        print("   REDIS INTEGRATION CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   REDIS INTEGRATION CHECK")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.deployment.cache_integration import RedisCache, get_cache
@@ -1031,9 +1031,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_scaling_infrastructure(self):
         """Check horizontal scaling infrastructure."""
-        print("\n" + "=" * 60)
-        print("   SCALING INFRASTRUCTURE CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   SCALING INFRASTRUCTURE CHECK")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.deployment.scaling_manager import (
@@ -1084,9 +1084,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_api_production_readiness(self):
         """Check Flask API production readiness."""
-        print("\n" + "=" * 60)
-        print("   API PRODUCTION READINESS CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   API PRODUCTION READINESS CHECK")
+        self.log_message("=" * 60)
         
         try:
             from pynucleus.api.app import create_app
@@ -1131,9 +1131,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_stress_testing_infrastructure(self):
         """Check stress testing and validation infrastructure."""
-        print("\n" + "=" * 60)
-        print("   STRESS TESTING INFRASTRUCTURE CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   STRESS TESTING INFRASTRUCTURE CHECK")
+        self.log_message("=" * 60)
         
         try:
             self.total_checks += 1
@@ -1193,9 +1193,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_deployment_readiness(self):
         """Check overall deployment readiness."""
-        print("\n" + "=" * 60)
-        print("   DEPLOYMENT READINESS ASSESSMENT")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   DEPLOYMENT READINESS ASSESSMENT")
+        self.log_message("=" * 60)
         
         self.total_checks += 1
         check = SystemCheck("Deployment Readiness", "deployment")
@@ -1265,9 +1265,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _test_basic_functionality(self):
         """Test basic system functionality."""
-        print("\n" + "=" * 60)
-        print("   BASIC FUNCTIONALITY TEST")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   BASIC FUNCTIONALITY TEST")
+        self.log_message("=" * 60)
         
         check = SystemCheck("Basic Functionality", "functionality")
         
@@ -1306,9 +1306,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _check_enhanced_features(self):
         """Check enhanced system features."""
-        print("\n" + "=" * 60)
-        print("   ENHANCED FEATURES CHECK")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   ENHANCED FEATURES CHECK")
+        self.log_message("=" * 60)
         
         # Check for enhanced data directories
         enhanced_dirs = {
@@ -1362,9 +1362,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _test_configuration_management(self):
         """Test configuration management system."""
-        print("\n" + "=" * 60)
-        print("   CONFIGURATION MANAGEMENT TEST")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   CONFIGURATION MANAGEMENT TEST")
+        self.log_message("=" * 60)
         
         check = SystemCheck("Configuration Management", "config")
         
@@ -1403,9 +1403,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _generate_comprehensive_report(self):
         """Generate comprehensive diagnostic report."""
-        print("\n" + "=" * 60)
-        print("   COMPREHENSIVE DIAGNOSTIC REPORT")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   COMPREHENSIVE DIAGNOSTIC REPORT")
+        self.log_message("=" * 60)
         
         end_time = datetime.now()
         duration = (end_time - self.start_time).total_seconds()
@@ -1459,9 +1459,9 @@ class ComprehensiveSystemDiagnostic:
     
     def _generate_test_report(self):
         """Generate test mode diagnostic report."""
-        print("\n" + "=" * 60)
-        print("   TEST MODE DIAGNOSTIC REPORT")
-        print("=" * 60)
+        self.log_message("\n" + "=" * 60)
+        self.log_message("   TEST MODE DIAGNOSTIC REPORT")
+        self.log_message("=" * 60)
         
         end_time = datetime.now()
         duration = (end_time - self.start_time).total_seconds()
