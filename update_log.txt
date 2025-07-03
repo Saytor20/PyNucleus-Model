@@ -309,10 +309,7 @@ Main things to Do:
 To Do) 
 1) Deploy the model to google colab / windows and test it... make sure the set up for github pipeline to pull is there to always test it 
 2) we need to understand what we have to do with the golden dataset and validation data are we trainning on them or what and what is the difference between the 2? 
-3) Automated Backend Testing & CI/CD Preparation
-5) MAJOR clean house is needed to determine the files needed and not needed 
-6) we need to cover how we can reset the chunks and are they stored 
-9) check the money guy
+5) MAJOR clean house is needed to determine the files needed and not needed  
 
  2025-06-30 14:44:22 changes made and pushed to origin main
 
@@ -320,5 +317,11 @@ Completed:
 7) fix the citation problem - completed
 4) Test the components of the RAG and LLM and make sure all scenarios are covered - completed
 8) review the output context size - completed
+10) maybe create a simple CLI interactive thing that can ingest, run app and do all these things - completed 
+11) enhance the statisitcs aspect so that it can also see the recalls and everything related to the RAG - completed 
+9) check the money guy and remove the uneeded templates - completed 
+6) we need to cover how we can reset the chunks and are they stored - completed
 
  2025-07-01 04:30:28 changes made and pushed to origin main
+
+ 2025-07-03 16:17:52 changes made and pushed to origin main

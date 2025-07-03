@@ -739,7 +739,7 @@ def interactive_chat(
 
 @app.command("build")
 def build_plant(
-    template_id: Optional[int] = typer.Option(None, "--template-id", help="Plant template ID (1-22) - if not provided, will prompt interactively"),
+    template_id: Optional[int] = typer.Option(None, "--template-id", help="African plant template ID (1-22) - if not provided, will prompt interactively"),
     feedstock: Optional[str] = typer.Option(None, "--feedstock", help="Feedstock type - if not provided, will prompt interactively"),
     production_capacity: Optional[int] = typer.Option(None, "--production-capacity", help="Production capacity in tons/year - if not provided, will prompt interactively"),
     plant_location: Optional[str] = typer.Option(None, "--plant-location", help="Plant location - if not provided, will prompt interactively"),
@@ -769,12 +769,12 @@ def build_plant(
         templates = mock_data_manager.get_all_plant_templates()
         
         print("=" * 60)
-        print("🏭 INTERACTIVE MODULAR PLANT BUILDER")
+        print("🏭 INTERACTIVE AFRICAN MODULAR PLANT BUILDER")
         print("=" * 60)
         
         # Step 1: Template Selection
         if template_id is None:
-            print("\n📋 Available Plant Templates:")
+            print("\n📋 Available African Plant Templates:")
             print("-" * 40)
             for template in templates:
                 print(f"{template['id']:2d}. {template['name']}")
@@ -803,7 +803,7 @@ def build_plant(
         
         # Step 2: Feedstock Selection
         if feedstock is None:
-            print(f"\n🌿 Available feedstock options for {selected_template['name']}:")
+            print(f"\n🌿 Available African feedstock options for {selected_template['name']}:")
             for i, option in enumerate(selected_template['feedstock_options'], 1):
                 print(f"   {i}. {option}")
             
@@ -848,15 +848,15 @@ def build_plant(
         
         # Step 4: Plant Location
         if plant_location is None:
-            print(f"\n📍 Available locations (with cost factors):")
+            print(f"\n📍 Available African locations (with cost factors):")
             for location, factor in selected_template['location_factors'].items():
                 factor_text = "Standard" if factor == 1.0 else f"{factor:.1f}x cost"
                 print(f"   • {location} ({factor_text})")
             
             while True:
-                plant_location = input(f"\nEnter plant location (or press Enter for 'Texas, USA'): ").strip()
+                plant_location = input(f"\nEnter plant location (or press Enter for 'Nigeria'): ").strip()
                 if plant_location == "":
-                    plant_location = "Texas, USA"
+                    plant_location = "Nigeria"
                     break
                 elif plant_location in selected_template['location_factors']:
                     break
@@ -930,49 +930,55 @@ def build_plant(
         print(f"   Operating Cost: ${plant_config['financial_parameters']['operating_cost']:,.0f}/year")
         print(f"   Product Price: ${plant_config['financial_parameters']['product_price']}/ton")
         
-        # Step 7: Perform financial analysis
-        print("\n🔄 Step 2: Performing financial analysis...")
-        financial_analysis = financial_analyzer.analyze_financials(plant_config)
+        # Step 7: Perform enhanced financial analysis
+        print("\n🔄 Step 2: Performing enhanced financial analysis...")
+        financial_metrics = financial_analyzer.calculate_financial_metrics(plant_config)
         
-        print("✅ Financial analysis completed!")
+        print("✅ Enhanced financial analysis completed!")
         
         # Display results
         print("\n" + "=" * 60)
-        print("💰 FINANCIAL ANALYSIS RESULTS")
+        print("💰 ENHANCED FINANCIAL ANALYSIS RESULTS")
         print("=" * 60)
         
-        llm_analysis = financial_analysis.get("llm_analysis", {})
-        basic_calc = financial_analysis.get("basic_calculations", {})
+        revenue_data = financial_metrics.get("revenue_analysis", {})
+        profitability = financial_metrics.get("profitability_metrics", {})
+        costs = financial_metrics.get("cost_analysis", {})
+        risks = financial_metrics.get("risk_assessment", [])
         
-        print(f"Annual Revenue: ${llm_analysis.get('annual_revenue', 0):,.0f}")
-        print(f"Profit Margin: {llm_analysis.get('profit_margin_percent', 0):.1f}%")
-        print(f"ROI: {llm_analysis.get('roi_percent', 0):.1f}%")
+        print(f"Annual Revenue: ${revenue_data.get('annual_revenue', 0):,.0f}")
+        print(f"Annual Profit: ${profitability.get('annual_profit', 0):,.0f}")
+        print(f"Profit Margin: {profitability.get('profit_margin_percent', 0):.1f}%")
+        print(f"ROI: {profitability.get('roi_percent', 0):.1f}%")
+        print(f"Payback Period: {profitability.get('payback_period_years', 0):.1f} years")
+        
+        # Display unit economics
+        unit_economics = financial_metrics.get("unit_economics", {})
+        print(f"\n📊 Unit Economics:")
+        print(f"   Revenue per Ton: ${unit_economics.get('revenue_per_ton', 0):,.0f}")
+        print(f"   Operating Cost per Ton: ${unit_economics.get('operating_cost_per_ton', 0):,.0f}")
+        print(f"   Profit per Ton: ${unit_economics.get('profit_per_ton', 0):,.0f}")
         
         # Display risks
-        risks = llm_analysis.get('financial_risks', [])
         if risks:
             print(f"\n⚠️  Financial Risks:")
             for i, risk in enumerate(risks, 1):
                 print(f"   {i}. {risk}")
         
-        # Display recommendations
-        recommendations = llm_analysis.get('strategic_recommendations', '')
-        if recommendations:
-            print(f"\n💡 Strategic Recommendations:")
-            print(f"   {recommendations}")
-        
-        # Display basic calculations for verification
-        print(f"\n📊 Basic Calculations (Verification):")
-        print(f"   Annual Revenue: ${basic_calc.get('annual_revenue', 0):,.0f}")
-        print(f"   Profit Margin: {basic_calc.get('profit_margin_percent', 0):.1f}%")
-        print(f"   ROI: {basic_calc.get('roi_percent', 0):.1f}%")
+        # Display sustainability metrics
+        sustainability = financial_metrics.get("sustainability_metrics", {})
+        if sustainability:
+            print(f"\n🌱 Sustainability Metrics:")
+            print(f"   Employment: {sustainability.get('employment_metrics', {}).get('total_jobs', 0)} jobs")
+            print(f"   CO₂ Impact: {sustainability.get('environmental_metrics', {}).get('co2_impact_tons_per_year', 0):+,.0f} tons/year")
+            print(f"   Sustainability Rating: {sustainability.get('sustainability_rating', 'Unknown')}")
         
         # Save results if output file specified
         if output_file:
             import json
             results = {
                 "plant_configuration": plant_config,
-                "financial_analysis": financial_analysis,
+                "financial_analysis": financial_metrics,
                 "build_metadata": {
                     "template_id": template_id,
                     "custom_parameters": custom_parameters,

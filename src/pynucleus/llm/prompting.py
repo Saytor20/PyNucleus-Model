@@ -48,6 +48,17 @@ def build_enhanced_rag_prompt(context: str, question: str, max_context_chars=Non
 - Include relevant equations, principles, or design rules when applicable
 - Cite sources using [Doc-XX] format at the end
 - If context is insufficient, clearly state what additional information would be needed
+- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
+- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
+- Provide direct, factual answers without commentary about the source material
+
+### FORMATTING REQUIREMENTS:
+- Write clean, well-formatted text without any terminal formatting characters
+- Use proper spacing and punctuation throughout
+- Structure paragraphs logically with clear transitions
+- Avoid run-on sentences and ensure proper sentence breaks
+- Format mathematical expressions clearly using standard notation
+- Use consistent citation format [Doc-XX] where appropriate
 
 ### CHEMICAL ENGINEERING ANSWER:
 """
@@ -69,6 +80,17 @@ def build_enhanced_rag_prompt(context: str, question: str, max_context_chars=Non
 - Use proper technical terminology
 - Keep the answer focused and well-structured
 - Cite sources using [Doc-XX] format
+- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
+- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
+- Provide direct, factual answers without commentary about the source material
+
+### FORMATTING REQUIREMENTS:
+- Write clean, well-formatted text without any terminal formatting characters
+- Use proper spacing and punctuation throughout
+- Structure paragraphs logically with clear transitions
+- Avoid run-on sentences and ensure proper sentence breaks
+- Format mathematical expressions clearly using standard notation
+- Use consistent citation format [Doc-XX] where appropriate
 
 ### DEFINITION AND EXPLANATION:
 """
@@ -88,6 +110,17 @@ def build_enhanced_rag_prompt(context: str, question: str, max_context_chars=Non
 - Explain the chemical/physical principles involved
 - Include any safety or operational considerations
 - Cite sources using [Doc-XX] format
+- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
+- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
+- Provide direct, factual answers without commentary about the source material
+
+### FORMATTING REQUIREMENTS:
+- Write clean, well-formatted text without any terminal formatting characters
+- Use proper spacing and punctuation throughout
+- Structure paragraphs logically with clear transitions
+- Avoid run-on sentences and ensure proper sentence breaks
+- Format mathematical expressions clearly using standard notation
+- Use consistent citation format [Doc-XX] where appropriate
 
 ### PROCESS EXPLANATION:
 """
@@ -107,6 +140,17 @@ def build_enhanced_rag_prompt(context: str, question: str, max_context_chars=Non
 - Mention sizing factors or selection criteria
 - Include any maintenance or operational aspects
 - Cite sources using [Doc-XX] format
+- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
+- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
+- Provide direct, factual answers without commentary about the source material
+
+### FORMATTING REQUIREMENTS:
+- Write clean, well-formatted text without any terminal formatting characters
+- Use proper spacing and punctuation throughout
+- Structure paragraphs logically with clear transitions
+- Avoid run-on sentences and ensure proper sentence breaks
+- Format mathematical expressions clearly using standard notation
+- Use consistent citation format [Doc-XX] where appropriate
 
 ### EQUIPMENT EXPLANATION:
 """
@@ -127,6 +171,17 @@ def build_enhanced_rag_prompt(context: str, question: str, max_context_chars=Non
 - Include relevant technical details
 - Be concise but comprehensive
 - Cite sources using [Doc-XX] format at the end
+- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
+- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
+- Provide direct, factual answers without commentary about the source material
+
+### FORMATTING REQUIREMENTS:
+- Write clean, well-formatted text without any terminal formatting characters
+- Use proper spacing and punctuation throughout
+- Structure paragraphs logically with clear transitions
+- Avoid run-on sentences and ensure proper sentence breaks
+- Format mathematical expressions clearly using standard notation
+- Use consistent citation format [Doc-XX] where appropriate
 
 ### TECHNICAL ANSWER:
 """
@@ -214,6 +269,20 @@ def build_answer_improvement_prompt(question: str, poor_answer: str, context: st
 - Ensure the answer directly addresses the question
 - Keep it concise but comprehensive
 - Include relevant technical details from the context
+- Format the answer cleanly without any terminal formatting characters
+- Use proper spacing and punctuation
+- Structure paragraphs logically with clear transitions
+- Avoid run-on sentences and ensure proper sentence breaks
+- Format mathematical expressions clearly using standard notation
+- Use consistent citation format [Doc-XX] where appropriate
+
+### FORMATTING REQUIREMENTS:
+- No pipe characters (│) or terminal formatting
+- Proper spacing between words and sentences
+- Clean paragraph breaks
+- Consistent punctuation
+- Clear mathematical notation
+- Proper citation formatting
 
 ### IMPROVED ANSWER:
 """

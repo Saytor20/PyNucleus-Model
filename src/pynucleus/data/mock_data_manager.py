@@ -26,7 +26,7 @@ class MockDataManager:
             config_path: Path to mock data configuration file
         """
         if config_path is None:
-            config_path = Path("configs/mock_data_config.json")
+            config_path = Path("configs/mock_data_modular_plants.json")
         
         self.config_path = config_path
         self._data = None

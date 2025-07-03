@@ -44,7 +44,7 @@ from pynucleus.utils.logging_config import configure_logging
 configure_logging("INFO")
 logger = logging.getLogger(__name__)
 
-class EnhancedTextCleaner:
+class TextCleaner:
     """Comprehensive text cleaner for removing PDF conversion artifacts."""
     
     def __init__(self):

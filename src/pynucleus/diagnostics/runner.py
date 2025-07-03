@@ -1359,5 +1359,42 @@ def main(
             typer.echo("This indicates a critical system issue that prevented diagnostics from completing.", err=True)
         raise typer.Exit(2)
 
+def run_comprehensive_diagnostics():
+    """
+    Wrapper function for comprehensive diagnostics - used by CLI.
+    
+    Returns:
+        Dict containing diagnostic results
+    """
+    runner = DiagnosticRunner(quick_mode=False, test_notebook=False, 
+                             test_validation=False, test_citations=False)
+    runner.run_full_diagnostic()
+    
+    return {
+        "success": True,
+        "total_checks": runner.total_checks,
+        "passed_checks": runner.passed_checks,
+        "timestamp": datetime.now().isoformat(),
+        "log_file": str(runner.log_file) if hasattr(runner, 'log_file') else None
+    }
+
+def run_quick_diagnostics():
+    """
+    Wrapper function for quick diagnostics - used by CLI.
+    
+    Returns:
+        Dict containing diagnostic results
+    """
+    runner = DiagnosticRunner(quick_mode=True)
+    runner.run_quick_diagnostic()
+    
+    return {
+        "success": True,
+        "total_checks": runner.total_checks,
+        "passed_checks": runner.passed_checks,
+        "timestamp": datetime.now().isoformat(),
+        "log_file": str(runner.log_file) if hasattr(runner, 'log_file') else None
+    }
+
 if __name__ == "__main__":
     app() 

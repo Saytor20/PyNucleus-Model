@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     TOP_P: float = 0.9
     REPETITION_PENALTY: float = 1.2
     MIN_ANSWER_LENGTH: int = 100
+    MAX_ANSWER_LENGTH: int = 2000  # Increased for longer technical answers
     
     # Enhanced RAG Pipeline Configuration - OPTIMIZED FOR BETTER RETRIEVAL
     # Chunking settings optimized for ≥90% retrieval recall
@@ -32,7 +33,7 @@ class Settings(BaseSettings):
     
     # Enhanced retrieval settings - OPTIMIZED FOR QUALITY
     ENHANCED_RETRIEVE_TOP_K: int = 3  # Consistent with main retrieval
-    RAG_SIMILARITY_THRESHOLD: float = 0.2  # Lower threshold for better recall
+    RAG_SIMILARITY_THRESHOLD: float = 0.05  # Much lower threshold for better recall
     MAX_CONTEXT_CHUNKS: int = 3  # Limit context to top 3 chunks
     
     # Citation and quality settings
@@ -61,6 +62,9 @@ class Settings(BaseSettings):
         "Qwen/Qwen2.5-1.5B-Instruct",  # Updated: Use real model as fallback
     ]
     
+    # ChromaDB telemetry settings
+    CHROMA_TELEMETRY_ENABLED: bool = False  # Disable telemetry to prevent errors
+    
     # Quality-based answer improvement
     USE_QUALITY_MODEL_SELECTION: bool = True
     MIN_QUALITY_THRESHOLD_FOR_RETRY: float = 0.3
@@ -68,6 +72,8 @@ class Settings(BaseSettings):
 
     class Config:
         extra = "forbid"
+        env_file = ".env"
+        env_file_encoding = "utf-8"
 
 try:
     settings = Settings()

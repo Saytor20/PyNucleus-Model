@@ -39,10 +39,25 @@ def pretty_print_answer(result: Dict[str, Any], use_rich: bool = True) -> str:
     answer = result.get("answer", "")
     sources = result.get("sources", [])
     
+    # Import and apply answer cleaning if available
+    try:
+        from ..rag.answer_processing import clean_and_format_answer, remove_meta_commentary
+        # First remove meta-commentary, then clean and format
+        answer = remove_meta_commentary(answer)
+        answer = clean_and_format_answer(answer)
+    except ImportError:
+        pass  # Fallback if cleaning function not available
+    
     if not use_rich or not RICH_AVAILABLE:
         # Fallback to plain text with basic formatting
         formatted = format_equations(answer)
         formatted = format_citations(formatted)
+        
+        # Clean up any remaining formatting artifacts
+        formatted = re.sub(r'\s*│\s*', ' ', formatted)  # Remove pipe characters
+        formatted = re.sub(r'\s+', ' ', formatted)      # Normalize whitespace
+        formatted = re.sub(r'^\s*[-*]\s*', '', formatted, flags=re.MULTILINE)  # Remove list markers
+        
         # Add sources section for plain text
         if sources:
             formatted += "\n\n📚 Sources:\n"
@@ -66,6 +81,11 @@ def pretty_print_answer(result: Dict[str, Any], use_rich: bool = True) -> str:
     # Format main answer
     formatted_answer = format_equations(main_answer)
     formatted_answer = format_citations(formatted_answer)
+    
+    # Clean up any remaining formatting artifacts
+    formatted_answer = re.sub(r'\s*│\s*', ' ', formatted_answer)
+    formatted_answer = re.sub(r'\s+', ' ', formatted_answer)
+    formatted_answer = re.sub(r'^\s*[-*]\s*', '', formatted_answer, flags=re.MULTILINE)
     
     # Create rich output
     console.print(Panel(

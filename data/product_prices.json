@@ -119,7 +119,20 @@
       "LLDPE": 1200,
       "Caprolactam": 2200,
       "Magnesium": 17000,
-      "Cobalt Sulfate": 10000
+      "Cobalt Sulfate": 10000,
+      "Clean Water": 6000,
+      "Cassava Flour": 300,
+      "Palm Oil": 950,
+      "Lubricant Oil": 1800,
+      "Soap & Detergent": 1200,
+      "Paint": 2000,
+      "Biopesticide": 3000,
+      "PET Flakes": 900,
+      "Gelatin": 8000,
+      "Bitumen Emulsion": 600,
+      "Pyrethrin Extract": 50000,
+      "Synthetic Fuel": 1000,
+      "Cement": 120
     },
     "market_indicators": {
       "crude_oil_brent": 68,

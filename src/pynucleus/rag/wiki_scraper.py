@@ -20,8 +20,8 @@ scripts_path = str(root_dir / "scripts")
 if scripts_path not in sys.path:
     sys.path.insert(0, scripts_path)
 
-# Import enhanced text cleaner
-from enhanced_text_cleaner import EnhancedTextCleaner
+# Import text cleaner
+from text_cleaner import TextCleaner
 
 # Add Wikipedia to requirements if not present
 try:
@@ -40,7 +40,7 @@ class WikipediaScraper:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
         # Initialize text cleaner
-        self.text_cleaner = EnhancedTextCleaner()
+        self.text_cleaner = TextCleaner()
         
         # Chemical engineering keywords for targeted scraping
         self.keywords = [

@@ -573,16 +573,25 @@ class ChromaVectorStore:
     def _initialize_chroma(self):
         """Initialize ChromaDB client and collection using centralized approach."""
         try:
+            # Apply telemetry patch before any ChromaDB imports
+            from ..utils.telemetry_patch import apply_telemetry_patch
+            apply_telemetry_patch()
+            
             import chromadb
             from chromadb.config import Settings
             from pathlib import Path
+            import os
+            
+            # Disable telemetry at environment level
+            os.environ["ANONYMIZED_TELEMETRY"] = "false"
+            os.environ["CHROMA_TELEMETRY_ENABLED"] = "false"
             
             # Ensure directory exists
             Path(self.index_dir).mkdir(parents=True, exist_ok=True)
             
             # Use consistent settings across all ChromaDB clients
             client_settings = Settings(
-                anonymized_telemetry=False,
+                anonymized_telemetry=settings.CHROMA_TELEMETRY_ENABLED,
                 allow_reset=True,
                 chroma_client_auth_provider=None,
                 chroma_server_host=None,
@@ -598,7 +607,6 @@ class ChromaVectorStore:
                 
                 # Test client connectivity
                 self.client.list_collections()
-                self.logger.info("ChromaDB client initialized successfully in vector store")
                 
             except Exception as e:
                 if "already exists" in str(e).lower():
@@ -634,7 +642,10 @@ class ChromaVectorStore:
                 count = self.collection.count()
                 if count > 0:
                     self.loaded = True
-                    self.logger.info(f"ChromaDB collection contains {count} documents")
+                    # Only log collection count once per instance
+                    if not hasattr(self, '_logged_collection_count'):
+                        self.logger.info(f"ChromaDB collection contains {count} documents")
+                        self._logged_collection_count = True
                 else:
                     self.logger.info("ChromaDB collection is empty")
                     # Auto-ingest documents if collection is empty
@@ -673,7 +684,10 @@ class ChromaVectorStore:
                     new_count = self.collection.count()
                     if new_count > 0:
                         self.loaded = True
-                        self.logger.info(f"Auto-ingestion completed. ChromaDB now contains {new_count} documents")
+                        # Only log collection count once per instance
+                        if not hasattr(self, '_logged_collection_count'):
+                            self.logger.info(f"ChromaDB collection contains {new_count} documents")
+                            self._logged_collection_count = True
                     else:
                         self.logger.warning("Auto-ingestion completed but no documents were added")
                 else:

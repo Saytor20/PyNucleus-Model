@@ -5,10 +5,18 @@ Data management and access utilities for the PyNucleus system.
 """
 
 from .mock_data_manager import MockDataManager, get_mock_data_manager
-from .table_cleaner import TableCleaner
+
+# Make TableCleaner import optional to avoid camelot dependency
+try:
+    from .table_cleaner import TableCleaner
+    TABLE_CLEANER_AVAILABLE = True
+except ImportError:
+    TableCleaner = None
+    TABLE_CLEANER_AVAILABLE = False
 
 __all__ = [
     'MockDataManager',
     'get_mock_data_manager',
-    'TableCleaner'
+    'TableCleaner',
+    'TABLE_CLEANER_AVAILABLE'
 ] 

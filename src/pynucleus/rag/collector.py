@@ -1,3 +1,7 @@
+# Apply telemetry patch before any ChromaDB imports
+from ..utils.telemetry_patch import apply_telemetry_patch
+apply_telemetry_patch()
+
 import pathlib, tqdm, chromadb
 from chromadb.config import Settings
 from pathlib import Path
@@ -7,31 +11,46 @@ from ..settings import settings
 from ..utils.logger import logger
 from .document_processor import DocumentProcessor  # Import enhanced document processor
 from ..metrics import Metrics, inc
-import tiktoken  # for byte-pair encoding token counts
 
 # disable HF user warnings
 hf_logging.set_verbosity_error()
 
-# choose a tokenizer compatible with your embedder
-enc = tiktoken.get_encoding("cl100k_base")
 # Use enhanced chunking settings from configuration
 MAX_TOKENS_PER_CHUNK = getattr(settings, 'CHUNK_SIZE', 400)
 
-def chunk_text(text: str):
-    """Legacy chunking function - kept for backward compatibility."""
-    tokens = enc.encode(text)
-    for i in range(0, len(tokens), MAX_TOKENS_PER_CHUNK):
-        chunk = enc.decode(tokens[i : i + MAX_TOKENS_PER_CHUNK])
-        yield chunk
-
 def count_tokens(text: str) -> int:
-    """Count tokens in text using tiktoken."""
+    """Count tokens in text using transformers tokenizer or fallback to word count."""
     if not text:
         return 0
     try:
-        return len(enc.encode(text))
+        # Try to use transformers tokenizer if available
+        from transformers import AutoTokenizer
+        tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
+        tokens = tokenizer.encode(text, add_special_tokens=False)
+        return len(tokens)
     except Exception:
-        return len(text.split())  # Fallback to word count
+        # Fallback to word count (rough approximation: ~0.75 tokens per word)
+        words = len(text.split())
+        return max(1, int(words * 0.75))
+
+def chunk_text(text: str):
+    """Legacy chunking function - kept for backward compatibility."""
+    # Simple sentence-based chunking as fallback
+    sentences = text.split('. ')
+    current_chunk = ""
+    
+    for sentence in sentences:
+        test_chunk = current_chunk + ". " + sentence if current_chunk else sentence
+        
+        if count_tokens(test_chunk) <= MAX_TOKENS_PER_CHUNK:
+            current_chunk = test_chunk
+        else:
+            if current_chunk:
+                yield current_chunk
+            current_chunk = sentence
+    
+    if current_chunk:
+        yield current_chunk
 
 def extract_pdf_text(pdf_path):
     """Extract text from PDF file."""
@@ -53,12 +72,17 @@ def extract_pdf_text(pdf_path):
 def _get_chromadb_client():
     """Get or create ChromaDB client with robust error handling."""
     try:
+        # Disable telemetry at environment level
+        import os
+        os.environ["ANONYMIZED_TELEMETRY"] = "false"
+        os.environ["CHROMA_TELEMETRY_ENABLED"] = "false"
+        
         # Ensure directory exists
         Path(settings.CHROMA_PATH).mkdir(parents=True, exist_ok=True)
         
         # Use consistent settings across all modules (match vector_store & collector)
         client_settings = Settings(
-            anonymized_telemetry=False,
+            anonymized_telemetry=settings.CHROMA_TELEMETRY_ENABLED,
             allow_reset=True,
             chroma_client_auth_provider=None,
             chroma_server_host=None,
@@ -68,7 +92,6 @@ def _get_chromadb_client():
             path=settings.CHROMA_PATH,
             settings=client_settings
         )
-        logger.info("ChromaDB client initialized successfully in collector")
         return client
         
     except Exception as e:
@@ -155,7 +178,7 @@ def ingest_single_file(file_path: str):
         # Process each chunk with enhanced metadata
         for chunk_data in tqdm.tqdm(chunks_data, desc=f"Processing {file_path_obj.name}"):
             try:
-                chunk_text = chunk_data.get("chunk_text", "")
+                chunk_text = chunk_data.get("text", "")  # DocumentProcessor uses "text" key
                 if not chunk_text or len(chunk_text.strip()) < 10:
                     continue
                 
@@ -297,7 +320,7 @@ def ingest(source_dir: str):
             # Process each chunk with enhanced metadata
             for chunk_data in chunks_data:
                 try:
-                    chunk_text = chunk_data.get("chunk_text", "")
+                    chunk_text = chunk_data.get("text", "")  # DocumentProcessor uses "text" key
                     if not chunk_text or len(chunk_text.strip()) < 10:
                         continue
                     

@@ -1,0 +1,46 @@
+{
+  "source_file": "data/validation/results/enhanced_evaluation_20250622_185607.json",
+  "aggregated": {
+    "precision": 0.2,
+    "recall": 1.0,
+    "f1": 0.33333333333333337,
+    "num_queries": 3,
+    "total_retrieved": 15,
+    "total_relevant": 3
+  },
+  "individual_metrics": [
+    {
+      "question": "What is the ANSI flange rating suitable for pressures up to 50 bar?",
+      "domain": "equipment_standards",
+      "difficulty": "easy",
+      "k": 5,
+      "precision": 0.2,
+      "recall": 1.0,
+      "f1": 0.33333333333333337,
+      "num_relevant": 1,
+      "num_retrieved": 5
+    },
+    {
+      "question": "What is diffusion-controlled reaction?",
+      "domain": "reaction_engineering",
+      "difficulty": "medium",
+      "k": 5,
+      "precision": 0.2,
+      "recall": 1.0,
+      "f1": 0.33333333333333337,
+      "num_relevant": 1,
+      "num_retrieved": 5
+    },
+    {
+      "question": "Define molar flux in mass transfer.",
+      "domain": "mass_transfer",
+      "difficulty": "easy",
+      "k": 5,
+      "precision": 0.2,
+      "recall": 1.0,
+      "f1": 0.33333333333333337,
+      "num_relevant": 1,
+      "num_retrieved": 5
+    }
+  ]
+}

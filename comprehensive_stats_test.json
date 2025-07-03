@@ -1,0 +1,66 @@
+{
+  "system_performance": {
+    "avg_latency": 1.25,
+    "queries_per_second": 15.3,
+    "total_cost_per_query": 0.002,
+    "uptime_hours": 168.5,
+    "error_rate_percent": 2.1,
+    "fallback_rate_percent": 8.5,
+    "peak_throughput_qps": 45.2,
+    "slo_compliance_percent": 94.7,
+    "cpu_percent": 7.0,
+    "memory_percent": 58.3
+  },
+  "rag_effectiveness": {
+    "avg_context_relevance": 0.78,
+    "retrieval_hit_rate": 0.85,
+    "total_chunks_processed": 1250,
+    "chunk_utilization_rate": 0.67,
+    "precision_at_5": 0.72,
+    "recall_at_5": 0.68,
+    "mrr": 0.81,
+    "ndcg_at_5": 0.75,
+    "index_size_gb": 0.0,
+    "index_growth_rate_docs_per_day": 45,
+    "index_freshness_hours": 6.2
+  },
+  "generation_quality": {
+    "avg_faithfulness_score": 0.82,
+    "hallucination_rate_percent": 3.2,
+    "avg_answer_relevance": 0.86,
+    "expected_calibration_error": 0.12,
+    "brier_score": 0.18,
+    "gold_standard_accuracy": 0.78,
+    "avg_confidence_score": 0.74,
+    "calibration_improvement": 0.15
+  },
+  "user_engagement": {
+    "avg_feedback_score": 4.2,
+    "thumbs_up_ratio": 0.78,
+    "unique_active_users": 145,
+    "session_abandonment_rate": 0.12,
+    "feedback_volume_per_hour": 12.5,
+    "retention_rate_7_days": 0.65,
+    "avg_session_length_minutes": 8.3
+  },
+  "drift_quality": {
+    "embedding_distribution_drift": 0.08,
+    "retrieval_hit_rate_drift": -0.03,
+    "feedback_distribution_shift": 0.05,
+    "concept_drift_alerts": 0,
+    "data_quality_score": 0.91,
+    "last_retrain_days_ago": 14
+  },
+  "infrastructure": {
+    "cpu_utilization": 29.5,
+    "memory_usage_percent": 83.0,
+    "memory_available_gb": 2.713897705078125,
+    "disk_usage_percent": 2.2756150437947866,
+    "disk_free_gb": 187.81085205078125,
+    "cache_hit_rate": 0.85,
+    "network_latency_ms": 45.2,
+    "service_restarts": 0,
+    "crash_count": 0,
+    "load_average": 1.78662109375
+  }
+}

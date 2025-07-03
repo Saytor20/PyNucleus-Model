@@ -2,8 +2,12 @@
 Enhanced RAG Pipeline for PyNucleus with improved retrieval, metadata indexing, and citation enforcement.
 """
 
+# Apply telemetry patch before any ChromaDB imports
+from ..utils.telemetry_patch import apply_telemetry_patch
+apply_telemetry_patch()
+
 import chromadb
-from chromadb.config import Settings as ChromaSettings
+from chromadb.config import Settings
 from pathlib import Path
 from ..settings import settings
 from ..llm.model_loader import generate
@@ -42,12 +46,17 @@ def _get_chromadb_client():
     global _client
     if _client is None:
         try:
+            # Disable telemetry at environment level
+            import os
+            os.environ["ANONYMIZED_TELEMETRY"] = "false"
+            os.environ["CHROMA_TELEMETRY_ENABLED"] = "false"
+            
             # Ensure directory exists
             Path(settings.CHROMA_PATH).mkdir(parents=True, exist_ok=True)
             
             # Use consistent settings across all modules (match vector_store & collector)
-            client_settings = ChromaSettings(
-                anonymized_telemetry=False,
+            client_settings = Settings(
+                anonymized_telemetry=settings.CHROMA_TELEMETRY_ENABLED,
                 allow_reset=True,
                 chroma_client_auth_provider=None,
                 chroma_server_host=None,
@@ -57,7 +66,6 @@ def _get_chromadb_client():
                 path=settings.CHROMA_PATH,
                 settings=client_settings
             )
-            logger.info("ChromaDB client initialized successfully")
             
         except Exception as e:
             logger.error(f"ChromaDB initialization failed: {e}")

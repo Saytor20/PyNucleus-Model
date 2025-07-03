@@ -120,6 +120,11 @@ class EnhancedEvaluator:
             response = ask(question)
             response_time = time.time() - start_time
             
+            # Handle case where ask() returns None
+            if response is None:
+                logger.warning(f"ask() returned None for question: {question}")
+                response = {"answer": "", "sources": []}
+            
             answer = response.get("answer", "")
             sources = response.get("sources", [])
             

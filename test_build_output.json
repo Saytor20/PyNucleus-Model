@@ -1,0 +1,192 @@
+{
+  "plant_configuration": {
+    "parameters": {
+      "feedstock": "Natural Gas",
+      "production_capacity": 36500,
+      "plant_location": "Nigeria",
+      "operating_hours": 8000
+    },
+    "financial_parameters": {
+      "capital_cost": 187500000,
+      "operating_cost": 56250000,
+      "product_price": 400
+    },
+    "template_info": {
+      "id": 1,
+      "name": "Modular Fertilizer Plant",
+      "description": "Modular fertilizer production for African agriculture using local resources.",
+      "technology": "Haber-Bosch Process",
+      "default_parameters": {
+        "feedstock": "Natural Gas",
+        "production_capacity": 36500,
+        "plant_location": "Nigeria",
+        "operating_hours": 8000,
+        "capital_cost": 150000000,
+        "operating_cost": 45000000,
+        "product_price": 400
+      },
+      "valid_ranges": {
+        "production_capacity": {
+          "min": 18250,
+          "max": 182500
+        },
+        "operating_hours": {
+          "min": 6000,
+          "max": 8760
+        }
+      },
+      "feedstock_options": [
+        "Natural Gas",
+        "Biomass",
+        "Agricultural Waste"
+      ],
+      "location_factors": {
+        "South Africa": 1.0,
+        "Morocco": 1.05,
+        "Egypt": 1.1,
+        "Ghana": 1.18,
+        "Nigeria": 1.25,
+        "Kenya": 1.22,
+        "Tanzania": 1.3,
+        "Ethiopia": 1.35
+      },
+      "regional_context_africa": {
+        "infrastructure_quality": "Developing",
+        "skilled_labor_availability": "Moderate",
+        "regulatory_environment": "Complex",
+        "political_stability_index": 0.45,
+        "local_content_requirements": "High"
+      },
+      "sustainability_impact": {
+        "community_employment": 120,
+        "resource_circularity": "Low",
+        "co2_reduction_potential_tpy": -128000
+      }
+    },
+    "location_adjustment": {
+      "factor": 1.25,
+      "original_capital_cost": 150000000,
+      "original_operating_cost": 45000000
+    }
+  },
+  "financial_analysis": {
+    "revenue_analysis": {
+      "daily_production_tons": 36500,
+      "annual_production_tons": 4440833333.333333,
+      "product_name": "Unknown",
+      "product_price_per_ton": 500.0,
+      "annual_revenue": 2220416666666.6665,
+      "location_adjustment_factor": 1.0,
+      "operating_hours_per_year": 8000
+    },
+    "cost_analysis": {
+      "capital_cost": 187500000,
+      "operating_cost": 56250000,
+      "operating_cost_per_ton": 0.012666541565021582,
+      "capital_intensity_per_ton": 0.0422218052167386
+    },
+    "profitability_metrics": {
+      "annual_revenue": 2220416666666.6665,
+      "annual_profit": 2220360416666.6665,
+      "profit_margin_percent": 99.997466691687,
+      "roi_percent": 1184192.2222222222,
+      "payback_period_years": 8.444574970467445e-05,
+      "operating_margin_percent": 99.997466691687,
+      "asset_turnover": 11842.22222222222
+    },
+    "unit_economics": {
+      "revenue_per_ton": 500.0,
+      "operating_cost_per_ton": 0.012666541565021582,
+      "profit_per_ton": 499.987333458435,
+      "daily_production_tons": 36500,
+      "daily_revenue": 18250000.0,
+      "daily_profit": 18249537.671232875
+    },
+    "market_positioning": {
+      "market_scale": "Large",
+      "scale_advantage": "High",
+      "technology_position": "Standard",
+      "product_position": "Commodity",
+      "competitive_advantages": [
+        "Economies of scale"
+      ],
+      "annual_revenue_category": "Large"
+    },
+    "sustainability_metrics": {
+      "employment_metrics": {
+        "total_jobs": 120,
+        "employment_intensity": 5.404527981099165e-05,
+        "job_creation_rating": "High"
+      },
+      "environmental_metrics": {
+        "co2_impact_tons_per_year": -128000,
+        "resource_circularity": "Low",
+        "environmental_rating": "Negative"
+      },
+      "social_impact_score": 25,
+      "sustainability_rating": "Moderate"
+    },
+    "regional_analysis": {
+      "regional_scores": {
+        "infrastructure_score": 40,
+        "labor_score": 60,
+        "political_score": 45.0,
+        "overall_regional_score": 48.333333333333336
+      },
+      "cost_competitiveness": "High",
+      "regional_advantages": [],
+      "regional_challenges": [
+        "High cost environment",
+        "Political uncertainty",
+        "Infrastructure limitations"
+      ],
+      "location_factor": 1.25,
+      "regional_rating": "Moderate"
+    },
+    "risk_assessment": [
+      "High location cost factor (1.25x) increases project costs",
+      "Developing infrastructure may increase operational costs and risks",
+      "Low political stability increases regulatory and operational risks",
+      "Complex regulatory environment may delay project implementation",
+      "CO2 emissions may face future regulatory restrictions and carbon pricing",
+      "Fossil fuel dependency may face future regulatory and market pressures",
+      "Local currency fluctuations may affect project economics"
+    ],
+    "calculation_metadata": {
+      "calculation_timestamp": "2025-07-01T20:36:01.942723",
+      "pricing_data_version": "2.0",
+      "location_adjustment_applied": 1.0,
+      "template_id": 1,
+      "technology": "Haber-Bosch Process",
+      "plant_location": "Nigeria"
+    }
+  },
+  "feasibility_assessment": {
+    "template_id": 1,
+    "template_name": "Modular Fertilizer Plant",
+    "technology": "Haber-Bosch Process",
+    "sustainability_impact": {
+      "community_employment": 120,
+      "resource_circularity": "Low",
+      "co2_reduction_potential_tpy": -128000
+    },
+    "regional_context": {
+      "infrastructure_quality": "Developing",
+      "skilled_labor_availability": "Moderate",
+      "regulatory_environment": "Complex",
+      "political_stability_index": 0.45,
+      "local_content_requirements": "High"
+    },
+    "location_factors": {
+      "South Africa": 1.0,
+      "Morocco": 1.05,
+      "Egypt": 1.1,
+      "Ghana": 1.18,
+      "Nigeria": 1.25,
+      "Kenya": 1.22,
+      "Tanzania": 1.3,
+      "Ethiopia": 1.35
+    },
+    "build_timestamp": "2025-07-01T20:36:01.942726"
+  }
+}
