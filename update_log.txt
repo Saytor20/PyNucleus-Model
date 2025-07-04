@@ -321,6 +321,9 @@ Completed:
 11) enhance the statisitcs aspect so that it can also see the recalls and everything related to the RAG - completed 
 9) check the money guy and remove the uneeded templates - completed 
 6) we need to cover how we can reset the chunks and are they stored - completed
+7) we have finished almost everything.. now we need spot checks. 
+
+
 
  2025-07-01 04:30:28 changes made and pushed to origin main
 
