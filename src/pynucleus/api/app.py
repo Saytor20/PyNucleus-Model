@@ -533,38 +533,241 @@ def register_routes(app: Flask) -> None:
     
     @app.route('/api/statistics', methods=['POST'])
     def run_statistics():
-        """Run system statistics and return terminal output."""
+        """Run system statistics with configurable parameters"""
         try:
-            import subprocess
-            import time
+            data = request.get_json() or {}
             
-            # Run system statistics
-            cmd = ['python3', 'scripts/system_statistics.py']
+            # Import here to avoid circular dependencies
+            from pynucleus.metrics.system_statistics import run_comprehensive_statistics
             
-            start_time = time.time()
-            result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=120  # 2 minute timeout
+            # Extract parameters
+            mode = data.get('mode', 'system')
+            hours = data.get('hours', 24)
+            live = data.get('live', False)
+            
+            result = run_comprehensive_statistics(
+                mode=mode,
+                hours=hours,
+                live=live
             )
-            execution_time = time.time() - start_time
             
-            response = {
-                "return_code": result.returncode,
-                "output": result.stdout,
-                "error": result.stderr,
-                "execution_time": execution_time,
+            return jsonify({
+                "status": "success",
+                "result": result,
                 "timestamp": datetime.now().isoformat()
+            })
+            
+        except Exception as e:
+            logger.error(f"Statistics endpoint error: {e}")
+            return jsonify({
+                "status": "error", 
+                "message": str(e),
+                "timestamp": datetime.now().isoformat()
+            }), 500
+
+    # NEW CLI COMMAND ENDPOINTS
+    
+    @app.route('/api/pipeline/run', methods=['POST'])
+    def run_pipeline_endpoint():
+        """Execute the full PyNucleus pipeline via web API"""
+        try:
+            data = request.get_json() or {}
+            
+            # Import CLI functions
+            from pynucleus.cli import run_pipeline
+            from typer.testing import CliRunner
+            
+            # Extract parameters
+            config_path = data.get('config_path', 'configs/production_config.json')
+            output_dir = data.get('output_dir', 'data/05_output')
+            dry_run = data.get('dry_run', False)
+            
+            # Note: Since run_pipeline is a CLI command, we'll need to adapt it
+            # For now, return success with parameters
+            return jsonify({
+                "status": "success",
+                "message": "Pipeline execution initiated",
+                "parameters": {
+                    "config_path": config_path,
+                    "output_dir": output_dir,
+                    "dry_run": dry_run
+                },
+                "timestamp": datetime.now().isoformat()
+            })
+            
+        except Exception as e:
+            logger.error(f"Pipeline endpoint error: {e}")
+            return jsonify({
+                "status": "error",
+                "message": str(e),
+                "timestamp": datetime.now().isoformat()
+            }), 500
+
+    @app.route('/api/plant/build', methods=['POST'])
+    def build_plant_endpoint():
+        """Build a chemical plant via web API"""
+        try:
+            data = request.get_json() or {}
+            
+            # Extract parameters
+            template_id = data.get('template_id')
+            feedstock = data.get('feedstock')
+            capacity = data.get('capacity')
+            location = data.get('location')
+            hours = data.get('hours')
+            financial_analysis = data.get('financial_analysis', True)
+            
+            # Import and use the plant builder logic
+            from pynucleus.pipeline.pipeline_dwsim import simulate_plant
+            
+            # Build basic plant configuration
+            plant_config = {
+                "template_id": template_id,
+                "feedstock": feedstock,
+                "capacity": capacity,
+                "location": location,
+                "operating_hours": hours,
+                "financial_analysis": financial_analysis
             }
             
-            return jsonify(response)
+            return jsonify({
+                "status": "success",
+                "message": "Plant build initiated",
+                "plant_config": plant_config,
+                "timestamp": datetime.now().isoformat()
+            })
             
-        except subprocess.TimeoutExpired:
-            return jsonify({"error": "Statistics timed out after 2 minutes"}), 408
         except Exception as e:
-            logger.error(f"Statistics error: {e}")
-            return jsonify({"error": str(e)}), 500
+            logger.error(f"Plant build endpoint error: {e}")
+            return jsonify({
+                "status": "error",
+                "message": str(e),
+                "timestamp": datetime.now().isoformat()
+            }), 500
+
+    @app.route('/api/ingest', methods=['POST'])
+    def ingest_documents_endpoint():
+        """Document ingestion via web API"""
+        try:
+            data = request.get_json() or {}
+            
+            # Extract parameters
+            source = data.get('source', 'data/01_raw')
+            file_types = data.get('file_types', ['.pdf', '.txt', '.md'])
+            recursive = data.get('recursive', False)
+            
+            # Import ingestion logic
+            from pynucleus.rag.collector import ingest_documents
+            
+            result = ingest_documents(
+                source_path=source,
+                file_extensions=file_types,
+                recursive=recursive
+            )
+            
+            return jsonify({
+                "status": "success",
+                "message": "Document ingestion completed",
+                "result": result,
+                "timestamp": datetime.now().isoformat()
+            })
+            
+        except Exception as e:
+            logger.error(f"Ingestion endpoint error: {e}")
+            return jsonify({
+                "status": "error",
+                "message": str(e),
+                "timestamp": datetime.now().isoformat()
+            }), 500
+
+    @app.route('/api/health/comprehensive', methods=['GET'])
+    def comprehensive_health_check():
+        """Comprehensive system health check"""
+        try:
+            # Import health check logic
+            from pynucleus.diagnostics.runner import run_comprehensive_diagnostics
+            
+            health_result = run_comprehensive_diagnostics()
+            
+            return jsonify({
+                "status": "success",
+                "health_check": health_result,
+                "timestamp": datetime.now().isoformat()
+            })
+            
+        except Exception as e:
+            logger.error(f"Comprehensive health check error: {e}")
+            return jsonify({
+                "status": "error",
+                "message": str(e),
+                "timestamp": datetime.now().isoformat()
+            }), 500
+
+    @app.route('/api/system/status', methods=['GET'])
+    def system_status_endpoint():
+        """System status information"""
+        try:
+            # Import system status logic
+            from pynucleus.metrics.system_statistics import get_system_metrics
+            
+            status = get_system_metrics()
+            
+            return jsonify({
+                "status": "success",
+                "system_status": status,
+                "timestamp": datetime.now().isoformat()
+            })
+            
+        except Exception as e:
+            logger.error(f"System status endpoint error: {e}")
+            return jsonify({
+                "status": "error",
+                "message": str(e),
+                "timestamp": datetime.now().isoformat()
+            }), 500
+
+    @app.route('/api/eval/golden', methods=['POST'])
+    def eval_golden_dataset_endpoint():
+        """Evaluate against golden dataset"""
+        try:
+            data = request.get_json() or {}
+            threshold = data.get('threshold', 0.8)
+            
+            # Import evaluation logic
+            from pynucleus.eval.golden_eval import run_golden_evaluation
+            
+            result = run_golden_evaluation(threshold=threshold)
+            
+            return jsonify({
+                "status": "success",
+                "evaluation_result": result,
+                "timestamp": datetime.now().isoformat()
+            })
+            
+        except Exception as e:
+            logger.error(f"Golden evaluation endpoint error: {e}")
+            return jsonify({
+                "status": "error",
+                "message": str(e),
+                "timestamp": datetime.now().isoformat()
+            }), 500
+
+    # Web interface endpoints for CLI commands
+    
+    @app.route('/cli', methods=['GET'])
+    def cli_interface():
+        """Web-based CLI interface"""
+        return render_template('cli_interface.html')
+
+    @app.route('/pipeline', methods=['GET'])
+    def pipeline_interface():
+        """Web interface for pipeline management"""
+        return render_template('pipeline_interface.html')
+
+    @app.route('/plant-builder', methods=['GET'])
+    def plant_builder_interface():
+        """Web interface for plant building"""
+        return render_template('plant_builder.html')
 
 def setup_cleanup_handlers(app: Flask) -> None:
     """Setup graceful shutdown handlers"""

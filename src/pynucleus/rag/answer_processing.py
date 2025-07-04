@@ -323,37 +323,43 @@ def process_answer_quality(answer: str, sources: List[str], retry_count: int = 0
     # Step 1: Remove meta-commentary and thinking sections
     cleaned_answer = remove_meta_commentary(answer)
     
-    # Step 2: Clean and format the raw answer
+    # Step 2: Filter out irrelevant content first
+    cleaned_answer = filter_irrelevant_content(cleaned_answer)
+    
+    # Step 3: Clean and format the raw answer
     cleaned_answer = clean_and_format_answer(cleaned_answer)
     
-    # Step 3: Clean and deduplicate
+    # Step 4: Create concise version
+    cleaned_answer = create_concise_answer(cleaned_answer, max_sentences=3)
+    
+    # Step 5: Clean and deduplicate
     sentences = extract_sentences(cleaned_answer)
     unique_sentences = deduplicate_answer(sentences)
     logger.info(f"Deduplication: {len(sentences)} -> {len(unique_sentences)} sentences")
     
-    # Step 4: Remove low-quality sentences
+    # Step 6: Remove low-quality sentences
     filtered_sentences = _filter_low_quality_sentences(unique_sentences)
     
-    # Step 5: Chemical engineering domain validation
+    # Step 7: Chemical engineering domain validation
     domain_score = _assess_domain_relevance(filtered_sentences, expected_keywords)
     
-    # Step 6: Technical accuracy assessment
+    # Step 8: Technical accuracy assessment
     technical_score = _assess_technical_accuracy(filtered_sentences, question)
     
-    # Step 7: Reconstruct answer
+    # Step 9: Reconstruct answer
     processed_answer = ' '.join(filtered_sentences)
     
-    # Step 8: Truncate answer if too long
+    # Step 10: Truncate answer if too long
     processed_answer = truncate_answer(processed_answer)
     
-    # Step 9: Add citations if missing
+    # Step 11: Add citations if missing
     has_citations = bool(re.search(r'\[Doc-\w+\]', processed_answer))
     if not has_citations and sources:
         processed_answer = enforce_citation_format(processed_answer, sources)
         has_citations = True
         logger.info("Added citation to answer lacking proper citations")
     
-    # Step 10: Quality improvement for poor answers
+    # Step 12: Quality improvement for poor answers
     improvement_applied = False
     if (domain_score < 0.3 or technical_score < 0.3) and question and retry_count == 0:
         improved_answer = _attempt_answer_improvement(question, processed_answer, sources)
@@ -362,7 +368,7 @@ def process_answer_quality(answer: str, sources: List[str], retry_count: int = 0
             improvement_applied = True
             logger.info("Applied answer improvement due to low quality scores")
     
-    # Step 11: Final quality assessment
+    # Step 13: Final quality assessment
     quality_score = _calculate_quality_score(
         processed_answer, sources, domain_score, technical_score, 
         has_citations, len(filtered_sentences)
@@ -763,6 +769,150 @@ def clean_and_format_answer(text: str) -> str:
     
     return text.strip()
 
+def create_concise_answer(text: str, max_sentences: int = 3) -> str:
+    """
+    Create a concise version of the answer by keeping only the most relevant sentences.
+    
+    Args:
+        text: Original answer text
+        max_sentences: Maximum number of sentences to keep
+        
+    Returns:
+        Concise version of the answer
+    """
+    if not text:
+        return text
+    
+    sentences = extract_sentences(text)
+    if len(sentences) <= max_sentences:
+        return text
+    
+    # For very long sentences, try to break them up further
+    processed_sentences = []
+    for sentence in sentences:
+        # If sentence is very long (>150 chars), try to split on key connectors
+        if len(sentence) > 150:
+            # Split on connecting words that often indicate new ideas
+            connectors = ['. In this way,', '. This approach', '. These plants', '. Furthermore,', '. Additionally,', '. However,', '. Therefore,']
+            for connector in connectors:
+                if connector in sentence:
+                    parts = sentence.split(connector, 1)
+                    processed_sentences.append(parts[0] + '.')
+                    if len(parts) > 1:
+                        processed_sentences.append(connector.strip('. ') + parts[1])
+                    break
+            else:
+                processed_sentences.append(sentence)
+        else:
+            processed_sentences.append(sentence)
+    
+    sentences = processed_sentences
+    
+    # Score sentences by relevance
+    scored_sentences = []
+    for sentence in sentences:
+        score = 0
+        
+        # Prefer sentences with technical terms
+        technical_terms = [
+            'chemical', 'process', 'reactor', 'distillation', 'plant', 'modular',
+            'efficiency', 'conversion', 'temperature', 'pressure', 'flow', 'separation',
+            'catalyst', 'reaction', 'heat', 'mass', 'transfer', 'design', 'operation'
+        ]
+        
+        sentence_lower = sentence.lower()
+        for term in technical_terms:
+            if term in sentence_lower:
+                score += 2
+        
+        # Prefer sentences with citations
+        if '[Doc-' in sentence:
+            score += 3
+        
+        # Prefer definition-style sentences
+        if any(phrase in sentence_lower for phrase in ['refers to', 'is a', 'are a', 'defined as']):
+            score += 4
+        
+        # Penalize very long sentences
+        if len(sentence) > 200:
+            score -= 2
+        
+        # Penalize sentences with formatting artifacts
+        if any(artifact in sentence for artifact in ['│', '###', 'ANSWER:', 'Context:']):
+            score -= 5
+        
+        # Heavily penalize off-topic content
+        irrelevant_terms = [
+            'human resources', 'hrms', 'employee', 'recruitment', 'training',
+            'compensation', 'succession planning', 'career paths', 'workforce'
+        ]
+        for term in irrelevant_terms:
+            if term in sentence_lower:
+                score -= 10
+        
+        scored_sentences.append((score, sentence))
+    
+    # Sort by score and take top sentences
+    scored_sentences.sort(key=lambda x: x[0], reverse=True)
+    top_sentences = [sent for score, sent in scored_sentences[:max_sentences] if score > -5]
+    
+    # If no good sentences found, return first few sentences
+    if not top_sentences:
+        top_sentences = sentences[:max_sentences]
+    
+    # Ensure the result is truly concise (max 500 characters)
+    result = ' '.join(top_sentences)
+    if len(result) > 500:
+        # If still too long, take only the highest scoring sentences that fit
+        result = ""
+        for score, sentence in scored_sentences:
+            if score > -5 and len(result + sentence) <= 500:
+                result += sentence + " "
+            if len(result) > 400:  # Stop before hitting the limit
+                break
+        result = result.strip()
+    
+    return result
+
+def filter_irrelevant_content(text: str) -> str:
+    """
+    Remove irrelevant content that doesn't match the expected domain.
+    
+    Args:
+        text: Input text to filter
+        
+    Returns:
+        Filtered text with irrelevant content removed
+    """
+    if not text:
+        return text
+    
+    sentences = extract_sentences(text)
+    filtered_sentences = []
+    
+    # Define irrelevant topic patterns
+    irrelevant_patterns = [
+        r'human\s+resource',
+        r'hrms',
+        r'employee\s+(?:management|planning|recruitment)',
+        r'career\s+path',
+        r'succession\s+planning',
+        r'workforce\s+requirement',
+        r'compensation\s+(?:planning|strategy)'
+    ]
+    
+    for sentence in sentences:
+        sentence_lower = sentence.lower()
+        
+        # Check if sentence contains irrelevant patterns
+        is_irrelevant = any(re.search(pattern, sentence_lower) for pattern in irrelevant_patterns)
+        
+        # Skip sentences that are clearly off-topic
+        if not is_irrelevant:
+            filtered_sentences.append(sentence)
+    
+    return ' '.join(filtered_sentences)
+
 # Export main functions
 __all__ = [
     "is_answer_duplicate",
@@ -775,5 +925,7 @@ __all__ = [
     "should_retry_generation",
     "clean_and_format_answer",
     "truncate_answer",
-    "remove_meta_commentary"
+    "remove_meta_commentary",
+    "create_concise_answer",
+    "filter_irrelevant_content"
 ] 

@@ -121,6 +121,23 @@
             padding: 4px;
         }
 
+        .cli-link {
+            background: #58a6ff;
+            color: #0d1117;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+            transition: all 0.2s ease;
+        }
+
+        .cli-link:hover {
+            background: #4493e6;
+            transform: translateY(-1px);
+        }
+
         .terminal-tab {
             background: transparent;
             border: none;
@@ -399,6 +416,11 @@
         </div>
 
         <div class="terminal-body">
+            <div style="margin-bottom: 15px;">
+                <a href="/cli" class="cli-link">🧪 Open CLI Interface</a>
+                <span style="color: #8b949e; font-size: 12px; margin-left: 15px;">Web-based command line interface with all PyNucleus commands</span>
+            </div>
+            
             <div class="terminal-tabs">
                 <button class="terminal-tab active" onclick="showTab('qa')">Q&A</button>
                 <button class="terminal-tab" onclick="showTab('diagnostics')">Diagnostics</button>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyNucleus CLI Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .terminal {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">🧪 PyNucleus CLI Interface</h1>
+        
+        <!-- Navigation -->
+        <nav class="bg-white rounded-lg shadow-md mb-6 p-4">
+            <div class="flex flex-wrap gap-4">
+                <button onclick="showSection('ask')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Ask Question</button>
+                <button onclick="showSection('pipeline')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Run Pipeline</button>
+                <button onclick="showSection('build')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">Build Plant</button>
+                <button onclick="showSection('ingest')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded">Ingest Documents</button>
+                <button onclick="showSection('health')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Health Check</button>
+                <button onclick="showSection('status')" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded">System Status</button>
+            </div>
+        </nav>
+
+        <!-- Ask Question Section -->
+        <div id="ask-section" class="section bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Ask RAG Question</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Question:</label>
+                    <textarea id="question" class="w-full border rounded-lg p-3 h-20" placeholder="What is distillation?"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Model:</label>
+                        <select id="model" class="w-full border rounded-lg p-2">
+                            <option value="Qwen/Qwen2.5-1.5B-Instruct">Qwen/Qwen2.5-1.5B-Instruct</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Top K:</label>
+                        <input type="number" id="top_k" value="5" class="w-full border rounded-lg p-2">
+                    </div>
+                </div>
+                <button onclick="askQuestion()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded">Ask Question</button>
+            </div>
+        </div>
+
+        <!-- Pipeline Section -->
+        <div id="pipeline-section" class="section bg-white rounded-lg shadow-md p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold mb-4">Run Pipeline</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Config Path:</label>
+                    <input type="text" id="config_path" value="configs/production_config.json" class="w-full border rounded-lg p-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Output Directory:</label>
+                    <input type="text" id="output_dir" value="data/05_output" class="w-full border rounded-lg p-2">
+                </div>
+                <div>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="dry_run" class="mr-2">
+                        <span class="text-sm font-medium">Dry Run</span>
+                    </label>
+                </div>
+                <button onclick="runPipeline()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded">Run Pipeline</button>
+            </div>
+        </div>
+
+        <!-- Build Plant Section -->
+        <div id="build-section" class="section bg-white rounded-lg shadow-md p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold mb-4">Build Chemical Plant</h2>
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Template ID:</label>
+                        <input type="number" id="template_id" placeholder="1-22" class="w-full border rounded-lg p-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Feedstock:</label>
+                        <input type="text" id="feedstock" placeholder="natural_gas" class="w-full border rounded-lg p-2">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Capacity (tons/year):</label>
+                        <input type="number" id="capacity" class="w-full border rounded-lg p-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Location:</label>
+                        <input type="text" id="location" class="w-full border rounded-lg p-2">
+                    </div>
+                </div>
+                <div>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="financial_analysis" checked class="mr-2">
+                        <span class="text-sm font-medium">Include Financial Analysis</span>
+                    </label>
+                </div>
+                <button onclick="buildPlant()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded">Build Plant</button>
+            </div>
+        </div>
+
+        <!-- Ingest Documents Section -->
+        <div id="ingest-section" class="section bg-white rounded-lg shadow-md p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold mb-4">Ingest Documents</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Source Path:</label>
+                    <input type="text" id="source" value="data/01_raw" class="w-full border rounded-lg p-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">File Types (comma-separated):</label>
+                    <input type="text" id="file_types" value=".pdf,.txt,.md" class="w-full border rounded-lg p-2">
+                </div>
+                <div>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="recursive" class="mr-2">
+                        <span class="text-sm font-medium">Recursive</span>
+                    </label>
+                </div>
+                <button onclick="ingestDocuments()" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded">Ingest Documents</button>
+            </div>
+        </div>
+
+        <!-- Health Check Section -->
+        <div id="health-section" class="section bg-white rounded-lg shadow-md p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold mb-4">System Health Check</h2>
+            <div class="space-y-4">
+                <button onclick="runHealthCheck()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded">Run Comprehensive Health Check</button>
+            </div>
+        </div>
+
+        <!-- System Status Section -->
+        <div id="status-section" class="section bg-white rounded-lg shadow-md p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold mb-4">System Status</h2>
+            <div class="space-y-4">
+                <button onclick="getSystemStatus()" class="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded">Get System Status</button>
+            </div>
+        </div>
+
+        <!-- Output Terminal -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold mb-4">Output</h3>
+            <div id="output" class="terminal p-4 rounded-lg h-64 overflow-y-auto">
+                <div>PyNucleus CLI Interface ready...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').classList.remove('hidden');
+        }
+
+        function appendOutput(text, isError = false) {
+            const output = document.getElementById('output');
+            const div = document.createElement('div');
+            div.textContent = text;
+            if (isError) {
+                div.style.color = '#ff6b6b';
+            }
+            output.appendChild(div);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        async function askQuestion() {
+            const question = document.getElementById('question').value;
+            const model = document.getElementById('model').value;
+            const top_k = parseInt(document.getElementById('top_k').value);
+            
+            if (!question.trim()) {
+                appendOutput('Error: Please enter a question', true);
+                return;
+            }
+            
+            appendOutput(`> Asking: ${question}`);
+            
+            try {
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        question: question,
+                        model: model,
+                        top_k: top_k
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.answer) {
+                    appendOutput(`Answer: ${result.answer}`);
+                    if (result.confidence) {
+                        appendOutput(`Confidence: ${result.confidence}`);
+                    }
+                } else {
+                    appendOutput('Error: ' + (result.error || 'Unknown error'), true);
+                }
+            } catch (error) {
+                appendOutput('Error: ' + error.message, true);
+            }
+        }
+
+        async function runPipeline() {
+            const config_path = document.getElementById('config_path').value;
+            const output_dir = document.getElementById('output_dir').value;
+            const dry_run = document.getElementById('dry_run').checked;
+            
+            appendOutput(`> Running pipeline with config: ${config_path}`);
+            
+            try {
+                const response = await fetch('/api/pipeline/run', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        config_path: config_path,
+                        output_dir: output_dir,
+                        dry_run: dry_run
+                    })
+                });
+                
+                const result = await response.json();
+                appendOutput(`Result: ${result.message}`);
+                if (result.parameters) {
+                    appendOutput(`Parameters: ${JSON.stringify(result.parameters, null, 2)}`);
+                }
+            } catch (error) {
+                appendOutput('Error: ' + error.message, true);
+            }
+        }
+
+        async function buildPlant() {
+            const template_id = parseInt(document.getElementById('template_id').value);
+            const feedstock = document.getElementById('feedstock').value;
+            const capacity = parseInt(document.getElementById('capacity').value);
+            const location = document.getElementById('location').value;
+            const financial_analysis = document.getElementById('financial_analysis').checked;
+            
+            appendOutput(`> Building plant with template ID: ${template_id}`);
+            
+            try {
+                const response = await fetch('/api/plant/build', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        template_id: template_id,
+                        feedstock: feedstock,
+                        capacity: capacity,
+                        location: location,
+                        financial_analysis: financial_analysis
+                    })
+                });
+                
+                const result = await response.json();
+                appendOutput(`Result: ${result.message}`);
+                if (result.plant_config) {
+                    appendOutput(`Plant Config: ${JSON.stringify(result.plant_config, null, 2)}`);
+                }
+            } catch (error) {
+                appendOutput('Error: ' + error.message, true);
+            }
+        }
+
+        async function ingestDocuments() {
+            const source = document.getElementById('source').value;
+            const file_types = document.getElementById('file_types').value.split(',').map(s => s.trim());
+            const recursive = document.getElementById('recursive').checked;
+            
+            appendOutput(`> Ingesting documents from: ${source}`);
+            
+            try {
+                const response = await fetch('/api/ingest', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        source: source,
+                        file_types: file_types,
+                        recursive: recursive
+                    })
+                });
+                
+                const result = await response.json();
+                appendOutput(`Result: ${result.message}`);
+                if (result.result) {
+                    appendOutput(`Details: ${JSON.stringify(result.result, null, 2)}`);
+                }
+            } catch (error) {
+                appendOutput('Error: ' + error.message, true);
+            }
+        }
+
+        async function runHealthCheck() {
+            appendOutput('> Running comprehensive health check...');
+            
+            try {
+                const response = await fetch('/api/health/comprehensive');
+                const result = await response.json();
+                
+                appendOutput(`Health Status: ${result.status}`);
+                if (result.health_check) {
+                    appendOutput(`Details: ${JSON.stringify(result.health_check, null, 2)}`);
+                }
+            } catch (error) {
+                appendOutput('Error: ' + error.message, true);
+            }
+        }
+
+        async function getSystemStatus() {
+            appendOutput('> Getting system status...');
+            
+            try {
+                const response = await fetch('/api/system/status');
+                const result = await response.json();
+                
+                appendOutput(`System Status: ${result.status}`);
+                if (result.system_status) {
+                    appendOutput(`Details: ${JSON.stringify(result.system_status, null, 2)}`);
+                }
+            } catch (error) {
+                appendOutput('Error: ' + error.message, true);
+            }
+        }
+
+        // Show ask section by default
+        showSection('ask');
+    </script>
+</body>
+</html> 

@@ -62,4 +62,5 @@ models/
 # Development and cache
 /dwsim_libs/
 /.pytest_cache/
-update_log.txt 
+update_log.txt logs/
+*.log

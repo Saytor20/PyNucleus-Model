@@ -1,0 +1,361 @@
+2025-07-03 21:13:14,454 | INFO | Starting Comprehensive PyNucleus System Diagnostic...
+2025-07-03 21:13:14,455 | INFO | Started at: 2025-07-03 21:13:14
+2025-07-03 21:13:14,455 | INFO | === PYTHON ENVIRONMENT CHECK ===
+2025-07-03 21:13:14,455 | INFO | Python Version: 3.13.4 (main, Jun 3 2025, 15:34:24) [Clang 17.0.0 (clang-1700.0.13.3)]
+2025-07-03 21:13:14,456 | INFO | Python Version: PASSED
+2025-07-03 21:13:14,456 | WARNING | - Version 3.13 meets requirements
+2025-07-03 21:13:14,456 | INFO | Python executable: /Users/mohammadalmusaiteer/PyNucleus-Model/.venv/bin/python
+2025-07-03 21:13:14,457 | INFO | Python path includes src: True
+2025-07-03 21:13:14,457 | INFO | === COMPREHENSIVE DEPENDENCIES CHECK ===
+2025-07-03 21:13:14,457 | INFO | Core Dependencies:
+2025-07-03 21:13:14,457 | INFO | numpy: PASSED
+2025-07-03 21:13:14,458 | WARNING | - Package available
+2025-07-03 21:13:14,458 | INFO | pandas: PASSED
+2025-07-03 21:13:14,458 | WARNING | - Package available
+2025-07-03 21:13:14,458 | INFO | requests: PASSED
+2025-07-03 21:13:14,459 | WARNING | - Package available
+2025-07-03 21:13:14,459 | INFO | tqdm: PASSED
+2025-07-03 21:13:14,459 | WARNING | - Package available
+2025-07-03 21:13:14,459 | INFO | typer: PASSED
+2025-07-03 21:13:14,460 | WARNING | - Package available
+2025-07-03 21:13:14,460 | INFO | pathlib: PASSED
+2025-07-03 21:13:14,460 | WARNING | - Package available
+2025-07-03 21:13:14,460 | INFO | dataclasses: PASSED
+2025-07-03 21:13:14,461 | WARNING | - Package available
+2025-07-03 21:13:14,461 | INFO | asyncio: PASSED
+2025-07-03 21:13:14,461 | WARNING | - Package available
+2025-07-03 21:13:14,461 | INFO | concurrent: PASSED
+2025-07-03 21:13:14,462 | WARNING | - Package available
+2025-07-03 21:13:14,462 | INFO | Optional Dependencies:
+2025-07-03 21:13:14,463 | INFO | jupyter: PASSED
+2025-07-03 21:13:14,463 | WARNING | - Package available
+2025-07-03 21:13:14,463 | INFO | notebook: PASSED
+2025-07-03 21:13:14,464 | WARNING | - Optional package - not required
+2025-07-03 21:13:14,464 | INFO | faiss-cpu: PASSED
+2025-07-03 21:13:14,464 | WARNING | - Optional package - not required
+2025-07-03 21:13:14,464 | INFO | transformers: PASSED
+2025-07-03 21:13:14,465 | WARNING | - Package available
+2025-07-03 21:13:14,465 | INFO | torch: PASSED
+2025-07-03 21:13:14,465 | WARNING | - Package available
+2025-07-03 21:13:14,465 | INFO | === DOCKER ENVIRONMENT CHECK ===
+2025-07-03 21:13:14,573 | INFO | Docker Availability: PASSED
+2025-07-03 21:13:14,574 | WARNING | - Version: Docker version 28.1.1, build 4eba377
+2025-07-03 21:13:14,574 | INFO | === DIRECTORY STRUCTURE CHECK ===
+2025-07-03 21:13:14,574 | INFO | Directory: src/pynucleus: PASSED
+2025-07-03 21:13:14,575 | WARNING | - Required directory exists
+2025-07-03 21:13:14,575 | INFO | Directory: configs: PASSED
+2025-07-03 21:13:14,575 | WARNING | - Required directory exists
+2025-07-03 21:13:14,575 | INFO | Directory: data: PASSED
+2025-07-03 21:13:14,576 | WARNING | - Required directory exists
+2025-07-03 21:13:14,576 | INFO | Directory: logs: PASSED
+2025-07-03 21:13:14,576 | WARNING | - Required directory exists
+2025-07-03 21:13:14,576 | INFO | Directory: scripts: PASSED
+2025-07-03 21:13:14,577 | WARNING | - Required directory exists
+2025-07-03 21:13:14,577 | INFO | Optional directory found: data/05_output/llm_reports
+2025-07-03 21:13:14,577 | INFO | Optional directory found: data/validation/diagnostic_results
+2025-07-03 21:13:14,578 | WARNING | Optional directory missing: dwsim_rag_integration
+2025-07-03 21:13:14,578 | INFO | === COMPREHENSIVE SCRIPT VALIDATION ===
+2025-07-03 21:13:14,578 | INFO | --- Validating Core Pipeline Scripts ---
+2025-07-03 21:13:14,582 | INFO | src/pynucleus/pipeline/plant_builder.py - Syntax OK
+2025-07-03 21:13:14,582 | INFO | src/pynucleus/pipeline/plant_builder.py - Imports OK
+2025-07-03 21:13:14,583 | WARNING | src/pynucleus/pipeline/plant_builder.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:14,583 | WARNING | src/pynucleus/pipeline/plant_builder.py - Overall: ISSUES FOUND
+2025-07-03 21:13:14,584 | INFO | src/pynucleus/pipeline/results_exporter.py - Syntax OK
+2025-07-03 21:13:14,584 | INFO | src/pynucleus/pipeline/results_exporter.py - Imports OK
+2025-07-03 21:13:14,585 | INFO | src/pynucleus/pipeline/results_exporter.py - Execution OK
+2025-07-03 21:13:14,585 | INFO | src/pynucleus/pipeline/results_exporter.py - Overall: HEALTHY
+2025-07-03 21:13:14,587 | INFO | src/pynucleus/pipeline/pipeline_rag.py - Syntax OK
+2025-07-03 21:13:14,587 | INFO | src/pynucleus/pipeline/pipeline_rag.py - Imports OK
+2025-07-03 21:13:14,588 | WARNING | src/pynucleus/pipeline/pipeline_rag.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:14,588 | WARNING | src/pynucleus/pipeline/pipeline_rag.py - Overall: ISSUES FOUND
+2025-07-03 21:13:14,589 | INFO | src/pynucleus/pipeline/pipeline_dwsim.py - Syntax OK
+2025-07-03 21:13:14,589 | INFO | src/pynucleus/pipeline/pipeline_dwsim.py - Imports OK
+2025-07-03 21:13:14,590 | INFO | src/pynucleus/pipeline/pipeline_dwsim.py - Execution OK
+2025-07-03 21:13:14,590 | INFO | src/pynucleus/pipeline/pipeline_dwsim.py - Overall: HEALTHY
+2025-07-03 21:13:14,591 | INFO | src/pynucleus/pipeline/__init__.py - Syntax OK
+2025-07-03 21:13:14,591 | INFO | src/pynucleus/pipeline/__init__.py - Imports OK
+2025-07-03 21:13:14,591 | WARNING | src/pynucleus/pipeline/__init__.py - Execution warning: No module named 'test_module'...
+2025-07-03 21:13:14,592 | WARNING | src/pynucleus/pipeline/__init__.py - Overall: ISSUES FOUND
+2025-07-03 21:13:14,598 | INFO | src/pynucleus/pipeline/financial_analyzer.py - Syntax OK
+2025-07-03 21:13:14,598 | INFO | src/pynucleus/pipeline/financial_analyzer.py - Imports OK
+2025-07-03 21:13:14,599 | WARNING | src/pynucleus/pipeline/financial_analyzer.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:14,600 | WARNING | src/pynucleus/pipeline/financial_analyzer.py - Overall: ISSUES FOUND
+2025-07-03 21:13:14,602 | INFO | src/pynucleus/pipeline/pipeline_utils.py - Syntax OK
+2025-07-03 21:13:14,603 | INFO | src/pynucleus/pipeline/pipeline_utils.py - Imports OK
+2025-07-03 21:13:14,603 | INFO | src/pynucleus/pipeline/pipeline_utils.py - Execution OK
+2025-07-03 21:13:14,604 | INFO | src/pynucleus/pipeline/pipeline_utils.py - Overall: HEALTHY
+2025-07-03 21:13:14,605 | INFO | src/pynucleus/rag/vector_store_remote.py - Syntax OK
+2025-07-03 21:13:14,605 | INFO | src/pynucleus/rag/vector_store_remote.py - Imports OK
+2025-07-03 21:13:14,606 | WARNING | src/pynucleus/rag/vector_store_remote.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:14,606 | WARNING | src/pynucleus/rag/vector_store_remote.py - Overall: ISSUES FOUND
+2025-07-03 21:13:14,610 | INFO | src/pynucleus/rag/vector_store.py - Syntax OK
+2025-07-03 21:13:14,610 | INFO | src/pynucleus/rag/vector_store.py - Imports OK
+2025-07-03 21:13:14,611 | WARNING | src/pynucleus/rag/vector_store.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:14,611 | WARNING | src/pynucleus/rag/vector_store.py - Overall: ISSUES FOUND
+2025-07-03 21:13:14,613 | INFO | src/pynucleus/rag/wiki_scraper.py - Syntax OK
+2025-07-03 21:13:14,613 | INFO | src/pynucleus/rag/wiki_scraper.py - Imports OK
+2025-07-03 21:13:14,975 | INFO | src/pynucleus/rag/wiki_scraper.py - Execution OK
+2025-07-03 21:13:14,975 | INFO | src/pynucleus/rag/wiki_scraper.py - Overall: HEALTHY
+2025-07-03 21:13:14,977 | INFO | src/pynucleus/rag/embedding_monitor.py - Syntax OK
+2025-07-03 21:13:14,977 | INFO | src/pynucleus/rag/embedding_monitor.py - Imports OK
+2025-07-03 21:13:14,977 | INFO | src/pynucleus/rag/embedding_monitor.py - Execution OK
+2025-07-03 21:13:14,977 | INFO | src/pynucleus/rag/embedding_monitor.py - Overall: HEALTHY
+2025-07-03 21:13:14,980 | INFO | src/pynucleus/rag/document_processor.py - Syntax OK
+2025-07-03 21:13:14,980 | INFO | src/pynucleus/rag/document_processor.py - Imports OK
+2025-07-03 21:13:14,980 | INFO | src/pynucleus/rag/document_processor.py - Execution OK
+2025-07-03 21:13:14,980 | INFO | src/pynucleus/rag/document_processor.py - Overall: HEALTHY
+2025-07-03 21:13:14,982 | INFO | src/pynucleus/rag/collector.py - Syntax OK
+2025-07-03 21:13:14,982 | INFO | src/pynucleus/rag/collector.py - Imports OK
+2025-07-03 21:13:14,983 | WARNING | src/pynucleus/rag/collector.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:14,983 | WARNING | src/pynucleus/rag/collector.py - Overall: ISSUES FOUND
+2025-07-03 21:13:14,983 | INFO | src/pynucleus/rag/__init__.py - Syntax OK
+2025-07-03 21:13:14,983 | INFO | src/pynucleus/rag/__init__.py - Imports OK
+2025-07-03 21:13:14,983 | WARNING | src/pynucleus/rag/__init__.py - Execution warning: No module named 'test_module'...
+2025-07-03 21:13:14,983 | WARNING | src/pynucleus/rag/__init__.py - Overall: ISSUES FOUND
+2025-07-03 21:13:14,984 | INFO | src/pynucleus/rag/rag_core.py - Syntax OK
+2025-07-03 21:13:14,984 | INFO | src/pynucleus/rag/rag_core.py - Imports OK
+2025-07-03 21:13:14,984 | INFO | src/pynucleus/rag/rag_core.py - Execution OK
+2025-07-03 21:13:14,984 | INFO | src/pynucleus/rag/rag_core.py - Overall: HEALTHY
+2025-07-03 21:13:14,987 | INFO | src/pynucleus/rag/engine.py - Syntax OK
+2025-07-03 21:13:14,987 | INFO | src/pynucleus/rag/engine.py - Imports OK
+2025-07-03 21:13:14,988 | WARNING | src/pynucleus/rag/engine.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:14,988 | WARNING | src/pynucleus/rag/engine.py - Overall: ISSUES FOUND
+2025-07-03 21:13:14,990 | INFO | src/pynucleus/rag/answer_processing.py - Syntax OK
+2025-07-03 21:13:14,990 | INFO | src/pynucleus/rag/answer_processing.py - Imports OK
+2025-07-03 21:13:15,023 | WARNING | src/pynucleus/rag/answer_processing.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:15,023 | WARNING | src/pynucleus/rag/answer_processing.py - Overall: ISSUES FOUND
+2025-07-03 21:13:15,023 | ERROR | Core Pipeline Scripts Health: FAILED
+2025-07-03 21:13:15,023 | WARNING | - 7/17 scripts healthy (41.2%)
+2025-07-03 21:13:15,023 | INFO | --- Validating Integration & LLM Scripts ---
+2025-07-03 21:13:15,025 | INFO | src/pynucleus/integration/config_manager.py - Syntax OK
+2025-07-03 21:13:15,025 | INFO | src/pynucleus/integration/config_manager.py - Imports OK
+2025-07-03 21:13:15,025 | INFO | src/pynucleus/integration/config_manager.py - Execution OK
+2025-07-03 21:13:15,025 | INFO | src/pynucleus/integration/config_manager.py - Overall: HEALTHY
+2025-07-03 21:13:15,025 | INFO | src/pynucleus/integration/__init__.py - Syntax OK
+2025-07-03 21:13:15,025 | INFO | src/pynucleus/integration/__init__.py - Imports OK
+2025-07-03 21:13:15,026 | WARNING | src/pynucleus/integration/__init__.py - Execution warning: No module named 'test_module'...
+2025-07-03 21:13:15,026 | WARNING | src/pynucleus/integration/__init__.py - Overall: ISSUES FOUND
+2025-07-03 21:13:15,027 | INFO | src/pynucleus/integration/llm_output_generator.py - Syntax OK
+2025-07-03 21:13:15,027 | INFO | src/pynucleus/integration/llm_output_generator.py - Imports OK
+2025-07-03 21:13:15,027 | INFO | src/pynucleus/integration/llm_output_generator.py - Execution OK
+2025-07-03 21:13:15,027 | INFO | src/pynucleus/integration/llm_output_generator.py - Overall: HEALTHY
+2025-07-03 21:13:15,028 | INFO | src/pynucleus/integration/dwsim_rag_integrator.py - Syntax OK
+2025-07-03 21:13:15,028 | INFO | src/pynucleus/integration/dwsim_rag_integrator.py - Imports OK
+2025-07-03 21:13:15,028 | INFO | src/pynucleus/integration/dwsim_rag_integrator.py - Execution OK
+2025-07-03 21:13:15,028 | INFO | src/pynucleus/integration/dwsim_rag_integrator.py - Overall: HEALTHY
+2025-07-03 21:13:15,030 | INFO | src/pynucleus/llm/answer_engine.py - Syntax OK
+2025-07-03 21:13:15,030 | INFO | src/pynucleus/llm/answer_engine.py - Imports OK
+2025-07-03 21:13:16,087 | INFO | src/pynucleus/llm/answer_engine.py - Execution OK
+2025-07-03 21:13:16,088 | INFO | src/pynucleus/llm/answer_engine.py - Overall: HEALTHY
+2025-07-03 21:13:16,088 | INFO | src/pynucleus/llm/retriever_adapter.py - Syntax OK
+2025-07-03 21:13:16,089 | INFO | src/pynucleus/llm/retriever_adapter.py - Imports OK
+2025-07-03 21:13:16,089 | INFO | src/pynucleus/llm/retriever_adapter.py - Execution OK
+2025-07-03 21:13:16,089 | INFO | src/pynucleus/llm/retriever_adapter.py - Overall: HEALTHY
+2025-07-03 21:13:16,090 | INFO | src/pynucleus/llm/prompting.py - Syntax OK
+2025-07-03 21:13:16,090 | INFO | src/pynucleus/llm/prompting.py - Imports OK
+2025-07-03 21:13:16,090 | WARNING | src/pynucleus/llm/prompting.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:16,090 | WARNING | src/pynucleus/llm/prompting.py - Overall: ISSUES FOUND
+2025-07-03 21:13:16,091 | INFO | src/pynucleus/llm/query_llm.py - Syntax OK
+2025-07-03 21:13:16,091 | INFO | src/pynucleus/llm/query_llm.py - Imports OK
+2025-07-03 21:13:16,091 | INFO | src/pynucleus/llm/query_llm.py - Execution OK
+2025-07-03 21:13:16,091 | INFO | src/pynucleus/llm/query_llm.py - Overall: HEALTHY
+2025-07-03 21:13:16,091 | INFO | src/pynucleus/llm/__init__.py - Syntax OK
+2025-07-03 21:13:16,091 | INFO | src/pynucleus/llm/__init__.py - Imports OK
+2025-07-03 21:13:16,091 | WARNING | src/pynucleus/llm/__init__.py - Execution warning: No module named 'test_module'...
+2025-07-03 21:13:16,091 | WARNING | src/pynucleus/llm/__init__.py - Overall: ISSUES FOUND
+2025-07-03 21:13:16,093 | INFO | src/pynucleus/llm/simple_local_adapter.py - Syntax OK
+2025-07-03 21:13:16,093 | INFO | src/pynucleus/llm/simple_local_adapter.py - Imports OK
+2025-07-03 21:13:16,093 | INFO | src/pynucleus/llm/simple_local_adapter.py - Execution OK
+2025-07-03 21:13:16,093 | INFO | src/pynucleus/llm/simple_local_adapter.py - Overall: HEALTHY
+2025-07-03 21:13:16,094 | INFO | src/pynucleus/llm/device_manager.py - Syntax OK
+2025-07-03 21:13:16,094 | INFO | src/pynucleus/llm/device_manager.py - Imports OK
+2025-07-03 21:13:16,095 | WARNING | src/pynucleus/llm/device_manager.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:16,095 | WARNING | src/pynucleus/llm/device_manager.py - Overall: ISSUES FOUND
+2025-07-03 21:13:16,096 | INFO | src/pynucleus/llm/model_loader.py - Syntax OK
+2025-07-03 21:13:16,096 | INFO | src/pynucleus/llm/model_loader.py - Imports OK
+2025-07-03 21:13:16,096 | WARNING | src/pynucleus/llm/model_loader.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:16,096 | WARNING | src/pynucleus/llm/model_loader.py - Overall: ISSUES FOUND
+2025-07-03 21:13:16,097 | INFO | src/pynucleus/llm/qwen_loader.py - Syntax OK
+2025-07-03 21:13:16,097 | INFO | src/pynucleus/llm/qwen_loader.py - Imports OK
+2025-07-03 21:13:16,097 | WARNING | src/pynucleus/llm/qwen_loader.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:16,097 | WARNING | src/pynucleus/llm/qwen_loader.py - Overall: ISSUES FOUND
+2025-07-03 21:13:16,098 | INFO | src/pynucleus/llm/llm_runner.py - Syntax OK
+2025-07-03 21:13:16,098 | INFO | src/pynucleus/llm/llm_runner.py - Imports OK
+2025-07-03 21:13:16,098 | INFO | src/pynucleus/llm/llm_runner.py - Execution OK
+2025-07-03 21:13:16,098 | INFO | src/pynucleus/llm/llm_runner.py - Overall: HEALTHY
+2025-07-03 21:13:16,099 | INFO | src/pynucleus/utils/logging_config.py - Syntax OK
+2025-07-03 21:13:16,099 | INFO | src/pynucleus/utils/logging_config.py - Imports OK
+2025-07-03 21:13:16,099 | INFO | src/pynucleus/utils/logging_config.py - Execution OK
+2025-07-03 21:13:16,099 | INFO | src/pynucleus/utils/logging_config.py - Overall: HEALTHY
+2025-07-03 21:13:16,100 | INFO | src/pynucleus/utils/env.py - Syntax OK
+2025-07-03 21:13:16,100 | INFO | src/pynucleus/utils/env.py - Imports OK
+2025-07-03 21:13:16,100 | INFO | src/pynucleus/utils/env.py - Execution OK
+2025-07-03 21:13:16,100 | INFO | src/pynucleus/utils/env.py - Overall: HEALTHY
+2025-07-03 21:13:16,100 | INFO | src/pynucleus/utils/__init__.py - Syntax OK
+2025-07-03 21:13:16,100 | INFO | src/pynucleus/utils/__init__.py - Imports OK
+2025-07-03 21:13:16,101 | WARNING | src/pynucleus/utils/__init__.py - Execution warning: No module named 'test_module'...
+2025-07-03 21:13:16,101 | WARNING | src/pynucleus/utils/__init__.py - Overall: ISSUES FOUND
+2025-07-03 21:13:16,101 | INFO | src/pynucleus/utils/logger.py - Syntax OK
+2025-07-03 21:13:16,101 | INFO | src/pynucleus/utils/logger.py - Imports OK
+2025-07-03 21:13:16,101 | WARNING | src/pynucleus/utils/logger.py - Execution warning: attempted relative import with no known parent package...
+2025-07-03 21:13:16,101 | WARNING | src/pynucleus/utils/logger.py - Overall: ISSUES FOUND
+2025-07-03 21:13:16,102 | INFO | src/pynucleus/utils/telemetry_patch.py - Syntax OK
+2025-07-03 21:13:16,102 | INFO | src/pynucleus/utils/telemetry_patch.py - Imports OK
+2025-07-03 21:13:16,102 | INFO | src/pynucleus/utils/telemetry_patch.py - Execution OK
+2025-07-03 21:13:16,102 | INFO | src/pynucleus/utils/telemetry_patch.py - Overall: HEALTHY
+2025-07-03 21:13:16,103 | INFO | src/pynucleus/utils/error_handler.py - Syntax OK
+2025-07-03 21:13:16,103 | INFO | src/pynucleus/utils/error_handler.py - Imports OK
+2025-07-03 21:13:16,104 | INFO | src/pynucleus/utils/error_handler.py - Execution OK
+2025-07-03 21:13:16,104 | INFO | src/pynucleus/utils/error_handler.py - Overall: HEALTHY
+2025-07-03 21:13:16,105 | INFO | src/pynucleus/utils/pretty_formatter.py - Syntax OK
+2025-07-03 21:13:16,105 | INFO | src/pynucleus/utils/pretty_formatter.py - Imports OK
+2025-07-03 21:13:16,105 | INFO | src/pynucleus/utils/pretty_formatter.py - Execution OK
+2025-07-03 21:13:16,105 | INFO | src/pynucleus/utils/pretty_formatter.py - Overall: HEALTHY
+2025-07-03 21:13:16,105 | INFO | src/pynucleus/utils/token_utils.py - Syntax OK
+2025-07-03 21:13:16,105 | INFO | src/pynucleus/utils/token_utils.py - Imports OK
+2025-07-03 21:13:16,106 | INFO | src/pynucleus/utils/token_utils.py - Execution OK
+2025-07-03 21:13:16,106 | INFO | src/pynucleus/utils/token_utils.py - Overall: HEALTHY
+2025-07-03 21:13:16,106 | ERROR | Integration & LLM Scripts Health: FAILED
+2025-07-03 21:13:16,106 | WARNING | - 14/22 scripts healthy (63.6%)
+2025-07-03 21:13:16,106 | INFO | --- Validating Entry Point Scripts ---
+2025-07-03 21:13:16,111 | INFO | run_pipeline.py - Syntax OK
+2025-07-03 21:13:16,111 | INFO | run_pipeline.py - Imports OK
+2025-07-03 21:13:16,111 | INFO | run_pipeline.py - Entry point (skipped execution)
+2025-07-03 21:13:16,111 | INFO | run_pipeline.py - Overall: HEALTHY
+2025-07-03 21:13:16,123 | INFO | src/pynucleus/cli.py - Syntax OK
+2025-07-03 21:13:16,123 | INFO | src/pynucleus/cli.py - Imports OK
+2025-07-03 21:13:16,123 | INFO | src/pynucleus/cli.py - Entry point (skipped execution)
+2025-07-03 21:13:16,123 | INFO | src/pynucleus/cli.py - Overall: HEALTHY
+2025-07-03 21:13:16,123 | INFO | Entry Point Scripts Health: PASSED
+2025-07-03 21:13:16,123 | WARNING | - 2/2 scripts healthy (100.0%)
+2025-07-03 21:13:16,123 | INFO | --- Validating Test Scripts ---
+2025-07-03 21:13:16,124 | INFO | scripts/test_output_formatting.py - Syntax OK
+2025-07-03 21:13:16,124 | INFO | scripts/test_output_formatting.py - Imports OK
+2025-07-03 21:13:16,125 | INFO | scripts/test_output_formatting.py - Execution OK
+2025-07-03 21:13:16,125 | INFO | scripts/test_output_formatting.py - Overall: HEALTHY
+2025-07-03 21:13:16,127 | INFO | scripts/test_production_monitoring.py - Syntax OK
+2025-07-03 21:13:16,127 | INFO | scripts/test_production_monitoring.py - Imports OK
+2025-07-03 21:13:16,128 | INFO | scripts/test_production_monitoring.py - Execution OK
+2025-07-03 21:13:16,128 | INFO | scripts/test_production_monitoring.py - Overall: HEALTHY
+2025-07-03 21:13:16,128 | INFO | scripts/test_output_formatting.py - Syntax OK
+2025-07-03 21:13:16,128 | INFO | scripts/test_output_formatting.py - Imports OK
+2025-07-03 21:13:16,128 | INFO | scripts/test_output_formatting.py - Execution OK
+2025-07-03 21:13:16,128 | INFO | scripts/test_output_formatting.py - Overall: HEALTHY
+2025-07-03 21:13:16,130 | INFO | scripts/test_production_monitoring.py - Syntax OK
+2025-07-03 21:13:16,130 | INFO | scripts/test_production_monitoring.py - Imports OK
+2025-07-03 21:13:16,130 | INFO | scripts/test_production_monitoring.py - Execution OK
+2025-07-03 21:13:16,130 | INFO | scripts/test_production_monitoring.py - Overall: HEALTHY
+2025-07-03 21:13:16,131 | INFO | scripts/simple_stress_test.py - Syntax OK
+2025-07-03 21:13:16,131 | INFO | scripts/simple_stress_test.py - Imports OK
+2025-07-03 21:13:16,154 | INFO | scripts/simple_stress_test.py - Execution OK
+2025-07-03 21:13:16,154 | INFO | scripts/simple_stress_test.py - Overall: HEALTHY
+2025-07-03 21:13:16,156 | INFO | scripts/stress_test_suite.py - Syntax OK
+2025-07-03 21:13:16,156 | INFO | scripts/stress_test_suite.py - Imports OK
+2025-07-03 21:13:16,158 | INFO | scripts/stress_test_suite.py - Execution OK
+2025-07-03 21:13:16,158 | INFO | scripts/stress_test_suite.py - Overall: HEALTHY
+2025-07-03 21:13:16,160 | INFO | scripts/stress_test.py - Syntax OK
+2025-07-03 21:13:16,160 | INFO | scripts/stress_test.py - Imports OK
+2025-07-03 21:13:16,161 | INFO | scripts/stress_test.py - Execution OK
+2025-07-03 21:13:16,161 | INFO | scripts/stress_test.py - Overall: HEALTHY
+2025-07-03 21:13:16,162 | INFO | scripts/integration_test.py - Syntax OK
+2025-07-03 21:13:16,162 | INFO | scripts/integration_test.py - Imports OK
+2025-07-03 21:13:16,163 | INFO | scripts/integration_test.py - Execution OK
+2025-07-03 21:13:16,163 | INFO | scripts/integration_test.py - Overall: HEALTHY
+2025-07-03 21:13:16,163 | INFO | Test Scripts Health: PASSED
+2025-07-03 21:13:16,163 | WARNING | - 8/8 scripts healthy (100.0%)
+2025-07-03 21:13:16,163 | INFO | --- Validating Automation Scripts ---
+2025-07-03 21:13:16,163 | WARNING | No scripts found for Automation Scripts
+2025-07-03 21:13:16,163 | INFO | --- Validating Prompt System Scripts ---
+2025-07-03 21:13:16,163 | WARNING | No scripts found for Prompt System Scripts
+2025-07-03 21:13:16,163 | INFO | --- Validating Validation Scripts ---
+2025-07-03 21:13:16,164 | INFO | scripts/validate_infrastructure.py - Syntax OK
+2025-07-03 21:13:16,164 | INFO | scripts/validate_infrastructure.py - Imports OK
+2025-07-03 21:13:16,164 | INFO | scripts/validate_infrastructure.py - Execution OK
+2025-07-03 21:13:16,164 | INFO | scripts/validate_infrastructure.py - Overall: HEALTHY
+2025-07-03 21:13:16,166 | INFO | scripts/validate_rag_factual_accuracy.py - Syntax OK
+2025-07-03 21:13:16,166 | INFO | scripts/validate_rag_factual_accuracy.py - Imports OK
+2025-07-03 21:13:16,948 | INFO | scripts/validate_rag_factual_accuracy.py - Execution OK
+2025-07-03 21:13:16,948 | INFO | scripts/validate_rag_factual_accuracy.py - Overall: HEALTHY
+2025-07-03 21:13:16,953 | INFO | scripts/system_validator.py - Syntax OK
+2025-07-03 21:13:16,953 | INFO | scripts/system_validator.py - Imports OK
+2025-07-03 21:13:16,954 | INFO | scripts/system_validator.py - Execution OK
+2025-07-03 21:13:16,954 | INFO | scripts/system_validator.py - Overall: HEALTHY
+2025-07-03 21:13:16,957 | INFO | scripts/system_statistics.py - Syntax OK
+2025-07-03 21:13:16,957 | INFO | scripts/system_statistics.py - Imports OK
+2025-07-03 21:13:16,957 | INFO | scripts/system_statistics.py - Execution OK
+2025-07-03 21:13:16,957 | INFO | scripts/system_statistics.py - Overall: HEALTHY
+2025-07-03 21:13:16,957 | INFO | Validation Scripts Health: PASSED
+2025-07-03 21:13:16,957 | WARNING | - 4/4 scripts healthy (100.0%)
+2025-07-03 21:13:16,957 | INFO | === RAG SYSTEM HEALTH CHECK ===
+2025-07-03 21:13:16,958 | INFO | RAG Core Import: PASSED
+2025-07-03 21:13:16,958 | WARNING | - RAG modules successfully imported
+2025-07-03 21:13:16,958 | INFO | Testing RAG system components...
+2025-07-03 21:13:16,958 | INFO | RAG System Components: PASSED
+2025-07-03 21:13:16,958 | WARNING | - RAG system accessible
+2025-07-03 21:13:16,958 | INFO | === DWSIM INTEGRATION CHECK ===
+2025-07-03 21:13:16,958 | INFO | DWSIM integration path found: src/pynucleus/integration
+2025-07-03 21:13:16,958 | INFO | DWSIM Integration: PASSED
+2025-07-03 21:13:16,958 | WARNING | - DWSIM integration modules available
+2025-07-03 21:13:16,958 | INFO | === LLM INTEGRATION CHECK ===
+2025-07-03 21:13:16,958 | INFO | LLM Runner Import: PASSED
+2025-07-03 21:13:16,958 | WARNING | - LLM Runner module available
+2025-07-03 21:13:16,958 | ERROR | LLM Query Module: FAILED
+2025-07-03 21:13:16,958 | WARNING | - LLM query module not available
+2025-07-03 21:13:16,958 | INFO | === PIPELINE COMPONENTS TEST ===
+2025-07-03 21:13:16,959 | INFO | Configuration Manager: PASSED
+2025-07-03 21:13:16,959 | WARNING | - ConfigManager module available
+2025-07-03 21:13:16,959 | INFO | Pipeline Utilities: PASSED
+2025-07-03 21:13:16,959 | WARNING | - PipelineUtils module available
+2025-07-03 21:13:16,959 | INFO | Results Exporter: PASSED
+2025-07-03 21:13:16,959 | WARNING | - ResultsExporter module available
+2025-07-03 21:13:16,959 | INFO | === ENHANCED PIPELINE COMPONENTS CHECK ===
+2025-07-03 21:13:16,959 | INFO | Enhanced Modules Import: PASSED
+2025-07-03 21:13:16,959 | WARNING | - All enhanced modules imported successfully
+2025-07-03 21:13:16,959 | INFO | Enhanced ConfigManager: PASSED
+2025-07-03 21:13:16,959 | WARNING | - ConfigManager initialized with configs dir
+2025-07-03 21:13:16,959 | INFO | Enhanced LLM Generator: PASSED
+2025-07-03 21:13:16,959 | WARNING | - LLMOutputGenerator initialized
+2025-07-03 21:13:16,959 | INFO | === ENHANCED CONTENT GENERATION CHECK ===
+2025-07-03 21:13:16,959 | INFO | Enhanced Content Generation: PASSED
+2025-07-03 21:13:16,959 | WARNING | - LLM output generated: llm_analysis_system_test_distillation_20250703_211316.md
+2025-07-03 21:13:16,960 | INFO | Enhanced Content Features: PASSED
+2025-07-03 21:13:16,960 | WARNING | - All enhanced features present
+2025-07-03 21:13:16,960 | INFO | === MOCK INTEGRATION TESTING ===
+2025-07-03 21:13:16,966 | INFO | Mock Integration Setup: PASSED
+2025-07-03 21:13:16,966 | WARNING | - Created 2 test files
+2025-07-03 21:13:16,966 | INFO | Processed JSON: test_config.json (2 keys)
+2025-07-03 21:13:16,969 | INFO | Processed CSV: test_config.csv (2 rows)
+2025-07-03 21:13:16,969 | INFO | Mock Integration Processing: PASSED
+2025-07-03 21:13:16,969 | WARNING | - Processed 2/2 files successfully
+2025-07-03 21:13:16,969 | INFO | === TOKEN UTILITIES TEST ===
+2025-07-03 21:13:17,130 | INFO | Token Counting: PASSED
+2025-07-03 21:13:17,130 | WARNING | - Successfully counted 17 tokens
+2025-07-03 21:13:17,134 | INFO | === CONFIGURATION MANAGEMENT TEST ===
+2025-07-03 21:13:17,134 | INFO | Configuration Manager Instantiation: PASSED
+2025-07-03 21:13:17,134 | WARNING | - ConfigManager created successfully
+2025-07-03 21:13:17,134 | INFO | Configuration Manager with Directory: PASSED
+2025-07-03 21:13:17,134 | WARNING | - ConfigManager with custom directory works
+2025-07-03 21:13:17,134 | INFO | === COMPREHENSIVE DIAGNOSTIC REPORT ===
+2025-07-03 21:13:17,134 | INFO | Execution Time: 2.69 seconds
+2025-07-03 21:13:17,134 | INFO | Total System Checks: 44
+2025-07-03 21:13:17,134 | INFO | Passed System Checks: 41
+2025-07-03 21:13:17,134 | INFO | --- SCRIPT VALIDATION SUMMARY ---
+2025-07-03 21:13:17,134 | INFO | Total Scripts Validated: 53
+2025-07-03 21:13:17,134 | INFO | Healthy Scripts: 35
+2025-07-03 21:13:17,134 | INFO | Script Health Rate: 66.0%
+2025-07-03 21:13:17,134 | INFO | Execution Success Rate: 64.7% (33/51)
+2025-07-03 21:13:17,134 | INFO | --- PIPELINE HEALTH STATUS ---
+2025-07-03 21:13:17,134 | INFO | RAG System: HEALTHY
+2025-07-03 21:13:17,134 | INFO | DWSIM Integration: HEALTHY
+2025-07-03 21:13:17,134 | INFO | Overall Integration: ISSUES
+2025-07-03 21:13:17,134 | INFO | --- SCRIPT CATEGORY BREAKDOWN ---
+2025-07-03 21:13:17,134 | INFO | Core Pipeline Scripts: 7/17 (41.2%)
+2025-07-03 21:13:17,134 | INFO | Integration & LLM Scripts: 14/22 (63.6%)
+2025-07-03 21:13:17,134 | INFO | Entry Point Scripts: 2/2 (100.0%)
+2025-07-03 21:13:17,134 | INFO | Test Scripts: 8/8 (100.0%)
+2025-07-03 21:13:17,134 | INFO | Validation Scripts: 4/4 (100.0%)
+2025-07-03 21:13:17,134 | INFO | --- FINAL ASSESSMENT ---
+2025-07-03 21:13:17,134 | INFO | Overall Success Rate: 93.2%
+2025-07-03 21:13:17,134 | INFO | SYSTEM STATUS: VERY GOOD
+2025-07-03 21:13:17,135 | INFO | System is in excellent condition with minor issues.
+2025-07-03 21:13:17,135 | INFO | Script validation results saved to: data/validation/diagnostic_results/diagnostic_script_validation_20250703_211317.json

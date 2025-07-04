@@ -1,0 +1,89 @@
+2025-07-03 21:13:16,948 | diagnostic_runner_file | INFO | runner.py:240 | scripts/validate_rag_factual_accuracy.py - Execution OK
+2025-07-03 21:13:16,948 | diagnostic_runner_file | INFO | runner.py:240 | scripts/validate_rag_factual_accuracy.py - Overall: HEALTHY
+2025-07-03 21:13:16,953 | diagnostic_runner_file | INFO | runner.py:240 | scripts/system_validator.py - Syntax OK
+2025-07-03 21:13:16,953 | diagnostic_runner_file | INFO | runner.py:240 | scripts/system_validator.py - Imports OK
+2025-07-03 21:13:16,954 | diagnostic_runner_file | INFO | runner.py:240 | scripts/system_validator.py - Execution OK
+2025-07-03 21:13:16,954 | diagnostic_runner_file | INFO | runner.py:240 | scripts/system_validator.py - Overall: HEALTHY
+2025-07-03 21:13:16,957 | diagnostic_runner_file | INFO | runner.py:240 | scripts/system_statistics.py - Syntax OK
+2025-07-03 21:13:16,957 | diagnostic_runner_file | INFO | runner.py:240 | scripts/system_statistics.py - Imports OK
+2025-07-03 21:13:16,957 | diagnostic_runner_file | INFO | runner.py:240 | scripts/system_statistics.py - Execution OK
+2025-07-03 21:13:16,957 | diagnostic_runner_file | INFO | runner.py:240 | scripts/system_statistics.py - Overall: HEALTHY
+2025-07-03 21:13:16,957 | diagnostic_runner_file | INFO | runner.py:240 | Validation Scripts Health: PASSED
+2025-07-03 21:13:16,957 | diagnostic_runner_file | WARNING | runner.py:238 | - 4/4 scripts healthy (100.0%)
+2025-07-03 21:13:16,957 | diagnostic_runner_file | INFO | runner.py:248 | === RAG SYSTEM HEALTH CHECK ===
+2025-07-03 21:13:16,958 | diagnostic_runner_file | INFO | runner.py:240 | RAG Core Import: PASSED
+2025-07-03 21:13:16,958 | diagnostic_runner_file | WARNING | runner.py:238 | - RAG modules successfully imported
+2025-07-03 21:13:16,958 | diagnostic_runner_file | INFO | runner.py:240 | Testing RAG system components...
+2025-07-03 21:13:16,958 | diagnostic_runner_file | INFO | runner.py:240 | RAG System Components: PASSED
+2025-07-03 21:13:16,958 | diagnostic_runner_file | WARNING | runner.py:238 | - RAG system accessible
+2025-07-03 21:13:16,958 | diagnostic_runner_file | INFO | runner.py:248 | === DWSIM INTEGRATION CHECK ===
+2025-07-03 21:13:16,958 | diagnostic_runner_file | INFO | runner.py:240 | DWSIM integration path found: src/pynucleus/integration
+2025-07-03 21:13:16,958 | diagnostic_runner_file | INFO | runner.py:240 | DWSIM Integration: PASSED
+2025-07-03 21:13:16,958 | diagnostic_runner_file | WARNING | runner.py:238 | - DWSIM integration modules available
+2025-07-03 21:13:16,958 | diagnostic_runner_file | INFO | runner.py:248 | === LLM INTEGRATION CHECK ===
+2025-07-03 21:13:16,958 | diagnostic_runner_file | INFO | runner.py:240 | LLM Runner Import: PASSED
+2025-07-03 21:13:16,958 | diagnostic_runner_file | WARNING | runner.py:238 | - LLM Runner module available
+2025-07-03 21:13:16,958 | diagnostic_runner_file | ERROR | runner.py:236 | LLM Query Module: FAILED
+2025-07-03 21:13:16,958 | diagnostic_runner_file | WARNING | runner.py:238 | - LLM query module not available
+2025-07-03 21:13:16,958 | diagnostic_runner_file | INFO | runner.py:248 | === PIPELINE COMPONENTS TEST ===
+2025-07-03 21:13:16,959 | diagnostic_runner_file | INFO | runner.py:240 | Configuration Manager: PASSED
+2025-07-03 21:13:16,959 | diagnostic_runner_file | WARNING | runner.py:238 | - ConfigManager module available
+2025-07-03 21:13:16,959 | diagnostic_runner_file | INFO | runner.py:240 | Pipeline Utilities: PASSED
+2025-07-03 21:13:16,959 | diagnostic_runner_file | WARNING | runner.py:238 | - PipelineUtils module available
+2025-07-03 21:13:16,959 | diagnostic_runner_file | INFO | runner.py:240 | Results Exporter: PASSED
+2025-07-03 21:13:16,959 | diagnostic_runner_file | WARNING | runner.py:238 | - ResultsExporter module available
+2025-07-03 21:13:16,959 | diagnostic_runner_file | INFO | runner.py:248 | === ENHANCED PIPELINE COMPONENTS CHECK ===
+2025-07-03 21:13:16,959 | diagnostic_runner_file | INFO | runner.py:240 | Enhanced Modules Import: PASSED
+2025-07-03 21:13:16,959 | diagnostic_runner_file | WARNING | runner.py:238 | - All enhanced modules imported successfully
+2025-07-03 21:13:16,959 | diagnostic_runner_file | INFO | runner.py:240 | Enhanced ConfigManager: PASSED
+2025-07-03 21:13:16,959 | diagnostic_runner_file | WARNING | runner.py:238 | - ConfigManager initialized with configs dir
+2025-07-03 21:13:16,959 | pynucleus.integration.llm_output_generator | INFO | llm_output_generator.py:21 | Using direct content generation (templates migrated to DSPy)
+2025-07-03 21:13:16,959 | diagnostic_runner_file | INFO | runner.py:240 | Enhanced LLM Generator: PASSED
+2025-07-03 21:13:16,959 | diagnostic_runner_file | WARNING | runner.py:238 | - LLMOutputGenerator initialized
+2025-07-03 21:13:16,959 | diagnostic_runner_file | INFO | runner.py:248 | === ENHANCED CONTENT GENERATION CHECK ===
+2025-07-03 21:13:16,959 | pynucleus.integration.llm_output_generator | INFO | llm_output_generator.py:21 | Using direct content generation (templates migrated to DSPy)
+2025-07-03 21:13:16,959 | pynucleus.integration.llm_output_generator | INFO | llm_output_generator.py:51 | LLM-ready output generated: data/05_output/llm_reports/llm_analysis_system_test_distillation_20250703_211316.md
+2025-07-03 21:13:16,959 | diagnostic_runner_file | INFO | runner.py:240 | Enhanced Content Generation: PASSED
+2025-07-03 21:13:16,959 | diagnostic_runner_file | WARNING | runner.py:238 | - LLM output generated: llm_analysis_system_test_distillation_20250703_211316.md
+2025-07-03 21:13:16,960 | diagnostic_runner_file | INFO | runner.py:240 | Enhanced Content Features: PASSED
+2025-07-03 21:13:16,960 | diagnostic_runner_file | WARNING | runner.py:238 | - All enhanced features present
+2025-07-03 21:13:16,960 | diagnostic_runner_file | INFO | runner.py:248 | === MOCK INTEGRATION TESTING ===
+2025-07-03 21:13:16,966 | diagnostic_runner_file | INFO | runner.py:240 | Mock Integration Setup: PASSED
+2025-07-03 21:13:16,966 | diagnostic_runner_file | WARNING | runner.py:238 | - Created 2 test files
+2025-07-03 21:13:16,966 | diagnostic_runner_file | INFO | runner.py:240 | Processed JSON: test_config.json (2 keys)
+2025-07-03 21:13:16,969 | diagnostic_runner_file | INFO | runner.py:240 | Processed CSV: test_config.csv (2 rows)
+2025-07-03 21:13:16,969 | diagnostic_runner_file | INFO | runner.py:240 | Mock Integration Processing: PASSED
+2025-07-03 21:13:16,969 | diagnostic_runner_file | WARNING | runner.py:238 | - Processed 2/2 files successfully
+2025-07-03 21:13:16,969 | diagnostic_runner_file | INFO | runner.py:248 | === TOKEN UTILITIES TEST ===
+2025-07-03 21:13:17,124 | pynucleus.utils.token_utils | INFO | token_utils.py:19 | TokenCounter initialized with model: microsoft/DialoGPT-medium
+2025-07-03 21:13:17,130 | diagnostic_runner_file | INFO | runner.py:240 | Token Counting: PASSED
+2025-07-03 21:13:17,130 | diagnostic_runner_file | WARNING | runner.py:238 | - Successfully counted 17 tokens
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:248 | === CONFIGURATION MANAGEMENT TEST ===
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Configuration Manager Instantiation: PASSED
+2025-07-03 21:13:17,134 | diagnostic_runner_file | WARNING | runner.py:238 | - ConfigManager created successfully
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Configuration Manager with Directory: PASSED
+2025-07-03 21:13:17,134 | diagnostic_runner_file | WARNING | runner.py:238 | - ConfigManager with custom directory works
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:248 | === COMPREHENSIVE DIAGNOSTIC REPORT ===
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Execution Time: 2.69 seconds
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Total System Checks: 44
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Passed System Checks: 41
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | --- SCRIPT VALIDATION SUMMARY ---
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Total Scripts Validated: 53
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Healthy Scripts: 35
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Script Health Rate: 66.0%
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Execution Success Rate: 64.7% (33/51)
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | --- PIPELINE HEALTH STATUS ---
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | RAG System: HEALTHY
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | DWSIM Integration: HEALTHY
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Overall Integration: ISSUES
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | --- SCRIPT CATEGORY BREAKDOWN ---
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Core Pipeline Scripts: 7/17 (41.2%)
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Integration & LLM Scripts: 14/22 (63.6%)
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Entry Point Scripts: 2/2 (100.0%)
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Test Scripts: 8/8 (100.0%)
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Validation Scripts: 4/4 (100.0%)
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | --- FINAL ASSESSMENT ---
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | Overall Success Rate: 93.2%
+2025-07-03 21:13:17,134 | diagnostic_runner_file | INFO | runner.py:240 | SYSTEM STATUS: VERY GOOD
+2025-07-03 21:13:17,135 | diagnostic_runner_file | INFO | runner.py:240 | System is in excellent condition with minor issues.
+2025-07-03 21:13:17,135 | diagnostic_runner_file | INFO | runner.py:240 | Script validation results saved to: data/validation/diagnostic_results/diagnostic_script_validation_20250703_211317.json

@@ -31,6 +31,7 @@ import logging
 import traceback
 from typing import Optional, List
 import signal
+import time
 
 import rich
 from rich.console import Console
@@ -48,11 +49,92 @@ src_path = str(Path(__file__).parent.parent.parent)
 if src_path not in sys.path:
     sys.path.insert(0, src_path)
 
+# ============================================================================
+# TYPEWRITER EFFECT FUNCTION
+# ============================================================================
+
+def typewriter_effect(text, delay: float = 0.03, style: str = "bold green"):
+    """
+    Display text with a typewriter effect, showing each word with a slight delay.
+    
+    Args:
+        text: The text to display (str, dict, or other object)
+        delay (float): Delay between words in seconds (default: 0.03)
+        style (str): Rich style to apply to the text (default: "bold green")
+    """
+    if not text:
+        return
+    
+    # Convert to string if it's not already
+    if isinstance(text, dict):
+        # Try to extract answer from common response formats
+        if 'answer' in text:
+            text_str = str(text['answer'])
+        elif 'response' in text:
+            text_str = str(text['response'])
+        elif 'text' in text:
+            text_str = str(text['text'])
+        else:
+            text_str = str(text)
+    else:
+        text_str = str(text)
+    
+    # Split text into words but preserve formatting
+    words = text_str.split()
+    
+    for i, word in enumerate(words):
+        # Add space before word (except for the first word)
+        if i > 0:
+            console.print(" ", end="")
+        
+        # Print word with style
+        console.print(word, end="", style=style)
+        
+        # Add slight delay between words
+        if i < len(words) - 1:  # Don't delay after the last word
+            time.sleep(delay)
+    
+    # Add final newline
+    console.print()
+
+def typewriter_effect_char(text, delay: float = 0.01, style: str = "bold green"):
+    """
+    Display text with a character-by-character typewriter effect.
+    
+    Args:
+        text: The text to display (str, dict, or other object)
+        delay (float): Delay between characters in seconds (default: 0.01)
+        style (str): Rich style to apply to the text (default: "bold green")
+    """
+    if not text:
+        return
+    
+    # Convert to string if it's not already
+    if isinstance(text, dict):
+        # Try to extract answer from common response formats
+        if 'answer' in text:
+            text_str = str(text['answer'])
+        elif 'response' in text:
+            text_str = str(text['response'])
+        elif 'text' in text:
+            text_str = str(text['text'])
+        else:
+            text_str = str(text)
+    else:
+        text_str = str(text)
+    
+    for char in text_str:
+        console.print(char, end="", style=style)
+        time.sleep(delay)
+    
+    # Add final newline
+    console.print()
+
 # Main CLI app
 app = Typer(
     name="pynucleus",
     help="🧪 PyNucleus Chemical Process Simulation & RAG System",
-    add_completion=False,
+    add_completion=True,
     pretty_exceptions_enable=True,
     rich_markup_mode="rich",
     no_args_is_help=False  # Allow running without args to show interactive menu
@@ -93,29 +175,11 @@ def setup_logging(verbose: bool = False, log_file: Optional[str] = None):
     
     return logging.getLogger(__name__)
 
-def handle_errors(func):
-    """Decorator for robust error handling"""
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except KeyboardInterrupt:
-            console.print("\n[yellow]⏹️  Operation cancelled by user[/yellow]")
-            raise Exit(130)
-        except FileNotFoundError as e:
-            console.print(f"[red]❌ File not found: {e}[/red]")
-            raise Exit(2)
-        except PermissionError as e:
-            console.print(f"[red]❌ Permission denied: {e}[/red]")
-            raise Exit(13)
-        except Exception as e:
-            console.print(f"[red]❌ Unexpected error: {e}[/red]")
-            if logging.getLogger().level <= logging.DEBUG:
-                console.print_exception(show_locals=True)
-            raise Exit(1)
-    # Preserve function signature for Typer
-    import functools
-    functools.update_wrapper(wrapper, func)
-    return wrapper
+# Import the enhanced error handler
+from pynucleus.utils.error_handler import cli_error_handler
+
+# For backward compatibility, alias the new decorator
+handle_errors = cli_error_handler
 
 # ============================================================================
 # RUN COMMAND - Pipeline Execution
@@ -141,45 +205,35 @@ def run_pipeline(
     if dry_run:
         console.print("🔍 [yellow]Dry run mode - validating configuration only[/yellow]")
     
-    # Validate inputs
-    if not config_path.exists():
-        console.print(f"[red]❌ Configuration file not found: {config_path}[/red]")
-        raise Exit(2)
-    
     # Import and run pipeline
     from pynucleus.integration.config_manager import ConfigManager
     from pynucleus.pipeline.pipeline_utils import run_full_pipeline
     
-    try:
-        # Load configuration
-        console.print("⚙️  Loading configuration...")
-        cfg_mgr = ConfigManager(config_dir=config_path.parent)
-        settings = cfg_mgr.load(config_path.name)
-        console.print("✅ Configuration loaded successfully")
-        
-        if dry_run:
-            console.print("✅ Configuration validation complete")
-            return
-        
-        # Prepare output directory
-        output_dir.mkdir(parents=True, exist_ok=True)
-        logger.info(f"Output directory prepared: {output_dir}")
-        
-        # Execute pipeline
-        console.print("🔄 Starting pipeline execution...")
-        with console.status("[bold green]Running pipeline..."):
-            result = run_full_pipeline(settings=settings, output_dir=output_dir)
-        
-        if result and result.get('success', True):
-            console.print("🎉 [bold green]Pipeline completed successfully![/bold green]")
-            if 'summary' in result:
-                console.print(f"📊 Summary: {result['summary']}")
-        else:
-            console.print("⚠️  [yellow]Pipeline completed with warnings[/yellow]")
-            
-    except Exception as e:
-        logger.error(f"Pipeline execution failed: {e}")
-        raise
+    # Load configuration - this will naturally raise FileNotFoundError if file doesn't exist
+    console.print("⚙️  Loading configuration...")
+    cfg_mgr = ConfigManager(config_dir=config_path.parent)
+    settings = cfg_mgr.load(config_path.name)
+    console.print("✅ Configuration loaded successfully")
+    
+    if dry_run:
+        console.print("✅ Configuration validation complete")
+        return
+    
+    # Prepare output directory
+    output_dir.mkdir(parents=True, exist_ok=True)
+    logger.info(f"Output directory prepared: {output_dir}")
+    
+    # Execute pipeline
+    console.print("🔄 Starting pipeline execution...")
+    with console.status("[bold green]Running pipeline..."):
+        result = run_full_pipeline(settings=settings, output_dir=output_dir)
+    
+    if result and result.get('success', True):
+        console.print("🎉 [bold green]Pipeline completed successfully![/bold green]")
+        if 'summary' in result:
+            console.print(f"📊 Summary: {result['summary']}")
+    else:
+        console.print("⚠️  [yellow]Pipeline completed with warnings[/yellow]")
 
 # ============================================================================
 # CHAT COMMAND - Interactive Chat Interface
@@ -194,9 +248,13 @@ def interactive_chat(
     temperature: float = Option(0.7, "--temperature", "-t", help="Model temperature"),
     max_tokens: int = Option(512, "--max-tokens", help="Maximum response tokens"),
     single: Optional[str] = Option(None, "--single", "-s", help="Ask a single question and exit"),
-    pretty: bool = Option(True, "--pretty/--plain", help="Use enhanced formatting for output")
+    pretty: bool = Option(True, "--pretty/--plain", help="Use enhanced formatting for output"),
+    stream: bool = Option(True, "--stream/--no-stream", help="Enable streaming typewriter effect for responses"),
+    stream_delay: float = Option(0.03, "--stream-delay", help="Delay between words in streaming mode (seconds)"),
+    stream_style: str = Option("bold green", "--stream-style", help="Rich style for streaming text"),
+    char_mode: bool = Option(False, "--char-mode", help="Use character-by-character streaming instead of word-by-word")
 ):
-    """💬 Start interactive chat with PyNucleus RAG system or ask a single question"""
+    """💬 Start interactive chat with PyNucleus RAG system with streaming typewriter effect"""
     
     logger = setup_logging(verbose)
     
@@ -226,10 +284,16 @@ def interactive_chat(
             
             # Display response
             console.print("\n[bold green]Answer:[/bold green]")
-            if pretty:
+            if stream:
+                if char_mode:
+                    typewriter_effect_char(result, delay=stream_delay, style=stream_style)
+                else:
+                    typewriter_effect(result, delay=stream_delay, style=stream_style)
+            elif pretty:
                 format_for_terminal(result)
             else:
-                console.print(result)
+                # Even in plain mode, use enhanced formatting for better readability
+                format_for_terminal(result)
             return
         
         # Interactive chat mode
@@ -257,10 +321,16 @@ def interactive_chat(
                 
                 # Display response
                 console.print("\n[bold green]Assistant:[/bold green]")
-                if pretty:
+                if stream:
+                    if char_mode:
+                        typewriter_effect_char(result, delay=stream_delay, style=stream_style)
+                    else:
+                        typewriter_effect(result, delay=stream_delay, style=stream_style)
+                elif pretty:
                     format_for_terminal(result)
                 else:
-                    console.print(result)
+                    # Even in plain mode, use enhanced formatting for better readability
+                    format_for_terminal(result)
                 console.print()
                 
             except KeyboardInterrupt:
@@ -1237,7 +1307,11 @@ def ask_question(
         temperature=0.7,
         max_tokens=512,
         single=question,
-        pretty=pretty
+        pretty=pretty,
+        stream=True,  # Enable streaming by default for ask command
+        stream_delay=0.03,
+        stream_style="bold green",
+        char_mode=False
     )
 
 # ============================================================================
@@ -1752,6 +1826,7 @@ def legacy_diagnostics(
 # ============================================================================
 
 @app.command("version")
+@handle_errors
 def show_version():
     """📋 Show PyNucleus version information"""
     
@@ -1794,6 +1869,7 @@ rag_app = Typer(
 )
 
 @app.command("rag")
+@handle_errors
 def rag_entry(ctx: Context):
     """Unified RAG system: document vectorization, vectorDB, auto-ingest, evaluation, and more."""
     console.print("\n🧪 [bold blue]PyNucleus RAG System[/bold blue]")
@@ -1810,113 +1886,377 @@ def rag_entry(ctx: Context):
 app.add_typer(rag_app, name="rag")
 
 # ============================================================================
+# COMPLETION COMMAND
+# ============================================================================
+
+@app.command("completion")
+@handle_errors
+def install_completion(
+    shell: str = Option(
+        "bash", 
+        "--shell", 
+        "-s", 
+        help="Shell type (bash, zsh, fish, powershell)",
+        show_default=True
+    ),
+    install: bool = Option(
+        False, 
+        "--install", 
+        "-i", 
+        help="Install completion automatically"
+    ),
+    requirements: bool = Option(
+        False,
+        "--requirements",
+        "-r", 
+        help="Also install/update requirements.txt dependencies"
+    ),
+    verbose: bool = Option(False, "--verbose", "-v", help="Verbose logging")
+):
+    """🔧 Install shell completion and optionally requirements for pynucleus"""
+    
+    logger = setup_logging(verbose)
+    
+    console.print("🔧 [bold blue]PyNucleus Shell Completion & Setup[/bold blue]")
+    console.print(f"🐚 Shell: {shell}")
+    if requirements:
+        console.print("📦 Requirements: Will be installed/updated")
+    
+    import subprocess
+    import os
+    from pathlib import Path
+    
+    # Install requirements if requested
+    if requirements:
+        console.print("\n📦 [yellow]Installing/updating requirements...[/yellow]")
+        req_file = Path("requirements.txt")
+        if req_file.exists():
+            try:
+                cmd = ["pip", "install", "-r", "requirements.txt", "--upgrade"]
+                result = subprocess.run(cmd, capture_output=True, text=True)
+                if result.returncode == 0:
+                    console.print("✅ [green]Requirements installed successfully![/green]")
+                else:
+                    console.print(f"❌ [red]Requirements installation failed: {result.stderr}[/red]")
+            except Exception as e:
+                console.print(f"❌ [red]Error installing requirements: {e}[/red]")
+        else:
+            console.print("⚠️ [yellow]requirements.txt not found[/yellow]")
+    
+    # Get the completion script
+    try:
+        if install:
+            console.print("\n📥 [yellow]Installing completion automatically...[/yellow]")
+            
+            # Run the completion installation command
+            cmd = ["pynucleus", "--install-completion", shell]
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                console.print("✅ [green]Completion installed successfully![/green]")
+                console.print("🔄 [yellow]Please restart your terminal or run:[/yellow]")
+                console.print(f"[blue]source ~/.{shell}rc[/blue]")
+            else:
+                console.print(f"❌ [red]Installation failed: {result.stderr}[/red]")
+                raise Exit(1)
+        else:
+            console.print("\n📋 [yellow]To install completion manually:[/yellow]")
+            console.print(f"[blue]pynucleus --install-completion {shell}[/blue]")
+            console.print("\n🔄 [yellow]Or use the automatic installation:[/yellow]")
+            console.print("[blue]pynucleus completion --install[/blue]")
+            console.print("[blue]pynucleus completion --install --requirements[/blue] (includes pip install)")
+            
+            # Show completion script
+            console.print("\n📄 [yellow]Completion script preview:[/yellow]")
+            cmd = ["pynucleus", "--show-completion", shell]
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                console.print(f"[dim]{result.stdout[:200]}...[/dim]")
+            else:
+                console.print("[red]❌ Failed to generate completion script[/red]")
+                
+    except Exception as e:
+        console.print(f"❌ [red]Error setting up completion: {e}[/red]")
+        raise Exit(1)
+    
+    console.print("\n💡 [yellow]Supported shells: bash, zsh, fish, powershell[/yellow]")
+    console.print("🔗 [blue]After installation, you'll have tab completion for all pynucleus commands![/blue]")
+
+# ============================================================================
+# GIT INTEGRATION COMMANDS
+# ============================================================================
+
+@app.command("git-commit")
+@handle_errors
+def git_commit(
+    message: str = Argument(..., help="Commit message"),
+    add_all: bool = Option(False, "--add-all", "-a", help="Add all tracked files before commit"),
+    push: bool = Option(False, "--push", "-p", help="Push to remote after commit"),
+    branch: Optional[str] = Option(None, "--branch", "-b", help="Branch to push to (default: current)"),
+    verbose: bool = Option(False, "--verbose", "-v", help="Verbose logging")
+):
+    """📝 Easy git commit with optional add-all and push"""
+    
+    logger = setup_logging(verbose)
+    
+    console.print("📝 [bold blue]Git Commit Operation[/bold blue]")
+    console.print(f"💬 Message: {message}")
+    
+    import subprocess
+    import os
+    
+    try:
+        # Check if in git repo
+        result = subprocess.run(["git", "status"], capture_output=True, text=True)
+        if result.returncode != 0:
+            console.print("❌ [red]Not in a git repository[/red]")
+            raise Exit(1)
+        
+        # Add all files if requested
+        if add_all:
+            console.print("📦 [yellow]Adding all tracked files...[/yellow]")
+            result = subprocess.run(["git", "add", "-A"], capture_output=True, text=True)
+            if result.returncode != 0:
+                console.print(f"❌ [red]Git add failed: {result.stderr}[/red]")
+                raise Exit(1)
+            console.print("✅ [green]Files added[/green]")
+        
+        # Check for changes to commit
+        result = subprocess.run(["git", "diff", "--cached", "--exit-code"], capture_output=True)
+        if result.returncode == 0:
+            console.print("⚠️ [yellow]No changes staged for commit[/yellow]")
+            return
+        
+        # Commit
+        console.print("💾 [yellow]Creating commit...[/yellow]")
+        result = subprocess.run(["git", "commit", "-m", message], capture_output=True, text=True)
+        if result.returncode != 0:
+            console.print(f"❌ [red]Commit failed: {result.stderr}[/red]")
+            raise Exit(1)
+        
+        console.print("✅ [green]Commit created successfully![/green]")
+        
+        # Push if requested
+        if push:
+            console.print("🚀 [yellow]Pushing to remote...[/yellow]")
+            
+            # Get current branch if not specified
+            if not branch:
+                result = subprocess.run(["git", "branch", "--show-current"], capture_output=True, text=True)
+                if result.returncode == 0:
+                    branch = result.stdout.strip()
+                else:
+                    branch = "main"
+            
+            push_cmd = ["git", "push", "origin", branch]
+            result = subprocess.run(push_cmd, capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                console.print(f"✅ [green]Pushed to {branch} successfully![/green]")
+            else:
+                console.print(f"❌ [red]Push failed: {result.stderr}[/red]")
+                console.print("💡 [yellow]Commit was successful, only push failed[/yellow]")
+        
+    except Exception as e:
+        console.print(f"❌ [red]Error during git operation: {e}[/red]")
+        raise Exit(1)
+
+@app.command("git-clone")
+@handle_errors
+def git_clone(
+    repo_url: str = Argument(..., help="Repository URL to clone"),
+    directory: Optional[str] = Option(None, "--dir", "-d", help="Directory name (default: repo name)"),
+    branch: Optional[str] = Option(None, "--branch", "-b", help="Specific branch to clone"),
+    depth: Optional[int] = Option(None, "--depth", help="Shallow clone depth"),
+    setup: bool = Option(False, "--setup", "-s", help="Run setup after clone (install requirements)"),
+    verbose: bool = Option(False, "--verbose", "-v", help="Verbose logging")
+):
+    """📥 Easy git clone with optional setup"""
+    
+    logger = setup_logging(verbose)
+    
+    console.print("📥 [bold blue]Git Clone Operation[/bold blue]")
+    console.print(f"🔗 Repository: {repo_url}")
+    
+    import subprocess
+    import os
+    from pathlib import Path
+    
+    try:
+        # Build clone command
+        cmd = ["git", "clone"]
+        
+        if branch:
+            cmd.extend(["--branch", branch])
+            console.print(f"🌿 Branch: {branch}")
+        
+        if depth:
+            cmd.extend(["--depth", str(depth)])
+            console.print(f"📏 Depth: {depth}")
+        
+        cmd.append(repo_url)
+        
+        if directory:
+            cmd.append(directory)
+            target_dir = directory
+        else:
+            # Extract repo name from URL
+            repo_name = repo_url.split("/")[-1].replace(".git", "")
+            target_dir = repo_name
+        
+        console.print(f"📁 Target directory: {target_dir}")
+        
+        # Check if directory exists
+        if Path(target_dir).exists():
+            console.print(f"⚠️ [yellow]Directory {target_dir} already exists[/yellow]")
+            choice = console.input("Continue anyway? (y/N): ").lower().strip()
+            if choice != 'y':
+                console.print("🚫 [yellow]Clone cancelled[/yellow]")
+                return
+        
+        # Clone repository
+        console.print("📥 [yellow]Cloning repository...[/yellow]")
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        if result.returncode != 0:
+            console.print(f"❌ [red]Clone failed: {result.stderr}[/red]")
+            raise Exit(1)
+        
+        console.print("✅ [green]Repository cloned successfully![/green]")
+        
+        # Setup if requested
+        if setup:
+            console.print("🔧 [yellow]Running setup...[/yellow]")
+            
+            # Change to target directory
+            os.chdir(target_dir)
+            
+            # Look for requirements files
+            req_files = ["requirements.txt", "requirements-dev.txt", "pyproject.toml"]
+            found_req = False
+            
+            for req_file in req_files:
+                if Path(req_file).exists():
+                    console.print(f"📦 [yellow]Installing {req_file}...[/yellow]")
+                    if req_file == "pyproject.toml":
+                        cmd = ["pip", "install", "-e", "."]
+                    else:
+                        cmd = ["pip", "install", "-r", req_file]
+                    
+                    result = subprocess.run(cmd, capture_output=True, text=True)
+                    if result.returncode == 0:
+                        console.print(f"✅ [green]{req_file} installed successfully![/green]")
+                    else:
+                        console.print(f"❌ [red]{req_file} installation failed: {result.stderr}[/red]")
+                    found_req = True
+            
+            if not found_req:
+                console.print("ℹ️ [blue]No requirements file found, skipping installation[/blue]")
+            
+            # Change back to original directory
+            os.chdir("..")
+        
+        console.print(f"\n🎉 [bold green]Ready! Repository cloned to: {target_dir}[/bold green]")
+        if not setup:
+            console.print("💡 [yellow]Tip: Use --setup flag to automatically install requirements[/yellow]")
+        
+    except Exception as e:
+        console.print(f"❌ [red]Error during clone operation: {e}[/red]")
+        raise Exit(1)
+
+@app.command("git-pull")
+@handle_errors
+def git_pull(
+    branch: Optional[str] = Option(None, "--branch", "-b", help="Branch to pull from (default: current)"),
+    remote: str = Option("origin", "--remote", "-r", help="Remote name"),
+    rebase: bool = Option(False, "--rebase", help="Rebase instead of merge"),
+    verbose: bool = Option(False, "--verbose", "-v", help="Verbose logging")
+):
+    """🔄 Easy git pull with conflict handling"""
+    
+    logger = setup_logging(verbose)
+    
+    console.print("🔄 [bold blue]Git Pull Operation[/bold blue]")
+    
+    import subprocess
+    import os
+    
+    try:
+        # Check if in git repo
+        result = subprocess.run(["git", "status"], capture_output=True, text=True)
+        if result.returncode != 0:
+            console.print("❌ [red]Not in a git repository[/red]")
+            raise Exit(1)
+        
+        # Get current branch if not specified
+        if not branch:
+            result = subprocess.run(["git", "branch", "--show-current"], capture_output=True, text=True)
+            if result.returncode == 0:
+                branch = result.stdout.strip()
+            else:
+                branch = "main"
+        
+        console.print(f"🌿 Branch: {branch}")
+        console.print(f"📡 Remote: {remote}")
+        
+        # Check for uncommitted changes
+        result = subprocess.run(["git", "diff", "--exit-code"], capture_output=True)
+        if result.returncode != 0:
+            console.print("⚠️ [yellow]You have uncommitted changes[/yellow]")
+            choice = console.input("Continue with pull? (y/N): ").lower().strip()
+            if choice != 'y':
+                console.print("🚫 [yellow]Pull cancelled[/yellow]")
+                return
+        
+        # Build pull command
+        cmd = ["git", "pull"]
+        if rebase:
+            cmd.append("--rebase")
+        cmd.extend([remote, branch])
+        
+        console.print("📥 [yellow]Pulling from remote...[/yellow]")
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        if result.returncode == 0:
+            console.print("✅ [green]Pull completed successfully![/green]")
+            
+            # Show what was updated
+            if result.stdout.strip():
+                console.print("\n📋 [blue]Pull summary:[/blue]")
+                console.print(f"[dim]{result.stdout}[/dim]")
+        else:
+            # Handle common error cases
+            if "merge conflict" in result.stderr.lower() or "conflict" in result.stderr.lower():
+                console.print("⚠️ [yellow]Merge conflicts detected![/yellow]")
+                console.print("🔧 [blue]Please resolve conflicts manually, then run:[/blue]")
+                console.print("   [cyan]git add .[/cyan]")
+                console.print("   [cyan]git commit[/cyan]")
+            elif "diverged" in result.stderr.lower():
+                console.print("🔀 [yellow]Branch has diverged from remote[/yellow]")
+                console.print("💡 [blue]Consider using --rebase flag or merge manually[/blue]")
+            else:
+                console.print(f"❌ [red]Pull failed: {result.stderr}[/red]")
+                raise Exit(1)
+        
+        # Show current status
+        console.print("\n📊 [blue]Current status:[/blue]")
+        result = subprocess.run(["git", "status", "--short"], capture_output=True, text=True)
+        if result.returncode == 0 and result.stdout.strip():
+            console.print(f"[dim]{result.stdout}[/dim]")
+        else:
+            console.print("[green]Working directory clean[/green]")
+        
+    except Exception as e:
+        console.print(f"❌ [red]Error during pull operation: {e}[/red]")
+        raise Exit(1)
+
+# ============================================================================
 # POST-COMMAND OPTIONS SYSTEM
 # ============================================================================
 
-def show_post_command_options(context_name: str, context_commands: List[tuple] = None):
-    """
-    Display post-command options to either return to main menu or stay in current context
-    
-    Args:
-        context_name: Name of the current context (e.g., "ingest", "health", "serve")
-        context_commands: List of (number, command, description) tuples for the current context
-    """
-    console.print(f"\n{'─' * 80}")
-    console.print(f"🎯 [bold blue]What would you like to do next?[/bold blue]")
-    console.print(f"{'─' * 80}")
-    
-    options = [
-        ("m", "main", "Return to main menu"),
-        ("r", "repeat", f"Show {context_name} options again"),
-        ("q", "quit", "Exit PyNucleus")
-    ]
-    
-    for key, _, description in options:
-        console.print(f"[bold cyan]{key:>2}[/bold cyan]  {description}")
-    
-    console.print()
-    
-    max_attempts = 3
-    attempts = 0
-    
-    while attempts < max_attempts:
-        try:
-            choice = console.input("[bold green]Enter your choice (m/r/q): [/bold green]").strip().lower()
-            
-            if choice in ['q', 'quit']:
-                console.print("👋 [yellow]Goodbye![/yellow]")
-                return 'quit'
-            elif choice in ['m', 'main']:
-                return 'main'
-            elif choice in ['r', 'repeat']:
-                return 'repeat'
-            else:
-                console.print(f"[red]❌ Invalid choice: '{choice}'. Please enter 'm', 'r', or 'q'[/red]")
-                attempts += 1
-                
-        except (KeyboardInterrupt, EOFError):
-            console.print("\n👋 [yellow]Goodbye![/yellow]")
-            return 'quit'
-        except Exception as e:
-            console.print(f"[red]❌ Error: {e}[/red]")
-            attempts += 1
-            
-    # Default to main menu if too many attempts
-    console.print("[yellow]⚠️  Too many invalid attempts. Returning to main menu.[/yellow]")
-    return 'main'
-
-def show_context_menu(context_name: str, context_commands: List[tuple]):
-    """
-    Display options for a specific context/directory
-    
-    Args:
-        context_name: Name of the context (e.g., "ingest", "health")
-        context_commands: List of (number, command, description) tuples
-    """
-    console.print(f"\n🧪 [bold blue]PyNucleus - {context_name.title()} Options[/bold blue]")
-    console.print("Choose an option:\n")
-    
-    # Display context-specific commands
-    for number, command, description in context_commands:
-        console.print(f"[bold cyan]{number:>2}[/bold cyan]  {description}")
-    
-    # Add standard options
-    console.print(f"[bold cyan] m[/bold cyan]  Return to main menu")
-    console.print(f"[bold cyan] q[/bold cyan]  Exit")
-    
-    console.print("\n" + "─" * 80)
-    
-    max_attempts = 5
-    attempts = 0
-    
-    while attempts < max_attempts:
-        try:
-            choice = console.input(f"[bold green]Enter your choice: [/bold green]").strip().lower()
-            
-            if choice in ['q', 'quit']:
-                console.print("👋 [yellow]Goodbye![/yellow]")
-                return 'quit', None
-            elif choice in ['m', 'main']:
-                return 'main', None
-            
-            # Check if it's a valid context command
-            for number, command, description in context_commands:
-                if choice == number:
-                    return 'command', command
-            
-            console.print(f"[red]❌ Invalid choice: '{choice}'. Please enter a valid option.[/red]")
-            attempts += 1
-                
-        except (KeyboardInterrupt, EOFError):
-            console.print("\n👋 [yellow]Goodbye![/yellow]")
-            return 'quit', None
-        except Exception as e:
-            console.print(f"[red]❌ Error: {e}[/red]")
-            attempts += 1
-            
-    # If we've exceeded max attempts, return to main menu
-    console.print("[yellow]⚠️  Too many invalid attempts. Returning to main menu.[/yellow]")
-    return 'main', None
+# Old show_post_command_options and show_context_menu functions removed
+# They have been replaced by the enhanced menu system in menus.py
 
 # ============================================================================
 # MAIN ENTRY POINT
@@ -1939,6 +2279,8 @@ def show_interactive_menu():
             ("7", "version", "Show version"),
             ("8", "eval", "Run evaluations"),
             ("9", "serve", "Web server"),
+            ("g", "git", "Git operations"),
+            ("c", "completion", "Install shell completion & requirements"),
             ("0", "help", "Show help"),
             ("q", "quit", "Exit")
         ]
@@ -1949,7 +2291,8 @@ def show_interactive_menu():
         
         console.print("\n" + "─" * 80)
         console.print("[dim]💡 Tip: You can also run commands directly, e.g., './pynucleus run --help'[/dim]")
-        console.print("[dim]💡 Tip: Use '--verbose' flag for detailed output[/dim]\n")
+        console.print("[dim]💡 Tip: Use '--verbose' flag for detailed output[/dim]")
+        console.print("[dim]💡 Tip: Press 'c' to install shell completion for tab-completion[/dim]\n")
         
         # Get user choice
         choice = get_main_menu_choice(commands)
@@ -1978,7 +2321,7 @@ def get_main_menu_choice(commands):
     
     while attempts < max_attempts:
         try:
-            choice = console.input("[bold green]Enter your choice (0-9, q to quit): [/bold green]").strip().lower()
+            choice = console.input("[bold green]Enter your choice (0-9, g, c, q to quit): [/bold green]").strip().lower()
             
             if choice == 'q' or choice == 'quit':
                 console.print("👋 [yellow]Goodbye![/yellow]")
@@ -1987,16 +2330,22 @@ def get_main_menu_choice(commands):
             if choice == '0' or choice == 'help':
                 return 'help'
             
+            if choice == 'c' or choice == 'completion':
+                return 'completion'
+            
+            if choice == 'g' or choice == 'git':
+                return 'git'
+            
             # Validate numeric choice
             try:
                 choice_num = int(choice)
                 if 1 <= choice_num <= 9:
                     return commands[choice_num - 1][1]  # Return command name
                 else:
-                    console.print(f"[red]❌ Invalid choice: {choice_num}. Please enter 0-9 or 'q'[/red]")
+                    console.print(f"[red]❌ Invalid choice: {choice_num}. Please enter 0-9, g, c, or 'q'[/red]")
                     attempts += 1
             except ValueError:
-                console.print(f"[red]❌ Invalid input: '{choice}'. Please enter 0-9 or 'q'[/red]")
+                console.print(f"[red]❌ Invalid input: '{choice}'. Please enter 0-9, g, c, or 'q'[/red]")
                 attempts += 1
                 
         except (KeyboardInterrupt, EOFError):
@@ -2012,65 +2361,129 @@ def get_main_menu_choice(commands):
 
 def execute_command_with_context(command_name: str, main_commands: List[tuple]):
     """Execute a command and handle post-command options based on context"""
+    from .menus import enhanced_context_menu, simple_command_wrapper
     
     # Context-specific command definitions
     contexts = {
         "ingest": [
-            ("1", "auto", "Auto-ingest documents"),
-            ("2", "watch", "Watch directory for files"),
-            ("3", "single", "Ingest single file"),
-            ("4", "info", "Show ingest information"),
-            ("5", "clear", "Clear document database"),
-            ("6", "validate", "Validate ingest system")
+            ("1", "Auto-ingest documents", "auto"),
+            ("2", "Watch directory for files", "watch"),
+            ("3", "Ingest single file", "single"),
+            ("4", "Show ingest information", "info"),
+            ("5", "Clear document database", "clear"),
+            ("6", "Validate ingest system", "validate")
         ],
         "health": [
-            ("1", "quick", "Quick health check"),
-            ("2", "full", "Full system diagnostics"),
-            ("3", "network", "Network connectivity check"),
-            ("4", "storage", "Storage system check")
+            ("1", "Quick health check", "quick"),
+            ("2", "Full system diagnostics", "full"),
+            ("3", "Network connectivity check", "network"),
+            ("4", "Storage system check", "storage")
         ],
         "eval": [
-            ("1", "golden", "Run golden dataset evaluation"),
-            ("2", "metrics", "Compute RAG metrics")
+            ("1", "Run golden dataset evaluation", "golden"),
+            ("2", "Compute RAG metrics", "metrics")
         ],
         "serve": [
-            ("1", "start", "Start web server"),
-            ("2", "stop", "Stop web server"),
-            ("3", "restart", "Restart web server")
+            ("1", "Start web server", "start"),
+            ("2", "Stop web server", "stop"),
+            ("3", "Restart web server", "restart")
         ],
         "system-status": [
-            ("1", "comprehensive", "Comprehensive system status"),
-            ("2", "validator", "System validator")
+            ("1", "Comprehensive system status", "comprehensive"),
+            ("2", "System validator", "validator")
+        ],
+        "git": [
+            ("1", "Git commit (with message)", "commit"),
+            ("2", "Git clone repository", "clone"),
+            ("3", "Git pull from remote", "pull")
         ]
     }
     
     # Commands that don't have sub-contexts
-    simple_commands = ["run", "chat", "build", "version"]
+    simple_commands = ["run", "chat", "build", "version", "completion"]
     
     if command_name in simple_commands:
-        # Execute simple command and show post-command options
-        execute_simple_command(command_name)
-        choice = show_post_command_options("main menu")
-        return choice
+        # Execute simple command with enhanced menu wrapper
+        def command_executor():
+            execute_simple_command(command_name)
+        
+        simple_command_wrapper(command_name, command_executor)
     elif command_name in contexts:
-        # Handle contextual commands with sub-menus
-        return handle_contextual_command(command_name, contexts[command_name])
+        # Handle contextual commands with enhanced sub-menus
+        menu_options = contexts[command_name]
+        def command_executor(subcommand: str):
+            execute_contextual_subcommand(command_name, subcommand)
+        
+        enhanced_context_menu(command_name.title(), menu_options, command_executor)
     else:
         console.print(f"[red]❌ Unknown command: {command_name}[/red]")
         return 'main'
 
 def execute_simple_command(command_name: str):
     """Execute a simple command that doesn't have sub-commands"""
-    console.print(f"\n🔄 [yellow]Running: {command_name}[/yellow]")
-    console.print("─" * 80)
-    
     try:
-        if command_name == "build":
+        if command_name == "run":
+            # Handle the run command by prompting for config file
+            console.print("🚀 [bold blue]Execute Pipeline[/bold blue]")
+            console.print("Available configuration files:\n")
+            
+            # List available config files
+            config_dir = Path("configs")
+            config_files = []
+            if config_dir.exists():
+                for file in config_dir.iterdir():
+                    if file.suffix == '.json':
+                        config_files.append(file)
+            
+            if not config_files:
+                console.print("[red]❌ No configuration files found in configs/ directory[/red]")
+                return
+            
+            # Display config options
+            for i, config_file in enumerate(config_files, 1):
+                console.print(f"[bold cyan]{i:>2}[/bold cyan]  {config_file.name}")
+            
+            console.print(f"[bold cyan] 0[/bold cyan]  Enter custom config path")
+            
+            # Get user choice
+            while True:
+                try:
+                    choice = console.input(f"\n[bold green]Select config file (1-{len(config_files)}, 0 for custom): [/bold green]").strip()
+                    
+                    if choice == "0":
+                        custom_path = console.input("[bold green]Enter config file path: [/bold green]").strip()
+                        if custom_path and Path(custom_path).exists():
+                            config_path = custom_path
+                            break
+                        else:
+                            console.print("[red]❌ File not found. Please try again.[/red]")
+                            continue
+                    
+                    choice_num = int(choice)
+                    if 1 <= choice_num <= len(config_files):
+                        config_path = str(config_files[choice_num - 1])
+                        break
+                    else:
+                        console.print(f"[red]❌ Invalid choice. Please enter 1-{len(config_files)} or 0.[/red]")
+                        
+                except ValueError:
+                    console.print(f"[red]❌ Invalid input. Please enter a number.[/red]")
+                except (KeyboardInterrupt, EOFError):
+                    console.print("\n[yellow]Operation cancelled.[/yellow]")
+                    return
+            
+            console.print(f"\n[yellow]🔄 Running pipeline with config: {config_path}[/yellow]")
+            sys.argv = [sys.argv[0], 'run', '--config', config_path]
+        elif command_name == "build":
             sys.argv = [sys.argv[0], 'build', '--interactive']
         elif command_name == "chat":
             console.print("💬 [bold blue]Starting Interactive Chat[/bold blue]")
             console.print("💡 Type 'exit', 'quit', or press Ctrl+C to end the session\n")
             sys.argv = [sys.argv[0], 'chat']
+        elif command_name == "completion":
+            console.print("🔧 [bold blue]Shell Completion Setup[/bold blue]")
+            console.print("💡 This will help you install tab completion for pynucleus commands\n")
+            sys.argv = [sys.argv[0], 'completion']
         else:
             sys.argv = [sys.argv[0], command_name]
         
@@ -2080,35 +2493,12 @@ def execute_simple_command(command_name: str):
         pass
     except Exception as e:
         console.print(f"[red]❌ Command failed: {e}[/red]")
+        raise  # Re-raise so the wrapper can handle it
 
-def handle_contextual_command(context_name: str, context_commands: List[tuple]):
-    """Handle commands that have sub-command contexts"""
-    
-    while True:  # Context menu loop
-        action, selected_command = show_context_menu(context_name, context_commands)
-        
-        if action == 'quit':
-            return 'quit'
-        elif action == 'main':
-            return 'main'
-        elif action == 'command':
-            # Execute the selected sub-command
-            execute_contextual_subcommand(context_name, selected_command)
-            
-            # Show post-command options
-            choice = show_post_command_options(context_name, context_commands)
-            if choice == 'quit':
-                return 'quit'
-            elif choice == 'main':
-                return 'main'
-            elif choice == 'repeat':
-                continue  # Stay in context menu loop
+# Old handle_contextual_command function removed - replaced by enhanced_context_menu from menus.py
 
 def execute_contextual_subcommand(context_name: str, subcommand: str):
     """Execute a sub-command within a specific context"""
-    console.print(f"\n🔄 [yellow]Running: {context_name} {subcommand}[/yellow]")
-    console.print("─" * 80)
-    
     try:
         if context_name == "ingest":
             execute_ingest_command(subcommand)
@@ -2123,11 +2513,14 @@ def execute_contextual_subcommand(context_name: str, subcommand: str):
             args = [sys.argv[0], 'system-status', subcommand]
             sys.argv = args
             app()
+        elif context_name == "git":
+            execute_git_command(subcommand)
     except SystemExit:
         # Handle normal command completion
         pass
     except Exception as e:
         console.print(f"[red]❌ Command failed: {e}[/red]")
+        raise  # Re-raise so the wrapper can handle it
 
 def execute_ingest_command(subcommand: str):
     """Execute ingest sub-commands with interactive prompts"""
@@ -2169,18 +2562,97 @@ def execute_serve_command(subcommand: str):
     args = [sys.argv[0], 'serve', subcommand]
     
     if subcommand in ['start', 'restart']:
-        port = console.input("🔌 Port (default: 5001): ").strip()
-        if not port:
+        try:
+            port_input = console.input("🔌 Port (default: 5001): ").strip()
+            if not port_input:
+                port = "5001"
+            else:
+                # Validate that it's a number
+                int(port_input)  # This will raise ValueError if invalid
+                port = port_input
+        except (ValueError, EOFError, KeyboardInterrupt):
+            console.print("[yellow]ℹ️ Using default port 5001[/yellow]")
             port = "5001"
         args.extend(['--port', port])
     elif subcommand == 'stop':
-        port = console.input("🔌 Port to stop (default: 5001): ").strip()
-        if not port:
+        try:
+            port_input = console.input("🔌 Port to stop (default: 5001): ").strip()
+            if not port_input:
+                port = "5001"
+            else:
+                # Validate that it's a number
+                int(port_input)  # This will raise ValueError if invalid
+                port = port_input
+        except (ValueError, EOFError, KeyboardInterrupt):
+            console.print("[yellow]ℹ️ Using default port 5001[/yellow]")
             port = "5001"
         args.extend(['--port', port])
     
     sys.argv = args
     app()
+
+def execute_git_command(subcommand: str):
+    """Execute git sub-commands with interactive prompts"""
+    if subcommand == 'commit':
+        # Interactive git commit
+        message = console.input("💬 Commit message: ").strip()
+        if not message:
+            console.print("[red]❌ Commit message required[/red]")
+            return
+        
+        add_all = console.input("📦 Add all files? (y/N): ").lower().strip() == 'y'
+        push_after = console.input("🚀 Push after commit? (y/N): ").lower().strip() == 'y'
+        
+        args = [sys.argv[0], 'git-commit', message]
+        if add_all:
+            args.append('--add-all')
+        if push_after:
+            args.append('--push')
+        
+        sys.argv = args
+        app()
+        
+    elif subcommand == 'clone':
+        # Interactive git clone
+        repo_url = console.input("🔗 Repository URL: ").strip()
+        if not repo_url:
+            console.print("[red]❌ Repository URL required[/red]")
+            return
+        
+        directory = console.input("📁 Directory name (Enter for default): ").strip()
+        branch = console.input("🌿 Branch (Enter for default): ").strip()
+        setup_after = console.input("🔧 Run setup after clone? (y/N): ").lower().strip() == 'y'
+        
+        args = [sys.argv[0], 'git-clone', repo_url]
+        if directory:
+            args.extend(['--dir', directory])
+        if branch:
+            args.extend(['--branch', branch])
+        if setup_after:
+            args.append('--setup')
+        
+        sys.argv = args
+        app()
+        
+    elif subcommand == 'pull':
+        # Interactive git pull
+        branch = console.input("🌿 Branch (Enter for current): ").strip()
+        remote = console.input("📡 Remote (default: origin): ").strip()
+        if not remote:
+            remote = "origin"
+        
+        use_rebase = console.input("🔄 Use rebase instead of merge? (y/N): ").lower().strip() == 'y'
+        
+        args = [sys.argv[0], 'git-pull']
+        if branch:
+            args.extend(['--branch', branch])
+        if remote != "origin":
+            args.extend(['--remote', remote])
+        if use_rebase:
+            args.append('--rebase')
+        
+        sys.argv = args
+        app()
 
 def main():
     """Main CLI entry point with error handling"""
