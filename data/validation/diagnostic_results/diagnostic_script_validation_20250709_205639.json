@@ -1,0 +1,603 @@
+{
+  "timestamp": "20250709_205639",
+  "total_scripts": 53,
+  "healthy_scripts": 31,
+  "categories": {
+    "Core Pipeline Scripts": {
+      "total": 17,
+      "healthy": 6
+    },
+    "Integration & LLM Scripts": {
+      "total": 22,
+      "healthy": 14
+    },
+    "Entry Point Scripts": {
+      "total": 2,
+      "healthy": 2
+    },
+    "Test Scripts": {
+      "total": 8,
+      "healthy": 5
+    },
+    "Validation Scripts": {
+      "total": 4,
+      "healthy": 4
+    }
+  },
+  "results": [
+    {
+      "script_path": "src/pynucleus/pipeline/plant_builder.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0033240318298339844,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/results_exporter.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0024847984313964844,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/pipeline_rag.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0038819313049316406,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/pipeline_dwsim.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0019190311431884766,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/__init__.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.002105236053466797,
+      "error_message": "Execution error: No module named 'test_module'",
+      "warnings": [
+        "Runtime issues: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/financial_analyzer.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.008575916290283203,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/pipeline_utils.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.004008293151855469,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/rag/vector_store_remote.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.002517223358154297,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/vector_store.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.005787849426269531,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/wiki_scraper.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.004108905792236328,
+      "error_message": "Execution error: No module named 'loguru'",
+      "warnings": [
+        "Runtime issues: No module named 'loguru'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/embedding_monitor.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0024261474609375,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/rag/document_processor.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.004091024398803711,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/rag/collector.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.003524303436279297,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/__init__.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0019350051879882812,
+      "error_message": "Execution error: No module named 'test_module'",
+      "warnings": [
+        "Runtime issues: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/rag_core.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0027179718017578125,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/rag/engine.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0048770904541015625,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/answer_processing.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0649418830871582,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/integration/config_manager.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.01113271713256836,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/integration/__init__.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.022582054138183594,
+      "error_message": "Execution error: No module named 'test_module'",
+      "warnings": [
+        "Runtime issues: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/integration/llm_output_generator.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0049610137939453125,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/integration/dwsim_rag_integrator.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0032198429107666016,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/answer_engine.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.005255937576293945,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/retriever_adapter.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002666950225830078,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/prompting.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0035071372985839844,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/query_llm.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002112865447998047,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/__init__.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0018329620361328125,
+      "error_message": "Execution error: No module named 'test_module'",
+      "warnings": [
+        "Runtime issues: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/simple_local_adapter.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 1.509178876876831,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/device_manager.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.002904176712036133,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/model_loader.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0036067962646484375,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/qwen_loader.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0023412704467773438,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/llm_runner.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002626180648803711,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/logging_config.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0025548934936523438,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/env.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0018019676208496094,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/__init__.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.001641988754272461,
+      "error_message": "Execution error: No module named 'test_module'",
+      "warnings": [
+        "Runtime issues: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/utils/logger.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0022029876708984375,
+      "error_message": "Execution error: attempted relative import with no known parent package",
+      "warnings": [
+        "Runtime issues: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/utils/telemetry_patch.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0019648075103759766,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/error_handler.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0023741722106933594,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/pretty_formatter.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0032601356506347656,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/token_utils.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0019731521606445312,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "run_pipeline.py",
+      "category": "Entry Point Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0055408477783203125,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/cli.py",
+      "category": "Entry Point Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.014164209365844727,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/test_output_formatting.py",
+      "category": "Test Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0021169185638427734,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/test_production_monitoring.py",
+      "category": "Test Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.01754903793334961,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/test_output_formatting.py",
+      "category": "Test Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0014829635620117188,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/test_production_monitoring.py",
+      "category": "Test Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0041599273681640625,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/simple_stress_test.py",
+      "category": "Test Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0026710033416748047,
+      "error_message": "Execution error: No module named 'aiohttp'",
+      "warnings": [
+        "Runtime issues: No module named 'aiohttp'"
+      ]
+    },
+    {
+      "script_path": "scripts/stress_test_suite.py",
+      "category": "Test Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.003503084182739258,
+      "error_message": "Execution error: No module named 'aiohttp'",
+      "warnings": [
+        "Runtime issues: No module named 'aiohttp'"
+      ]
+    },
+    {
+      "script_path": "scripts/stress_test.py",
+      "category": "Test Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": false,
+      "execution_time": 0.0033559799194335938,
+      "error_message": "Execution error: No module named 'aiohttp'",
+      "warnings": [
+        "Runtime issues: No module named 'aiohttp'"
+      ]
+    },
+    {
+      "script_path": "scripts/integration_test.py",
+      "category": "Test Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0036308765411376953,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/validate_infrastructure.py",
+      "category": "Validation Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002627849578857422,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/validate_rag_factual_accuracy.py",
+      "category": "Validation Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 7.661834001541138,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/system_validator.py",
+      "category": "Validation Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0065310001373291016,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/system_statistics.py",
+      "category": "Validation Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.007169008255004883,
+      "error_message": "",
+      "warnings": []
+    }
+  ]
+}

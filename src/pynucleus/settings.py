@@ -9,11 +9,11 @@ class Settings(BaseSettings):
     USE_CUDA: bool = True  # Enable GPU detection by default
     USE_GPU_QUANTIZATION: bool = True  # Use 8-bit quantization on GPU for memory efficiency
     EMB_MODEL: str = "BAAI/bge-small-en-v1.5"  # High-performance embedding model
-    MAX_TOKENS: int = 400  # Increased base token limit for complex answers
-    MIN_TOKENS: int = 100  # Minimum tokens for simple answers
-    MAX_TOKENS_COMPLEX: int = 600  # Maximum tokens for complex technical questions
+    MAX_TOKENS: int = 150  # Reduced base token limit for concise answers
+    MIN_TOKENS: int = 50   # Minimum tokens for simple answers
+    MAX_TOKENS_COMPLEX: int = 300  # Maximum tokens for complex technical questions
     TOKEN_COMPLETENESS_THRESHOLD: float = 0.8  # Threshold to detect incomplete answers
-    MAX_CONTEXT_CHARS: int = 5000
+    MAX_CONTEXT_CHARS: int = 2000  # Reduced context size for more focused answers
     RETRIEVE_TOP_K: int = 3  # Focus on top 3 most relevant chunks
     LOG_LEVEL: str = "INFO"
     VSTORE_BACKEND: str = "chroma"  # legacy stub
@@ -23,8 +23,8 @@ class Settings(BaseSettings):
     TEMPERATURE: float = 0.3
     TOP_P: float = 0.9
     REPETITION_PENALTY: float = 1.2
-    MIN_ANSWER_LENGTH: int = 100
-    MAX_ANSWER_LENGTH: int = 2000  # Increased for longer technical answers
+    MIN_ANSWER_LENGTH: int = 50
+    MAX_ANSWER_LENGTH: int = 500  # Reduced for more concise answers
     
     # Enhanced RAG Pipeline Configuration - OPTIMIZED FOR BETTER RETRIEVAL
     # Chunking settings optimized for ≥90% retrieval recall

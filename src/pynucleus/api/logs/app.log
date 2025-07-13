@@ -24,3 +24,21 @@
 2025-07-03 21:47:46,162 INFO src.pynucleus.api.app: Redis distributed cache initialized
 2025-07-03 21:47:46,165 INFO src.pynucleus.api.app: PyNucleus Flask API starting up (Instance: api-default)...
 2025-07-03 21:47:46,165 INFO src.pynucleus.api.app: PyNucleus Flask API starting up (Instance: api-default)...
+2025-07-09 12:21:14,400 INFO src.pynucleus.api.app: Health check requested
+2025-07-09 12:21:14,400 INFO src.pynucleus.api.app: Health check requested
+2025-07-09 12:21:35,208 INFO src.pynucleus.api.app: Processing question: What is distillation?... (cache: True)
+2025-07-09 12:21:35,208 INFO src.pynucleus.api.app: Processing question: What is distillation?... (cache: True)
+2025-07-09 12:21:39,885 ERROR src.pynucleus.api.app: Failed to initialize RAG engine: [Errno 5] Input/output error
+2025-07-09 12:21:39,885 ERROR src.pynucleus.api.app: Failed to initialize RAG engine: [Errno 5] Input/output error
+2025-07-09 12:21:49,397 ERROR src.pynucleus.api.app: System status endpoint error: cannot import name 'get_system_metrics' from 'pynucleus.metrics.system_statistics' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/metrics/system_statistics.py)
+2025-07-09 12:21:49,397 ERROR src.pynucleus.api.app: System status endpoint error: cannot import name 'get_system_metrics' from 'pynucleus.metrics.system_statistics' (/Users/mohammadalmusaiteer/PyNucleus-Model/src/pynucleus/metrics/system_statistics.py)
+2025-07-09 12:22:09,277 ERROR src.pynucleus.api.app: Comprehensive health check error: [Errno 5] Input/output error
+2025-07-09 12:22:09,277 ERROR src.pynucleus.api.app: Comprehensive health check error: [Errno 5] Input/output error
+2025-07-09 12:30:07,548 INFO src.pynucleus.api.app: Cleaning up application resources...
+2025-07-09 12:30:07,548 INFO src.pynucleus.api.app: Cleaning up application resources...
+2025-07-09 12:30:07,551 INFO src.pynucleus.api.app: Resource cleanup completed
+2025-07-09 12:30:07,551 INFO src.pynucleus.api.app: Resource cleanup completed
+2025-07-09 12:30:07,551 INFO src.pynucleus.api.app: Cleaning up application resources...
+2025-07-09 12:30:07,551 INFO src.pynucleus.api.app: Cleaning up application resources...
+2025-07-09 12:30:07,552 INFO src.pynucleus.api.app: Resource cleanup completed
+2025-07-09 12:30:07,552 INFO src.pynucleus.api.app: Resource cleanup completed

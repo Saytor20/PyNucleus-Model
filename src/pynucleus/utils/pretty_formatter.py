@@ -1,40 +1,40 @@
 """
-Pretty formatting utilities for enhanced output display
+Enhanced formatting utilities for PyNucleus CLI output.
+
+Provides beautiful terminal formatting with boxes, citations, and confidence indicators.
 """
+
 import re
 from typing import Dict, Any, List
 
+# Try to import rich for enhanced formatting
 try:
     from rich.console import Console
     from rich.panel import Panel
-    from rich.markdown import Markdown
     from rich.text import Text
-    from rich.columns import Columns
+    from rich.markdown import Markdown
     from rich.table import Table
+    from rich.box import ROUNDED
     RICH_AVAILABLE = True
 except ImportError:
     RICH_AVAILABLE = False
 
-def format_equations(text: str) -> str:
-    """Detect and format equations with LaTeX-style wrapping"""
-    # Simple equation detection patterns
-    equation_patterns = [
-        (r'\b([A-Za-z]+\s*=\s*[^,\n]+)', r'\\(\1\\)'),  # Basic equations like "x = 5"
-        (r'(\d+\s*[+\-*/]\s*\d+)', r'\\(\1\\)'),  # Simple arithmetic
-        (r'([A-Za-z]+\s*[+\-*/]\s*[A-Za-z]+)', r'\\(\1\\)'),  # Variable operations
-    ]
+def clean_source_name(source: str) -> str:
+    """Clean up source names for display"""
+    if not source:
+        return "Unknown Source"
     
-    formatted_text = text
-    for pattern, replacement in equation_patterns:
-        formatted_text = re.sub(pattern, replacement, formatted_text)
+    # Remove common file extensions and clean up
+    cleaned = source.replace('.txt', '').replace('.pdf', '').replace('.md', '')
+    cleaned = re.sub(r'[_-]', ' ', cleaned)
+    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
     
-    return formatted_text
-
-def format_citations(text: str) -> str:
-    """Enhance citation formatting"""
-    # Make reference numbers bold
-    text = re.sub(r'\[(\d+)\]', r'**[\1]**', text)
-    return text
+    # Capitalize words
+    words = cleaned.split()
+    if words:
+        cleaned = ' '.join(word.capitalize() for word in words)
+    
+    return cleaned if cleaned else "Document"
 
 def extract_sources_from_answer(answer: str) -> List[str]:
     """Extract source references from within the answer text"""
@@ -42,155 +42,234 @@ def extract_sources_from_answer(answer: str) -> List[str]:
     citations = re.findall(r'\[Doc-([^\]]+)\]', answer)
     return list(set(citations))  # Remove duplicates
 
-def clean_source_name(source_name: str) -> str:
-    """Clean up source names for better display"""
-    if not source_name:
-        return "Unknown Source"
+def format_equations(text: str) -> str:
+    """Format mathematical equations for better readability"""
+    if not text:
+        return text
     
-    # Remove common prefixes/suffixes
-    cleaned = re.sub(r'^Doc-', '', source_name)
-    cleaned = re.sub(r'\.txt$', '', cleaned)
-    cleaned = re.sub(r'\.pdf$', '', cleaned)
+    # Replace common LaTeX patterns with readable equivalents
+    text = re.sub(r'\\frac\{([^}]+)\}\{([^}]+)\}', r'(\1/\2)', text)
+    text = re.sub(r'\\Delta', 'Δ', text)
+    text = re.sub(r'\\alpha', 'α', text)
+    text = re.sub(r'\\beta', 'β', text)
+    text = re.sub(r'\\gamma', 'γ', text)
     
-    # Replace underscores and dashes with spaces
-    cleaned = re.sub(r'[_-]', ' ', cleaned)
-    
-    # Capitalize words
-    cleaned = ' '.join(word.capitalize() for word in cleaned.split())
-    
-    # Truncate if too long
-    if len(cleaned) > 60:
-        cleaned = cleaned[:57] + "..."
-    
-    return cleaned
+    return text
 
-def create_resource_box(sources: List[str], citations_from_answer: List[str]) -> str:
-    """Create a formatted resource box"""
-    if not RICH_AVAILABLE:
-        # Simple text fallback
-        if sources or citations_from_answer:
-            all_sources = list(set(sources + citations_from_answer))
-            result = "\n📚 RESOURCES:\n" + "─" * 40 + "\n"
-            for i, source in enumerate(all_sources[:5], 1):
-                cleaned = clean_source_name(source)
-                result += f"📄 {i}. {cleaned}\n"
-            result += "─" * 40
-            return result
-        return "\n📚 RESOURCES: No sources available"
+def format_citations(text: str) -> str:
+    """Format citation references for better readability"""
+    if not text:
+        return text
     
+    # Improve citation formatting
+    text = re.sub(r'\[Doc-([^\]]+)\]', r'[Source: \1]', text)
+    
+    return text
+
+def create_cli_answer_box(answer: str, confidence: float = 0.0) -> str:
+    """Create a beautiful CLI box for the answer"""
+    if not RICH_AVAILABLE:
+        # Fallback for plain text
+        box_width = 80
+        confidence_text = f"Confidence: {confidence:.1%}" if confidence > 0 else ""
+        
+        result = "\n" + "┌" + "─" * (box_width - 2) + "┐\n"
+        result += f"│ 💡 ANSWER {confidence_text:>{box_width-12}}│\n"
+        result += "├" + "─" * (box_width - 2) + "┤\n"
+        
+        # Wrap text to fit box
+        words = answer.split()
+        lines = []
+        current_line = ""
+        
+        for word in words:
+            if len(current_line + " " + word) <= box_width - 4:
+                current_line += (" " if current_line else "") + word
+            else:
+                if current_line:
+                    lines.append(current_line)
+                current_line = word
+        
+        if current_line:
+            lines.append(current_line)
+        
+        for line in lines:
+            result += f"│ {line:<{box_width-4}} │\n"
+        
+        result += "└" + "─" * (box_width - 2) + "┘\n"
+        return result
+    
+    # Rich formatting
     console = Console()
     
-    # Combine sources from the sources list and citations found in answer
+    # Create confidence indicator
+    confidence_text = ""
+    if confidence > 0:
+        if confidence >= 0.8:
+            confidence_text = f"[bold green]🎯 {confidence:.1%}[/bold green]"
+        elif confidence >= 0.6:
+            confidence_text = f"[bold yellow]🎯 {confidence:.1%}[/bold yellow]"
+        else:
+            confidence_text = f"[bold red]🎯 {confidence:.1%}[/bold red]"
+    
+    # Format answer content
+    formatted_answer = format_equations(answer)
+    formatted_answer = format_citations(formatted_answer)
+    
+    # Create title with confidence
+    title = "💡 Answer"
+    if confidence_text:
+        title += f" {confidence_text}"
+    
+    # Create panel
+    panel = Panel(
+        Markdown(formatted_answer),
+        title=title,
+        border_style="cyan",
+        box=ROUNDED,
+        padding=(1, 2)
+    )
+    
+    # Print and return
+    console.print(panel)
+    return formatted_answer
+
+def create_cli_citation_box(sources: List[str], citations_from_answer: List[str]) -> str:
+    """Create a beautiful CLI box for citations and sources"""
     all_sources = list(set(sources + citations_from_answer))
     
     if not all_sources:
-        return Panel(
-            "[dim]No sources available[/dim]",
-            title="📚 Resources",
-            border_style="dim",
-            padding=(0, 1)
-        )
+        return ""
+    
+    if not RICH_AVAILABLE:
+        # Fallback for plain text
+        box_width = 80
+        result = "\n" + "┌" + "─" * (box_width - 2) + "┐\n"
+        result += f"│ 📚 SOURCES & CITATIONS{' ' * (box_width - 25)}│\n"
+        result += "├" + "─" * (box_width - 2) + "┤\n"
+        
+        for i, source in enumerate(all_sources[:5], 1):
+            cleaned = clean_source_name(source)
+            source_line = f"[{i}] {cleaned}"
+            if len(source_line) > box_width - 6:
+                source_line = source_line[:box_width-9] + "..."
+            result += f"│ {source_line:<{box_width-4}} │\n"
+        
+        if len(all_sources) > 5:
+            result += f"│ ... and {len(all_sources) - 5} more sources{' ' * (box_width - 25 - len(str(len(all_sources) - 5)))}│\n"
+        
+        result += "└" + "─" * (box_width - 2) + "┘\n"
+        return result
+    
+    # Rich formatting
+    console = Console()
     
     # Create table for sources
     table = Table(show_header=False, show_edge=False, padding=(0, 1))
-    table.add_column("Icon", width=3)
-    table.add_column("Source", style="cyan")
+    table.add_column("Number", style="bold cyan", width=5)
+    table.add_column("Source", style="white")
     
-    for i, source in enumerate(all_sources[:5], 1):  # Limit to 5 sources
+    for i, source in enumerate(all_sources[:5], 1):
         cleaned = clean_source_name(source)
-        table.add_row("📄", f"{i}. {cleaned}")
+        table.add_row(f"[{i}]", cleaned)
     
     if len(all_sources) > 5:
-        table.add_row("⋮", f"[dim]... and {len(all_sources) - 5} more sources[/dim]")
+        table.add_row("...", f"[dim]and {len(all_sources) - 5} more sources[/dim]")
     
-    return Panel(
+    panel = Panel(
         table,
-        title="📚 Resources",
-        border_style="blue",
+        title="📚 Sources & Citations",
+        border_style="magenta",
+        box=ROUNDED,
         padding=(0, 1)
     )
+    
+    console.print(panel)
+    return "\n".join(all_sources)
 
-def pretty_print_answer_enhanced(result: Dict[str, Any], use_rich: bool = True) -> str:
-    """Enhanced format answer output with concise text and resource boxes"""
+def create_cli_metadata_box(result: Dict[str, Any]) -> str:
+    """Create a metadata display box"""
+    metadata = result.get("metadata", {})
+    if not metadata:
+        return ""
+    
+    if not RICH_AVAILABLE:
+        # Simple text fallback
+        lines = []
+        if "response_time" in metadata:
+            lines.append(f"⏱️  Response Time: {metadata['response_time']:.2f}s")
+        if "retrieval_count" in metadata:
+            lines.append(f"🔍 Documents Retrieved: {metadata['retrieval_count']}")
+        if "tokens_used" in metadata:
+            lines.append(f"💬 Tokens Used: {metadata['tokens_used']}")
+        if "has_citations" in metadata:
+            lines.append(f"🏷️  Citations: {'Yes' if metadata['has_citations'] else 'No'}")
+        
+        if lines:
+            return "\n📊 " + " | ".join(lines) + "\n"
+        return ""
+    
+    # Rich formatting
+    console = Console()
+    
+    info_text = []
+    if "response_time" in metadata:
+        info_text.append(f"⏱️  {metadata['response_time']:.2f}s")
+    if "retrieval_count" in metadata:
+        info_text.append(f"🔍 {metadata['retrieval_count']} docs")
+    if "tokens_used" in metadata:
+        info_text.append(f"💬 {metadata['tokens_used']} tokens")
+    if "has_citations" in metadata:
+        info_text.append(f"🏷️  {'✓' if metadata['has_citations'] else '✗'} citations")
+    
+    if info_text:
+        console.print(f"[dim]📊 {' | '.join(info_text)}[/dim]")
+    
+    return ""
+
+def format_for_terminal(result: Dict[str, Any]) -> str:
+    """
+    Main function to format RAG results for terminal display with beautiful boxes.
+    
+    Args:
+        result: Dictionary containing answer, sources, confidence, and metadata
+        
+    Returns:
+        Formatted string for terminal display
+    """
+    if not result:
+        return "No result to display"
+    
     answer = result.get("answer", "")
     sources = result.get("sources", [])
     confidence = result.get("confidence", 0.0)
     
     # Import and apply answer cleaning if available
     try:
-        from ..rag.answer_processing import clean_and_format_answer, remove_meta_commentary, filter_irrelevant_content, create_concise_answer
-        # Apply enhanced processing for concise output
+        from ..rag.answer_processing import clean_and_format_answer, remove_meta_commentary, filter_irrelevant_content
+        # Apply enhanced processing for clean output
         answer = remove_meta_commentary(answer)
         answer = filter_irrelevant_content(answer)
         answer = clean_and_format_answer(answer)
-        answer = create_concise_answer(answer, max_sentences=3)
     except ImportError:
         pass  # Fallback if cleaning functions not available
     
     # Extract citations from answer text
     citations_from_answer = extract_sources_from_answer(answer)
     
-    if not use_rich or not RICH_AVAILABLE:
-        # Fallback to enhanced plain text
-        formatted = format_equations(answer)
-        formatted = format_citations(formatted)
-        
-        # Clean up formatting artifacts
-        formatted = re.sub(r'\s*│\s*', ' ', formatted)
-        formatted = re.sub(r'\s+', ' ', formatted)
-        formatted = re.sub(r'^\s*[-*]\s*', '', formatted, flags=re.MULTILINE)
-        
-        # Add confidence if available
-        if confidence > 0:
-            formatted = f"🎯 Confidence: {confidence:.1%}\n\n{formatted}"
-        
-        # Add resource box
-        resource_box = create_resource_box(sources, citations_from_answer)
-        return f"{formatted}\n\n{resource_box}"
+    # Display answer box
+    formatted_answer = create_cli_answer_box(answer, confidence)
     
-    console = Console()
+    # Display citations box if we have sources
+    if sources or citations_from_answer:
+        create_cli_citation_box(sources, citations_from_answer)
     
-    # Format main answer
-    formatted_answer = format_equations(answer)
-    formatted_answer = format_citations(formatted_answer)
+    # Display metadata
+    create_cli_metadata_box(result)
     
-    # Clean up formatting artifacts
-    formatted_answer = re.sub(r'\s*│\s*', ' ', formatted_answer)
-    formatted_answer = re.sub(r'\s+', ' ', formatted_answer)
-    formatted_answer = re.sub(r'^\s*[-*]\s*', '', formatted_answer, flags=re.MULTILINE)
-    
-    # Create confidence indicator
-    confidence_text = ""
-    if confidence > 0:
-        if confidence >= 0.8:
-            confidence_text = f"[bold green]🎯 Confidence: {confidence:.1%}[/bold green]"
-        elif confidence >= 0.6:
-            confidence_text = f"[bold yellow]🎯 Confidence: {confidence:.1%}[/bold yellow]"
-        else:
-            confidence_text = f"[bold red]🎯 Confidence: {confidence:.1%}[/bold red]"
-    
-    # Create main answer panel
-    answer_content = formatted_answer
-    if confidence_text:
-        answer_content = f"{confidence_text}\n\n{formatted_answer}"
-    
-    console.print(Panel(
-        Markdown(answer_content),
-        title="[bold cyan]💡 Answer[/bold cyan]",
-        border_style="cyan",
-        padding=(1, 2)
-    ))
-    
-    # Create and display resource box
-    resource_panel = create_resource_box(sources, citations_from_answer)
-    console.print(resource_panel)
-    
-    return answer  # Return original for API compatibility
+    return formatted_answer
 
-def pretty_print_answer(result: Dict[str, Any], use_rich: bool = True) -> str:
-    """Format answer output with enhanced styling - updated to use enhanced version"""
-    return pretty_print_answer_enhanced(result, use_rich)
-
-def format_for_terminal(result: Dict[str, Any]) -> None:
-    """Print formatted output to terminal using rich if available"""
-    pretty_print_answer_enhanced(result, use_rich=RICH_AVAILABLE) 
+# Legacy function for backwards compatibility
+def pretty_print_answer_enhanced(result: Dict[str, Any], use_rich: bool = True) -> str:
+    """Legacy function - redirects to format_for_terminal"""
+    return format_for_terminal(result) 

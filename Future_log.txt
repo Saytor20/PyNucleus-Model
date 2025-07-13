@@ -19,4 +19,3 @@ Update docker/Dockerfile.vllm to download phi1_5_rlhf.
 DSPy and RAG remain unchanged.
 
 
-3) lets implement an algorith that ranks the answers and chooses the best one based on probability--- right now top k is being used... is there a better more accurate approach? 

@@ -12,179 +12,105 @@ except ImportError:
 from ..settings import settings
 
 def build_enhanced_rag_prompt(context: str, question: str, max_context_chars=None) -> str:
-    """Build enhanced RAG prompt with chemical engineering domain expertise."""
+    """
+    Build enhanced RAG prompt for chemical engineering questions with context.
+    
+    Args:
+        context: Retrieved document context
+        question: User question
+        max_context_chars: Maximum context length (optional)
+        
+    Returns:
+        Formatted prompt string
+    """
     if max_context_chars is None:
-        max_context_chars = getattr(settings, 'MAX_CONTEXT_CHARS', 5000)
-
+        max_context_chars = getattr(settings, 'MAX_CONTEXT_CHARS', 2000)
+    
+    # Truncate context if needed
     if len(context) > max_context_chars:
-        context = context[:max_context_chars]
-        logger.info(f"Context truncated to {max_context_chars} characters")
-
-    # Detect if this is a complex question
+        context = context[:max_context_chars] + "..."
+    
+    # Detect question complexity and type
     from ..rag.engine import is_complex_question
     is_complex = is_complex_question(question)
-    
-    # Detect question type for specialized prompting
     question_type = _detect_question_type(question)
     
     if is_complex:
         # Enhanced prompt for complex questions with domain expertise
-        prompt = f"""You are a senior chemical engineer with 15+ years of experience in process design, equipment selection, and plant operations. Provide a comprehensive, technically accurate answer using the provided context.
+        prompt = f"""You are a senior chemical engineer providing a comprehensive explanation.
 
 ### QUESTION:
 {question}
 
-### RETRIEVED CONTEXT:
+### TECHNICAL INFORMATION PROVIDED:
+{context}
+
+### CRITICAL REQUIREMENTS:
+- Write your OWN comprehensive explanation using your chemical engineering expertise
+- DO NOT copy document headers, section numbers, page references, or formatting
+- DO NOT copy any author names, contact information, or university affiliations
+- DO NOT include phone numbers, emails, or personal details
+- DO NOT start with "Technical Information" or any document markers
+- SYNTHESIZE the information into a clear, professional explanation
+- STRUCTURE your response with proper paragraphs and flow
+- INCLUDE technical details, principles, and practical considerations
+- WRITE as if explaining to a fellow engineer in plain professional language
+- ONLY use the technical content, completely ignore any personal/contact information
+
+### YOUR EXPLANATION:"""
+    
+    elif question_type == "process":
+        prompt = f"""You are a process engineer explaining chemical engineering processes. Using the context provided, synthesize a clear explanation of the process.
+
+### QUESTION:
+{question}
+
+### CONTEXT FROM DOCUMENTS:
 {context}
 
 ### INSTRUCTIONS:
-- Answer as a chemical engineering expert would explain to a colleague
-- Use proper chemical engineering terminology and principles
-- Structure your answer with clear sections: definition, principles, applications, considerations
-- For process questions: include key parameters, operating conditions, and design considerations  
-- For equipment questions: include design principles, sizing factors, and operational aspects
-- For separation processes: include mechanisms, driving forces, and efficiency factors
-- Be technically precise but clearly explained
-- Include relevant equations, principles, or design rules when applicable
-- Cite sources using [Doc-XX] format at the end
-- If context is insufficient, clearly state what additional information would be needed
-- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
-- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
-- Provide direct, factual answers without commentary about the source material
+- SYNTHESIZE your own explanation using the context as reference
+- DO NOT copy text directly - explain in your own professional words
+- DESCRIBE the process steps clearly and logically
+- INCLUDE key operating conditions and principles
+- EXPLAIN the chemical/physical mechanisms involved
+- CITE sources using [Doc-XX] format appropriately
+- WRITE as a process engineering explanation
 
-### FORMATTING REQUIREMENTS:
-- Write clean, well-formatted text without any terminal formatting characters
-- Use proper spacing and punctuation throughout
-- Structure paragraphs logically with clear transitions
-- Avoid run-on sentences and ensure proper sentence breaks
-- Format mathematical expressions clearly using standard notation
-- Use consistent citation format [Doc-XX] where appropriate
+### YOUR PROCESS EXPLANATION:
+"""
+        
+    elif question_type == "equipment":
+        prompt = f"""You are an equipment design engineer. Using the provided context, synthesize a technical explanation about the equipment.
 
-### CHEMICAL ENGINEERING ANSWER:
+### QUESTION:
+{question}
+
+### CONTEXT FROM DOCUMENTS:
+{context}
+
+### INSTRUCTIONS:
+- SYNTHESIZE your own explanation using the context as reference
+- DO NOT copy text directly from documents
+- EXPLAIN equipment function and design principles clearly
+- INCLUDE key design parameters and considerations
+- DESCRIBE operating principles and applications
+- ADD citations using [Doc-XX] format where appropriate
+- WRITE as a technical equipment explanation
+
+### YOUR EQUIPMENT EXPLANATION:
 """
     else:
-        # Enhanced prompt for simple questions with domain focus
-        if question_type == "definition":
-            prompt = f"""You are a chemical engineering professor explaining a fundamental concept. Provide a clear, accurate definition using the provided context.
+        # Concise general chemical engineering prompt
+        prompt = f"""You are a chemical engineer answering a colleague's question.
 
-### QUESTION:
-{question}
+Question: {question}
 
-### RETRIEVED CONTEXT:
-{context}
+Context: {context}
 
-### INSTRUCTIONS:
-- Start with a clear, concise definition
-- Explain the underlying principles or mechanisms
-- Provide a practical example or application in chemical engineering
-- Use proper technical terminology
-- Keep the answer focused and well-structured
-- Cite sources using [Doc-XX] format
-- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
-- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
-- Provide direct, factual answers without commentary about the source material
+Provide a direct answer in 2-3 sentences. Do not mention the context or reference information. Just answer the question directly as if you know the answer from your expertise.
 
-### FORMATTING REQUIREMENTS:
-- Write clean, well-formatted text without any terminal formatting characters
-- Use proper spacing and punctuation throughout
-- Structure paragraphs logically with clear transitions
-- Avoid run-on sentences and ensure proper sentence breaks
-- Format mathematical expressions clearly using standard notation
-- Use consistent citation format [Doc-XX] where appropriate
-
-### DEFINITION AND EXPLANATION:
-"""
-        elif question_type == "process":
-            prompt = f"""You are a process engineer explaining a chemical process. Provide a clear, step-by-step explanation using the provided context.
-
-### QUESTION:
-{question}
-
-### RETRIEVED CONTEXT:
-{context}
-
-### INSTRUCTIONS:
-- Explain the process steps clearly and logically
-- Include key operating conditions (temperature, pressure, flow rates)
-- Mention important equipment used
-- Explain the chemical/physical principles involved
-- Include any safety or operational considerations
-- Cite sources using [Doc-XX] format
-- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
-- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
-- Provide direct, factual answers without commentary about the source material
-
-### FORMATTING REQUIREMENTS:
-- Write clean, well-formatted text without any terminal formatting characters
-- Use proper spacing and punctuation throughout
-- Structure paragraphs logically with clear transitions
-- Avoid run-on sentences and ensure proper sentence breaks
-- Format mathematical expressions clearly using standard notation
-- Use consistent citation format [Doc-XX] where appropriate
-
-### PROCESS EXPLANATION:
-"""
-        elif question_type == "equipment":
-            prompt = f"""You are an equipment design engineer explaining chemical engineering equipment. Provide a technical but clear explanation using the provided context.
-
-### QUESTION:
-{question}
-
-### RETRIEVED CONTEXT:
-{context}
-
-### INSTRUCTIONS:
-- Describe the equipment function and design principles
-- Include key design parameters and considerations
-- Explain operating principles and typical applications
-- Mention sizing factors or selection criteria
-- Include any maintenance or operational aspects
-- Cite sources using [Doc-XX] format
-- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
-- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
-- Provide direct, factual answers without commentary about the source material
-
-### FORMATTING REQUIREMENTS:
-- Write clean, well-formatted text without any terminal formatting characters
-- Use proper spacing and punctuation throughout
-- Structure paragraphs logically with clear transitions
-- Avoid run-on sentences and ensure proper sentence breaks
-- Format mathematical expressions clearly using standard notation
-- Use consistent citation format [Doc-XX] where appropriate
-
-### EQUIPMENT EXPLANATION:
-"""
-        else:
-            # General chemical engineering prompt
-            prompt = f"""You are a chemical engineer providing technical guidance. Answer the question clearly and accurately using the provided context.
-
-### QUESTION:
-{question}
-
-### RETRIEVED CONTEXT:
-{context}
-
-### INSTRUCTIONS:
-- Provide a clear, technically accurate answer
-- Use proper chemical engineering terminology
-- Structure your response logically
-- Include relevant technical details
-- Be concise but comprehensive
-- Cite sources using [Doc-XX] format at the end
-- IMPORTANT: Do not include meta-commentary about what you can or cannot find in the text
-- Do not say things like "In this context, I can see that..." or "However, there seems to be no direct mention..."
-- Provide direct, factual answers without commentary about the source material
-
-### FORMATTING REQUIREMENTS:
-- Write clean, well-formatted text without any terminal formatting characters
-- Use proper spacing and punctuation throughout
-- Structure paragraphs logically with clear transitions
-- Avoid run-on sentences and ensure proper sentence breaks
-- Format mathematical expressions clearly using standard notation
-- Use consistent citation format [Doc-XX] where appropriate
-
-### TECHNICAL ANSWER:
-"""
+Answer:"""
     
     return prompt
 
@@ -251,41 +177,19 @@ Clarity (1-5):
 
 def build_answer_improvement_prompt(question: str, poor_answer: str, context: str) -> str:
     """Build prompt for improving a poor quality answer."""
-    prompt = f"""You are a chemical engineering expert tasked with improving a poor quality answer.
+    prompt = f"""Please provide a clear, concise answer to this question using the context provided.
 
-### ORIGINAL QUESTION:
-{question}
+Question: {question}
 
-### POOR QUALITY ANSWER:
-{poor_answer}
+Context: {context}
 
-### AVAILABLE CONTEXT:
-{context}
+Instructions:
+- Answer directly in 1-3 sentences
+- Use technical terms appropriately
+- Include citations as [Doc-XX]
+- Be factual and concise
 
-### INSTRUCTIONS:
-- Identify what makes the original answer poor quality
-- Rewrite the answer to be technically accurate and well-structured
-- Use proper chemical engineering terminology
-- Ensure the answer directly addresses the question
-- Keep it concise but comprehensive
-- Include relevant technical details from the context
-- Format the answer cleanly without any terminal formatting characters
-- Use proper spacing and punctuation
-- Structure paragraphs logically with clear transitions
-- Avoid run-on sentences and ensure proper sentence breaks
-- Format mathematical expressions clearly using standard notation
-- Use consistent citation format [Doc-XX] where appropriate
-
-### FORMATTING REQUIREMENTS:
-- No pipe characters (│) or terminal formatting
-- Proper spacing between words and sentences
-- Clean paragraph breaks
-- Consistent punctuation
-- Clear mathematical notation
-- Proper citation formatting
-
-### IMPROVED ANSWER:
-"""
+Answer:"""
     return prompt
 
 # Backward compatibility function

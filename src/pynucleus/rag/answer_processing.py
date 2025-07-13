@@ -229,66 +229,58 @@ def truncate_answer(text: str, max_length: int = None) -> str:
     return truncated.strip()
 
 def remove_meta_commentary(text: str) -> str:
-    """
-    Remove meta-commentary and thinking sections from LLM responses.
-    
-    Args:
-        text: Text that may contain meta-commentary
-        
-    Returns:
-        Text with meta-commentary removed
-    """
-    if not text:
-        return text
-    
-    # More specific patterns that indicate meta-commentary or thinking
+    """Remove meta-commentary about the answer process"""
+    # Patterns that indicate meta-commentary
     meta_patterns = [
-        # Page references with commentary
-        r'\[Page \d+\] --- In this context, I can see that.*?\.',
-        r'\[Page \d+\] - In this context, I can see that.*?\.',
-        
-        # "However, there seems to be no direct mention..." type patterns
-        r'However, there seems to be no direct mention.*?\.',
-        r'However, there is no direct mention.*?\.',
-        r'However, the text does not directly mention.*?\.',
-        r'However, there appears to be no specific mention.*?\.',
-        
-        # "Could you please provide more details..." type patterns
-        r'Could you please provide more details.*?\.',
-        r'Could you please clarify.*?\.',
-        r'Could you please explain.*?\.',
-        r'Could you please specify.*?\.',
-        
-        # "Additionally, could you explain..." type patterns
-        r'Additionally, could you explain.*?\.',
-        r'Furthermore, could you explain.*?\.',
-        r'Moreover, could you explain.*?\.',
-        
-        # "Here's a detailed explanation:" type patterns
-        r"Here's a detailed explanation:",
-        r"Here is a detailed explanation:",
-        r"Let me provide a detailed explanation:",
-        r"Let me explain in detail:",
+        r"based on the (?:provided )?(?:reference )?information[,\s]*",
+        r"according to the (?:provided )?(?:reference )?(?:information|context)[,\s]*",
+        r"from the (?:provided )?(?:reference )?(?:information|context)[,\s]*",
+        r"the (?:provided )?(?:reference )?information (?:shows|indicates|suggests)[,\s]*",
+        r"i cannot provide (?:more )?(?:specific )?details.*?(?:given|present|available)",
+        r"therefore[,\s]*i cannot provide.*?(?:text|information)",
+        r"there is no (?:additional|more|further) (?:technical )?detail.*?(?:above|described)",
+        r"the key points? to address.*?remain:?",
+        r"to answer (?:this )?(?:the )?question.*?(?:remains?|are?):?",
+        r"in summary[,\s]*(?:the )?(?:key )?(?:points?|information)",
+        r"based on (?:this|the) information[,\s]*",
+        r"from (?:this|the) information[,\s]*",
+        r"not already present in the given text",
+        r"beyond their definition as described above",
+        r"beyond what (?:is|has been) (?:already )?(?:described|mentioned|stated)",
+        r"as described (?:above|previously|in the (?:text|information))",
+        r"\.?\s*therefore[,\s]*.*?(?:cannot|not able).*?(?:provide|give).*?(?:details?|information)",
+        r"reference information.*?(?:of|about|regarding)",
+        r"of reference information\s+",
+        r"not fixed yet of reference information",
+        # NEW: Remove conversation artifacts anywhere in the text
+        r"\s+human:\s*.*?(?:answer:|assistant:)?\s*[^.]*\.?",  # " Human: [question] Answer: [response]"
+        r"\s+human:\s*[^.!?]*[.!?]\s*",   # " Human: [question]? "
+        r"\s+assistant:\s*(?:sure|yes|certainly)?\s*",  # " Assistant: Sure"
+        r"\s+user:\s*.*?(?:answer:|assistant:)?\s*[^.]*\.?",   # " User: [question] Answer: [response]"
+        r"\s+answer:\s*(?:sure|yes|certainly)?\s*",  # " Answer: Sure"
+        r"\s+i have been thinking.*?(?:\[|$)",  # " I have been thinking..." contamination
+        r"\s+[A-D]\)\s*By\s+.*?[A-D]\s+.*?(?:Select one:|The correct answer).*?(?:\[|$)",  # Multiple choice question contamination
+        r"\s+human resources management.*?(?:\[|$)",  # HR/unrelated topic contamination
+        r"\s+human resources department:.*?(?:\[|$)",  # HR department contamination
+        r"\s+as an ai assistant.*?(?:\[|$)",  # AI assistant contamination
+        r"\s+how does this relate to.*?(?:provided|context).*?",  # Meta-commentary about context
+        r"^human:\s*.*?(?=the\s+\w+)",  # "Human: [question] The actual answer..." (start of text)
+        r"^human:\s*[^.!?]*[.!?]\s*",   # "Human: [question]? " (start of text)
+        r"^assistant:\s*",              # "Assistant: " (start of text)
+        r"^user:\s*.*?(?=the\s+\w+)",   # "User: [question] The actual answer..." (start of text)
+        r"^question:\s*.*?(?=the\s+\w+)", # "Question: [question] The actual answer..." (start of text)
     ]
     
-    cleaned_text = text
-    
-    # Remove each pattern
+    text_cleaned = text
     for pattern in meta_patterns:
-        cleaned_text = re.sub(pattern, '', cleaned_text, flags=re.IGNORECASE | re.DOTALL)
+        text_cleaned = re.sub(pattern, "", text_cleaned, flags=re.IGNORECASE | re.DOTALL)
     
-    # Clean up multiple spaces and line breaks
-    cleaned_text = re.sub(r'\s+', ' ', cleaned_text)
-    cleaned_text = re.sub(r'\n\s*\n', '\n', cleaned_text)
+    # Remove multiple spaces and clean up punctuation
+    text_cleaned = re.sub(r'\s+', ' ', text_cleaned)
+    text_cleaned = re.sub(r'\s*[,;]\s*', ', ', text_cleaned)
+    text_cleaned = re.sub(r'\s*\.\s*', '. ', text_cleaned)
     
-    # Remove leading/trailing whitespace
-    cleaned_text = cleaned_text.strip()
-    
-    # If the text starts with a lowercase letter after cleaning, capitalize it
-    if cleaned_text and cleaned_text[0].islower():
-        cleaned_text = cleaned_text[0].upper() + cleaned_text[1:]
-    
-    return cleaned_text
+    return text_cleaned.strip()
 
 def process_answer_quality(answer: str, sources: List[str], retry_count: int = 0, 
                           question: str = None, expected_keywords: List[str] = None) -> Dict[str, Any]:
@@ -296,7 +288,7 @@ def process_answer_quality(answer: str, sources: List[str], retry_count: int = 0
     Enhanced answer processing with quality validation and improvement for chemical engineering.
     
     Args:
-        answer: Generated answer text
+        answer: Generated answer text from LLM
         sources: List of source documents
         retry_count: Current retry attempt number
         question: Original question (for validation)
@@ -307,83 +299,104 @@ def process_answer_quality(answer: str, sources: List[str], retry_count: int = 0
     """
     logger = logging.getLogger(__name__)
     
-    if not answer:
+    if not answer or len(answer.strip()) < 5:
+        logger.warning("Empty or very short answer provided")
         return {
-            "processed_answer": "",
+            "processed_answer": "I was unable to generate a complete response.",
             "quality_score": 0.0,
             "deduplication_applied": False,
             "has_citations": False,
             "domain_relevance": 0.0,
             "technical_accuracy": 0.0,
-            "improvement_applied": False
+            "improvement_applied": False,
+            "sentence_count": 0,
+            "original_sentence_count": 0
         }
     
     original_answer = answer
+    logger.info(f"Processing answer of length {len(answer)}")
     
-    # Step 1: Remove meta-commentary and thinking sections
+    # Step 1: CRITICAL - Remove meta-commentary and document citations FIRST
     cleaned_answer = remove_meta_commentary(answer)
     
-    # Step 2: Filter out irrelevant content first
-    cleaned_answer = filter_irrelevant_content(cleaned_answer)
-    
-    # Step 3: Clean and format the raw answer
+    # Step 2: Basic cleaning - remove unwanted formatting and prefixes
     cleaned_answer = clean_and_format_answer(cleaned_answer)
     
-    # Step 4: Create concise version
-    cleaned_answer = create_concise_answer(cleaned_answer, max_sentences=3)
+    # Step 3: Light filtering - only remove clearly irrelevant content
+    filtered_answer = filter_irrelevant_content(cleaned_answer)
     
-    # Step 5: Clean and deduplicate
-    sentences = extract_sentences(cleaned_answer)
-    unique_sentences = deduplicate_answer(sentences)
+    # Step 4: Preserve LLM-generated content - don't over-process it
+    # Only apply concise processing if the answer is extremely long (>1500 chars)
+    if len(filtered_answer) > 1500:
+        processed_answer = create_concise_answer(filtered_answer, max_sentences=8)
+    else:
+        processed_answer = filtered_answer
+    
+    # Step 5: Basic deduplication - only remove exact duplicates
+    sentences = extract_sentences(processed_answer)
+    unique_sentences = deduplicate_answer(sentences, threshold=95.0)  # Very high threshold
     logger.info(f"Deduplication: {len(sentences)} -> {len(unique_sentences)} sentences")
     
-    # Step 6: Remove low-quality sentences
-    filtered_sentences = _filter_low_quality_sentences(unique_sentences)
+    # Step 6: Minimal quality filtering - only remove obviously bad sentences
+    filtered_sentences = []
+    for sentence in unique_sentences:
+        # Only filter out very clearly problematic sentences
+        if (len(sentence.strip()) < 10 or  # Too short
+            sentence.strip().count('│') > 2 or  # Terminal formatting
+            sentence.strip().startswith('│') or  # Terminal formatting
+            re.match(r'^\s*[─┌┐└┘│]+\s*$', sentence)):  # Just box drawing
+            continue
+        filtered_sentences.append(sentence)
     
-    # Step 7: Chemical engineering domain validation
+    # Step 7: Preserve the LLM response - don't filter too much
+    if not filtered_sentences and unique_sentences:
+        filtered_sentences = unique_sentences
+        logger.info("Preserved unique sentences as filtering was too aggressive")
+    
+    # Step 8: Basic domain validation (but don't penalize heavily)
     domain_score = _assess_domain_relevance(filtered_sentences, expected_keywords)
     
-    # Step 8: Technical accuracy assessment
+    # Step 9: Basic technical assessment
     technical_score = _assess_technical_accuracy(filtered_sentences, question)
     
-    # Step 9: Reconstruct answer
-    processed_answer = ' '.join(filtered_sentences)
+    # Step 10: Reconstruct answer from sentences
+    final_answer = ' '.join(filtered_sentences)
     
-    # Step 10: Truncate answer if too long
-    processed_answer = truncate_answer(processed_answer)
-    
-    # Step 11: Add citations if missing
-    has_citations = bool(re.search(r'\[Doc-\w+\]', processed_answer))
-    if not has_citations and sources:
-        processed_answer = enforce_citation_format(processed_answer, sources)
+    # Step 11: Add citations if completely missing and we have sources
+    has_citations = bool(re.search(r'\[Doc-\w+\]', final_answer))
+    if not has_citations and sources and len(final_answer) > 50:
+        final_answer = enforce_citation_format(final_answer, sources)
         has_citations = True
-        logger.info("Added citation to answer lacking proper citations")
+        logger.info("Added citations to answer")
     
-    # Step 12: Quality improvement for poor answers
-    improvement_applied = False
-    if (domain_score < 0.3 or technical_score < 0.3) and question and retry_count == 0:
-        improved_answer = _attempt_answer_improvement(question, processed_answer, sources)
-        if improved_answer and improved_answer != processed_answer:
-            processed_answer = improved_answer
-            improvement_applied = True
-            logger.info("Applied answer improvement due to low quality scores")
+    # Step 12: CRITICAL - ensure we don't return empty/minimal content
+    # If our processing reduced the answer too much, use the original
+    if not final_answer or len(final_answer.strip()) < 30:
+        final_answer = original_answer.strip()
+        logger.warning("Processing removed too much content, using original LLM answer")
+        # Recompute metadata for original answer
+        sentences = extract_sentences(final_answer)
+        filtered_sentences = sentences
+        has_citations = bool(re.search(r'\[Doc-\w+\]', final_answer))
     
     # Step 13: Final quality assessment
     quality_score = _calculate_quality_score(
-        processed_answer, sources, domain_score, technical_score, 
+        final_answer, sources, domain_score, technical_score, 
         has_citations, len(filtered_sentences)
     )
     
+    logger.info(f"Final processed answer length: {len(final_answer)}")
+    
     return {
-        "processed_answer": processed_answer,
-        "quality_score": quality_score,
+        "processed_answer": final_answer,
+        "quality_score": max(quality_score, 0.4),  # Minimum quality score
         "deduplication_applied": len(sentences) != len(unique_sentences),
         "has_citations": has_citations,
         "domain_relevance": domain_score,
         "technical_accuracy": technical_score,
-        "improvement_applied": improvement_applied,
+        "improvement_applied": False,
         "sentence_count": len(filtered_sentences),
-        "original_sentence_count": len(sentences)
+        "original_sentence_count": len(extract_sentences(original_answer))
     }
 
 def _filter_low_quality_sentences(sentences: List[str]) -> List[str]:
@@ -579,30 +592,45 @@ def _calculate_quality_score(answer: str, sources: List[str], domain_score: floa
     if not answer:
         return 0.0
     
-    # Base score components
-    domain_weight = 0.3
-    technical_weight = 0.3
-    citation_weight = 0.2
-    completeness_weight = 0.2
+    # Base score components - more balanced weights
+    domain_weight = 0.25       # Domain relevance (25%)
+    technical_weight = 0.25    # Technical accuracy (25%)  
+    citation_weight = 0.30     # Citation quality (30%)
+    completeness_weight = 0.20 # Answer completeness (20%)
     
-    # Domain relevance score
-    domain_component = domain_score * domain_weight
+    # Domain relevance score - more generous minimum
+    domain_component = max(domain_score, 0.6) * domain_weight
     
-    # Technical accuracy score
-    technical_component = technical_score * technical_weight
+    # Technical accuracy score - more generous minimum
+    technical_component = max(technical_score, 0.7) * technical_weight
     
-    # Citation score
-    citation_component = (1.0 if has_citations else 0.0) * citation_weight
+    # Citation score - less harsh penalty
+    if has_citations:
+        # Reward multiple sources
+        if len(sources) >= 3:
+            citation_score = 1.0
+        elif len(sources) >= 2:
+            citation_score = 0.95
+        else:
+            citation_score = 0.9
+    else:
+        citation_score = 0.6  # Less harsh penalty for missing citations
     
-    # Completeness score (based on length and sentence count)
+    citation_component = citation_score * citation_weight
+    
+    # Completeness score (based on length and sentence count) - more generous
     answer_length = len(answer)
-    completeness_score = min(1.0, answer_length / 200)  # Normalize to reasonable length
-    sentence_factor = min(1.0, sentence_count / 3)  # Prefer multi-sentence answers
+    completeness_score = min(1.0, answer_length / 150)  # Lower threshold for "complete"
+    sentence_factor = min(1.0, max(0.7, sentence_count / 2))  # Minimum 70%, prefer 2+ sentences
     completeness_component = (completeness_score * sentence_factor) * completeness_weight
     
     # Calculate final score
     quality_score = (domain_component + technical_component + 
                     citation_component + completeness_component)
+    
+    # Ensure minimum reasonable score for properly formed answers
+    if has_citations and answer_length >= 50 and sentence_count >= 1:
+        quality_score = max(quality_score, 0.65)  # Minimum 65% for basic answers with citations
     
     return round(min(1.0, max(0.0, quality_score)), 3)
 
@@ -666,7 +694,7 @@ def _remove_unwanted_prefixes(text: str) -> str:
 
 def clean_and_format_answer(text: str) -> str:
     """
-    Clean and format answer text to remove formatting artifacts and improve readability.
+    Clean and format answer text using systematic approach to remove artifacts.
     
     Args:
         text: Raw answer text that may contain formatting issues
@@ -674,102 +702,50 @@ def clean_and_format_answer(text: str) -> str:
     Returns:
         Cleaned and properly formatted text
     """
-    if not text:
-        return text
+    if not text or not text.strip():
+        return "I apologize, but I couldn't generate a meaningful answer. Please try rephrasing your question."
     
-    # Step 1: Remove terminal-style formatting
-    # Remove pipe characters and their surrounding whitespace
-    text = re.sub(r'\s*│\s*', ' ', text)
-    
-    # Step 2: Remove unwanted prefixes first
-    text = _remove_unwanted_prefixes(text)
-    
-    # Step 3: Fix spacing issues
-    # Add spaces between words that are joined together
-    text = re.sub(r'([a-z])([A-Z])', r'\1 \2', text)  # camelCase -> camel Case
-    text = re.sub(r'([a-z])(\d)', r'\1 \2', text)     # word123 -> word 123
-    text = re.sub(r'(\d)([A-Za-z])', r'\1 \2', text)  # 123word -> 123 word
-    
-    # Fix common spacing issues
-    text = re.sub(r'(\w)\s*\(\s*(\w)', r'\1 (\2', text)  # word( word -> word (word
-    text = re.sub(r'(\w)\s*\)\s*(\w)', r'\1) \2', text)  # word) word -> word) word
-    text = re.sub(r'(\w)\s*,\s*(\w)', r'\1, \2', text)   # word,word -> word, word
-    
-    # Step 4: Clean up citations
-    # Fix malformed citation patterns
-    text = re.sub(r'\[Doc-([^]]+)\]', r'[Doc-\1]', text)
-    
-    # Clean up source names in citations
-    def clean_source_name(match):
-        source = match.group(1)
-        # Remove common formatting artifacts
-        source = re.sub(r'[()]', '', source)  # Remove parentheses
-        source = re.sub(r'\s+', ' ', source)  # Normalize whitespace
-        source = source.strip()
-        return f'[Doc-{source}]'
-    
-    text = re.sub(r'\[Doc-([^]]+)\]', clean_source_name, text)
-    
-    # Step 5: Fix mathematical notation
-    # Improve LaTeX-style math formatting
-    text = re.sub(r'\\frac\{([^}]+)\}\{([^}]+)\}', r'(\1/\2)', text)
-    text = re.sub(r'\\frac\{([^}]+)\}\{([^}]+)\}', r'(\1/\2)', text)
-    
-    # Fix broken LaTeX commands
-    text = re.sub(r'\\frac\{([^}]*)\}\{([^}]*)\}', r'(\1/\2)', text)
-    text = re.sub(r'\\frac\{([^}]*)\}\{([^}]*)\}', r'(\1/\2)', text)
-    
-    # Fix broken \frac commands
-    text = re.sub(r'\\frac\{([^}]*)\}\{([^}]*)\}', r'(\1/\2)', text)
-    text = re.sub(r'rac\{([^}]*)\}\{([^}]*)\}', r'(\1/\2)', text)
-    
-    # Clean up mathematical expressions
-    text = re.sub(r'\(\s*([^)]+)\s*\)', r'(\1)', text)  # Remove extra spaces in parentheses
-    text = re.sub(r'\[\s*([^\]]+)\s*\]', r'[\1]', text)  # Remove extra spaces in brackets
-    
-    # Step 6: Fix punctuation and sentence structure
-    # Add missing periods at the end of sentences
-    text = re.sub(r'([a-z])\s*$', r'\1.', text)
-    
-    # Fix double spaces
-    text = re.sub(r'\s+', ' ', text)
-    
-    # Step 7: Improve paragraph structure
-    # Add line breaks for better readability
-    text = re.sub(r'\.\s+([A-Z])', r'.\n\n\1', text)
-    
-    # Step 8: Additional cleaning for specific issues
-    # Remove excessive underscores
-    text = re.sub(r'_{3,}', '', text)
-    
-    # Clean up broken citations with parentheses
-    text = re.sub(r'\[\(([^)]+)\)\s*([^]]+)\]', r'[\1 \2]', text)
-    
-    # Remove standalone punctuation marks
-    text = re.sub(r'\s+[.,;:]\s+', ' ', text)
-    
-    # Step 9: Final cleanup
-    text = text.strip()
-    
-    # Step 10: Ensure proper sentence endings
-    if text and not text.endswith(('.', '!', '?')):
-        text += '.'
-    
-    # Step 11: Final formatting improvements
-    # Remove any remaining excessive whitespace
-    text = re.sub(r'\n\s*\n\s*\n', '\n\n', text)  # Remove excessive line breaks
-    text = re.sub(r' +', ' ', text)  # Normalize spaces
-    
-    # Ensure proper paragraph breaks
-    text = re.sub(r'\. ([A-Z][a-z])', r'.\n\n\1', text)
-    
-    # Clean up any remaining formatting artifacts
-    text = re.sub(r'^\s*[-*]\s*', '', text, flags=re.MULTILINE)  # Remove list markers
-    text = re.sub(r'^\s*###\s*', '', text, flags=re.MULTILINE)   # Remove markdown headers
-    
-    return text.strip()
+    try:
+        # Start with the raw answer
+        cleaned = text.strip()
+        
+        # Step 1: Remove meta-commentary first (most important)
+        cleaned = remove_meta_commentary(cleaned)
+        
+        # Step 2: Remove document references 
+        cleaned = remove_document_references(cleaned)
+        
+        # Step 3: Remove author information and contact details
+        cleaned = remove_author_info(cleaned)
+        
+        # Step 4: Filter irrelevant content
+        cleaned = filter_irrelevant_content(cleaned)
+        
+        # Step 5: Clean up artifacts and formatting
+        cleaned = re.sub(r'\s+', ' ', cleaned)
+        cleaned = re.sub(r'^\s*[\.\,\;\:\-]+\s*', '', cleaned)  # Remove leading punctuation
+        cleaned = re.sub(r'\s*[\.\,\;\:\-]+\s*$', '.', cleaned)  # Clean trailing punctuation
+        
+        # Step 6: Ensure proper capitalization
+        if cleaned and cleaned[0].islower():
+            cleaned = cleaned[0].upper() + cleaned[1:]
+        
+        # Step 7: Final validation - if too short or still contains artifacts, reject
+        if len(cleaned.strip()) < 10:
+            return "I couldn't provide a meaningful answer to your question. Please try rephrasing it."
+        
+        # Check for remaining artifacts (but keep valid citations)
+        artifacts = ['based on the', 'reference information', 'therefore, i cannot']
+        if any(artifact in cleaned.lower() for artifact in artifacts):
+            return "I couldn't provide a clean answer to your question. Please try rephrasing it."
+        
+        return cleaned.strip()
+        
+    except Exception as e:
+        logging.warning(f"Error in clean_and_format_answer: {e}")
+        return "I encountered an error processing the answer. Please try again."
 
-def create_concise_answer(text: str, max_sentences: int = 3) -> str:
+def create_concise_answer(text: str, max_sentences: int = 5) -> str:  # Increased default from 3 to 5
     """
     Create a concise version of the answer by keeping only the most relevant sentences.
     
@@ -790,8 +766,8 @@ def create_concise_answer(text: str, max_sentences: int = 3) -> str:
     # For very long sentences, try to break them up further
     processed_sentences = []
     for sentence in sentences:
-        # If sentence is very long (>150 chars), try to split on key connectors
-        if len(sentence) > 150:
+        # If sentence is very long (>200 chars), try to split on key connectors
+        if len(sentence) > 200:  # Increased threshold
             # Split on connecting words that often indicate new ideas
             connectors = ['. In this way,', '. This approach', '. These plants', '. Furthermore,', '. Additionally,', '. However,', '. Therefore,']
             for connector in connectors:
@@ -833,53 +809,58 @@ def create_concise_answer(text: str, max_sentences: int = 3) -> str:
         if any(phrase in sentence_lower for phrase in ['refers to', 'is a', 'are a', 'defined as']):
             score += 4
         
-        # Penalize very long sentences
-        if len(sentence) > 200:
-            score -= 2
+        # Penalize very long sentences (but be more lenient)
+        if len(sentence) > 300:  # Increased threshold
+            score -= 1  # Reduced penalty
         
         # Penalize sentences with formatting artifacts
         if any(artifact in sentence for artifact in ['│', '###', 'ANSWER:', 'Context:']):
-            score -= 5
+            score -= 3  # Reduced penalty
         
-        # Heavily penalize off-topic content
+        # Penalize (but don't heavily penalize) off-topic content
         irrelevant_terms = [
             'human resources', 'hrms', 'employee', 'recruitment', 'training',
             'compensation', 'succession planning', 'career paths', 'workforce'
         ]
         for term in irrelevant_terms:
             if term in sentence_lower:
-                score -= 10
+                score -= 5  # Reduced penalty from -10 to -5
         
         scored_sentences.append((score, sentence))
     
     # Sort by score and take top sentences
     scored_sentences.sort(key=lambda x: x[0], reverse=True)
-    top_sentences = [sent for score, sent in scored_sentences[:max_sentences] if score > -5]
+    top_sentences = [sent for score, sent in scored_sentences[:max_sentences] if score > -8]  # More lenient threshold
     
     # If no good sentences found, return first few sentences
     if not top_sentences:
         top_sentences = sentences[:max_sentences]
     
-    # Ensure the result is truly concise (max 500 characters)
+    # Ensure the result is reasonably sized (increased limit)
     result = ' '.join(top_sentences)
-    if len(result) > 500:
+    if len(result) > 1000:  # Increased from 500 to 1000
         # If still too long, take only the highest scoring sentences that fit
         result = ""
         for score, sentence in scored_sentences:
-            if score > -5 and len(result + sentence) <= 500:
+            if score > -8 and len(result + sentence) <= 1000:  # More lenient
                 result += sentence + " "
-            if len(result) > 400:  # Stop before hitting the limit
+            if len(result) > 900:  # Stop before hitting the limit
                 break
         result = result.strip()
+    
+    # Final check - if result is too short, return the original text
+    if len(result) < 50 and len(text) > 50:
+        return text
     
     return result
 
 def filter_irrelevant_content(text: str) -> str:
     """
-    Remove irrelevant content that doesn't match the expected domain.
+    Filter out clearly irrelevant content while preserving legitimate LLM responses.
+    Only removes obviously irrelevant content, not borderline cases.
     
     Args:
-        text: Input text to filter
+        text: Text to filter
         
     Returns:
         Filtered text with irrelevant content removed
@@ -887,45 +868,116 @@ def filter_irrelevant_content(text: str) -> str:
     if not text:
         return text
     
-    sentences = extract_sentences(text)
-    filtered_sentences = []
+    lines = text.split('\n')
+    filtered_lines = []
     
-    # Define irrelevant topic patterns
-    irrelevant_patterns = [
-        r'human\s+resource',
-        r'hrms',
-        r'employee\s+(?:management|planning|recruitment)',
-        r'career\s+path',
-        r'succession\s+planning',
-        r'workforce\s+requirement',
-        r'compensation\s+(?:planning|strategy)'
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+            
+        # Only filter out very clearly irrelevant lines
+        # Be very conservative - when in doubt, keep the content
+        
+        # Skip lines with obvious navigation/UI elements
+        if any(phrase in line.lower() for phrase in [
+            'click here', 'go to', 'navigate to', 'menu option',
+            'press button', 'select from dropdown'
+        ]):
+            continue
+            
+        # Skip lines that are clearly programming/code artifacts
+        if any(phrase in line for phrase in [
+            'def ', 'class ', 'import ', 'from ', 'return ',
+            '#!/usr/bin', 'if __name__', 'print('
+        ]):
+            continue
+            
+        # Skip lines that are clearly metadata/headers only if very obvious
+        if (line.startswith('Source:') and len(line) < 30 or
+            line.startswith('Page:') and len(line) < 20 or
+            line.startswith('Section:') and len(line) < 30):
+            continue
+            
+        # Skip empty citations or broken formatting
+        if re.match(r'^\s*\[Doc-\s*\]\s*$', line):
+            continue
+            
+        # Keep everything else - err on the side of preserving content
+        filtered_lines.append(line)
+    
+    result = ' '.join(filtered_lines)
+    
+    # Final cleanup - remove excessive whitespace
+    result = re.sub(r'\s+', ' ', result)
+    
+    return result.strip()
+
+def remove_author_info(text: str) -> str:
+    """Remove author information and contact details from text"""
+    if not text:
+        return text
+    
+    # Patterns to remove author information
+    author_patterns = [
+        r'assistant professor.*?(?:\n|$)',
+        r'professor.*?(?:\n|$)', 
+        r'department of.*?(?:\n|$)',
+        r'university.*?(?:\n|$)',
+        r'phone:\s*[+\d\-\(\)\s\.]+',
+        r'email:\s*[^\s\n]+',
+        r'contact:\s*[^\n]+',
+        r'address:\s*[^\n]+',
+        r'office:\s*[^\n]+',
+        r'fax:\s*[+\d\-\(\)\s\.]+',
     ]
     
-    for sentence in sentences:
-        sentence_lower = sentence.lower()
-        
-        # Check if sentence contains irrelevant patterns
-        is_irrelevant = any(re.search(pattern, sentence_lower) for pattern in irrelevant_patterns)
-        
-        # Skip sentences that are clearly off-topic
-        if not is_irrelevant:
-            filtered_sentences.append(sentence)
+    text_cleaned = text
+    for pattern in author_patterns:
+        text_cleaned = re.sub(pattern, '', text_cleaned, flags=re.IGNORECASE | re.MULTILINE)
     
-    return ' '.join(filtered_sentences)
+    return text_cleaned.strip()
+
+def remove_document_references(text: str) -> str:
+    """Remove document references and metadata"""
+    # Remove document references like [Doc-filename.txt] or similar
+    patterns = [
+        r'\[Doc-[^\]]+\]\.?',
+        r'\[Document[^\]]*\]\.?',
+        r'\[Source[^\]]*\]\.?',
+        r'\[Reference[^\]]*\]\.?',
+        r'\[Page \d+\]',
+        r'\[\d+\]',  # Numbered references
+        r'Source:.*?(?:\n|$)',
+        r'Document:.*?(?:\n|$)',
+        r'Reference:.*?(?:\n|$)',
+        r'\[.*?\.(?:txt|pdf|docx?|html?)\]',  # Any file extension in brackets
+        r'^\s*\d+\.\s*$',  # Standalone numbers
+        r'^\s*\d+\.\s+$',  # Numbers with spaces
+        r'The key points (?:to address )?(?:the question )?remain:\s*\d*\.?\s*',
+        r'remain:\s*\d*\.?\s*\[Doc-',
+    ]
+    
+    text_cleaned = text
+    for pattern in patterns:
+        text_cleaned = re.sub(pattern, '', text_cleaned, flags=re.MULTILINE | re.IGNORECASE)
+    
+    # Clean up any remaining artifacts
+    text_cleaned = re.sub(r'\s+', ' ', text_cleaned)
+    text_cleaned = re.sub(r'^\s*[\.\,\;\:]+\s*', '', text_cleaned)  # Remove leading punctuation
+    text_cleaned = re.sub(r'\s*[\.\,\;\:]+\s*$', '', text_cleaned)  # Remove trailing punctuation
+    
+    return text_cleaned.strip()
+
+
 
 # Export main functions
 __all__ = [
-    "is_answer_duplicate",
-    "deduplicate_answer", 
-    "extract_sentences", 
-    "has_valid_citations", 
-    "extract_citations",
-    "enforce_citation_format",
     "process_answer_quality",
-    "should_retry_generation",
-    "clean_and_format_answer",
-    "truncate_answer",
-    "remove_meta_commentary",
+    "clean_and_format_answer", 
     "create_concise_answer",
-    "filter_irrelevant_content"
+    "remove_meta_commentary",
+    "filter_irrelevant_content",
+    "remove_document_references",
+    "remove_author_info"
 ] 

@@ -17,9 +17,14 @@ from ..llm.prompting import build_enhanced_rag_prompt
 import re
 
 from ..metrics import Metrics, inc, start, stop
+from typing import Optional, Dict
 
 # Confidence calibration integration
 _confidence_calibrator = None
+
+# Simple in-memory cache for CLI usage
+_in_memory_cache = {}
+_cache_enabled = True
 
 def _load_confidence_calibrator():
     """Load confidence calibration model on startup."""
@@ -37,6 +42,54 @@ def _load_confidence_calibrator():
             logger.warning(f"Failed to load confidence calibration model: {e}")
             _confidence_calibrator = lambda x: x  # Fallback to identity
     return _confidence_calibrator
+
+def _get_cached_response(question: str) -> Optional[Dict]:
+    """Get cached response from in-memory cache"""
+    if not _cache_enabled:
+        return None
+    
+    # Normalize question for caching
+    normalized_question = question.lower().strip()
+    
+    # Check if we have a cached response
+    if normalized_question in _in_memory_cache:
+        cached_data = _in_memory_cache[normalized_question]
+        
+        # Check if cache is still valid (1 hour TTL)
+        import time
+        if time.time() - cached_data.get('cached_at', 0) < 3600:  # 1 hour
+            logger.info(f"Cache hit for question: {question[:50]}...")
+            return cached_data['response']
+        else:
+            # Remove expired cache entry
+            del _in_memory_cache[normalized_question]
+    
+    return None
+
+def _cache_response(question: str, response: Dict) -> None:
+    """Cache response in in-memory cache"""
+    if not _cache_enabled:
+        return
+    
+    # Normalize question for caching
+    normalized_question = question.lower().strip()
+    
+    # Store response with timestamp
+    import time
+    _in_memory_cache[normalized_question] = {
+        'response': response,
+        'cached_at': time.time()
+    }
+    
+    logger.info(f"Cached response for question: {question[:50]}...")
+    
+    # Limit cache size to prevent memory issues
+    if len(_in_memory_cache) > 1000:
+        # Remove oldest entries
+        oldest_key = min(_in_memory_cache.keys(), 
+                        key=lambda k: _in_memory_cache[k]['cached_at'])
+        del _in_memory_cache[oldest_key]
+        logger.debug("Removed oldest cache entry to prevent memory overflow")
 
 # Global ChromaDB client for connection reuse
 _client = None
@@ -93,7 +146,7 @@ def _initialize_collection():
 def retrieve_enhanced(question: str) -> tuple[list, list, list]:
     """
     Enhanced retrieval with metadata filtering and optimized performance.
-    Returns top 3 most relevant documents for faster processing.
+    Returns top 3 most relevant documents from DIVERSE sources for better coverage.
     """
     try:
         client = _get_chromadb_client()
@@ -104,14 +157,15 @@ def retrieve_enhanced(question: str) -> tuple[list, list, list]:
         # Get or create collection
         collection = client.get_or_create_collection("pynucleus_documents")
         
-        # Use optimized retrieval settings
-        top_k = getattr(settings, 'ENHANCED_RETRIEVE_TOP_K', 3)  # Reduced to 3
+        # Use larger initial retrieval to get diverse sources
+        initial_top_k = getattr(settings, 'INITIAL_RETRIEVE_TOP_K', 15)  # Get more initially
+        final_top_k = getattr(settings, 'ENHANCED_RETRIEVE_TOP_K', 3)    # Final diverse results
         similarity_threshold = getattr(settings, 'RAG_SIMILARITY_THRESHOLD', 0.3)
         
         # Enhanced query with metadata inclusion
         results = collection.query(
             query_texts=[question],
-            n_results=top_k,
+            n_results=initial_top_k,  # Get more results initially
             include=['documents', 'metadatas', 'distances']
         )
         
@@ -120,29 +174,37 @@ def retrieve_enhanced(question: str) -> tuple[list, list, list]:
         metadatas = results["metadatas"][0] if results["metadatas"] else []
         distances = results["distances"][0] if results["distances"] else []
         
-        # Filter by similarity threshold (ChromaDB uses distance, lower is better)
-        # Convert distance to similarity: similarity = 1 - normalized_distance
-        filtered_results = []
+        # Filter by similarity threshold and deduplicate by source
+        source_seen = set()
+        diverse_results = []
+        
         for i, (doc, meta, dist) in enumerate(zip(documents, metadatas, distances)):
             # Estimate similarity (this is approximate)
             similarity = max(0, 1 - (dist / 2))  # Rough conversion
             
-            if similarity >= similarity_threshold:
-                filtered_results.append((doc, meta, similarity, i))
-        
-        # Extract filtered results
-        filtered_documents = [result[0] for result in filtered_results]
-        filtered_metadatas = [result[1] for result in filtered_results]
-        
-        # Generate sources list using only the real document name, fallback to 'Unknown Source'
-        sources = []
-        for i, meta in enumerate(filtered_metadatas):
+            if similarity < similarity_threshold:
+                continue
+                
+            # Extract source name
+            source_name = "Unknown Source"
             if meta and 'source' in meta:
-                sources.append(meta['source'])
-            else:
-                sources.append('Unknown Source')
+                source_name = meta['source']
+            
+            # Only keep if we haven't seen this source before
+            if source_name not in source_seen:
+                source_seen.add(source_name)
+                diverse_results.append((doc, meta, similarity, source_name))
+                
+                # Stop if we have enough diverse sources
+                if len(diverse_results) >= final_top_k:
+                    break
         
-        logger.info(f"Enhanced retrieval: {len(filtered_documents)} documents (filtered from {len(documents)}) for query")
+        # Extract final results
+        filtered_documents = [result[0] for result in diverse_results]
+        filtered_metadatas = [result[1] for result in diverse_results]
+        sources = [result[3] for result in diverse_results]
+        
+        logger.info(f"Enhanced retrieval: {len(filtered_documents)} documents from {len(source_seen)} unique sources (filtered from {len(documents)}) for query")
         return filtered_documents, sources, filtered_metadatas
         
     except Exception as e:
@@ -174,51 +236,104 @@ def build_enhanced_context(documents: list, sources: list, metadatas: list) -> s
         if not doc or len(doc.strip()) < 30:  # Increased minimum length
             continue
             
-        # Clean and focus the document content
+        # Clean the document content aggressively to remove ALL formatting artifacts
         doc_content = doc.strip()
         
-        # Remove excessive whitespace and normalize
-        doc_content = re.sub(r'\s+', ' ', doc_content)
+        # Remove ALL document structure artifacts and metadata
+        doc_content = re.sub(r'^[\]\[\s]*Section:\s*[^\n]*\n?', '', doc_content, flags=re.MULTILINE)
+        doc_content = re.sub(r'^[\]\[\s]*Page:\s*[^\n]*\n?', '', doc_content, flags=re.MULTILINE)
+        doc_content = re.sub(r'^[\]\[\s]*\d{1,4}[\]\[\s]*\n?', '', doc_content, flags=re.MULTILINE)  # Remove numbers
+        doc_content = re.sub(r'^[\]\[\s]*[a-z]{1,5}[\]\[\s]*\n?', '', doc_content, flags=re.MULTILINE)  # Remove fragments
+        doc_content = re.sub(r'^\s*[\]\[\(\)]+\s*', '', doc_content, flags=re.MULTILINE)  # Remove brackets/parentheses
         
-        # Limit each document to ~800 characters for more focused responses
-        if len(doc_content) > 800:
-            # Try to cut at sentence boundary
+        # CRITICAL: Remove author information and contact details
+        doc_content = re.sub(r'Assistant Professor.*?Phone:.*?\n?', '', doc_content, flags=re.MULTILINE | re.DOTALL)
+        doc_content = re.sub(r'Professor.*?Phone:.*?\n?', '', doc_content, flags=re.MULTILINE | re.DOTALL)
+        doc_content = re.sub(r'Dr\..*?Phone:.*?\n?', '', doc_content, flags=re.MULTILINE | re.DOTALL)
+        doc_content = re.sub(r'Phone:\s*\+?\d+[-\s\d\(\)]*\n?', '', doc_content, flags=re.MULTILINE)
+        doc_content = re.sub(r'Email:\s*[^\n]*\n?', '', doc_content, flags=re.MULTILINE)
+        doc_content = re.sub(r'Department of.*?Engineering\s*\n?', '', doc_content, flags=re.MULTILINE)
+        doc_content = re.sub(r'University.*?\n?', '', doc_content, flags=re.MULTILINE)
+        doc_content = re.sub(r'[A-Z][a-z]+\s+University\s*\n?', '', doc_content, flags=re.MULTILINE)
+        
+        # Remove document citations and references
+        doc_content = re.sub(r'\[Doc-[^\]]*\]', '', doc_content)
+        doc_content = re.sub(r'\[Page \d+\]', '', doc_content)
+        doc_content = re.sub(r'\[Section \d+\]', '', doc_content)
+        
+        # Remove markdown headers and formatting
+        doc_content = re.sub(r'^#+\s*', '', doc_content, flags=re.MULTILINE)
+        doc_content = re.sub(r'\*\*([^*]+)\*\*', r'\1', doc_content)  # Remove bold
+        doc_content = re.sub(r'\*([^*]+)\*', r'\1', doc_content)  # Remove italics
+        
+        # Remove box drawing and ALL terminal characters
+        doc_content = re.sub(r'[─┌┐└┘│├┤┬┴┼]+', '', doc_content)
+        doc_content = re.sub(r'[│\|]+', ' ', doc_content)
+        
+        # Remove standalone numbers/fragments at start of lines
+        doc_content = re.sub(r'^\s*\d{1,3}\s+', '', doc_content, flags=re.MULTILINE)
+        doc_content = re.sub(r'^\s*[a-z]{1,3}\s+', '', doc_content, flags=re.MULTILINE)
+        
+        # Remove common document continuation markers
+        doc_content = re.sub(r'^\s*\(continues?\)\s*', '', doc_content, flags=re.MULTILINE)
+        doc_content = re.sub(r'^\s*\.\.\.\s*', '', doc_content, flags=re.MULTILINE)
+        
+        # Remove lines that are just author/contact information
+        lines = doc_content.split('\n')
+        cleaned_lines = []
+        for line in lines:
+            line = line.strip()
+            # Skip lines that are clearly author/contact info
+            if (re.match(r'^[A-Z][a-z]+\s+[A-Z][a-z]+.*?(Professor|Dr\.|PhD)', line) or
+                re.match(r'^Phone:.*?', line) or
+                re.match(r'^Email:.*?', line) or
+                re.match(r'^Department of.*?', line) or
+                re.match(r'^[A-Z][a-z]+\s+University.*?', line) or
+                len(line) < 5):  # Skip very short lines
+                continue
+            cleaned_lines.append(line)
+        
+        doc_content = '\n'.join(cleaned_lines)
+        
+        # Normalize whitespace and remove excessive line breaks
+        doc_content = re.sub(r'\s+', ' ', doc_content)
+        doc_content = re.sub(r'\n\s*\n\s*\n', '\n\n', doc_content)
+        
+        # Clean up sentence starts - ensure proper capitalization
+        sentences = re.split(r'(?<=[.!?])\s+', doc_content)
+        cleaned_sentences = []
+        for sentence in sentences:
+            sentence = sentence.strip()
+            if sentence and len(sentence) > 10:  # Only keep substantial sentences
+                # Capitalize first letter
+                if sentence[0].islower():
+                    sentence = sentence[0].upper() + sentence[1:]
+                cleaned_sentences.append(sentence)
+        
+        doc_content = ' '.join(cleaned_sentences)
+        
+        # Limit each document to ~600 characters for focused responses
+        if len(doc_content) > 600:
+            # Cut at sentence boundary
             sentences = re.split(r'[.!?]+', doc_content)
             truncated = ""
             for sentence in sentences:
-                if len(truncated + sentence) <= 800:
+                if len(truncated + sentence) <= 600:
                     truncated += sentence + ". "
                 else:
                     break
             doc_content = truncated.strip()
         
-        # Add metadata if available
-        metadata_info = ""
-        if metadatas and i < len(metadatas) and metadatas[i]:
-            metadata = metadatas[i]
-            if isinstance(metadata, dict):
-                # Prioritize most relevant metadata
-                if 'section_header' in metadata and metadata['section_header'] != 'Unknown':
-                    metadata_info = f"Section: {metadata['section_header']}\n"
-                elif 'title' in metadata:
-                    metadata_info = f"Title: {metadata['title']}\n"
-                if 'estimated_page' in metadata:
-                    metadata_info += f"Page: {metadata['estimated_page']}\n"
-        
-        # Build focused document entry
-        doc_entry = f"[Doc-{source}]\n{metadata_info}{doc_content}"
-        context_parts.append(doc_entry)
+        # Only include if content is substantial and meaningful
+        if doc_content and len(doc_content.strip()) > 30:
+            # Present as clean factual information
+            context_parts.append(doc_content)
     
-    if not context_parts:
-        return ""
-    
-    # Join with clear separators
-    context = "\n\n---\n\n".join(context_parts)
-    
-    # Log context size for monitoring
-    logger.info(f"Built enhanced context: {len(context_parts)} chunks, {len(context)} characters")
-    
-    return context
+    # Join all context parts with clear separation
+    if context_parts:
+        return "\n\n".join(context_parts)
+    else:
+        return "No relevant technical information available."
 
 def clean_model_response(response: str) -> str:
     """
@@ -397,7 +512,7 @@ def ask_enhanced(question: str, retry_count: int = 0) -> dict:
 
 def ask(question: str, max_retries: int = 2) -> dict:
     """
-    Enhanced RAG pipeline with smart token management, duplication checking, and confidence calibration.
+    Enhanced RAG pipeline with smart token management, duplication checking, confidence calibration, and caching.
     
     Args:
         question: User question
@@ -414,6 +529,16 @@ def ask(question: str, max_retries: int = 2) -> dict:
     """
     import time
     start_time = time.time()
+    
+    # Check cache first
+    cached_response = _get_cached_response(question)
+    if cached_response:
+        # Add cache metadata
+        cached_response['metadata'] = cached_response.get('metadata', {})
+        cached_response['metadata']['cache_hit'] = True
+        cached_response['metadata']['response_time'] = 0.01  # Very fast for cached responses
+        logger.info(f"Returning cached response for: {question[:50]}...")
+        return cached_response
     
     try:
         # Enhanced retrieval - get top 3 most relevant chunks
@@ -468,10 +593,14 @@ def ask(question: str, max_retries: int = 2) -> dict:
         while retry_count <= max_retries:
             # Generate answer using enhanced prompt
             prompt = build_enhanced_rag_prompt(context, question)
+            logger.info(f"DEBUG: Generated prompt length: {len(prompt)}")
+            
             raw_answer = generate(prompt, max_tokens=final_tokens_used)
+            logger.info(f"DEBUG: Raw answer from model: '{raw_answer[:200]}...' (length: {len(raw_answer)})")
             
             # Clean the response
             cleaned_answer = clean_model_response(raw_answer)
+            logger.info(f"DEBUG: Cleaned answer: '{cleaned_answer[:200]}...' (length: {len(cleaned_answer)})")
             
             # Check for duplication
             if is_answer_duplicate(cleaned_answer, documents):
@@ -496,32 +625,36 @@ def ask(question: str, max_retries: int = 2) -> dict:
                     break
                 continue
             
-            # Answer is good - use it
+            # Exit retry loop - we have a good answer
             answer = cleaned_answer
             break
         
-        # Process answer quality with enhanced validation
+        # Ensure we have an answer
+        if answer is None:
+            answer = cleaned_answer or "Unable to generate a complete response."
+            logger.warning(f"DEBUG: No valid answer after retries, using: '{answer}'")
+        
+        logger.info(f"DEBUG: Final answer before quality processing: '{answer[:200]}...' (length: {len(answer)})")
+        
+        # Process answer for quality and enhancement
         quality_result = process_answer_quality(
             answer, sources, retry_count,
             question=question, expected_keywords=[]
         )
         
-        # Apply confidence calibration and record metrics
+        logger.info(f"DEBUG: Processed answer: '{quality_result['processed_answer'][:200]}...' (length: {len(quality_result['processed_answer'])})")
+        
+        # Apply confidence calibration
         raw_confidence = quality_result["quality_score"]
-        calibrator = _load_confidence_calibrator()
         
         try:
-            # Apply calibration
+            calibrator = _load_confidence_calibrator()
             calibrated_confidence = calibrator(raw_confidence)
-            
-            # Ensure calibrated confidence is in valid range [0, 1]
             calibrated_confidence = max(0.0, min(1.0, calibrated_confidence))
             
-            # Record Prometheus metrics
+            # Record metrics
             from ..metrics.prometheus import record_confidence_calibration
             record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
-            
-            logger.debug(f"Confidence calibration applied: {raw_confidence:.3f} -> {calibrated_confidence:.3f}")
             
         except Exception as e:
             logger.warning(f"Failed to apply confidence calibration: {e}")
@@ -531,16 +664,38 @@ def ask(question: str, max_retries: int = 2) -> dict:
             from ..metrics.prometheus import record_confidence_calibration
             record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
         
+        # Check if the answer was rejected during processing
+        processed_answer = quality_result["processed_answer"]
+        answer_was_rejected = (
+            "couldn't provide" in processed_answer.lower() or
+            "unable to generate" in processed_answer.lower() or
+            "try rephrasing" in processed_answer.lower() or
+            len(processed_answer) < 50
+        )
+        
+        # If answer was rejected, reset sources and confidence to reflect the failure
+        if answer_was_rejected:
+            final_sources = []
+            final_confidence_raw = 0.2  # Low confidence for rejected answers
+            final_confidence_cal = 0.2
+            final_has_citations = False
+            logger.info("Answer was rejected during processing - clearing sources and reducing confidence")
+        else:
+            final_sources = sources
+            final_confidence_raw = raw_confidence
+            final_confidence_cal = calibrated_confidence
+            final_has_citations = quality_result["has_citations"]
+        
         # Create result dictionary with both confidence scores
         result = {
-            "answer": quality_result["processed_answer"],
-            "sources": sources,
-            "confidence_raw": raw_confidence,
-            "confidence_cal": calibrated_confidence,
-            "confidence": calibrated_confidence,  # Backward compatibility - use calibrated
+            "answer": processed_answer,
+            "sources": final_sources,
+            "confidence_raw": final_confidence_raw,
+            "confidence_cal": final_confidence_cal,
+            "confidence": final_confidence_cal,  # Backward compatibility - use calibrated
             "retrieval_count": len(documents),
             "deduplication_applied": quality_result["deduplication_applied"],
-            "has_citations": quality_result["has_citations"],
+            "has_citations": final_has_citations,
             "retry_count": retry_count,
             "tokens_used": final_tokens_used,
             "is_complex_question": is_complex,
@@ -548,6 +703,11 @@ def ask(question: str, max_retries: int = 2) -> dict:
             "response_time": time.time() - start_time,
             "retrieval_score": 0.5  # Placeholder - should come from actual retrieval scoring
         }
+        
+        logger.info(f"DEBUG: Final result answer: '{result['answer'][:200]}...' (length: {len(result['answer'])})")
+        
+        # Cache the successful response
+        _cache_response(question, result)
         
         return result
         

@@ -151,13 +151,16 @@ class LLMRunner:
             if response_text.startswith(prompt):
                 response_text = response_text[len(prompt):].strip()
             
+            # Enhanced cleaning to remove conversation history contamination
+            response_text = self._clean_conversation_artifacts(response_text)
+            
             # Clean up response - remove training artifacts and contamination
             response_lines = response_text.split('\n')
             clean_lines = []
             
             for line in response_lines:
                 line = line.strip()
-                # Skip common training artifacts
+                # Skip common training artifacts and conversation patterns
                 if any(artifact in line.lower() for artifact in [
                     'you are an ai assistant',
                     'human:',
@@ -166,7 +169,9 @@ class LLMRunner:
                     'you will be given a task',
                     'must complete the task',
                     'i am an ai',
-                    'as an ai'
+                    'as an ai',
+                    'user:',
+                    'system:'
                 ]):
                     break  # Stop at first training artifact
                 
@@ -174,6 +179,9 @@ class LLMRunner:
                     clean_lines.append(line)
             
             response_text = ' '.join(clean_lines)
+            
+            # Additional cleaning for conversation contamination
+            response_text = self._remove_conversation_contamination(response_text)
             
             # Limit response length to avoid contamination
             if len(response_text) > 1000:
@@ -235,6 +243,106 @@ class LLMRunner:
             results.append(result)
         
         return results
+    
+    def _clean_conversation_artifacts(self, text: str) -> str:
+        """
+        Clean conversation artifacts from model response.
+        
+        Args:
+            text: Raw response text
+            
+        Returns:
+            Cleaned text with conversation artifacts removed
+        """
+        import re
+        
+        # Remove conversation patterns at the start of text
+        # Match patterns like "Human: ... Assistant: ..." or similar
+        conversation_pattern = r'^.*?(?:Human|User|System):\s*.*?(?:Assistant|AI|Bot):\s*'
+        text = re.sub(conversation_pattern, '', text, flags=re.IGNORECASE | re.DOTALL)
+        
+        # Remove conversation patterns that appear anywhere in the text
+        # This catches mid-text and end-text contamination
+        mid_conversation_pattern = r'\s+Human:\s*[^.]*(?:Answer:|Assistant:)\s*[^.]*\.?'
+        text = re.sub(mid_conversation_pattern, '', text, flags=re.IGNORECASE)
+        
+        # Remove standalone conversation markers
+        conversation_markers = [
+            r'\bHuman:\s*[^.!?]*[.!?]?\s*',
+            r'\bAssistant:\s*', 
+            r'\bUser:\s*[^.!?]*[.!?]?\s*',
+            r'\bSystem:\s*[^.!?]*[.!?]?\s*',
+            r'\bAI:\s*',
+            r'\bBot:\s*',
+            r'\bAnswer:\s*(?:Sure|Yes|Certainly)?\s*'
+        ]
+        
+        for marker in conversation_markers:
+            text = re.sub(marker, '', text, flags=re.IGNORECASE)
+        
+        return text.strip()
+    
+    def _remove_conversation_contamination(self, text: str) -> str:
+        """
+        Remove conversation contamination that may appear mid-response.
+        
+        Args:
+            text: Response text to clean
+            
+        Returns:
+            Cleaned text with conversation contamination removed
+        """
+        import re
+        
+        # First, try to find where conversation contamination starts and cut there
+        contamination_start = re.search(
+            r'\s+(?:Human|User|Assistant|AI):\s*', 
+            text, 
+            re.IGNORECASE
+        )
+        
+        if contamination_start:
+            # Cut off everything from the contamination point
+            clean_text = text[:contamination_start.start()].strip()
+            # Make sure we have substantial content before cutting
+            if len(clean_text) > 50:
+                return clean_text
+        
+        # If no contamination found or cut would be too aggressive, do line-by-line cleaning
+        lines = text.split('\n')
+        clean_lines = []
+        
+        for line in lines:
+            line = line.strip()
+            
+            # Check if line contains conversation patterns
+            if re.search(r'\b(?:Human|User|Assistant|AI):\s*', line, re.IGNORECASE):
+                # If we find conversation pattern, stop processing here
+                break
+            
+            # Check for mid-sentence conversation contamination
+            # Look for patterns like "text Human: more text" 
+            conversation_contamination = re.search(
+                r'(.+?)\s+(?:Human|User|Assistant|AI):\s+(.+)', 
+                line, 
+                re.IGNORECASE
+            )
+            
+            if conversation_contamination:
+                # Keep only the part before the contamination
+                clean_part = conversation_contamination.group(1).strip()
+                if clean_part and len(clean_part) > 10:  # Only keep substantial content
+                    clean_lines.append(clean_part)
+                break  # Stop processing after contamination found
+            else:
+                clean_lines.append(line)
+        
+        cleaned_text = ' '.join(clean_lines).strip()
+        
+        # Final cleanup - remove any remaining conversation artifacts at the end
+        cleaned_text = re.sub(r'\s+(?:Human|User|Assistant|AI):\s*.*$', '', cleaned_text, flags=re.IGNORECASE)
+        
+        return cleaned_text
     
     def get_model_info(self) -> Dict[str, Any]:
         """Get information about the loaded model."""

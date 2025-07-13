@@ -37,8 +37,18 @@ import rich
 from rich.console import Console
 from rich.logging import RichHandler
 from rich.traceback import install as rich_install_traceback
+from rich.panel import Panel
+from rich.box import ROUNDED
+from rich.table import Table
+from rich.text import Text
 from typer import Typer, Option, Argument, Context, Exit, echo
 from typer.rich_utils import _get_rich_console
+
+# Check if rich is available for enhanced formatting
+try:
+    RICH_AVAILABLE = True
+except ImportError:
+    RICH_AVAILABLE = False
 
 # Configure rich traceback for better error display
 rich_install_traceback(show_locals=True)
@@ -53,82 +63,124 @@ if src_path not in sys.path:
 # TYPEWRITER EFFECT FUNCTION
 # ============================================================================
 
-def typewriter_effect(text, delay: float = 0.03, style: str = "bold green"):
+def typewriter_effect(result, delay: float = 0.03, style: str = "bold green"):
     """
-    Display text with a typewriter effect, showing each word with a slight delay.
+    Display RAG result with enhanced formatting and typewriter effect for the answer.
     
     Args:
-        text: The text to display (str, dict, or other object)
+        result: RAG result dictionary or text
         delay (float): Delay between words in seconds (default: 0.03)
         style (str): Rich style to apply to the text (default: "bold green")
     """
-    if not text:
+    if not result:
         return
     
-    # Convert to string if it's not already
-    if isinstance(text, dict):
-        # Try to extract answer from common response formats
-        if 'answer' in text:
-            text_str = str(text['answer'])
-        elif 'response' in text:
-            text_str = str(text['response'])
-        elif 'text' in text:
-            text_str = str(text['text'])
+    # Handle dictionary result (RAG response)
+    if isinstance(result, dict):
+        answer = result.get('answer', '')
+        
+        # Import answer processing
+        try:
+            from pynucleus.rag.answer_processing import clean_and_format_answer, remove_meta_commentary, filter_irrelevant_content
+            answer = remove_meta_commentary(answer)
+            answer = filter_irrelevant_content(answer)
+            answer = clean_and_format_answer(answer)
+        except ImportError:
+            pass
+        
+        # Typewriter effect for answer content with console flushing
+        if RICH_AVAILABLE:
+            words = answer.split()
+            for i, word in enumerate(words):
+                if i > 0:
+                    console.print(" ", end="", style=style)
+                console.print(word, end="", style=style)
+                # Force console flush for real-time display
+                try:
+                    console.file.flush()
+                except:
+                    pass
+                if i < len(words) - 1:
+                    time.sleep(delay)
+            
+            console.print("\n")
         else:
-            text_str = str(text)
-    else:
-        text_str = str(text)
-    
-    # Split text into words but preserve formatting
-    words = text_str.split()
-    
-    for i, word in enumerate(words):
-        # Add space before word (except for the first word)
-        if i > 0:
-            console.print(" ", end="")
-        
-        # Print word with style
-        console.print(word, end="", style=style)
-        
-        # Add slight delay between words
-        if i < len(words) - 1:  # Don't delay after the last word
-            time.sleep(delay)
-    
-    # Add final newline
-    console.print()
+            # Fallback to simple typewriter with stdout flush
+            import sys
+            words = answer.split()
+            for i, word in enumerate(words):
+                if i > 0:
+                    print(" ", end="")
+                print(word, end="")
+                sys.stdout.flush()
+                if i < len(words) - 1:
+                    time.sleep(delay)
+            print()
 
-def typewriter_effect_char(text, delay: float = 0.01, style: str = "bold green"):
+def typewriter_effect_char(result, delay: float = 0.01, style: str = "bold green"):
     """
-    Display text with a character-by-character typewriter effect.
+    Display RAG result with enhanced formatting and character-by-character typewriter effect.
     
     Args:
-        text: The text to display (str, dict, or other object)
+        result: RAG result dictionary or text
         delay (float): Delay between characters in seconds (default: 0.01)
         style (str): Rich style to apply to the text (default: "bold green")
     """
-    if not text:
+    if not result:
         return
     
-    # Convert to string if it's not already
-    if isinstance(text, dict):
-        # Try to extract answer from common response formats
-        if 'answer' in text:
-            text_str = str(text['answer'])
-        elif 'response' in text:
-            text_str = str(text['response'])
-        elif 'text' in text:
-            text_str = str(text['text'])
+    # Handle dictionary result (RAG response)
+    if isinstance(result, dict):
+        answer = result.get('answer', '')
+        
+        # Import answer processing
+        try:
+            from pynucleus.rag.answer_processing import clean_and_format_answer, remove_meta_commentary, filter_irrelevant_content
+            answer = remove_meta_commentary(answer)
+            answer = filter_irrelevant_content(answer)
+            answer = clean_and_format_answer(answer)
+        except ImportError:
+            pass
+        
+        # Character-by-character typewriter effect for answer content with console flushing
+        if RICH_AVAILABLE:
+            for char in answer:
+                console.print(char, end="", style=style)
+                # Force console flush for real-time display
+                try:
+                    console.file.flush()
+                except:
+                    pass
+                time.sleep(delay)
+            
+            console.print("\n")
         else:
-            text_str = str(text)
+            # Fallback to simple character typewriter with stdout flush
+            import sys
+            for char in answer:
+                print(char, end="")
+                sys.stdout.flush()
+                time.sleep(delay)
+            print()
     else:
-        text_str = str(text)
-    
-    for char in text_str:
-        console.print(char, end="", style=style)
-        time.sleep(delay)
-    
-    # Add final newline
-    console.print()
+        # Handle simple text
+        text_str = str(result)
+        if RICH_AVAILABLE:
+            for char in text_str:
+                console.print(char, end="", style=style)
+                try:
+                    console.file.flush()
+                except:
+                    pass
+                time.sleep(delay)
+            console.print()
+        else:
+            import sys
+            for char in text_str:
+                print(char, end="")
+                sys.stdout.flush()
+                time.sleep(delay)
+            print()
 
 # Main CLI app
 app = Typer(
@@ -282,25 +334,243 @@ def interactive_chat(
             with console.status("[bold green]Thinking..."):
                 result = rag_ask(single)
             
-            # Display response
-            console.print("\n[bold green]Answer:[/bold green]")
-            if stream:
-                if char_mode:
-                    typewriter_effect_char(result, delay=stream_delay, style=stream_style)
-                else:
-                    typewriter_effect(result, delay=stream_delay, style=stream_style)
-            elif pretty:
-                format_for_terminal(result)
+            # Display response properly
+            console.print()
+            
+            # Extract answer from result
+            if isinstance(result, dict):
+                answer = result.get("answer", "")
+                sources = result.get("sources", [])
+                confidence = result.get("confidence", 0.0)
+                cache_hit = result.get("metadata", {}).get("cache_hit", False)
+                response_time = result.get("response_time", 0.0)
             else:
-                # Even in plain mode, use enhanced formatting for better readability
-                format_for_terminal(result)
-            return
+                answer = str(result)
+                sources = []
+                confidence = 0.0
+                cache_hit = False
+                response_time = 0.0
+            
+            # Check if we got a valid answer
+            if not answer or len(answer.strip()) < 10:
+                console.print("[red]❌ No answer generated. Please try rephrasing your question.[/red]")
+                return
+            
+            # Clean up the answer to remove formatting artifacts
+            import re
+            # Remove artifacts like "B..." or truncated text
+            answer = re.sub(r'\s+B\.\.\.\s*', ' ', answer)
+            answer = re.sub(r'\s+[A-Z]\.\.\.\s*', ' ', answer)
+            # Remove duplicate sentences or fragments
+            sentences = answer.split('. ')
+            cleaned_sentences = []
+            for sentence in sentences:
+                sentence = sentence.strip()
+                if sentence and len(sentence) > 20:  # Only keep substantial sentences
+                    # Check if this sentence is not a duplicate or fragment
+                    if not any(sentence.lower() in existing.lower() for existing in cleaned_sentences):
+                        cleaned_sentences.append(sentence)
+            
+            answer = '. '.join(cleaned_sentences)
+            if answer and not answer.endswith('.'):
+                answer += '.'
+            
+            # Display the answer with proper formatting using Panel
+            console.print()
+            
+            # Show cache status if it was a cache hit
+            if cache_hit:
+                console.print(Panel(
+                    f"⚡ Cached response (instant)",
+                    title="🚀 Cache Hit",
+                    border_style="green",
+                    padding=(0, 2)
+                ))
+            
+            # Create answer panel - FIX: Properly implement streaming
+            if stream and char_mode:
+                # Character-by-character streaming
+                console.print(f"\n🤖 [bold blue]PyNucleus Response[/bold blue]")
+                console.print("─" * 60)
+                
+                # Use the typewriter_effect_char function
+                result_dict = {
+                    'answer': answer,
+                    'sources': sources,
+                    'confidence': confidence
+                }
+                typewriter_effect_char(result_dict, delay=stream_delay/3, style=stream_style)
+                
+            elif stream:
+                # Word-by-word streaming  
+                console.print(f"\n🤖 [bold blue]PyNucleus Response[/bold blue]")
+                console.print("─" * 60)
+                
+                # Use the typewriter_effect function
+                result_dict = {
+                    'answer': answer,
+                    'sources': sources, 
+                    'confidence': confidence
+                }
+                typewriter_effect(result_dict, delay=stream_delay, style=stream_style)
+                
+            else:
+                # Display answer in a nice panel (no streaming)
+                console.print(Panel(
+                    f"[{stream_style}]{answer}[/{stream_style}]",
+                    title="🤖 PyNucleus Response",
+                    border_style="blue",
+                    padding=(1, 2)
+                ))
+            
+            # Show sources and confidence for all modes
+            # Show sources in a panel if available
+            if sources:
+                sources_text = ""
+                for i, source in enumerate(sources, 1):
+                    # Clean up source names for better display
+                    source_name = str(source).replace('.txt', '').replace('.pdf', '').replace('_', ' ').strip()
+                    # Truncate very long source names
+                    if len(source_name) > 80:
+                        source_name = source_name[:77] + "..."
+                    sources_text += f"{i}. [dim]{source_name}[/dim]\n"
+                
+                console.print(Panel(
+                    sources_text.strip(),
+                    title=f"📚 Sources ({len(sources)} unique documents)",
+                    border_style="cyan",
+                    padding=(1, 2)
+                ))
+            else:
+                console.print(Panel(
+                    "[dim]No specific sources available[/dim]",
+                    title="📚 Sources",
+                    border_style="cyan",
+                    padding=(1, 2)
+                ))
+            
+            # Show confidence in a panel if available
+            if confidence > 0:
+                if confidence >= 0.8:
+                    conf_color = "green"
+                    conf_icon = "🎯"
+                    conf_status = "High"
+                elif confidence >= 0.6:
+                    conf_color = "yellow"
+                    conf_icon = "⚠️"
+                    conf_status = "Medium"
+                else:
+                    conf_color = "red"
+                    conf_icon = "❓"
+                    conf_status = "Low"
+                
+                console.print(Panel(
+                    f"[{conf_color}]{confidence:.1%}[/{conf_color}] ({conf_status})",
+                    title=f"{conf_icon} Confidence Score",
+                    border_style=conf_color,
+                    padding=(0, 2)
+                ))
+            
+            # Collect calibration feedback
+            try:
+                console.print(f"\n[bold cyan]📊 Help improve PyNucleus![/bold cyan]")
+                feedback_input = console.input("[dim]Rate this answer (1-5, or press Enter to skip): [/dim]")
+                if feedback_input.strip() and feedback_input.isdigit():
+                    feedback_score = int(feedback_input)
+                    if 1 <= feedback_score <= 5:
+                        # Convert to 0-1 scale for calibration
+                        normalized_feedback = (feedback_score - 1) / 4.0  # 1->0, 5->1
+                        
+                        # Collect calibration training data
+                        try:
+                            from pynucleus.eval.confidence_calibration import get_calibrator
+                            calibrator = get_calibrator()
+                            
+                            calibration_result = {
+                                "answer": answer,
+                                "confidence": confidence,
+                                "response_time": result.get("response_time", 1.0),
+                                "sources": sources,
+                                "has_citations": bool(sources),
+                                "retrieval_score": result.get("retrieval_score", 0.5),
+                                "context_length": len(answer)
+                            }
+                            
+                            sample = calibrator.collect_interaction_data(
+                                question=single,
+                                rag_result=calibration_result,
+                                user_feedback=normalized_feedback
+                            )
+                            
+                            console.print(f"[green]✅ Feedback recorded! Training samples: {len(calibrator.training_samples)}[/green]")
+                            
+                            # Show progress towards training
+                            if not calibrator.is_trained:
+                                remaining = calibrator.min_samples - len(calibrator.training_samples)
+                                if remaining > 0:
+                                    console.print(f"[dim]📈 Need {remaining} more samples to train calibration model[/dim]")
+                                else:
+                                    console.print("[yellow]🎯 Ready to train calibration model![/yellow]")
+                            
+                            # Auto-train if we have enough samples
+                            if len(calibrator.training_samples) >= calibrator.min_samples and not calibrator.is_trained:
+                                console.print("[yellow]🔄 Training calibration model...[/yellow]")
+                                if calibrator.train():
+                                    console.print("[green]✅ Calibration model trained successfully![/green]")
+                                else:
+                                    console.print("[red]⚠️  Calibration training failed[/red]")
+                            
+                        except Exception as e:
+                            console.print(f"[red]⚠️  Could not record feedback: {e}[/red]")
+                    else:
+                        console.print("[red]❌ Please enter a number between 1 and 5[/red]")
+                        
+            except KeyboardInterrupt:
+                console.print("\n[dim]Feedback skipped[/dim]")
+            except Exception as e:
+                console.print(f"[red]⚠️  Feedback error: {e}[/red]")
+            
+            # Add navigation options after each answer
+            console.print("\n" + "─" * 60)
+            console.print("🧭 [bold cyan]Navigation Options:[/bold cyan]")
+            console.print("   [cyan]1.[/cyan] Ask another question")
+            console.print("   [cyan]2.[/cyan] Return to main menu")
+            console.print("   [cyan]3.[/cyan] Exit PyNucleus")
+            console.print("─" * 60)
+            console.print("\n💡 [dim]Tip: Type '1' to continue, '2' for menu, '3' to exit, or just ask your next question[/dim]")
+            
+            # Get user navigation choice
+            while True:
+                try:
+                    nav_choice = console.input("\n[bold cyan]Choose option (1-3): [/bold cyan]").strip()
+                    if nav_choice == '1':
+                        # Continue to interactive chat mode
+                        console.print("\n💬 [bold blue]Switching to Interactive Chat Mode[/bold blue]")
+                        console.print("💡 You can now continue asking questions...\n")
+                        break
+                    elif nav_choice == '2':
+                        console.print("🔙 [yellow]Returning to main menu...[/yellow]")
+                        try:
+                            show_interactive_menu()
+                            return
+                        except Exception as e:
+                            console.print(f"[red]❌ Error returning to menu: {e}[/red]")
+                            console.print("👋 [yellow]Exiting instead...[/yellow]")
+                            return
+                    elif nav_choice == '3':
+                        console.print("👋 [yellow]Goodbye![/yellow]")
+                        return
+                    else:
+                        console.print("[red]❌ Please enter 1, 2, or 3[/red]")
+                except KeyboardInterrupt:
+                    console.print("\n👋 [yellow]Goodbye![/yellow]")
+                    return
         
         # Interactive chat mode
         console.print("💬 [bold blue]PyNucleus Interactive Chat[/bold blue]")
         console.print(f"🤖 Model: {model_id}")
         console.print(f"🔍 Top-K: {top_k}")
-        console.print("💡 Type 'exit', 'quit', or press Ctrl+C to end the session\n")
+        console.print("💡 Type 'exit', 'quit', 'menu' to navigate, or press Ctrl+C to end the session\n")
         
         # Main chat loop
         while True:
@@ -308,9 +578,29 @@ def interactive_chat(
                 # Get user input
                 question = console.input("[bold cyan]You:[/bold cyan] ")
                 
-                if question.lower().strip() in ['exit', 'quit', 'q']:
+                # Handle navigation commands
+                if question.lower().strip() in ['exit', 'quit', 'q', '3']:
                     console.print("👋 [yellow]Goodbye![/yellow]")
                     break
+                elif question.lower().strip() in ['menu', 'main', 'back', '2']:
+                    console.print("🔙 [yellow]Returning to main menu...[/yellow]")
+                    try:
+                        show_interactive_menu()
+                        return
+                    except Exception as e:
+                        console.print(f"[red]❌ Error returning to menu: {e}[/red]")
+                        console.print("👋 [yellow]Exiting instead...[/yellow]")
+                        break
+                elif question.lower().strip() in ['help', 'h']:
+                    console.print("\n🆘 [bold]Chat Commands:[/bold]")
+                    console.print("   [cyan]1 or question[/cyan] - Ask another question")
+                    console.print("   [cyan]2 or menu[/cyan] - Return to main menu")
+                    console.print("   [cyan]3 or exit[/cyan] - Exit PyNucleus")
+                    console.print("   [cyan]help[/cyan] - Show this help\n")
+                    continue
+                elif question.strip() == '1':
+                    console.print("💬 [blue]Ready for your question![/blue]")
+                    continue
                 
                 if not question.strip():
                     continue
@@ -319,19 +609,215 @@ def interactive_chat(
                 with console.status("[bold green]Thinking..."):
                     result = rag_ask(question)
                 
-                # Display response
-                console.print("\n[bold green]Assistant:[/bold green]")
-                if stream:
-                    if char_mode:
-                        typewriter_effect_char(result, delay=stream_delay, style=stream_style)
-                    else:
-                        typewriter_effect(result, delay=stream_delay, style=stream_style)
-                elif pretty:
-                    format_for_terminal(result)
-                else:
-                    # Even in plain mode, use enhanced formatting for better readability
-                    format_for_terminal(result)
+                # Display response properly
                 console.print()
+                
+                # Extract answer from result
+                if isinstance(result, dict):
+                    answer = result.get("answer", "")
+                    sources = result.get("sources", [])
+                    confidence = result.get("confidence", 0.0)
+                    cache_hit = result.get("metadata", {}).get("cache_hit", False)
+                    response_time = result.get("response_time", 0.0)
+                else:
+                    answer = str(result)
+                    sources = []
+                    confidence = 0.0
+                    cache_hit = False
+                    response_time = 0.0
+                
+                # Check if we got a valid answer
+                if not answer or len(answer.strip()) < 10:
+                    console.print("[red]❌ No answer generated. Please try rephrasing your question.[/red]")
+                    continue
+                
+                # Clean up the answer to remove formatting artifacts
+                import re
+                # Remove artifacts like "B..." or truncated text
+                answer = re.sub(r'\s+B\.\.\.\s*', ' ', answer)
+                answer = re.sub(r'\s+[A-Z]\.\.\.\s*', ' ', answer)
+                # Remove duplicate sentences or fragments
+                sentences = answer.split('. ')
+                cleaned_sentences = []
+                for sentence in sentences:
+                    sentence = sentence.strip()
+                    if sentence and len(sentence) > 20:  # Only keep substantial sentences
+                        # Check if this sentence is not a duplicate or fragment
+                        if not any(sentence.lower() in existing.lower() for existing in cleaned_sentences):
+                            cleaned_sentences.append(sentence)
+                
+                answer = '. '.join(cleaned_sentences)
+                if answer and not answer.endswith('.'):
+                    answer += '.'
+                
+                # Display the answer with proper formatting using Panel
+                console.print()
+                
+                # Show cache status if it was a cache hit
+                if cache_hit:
+                    console.print(Panel(
+                        f"⚡ Cached response (instant)",
+                        title="🚀 Cache Hit",
+                        border_style="green",
+                        padding=(0, 2)
+                    ))
+                
+                # Create answer panel - FIX: Properly implement streaming
+                if stream and char_mode:
+                    # Character-by-character streaming
+                    console.print(f"\n🤖 [bold blue]PyNucleus Response[/bold blue]")
+                    console.print("─" * 60)
+                    
+                    # Use the typewriter_effect_char function
+                    result_dict = {
+                        'answer': answer,
+                        'sources': sources,
+                        'confidence': confidence
+                    }
+                    typewriter_effect_char(result_dict, delay=stream_delay/3, style=stream_style)
+                    
+                elif stream:
+                    # Word-by-word streaming  
+                    console.print(f"\n🤖 [bold blue]PyNucleus Response[/bold blue]")
+                    console.print("─" * 60)
+                    
+                    # Use the typewriter_effect function
+                    result_dict = {
+                        'answer': answer,
+                        'sources': sources, 
+                        'confidence': confidence
+                    }
+                    typewriter_effect(result_dict, delay=stream_delay, style=stream_style)
+                    
+                else:
+                    # Display answer in a nice panel (no streaming)
+                    console.print(Panel(
+                        f"[{stream_style}]{answer}[/{stream_style}]",
+                        title="🤖 PyNucleus Response",
+                        border_style="blue",
+                        padding=(1, 2)
+                    ))
+                
+                # Show sources and confidence for all modes
+                # Show sources in a panel if available
+                if sources:
+                    sources_text = ""
+                    for i, source in enumerate(sources, 1):
+                        # Clean up source names for better display
+                        source_name = str(source).replace('.txt', '').replace('.pdf', '').replace('_', ' ').strip()
+                        # Truncate very long source names
+                        if len(source_name) > 80:
+                            source_name = source_name[:77] + "..."
+                        sources_text += f"{i}. [dim]{source_name}[/dim]\n"
+                    
+                    console.print(Panel(
+                        sources_text.strip(),
+                        title=f"📚 Sources ({len(sources)} unique documents)",
+                        border_style="cyan",
+                        padding=(1, 2)
+                    ))
+                else:
+                    console.print(Panel(
+                        "[dim]No specific sources available[/dim]",
+                        title="📚 Sources",
+                        border_style="cyan",
+                        padding=(1, 2)
+                    ))
+                
+                # Show confidence in a panel if available
+                if confidence > 0:
+                    if confidence >= 0.8:
+                        conf_color = "green"
+                        conf_icon = "🎯"
+                        conf_status = "High"
+                    elif confidence >= 0.6:
+                        conf_color = "yellow"
+                        conf_icon = "⚠️"
+                        conf_status = "Medium"
+                    else:
+                        conf_color = "red"
+                        conf_icon = "❓"
+                        conf_status = "Low"
+                    
+                    console.print(Panel(
+                        f"[{conf_color}]{confidence:.1%}[/{conf_color}] ({conf_status})",
+                        title=f"{conf_icon} Confidence Score",
+                        border_style=conf_color,
+                        padding=(0, 2)
+                    ))
+                
+                # Collect calibration feedback
+                try:
+                    console.print(f"\n[bold cyan]📊 Help improve PyNucleus![/bold cyan]")
+                    feedback_input = console.input("[dim]Rate this answer (1-5, or press Enter to skip): [/dim]")
+                    if feedback_input.strip() and feedback_input.isdigit():
+                        feedback_score = int(feedback_input)
+                        if 1 <= feedback_score <= 5:
+                            # Convert to 0-1 scale for calibration
+                            normalized_feedback = (feedback_score - 1) / 4.0  # 1->0, 5->1
+                            
+                            # Collect calibration training data
+                            try:
+                                from pynucleus.eval.confidence_calibration import get_calibrator
+                                calibrator = get_calibrator()
+                                
+                                calibration_result = {
+                                    "answer": answer,
+                                    "confidence": confidence,
+                                    "response_time": result.get("response_time", 1.0),
+                                    "sources": sources,
+                                    "has_citations": bool(sources),
+                                    "retrieval_score": result.get("retrieval_score", 0.5),
+                                    "context_length": len(answer)
+                                }
+                                
+                                sample = calibrator.collect_interaction_data(
+                                    question=question,
+                                    rag_result=calibration_result,
+                                    user_feedback=normalized_feedback
+                                )
+                                
+                                console.print(f"[green]✅ Feedback recorded! Training samples: {len(calibrator.training_samples)}[/green]")
+                                
+                                # Show progress towards training
+                                if not calibrator.is_trained:
+                                    remaining = calibrator.min_samples - len(calibrator.training_samples)
+                                    if remaining > 0:
+                                        console.print(f"[dim]📈 Need {remaining} more samples to train calibration model[/dim]")
+                                    else:
+                                        console.print("[yellow]🎯 Ready to train calibration model![/yellow]")
+                                
+                                # Auto-train if we have enough samples
+                                if len(calibrator.training_samples) >= calibrator.min_samples and not calibrator.is_trained:
+                                    console.print("[yellow]🔄 Training calibration model...[/yellow]")
+                                    if calibrator.train():
+                                        console.print("[green]✅ Calibration model trained successfully![/green]")
+                                    else:
+                                        console.print("[red]⚠️  Calibration training failed[/red]")
+                                
+                            except Exception as e:
+                                console.print(f"[red]⚠️  Could not record feedback: {e}[/red]")
+                            except KeyboardInterrupt:
+                                console.print("\n[dim]Feedback skipped[/dim]")
+                            except Exception as e:
+                                console.print(f"[red]⚠️  Feedback error: {e}[/red]")
+                            
+                        else:
+                            console.print("[red]❌ Please enter a number between 1 and 5[/red]")
+                            
+                except KeyboardInterrupt:
+                    console.print("\n[dim]Feedback skipped[/dim]")
+                except Exception as e:
+                    console.print(f"[red]⚠️  Feedback error: {e}[/red]")
+                
+                # Add navigation options after each answer
+                console.print("\n" + "─" * 60)
+                console.print("🧭 [bold cyan]Navigation Options:[/bold cyan]")
+                console.print("   [cyan]1.[/cyan] Ask another question")
+                console.print("   [cyan]2.[/cyan] Return to main menu")
+                console.print("   [cyan]3.[/cyan] Exit PyNucleus")
+                console.print("─" * 60)
+                console.print("\n💡 [dim]Tip: Type '1' to continue, '2' for menu, '3' to exit, or just ask your next question[/dim]")
                 
             except KeyboardInterrupt:
                 console.print("\n👋 [yellow]Chat session ended[/yellow]")
