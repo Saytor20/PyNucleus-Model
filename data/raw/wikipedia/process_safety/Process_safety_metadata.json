@@ -1,0 +1,47 @@
+{
+  "title": "Process safety",
+  "url": "https://en.wikipedia.org/wiki/Process_safety",
+  "content": "Process safety is an interdisciplinary engineering domain focusing on the study, prevention, and management of large-scale fires, explosions and chemical accidents (such as toxic gas clouds) in process plants or other facilities dealing with hazardous materials, such as refineries and oil and gas (onshore and offshore) production installations. Thus, process safety is generally concerned with the prevention of, control of, mitigation of and recovery from unintentional hazardous materials releases that can have a serious effect to people (onsite and offsite), plant and/or the environment.\n\n Media related to Process safety at Wikimedia Commons",
+  "summary": "Process safety is an interdisciplinary engineering domain focusing on the study, prevention, and management of large-scale fires, explosions and chemical accidents (such as toxic gas clouds) in process plants or other facilities dealing with hazardous materials, such as refineries and oil and gas (onshore and offshore) production installations. Thus, process safety is generally concerned with the prevention of, control of, mitigation of and recovery from unintentional hazardous materials releases that can have a serious effect to people (onsite and offsite), plant and/or the environment.",
+  "categories": [
+    "Articles with short description",
+    "CS1: long volume value",
+    "Chemical engineering",
+    "Chemical industry",
+    "Commons category link from Wikidata",
+    "Hazardous materials",
+    "Process safety",
+    "Safety",
+    "Short description is different from Wikidata"
+  ],
+  "references": [
+    "https://www.aiche.org/ccps/process-safety-faqs",
+    "https://www.iogp.org/workstreams/safety/safety/process-safety/",
+    "https://appea.com.au/wp-content/uploads/2020/06/Process-Safety-Guide-April-2016.pdf",
+    "https://blog.safetysolutions.co.nz/the-definition-of-process-safety",
+    "https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-H/section-1910.119",
+    "https://www.aiche.org/ccps/history",
+    "https://www.epa.gov/rmp/risk-management-program-rmp-rule-overview",
+    "https://web.archive.org/web/20230618013713/https://www.epa.gov/rmp/risk-management-program-rmp-rule-overview",
+    "http://dx.doi.org/10.1205/095758299529938",
+    "https://doi.org/10.1205%2F095758299529938"
+  ],
+  "scraped_at": "2025-06-19 15:52:29",
+  "word_count": 92,
+  "char_count": 649,
+  "original_length": 17661,
+  "cleaning_efficiency": "3.7%",
+  "text_cleaning_stats": {
+    "files_processed": 0,
+    "lines_removed": 86,
+    "blank_lines_removed": 170,
+    "single_letters_removed": 44,
+    "metadata_lines_removed": 10,
+    "words_rejoined": 0
+  },
+  "keyword": "process safety",
+  "files_created": {
+    "txt_file": "wikipedia/process_safety/Process_safety.txt",
+    "json_file": "wikipedia/process_safety/Process_safety_metadata.json"
+  }
+}

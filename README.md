@@ -1,495 +1,245 @@
-# PyNucleus-Model: Advanced Modular RAG-DWSIM Pipeline
+# PyNucleus-Model: Chemical Process Simulation & RAG System
 
-![PyNucleus Logo](https://raw.githubusercontent.com/m-a-i-n-s/PyNucleus-Model/main/automation_tools/PyNucleus_logo.png)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docker Support](https://img.shields.io/badge/docker-supported-blue.svg)](https://www.docker.com/)
 
-**PyNucleus** is a comprehensive, production-ready pipeline that integrates **Retrieval-Augmented Generation (RAG)** with **DWSIM chemical process simulation**. It provides end-to-end document processing, knowledge extraction, simulation analysis, and LLM-ready outputs for chemical engineering applications.
+**PyNucleus** is a comprehensive system that integrates **Retrieval-Augmented Generation (RAG)** with **chemical process simulation** for advanced chemical engineering applications.
 
----
+## 🚀 Quick Start
 
-## 🚀 **Key Features**
+### Prerequisites
 
-### **Multi-Source Knowledge Integration**
-- **Document Processing**: PDF, DOCX, TXT files with automatic conversion
-- **Web Content Scraping**: Wikipedia articles and online resources  
-- **Vector Knowledge Base**: FAISS-powered semantic search and retrieval
-- **Chemical Process Simulation**: DWSIM integration with enhanced analytics
+- **Python**: 3.11+ (tested with 3.11, 3.12, and 3.13)
+- **Memory**: 8GB+ RAM recommended
+- **Storage**: 2GB+ free space
 
-### **Production-Ready Pipeline**
-- **System Health Monitoring**: 100% operational status with comprehensive diagnostics
-- **Robust Validation**: 81.4% script health with 100% execution success rate
-- **Error Handling**: Comprehensive fallback systems for missing dependencies
-- **Pipeline Testing**: RAG, DWSIM, and integration components all verified
-
-### **Advanced Analytics & Integration**
-- **DWSIM-RAG Integration**: Combines simulation results with knowledge insights
-- **Financial Analysis**: ROI calculations, profit analysis, recovery rates
-- **LLM-Ready Outputs**: Structured text summaries with detailed feed conditions
-- **Configuration Management**: JSON/CSV templates for easy customization
-
-### **Enterprise Features**
-- **Docker Support**: Container-ready deployment
-- **Prompt System**: Jinja2-based templates for standardized LLM interactions
-- **Token Utilities**: Efficient tokenization with HuggingFace integration
-- **Comprehensive Testing**: Unit tests, integration tests, and system validation
-
----
-
-## 🎯 **Quick Start**
-
-### **🎯 Choose Your Installation Method**
-
-#### **Option 1: Google Colab (Recommended for Quick Testing)**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadalmusaiteer/PyNucleus-Model/blob/main/Capstone%20Project.ipynb)
-
-**Perfect for**: Testing, learning, cloud-based analysis
-- ✅ No local setup required
-- ✅ Free GPU access available  
-- ✅ Instant start with pre-configured environment
-- ✅ Automatic dependency management
-
-See detailed setup: [📚 Colab Setup Guide](docs/colab_setup.md)
-
-#### **Option 2: Local Installation**
-
-**Prerequisites:**
-- Python 3.10+ (tested with 3.11 and 3.13)
-- 8GB+ RAM recommended
-- (Optional) GPU with CUDA for enhanced performance
+### One-Click Installation (Recommended)
 
 ```bash
 # Clone the repository
 git clone https://github.com/mohammadalmusaiteer/PyNucleus-Model.git
 cd PyNucleus-Model
 
-# Validate infrastructure first
-python scripts/validate_infrastructure.py
-
-# Create and activate virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Choose your requirements file based on your needs:
-# Full installation (recommended for production):
-pip install -r requirements.txt
-
-# Colab-compatible installation:
-pip install -r requirements-colab.txt
-
-# Minimal installation (basic functionality only):
-pip install -r requirements-minimal.txt
+# Run complete setup (installs everything + sample data)
+bash scripts/quick-start.sh
 ```
 
-#### **Option 3: Docker Deployment (Production Ready)**
-
-**Perfect for**: Production deployment, consistent environments, microservices
+### Alternative: Manual Installation
 
 ```bash
-# Clone and validate
+# Clone repository
 git clone https://github.com/mohammadalmusaiteer/PyNucleus-Model.git
 cd PyNucleus-Model
 
-# Validate and build all services
-chmod +x docker/build.sh
-./docker/build.sh
+# Create virtual environment
+python -m venv pynucleus_env
+source pynucleus_env/bin/activate  # On Windows: pynucleus_env\Scripts\activate
 
-# Start all services
-cd docker
-docker-compose up -d
+# Install dependencies
+pip install -r requirements.txt
 
-# View service status
-docker-compose ps
-docker-compose logs -f
+# Install package in development mode
+pip install -e .
 ```
 
-### **🔍 Infrastructure Validation**
+### Docker Installation
+
 ```bash
-# Comprehensive infrastructure check
-python scripts/validate_infrastructure.py
+# Clone repository
+git clone https://github.com/mohammadalmusaiteer/PyNucleus-Model.git
+cd PyNucleus-Model
 
-# Quick system health check
-python scripts/comprehensive_system_diagnostic.py --quiet
+# Build and run with Docker
+docker build -f deployment/Dockerfile -t pynucleus .
+docker run --rm -it pynucleus --help
 
-# Validate all components
-python scripts/system_validator.py
+# Or use Docker Compose
+cd deployment
+docker-compose up
 ```
 
-### **4. Run the Complete Pipeline**
+## 🎯 Verify Installation
 
-#### **Option A: User-Friendly Notebook (Recommended)**
 ```bash
-# Open the streamlined user interface
-jupyter notebook "Capstone Project.ipynb"
+# Check CLI is working
+pynucleus --help
 
-# Simple 3-step process:
-# 1. Run Cell 1: Initialize system
-# 2. Run Cell 2: Execute complete analysis  
-# 3. Run Cell 3: View results
+# Run system health check
+pynucleus health quick
 
-# Automatically includes:
-# • RAG document processing
-# • DWSIM simulations  
-# • Enhanced integration & financial analysis
-# • LLM-ready outputs and reports
+# Test with a simple question
+pynucleus chat --model Qwen/Qwen2.5-1.5B-Instruct
 ```
 
-#### **Option B: Developer Environment**
+## 📋 Basic Usage
+
+### CLI Commands
+
 ```bash
-# For advanced users and developers
-jupyter notebook "Developer_Notebook.ipynb"
+# View available commands
+pynucleus --help
 
-# Features:
-# • System diagnostics and health checks
-# • Performance benchmarking
-# • Advanced configuration management
-# • Debug tools and system optimization
+# Interactive chat session
+pynucleus chat
+
+# Run pipeline with configuration
+pynucleus run --config configs/development_config.json
+
+# Build chemical plant simulation
+pynucleus build --interactive
+
+# System diagnostics
+pynucleus health full
+
+# Process documents
+pynucleus ingest auto --source-dir data/01_raw
 ```
 
-#### **Option C: Developer Console (Web Interface)**
+### Python API
+
+```python
+from pynucleus.pipeline import PipelineOrchestrator
+from pynucleus.rag import QueryEngine
+
+# Initialize pipeline
+pipeline = PipelineOrchestrator()
+results = pipeline.run_full_pipeline()
+
+# Query system
+engine = QueryEngine()
+answer = engine.query("What are the parameters for distillation column design?")
+```
+
+## ⚙️ Configuration
+
+### Environment Setup
+
+Create a `.env` file from the template:
+
 ```bash
-# Enhanced stable web application with auto-restart and monitoring
-python run_web_app.py
-
-# Navigate to the developer console
-# http://localhost:5001/dev
-
-# Features:
-# • Interactive RAG testing with real-time responses
-# • Document upload directly to source_documents folder
-# • System diagnostics with comprehensive validation
-# • System statistics and database monitoring
-# • Retro CRT terminal interface with PDF table extraction
-# • Keyboard shortcuts (Ctrl+Enter, F5, F6, F7)
-# • Circuit breaker protection against failures
-# • Automatic restart on crashes (up to 10 attempts)
-# • Enhanced error handling and memory management
-# • Health monitoring at: http://localhost:5001/health
+cp configs/config_template.env .env
 ```
 
-#### **Option D: Command Line Interface**
+Edit `.env` with your settings:
+
 ```bash
-# Run the complete pipeline
-python run_pipeline.py run
+# Model Configuration
+MODEL_ID=Qwen/Qwen2.5-1.5B-Instruct
+EMB_MODEL=all-MiniLM-L6-v2
+MAX_TOKENS=8192
+USE_CUDA=false
 
-# View pipeline status
-python run_pipeline.py status
-
-# Quick test
-python run_pipeline.py test
+# Database Configuration
+CHROMA_PATH=data/03_intermediate/vector_db
 ```
 
-### **🎯 PyNucleus Dashboard**
+### Configuration Files
 
-#### **Quick Start**
+- `configs/development_config.json` - Development settings
+- `configs/production_config.json` - Production settings
+- `configs/mock_data_modular_plants.json` - Plant templates
 
-### 1. Launch Dashboard
-```bash
-python scripts/launch_dashboard.py
-```
-
-### 2. Open Browser
-Go to: http://localhost:5001/dashboard
-
-### 3. Use Features
-- **Q&A**: Ask questions, rate answers (1-10)
-- **Diagnostics**: Check system health
-- **Validation**: Test system accuracy
-- **Statistics**: View system capabilities
-
-That's it! 🎉
-
----
-
-## 📁 **Project Structure**
+## 🗂️ Project Structure
 
 ```
 PyNucleus-Model/
-├── src/pynucleus/              # Main Python package
-│   ├── api/                    # Web application & developer console
-│   │   ├── app.py              # Flask web server
-│   │   └── static/             # Developer console interface
-│   ├── pipeline/               # Core pipeline orchestration
-│   │   ├── pipeline_rag.py     # RAG pipeline
-│   │   ├── pipeline_dwsim.py   # DWSIM simulation
-│   │   ├── pipeline_export.py  # Results export
-│   │   └── pipeline_utils.py   # Complete orchestration
-│   ├── rag/                    # RAG components
-│   │   ├── document_processor.py # Document conversion
-│   │   ├── data_chunking.py    # Text chunking
-│   │   ├── vector_store.py     # FAISS vector database
-│   │   ├── wiki_scraper.py     # Wikipedia scraping
-│   │   └── performance_analyzer.py # Evaluation
-│   ├── integration/            # Enhanced features
-│   │   ├── config_manager.py   # Configuration management
-│   │   ├── dwsim_rag_integrator.py # DWSIM-RAG integration
-│   │   └── llm_output_generator.py # LLM-ready outputs
-│   ├── llm/                    # LLM utilities
-│   │   ├── llm_runner.py       # HuggingFace model runner
-│   │   └── query_llm.py        # LLM query manager
-│   ├── utils/                  # Utilities
-│   │   ├── token_utils.py      # Token counting
-│   │   └── performance_analyzer.py # Performance metrics
-│   └── tests/                  # Comprehensive test suite
-├── data/                       # Organized data directories
-│   ├── 01_raw/                # Source documents & web content
-│   ├── 02_processed/          # Converted text files
-│   ├── 03_intermediate/       # Chunked data
-│   ├── 04_models/             # FAISS indexes & models
-│   └── 05_output/             # Results & LLM reports
-├── scripts/                    # System utilities
-│   ├── system_validator.py    # Comprehensive validation
-│   └── comprehensive_system_diagnostic.py # Health checks
-├── prompts/                    # Jinja2 prompt templates
-├── configs/                    # Configuration templates
-├── automation_tools/           # Helper scripts
-├── logs/                      # System logs
-├── Capstone Project.ipynb     # User-friendly interface (3-step process)
-└── Developer_Notebook.ipynb   # Advanced development environment
+├── src/pynucleus/          # Main Python package
+│   ├── cli.py              # Command-line interface
+│   ├── pipeline/           # Core processing pipeline
+│   ├── rag/                # Document processing & retrieval
+│   ├── llm/                # Language model integration
+│   ├── metrics/            # Performance monitoring
+│   └── terminal_dashboard.py # Terminal dashboard
+├── configs/                # Configuration files
+├── data/                   # Data directories
+│   ├── 01_raw/            # Source documents
+│   ├── 02_processed/      # Processed text
+│   └── 05_output/         # Results and reports
+├── scripts/               # Utility scripts
+├── docs/                  # Documentation
+├── requirements.txt       # Python dependencies
+└── pyproject.toml        # Package configuration
 ```
 
----
-
-## ⚙️ **Configuration**
-
-### **RAG Pipeline Settings** (`src/pynucleus/config.py`)
-```python
-# Document processing
-CHUNK_SIZE = 512
-CHUNK_OVERLAP = 50
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-
-# Wikipedia scraping
-WIKI_SEARCH_KEYWORDS = [
-    "modular design", "software architecture", 
-    "system design", "industrial design", "supply chain"
-]
-```
-
-### **DWSIM Configuration** (`configs/simulation_config_template.json`)
-```json
-{
-  "simulations": [
-    {
-      "case_name": "distillation_ethanol_water",
-      "type": "Distillation",
-      "components": ["Ethanol", "Water"],
-      "operating_conditions": {
-        "temperature": 78.4,
-        "pressure": 101.325,
-        "reflux_ratio": 2.5
-      }
-    }
-  ]
-}
-```
-
----
-
-## 🔄 **Usage Workflows**
-
-### **1. User-Friendly Interface (Recommended for Most Users)**
-```bash
-# Open the streamlined notebook
-jupyter notebook "Capstone Project.ipynb"
-
-# Run 3 simple cells:
-# Cell 1: System initialization
-# Cell 2: Complete analysis execution  
-# Cell 3: Results dashboard
-
-# Everything is handled automatically with clear progress indicators
-```
-
-### **2. Basic Pipeline (Programmatic Access)**
-```python
-from pynucleus.pipeline import PipelineUtils
-
-# Initialize pipeline
-pipeline = PipelineUtils(results_dir="data/05_output/results")
-
-# Run complete pipeline
-results = pipeline.run_complete_pipeline()
-
-# View results
-pipeline.view_results_summary()
-```
-
-### **3. Enhanced Pipeline (Advanced Users)**
-```python
-from pynucleus.integration import ConfigManager, DWSIMRAGIntegrator, LLMOutputGenerator
-
-# Enhanced configuration
-config_manager = ConfigManager(config_dir="configs")
-config_manager.create_template_json("my_simulations.json")
-
-# DWSIM-RAG integration
-integrator = DWSIMRAGIntegrator(results_dir="data/05_output/results")
-enhanced_results = integrator.integrate_simulation_results(dwsim_results)
-
-# LLM-ready outputs
-llm_generator = LLMOutputGenerator(results_dir="data/05_output/llm_reports")
-llm_file = llm_generator.export_llm_ready_text(enhanced_results)
-```
-
-### **4. Developer Environment (For Development & Debugging)**
-```bash
-# Open the comprehensive developer notebook
-jupyter notebook "Developer_Notebook.ipynb"
-
-# Features include:
-# • System diagnostics and health monitoring
-# • Performance benchmarking and optimization
-# • Advanced configuration management
-# • LLM development and prompt engineering
-# • Debug tools and maintenance utilities
-```
-
-### **5. Prompt System Integration**
-```python
-# Load prompt system (in Jupyter)
-exec(open('prompts/notebook_integration.py').read())
-
-# Create chemical engineering prompts
-prompt = create_prompt(
-    question="What are the optimization strategies for distillation efficiency?",
-    system_msg="You are an expert chemical process engineer",
-    context="Analyzing ethanol-water separation process"
-)
-```
-
----
-
-## 📊 **System Health & Monitoring**
-
-### **Current System Status**
-- ✅ **Overall Health**: 100.0% EXCELLENT (Comprehensive Diagnostic)
-- ✅ **Script Health**: 81.4% with 100% execution success rate
-- ✅ **Pipeline Components**: All healthy (RAG, DWSIM, Enhanced Integration)
-- ✅ **Dependencies**: Comprehensive fallback systems implemented
-
-### **Monitoring Commands**
-```bash
-# Complete system diagnostic
-python scripts/comprehensive_system_diagnostic.py
-
-# Script validation with execution testing
-python scripts/system_validator.py
-
-# Quick pipeline test
-python run_pipeline.py test
-```
-
----
-
-## 🧪 **Testing & Validation**
-
-### **Test Coverage**
-- **Unit Tests**: `src/pynucleus/tests/` (100% healthy)
-- **Integration Tests**: Pipeline component testing
-- **System Validation**: Actual script execution testing
-- **Health Monitoring**: Comprehensive diagnostic checks
-
-### **Running Tests**
-```bash
-# Run all tests
-pytest src/pynucleus/tests/ -v
-
-# Quick validation
-python scripts/system_validator.py --quick
-
-# Comprehensive diagnostic
-python scripts/comprehensive_system_diagnostic.py
-```
-
----
-
-## 🐳 **Docker Deployment**
+## 🧪 Testing & Validation
 
 ```bash
-# Build and run with Docker Compose
-docker-compose up --build
+# Run comprehensive system validation
+python scripts/run_comprehensive_validation.py
 
-# Or run individual containers
-docker build -t pynucleus .
-docker run -p 8000:8000 pynucleus
+# Quick health check
+pynucleus health quick
+
+# Full system diagnostics
+pynucleus diagnostics --comprehensive
 ```
 
----
+## 🔧 Troubleshooting
 
-## 📈 **Output Formats**
+### Common Issues
 
-### **Standard Results** (`data/05_output/results/`)
-- `dwsim_simulation_results.csv` - Simulation data for analysis
-- `dwsim_summary.csv` - Summary statistics
-- `rag_query_results.csv` - RAG retrieval results
+**Installation Problems:**
+```bash
+# Update pip and install dependencies
+pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+```
 
-### **Enhanced LLM Reports** (`data/05_output/llm_reports/`)
-- `{simulation}_summary.md` - Detailed simulation analysis
-- `financial_analysis_*.csv` - ROI and profit calculations
-- `integrated_dwsim_rag_results_*.json` - Complete integration data
+**Runtime Errors:**
+```bash
+# Validate system infrastructure
+python scripts/validate_infrastructure.py
 
----
+# Run diagnostics
+pynucleus health full --verbose
+```
 
-## 🔧 **Advanced Features**
+**Performance Issues:**
+```bash
+# Check system resources
+pynucleus stats --mode system
 
-### **Financial Analysis**
-- Recovery rate calculations
-- ROI and profit analysis  
-- Daily revenue projections
-- Cost-benefit analysis
+# Optimize memory usage
+python scripts/optimize_memory.py
+```
 
-### **LLM Integration**
-- HuggingFace model support (GPT-2, custom models)
-- Standardized prompt templates
-- Token counting and optimization
-- Query management system
+### Getting Help
 
-### **Performance Analytics**
-- FAISS vector store evaluation
-- Recall@k measurements
-- Processing time analysis
-- System health monitoring
+1. Run system diagnostics: `pynucleus diagnostics`
+2. Check logs in `logs/` directory
+3. View detailed help: `pynucleus [command] --help`
+4. Report issues: [GitHub Issues](https://github.com/mohammadalmusaiteer/PyNucleus-Model/issues)
 
----
+## 📚 Documentation
 
-## 📚 **Documentation**
+- **[Features & Capabilities](docs/features.md)** - Detailed feature documentation
+- **[CLI Reference](docs/cli-reference.md)** - Complete command reference
+- **[Configuration Guide](docs/configuration.md)** - Setup and customization
+- **[Development Guide](docs/development.md)** - Contributing and development
 
-### **User Documentation**
-- **User Interface**: `Capstone Project.ipynb` - Simple 3-step process
-- **Complete Guide**: `docs/ENHANCED_PIPELINE_SUMMARY.md`
-- **Quick Start**: This README.md
+## 📄 License
 
-### **Developer Documentation**  
-- **Developer Environment**: `Developer_Notebook.ipynb` - Advanced tools & diagnostics
-- **Project Structure**: `docs/project_info/PROJECT_STRUCTURE.md`
-- **Testing Reports**: `docs/project_info/LOCAL_TESTING_REPORT.md`
-- **Prompt System**: `prompts/README.md`
-- **API Documentation**: In-code docstrings and type hints
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
+## 🙏 Acknowledgments
 
-## 🤝 **Contributing**
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Run tests (`python scripts/system_validator.py`)
-4. Commit changes (`git commit -m 'Add AmazingFeature'`)
-5. Push to branch (`git push origin feature/AmazingFeature`)
-6. Open Pull Request
+- **DWSIM**: Open-source chemical process simulator
+- **ChromaDB**: Vector database for embeddings
+- **HuggingFace**: Transformers and model hub
+- **Typer**: Modern CLI framework
 
 ---
 
-## 📝 **License**
+**Ready for production use with comprehensive monitoring and enterprise-grade reliability!** 🎉
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 🆕 Recent Updates
 
----
-
-## 🎯 **Next Steps**
-
-1. **Production Deployment**: Scale with Docker containers
-2. **Custom Models**: Integrate domain-specific language models
-3. **Real-time Monitoring**: Connect to live process data
-4. **Advanced Analytics**: Machine learning-based optimization
-5. **API Development**: REST API for external integrations
-
-**Ready for production use with 100% system health and comprehensive monitoring!** 
+### v2.0.0 (2025-01-14)
+- **CLI-First Architecture**: Streamlined CLI-only interface for better performance
+- **Python 3.11+**: Updated to support latest Python versions (3.11, 3.12, 3.13)
+- **Latest Dependencies**: Updated all dependencies to latest stable versions
+- **Cross-Platform Support**: Enhanced compatibility across macOS, Windows, and Linux
+- **Docker Optimization**: Improved Docker builds with better caching and smaller images
+- **Code Cleanup**: Removed duplicated files and web interface components
+- **Performance Improvements**: Faster startup times and reduced memory usage

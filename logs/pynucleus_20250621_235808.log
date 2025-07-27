@@ -1,3 +1,0 @@
-2025-06-21 23:58:08,151 | __main__ | INFO | run_web_app.py:134 | PyNucleus web application starting
-2025-06-21 23:58:08,173 | pynucleus.api.app | INFO | app.py:71 | Cleaning up application resources...
-2025-06-21 23:58:08,270 | pynucleus.api.app | INFO | app.py:75 | Resource cleanup completed

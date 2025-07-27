@@ -1,3 +1,0 @@
-2025-06-21 05:01:39,942 | pynucleus | INFO | <string>:36 | PyNucleus web application starting
-2025-06-21 05:01:39,968 | pynucleus.api.app | INFO | app.py:51 | Cleaning up application resources...
-2025-06-21 05:01:40,084 | pynucleus.api.app | INFO | app.py:55 | Resource cleanup completed

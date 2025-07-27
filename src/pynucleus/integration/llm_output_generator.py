@@ -16,9 +16,8 @@ class LLMOutputGenerator:
         self.results_dir.mkdir(parents=True, exist_ok=True)
         self.logger = logging.getLogger(__name__)
         
-        # Note: Jinja2 template system removed in favor of DSPy structured prompting
         self.jinja_env = None
-        self.logger.info("Using direct content generation (templates migrated to DSPy)")
+        self.logger.info("Using direct content generation with DSPy structured prompting")
     
     def export_llm_ready_text(self, data: Dict[str, Any]) -> Path:
         """
@@ -42,7 +41,7 @@ class LLMOutputGenerator:
         filename = f"llm_analysis_{case_name}_{timestamp}.md"
         output_file = self.results_dir / filename
         
-        # Generate content directly (template system migrated to DSPy)
+        # Generate content directly
         content = self._generate_content(data)
         
         with open(output_file, 'w', encoding='utf-8') as f:

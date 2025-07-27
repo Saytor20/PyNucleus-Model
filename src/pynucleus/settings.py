@@ -4,14 +4,14 @@ from typing import List
 
 class Settings(BaseSettings):
     CHROMA_PATH: str = "data/03_intermediate/vector_db"
-    MODEL_ID: str = "Qwen/Qwen2.5-1.5B-Instruct"  # Fixed: Use real Qwen model
-    GGUF_PATH: str = "path/to/Qwen2.5-1.5B-Instruct.gguf"  # Updated to match real model
+    MODEL_ID: str = "HuggingFaceTB/SmolLM2-1.7B-Instruct"  # Upgraded: Better benchmark performance, optimal size
+    OPTIMIZED_MODEL_PATH: str = "models/optimized/SmolLM2-1.7B-Instruct.gguf"  # Path for optimized model format
     USE_CUDA: bool = True  # Enable GPU detection by default
     USE_GPU_QUANTIZATION: bool = True  # Use 8-bit quantization on GPU for memory efficiency
     EMB_MODEL: str = "BAAI/bge-small-en-v1.5"  # High-performance embedding model
-    MAX_TOKENS: int = 150  # Reduced base token limit for concise answers
+    MAX_TOKENS: int = 200  # Optimal token limit for consistent quality
     MIN_TOKENS: int = 50   # Minimum tokens for simple answers
-    MAX_TOKENS_COMPLEX: int = 300  # Maximum tokens for complex technical questions
+    MAX_TOKENS_COMPLEX: int = 250  # Controlled max for complex questions
     TOKEN_COMPLETENESS_THRESHOLD: float = 0.8  # Threshold to detect incomplete answers
     MAX_CONTEXT_CHARS: int = 2000  # Reduced context size for more focused answers
     RETRIEVE_TOP_K: int = 3  # Focus on top 3 most relevant chunks
@@ -19,12 +19,12 @@ class Settings(BaseSettings):
     VSTORE_BACKEND: str = "chroma"  # legacy stub
     vstore_backend: str = "chroma"   # lowercase alias for compatibility
     
-    # Enhanced Q&A settings
-    TEMPERATURE: float = 0.3
-    TOP_P: float = 0.9
-    REPETITION_PENALTY: float = 1.2
+    # Enhanced Q&A settings - optimized for consistency
+    TEMPERATURE: float = 0.2  # Lower for more consistent outputs
+    TOP_P: float = 0.85  # Slightly reduced for better focus
+    REPETITION_PENALTY: float = 1.15  # Reduced to prevent overly terse responses
     MIN_ANSWER_LENGTH: int = 50
-    MAX_ANSWER_LENGTH: int = 500  # Reduced for more concise answers
+    MAX_ANSWER_LENGTH: int = 400  # Optimized for consistent concise answers
     
     # Enhanced RAG Pipeline Configuration - OPTIMIZED FOR BETTER RETRIEVAL
     # Chunking settings optimized for ≥90% retrieval recall
@@ -56,10 +56,10 @@ class Settings(BaseSettings):
     # Enhanced Model Selection for Better Answer Quality
     # Priority order: Use best available model for improved responses
     PREFERRED_MODELS: List[str] = [
-        "Qwen/Qwen2.5-7B-Instruct",    # Best for complex chemical engineering
-        "Qwen/Qwen2.5-3B-Instruct",    # Good balance of quality and speed
-        "Qwen/Qwen2.5-1.5B-Instruct",  # Decent for simpler questions
-        "Qwen/Qwen2.5-1.5B-Instruct",  # Updated: Use real model as fallback
+        "HuggingFaceTB/SmolLM2-1.7B-Instruct",    # Primary: Best small model performance
+        "Qwen/Qwen2.5-1.5B-Instruct",            # Fallback 1: Reliable, multilingual fallback
+        "microsoft/Phi-3.5-mini-instruct",        # Fallback 2: High quality, larger but efficient
+        "HuggingFaceTB/SmolLM2-360M-Instruct",   # Fallback 3: Ultra-lightweight emergency option
     ]
     
     # ChromaDB telemetry settings

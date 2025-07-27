@@ -1,9 +1,0 @@
-{
-  "MODEL_ID": "Qwen/Qwen1.5-0.5B-Chat",
-  "EMB_MODEL": "all-MiniLM-L6-v2",
-  "MAX_TOKENS": 128,
-  "RETRIEVE_TOP_K": 2,
-  "USE_CUDA": false,
-  "LOG_LEVEL": "WARNING",
-  "CHROMA_PATH": "data/03_intermediate/vector_db_test"
-}

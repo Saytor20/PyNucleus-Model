@@ -1,0 +1,42 @@
+# Processed Document
+# Processing Date: 2025-07-01 21:59:16
+# Content Length: 5418 characters
+# Word Count: 794 words
+# ==================================================
+
+Title: Heat recovery ventilation
+Source: Wikipedia - https://en.wikipedia.org/wiki/Heat_recovery_ventilation
+Scraped: 2025-06-19 15:51:57
+Word Count: 375
+Character Count: 2416
+Keywords: heat exchanger
+--------------------------------------------------------------------------------
+SUMMARY:
+By recovering the residual heat in the exhaust gas, the fresh air introduced into the air conditioning system is preheated (or pre-cooled) before it enters the room, or the air cooler of the air conditioning unit performs heat and moisture treatment. A typical heat recovery system in buildings comprises a core unit, channels for fresh and exhaust air, and blower fans. Building exhaust air is used as either a heat source or heat sink, depending on the climate conditions, time of year, and requirements of the building. Heat recovery systems typically recover about 6095% of the heat in the exhaust air and have significantly improved the energy efficiency of buildings.
+Energy recovery ventilation (ERV) is the energy recovery process in residential and commercial HVAC systems that exchanges the energy contained in normally exhausted air of a building or conditioned space, using it to treat (precondition) the incoming outdoor ventilation air. The specific equipment involved may be called an Energy Recovery Ventilator, also commonly referred to simply as an ERV.
+An ERV is a type of air-to-air heat exchanger that transfers latent heat as well as sensible heat. Because both temperature and moisture are transferred, ERVs are described as total enthalpic devices. In contrast, a heat recovery ventilator (HRV) can only transfer sensible heat. HRVs can be considered sensible only devices because they only exchange sensible heat. In other words, all ERVs are HRVs, but not all HRVs are ERVs. It is incorrect to use the terms HRV, AAHX (air-to-air heat exchanger), and ERV interchangeably.
+During the warmer seasons, an ERV system pre-cools and dehumidifies; during cooler seasons the system humidifies and pre-heats. An ERV system helps HVAC design meet ventilation and energy standards (e.g., ASHRAE), improves indoor air quality and reduces total HVAC equipment capacity, thereby reducing energy consumption. ERV systems enable an HVAC system to maintain a 40-50% indoor relative humidity, essentially in all conditions. ERVs must use power for a blower to overcome the pressure drop in the system, hence incurring a slight energy demand.
+================================================================================
+CONTENT:
+By recovering the residual heat in the exhaust gas, the fresh air introduced into the air conditioning system is preheated (or pre-cooled) before it enters the room, or the air cooler of the air conditioning unit performs heat and moisture treatment. A typical heat recovery system in buildings comprises a core unit, channels for fresh and exhaust air, and blower fans. Building exhaust air is used as either a heat source or heat sink, depending on the climate conditions, time of year, and requirements of the building. Heat recovery systems typically recover about 6095% of the heat in the exhaust air and have significantly improved the energy efficiency of buildings.
+Energy recovery ventilation (ERV) is the energy recovery process in residential and commercial HVAC systems that exchanges the energy contained in normally exhausted air of a building or conditioned space, using it to treat (precondition) the incoming outdoor ventilation air. The specific equipment involved may be called an Energy Recovery Ventilator, also commonly referred to simply as an ERV.
+An ERV is a type of air-to-air heat exchanger that transfers latent heat as well as sensible heat. Because both temperature and moisture are transferred, ERVs are described as total enthalpic devices. In contrast, a heat recovery ventilator (HRV) can only transfer sensible heat. HRVs can be considered sensible only devices because they only exchange sensible heat. In other words, all ERVs are HRVs, but not all HRVs are ERVs. It is incorrect to use the terms HRV, AAHX (air-to-air heat exchanger), and ERV interchangeably.
+During the warmer seasons, an ERV system pre-cools and dehumidifies; during cooler seasons the system humidifies and pre-heats. An ERV system helps HVAC design meet ventilation and energy standards (e.g., ASHRAE), improves indoor air quality and reduces total HVAC equipment capacity, thereby reducing energy consumption. ERV systems enable an HVAC system to maintain a 40-50% indoor relative humidity, essentially in all conditions. ERVs must use power for a blower to overcome the pressure drop in the system, hence incurring a slight energy demand.
+Animation explaining simply how HRV works
+Heat recovery in Industry
+Energy and Heat Recovery Ventilators (ERV/HRV)
+Write-up of Single Room MHRV (SRMHRV) in UK home
+Builder Insight Bulletin - Heat Recovery Ventilation
+Energy and Heat Recovery Ventilators (ERV/HRV)
+----------------------------------------
+CATEGORIES:
+ All articles lacking reliable references
+ All articles that are excessively detailed
+ All articles with style issues
+ All articles with unsourced statements
+ All articles with vague or ambiguous time
+ Articles lacking reliable references from February 2024
+ Articles with excerpts
+ Articles with short description
+ Articles with unsourced statements from April 2022
+ Articles with unsourced statements from January 2024

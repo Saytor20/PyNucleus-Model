@@ -45,7 +45,7 @@ except ImportError:
 class DSPyAnswerEngine:
     """DSPy-based answer engine for structured LLM interactions."""
     
-    def __init__(self, model_id: str = "Qwen/Qwen2.5-1.5B-Instruct", rag_pipeline=None):
+    def __init__(self, model_id: str = "HuggingFaceTB/SmolLM2-1.7B-Instruct", rag_pipeline=None):
         self.model_id = model_id
         self.rag_pipeline = rag_pipeline
         self.logger = logging.getLogger(__name__)
@@ -122,7 +122,7 @@ class DSPyAnswerEngine:
                     return
             
             else:
-                # Local/HuggingFace model - Try LocalDSPyAdapter first, then Ollama
+                # Local/HuggingFace model - Try LocalDSPyAdapter first
                 self.logger.info(f"Local model detected: {self.model_id}")
                 
                 # Try LocalDSPyAdapter first (LangChain + structured prompting)
@@ -173,44 +173,9 @@ class DSPyAnswerEngine:
                 elif not self.local_dspy_configured:
                     self.logger.warning("SimpleLocalAdapter not available")
                 
-                # Fallback to Ollama integration
-                try:
-                    self.logger.info("Attempting DSPy integration via Ollama OpenAI-compatible API...")
-                    
-                    # Try to connect to Ollama
-                    import requests
-                    ollama_url = "http://localhost:11434/v1/"
-                    
-                    # Test if Ollama is running
-                    try:
-                        response = requests.get("http://localhost:11434/api/tags", timeout=2)
-                        if response.status_code == 200:
-                            # Configure DSPy with Ollama
-                            lm = dspy.LM(
-                                model=f"openai/{self.model_id}",
-                                api_base=ollama_url,
-                                api_key="ollama",
-                                model_type="chat"
-                            )
-                            dspy.configure(lm=lm)
-                            self.logger.info(f"DSPy configured with Ollama: {self.model_id}")
-                        else:
-                            raise Exception("Ollama not accessible")
-                    except:
-                        self.logger.warning("Ollama not running or not accessible at localhost:11434")
-                        self.logger.info("To use DSPy with local models:")
-                        self.logger.info("1. Install Ollama: https://ollama.ai/")
-                        self.logger.info(f"2. Run: ollama pull {self.model_id}")
-                        self.logger.info("3. Start Ollama server")
-                        self.logger.info("Falling back to RAG + LLM system")
-                        self.dspy_configured = False
-                        return
-                        
-                except Exception as ollama_error:
-                    self.logger.warning(f"Ollama integration failed: {ollama_error}")
-                    self.logger.info("Falling back to RAG + LLM system")
-                    self.dspy_configured = False
-                    return
+                # Mark DSPy as not configured and continue with RAG system
+                self.logger.info("Advanced DSPy features not available, using standard RAG + LLM system")
+                self.dspy_configured = False
             
             # Initialize programs only if DSPy is properly configured and modules available
             if CORE_MODULES_AVAILABLE and PyNucleusProgram:

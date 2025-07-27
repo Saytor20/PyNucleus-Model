@@ -1,0 +1,28 @@
+# Processed Document
+# Processing Date: 2025-07-01 21:59:16
+# Content Length: 2880 characters
+# Word Count: 408 words
+# ==================================================
+
+Title: Continuous stirred-tank reactor
+Source: Wikipedia - https://en.wikipedia.org/wiki/Continuous_stirred-tank_reactor
+Scraped: 2025-06-19 15:52:09
+Word Count: 180
+Character Count: 1135
+Keywords: chemical reactor
+--------------------------------------------------------------------------------
+SUMMARY:
+The continuous stirred-tank reactor (CSTR), also known as vat- or backmix reactor, mixed flow reactor (MFR), or a continuous-flow stirred-tank reactor (CFSTR), is a common model for a chemical reactor in chemical engineering and environmental engineering. A CSTR often refers to a model used to estimate the key unit operation variables when using a continuous agitated-tank reactor to reach a specified output. The mathematical model works for all fluids: liquids, gases, and slurries.
+The behavior of a CSTR is often approximated or modeled by that of an ideal CSTR, which assumes perfect mixing. In a perfectly mixed reactor, reagent is instantaneously and uniformly mixed throughout the reactor upon entry. Consequently, the output composition is identical to composition of the material inside the reactor, which is a function of residence time and reaction rate. The CSTR is the ideal limit of complete mixing in reactor design, which is the complete opposite of a plug flow reactor (PFR). In practice, no reactors behave ideally but instead fall somewhere in between the mixing limits of an ideal CSTR and PFR.
+================================================================================
+CONTENT:
+The continuous stirred-tank reactor (CSTR), also known as vat- or backmix reactor, mixed flow reactor (MFR), or a continuous-flow stirred-tank reactor (CFSTR), is a common model for a chemical reactor in chemical engineering and environmental engineering. A CSTR often refers to a model used to estimate the key unit operation variables when using a continuous agitated-tank reactor to reach a specified output. The mathematical model works for all fluids: liquids, gases, and slurries.
+The behavior of a CSTR is often approximated or modeled by that of an ideal CSTR, which assumes perfect mixing. In a perfectly mixed reactor, reagent is instantaneously and uniformly mixed throughout the reactor upon entry. Consequently, the output composition is identical to composition of the material inside the reactor, which is a function of residence time and reaction rate. The CSTR is the ideal limit of complete mixing in reactor design, which is the complete opposite of a plug flow reactor (PFR). In practice, no reactors behave ideally but instead fall somewhere in between the mixing limits of an ideal CSTR and PFR.
+== References ==
+----------------------------------------
+CATEGORIES:
+ Articles with short description
+ CS1 maint: location missing publisher
+ Chemical reactors
+ Pages that use a deprecated format of the chem tags
+ Short description matches Wikidata

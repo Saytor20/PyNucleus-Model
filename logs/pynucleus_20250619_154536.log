@@ -1,5 +1,0 @@
-2025-06-19 15:45:36,121 | __main__ | INFO | run_pipeline.py:429 | 🚀 Starting RAG query
-2025-06-19 15:45:36,121 | __main__ | INFO | run_pipeline.py:430 | ❓ Question: What is distillation and how does it work?
-2025-06-19 15:45:36,121 | __main__ | INFO | run_pipeline.py:431 | 🤖 Model ID: Qwen/Qwen2.5-1.5B-Instruct
-2025-06-19 15:45:36,122 | __main__ | INFO | run_pipeline.py:432 | 📊 Top K: 5
-2025-06-19 15:45:36,122 | __main__ | ERROR | run_pipeline.py:514 | ❌ Question processing failed: No module named 'src.pynucleus.llm.dspy_compile'

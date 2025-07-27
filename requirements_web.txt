@@ -1,0 +1,36 @@
+# PyNucleus Web Interface Requirements
+# Install with: pip install -r requirements_web.txt
+
+# Core web interface
+gradio>=4.0.0
+
+# Base PyNucleus requirements (from main requirements.txt)
+typer>=0.9.0
+rich>=13.0.0
+chromadb>=0.4.0
+torch>=2.0.0
+transformers>=4.30.0
+sentence-transformers>=2.2.0
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+PyPDF2>=3.0.0
+python-docx>=0.8.11
+pathlib>=1.0.1
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+rapidfuzz>=3.0.0
+markdown>=3.4.0
+jinja2>=3.1.0
+dspy-ai>=2.4.0
+wikipedia>=1.4.0
+litellm>=1.0.0
+
+# Optional but recommended
+uvicorn>=0.23.0  # For potential FastAPI upgrade
+fastapi>=0.100.0  # For potential API backend
+streamlit>=1.25.0  # Alternative web framework

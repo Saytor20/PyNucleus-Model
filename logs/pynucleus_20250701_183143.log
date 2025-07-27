@@ -1,6 +1,0 @@
-2025-07-01 18:31:43,897 | __main__ | INFO | run_pipeline.py:756 | 🚀 Starting Interactive Plant Builder
-2025-07-01 18:31:43,898 | pynucleus.pipeline.plant_builder | INFO | plant_builder.py:19 | PlantBuilder initialized with mock data manager
-2025-07-01 18:31:43,898 | pynucleus.llm.llm_runner | INFO | llm_runner.py:27 | Loading model: Qwen/Qwen2.5-1.5B-Instruct
-2025-07-01 18:31:47,265 | pynucleus.llm.llm_runner | INFO | llm_runner.py:47 | Model loaded successfully on device: cpu
-2025-07-01 18:31:47,267 | pynucleus.data.mock_data_manager | INFO | mock_data_manager.py:46 | Loaded mock data from configs/mock_data_config.json
-2025-07-01 18:31:47,267 | pynucleus.data.mock_data_manager | INFO | mock_data_manager.py:47 | Available: 22 plant templates, 5 technical documents

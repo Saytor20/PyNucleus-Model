@@ -1,0 +1,146 @@
+# PyNucleus-Model Docker Ignore
+# Cross-platform Docker ignore patterns for optimized builds
+
+# Git and version control
+.git/
+.gitignore
+.gitattributes
+*.md
+!README.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pynucleus_env/
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Cross-platform OS files
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+*.lnk
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Linux
+*~
+.directory
+.Trash-*
+.nfs*
+
+# Logs and temporary files
+logs/
+*.log
+update_log.txt
+
+# Archive and build artifacts
+archive/
+build/
+dist/
+*.egg-info/
+
+# Test artifacts
+.pytest_cache/
+test_output/
+*.db
+test_build_output*.json
+*_stats_test.json
+rag_metrics_*.json
+stress_test_*.json
+deployment_summary_*.json
+
+# Large model files
+models/
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.h5
+*.hdf5
+
+# Data directories (will be created in container)
+data/01_raw/
+data/02_processed/
+data/03_intermediate/vector_db/
+data/04_models/
+data/05_output/
+
+# Docker files (avoid infinite recursion)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Development tools
+activate_and_run.sh
+HEALTH_REPORT.md
+VALIDATION_REPORT.md
+OPTIMIZATION_REPORT.md

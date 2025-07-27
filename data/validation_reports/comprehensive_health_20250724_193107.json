@@ -1,0 +1,123 @@
+{
+  "timestamp": "2025-07-24T19:31:07.529189",
+  "duration_seconds": 41.561296224594116,
+  "health_score": 85.71428571428571,
+  "total_checks": 14,
+  "passed_checks": 12,
+  "critical_failures": 2,
+  "warnings": 0,
+  "checks": [
+    {
+      "name": "Critical configuration files",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": false,
+      "details": "All 4 files present",
+      "timestamp": "2025-07-24T19:30:25.967942"
+    },
+    {
+      "name": "Essential directories",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": false,
+      "details": "All 6 directories present",
+      "timestamp": "2025-07-24T19:30:25.967976"
+    },
+    {
+      "name": "CLI version command",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": true,
+      "details": "Basic CLI functionality",
+      "timestamp": "2025-07-24T19:30:27.277463"
+    },
+    {
+      "name": "CLI health quick",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": true,
+      "details": "System health validation",
+      "timestamp": "2025-07-24T19:30:27.689899"
+    },
+    {
+      "name": "CLI system-status validator",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": true,
+      "details": "Fast system validation",
+      "timestamp": "2025-07-24T19:30:28.106444"
+    },
+    {
+      "name": "CLI ingest info",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": false,
+      "details": "Vector database information",
+      "timestamp": "2025-07-24T19:30:28.568429"
+    },
+    {
+      "name": "CLI RAG status",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": false,
+      "details": "RAG system status",
+      "timestamp": "2025-07-24T19:30:29.037019"
+    },
+    {
+      "name": "CLI RAG info",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": false,
+      "details": "RAG system information",
+      "timestamp": "2025-07-24T19:30:29.506050"
+    },
+    {
+      "name": "Pipeline dry run",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": true,
+      "details": "Core pipeline validation",
+      "timestamp": "2025-07-24T19:30:36.963816"
+    },
+    {
+      "name": "Chat functionality",
+      "status": "\u274c FAIL",
+      "result": false,
+      "critical": true,
+      "details": "RAG question answering",
+      "timestamp": "2025-07-24T19:30:58.701736"
+    },
+    {
+      "name": "Build functionality",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": false,
+      "details": "Plant simulation system",
+      "timestamp": "2025-07-24T19:31:06.306910"
+    },
+    {
+      "name": "ChromaDB connectivity",
+      "status": "\u274c FAIL",
+      "result": false,
+      "critical": true,
+      "details": "No module named 'src'",
+      "timestamp": "2025-07-24T19:31:06.688581"
+    },
+    {
+      "name": "Python version",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": true,
+      "details": "Python 3.13.4 (OK)",
+      "timestamp": "2025-07-24T19:31:06.688595"
+    },
+    {
+      "name": "Key dependencies",
+      "status": "\u2705 PASS",
+      "result": true,
+      "critical": true,
+      "details": "All critical packages importable",
+      "timestamp": "2025-07-24T19:31:07.529168"
+    }
+  ]
+}

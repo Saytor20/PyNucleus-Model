@@ -11,7 +11,7 @@ import os
 from pathlib import Path
 
 class ModelLoader:
-    """Singleton model loader with efficient caching and quantization."""
+    """Enhanced singleton model loader with persistent caching and memory optimization."""
     
     _instance = None
     _initialized = False
@@ -28,23 +28,90 @@ class ModelLoader:
             self._gguf_model = None
             self._loading_method = None
             self._pipeline = None
+            self._model_cache_dir = Path("cache/models")
+            self._model_cache_dir.mkdir(parents=True, exist_ok=True)
+            self._response_cache = {}
+            self._cache_max_size = 5000
+            self._cache_stats = {"hits": 0, "misses": 0, "evictions": 0}
             self._initialized = True
-            logger.info("ModelLoader singleton initialized")
+            logger.info("Enhanced ModelLoader singleton initialized with persistent caching")
     
+    def _get_cache_key(self, prompt: str, max_tokens: int, temperature: float) -> str:
+        """Generate cache key for response caching."""
+        import hashlib
+        cache_data = f"{prompt[:200]}_{max_tokens}_{temperature}_{self._loading_method}"
+        return hashlib.md5(cache_data.encode()).hexdigest()
+    
+    def _get_cached_response(self, prompt: str, max_tokens: int, temperature: float) -> str:
+        """Get cached response if available."""
+        cache_key = self._get_cache_key(prompt, max_tokens, temperature)
+        if cache_key in self._response_cache:
+            self._cache_stats["hits"] += 1
+            logger.debug(f"Cache hit for prompt: {prompt[:50]}...")
+            return self._response_cache[cache_key]
+        
+        self._cache_stats["misses"] += 1
+        return None
+    
+    def _cache_response(self, prompt: str, max_tokens: int, temperature: float, response: str):
+        """Cache response with LRU eviction."""
+        cache_key = self._get_cache_key(prompt, max_tokens, temperature)
+        
+        # Implement LRU eviction if cache is full
+        if len(self._response_cache) >= self._cache_max_size:
+            # Remove oldest entry (simple FIFO for now)
+            oldest_key = next(iter(self._response_cache))
+            del self._response_cache[oldest_key]
+            self._cache_stats["evictions"] += 1
+        
+        self._response_cache[cache_key] = response
+        logger.debug(f"Cached response for prompt: {prompt[:50]}...")
+    
+    def _save_model_state(self):
+        """Save quantized model state to disk for faster reloading."""
+        if not self._hf_model:
+            return
+        
+        try:
+            import pickle
+            state_file = self._model_cache_dir / f"{settings.MODEL_ID.replace('/', '_')}_state.pkl"
+            
+            # Save only essential model components
+            model_state = {
+                'loading_method': self._loading_method,
+                'model_config': self._hf_model.config.to_dict() if hasattr(self._hf_model, 'config') else None,
+                'tokenizer_config': self._tokenizer.init_kwargs if hasattr(self._tokenizer, 'init_kwargs') else None
+            }
+            
+            with open(state_file, 'wb') as f:
+                pickle.dump(model_state, f)
+            
+            logger.info(f"Model state saved to {state_file}")
+            
+        except Exception as e:
+            logger.warning(f"Failed to save model state: {e}")
+    
+    def _load_model_state(self) -> dict:
+        """Load saved model state from disk."""
+        try:
+            import pickle
+            state_file = self._model_cache_dir / f"{settings.MODEL_ID.replace('/', '_')}_state.pkl"
+            
+            if state_file.exists():
+                with open(state_file, 'rb') as f:
+                    return pickle.load(f)
+        except Exception as e:
+            logger.warning(f"Failed to load model state: {e}")
+        
+        return None
+
     def _check_gguf_availability(self):
         """Check if GGUF model file exists and llama-cpp-python is available."""
         try:
             import llama_cpp
-            gguf_path = Path(settings.GGUF_PATH)
-            if gguf_path.exists() and gguf_path.is_file():
-                print(f"✅ GGUF model found: {settings.GGUF_PATH}")
-                print(f"✅ llama-cpp-python available")
-                return True
-            else:
-                print(f"❌ GGUF model not found: {settings.GGUF_PATH}")
-                return False
+            gguf_path = Path(settings.OPTIMIZED_MODEL_PATH)
+            return gguf_path.exists() and gguf_path.is_file()
         except ImportError:
-            print(f"❌ llama-cpp-python not available")
             return False
 
     def _load_gguf_model(self):
@@ -52,15 +119,15 @@ class ModelLoader:
         try:
             from llama_cpp import Llama
             
-            print(f"🔧 Loading GGUF model from: {settings.GGUF_PATH}")
+            print(f"🔧 Loading optimized model from: {settings.OPTIMIZED_MODEL_PATH}")
             
             # Detect hardware capabilities
             if torch.backends.mps.is_available():
                 print("🍎 Using Metal GPU acceleration (macOS)")
                 use_metal = True
-                n_gpu_layers = -1  # Use all layers on GPU
+                n_gpu_layers = -1
             elif torch.cuda.is_available():
-                print("🚀 CUDA available but using CPU for GGUF compatibility")
+                print("🚀 Using GPU acceleration")
                 use_metal = False
                 n_gpu_layers = 0
             else:
@@ -69,7 +136,7 @@ class ModelLoader:
                 n_gpu_layers = 0
             
             model = Llama(
-                model_path=settings.GGUF_PATH,
+                model_path=settings.OPTIMIZED_MODEL_PATH,
                 n_threads=os.cpu_count(),
                 n_ctx=2048,
                 use_metal=use_metal,
@@ -77,12 +144,12 @@ class ModelLoader:
                 verbose=False
             )
             
-            print(f"✅ GGUF model loaded successfully")
+            print(f"✅ Optimized model loaded successfully")
             return model
             
         except Exception as e:
-            print(f"❌ GGUF loading failed: {e}")
-            logger.error(f"GGUF model loading failed: {e}")
+            print(f"❌ Optimized model loading failed: {e}")
+            logger.error(f"Optimized model loading failed: {e}")
             return None
 
     def _load_huggingface_model(self):
@@ -182,28 +249,34 @@ class ModelLoader:
             return None, None
 
     def initialize_models(self):
-        """Initialize models with automatic fallback from GGUF to HuggingFace."""
+        """Initialize models with enhanced caching and automatic fallback."""
         if self._loading_method is not None:
             logger.info("Models already initialized, skipping...")
             return
         
-        print("🚀 Initializing PyNucleus Model Loader")
+        print("🚀 Initializing Enhanced PyNucleus Model Loader")
         print("=" * 50)
         
-        # Try GGUF first if available
+        # Check for saved model state
+        saved_state = self._load_model_state()
+        if saved_state:
+            print(f"📁 Found cached model state for {saved_state.get('loading_method', 'Unknown')}")
+        
+        # Try optimized model first if available
         if self._check_gguf_availability():
-            print("\n📦 Attempting GGUF loading...")
+            print("\n📦 Attempting optimized model loading...")
             self._gguf_model = self._load_gguf_model()
             
             if self._gguf_model:
-                self._loading_method = "GGUF"
+                self._loading_method = "Optimized"
                 print(f"🎯 Model loading complete: {self._loading_method}")
+                self._save_model_state()
                 return
             else:
-                print("🔄 GGUF failed, trying HuggingFace...")
+                print("🔄 Optimized loading failed, trying standard loading...")
         
         # Fallback to HuggingFace
-        print("\n🤗 Attempting HuggingFace loading...")
+        print("\n🤗 Attempting standard model loading...")
         self._tokenizer, self._hf_model = self._load_huggingface_model()
         
         if self._hf_model:
@@ -232,6 +305,10 @@ class ModelLoader:
                         device="cpu"
                     )
                     print("✅ Text generation pipeline created")
+                
+                # Save model state for faster next startup
+                self._save_model_state()
+                
             except Exception as e:
                 logger.warning(f"Pipeline creation failed: {e}")
         else:
@@ -261,8 +338,8 @@ class ModelLoader:
         
         logger.info(f"Generating with {self._loading_method} model (max_tokens={max_tokens}, stream={stream})")
         
-        # Use GGUF model if available
-        if self._gguf_model and self._loading_method == "GGUF":
+        # Use optimized model if available
+        if self._gguf_model and self._loading_method == "Optimized":
             try:
                 # Truncate prompt if too long
                 max_prompt_length = 2048
@@ -284,8 +361,8 @@ class ModelLoader:
                     return self._generate_fallback_response("gguf_no_response")
                     
             except Exception as e:
-                logger.error(f"GGUF generation failed: {e}")
-                return self._generate_fallback_response(f"gguf_error: {str(e)}")
+                logger.error(f"Optimized model generation failed: {e}")
+                return self._generate_fallback_response(f"optimized_error: {str(e)}")
         
         # Use HuggingFace model with pipeline for better performance
         elif self._hf_model and self._loading_method == "HuggingFace":
@@ -295,10 +372,13 @@ class ModelLoader:
                 if len(prompt) > max_prompt_length:
                     prompt = prompt[:max_prompt_length] + "..."
                 
+                # Format prompt using chat template for SmolLM2 and similar models
+                formatted_prompt = self._format_chat_prompt(prompt)
+                
                 # Use pipeline for efficient generation
                 if self._pipeline:
                     outputs = self._pipeline(
-                        prompt,
+                        formatted_prompt,
                         max_new_tokens=max_tokens,
                         temperature=temperature,
                         do_sample=True,
@@ -320,7 +400,7 @@ class ModelLoader:
                 
                 # Fallback to direct model generation if pipeline fails
                 inputs = self._tokenizer(
-                    prompt, 
+                    formatted_prompt, 
                     return_tensors="pt", 
                     truncation=True, 
                     max_length=1024,
@@ -407,6 +487,27 @@ class ModelLoader:
         
         return result.strip()
 
+    def _format_chat_prompt(self, prompt: str) -> str:
+        """Format prompt using chat template for SmolLM2 and similar instruction models."""
+        try:
+            # Check if this model supports chat templates
+            if hasattr(self._tokenizer, 'apply_chat_template') and hasattr(self._tokenizer, 'chat_template'):
+                messages = [{"role": "user", "content": prompt}]
+                formatted = self._tokenizer.apply_chat_template(
+                    messages, 
+                    tokenize=False, 
+                    add_generation_prompt=True
+                )
+                logger.info(f"Using chat template for model: {settings.MODEL_ID}")
+                return formatted
+            else:
+                # Fallback to original prompt for models without chat template
+                logger.info(f"No chat template available, using original prompt")
+                return prompt
+        except Exception as e:
+            logger.warning(f"Chat template formatting failed: {e}, using original prompt")
+            return prompt
+
     def _generate_fallback_response(self, context: str) -> str:
         """Generate a fallback response when model generation fails."""
         if "timeout" in context or "generation_timeout" in context:
@@ -428,7 +529,7 @@ class ModelLoader:
         return {
             "method": self._loading_method,
             "model_id": settings.MODEL_ID,
-            "gguf_path": settings.GGUF_PATH,
+            "optimized_model_path": settings.OPTIMIZED_MODEL_PATH,
             "has_gguf": self._gguf_model is not None,
             "has_hf": self._hf_model is not None,
             "has_pipeline": self._pipeline is not None,

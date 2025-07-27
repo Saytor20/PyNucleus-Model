@@ -21,73 +21,70 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Chemistry",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
-    "torch>=2.6.0",
-    "transformers>=4.30.0",
-    "sentence-transformers>=2.2.0",
-    "langchain>=0.2.0",
-    "faiss-cpu>=1.7.0",
-    "python-dotenv>=1.0.0",
-    "requests>=2.31.0",
-    "beautifulsoup4>=4.12.0",
-    "tqdm>=4.66.0",
-    "pypdf>=4.0.0",
-    "python-docx>=1.1.0",
-    "jsonschema>=4.0.0",
-    "typing-extensions>=4.0.0",
-    "dspy-ai>=2.4.0",
-    "pydantic>=2.0.0",
-    "pydantic-settings>=2.0.0",
-    "psutil>=5.9.0",
-    "numpy>=1.24.0",
-    "pandas>=2.0.0",
-    "scikit-learn>=1.3.0",
-    "httpx>=0.24.0",
-    "aiohttp>=3.8.0",
-    "urllib3>=2.0.0",
-    "structlog>=23.0.0",
-    "accelerate>=0.24.0",
-    "unstructured>=0.11.0",
-    "PyMuPDF>=1.23.0",
-    "pdfplumber>=0.10.0",
-    "Pillow>=10.0.0",
-    "PyYAML>=6.0.0",
-    "typer>=0.12.0",
-    "flask>=2.3.0",
+    "torch>=2.7.1",
+    "transformers>=4.58.0",
+    "sentence-transformers>=3.3.0",
+    "huggingface-hub>=0.27.0",
+    "bitsandbytes>=0.42.0",
+    "accelerate>=1.2.0",
+    "chromadb>=1.0.16",
+    "faiss-cpu>=1.9.0",
+    "rank-bm25>=0.2.2",
+    "langchain>=0.3.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.7.0",
+    "python-dotenv>=1.0.1",
+    "jsonschema>=4.23.0",
+    "typing-extensions>=4.12.0",
+    "PyYAML>=6.0.2",
+    "typer>=0.15.0",
+    "rich>=13.9.0",
+    "loguru>=0.7.3",
+    "structlog>=24.5.0",
+    "tqdm>=4.67.0",
+    "numpy>=2.2.0",
+    "pandas>=2.2.0",
+    "psutil>=6.1.0",
+    "tabulate>=0.9.0",
+    "requests>=2.32.0",
+    "httpx>=0.28.0",
+    "aiohttp>=3.11.0",
+    "pypdf>=5.1.0",
+    "python-docx>=1.1.2",
+    "beautifulsoup4>=4.12.3",
+    "PyMuPDF>=1.25.0",
+    "Pillow>=11.0.0",
+    "camelot-py>=1.0.0",
+    "opencv-python>=4.10.0",
+    "scikit-learn>=1.6.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.4.0",
-    "pytest-asyncio>=0.21.0",
-    "black>=23.7.0",
-    "isort>=5.12.0",
-    "flake8>=6.1.0",
-    "mypy>=1.5.0",
-    "ruff>=0.1.0",
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "black>=24.10.0",
+    "isort>=5.13.0",
+    "flake8>=7.1.0",
+    "mypy>=1.13.0",
+    "ruff>=0.8.0",
 ]
 test = [
-    "pytest>=7.4.0",
-    "pytest-asyncio>=0.21.0",
-    "pytest-cov>=4.1.0",
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
 ]
 
 [project.scripts]
 pynucleus = "pynucleus.cli:main"
-pynucleus-ingest = "pynucleus.rag.document_processor:main"
-pynucleus-build-faiss = "pynucleus.utils.faiss_archiver:main"
-pynucleus-ask = "pynucleus.llm.query_llm:main"
-pynucleus-chunk = "pynucleus.rag.data_chunking:main"
-pynucleus-scrape = "pynucleus.rag.wiki_scraper:main"
-pynucleus-monitor = "pynucleus.rag.embedding_monitor:main"
-pynucleus-vector-store = "pynucleus.rag.vector_store:main"
-pynucleus-dwsim = "pynucleus.sim_bridge.dwsim_bridge:main"
 
 [project.urls]
 Homepage = "https://github.com/mohammadalmusaiteer/PyNucleus-Model"
@@ -105,7 +102,7 @@ pynucleus = ["py.typed"]
 
 [tool.black]
 line-length = 88
-target-version = ['py310']
+target-version = ['py311']
 include = '\.pyi?$'
 
 [tool.isort]
@@ -114,7 +111,7 @@ multi_line_output = 3
 line_length = 88
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 check_untyped_defs = true
 disallow_any_generics = true
 disallow_incomplete_defs = true
@@ -135,7 +132,7 @@ filterwarnings = [
 ]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 line-length = 88
 select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "G", "PIE", "T20", "Q"]
 ignore = ["E501", "E203"]

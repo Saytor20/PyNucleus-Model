@@ -1,0 +1,48 @@
+{
+  "title": "Heat recovery ventilation",
+  "url": "https://en.wikipedia.org/wiki/Heat_recovery_ventilation",
+  "content": "By recovering the residual heat in the exhaust gas, the fresh air introduced into the air conditioning system is preheated (or pre-cooled) before it enters the room, or the air cooler of the air conditioning unit performs heat and moisture treatment. A typical heat recovery system in buildings comprises a core unit, channels for fresh and exhaust air, and blower fans. Building exhaust air is used as either a heat source or heat sink, depending on the climate conditions, time of year, and requirements of the building. Heat recovery systems typically recover about 60–95% of the heat in the exhaust air and have significantly improved the energy efficiency of buildings.\nEnergy recovery ventilation (ERV) is the energy recovery process in residential and commercial HVAC systems that exchanges the energy contained in normally exhausted air of a building or conditioned space, using it to treat (precondition) the incoming outdoor ventilation air. The specific equipment involved may be called an Energy Recovery Ventilator, also commonly referred to simply as an ERV.\nAn ERV is a type of air-to-air heat exchanger that transfers latent heat as well as sensible heat. Because both temperature and moisture are transferred, ERVs are described as total enthalpic devices. In contrast, a heat recovery ventilator (HRV) can only transfer sensible heat. HRVs can be considered sensible only devices because they only exchange sensible heat. In other words, all ERVs are HRVs, but not all HRVs are ERVs. It is incorrect to use the terms HRV, AAHX (air-to-air heat exchanger), and ERV interchangeably.\nDuring the warmer seasons, an ERV system pre-cools and dehumidifies; during cooler seasons the system humidifies and pre-heats. An ERV system helps HVAC design meet ventilation and energy standards (e.g., ASHRAE), improves indoor air quality and reduces total HVAC equipment capacity, thereby reducing energy consumption. ERV systems enable an HVAC system to maintain a 40-50% indoor relative humidity, essentially in all conditions. ERV's must use power for a blower to overcome the pressure drop in the system, hence incurring a slight energy demand.\n\nAnimation explaining simply how HRV works\nHeat recovery in Industry\nEnergy and Heat Recovery Ventilators (ERV/HRV)\nWrite-up of Single Room MHRV (SRMHRV) in UK home\nBuilder Insight Bulletin - Heat Recovery Ventilation\nEnergy and Heat Recovery Ventilators (ERV/HRV)",
+  "summary": "By recovering the residual heat in the exhaust gas, the fresh air introduced into the air conditioning system is preheated (or pre-cooled) before it enters the room, or the air cooler of the air conditioning unit performs heat and moisture treatment. A typical heat recovery system in buildings comprises a core unit, channels for fresh and exhaust air, and blower fans. Building exhaust air is used as either a heat source or heat sink, depending on the climate conditions, time of year, and requirements of the building. Heat recovery systems typically recover about 60–95% of the heat in the exhaust air and have significantly improved the energy efficiency of buildings.\nEnergy recovery ventilation (ERV) is the energy recovery process in residential and commercial HVAC systems that exchanges the energy contained in normally exhausted air of a building or conditioned space, using it to treat (precondition) the incoming outdoor ventilation air. The specific equipment involved may be called an Energy Recovery Ventilator, also commonly referred to simply as an ERV.\nAn ERV is a type of air-to-air heat exchanger that transfers latent heat as well as sensible heat. Because both temperature and moisture are transferred, ERVs are described as total enthalpic devices. In contrast, a heat recovery ventilator (HRV) can only transfer sensible heat. HRVs can be considered sensible only devices because they only exchange sensible heat. In other words, all ERVs are HRVs, but not all HRVs are ERVs. It is incorrect to use the terms HRV, AAHX (air-to-air heat exchanger), and ERV interchangeably.\nDuring the warmer seasons, an ERV system pre-cools and dehumidifies; during cooler seasons the system humidifies and pre-heats. An ERV system helps HVAC design meet ventilation and energy standards (e.g., ASHRAE), improves indoor air quality and reduces total HVAC equipment capacity, thereby reducing energy consumption. ERV systems enable an HVAC system to maintain a 40-50% indoor relative humidity, essentially in all conditions. ERV's must use power for a blower to overcome the pressure drop in the system, hence incurring a slight energy demand.",
+  "categories": [
+    "All articles lacking reliable references",
+    "All articles that are excessively detailed",
+    "All articles with style issues",
+    "All articles with unsourced statements",
+    "All articles with vague or ambiguous time",
+    "Articles lacking reliable references from February 2024",
+    "Articles with excerpts",
+    "Articles with short description",
+    "Articles with unsourced statements from April 2022",
+    "Articles with unsourced statements from January 2024"
+  ],
+  "references": [
+    "https://web.archive.org/web/20100905175344/http://www.toolbase.org/TechInventory/techDetails.aspx?ContentDetailID=748",
+    "https://web.archive.org/web/20060822022431/http://www.seav.sustainability.vic.gov.au/manufacturing/sustainable_manufacturing/resource.asp?action=show_resource&resourcetype=2&resourceid=44#types",
+    "http://www.earth.org.uk/MHRV-mechanical-heat-recovery-ventilation.html",
+    "http://eprints.whiterose.ac.uk/104584/1/Manuscript%20-%20Revised%20Final.pdf",
+    "https://www.mdpi.com/1996-1073/12/7/1285/pdf",
+    "https://www.wikidata.org/wiki/Q2142051#identifiers",
+    "https://d-nb.info/gnd/4064199-5",
+    "https://www.bchousing.org/research-centre/library/builder-insight/builder-insight-14&sortType=sortByDate",
+    "https://api.semanticscholar.org/CorpusID:108291190",
+    "https://doi.org/10.1016%2Fj.rser.2011.09.026"
+  ],
+  "scraped_at": "2025-06-19 15:51:57",
+  "word_count": 375,
+  "char_count": 2416,
+  "original_length": 20965,
+  "cleaning_efficiency": "11.5%",
+  "text_cleaning_stats": {
+    "files_processed": 0,
+    "lines_removed": 3,
+    "blank_lines_removed": 0,
+    "single_letters_removed": 0,
+    "metadata_lines_removed": 3,
+    "words_rejoined": 0
+  },
+  "keyword": "heat exchanger",
+  "files_created": {
+    "txt_file": "wikipedia/heat_exchanger/Heat_recovery_ventilation.txt",
+    "json_file": "wikipedia/heat_exchanger/Heat_recovery_ventilation_metadata.json"
+  }
+}

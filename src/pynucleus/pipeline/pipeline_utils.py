@@ -18,7 +18,7 @@ class PipelineUtils:
         
         # Initialize pipeline components
         self.rag_pipeline = None
-        self._dwsim_pipeline = None
+        # DWSIM pipeline removed due to compatibility issues
         
         # Setup basic logging
         self.logger = logging.getLogger(__name__)
@@ -27,14 +27,13 @@ class PipelineUtils:
         self._initialize_pipelines()
         
     def _initialize_pipelines(self):
-        """Initialize RAG and DWSIM pipeline components."""
+        """Initialize RAG pipeline components."""
         try:
             from .pipeline_rag import RAGPipeline
-            from .pipeline_dwsim import DWSIMPipeline
             from ..rag.vector_store import RealFAISSVectorStore
             
             self.rag_pipeline = RAGPipeline(data_dir="data")
-            self._dwsim_pipeline = DWSIMPipeline()
+            # DWSIM pipeline removed due to compatibility issues
             
             # Initialize real FAISS vector store
             self.real_vector_store = RealFAISSVectorStore()
@@ -58,9 +57,8 @@ class PipelineUtils:
         rag_status = "✅ Initialized" if self.rag_pipeline else "❌ Not Initialized"
         print(f"📚 RAG Pipeline:          {rag_status}")
         
-        # Check DWSIM Pipeline
-        dwsim_status = "✅ Initialized" if self._dwsim_pipeline else "❌ Not Initialized"
-        print(f"🔬 DWSIM Pipeline:        {dwsim_status}")
+        # DWSIM Pipeline disabled due to compatibility issues
+        print(f"🔬 DWSIM Pipeline:        ❌ Disabled (using mock data)")
         
         # Check FAISS Vector Store
         if hasattr(self, 'real_vector_store') and self.real_vector_store:
@@ -84,7 +82,7 @@ class PipelineUtils:
         # Overall System Health
         components_ready = all([
             self.rag_pipeline is not None,
-            self._dwsim_pipeline is not None,
+            False,  # DWSIM pipeline disabled
             results_exists
         ])
         
@@ -98,21 +96,11 @@ class PipelineUtils:
             
         print("="*50)
     
-    @property
-    def dwsim_pipeline(self):
-        """Get DWSIM pipeline with backward compatibility for get_results()."""
-        if not hasattr(self, '_dwsim_pipeline') or self._dwsim_pipeline is None:
-            return None
-        return self._get_dwsim_pipeline_with_compat()
-    
-    @dwsim_pipeline.setter
-    def dwsim_pipeline(self, value):
-        """Set DWSIM pipeline."""
-        self._dwsim_pipeline = value
+    # DWSIM pipeline properties removed due to compatibility issues
     
     def run_complete_pipeline(self) -> Dict[str, Any]:
         """
-        Run the complete PyNucleus pipeline (RAG + DWSIM + Export).
+        Run the complete PyNucleus pipeline (RAG + Export).
         
         Returns:
             Dictionary with complete pipeline results
@@ -124,8 +112,8 @@ class PipelineUtils:
             # Step 1: Run RAG analysis
             rag_results = self._run_rag_analysis()
             
-            # Step 2: Run DWSIM simulations
-            dwsim_results = self._run_dwsim_simulations()
+            # Step 2: DWSIM simulations disabled - using mock data
+            dwsim_results = []  # Empty results as DWSIM is disabled
             
             # Step 3: Export results
             exported_files = self._export_results(rag_results, dwsim_results)
@@ -184,31 +172,21 @@ class PipelineUtils:
     
     def run_dwsim_only(self) -> Dict[str, Any]:
         """
-        Run only the DWSIM simulation pipeline.
+        DWSIM simulation pipeline disabled due to compatibility issues.
         
         Returns:
-            Dictionary with DWSIM results
+            Dictionary with mock results
         """
-        self.logger.info("Running DWSIM-only pipeline")
+        self.logger.info("DWSIM-only pipeline disabled - returning mock results")
         
-        try:
-            dwsim_results = self._run_dwsim_simulations()
-            exported_files = self._export_dwsim_results(dwsim_results)
-            
-            return {
-                "success": True,
-                "dwsim_data": dwsim_results,
-                "exported_files": exported_files,
-                "timestamp": datetime.now().isoformat()
-            }
-            
-        except Exception as e:
-            self.logger.error(f"DWSIM-only pipeline failed: {e}")
-            return {
-                "success": False,
-                "error": str(e),
-                "timestamp": datetime.now().isoformat()
-            }
+        # Return mock results since DWSIM is disabled
+        return {
+            "success": True,
+            "dwsim_data": [],
+            "exported_files": [],
+            "message": "DWSIM integration disabled - using mock data instead",
+            "timestamp": datetime.now().isoformat()
+        }
     
     def _run_rag_analysis(self) -> List[Dict[str, Any]]:
         """Run RAG analysis with predefined queries using real FAISS vector store."""
@@ -278,46 +256,11 @@ class PipelineUtils:
         return results
     
     def _run_dwsim_simulations(self) -> List[Dict[str, Any]]:
-        """Run DWSIM simulations with predefined configurations."""
-        if not hasattr(self, '_dwsim_pipeline') or not self._dwsim_pipeline:
-            raise Exception("DWSIM pipeline not initialized")
+        """DWSIM simulations disabled - returns empty list."""
+        self.logger.info("DWSIM simulations disabled - returning empty results")
+        return []
         
-        self.logger.info("Starting DWSIM chemical process simulations...")
-        
-        # Predefined simulation configurations
-        configs = [
-            {
-                "case_name": "distillation_ethanol_water",
-                "type": "distillation",
-                "components": "ethanol, water",
-                "feed_temperature": 25.0,
-                "feed_pressure": 1.0
-            },
-            {
-                "case_name": "methanol_synthesis",
-                "type": "reactor",
-                "components": "CO, H2, methanol",
-                "reaction_temperature": 250.0,
-                "reaction_pressure": 50.0
-            },
-            {
-                "case_name": "heat_exchanger_optimization",
-                "type": "heat_exchanger",
-                "components": "hot_stream, cold_stream",
-                "inlet_temperature": 80.0,
-                "outlet_temperature": 40.0
-            }
-        ]
-        
-        results = []
-        for i, config in enumerate(configs):
-            self.logger.info(f"Running DWSIM simulation {i+1}/{len(configs)}: {config['case_name']}")
-            time.sleep(3)  # Simulate realistic simulation time
-            result = self._dwsim_pipeline.run_simulation(config)
-            results.append(result)
-        
-        self.logger.info(f"DWSIM simulations completed: {len(results)} scenarios processed")
-        return results
+        # DWSIM simulation code removed - unreachable due to early return above
     
     def _export_results(self, rag_results: List[Dict[str, Any]], dwsim_results: List[Dict[str, Any]]) -> List[str]:
         """Export combined results to files."""
@@ -353,45 +296,13 @@ class PipelineUtils:
             return []
     
     def _export_dwsim_results(self, dwsim_results: List[Dict[str, Any]]) -> List[str]:
-        """Export DWSIM results to JSON file."""
-        try:
-            # Ensure results subdirectory exists
-            results_subdir = self.results_dir / "results"
-            results_subdir.mkdir(parents=True, exist_ok=True)
-            
-            export_file = results_subdir / f"dwsim_results_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-            
-            with open(export_file, 'w') as f:
-                json.dump(dwsim_results, f, indent=2)
-            
-            self.logger.info(f"DWSIM results exported to: {export_file}")
-            return [str(export_file)]
-            
-        except Exception as e:
-            self.logger.error(f"Failed to export DWSIM results: {e}")
-            return []
+        """Export DWSIM results - disabled, returns empty list."""
+        self.logger.info("DWSIM results export disabled - returning empty list")
+        return []
 
     def _get_dwsim_pipeline_with_compat(self):
-        """Get DWSIM pipeline with get_results method compatibility."""
-        if not hasattr(self, '_dwsim_pipeline') or self._dwsim_pipeline is None:
-            return None
-            
-        # Create a wrapper that provides get_results() method compatibility
-        class DWSIMPipelineWrapper:
-            def __init__(self, pipeline):
-                self._pipeline = pipeline
-            
-            def __getattr__(self, name):
-                return getattr(self._pipeline, name)
-            
-            def get_results(self):
-                """Alias for get_simulation_results() for notebook compatibility."""
-                return self._pipeline.get_simulation_results()
-            
-            def get_simulation_results(self):
-                return self._pipeline.get_simulation_results()
-        
-        return DWSIMPipelineWrapper(self._dwsim_pipeline)
+        """Get DWSIM pipeline with get_results method compatibility - disabled."""
+        return None  # DWSIM pipeline disabled
 
     def quick_test(self) -> Dict[str, Any]:
         """Quick test to verify basic functionality."""

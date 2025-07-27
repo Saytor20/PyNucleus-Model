@@ -1,8 +1,0 @@
-2025-06-19 16:25:13,968 | __main__ | INFO | run_pipeline.py:319 | 🚀 Starting document ingestion
-2025-06-19 16:25:13,968 | __main__ | INFO | run_pipeline.py:320 | 📁 Source directory: data/01_raw
-2025-06-19 16:25:13,968 | __main__ | INFO | run_pipeline.py:321 | 📁 Output directory: data/03_intermediate
-2025-06-19 16:25:13,968 | __main__ | INFO | run_pipeline.py:336 | 🔧 Using vector store backend: faiss
-2025-06-19 16:25:13,970 | pynucleus.rag.rag_core | INFO | rag_core.py:34 | RAG Core components initialized successfully
-2025-06-19 16:25:13,970 | __main__ | INFO | run_pipeline.py:348 | 🔄 Processing documents...
-2025-06-19 16:25:13,973 | pynucleus.rag.rag_core | INFO | rag_core.py:76 | Found 16 documents to process
-2025-06-19 16:25:13,975 | __main__ | INFO | run_pipeline.py:352 | ✅ Successfully processed 16 documents

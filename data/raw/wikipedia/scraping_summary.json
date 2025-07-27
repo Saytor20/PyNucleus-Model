@@ -1,0 +1,64 @@
+{
+  "scraping_session": {
+    "timestamp": "2025-06-19 15:52:34",
+    "statistics": {
+      "keywords_processed": 5,
+      "articles_collected": 8,
+      "articles_failed": 5,
+      "total_text_size": 11999
+    },
+    "keywords_used": [
+      "distillation",
+      "heat exchanger",
+      "chemical reactor",
+      "mass transfer",
+      "process safety"
+    ],
+    "failed_articles": [
+      "Mass transfer coefficient"
+    ],
+    "total_processed_titles": 8,
+    "text_cleaning_summary": {
+      "files_processed": 0,
+      "lines_removed": 87,
+      "blank_lines_removed": 170,
+      "single_letters_removed": 44,
+      "metadata_lines_removed": 11,
+      "words_rejoined": 0
+    }
+  },
+  "output_structure": {
+    "base_directory": "data/01_raw/wikipedia",
+    "keyword_directories": [
+      {
+        "keyword": "process_safety",
+        "txt_files": 2,
+        "json_files": 2
+      },
+      {
+        "keyword": "mass_transfer",
+        "txt_files": 1,
+        "json_files": 1
+      },
+      {
+        "keyword": "distillation",
+        "txt_files": 1,
+        "json_files": 1
+      },
+      {
+        "keyword": "heat_exchanger",
+        "txt_files": 2,
+        "json_files": 2
+      },
+      {
+        "keyword": "chemical_reactor",
+        "txt_files": 2,
+        "json_files": 2
+      }
+    ],
+    "total_files_created": {
+      "txt": 8,
+      "json": 8
+    }
+  }
+}

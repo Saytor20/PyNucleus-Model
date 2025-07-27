@@ -1,0 +1,45 @@
+{
+  "title": "Azeotropic distillation",
+  "url": "https://en.wikipedia.org/wiki/Azeotropic_distillation",
+  "content": "In chemistry, azeotropic distillation is any of a range of techniques used to break an azeotrope in distillation.  In chemical engineering, azeotropic distillation usually refers to the specific technique of adding another component to generate a new, lower-boiling azeotrope that is heterogeneous (e.g. producing two, immiscible liquid phases), such as the example below with the addition of benzene to water and ethanol. \n\nThis practice of adding an entrainer which forms a separate phase is a specific sub-set of (industrial) azeotropic distillation methods, or combination thereof.  In some senses, adding an entrainer is similar to extractive distillation.\n\nAzeotrope tables\nResidue curve\nTheoretical plate\nVacuum distillation\n\n== References ==",
+  "summary": "In chemistry, azeotropic distillation is any of a range of techniques used to break an azeotrope in distillation.  In chemical engineering, azeotropic distillation usually refers to the specific technique of adding another component to generate a new, lower-boiling azeotrope that is heterogeneous (e.g. producing two, immiscible liquid phases), such as the example below with the addition of benzene to water and ethanol. \n\nThis practice of adding an entrainer which forms a separate phase is a specific sub-set of (industrial) azeotropic distillation methods, or combination thereof.  In some senses, adding an entrainer is similar to extractive distillation.",
+  "categories": [
+    "All articles needing additional references",
+    "All articles with unsourced statements",
+    "Articles needing additional references from September 2024",
+    "Articles with short description",
+    "Articles with unsourced statements from December 2013",
+    "Distillation",
+    "Short description matches Wikidata"
+  ],
+  "references": [
+    "https://archive.org/details/laboratorytechni00wibe_0",
+    "https://doi.org/10.1016%2Fj.rser.2010.03.015",
+    "https://www.amazon.com/dp/B0007ENAMY",
+    "https://doi.org/10.1590%2FS0104-66321997000300004",
+    "https://doi.org/10.1002%2Fjctb.5040340408",
+    "https://doi.org/10.1021%2Fie900446v",
+    "https://search.worldcat.org/issn/0104-6632",
+    "https://ui.adsabs.harvard.edu/abs/1984JCTBC..34..187B",
+    "https://pubs.acs.org/doi/abs/10.1021/ie900446v",
+    "https://onlinelibrary.wiley.com/doi/abs/10.1002/jctb.5040340408"
+  ],
+  "scraped_at": "2025-06-19 15:51:48",
+  "word_count": 107,
+  "char_count": 749,
+  "original_length": 4088,
+  "cleaning_efficiency": "18.3%",
+  "text_cleaning_stats": {
+    "files_processed": 0,
+    "lines_removed": 0,
+    "blank_lines_removed": 0,
+    "single_letters_removed": 0,
+    "metadata_lines_removed": 0,
+    "words_rejoined": 0
+  },
+  "keyword": "distillation",
+  "files_created": {
+    "txt_file": "wikipedia/distillation/Azeotropic_distillation.txt",
+    "json_file": "wikipedia/distillation/Azeotropic_distillation_metadata.json"
+  }
+}

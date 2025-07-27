@@ -1,0 +1,79 @@
+# Processed Document
+# Processing Date: 2025-07-01 21:59:16
+# Content Length: 2962 characters
+# Word Count: 367 words
+# ==================================================
+
+Title: Process safety management
+Source: Wikipedia - https://en.wikipedia.org/wiki/Process_safety_management
+Scraped: 2025-06-19 15:52:33
+Word Count: 150
+Character Count: 1123
+Keywords: process safety
+--------------------------------------------------------------------------------
+SUMMARY:
+Process safety management (PSM) is a practice to manage business operations critical to process safety. It can be implemented using the established OSHA scheme or others made available by the EPA, AIChEs Center for Chemical Process Safety, or the Energy Institute.
+PSM schemes are organized in elements. Different schemes are based on different lists of elements. This is a typical list of elements that may be reconciled with most established PSM schemes:
+Commit to process safety
+Process safety culture
+Compliance with standards
+Process safety competency
+Workforce involvement
+Stakeholder outreach
+Understand hazards and risks
+Process knowledge and documentation management
+Hazard identification and risk analysis
+Manage risk
+Operating procedures
+Safe work practices (e.g. a permit-to-work system)
+Asset integrity management
+Contractor management
+Training and performance assurance
+Management of change
+Operational readiness
+Conduct of operations
+Emergency management
+Learn from experience
+Incident investigation
+Process safety metrics and performance measurement
+Auditing
+Management review and continuous improvement
+================================================================================
+CONTENT:
+Process safety management (PSM) is a practice to manage business operations critical to process safety. It can be implemented using the established OSHA scheme or others made available by the EPA, AIChEs Center for Chemical Process Safety, or the Energy Institute.
+PSM schemes are organized in elements. Different schemes are based on different lists of elements. This is a typical list of elements that may be reconciled with most established PSM schemes:
+Commit to process safety
+Process safety culture
+Compliance with standards
+Process safety competency
+Workforce involvement
+Stakeholder outreach
+Understand hazards and risks
+Process knowledge and documentation management
+Hazard identification and risk analysis
+Manage risk
+Operating procedures
+Safe work practices (e.g. a permit-to-work system)
+Asset integrity management
+Contractor management
+Training and performance assurance
+Management of change
+Operational readiness
+Conduct of operations
+Emergency management
+Learn from experience
+Incident investigation
+Process safety metrics and performance measurement
+Auditing
+Management review and continuous improvement
+----------------------------------------
+CATEGORIES:
+ All pages needing cleanup
+ All stub articles
+ Articles needing cleanup from January 2024
+ Articles with sections that need to be turned into prose from January 2024
+ Articles with short description
+ Management by type
+ Management stubs
+ Process safety
+ Short description matches Wikidata

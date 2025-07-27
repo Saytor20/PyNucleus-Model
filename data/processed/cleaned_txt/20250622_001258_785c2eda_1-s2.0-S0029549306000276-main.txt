@@ -1,0 +1,607 @@
+# Processed Document
+# Processing Date: 2025-06-22 00:12:59
+# Content Length: 32610 characters
+# Word Count: 5197 words
+# ==================================================
+
+--- Page 1 ---
+Nuclear Engineering and Design 236 (2006) 502509
+Advanced modularity design for the MIT pebble bed reactor
+Andrew C. Kadak , Marc V. Berte
+Department of Nuclear Engineering, Massachusetts Institute of Technology, 77 Massachusetts Avenue,
+24-202 Cambridge, MA 02139-4307, United States
+Received 6 October 2004; received in revised form 20 November 2005; accepted 22 November 2005
+Abstract
+The future of all reactors will depend on whether they can be economically built and operated. One of the major impediments to new nuclear
+construction is the capital cost due in large part to the length of construction time and complexity of the plant. Pebble bed reactors offer the
+opportunity to reduce the complexity of the plant because the number of safety systems required is signiﬁcantly reduced due to the inherent safety
+of the technology. However, because of its small size, the capital cost per kilowatt is likely to be large if traditional construction approaches are
+followed. This strongly suggests the need for innovative construction concepts to reduce the construction time and cost. MIT has proposed a
+modularity approach in which the plant is pre-built in space-frame type modules which are built in factories. These space frames would contain
+all the equipment contained in a given volume. Once equipment in the space frame is installed, the space frame would then be shipped to the
+site and assembled lego-style. Studies presently underway have demonstrated the feasibility of the concept. Thermal stress analysis has been
+performed and an integrated design with the space frames has been developed. It is expected that this modularity approach will signiﬁcantly shorten
+construction time and expense. This paper proposes a concept for further development, not a ﬁnal design for the entire plant.
+ 2006 Elsevier B.V. All rights reserved.
+1. Introduction
+The capital cost of new nuclear plants is the most signiﬁcant
+reason for the lack of interest by the electric generation industry.
+Despite the fact that nuclear energy provides an opportunity
+to demonstrably reduce global carbon emissions, the cost of
+building new plants is a signiﬁcant barrier to their construction.
+For nuclear energy to emerge as the energy source of choice,
+not only must the environmental beneﬁts be accepted but the
+cost must be competitive with alternative sources of energy. At
+present, the environmental beneﬁt is not sufﬁciently recognized
+nor are the present nuclear plants on the market judged to be
+economically competitive.
+The new nuclear plants on the market today are large light
+water reactors of the so-called Generation III vintage. Gen-
+eration III reactors are evolutionary light water reactors already
+certiﬁed by the Nuclear Regulatory Commission which need
+only to be ordered to be built since the safety reviews have been
+completed in the certiﬁcation process. These reactors require
+Corresponding author.
+E-mail addresses: kadak@mit.edu (A.C. Kadak),
+mvberte@yahoo.com (M.V. Berte).
+emergency core cooling systems that are necessary to prevent
+core meltdowns. Such complexity costs money, raises generat-
+ing cost and increases construction time.
+To deal with these extra costs, vendors have decided that the
+best way to deal with reducing the cost of power is to make
+the generating stations larger taking advantage of economies of
+scale by producing more power in only a slightly larger footprint.
+While these economies do work, the larger the plant, the higher
+the cost and the longer it will take to build. The expectation is
+that with the larger power output, the cost of power will be lower
+in the end.
+This traditional thinking is being challenged by the MIT
+pebble bed project. Rather than relying on the economies of
+scale to reduce costs, the economies of mass production will
+be used. By building smaller plants with factory built and site
+assembled modules, the cost and time for construction can be
+greatly reduced. The modular approach being developed by the
+MIT design team is also different than what others have called
+modular reactors (Westinghouse, 2000). The MIT deﬁnition
+of modular is making modules that are either truck or train ship-
+pable that can be assembled at the site. Modular does not mean
+taking a 1200 Mwe plant and making into four 300 Mwe mod-
+ule plants. This ﬂies against conventional wisdom on two fronts
+that (1) a small reactor can be competitive and (2) modularity
+0029-5493/$  see front matter  2006 Elsevier B.V. All rights reserved.
+doi:10.1016/j.nucengdes.2005.11.018
+--- Page 2 ---
+A.C. Kadak, M.V. Berte / Nuclear Engineering and Design 236 (2006) 502509
+503
+is determined by the size which is judged to be such that no
+serious accidents are possible (German Modul basis for their
+high temperature reactor).
+The design constraint for the MIT modular pebble bed reactor
+(MPBR) is what can be shipped by truck or train. This will limit
+the size of the components and ultimately the reactor. The tar-
+get size of the MPBR is approximately 250 Mwth based on this
+criteria. This means that for a 1000 Mwe nuclear station approx-
+imately eight reactor modules will be required that will be built
+out as the electricity demand warrants using simple space-frame
+type construction techniques to allow for faster assembly time.
+The original design concept for the MIT modular pebble bed
+reactor was that the time to build the equivalent of 1000 Mwe
+of nuclear power should be the same for a single plant and the
+modular units (Kadak et al., 1998). This paper will describe the
+modularity concept proposed that will hopefully yield a com-
+mercially attractive approach for further development.
+2. Background
+TheMITpebblebedprojectisdevelopingaconceptualdesign
+of a 250 Mwth120 Mwe modular pebble bed reactor using an
+indirectheliumtoheliumheatexchangergasturbinecyclepower
+plant (Kadak, 2000). The basic design parameters are shown in
+Table 1.
+The MIT modular pebble bed reactor is loosely based on
+the South African reactor design as proposed in 1998 in terms
+of the reactor core and support systems (ESKOM, 1998). The
+major exception is that an indirect Brayton cycle was chosen
+for the power conversion system (PCS). It is believed that the
+use of an intermediate heat exchanger (IHX) provides additional
+ﬂexibility in the design of the PCS as well as ease in mainte-
+nance due to a non-contaminated secondary system (Kadak et
+al., 1998). The fundamental core design is based on a conven-
+tional pebble bed core with a central dynamic reﬂector which is
+currently being analyzed in terms of its economic value given
+the additional complexity it creates in the fuel handling system
+and larger diameter of the reactor vessel. As noted, the basic
+design constraint of the MIT MPBR is the size and weight of
+the components such that they can be shipped to the site either
+by rail or truck and, if necessary, by barge. Shown in Fig. 1 is the
+basic reactor vessel with the dynamic column. Table 2 provides
+fundamental reactor vessel and core data.
+A schematic of the plant operating parameters and conditions
+(Wang, 2003) is shown in Fig. 2 . The present design utilizes
+Table 1
+Basic plant parameters for the MIT pebble bed reactor (Wang, 2003)
+Thermal power
+250 MW
+Gross electrical power
+132.5 MW
+Net electrical power
+120.3 MW
+Plant net efﬁciency
+48.1% (not take into account cooling
+IHX and HPT, if considering, it is
+believed >45%)
+Helium mass ﬂow rate
+126.7 kg/s
+Core outlet/inlet temperature
+900 C/520 C
+Cycle pressure ratio
+2.96
+Power conversion unit
+Three-shaft arrangement
+Fig. 1. Pebble bed reactor vessel and core (PBMR, Pty).
+existing technology that has been demonstrated. The resulting
+three-shaft system is limited to a nominal demonstrated shaft
+horsepower. The overall power conversion system is a three-
+shaft systemone low speed power shaft driving a generator
+and two separate turbo-compressor sets. The basis of this selec-
+tion was to limit the shaft power of any one turbine to less
+than36 MW(tostaywithinexistingturbo-machinerydesigns).
+Additionally, by reducing the length of each individual turbo-
+compressor set, it becomes easier to layout the reactor plant as
+Table 2
+Reactor parameters for the MPBR
+Thermal power
+265 MW
+Core height
+10.0 m
+Core diameter
+3.5 m
+Pressure vessel height
+16 m
+Pressure vessel radius
+5.6 m
+Number of fuel pebbles
+360,000
+Micro-spheres/fuel pebble
+11,000
+Fuel
+UCO or UO2
+Fuel pebble diameter
+60 mm
+Fuel pebble enrichment
+8%
+Uranium mass/fuel pebble
+7 g
+Coolant
+Helium
+Helium mass ﬂow rate
+120 kg/s (100% power)
+Helium entry/exit temperatures
+522 C/900 C
+Helium pressure
+80 bar
+Mean power density
+3.54 MW/m3
+Number of control rods
+6
+--- Page 3 ---
+504
+A.C. Kadak, M.V. Berte / Nuclear Engineering and Design 236 (2006) 502509
+Fig. 2. Current plant schematic.
+each shorter shaft can be positioned in adjacent modules, hori-
+zontally or vertically.
+The intermediate heat exchanger consists of six smaller mod-
+ules each with its own containment vessel. This was done to limit
+the weight of each module to within the 90,000 kg truck limit.
+Additionally, by splitting the IHX up into smaller modules, if
+there is damage or failure to a part of the IHX, the smaller module
+can be removed and replaced. As the IHX will in all probability
+be contaminated by ﬁssion products or fuel pebble debris, the six
+module arrangement minimizes the cost of an IHX repair since
+the most likely damage would be conﬁned to a single module.
+The recuperator is also split up into six modules similar to
+the IHX. This enables each recuperator module to be closely
+located to a corresponding IHX module, limiting the amount
+of piping required between the two. The separate recuperator
+modules also permit easy maintenance and ease of replacement,
+like the IHX modules.
+The balance of plant (BOP) layout shown in Fig. 3 is pro-
+posed. This layout seeks to maximize the modularity of the
+design by concentrating manifolds and plumbing in individual
+modules, while restricting each module to a single type of com-
+ponent (keeping turbo-machinery in separate modules from heat
+exchangers whenever possible to minimize parasitic effects dur-
+ing maintenance).
+3. Modularity principles in design (Berte, 2004)
+The initial concept for the MPBR was to build all the parts
+in a central factory and ship them to the construction site, where
+they would be assembled in a simple, bolt together, plug and
+play fashion, loaded with fuel and powered up (Mynatt et al.,
+2003).
+The MPBR project is highly dependent on the ability to
+package the reactor, its intermediate heat exchanger, and the
+remaining balance of plant in such a way to allow the MPBR
+plant to be transported via low cost means (truck as opposed to
+barge), easily assembled with minimal tooling and re-working,
+and operated in a small footprint commensurate with conven-
+tional power plants. Based on this dependency, the following
+requirements and design assumptions can be made.
+Fig. 3. Preliminary conceptual layout of the MIT PBR.
+--- Page 4 ---
+A.C. Kadak, M.V. Berte / Nuclear Engineering and Design 236 (2006) 502509
+505
+All components other than the reactor vessel and its associ-
+ated mechanical support systems must be transportable by heavy
+lift tractor/trailer truck. Given that heavy lift trucks are used to
+transport the BOP components to the plant location, the follow-
+ing limitations must be met. First, the maximum dimensions
+of any one module are 8 wide, 12 tall and up to 60 long.
+Second, the maximum weight of a single module must be less
+than 90,000 kg. Finally, the modules must be contained in a
+steel space frame to support the components within and to align
+those components with the components in other modules. The
+assembly on site of the modules must be limited to stacking the
+space frames to align the various ﬂanges and bolting the piping
+together.
+The modularity and packaging studies performed for the
+MPBR project can be broken down into three tasks: (1) system
+layout and design (physical layout and packaging of the plant
+components), (2) system concept design for increased modular-
+ity and decreased cost and (3) advanced component design con-
+cepts for future implementation. The ﬁrst task involves deﬁning
+the physical layout of the power plant itself and the breakdown of
+anytransportationissuesinvolvedinitsconstruction.Thesecond
+task involves making high level trade studies of the actual sys-
+tem, such as the number of intercoolers, limiting temperatures
+and other system parameters. The third task involves search-
+ing for advanced component concepts that may aid in the other
+two tasks by making individual components simpler, cheaper or
+more fault tolerant.
+The primary concept that deﬁnes the innovation of this pro-
+posed MPBR modularity approach is the minimization, and
+where possible, elimination, of the new capital facilities, on-site
+construction and labor required to construct a nuclear power
+plant. This approach is deﬁned by a new way to examine how
+components are built and assembled. In the past nuclear power
+plant, construction has been performed almost completely on
+site, as most of the components are far too large to transport
+assembled. Each new plant was effectively a new plant, in that
+it shared little, even in factory plants, with its brethren. These
+large plants are also vulnerable to major component failures
+which would eliminate all 1000 Mwe+ of generating capac-
+ity until the component could be repaired or replaced. Given
+the complexity and assembly techniques used for such plants,
+repairs could take a substantial amount of time, and require parts
+that were not off-the-shelf available.
+The MPBR will be built in a virtual factory in which indi-
+vidual component manufacturers would be asked to provide
+all components, piping connections, electric power connections
+and electronics for the volume occupied by the component in
+a space designated by a space frame (Fig. 4). These space
+frames would then be assembled at the plant site using a simple,
+bolt together, plug and play style assembly process. This should
+dramatically reduce construction time and costly ﬁeld work.
+4. System layout and design
+The resulting plant layout can be graphically visualized as
+shown in Fig. 5 which is a view from the top of the plant looking
+down. The dotted lines that are shown indicate the shippable
+Fig. 4. Space frame example.
+space frame modules for this design. The modules are arranged
+on two levels which are not shown. This layout is designed to
+minimize the number of modules that need to be removed to
+access any one module. To ensure this, the only modules whose
+replacement would necessitate the removal from the plant of
+a functioning module is the lower level manifold module, all
+other modules can be extracted either from above for the top-
+level modules, or from the side (on sliding rails) for all the lower
+level modules.
+This layout also simpliﬁes construction of the plant, as the
+only large machinery needed to emplace the modules is a crane
+to emplace the top-level modules. Given the low lift height and
+overhead clearance needed to emplace these modules, such a
+crane could be limited to a hydraulic lift carriage, deliverable
+by truck, which would grasp each module, lift it to the correct
+height, and slide it onto rails built into the lower modules. Using
+this type of assembly, the amount of site preparation for the
+balance of plant part of the facility is minimal (a suitable pad
+type foundation with the proper load bearing speciﬁcations).
+The on-site tooling and machinery requirements are minimal
+(lift carriage, stud tensioner and ﬂange assembly tools).
+Overall, this layout requires the use of 21 modules (not
+including command and control or power processing), each of
+which is truck transportable (Fig. 6 ).
+While this type-speciﬁc module isolation increases the total
+number of modules in the system, it limits the amount of func-
+tioning components that have to be removed during replacement
+of a single component. This is necessary, as the current strategy
+for repair of this type of reactor facility is one of replacement
+rather than on-site repair. Each module will be built in a cen-
+tralized factory and is transportable by truck. Therefore, when
+a component fails on site, that speciﬁc module will be removed
+and returned to the factory for repair, with an identical replace-
+ment module taking its place. This layout also maximizes the
+effectiveness of this strategy as each of the IHX and recuperator
+modules are identical, thus, a single spare IHX or recupera-
+tor module can be used to replace any one of the six original
+modules.
+While not shown on this layout design, plant command and
+control facilities and electrical metering/distribution modules
+would be shipped in similar containers and also assembled
+on site in a similar fashion. The addition of these modules is
+--- Page 5 ---
+506
+A.C. Kadak, M.V. Berte / Nuclear Engineering and Design 236 (2006) 502509
+Fig. 5. Top-down view of pebble bed reactor plant.
+what drove the location of the generator/power turbine mod-
+ule to its present location at the lower left of the layout, as
+additional power processing modules could be added adja-
+cent to it without compromising the removal path of any other
+modules. Command and control modules could be added in
+two levels across from these modules (adjacent to the turbo-
+compressor/intercooler modules).
+The largest single component is the reactor vessel which has
+been preliminarily reviewed for modularity. While shipment as
+a single vessel is possible by barge, to maintain the modularity
+approach described necessitates segmenting the vessel into ﬁve
+ring segments. The determination of whether the vessel would
+be ﬂanges (requiring massive ﬂange sections) or simply ﬁeld
+welded would be made in future studies. Juelich has proposed
+and tested a cast iron segmented pre-tensioned vessel as a solu-
+tion that will also be considered (Bottcher et al., in press).
+This paper does not address the reactor system or the core
+structures. They would require the same level of assessment
+regarding the degree of modularity practical and feasible in
+design. Modularization of the fuel handling system, the reac-
+tor cavity cooling systems, inventory control systems, etc.,
+would follow the same design constraints regarding packag-
+ing, shipping and assembly but are beyond the scope of this
+paper.
+The balance of plant ﬁts in a footprint roughly 24 m  21 m,
+a comparable size to 100 Mwe gas turbine facilities, and far
+Fig. 6. Shipping modules for balance of plant.
+--- Page 6 ---
+A.C. Kadak, M.V. Berte / Nuclear Engineering and Design 236 (2006) 502509
+507
+smaller than conventional nuclear plants. With reactor vessel,
+such a plant could easily be made to ﬁt within a 38 m  24 m
+footprint, for a power density of roughly 0.93 kW/m2. For a
+conventional 1 Gwe plant, this power density would require a
+facility footprint of 9300 m2. Given that conventional reactor
+containment buildings (not including the turbine shed and con-
+trol facilities) consume nearly 3700 m2 on their own, this power
+density is equal to, if not greater than conventional facilities,
+including advanced gas turbine systems.
+5. Manufacturing and assembly sequence
+This manufacturing and assembly sequence would work as
+follows.
+A series of subcontractors would be selected for all the var-
+ious components based on expertise, cost or the existence of
+a stock partfor example, Pratt & Whitney, General Electric,
+could be selected to manufacture the turbo-machinery (exper-
+tise and existing production capability), and Siemens could be
+selected for the circulator and inventory control motors (exis-
+tence of a stock part).
+Second, as each of the major subcontractors should have
+the capability of constructing a standard, low-tech space-frame,
+each module subcontractor would integrate their component
+into the standard frame along with all of the support equipment
+which would be designed with a limited number of inter-module
+interfaces.
+Third, for those subcontractors without the capability of con-
+structing the standard frame, or those that simply do not wish to
+do so, any local fabrication shop could be used to construct the
+frame and deliver it via conventional truck to the subcontractor.
+Fourth, site preparation entailing excavation and concrete
+construction creating the rooms for space frames is simple
+and could be performed by a chosen local contractor.
+Fifth, the transportation subcontractor would transport the
+ﬁnished modules (most designed to be either road or rail trans-
+portable) to the site where they would be assembled using
+minimum tools and equipment. Since the transportation sub-
+contractor will move the same parts from the same locations
+to different destinations, a substantial learning curve can be
+developed as better routes can be mapped, escorts arranged in
+advance, etc.
+Sixth, when the space frames arrive at the site, they will be
+emplaced in pre-conﬁgured locations. The connections of pip-
+ing, electrical and instrumentation lines would then be made.
+The present design calls for bolted ﬂanges for the piping and
+plug type connectors for the electrical and instrumentation sys-
+tems. Should it be necessary to assure minimal helium leakage
+at the ﬂanges, small weld beads to be used at the ﬂanges similar
+to that currently done for submarines. This lego style assem-
+bly is illustrated by Fig. 7 which is only used to capture the
+visualization of the concept.
+Once the plant is in operation, if a space frame (component)
+needs replacement, it should be readily available, as the subcon-
+tractors will be producing the parts continuously, and the next
+one produced will simply be trucked to an old destinationat
+low cost since the route has been done many times before.
+Fig. 7. Visualization of space frame lego concept.
+This process exempliﬁes all of the lean manufacturing lessons
+being pursued currently, as it minimizes inventory, maximizes
+commonality of interface (common space frame, etc.), enables
+the complex component subcontracts to be awarded to large,
+ﬁxed-location established companies, while using lower cost
+local resources for the simple components and tasks. Observing
+advanced modular nuclear submarine construction at Newport
+News Shipyard and General Dynamics Shipyard at Quonset
+Point, Rhode Island, provides additional conﬁdence that the con-
+cepts being proposed are quite practical and have demonstrated
+substantial cost savings in the fabrication of nuclear submarines.
+6. Construction build-out plan
+The construction plan of the MPBR reactor system follows a
+stepbystepprocessdescribedbelow,andillustratedinschematic
+form.
+6.1. Excavation
+The ﬁrst step in the construction of the MPBR module is the
+excavation of the area for the conﬁnement/BOP building. There
+are two possibilities for the vertical layout of the MPBR plant.
+First, if it is necessary for the containment structure to be buried
+to the level of the top of the reactor vessel for accident heat
+transfer concerns, the excavation will go to a depth of 19 m, at
+this depth, approximately 9 m of the primary side containment
+building will protrude above ground level.
+6.2. Foundation/walls
+The MPBR conﬁnement building is separated into two vol-
+umes, the primary side (containing the reactor, IHX modules and
+fuel handling apparatus) and the secondary side (containing the
+remainder of the BOP). Each of these volumes is enclosed with
+1 m thick reinforced concrete walls and a 2 m thick ﬂoor. This
+will provide the necessary protection of the MPBR system from
+outside projectiles and contain any pressure buildups caused
+by catastrophic leaks. The primary side internal dimensions
+--- Page 7 ---
+508
+A.C. Kadak, M.V. Berte / Nuclear Engineering and Design 236 (2006) 502509
+are approximately 15 m  15 m  25 m while the secondary side
+dimensions are 15 m  15 m  10 m (for the above ground lay-
+out). For a fully below grade layout, the two volumes would have
+the same height). Given this internal volume, if the entire helium
+inventory were vented into the building, the internal pressure
+would only increase by approximately 100 kPa (assuming zero
+cooling, once cooled, the pressure would only be 25 kPa above
+ambient). Not shown in the building layout is the extension of
+the two volumes laterally at ground level by approximately 5 m.
+This shelf is the loading area where modules are positioned on
+a hydraulic dolly to be moved outside of the containment struc-
+ture (through a sliding, sealed, concrete door) for transportation.
+6.3. Vertical module supports (IHX, manifolds)
+In order to facilitate replacement of the IHX modules, a steel
+beam structure is erected in the primary side volume that sup-
+ports the both the IHX modules and the manifold modules during
+normal operation. This structure extends in a stepped fashion
+toward the reactor vessel to provide rails to slide the IHX mod-
+ules out for replacement. An additional steel beam structure
+encircles the top of the reactor module to support the fuel han-
+dling modules. The reactor vessel itself is supported by a steel
+and concrete ring extending upward from the ﬂoor of the primary
+volume. These support structures, along with a shelf-like load-
+ing dock structure, are not shown in the illustrations for clarity
+purposes.
+6.4. Bridge crane installation/requirements
+The bridge cranes used to install and replace the various mod-
+ules are required to emplace and remove the modules in each
+volume. The IHX modules are the heaviest removable modules
+in the primary volume, with a mass of 40,000 kg (the reac-
+tor vessel is heavier but not intended for removal). A loaded
+spent fuel module will have a similar mass. On the secondary
+side, the heaviest module is the turbo-generator module which
+weighs approximately 300,000 kg. However, the design for a
+suitable bridge crane to accommodate the generator module, the
+bridge crane can be sized for the next heaviest component, the
+turbo-compressor sets, which weigh approximately 45,000 kg.
+The turbo-generator module, given its position at the edge of
+the layout, with no modules placed underneath it, enables it
+to be removed and lifted to surface level using a short span
+gantry/bridge crane. This crane will be able to lift the generator
+module vertically and move laterally to remove the generator
+module from the building.
+7. Latest design concept
+One of the key issues in high temperature gas reactors is the
+ability to manage the high temperatures and resulting system
+expansion. The space-frame concept must be able to accommo-
+date such movement without inducing large thermal stresses.
+To that end a thermal stress analysis has been performed which
+necessitated revisions to the basic layout (COADE Engineering
+Software, 2002). The space frames will be used to support the
+Fig. 8. Latest design layout to accommodate thermal expansion.
+components and piping within the frame and allow ﬂexible
+movement of the components. This design has yielded the layout
+as shown in Fig. 8.
+One of the most difﬁcult alignment challenges is that associ-
+ated with common headers and connecting piping in the space
+frames as shown in Fig. 9 (Northrop Grumman Newport News
+Report, 2002). This can be accomplished by a space-frame
+design that allows for positioning of the components to match
+components in adjacent space frames.
+When this plant is segregated in to plant modules, the resul-
+tant plant conﬁguration is shown in Fig. 10. The process of
+design and build incorporates signiﬁcant engineering input to
+allow for efﬁcient modular construction. Three-dimensional
+models of the plants design and construction plan are devel-
+oped to allow for system installation on a critical path schedule
+to assure that all parts can be ﬁt into the modules at the proper
+time.
+Shown in Fig. 11 is how this reactor system ﬁts into the plant
+structures as previously explained.
+One of the most important critical issues is establishing a cen-
+tral reference line around which to build and ultimately assemble
+the modules. Even with computer-automated design and con-
+Fig. 9. Details of connecting piping.
+--- Page 8 ---
+A.C. Kadak, M.V. Berte / Nuclear Engineering and Design 236 (2006) 502509
+509
+Fig. 10. Current MIT pebble bed reactor showing space frame conﬁguration.
+Fig. 11. Overall plant structural layout.
+struction, these reference lines become important to manage
+tolerances and assure proper assembly. Having machined parts
+as line up connections is going to be expensive. Thus, in the
+space-frame design, it will become important to know how
+much machining and exact positioning of the components in
+all the interfaces between all the space frames will be required
+to keep the costs affordable. General Dynamics Corporation has
+been a leader in integrating engineering and manufacturing in
+the construction of nuclear submarines. General Dynamics has
+demonstrated that the degree of labor and cost reduction pos-
+sible using modularity techniques compared to the old stick
+build approaches. The ﬁrst submarine using modularity tech-
+niques was able to reduce by 16% the labor costs. The second
+reduced those labor hours by an additional 23% with more
+expected as systems and fabrication approaches become more
+standardized. This expertise will be required for the imple-
+mentation of this concept for land based nuclear power plants
+as well.
+8. Conclusions
+If new nuclear plants are to be built they must be compet-
+itive with alternative sources of energy. One of the biggest
+disincentives is the high capital cost of new nuclear plants
+driven largely by the cost of complicated safety systems and
+the long construction period driven by traditional stick build
+construction practices which are very site labor intensive. A
+new approach to building nuclear plants is proposed that is
+based on true modularity in which the size of the plant is
+driven by the ability to ship by truck (or train) prefabricated
+modules in space frames for lego-style assembly. The analysis
+performed to date and the experience of integrated engineering
+and manufacturing of nuclear submarines in the United States
+strongly suggests that these techniques can be applied to land
+based nuclear plants. This would allow smaller sized reactors
+to compete on a mass production basis versus traditional
+economy of scale large nuclear plants on at least three levels:
+cost of power, faster construction and less ﬁnancial risk since
+smaller amounts of money are at risk for shorter periods of
+time. The small 120 Mwe size of these reactors allows them
+to be introduced in developing nations and allows developed
+nations to use these reactors to incrementally add capacity
+when needed quickly. Should these concepts prove viable, it
+could revolutionize how nuclear plants are built in the future.
+References
+Berte, M.V., 2004. Modularity in Design of the MIT Pebble Bed Reactor,
+Masters Thesis. Nuclear Engineering Department, Massachusetts Institute
+of Technology, MA.
+Bottcher, A., et al. Prestressed Cast Iron Pressure Vessels as Burst-Proof Pres-
+sure Vessels for Innovative Nuclear Applications, vol. 14. Forschungszen-
+trum Julich GmbH, Institut fur Sicherheitsforschung und Reaktortechnik,
+Energietechnik, in press.
+COADE Engineering Software, 2002. CAESAR II Version 4.4, Computer
+Program, Houston, TX.
+ESKOM Document No. 001929-207/5, PBMR Safety Analysis Report, Reac-
+tor Nuclear Design, Revision B (Chapter 5, p. 7).
+Kadak, A.C., 2000. Modular Pebble Bed Reactor Project: University Research
+Consortium Annual Report. Massachusetts Institute of Technology, Cam-
+bridge, MA, MIT-ANP-PR-075.
+Kadak, et al., 1998. Nuclear Power Plant Design Project: A Response to
+the Environmental and Economic Challenge of Global Warming Phase 1
+Review of Options & Selection of Technology of Choice. Massachusetts
+Institute of Technology, Cambridge, MA, p. 37.
+Mynatt, F.R., et al., 2003. Design and Layout Concepts for Compact, Factory
+Produced, Transportable, Generation IV Reactor Systems, Nuclear Energy
+Research Initiative Final Report, Grant No. DE-FG07-00SF22168.
+Northrop Grumman Newport News Report, 2002. Assessment of the Design
+and Layout Concepts for Compact, Factory-Produced, Transportable Gen-
+eration IV Reactor Systems, NERI Program Subgrant No. OR650-001.03.
+Wang, C., 2003. Design, Analysis and Optimization of the Power Conver-
+sion System for the Modular Pebble Bed Reactor System, Ph.D. Thesis,
+Massachusetts Institute of Technology, Nuclear Engineering Department.
+Westinghouse Electric Company, LLC, 2000. Standards and Guidelines for
+Cost Effective Layout and Modularization of Nuclear Plants, Prepared for
+the U.S. Department of Energy.

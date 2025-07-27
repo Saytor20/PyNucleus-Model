@@ -1,15 +1,14 @@
 """
 PyNucleus Integration Module
 
-Enhanced pipeline components for DWSIM-RAG integration.
+Enhanced pipeline components for RAG integration.
 """
 
 from .config_manager import ConfigManager
-from .dwsim_rag_integrator import DWSIMRAGIntegrator  
+# DWSIMRAGIntegrator removed due to compatibility issues  
 from .llm_output_generator import LLMOutputGenerator
 
 __all__ = [
     'ConfigManager',
-    'DWSIMRAGIntegrator',
     'LLMOutputGenerator'
 ] 

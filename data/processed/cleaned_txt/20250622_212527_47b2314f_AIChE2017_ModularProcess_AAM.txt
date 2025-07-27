@@ -1,0 +1,819 @@
+# Processed Document
+# Processing Date: 2025-06-22 21:25:28
+# Content Length: 56795 characters
+# Word Count: 8360 words
+# ==================================================
+
+--- Page 1 ---
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/323726498
+Modularization in chemical processing
+Article in Chemical Engineering Progress  March 2018
+CITATIONS
+8
+READS
+2,217
+4 authors, including:
+Michael Baldea
+University of Texas at Austin
+260 PUBLICATIONS 5,877 CITATIONS
+SEE PROFILE
+Anton A. Kiss
+Delft University of Technology
+351 PUBLICATIONS 10,205 CITATIONS
+SEE PROFILE
+All content following this page was uploaded by Anton A. Kiss on 06 April 2020.
+The user has requested enhancement of the downloaded file.
+--- Page 2 ---
+Modular Manufacturing Processes: Status, Challenges and
+Opportunities
+Michael Baldea, Thomas F. Edgar
+McKetta Department of Chemical Engineering,
+The University of Texas at Austin, Austin, TX 78712, USA
+Bill L. Stanley
+Ventech, Pasadena, TX 77506, USA
+Anton A. Kiss
+Sustainable Process Technology Group, Faculty of Science and Technology,
+University of Twente, 7500 AE Enschede, The Netherlands
+Abstract
+Chemical companies are constantly seeking new, high-margin growth opportunities, the majority of
+which lie in high-grade, specialty chemicals, rather than in the bulk sector. In order to realize these
+opportunities, manufacturers are increasingly considering decentralized, ﬂexible production facilities:
+large-scale production units are uneconomical for innovative products with a short lifespan and volatile
+markets. Small modular plants have low ﬁnancial risks, are ﬂexible and can respond rapidly to changes in
+demand. Logistics costs can be also reduced by moving production closer to customers and/or sources of
+raw materials. Moreover, stricter safety regulations can in many cases be more easily met using smaller
+distributed facilities.
+Modularization of chemical production can thus have potentially signiﬁcant economic and safety ben-
+eﬁts. In this article, we review several drivers for modular production, and evaluate modular production
+architectures based on the value density of feedstock resources and markets for the products of a process.
+We also discuss the links between modularization and process intensiﬁcation. We illustrate the discussion
+with an array of industrial examples, which we also use to motivate a summary of challenges and future
+directions for this area.
+1
+Introduction
+For nearly a century, the discipline that we proudly refer to as modern chemical engineering has been
+deﬁned and driven by two fundamental tenets. First, the economy of scale, which dictates that making
+chemical plants larger will make their construction more capital-eﬃcient and improve the utilization of re-
+sources, thereby reducing the operating cost and the price of products (while improving proﬁt). Second, these
+plants are designed and built using a relatively uniform set of building blocks, i.e., unit operations. Following
+the vision of pioneer Warren K. Lewis, the unit operations framework aﬀorded method and structure to the
+synthesis and analysis of chemical plants, and provided a rational and systematic path towards performing
+(shortcut) process design calculations in an era ruled by the slide rule rather than by the digital computer.
+This has in eﬀect perpetuated in the way chemical engineers design, simulate, optimize (and teach) process
+designs today.
+These tenets have not, however, remained without challenge. Process intensiﬁcation, a concept hinted
+at by some early results in the ﬁrst part of the twentieth century1, and augmented over the past two
+decades, aims to alter the conventional one unitone operation approach by combining multiple unit
+corresponding author: mbaldea@che.utexas.edu
+1
+--- Page 3 ---
+operations in the same physical device.
+By bringing multiple physical and chemical processes in close
+physical proximity, intensiﬁed systems minimize transfer/transport limitations. In turn, this means that
+phenomena such as catalytic reactions are governed by their intrinsic rates, rather than by diﬀusion through
+the catalyst structure. As a consequence, such intensiﬁed devices tend to be smaller and more eﬃcient
+than their conventional, unit-operation counterparts. Moreover, reduced dimensions have safety advantages,
+lowering the holdup of potentially harmful chemicals and reducing the process response time for process
+control.
+The choice of physical dimensions often plays an important role in the conception and construction of
+intensiﬁed systems.
+Indeed, such systems are only viable at certain length scales.
+While, for example,
+dividing wall columns appear to be quite scalable in capacity, the channel height of microchannel reactors
+cannot exceed a few millimeters lest homogeneous reactions (notably combustion) start to occur. In turn,
+this places limitations on the processing capacity of some intensiﬁed processes, and it has been argued
+that increasing throughput should be achieved by numbering up (i.e., increasing the number of devices
+operating in parallel)1.
+Numbering up is an indirect challenge to the ﬁrst tenet mentioned above, of the economies of scale.
+Conventional scale-up techniques increase capacity over an existing system by designing and constructing a
+device/process that is conceptually similar in functionality but of (signiﬁcantly) larger size. In this manner,
+the plant capacity can be chosen from a continuous range, with the optimal value driven by a typical tradeoﬀ
+between market capacity, capital expenditure and operating cost. On the other hand, numbering up only
+aﬀords discrete choices in setting the capacity of a plant, by selecting the (integer) number of (typically
+identical) processing devices/modules. The product portfolio of a facility can also be expanded by adding
+the relevant modules.
+While not nearly as widespread as in other sectors (e.g., electronics, automotive), modularity has been
+present in diﬀerent forms in the process industries for at least half a century, and the intent of this paper is
+to review the status modular manufacturing developments, analyze their role in todays chemical industry
+and identify challenges and opportunities that should guide further developments in the area.
+We categorize resources and markets in terms of a newly deﬁned metric, value density, and argue that
+the opportunities for modular manufacturing are tied to this metric.
+Moreover, we posit that process
+intensiﬁcation is an enabler but not a necessary condition for modular manufacturing.
+2
+What is modular?
+The dictionary  deﬁnes a module as any in a series of standardized units for use together. For many a
+reader, this will immediately bring to mind and not without justiﬁcation the aforementioned unit oper-
+ations framework. Indeed, unit operations are modules in their own right, as they have been deliberately
+standardized to work together from a functional perspective. However, in this article we do not intend to
+refer exclusively to unit operations as the modules of interest. To the contrary, our intention is to look
+beyond the conventional unit operations framework. More speciﬁcally, modularity based on process intensi-
+ﬁcation goes beyond the unit operations by allowing the synergistic combination of fundamental functions
+(tasks) into a single equipment (e.g.
+reactive distillation, spinning disk reactors, membrane distillation,
+heat-integrated reactors or distillation columns). While both PI techniques and modular manufacturing can
+used independently, it is more beneﬁcial to apply ﬁrst PI to various sections of a process and then combine
+the PI solutions as modules for the overall plant.
+Thus, in the context of chemical processing, we identify three categories of modularity: modular fabrica-
+tion and construction, modular design and modular manufacturing.
+Modular fabrication and construction
+Modular fabrication and construction is probably the oldest attempt at modularization of chemical plants,
+going back to at least the 1960s2. Modular fabrication and construction denotes the situation where a single
+facility of annual capacity P is built from (not necessarily identical) factory-preassembled blocks/modules,
+that are interconnected in the ﬁeld with minimal eﬀort, as opposed to a largely ﬁeld-erected (also referred
+http://www.merriam-webster.com/dictionary/module, last retrieved 10/17/2016
+2
+--- Page 4 ---
+Figure 1: A shipping container-sized module consisting of two heat exchangers. The top of the module serves
+as a pipe rack. Photo used from permission from Mr. Bill Stanley.
+to as stick-built) structure. Such modules may comprise one conventional unit operation, several unit
+operations or only part of a unit operation.
+Process design for modular fabrication and construction ensures that the functionality of the process is
+exactly the same as in the case of a conventional facility2. The module is typically piped and all tubing,
+wiring and control connections are complete. The module communicates with the rest of the plant (i.e., other
+modules) by containing junction boxes for power wiring and control wiring and a header for instrument air.
+In many cases, the pipe rack is integrated in the module, with the top portion of the module carrying the
+aforementioned ducts and piping (Figure 1).
+The detailed engineering and mechanical design of each module should account for considerations such
+as module weight and dimensions (driven by transportation constraints and the size of the plot of land
+available for plant installation), strength of frame materials (to support the weight of the equipment within
+the module, as well as to withstand any conditions encountered during transportation), the need for an
+foundation for the module to be deployed, etc.
+There are several advantages to modular construction, which outweigh a potential (or perceived) increase
+in upfront cost3,4,5,6,7:
+ Factory assembly provides greater quality control and increased worker safety: shop personnel operate
+in a facility with a controlled ﬂow and with access to overhead cranes: for example, most of the
+welding on a distillation tower can be carried out with the column in the horizontal position, thereby
+avoiding elevated work. Workers remain in a small area with the work brought to their workstation,
+and they are more aware of their surroundings and the location of all inputs (tools, industrial gasses,
+3
+--- Page 5 ---
+electrical supply points, etc.) needed to perform their job. Usually, they also know their coworkers
+and develop a working relationship promoting safety and eﬃciency. By contrast, a ﬁeld worker moves
+around the construction site to the required work and must move all required equipment. Elevated
+work on scaﬀolds and the use of mobile cranes are typical, with the inherent increase in safety risks.
+Personnel are subject to inclement weather. Frequently, teams are assembled for each job and there is
+minimal workforce cohesion, unlike a fabrication shop with consistent staﬃng.
+ Capital cost savings, largely due to labor eﬃciency. In the authors experience, a large portion of the
+capital costs for a project is welding. A welding worker working in a shop is considerably more eﬃcient
+than the welder in the ﬁeld. As mentioned above, the shop welder remains in the same location and is
+welding a high percentage of his time, whereas a ﬁeld welder is less eﬃcient. In 2016 in the Houston
+area, a productive hour (one weld on a 6 inch schedule 40 carbon steel pipe) for a welder cost about
+$50 (including all overhead items). The cost for ﬁeld work is almost always at least twice that of shop
+fabrication and could increase up to a factor of 6, depending on the skill level and availability of the
+relevant work force.
+Savings in the cost of materials are also possible. While the modules may require some extra steel,
+the cost is oﬀset by saving on the cost of foundations, the majority of which can be avoided. Further
+savings come from reducing the amount of piping required at the plant level, with pipe racks built into
+the modules themselves.
+ Savings on deployment cost and project timeline: assembling the modules requires far fewer man-hours
+of skilled labor than building the plant in the ﬁeld, shortening project execution times (Figure 2). The
+amount of work that can be carried out in the shop (via modular construction) relative to the amount
+of work to be completed in the ﬁeld varies from project to project, but shifting the majority of the
+work towards the shop can have signiﬁcant beneﬁts in places where qualiﬁed labor and expertise may
+be in very short supply.
+In the authors experience, in a typical modular construction reﬁnery project, about 65% of the labor is
+performed in the shop instead of the ﬁeld. Considering the labor savings and the economics from the initial
+stages, the total cost of a project can be reduced by an order of about 30%. Time savings are a considerable
+contributor: on a three-year project, approximately one year can be saved on the project utilizing extensive
+modularization, leading to an early startup, lower overhead costs and the ﬁnancing for the project reduced
+by one year.
+One of the challenges to be taken into account when considering a modular construction approach is
+transportation: as module size increases, so do the logistic diﬃculties of delivering it to the plant site.
+Further, modules may require a higher amount of upfront engineering than conventional unit operations,
+and a very detailed design package must typically be available when modules are ordered from external
+fabricators7.
+The literature provides numerous examples of modular construction, including catalytic cracking units8,
+steam methane reformers3, landﬁll gas processing plants8, petrochemical facilities8, chlor-alkali plants9.
+In the authors experience, modular construction can be applied to any type of plant, or at least parts
+thereof, with the main limitation being the logistics of shipping the modules: rail or road transportation
+typically limit the size of a module to that of a standardized shipping container - see Figures 1 and 3.
+This further places a practical upper limit on the capacity of a plant that can be deployed via modular
+construction; for example, oil reﬁneries can be constructed with such modules up to a capacity of about
+30,000 barrels/day. Access to a sea or river port allows for modules of larger size.
+Modular design
+We use the term modular design to designate a situation whereby a production facility of annual capacity
+P is designed for and built with pre-speciﬁed, standardized building blocks (modules). This can include
+oﬀ-the-shelf reaction vessels, heat exchangers, separation units, etc. These modules (based on unit oper-
+ations or novel process intensiﬁcation techniques) can also feature standardized interconnections for ﬂuid
+ﬂow, information, data and control signal exchange, and utility connections10. Modular design can reduce
+engineering costs considerably, but at the cost of diminished ﬂexibility11.
+4
+--- Page 6 ---
+Design &
+Engineering
+Permitting
+Module Construction
+Site
+Development
+Install &
+Commission
+Design &
+Engineering
+Permitting
+Building &
+Construction
+Site
+Development
+Commission
+Project timeline
+Time Savings
+Figure 2: Execution timeline for conventional (bottom) and modular construction (top) projects
+Figure 3: Modularized distillation system includes boiler, fractionator, overhead condenser, heat exchangers,
+pumps and controls. Photo used with permission from Mr. Bill Stanley.
+5
+--- Page 7 ---
+Modular deployment and production
+We refer to modular production as the situation where n similar or identical facilities (modules), each of
+capacity P/n, are used to meet processing capacity P. These facilities are typically operating in parallel,
+may or may not be deployed at the same time (meaning that capacity can be expanded or reduced over
+time) and may or may not be geographically co-located. The facilities can themselves be of modular fabri-
+cation and construction (a facility may in eﬀect consist of a single fabricated module), and can beneﬁt from
+process intensiﬁcation (PI). However, a careful balance must be kept between the degree of integration and
+intensiﬁcation, and the need for ensuring the controlability and operability of the process.
+Modular deployment and production represents a more recent eﬀort in modular manufacturing, and has
+been motivated by the need for more ﬂexible (in terms of capacity, product type and geographic location)
+production. A modular facility of this type typically comprises a backbone module that provides utilities
+to and connectivity between the production modules12. Modular deployment and production provides
+several advantages compared to a conventional facility with ﬁxed capacity P 13,14,15:
+1. faster time to market: assuming that a module for producing the desired product is available (either
+as a complete construction blueprint or already constructed), it could be deployed in very short time
+to meet an immediate product demand. Modular deployment is thus well suited to production of novel
+products or for entering emerging markets. Even for new plants, shorter schedules are possible (with
+time savings of up to 40% and early proﬁt) as the module construction can be carried out in parallel
+to the site construction, or while waiting for permits.
+2. lower costs: 30% energy savings, 20% lower operating costs and 40% less capital expenditure are
+possible. Reducing the size of ﬁeld crews, more eﬃcient use of materials and shorter schedules all lead
+to capital expenditure savings. Plant operation can start (or continue) as new modules are built and
+commissioned.
+3. scalable capacity: capacity can be scaled in time as market size evolves by adding or removing modules
+ an additional feature that supports the use of modular deployment for new products or emerg-
+ing/developing markets, where demand is expected to grow (or ﬂuctuate) over time. The ability to
+add (or remove) production capacity over time (combined with the possibility of diversifying the prod-
+uct portfolio by adding diﬀerent modules  either continuous or batch) also represents a means for
+dealing with market uncertainty throughout the lifetime of a plant, potentially simplifying or facilitat-
+ing business and investment decisions16,15.
+4. simpliﬁed maintenance and lower downtime: in order to minimize the time that a production facility
+is oﬀ-line due to breakdowns or routine maintenance, a module could be simply replaced with an
+operable one or one whose maintenance is up-to-date. The replaced module can then be serviced on-
+site or transported oﬀ-site for service in a central, specialized shop. Naturally, the cost of a replacement
+module can be signiﬁcantly higher than the cost of the spare part that is actually needed for repairs
+in case of a break-down9.
+5. superior safety: modules can be tested at the manufacturers facility prior to shipping to the production
+site. Safety risks are reduced as the modules are built under controlled conditions as discussed above.
+6. single-source responsibility: building modular units in a dedicated workshop allows the project team
+to act as a single-source supplier of equipment and services: detailed engineering, project management,
+fabrication of equipment, modular assembly, insulation, automation and control, startup assistance,
+operator training, services and advice. The industrial suppliers include among others: CB&I, Zeton,
+Koch Modular Process Systems (KMPS), FB Group, MTSA Technopower, Fluor Corp.
+When to choose modular deployment and production?
+The primary factor that determines the choice of a modular deployment production system (instead of a
+conventional process of equal capacity) is economics. We analyze the economics of modular production
+by ﬁrst considering a centralized modular facility, and then focusing on distributed modular production,
+6
+--- Page 8 ---
+whereby the modules are placed at diﬀerent locations to account for distributed resource availability or a
+geographic spread in market demand.
+Centralized modular deployment
+Consider the well established power law cost scaling estimate17 for a conventional process of capacity P:
+Cc = (kcP)ec
+(1)
+where C is cost, k and e are parameters, with k > 0 and 0 < e < 1 (typically e 2/3), and the subscript
+c denotes a conventional process. We assume that this relation holds for the entire range of capacities, for
+both scale-up and scale-down, i.e., from P/n to P. Hence, the cost of a facility of capacity P/n (i.e., a
+module) will be
+Cm =
+
+kc
+P
+n
+ec
+=
+1
+nec (kcP)ec
+(2)
+where the subscript m stands for modular. Since n 2 and 0 < ec < 1, clearly nec < n and hence
+1
+nec > 1
+n,
+the cost of one module (out of n) is expected to be higher than 1/n of the cost of a conventional process.
+Equivalently, a modular centralized plant of capacity P will be more expensive (from a capital point of view)
+than a conventional plant of equivalent capacity.
+We note that this comparison is based on two premises (see also18):
+ P1: the market conditions for the modular and conventional processes are similar
+ P2: the two processes utilize the same technology, and an eﬃciency penalty is possibly incurred for
+scale-down
+We note that, in fact, it is possible possible that the cost of the nth module may be lower than the
+cost of the ﬁrst owing to a learning eﬀect (i.e., learning, over time, potential ways to decrease the cost
+of making a module)19 and due to natural economies of making the modules in larger numbers. Further,
+as mentioned above, not all modules have to be deployed immediately; rather, modular capacity can be
+increased as market demand grows. Finally, numerous examples of modularly deployed plants12 make use of
+innovative technologies and process intensiﬁcation (i.e., they do not use the same technology as a conventional
+plant) to further lower the cost of a module. All these factors contribute to lowering the capital cost of a
+centralized modular facility, and, conversely, bringing its net present value (NPV) more in line with that of
+a conventional plant.
+Extensive empirical evidence collected during the industry-academia Flexible, Fast and Future Pro-
+duction Processes collaborative project sponsored by the European Union (the F3 Factory)12 suggests
+that modular deployment and production lend themselves well to high-value (more than 100 euro/kg) prod-
+ucts made in low-to-medium volumes, and potentially in geographically distributed facilities.
+Lier and
+Grunewald19 (who considered a very speciﬁc case study) found that the NPV of a modularly deployed plant
+is lower than the NPV of a conventional facility when consider a longer (> 10 years) time horizon, further
+suggesting that modular production is suited to meeting short- to medium-term market needs that also
+ﬂuctuate in time.
+In our estimates, we admittedly exclude the cost of labor. Paradoxically, this cost scales relatively well at
+both ends of the spectrum18. Due to advances in technology, the personnel required to operate a very large
+scale facility is likely not much larger than the number of operators involved in running a plant of comparably
+smaller size. Similarly, modular production plants can be operated remotely, with a single, minimally staﬀed
+control center providing oversight for multiple such facilities.
+The arguments above suggest that the decision to select a centralized modular facility should be based
+on a careful analysis of both capital cost and market evolution prospects. A description of a software that
+enables a detailed evaluation of modular production concepts is provided by Sievers et al. 20, while a speciﬁc
+example is discussed by Lier and Grunewald 19.
+7
+--- Page 9 ---
+Geographically distributed modular deployment
+In what follows, we provide a new perspective on the economics of distributed production using modularly
+deployed plants. We deﬁne the annual beneﬁt of a conventional centralized process as a function of operating
+cost and the capital cost introduced above, as:
+Bc = πpP [(πa + πl)P + α(kcP)ec]
+(3)
+where πa deﬁnes the unit acquisition price of feedstock and πl are the corresponding logistic costs.
+α
+represents a capital cost coeﬃcient and πp is the product unit price (including the logistic costs for the
+product).
+For simplicity, we and assume that:
+ the acquisition price remains relatively constant
+ the logistic costs can be decreased by appropriately locating the processing modules (see, e.g., Lara
+and Grossmann 21), and decrease linearly with the number of modules
+ the logistic cost for the product is small compared to the logistic cost of the feedstock (similar arguments
+can easily be made in the reverse scenario, whereby the logistic cost of the feedstock is small compared
+to the product).
+The annualized beneﬁt Bm for the corresponding modular processing facility is:
+Bm = πpβP 
+
+πa + πl
+n
+
+P + αn 1
+nec (kcP)ec
+
+(4)
+where 0 < β 1 accounts for potential yield and/or eﬃciency losses owing to scale-down of a technology.
+Then, we compute the diﬀerence between the annual beneﬁt of the distributed modular and centralized
+conventional processes as:
+Bm Bc
+=
+πpP(β 1) + πlP
+
+1 1
+n
+
++ α(kcP)ec 
+1 n
+nec
+
+(5)
+We analyze the diﬀerence term by term as follows:
+ the ﬁrst term reﬂects the yield and/or eﬃciency loss due to modularization and is at most zero, showing
+that modularization likely incurs an eﬃciency penalty
+ the second term corresponds to logistics costs, and will always be positive, showing that under our
+assumptions modular production is superior to a conventional process in terms of logistics
+ the third term corresponds to the capital cost and will always be negative, indicating that modular
+processes remain inferior to conventional ones from a the point of view of capital expenditure for the
+same technology.
+Thus, equation (5) provides guidance for selecting between distributed modular and centralized conventional
+production based on the desired production capacity, the number of modular production units, the cost
+scaling model and the desired payback time. A conventional process of capacity P is viable when feedstock
+is available at a rate corresponding to P without incurring considerable logistic costs (recall that here we
+assume that the logistic cost of the product is small), and distributed modular manufacturing is preferred
+otherwise (assuming that the technology itself is cost-competitive at the relevant scale, or that a diﬀerent
+but cost-competitive technology exists at this scale).
+These arguments further suggest that the potential of a geographic area for supporting a conventional
+centralized or modular distributed or decentralized production strategy can be assessed in terms of a value
+density Ψ which we deﬁne based on a desired annual production capacity P:
+Ψ = πp
+πl
+Dresource
+P
+(6)
+8
+--- Page 10 ---
+where Dresource captures the physical density of a resource in terms of available annual supply rate per unit
+area.
+The value density Ψ can be interpreted as follows:
+ low (sub-unitary) values point to either, i) a low πp
+πl ratio, suggesting high logistic costs compared
+to the price of the product, ii) a low Dresource
+P
+ratio, suggesting that the area may not be capable of
+supplying suﬃcient feedstock for the desired capacity, or, iii) both.
+ high (supra-unitary) values conversely indicate that logistic costs may be low, and/or the feedstock in
+the area is abundant
+The value density can thus be used as a criterion for selecting between distributed, modular and conventional,
+centralized production, with high value densities indicating that centralized production may be appropriate,
+while a low value density favoring the choice of modular production (Table 1). We note that value density
+is intended as a screening criterion, and the decision to invest in a distributed/modular or centralized
+process (particularly at intermediary values of Ψ) should be made by taking in consideration the cost and
+eﬃciency of the process as described above, as well as predictions regarding changes in market demand and
+feedstock availability. Intermediary values can also be used to perform an objective comparison of business
+opportunities related to similar circumstances (e.g., invest in distributed manufacturing in area A or in
+neighboring area B?).
+Table 1: Value density scenarios
+πp
+πl
+Dresource
+P
+Ψ
+Comments
+low
+low
+low
+modular deployment and production
+low
+high
+intermediary
+high logistics cost, should undertake further analysis
+high
+low
+intermediary
+area will not support production
+high
+high
+high
+conventional centralized production
+As an illustrative example, we consider the production of atmospheric gases (particularly, nitrogen and
+oxygen) and hydrogen, which are used to support numerous manufacturing and fabrication processes. Gas
+demand can often be satisﬁed by delivering gases packaged in cylinders. For higher demands, the corre-
+sponding liqueﬁed products can be delivered via tanker trucks and stored on-site in cryogenic tanks. For still
+higher demand, deliveries become uneconomical, and small-scale on-site production is possible22. For exam-
+ple, Praxair, Inc. of Danbury, CT23 oﬀers small on-site air separation modules that can produce nitrogen
+(via cryogenic separation) at rates of up to 5,000 Nm3/h. Likewise, oxygen of up to about 95% purity can be
+generated via vacuum pressure swing adsorption at rates of about 6,000 Nm3/h. Air Products and Chem-
+icals (Allentown, PA)24 oﬀers skid-mounted, modular hydrogen generators that rely on steam reforming
+to generate up to 5,000 Nm3/h. We note that these quantities are very small compared with the produc-
+tion rates of world class plants (which can reach (or exceed), e.g., 90,000 Nm3/h for oxygen and 112,000
+Nm3/h for hydrogen (100 million standard cubic feet per day), and reﬂect the low value density (as far as
+small-to-medium scale users are concerned) of the industrial gas market. It is noteworthy that, in addition
+to economic beneﬁts, on-site production eliminates the safety hazards associated with the transportation of
+cryogenic liquids and highly ﬂammable hydrogen.
+Another example of developing distributed, modular production plants pertains to the production of
+hydrocarbon liquids using stranded natural gas feedstock. Natural gas deposits are referred to as stranded
+when their small scale and/or remote location render their exploitation and monetization via conventional
+means (i.e., building a pipeline to consumers), economically infeasible. It is currently estimated that one third
+of natural gas resources worldwide belong to this category25. Stranded natural gas is thus a resource with
+low value density (rather than a low-value density market as in the previous example), and its processing calls
+for a distributed approach. Indeed, several authors26,27,28,29 have advocated the development of small-scale
+gas to liquids (GTL) processes, which convert stranded gas feedstock into more fungible and more energy
+dense liquids, typically via steam-methane reforming followed by Fischer-Tropsch synthesis, conﬁrming the
+relevance and applicability of modular production in this case. Commercial deployments have also been
+reported, with capacities reaching 1000 barrels per day30. It is noteworthy that the neither steam-methane
+9
+--- Page 11 ---
+reforming nor Fischer-Tropsch synthesis reactors scale down favorably, and process intensiﬁcation (in this
+case, in the guise of catalytic plate/ microchannel reactors) has played a key role in making such systems
+economically viable.
+Similar arguments can be applied when considering distributed biomass processing. Biological feedstock is
+cultivated on ﬁelds (e.g., switchgrass, sorghum, corn and corn stover) or harvested from aqueous environments
+(e.g., algae); owing to the geographically distributed nature of its production, biomass is a low value density
+resource, and hence biomass conversion to fuels and/or chemicals is well suited to modular (pre)processing.
+This has indeed been prominently advocated in the literature31,32,13, with the processing pathways geared
+towards the production of platform chemicals or transportation fuels.
+With the exception of the well-
+developed ethanol production process33, the latter rely on Fischer-Tropsch synthesis (as in the case of natural
+gas to liquids), with the key diﬀerence that synthesis gas is obtained via gasiﬁcation. Here, too, process
+intensiﬁcation via novel reactor technologies is playing a key role. Further biomass-based applications include
+power generation, and a review of progress in the ﬁeld of small, modular facilities for power generation from
+biomass is provided by Dong et al. 34.
+3
+Safety and Sustainability Considerations of Distributed Modu-
+lar Production
+Safety is of paramount importance in the operation of chemical processes, and distributed modular deploy-
+ment of chemical production has several potential advantages from this point of view. First, it inherently
+reduces the amount of any hazardous chemicals that may be present at a given manufacturing location.
+Additionally, certain chemicals can be manufactured on-site, thereby eliminating the need for transportation
+of hazardous materials by road or rail.
+For example, onsite production of chlorine and chlorine-based oxidants has become interesting as envi-
+ronmental regulations (and the corresponding requirements for on-site wastewater treatment) have become
+more stringent. Small, modular onsite sodium hypochlorite generators are now available commercially, elim-
+inating the need for chlorine deliveries for water treatment plants. Such generators are available in capacities
+of up to over one metric ton of chlorine per day from manufacturers such as MIOX35 (Albuquerque, NM),
+EVOQUA36 (Warrendale, PA) and De Nora37 (Sugar Land, TX). Larger-scale plants (up to 15,000 tons per
+year), comprising multiple such modules, have been developed as well38. The value density of the market
+for on-site wastewater treatment at facilities such as resorts, hotels, etc. is inherently low, and production
+thus lends itself naturally to a distributed modular paradigm. Furthermore, as in the case of atmospheric
+cases and hydrogen, on-site production of hazardous chemicals such as chlorine presents signiﬁcant health
+and environmental safety beneﬁts, including eliminating the need for road or rail distribution (which can
+be disrupted by accidents or subjected to deliberate attacks39), reducing the amount of stored hazardous
+materials and eliminating large-scale facilities and distribution centers that may stockpile chlorine in large
+quantities. We note that similar arguments have been brought recently in favor of distributed, small-scale
+production of ammonia40.
+There are, however, tradeoﬀs for these beneﬁts: the cost of containment systems is likely to scale in the
+same manner as the capital cost of equipment (discussed above), and thus the overall cost of such systems
+may be higher for a suite of modular facilities that for a conventional, centralized plant. Moreover, the
+disadvantage associated with storing a larger amount of potentially hazardous chemicals in a single location
+(in the centralized case) may be oﬀset by the fact that the hazard is can be monitored, managed and if
+needed mitigated in one place.
+Sustainability is also key in the development of new processes. Sustainability and life cycle analysis
+tools developed for conventional process systems (see, e.g., Allen and Shonnard 41 and Jacquemin et al. 42)
+can serve as the basis for the cradle-to-grave design and analysis of modular processes; several additional
+features should be accounted for:
+ modules may be depoloyed in diﬀerent geographies (e.g., across U.S. state borders or perhaps across
+international borders) and thus subject to diﬀerent safety, health and environmental regulations; in
+this case, the modular paradigm would suggest designing to meet the most stringent speciﬁcations, in
+spite of the inherent penalty incurred when deploying a module in a location where regulations are
+more lax
+10
+--- Page 12 ---
+ as with conventional processes, system maintenance should be carried out regularly to ensure that all
+modules are tested and serviced regularly for safe and eﬃcient operation. In the case of distributed
+production, this may require additional eﬀort for coordinating the activity and travel schedules of
+support technicians and engineers
+ modular processing oﬀers the possibility of a staged decommissioning at the end of the service life of
+the process; that is, some of the modules in a plant can be decommissioned, while others continue
+to operate if permissible and economically advantageous (note that this consideration applies to a
+centralized modular facility as well).
+4
+Process systems engineering for modular production: challenges
+and opportunities
+4.1
+Modular process design
+The cost calculations for a process module used in Equation 2 rely on the assumption that the module uses
+the same technology as the full-scale, conventional process. This inevitably leads to an increase in the total
+cost of a modular process. Process design should therefore consider new process conﬁgurations that are
+customized to smaller scales or that scale-down favorably, thereby challenging and eliminating the same
+technology assumption.
+Process intensiﬁcation should ﬁgure prominently in these eﬀorts, providing new avenues for reducing
+module size, reducing cost and potentially increasing eﬃciency. Although modular manufacturing is already
+practiced by industry (e.g. using smaller conventional unit operations) the integration of process intensiﬁca-
+tion technologies could allow major steps forward by further reducing the overall costs (e.g. fewer equipment
+pieces and lower operating costs) and improving safety (e.g. smaller holdup minimizing the inventory of
+hazardous materials).
+A discussion of the interaction between modularity and intensiﬁcation from an industrial perspective
+is given by Bieringer et al. 43. To this end, signiﬁcant progress is required from the process modeling and
+optimization perspective.
+Practically none of the commercial process modeling and design optimization
+software tools available today have the capability of representing intensiﬁed and modular systems explicitly
+and at the relevant level of detail. In order to identify the optimal design of such processes, the structure and
+performance of intensiﬁed setups such as autothermal reactors, jet-loop reactors (and several other devices
+deployed in recent modular designs12) must be captured explicitly. Of particular import is capturing the
+geometric dimensions and features, which are often at the origin of the favorable performance of these devices
+(high internal area to volume ratio is oft cited as one of the main performance-enhancing characteristics of
+a autothermal reactors1). Conversely, reduced dimensions can amplify the impact of phenomena that are
+routinely encountered in conventional unit operations; as an example, reducing dimensions also increase the
+external area to volume ratio, and the eﬀect that ambient heat losses may have on an intensiﬁed autothermal
+reactor may be (relatively speaking) much stronger that in the case of a conventional large-scale reactor.
+Similar considerations apply to distillation systems (contrast, e.g., Figures 3 and 4).
+Further motivation towards increasing the level of equipment geometric and constructive detail in the
+ﬂowsheet modeling and design optimization stems from the need to identify opportunities for modularization
+at the design stage. The availability of such information provides the opportunity to optimize a plant design
+to ﬁt in a speciﬁc footprint, such as that of the shipping container frequently used to package and deploy
+such modular plants.
+A tighter collaboration between process designers and equipment manufacturers should also be estab-
+lished, with the aim of ﬁnding the design solutions that lead not only to high performance from a process
+point of view, but also to lower equipment capital costs and more deployable plants. Reducing the cost
+of modular equipment inherently reduces the business risk of deploying such solutions, and can therefore
+provide signiﬁcant impetus for their adoption. Steps in this direction can conceivably include standardiz-
+ing a signiﬁcant number of components within each module (e.g., using the same type of valve wherever
+possible), identifying low-cost, high quality fabrication options (e.g., robot-assisted vs. manual welding),
+streamlining the parts supply chain by engaging suppliers, modularizing construction, choosing materials of
+the appropriate strength for frames, etc.
+11
+--- Page 13 ---
+Figure 4: Modularized distillation system with heated insulated enclosure designed for low-temperature (-
+150F, 172 K) service (Compare with system in Figure 3, which was designed for service in ambient conditions
+up to 150F, 339 K). Image used with permission from Mr. Bill Stanley. Image obtained by merging two
+separate photographs and adjusting contrast. These edits do not alter the representation of the physical
+system).
+12
+--- Page 14 ---
+4.2
+Modular process control
+It is likely that the control of modular production architectures will require expanding or modifying the set
+of control decisions typically implemented in process systems, where a supervisory controller meets plant-
+wide control objectives by directing the operation of a regulatory control layer, while the setpoints of the
+supervisory control system are dictated by an optimization calculation that considers production scheduling
+and/or real time optimization of the process state44.
+Speciﬁcally, a close coordination between production modules is required. This is especially true for par-
+allel conﬁgurations, where a coordinating controller ensures that all the feedstock molecules are processed in
+the same way. Cooperative control strategies will likely be necessary to orchestrate module operation45 in
+spatially distributed conﬁgurations. Furthermore, production turn-up and turn-down in the case of modular
+manufacturing is likely to involve activating and deactivating (turning on and oﬀ) one or several modules 
+a set of discrete decisions that should be accommodated in the control, coordination and cooperation mech-
+anisms. In circumstances where the operating conditions of the system change rapidly, close coordination
+between process control and production scheduling will be required46.
+The development of speciﬁc architectures, such as Decentralized Intelligence for Modular Applications
+(DIMA) are being developed under the aegis of the Industry 4.0 initiative in Europe47. Future work for
+attaining the plug & produce capability required to create ﬂexible, cost-eﬃcient modules include includes the
+development of scalable, composable dynamic process models for model-based control. Such models could be
+developed by the manufacturers of the modules themselves, and delivered together with the physical module
+to the user in a very cost eﬀective manner. In this way, every module would be accompanied by a digital
+twin, that is used for advanced control and operational optimization.
+The fact that in many cases modular plants are operated remotely without on-site personnel provides a
+strong motivation for further developments in process monitoring and fault diagnosis techniques. Advances
+in predictive equipment condition monitoring and predictive maintenance also become particularly valuable
+in this context.
+We note here that the control of modular systems that rely on process intensiﬁcation concepts may pose
+special challenges, related to the loss of control degrees of freedom and strong interactions between multiple
+phenomena48,49,50.
+4.3
+Modular process operations
+The discussion presented above suggests that the planning and scheduling of production, as well as supply
+chain analysis and optimization, play a key role in modular production, particularly in the distributed case.
+Modularly deployable facilities have the potential to support new processing paradigms. Among others, it
+is conceivable that plants can be deployed on demand to meet a stringent need (e.g., water puriﬁcation or
+the production of pharmaceutics or supplies during a crisis), or relocated frequently as the supply ﬂuctuates
+(such as following the harvest of, e.g., biomass crops in a seasonal migration pattern). Additional approaches,
+such as co-operative use of a facility by multiple users/co-owners or crowdsourcing patterns in which the
+resource is allocated ad-hoc at a variable cost and based on need, may emerge.
+Further eﬀorts should be expended in both process design and the optimization of process operations
+(in particular, capacity planning) on identifying opportunities for taking advantage of multiple, co-located
+distributed resources in distributed modular processing conﬁgurations. For example, several stranded gas
+deposits in Texas are located in areas with high potential for wind-power generation, suggesting the possibility
+for electricity-powered modular processing and GTL conversion51. Also, reverse osmosis-based desalination
+plants can be constructed at small scales and operated in a grid-independent fashion by using, e.g., wind
+power52.
+5
+Conclusions
+In this paper, we discuss the current status of modularization in the chemical industry and show by relevant
+examples that major opportunities exist for the decentralized, scalable and ﬂexible production using modular
+systems.
+We make the distinction between modular construction of a facility and modular processing,
+focusing on architectures and conﬁgurations for the latter. We argue the case for modular processing in
+13
+--- Page 15 ---
+terms of the new concept of value density, a metric deﬁned to characterize the geographic distribution of
+feedstock and/or markets for absorbing products.
+Numerous examples show that modular processing is a concept that is accepted by many practitioners.
+However, the authors experience is that the beneﬁts of modularization (and, in particular, modular con-
+struction) are not yet universally known and appreciated. As a consequence, promoting these concepts via
+training and education, and ﬁnding new application domains or new directions within existing ones remain
+crucial for expanding the modular production paradigm.
+Process intensiﬁcation can and will play an important role in the expansion of modular processing by
+providing new process designs with favorable scale-down characteristics. Major opportunities exist to make
+chemical processes more proﬁtable and sustainable through PI and other means (such as modularization),
+by reducing the energy use and the associated CO2 emissions, the cost of production, the amount of waste
+and environmental impact. Modular deployment and production can lead to increased ﬂexibility in meeting
+market and customer demands. Developments in modular systems design and integration are and will be
+powered by advanced process intensiﬁcation methods. However, intensiﬁcation is neither a necessary nor a
+suﬃcient condition for process modularization.
+Interactions between chemical engineers and equipment manufacturers can also lead to new equipment
+construction techniques that can lower capital cost without compromising performance. The convergence
+of these factors will likely democratize access to chemical manufacturing to a broader base of enterprises,
+particularly small businesses or businesses in developing countries.
+Modularization in all its guises can
+simplify engineering, increase plant eﬃciency and production ﬂexibility, reduce the time to market, and
+improve the overall competitiveness.
+6
+Acknowledgments
+Financial support for MB from the National Science Foundation (NSF) through the CAREER Award 1454433
+and Award CBET-1512379 is acknowledged with gratitude. AAK acknowledges the valuable discussions with
+the former industrial colleagues from AkzoNobel. The authors would also like thank the reviewers for their
+insightful comments and suggestions.
+14
+--- Page 16 ---
+References
+[1] D.A. Reay, C. Ramshaw, and A.P. Harvey. Process intensiﬁcation: engineering for eﬃciency, sustain-
+ability and ﬂexibility. Butterworth-Heinemann, Waltham, MA, 2013.
+[2] L.B. Glaser, J. Kramer, and E. Causey.
+Modular plant concepts-practical aspects of modular and
+barge-mounted plants. Chemical Engineering Progress, 75(10):4955, 1979.
+[3] R. Armstrong. Better ways to build process plants. Chemical Engineering, 79:8694, 1972.
+[4] Robert S. Nahas. Modular approach to mideast projects saves time. OIL & GAS JOURNAL, 76(3):
+6870, 1978.
+[5] Viron D. Kliewer. Beneﬁts of modular plant design. Chemical engineering progress, 79(10):5862, 1983.
+[6] M. L. De La Torre. A review and analysis of modular construction practices. Masters thesis, Lehigh
+University, Bethlehem, PA, 1994.
+[7] S. Roy. Consider modular plant design. Chem. Eng. Prog., 113(5):2831, 2017.
+[8] L. B. Glaser and J. Kramer. Does modularization reduce plant investment?
+Chemical engineering
+progress, 79(10):6368, 1983.
+[9] W. E. Hesler. Modular design-where it ﬁts. Chemical Engineering Progress, 86(10):7680, 1990.
+[10] Lukas Hohmann, Katrin Kossl, Norbert Kockmann, Gerhard Schembecker, and Christian Bramsiepe.
+Modules in process industry- a life cycle deﬁnition.
+Chemical Engineering and Processing: Process
+Intensiﬁcation, 111:115126, 2017.
+[11] Thomas Burgess, Brian Hwarng, Nicky Shaw, and Claudio De Mattos. Enhancing value stream agility::
+The uk speciality chemical industry. European Management Journal, 20(2):199212, 2002.
+[12] S. Buchholz. Flexible, fast and future production processes (F 3 Factory). European Commission Project
+No. 228867 Report, 2014.
+[13] C. Bramsiepe, S. Sievers, T. Seifert, G. D. Stefanidis, D. G. Vlachos, H. Schnitzer, B. Muster, C. Brun-
+ner, J. P. M. Sanders, M. E. Bruins, and G. Schembecker. Low-cost small scale processing technologies
+for production applications in various environmentsmass produced factories. Chemical Engineering and
+Processing: Process Intensiﬁcation, 51:3252, 2012.
+[14] Johannes Rottke, Florian Grote, Holger Frohlich, Dirk Koster, and Jochen Strube. Eﬃcient engineering
+by modularization into package units. Chemie Ingenieur Technik, 84(6):885891, 2012.
+[15] H. Mothes. No-regret solutionsModular production concepts for times of complexity and uncertainty.
+ChemBioEng Reviews, 2(6):423435, 2015.
+[16] T. F. Edgar, S. W. Butler, W. J. Campbell, C. Pfeiﬀer, C. Bode, S. B. Hwang, K. S. Balakrishnan, and
+J. Hahn. Automatic control in microelectronics manufacturing: Practices, challenges, and possibilities.
+Automatica, 36(11):15671603, 2000.
+[17] T. F. Edgar, D. M. Himmelblau, and L. S. Lasdon. Optimization of chemical processes. McGraw-Hill
+Book Company, New York, 1989.
+[18] E. Dahlgren, C. Gocmen, K. Lackner, and G. Van Ryzin. Small modular infrastructure. The Engineering
+Economist, 58(4):231264, 2013.
+[19] Stefan Lier and Marcus Grunewald. Net present value analysis of modular chemical production plants.
+Chemical Engineering & Technology, 34(5):809816, 2011.
+[20] Stefan Sievers, Tim Seifert, Gerhard Schembecker, and Christian Bramsiepe. Methodology for evaluating
+modular production concepts. Chemical Engineering Science, 155:153166, 2016.
+15
+--- Page 17 ---
+[21] Cristiana L. Lara and Ignacio E. Grossmann. Global optimization for a continuous location-allocation
+model for centralized and distributed manufacturing. In Z. Kravanja and M. Bogataj, editors, 26th
+European Symposium on Computer Aided Process Engineering, volume 38 of Computer Aided Chemical
+Engineering, pages 1009  1014. Elsevier, 2016. doi: http://dx.doi.org/10.1016/B978-0-444-63428-3.
+50173-9. URL http://www.sciencedirect.com/science/article/pii/B9780444634283501739.
+[22] A. R. Smith and J. Klosek. A review of air separation technologies and their integration with energy
+conversion processes. Fuel processing technology, 70(2):115134, 2001.
+[23] Praxair
+small
+onsite
+production.
+http://www.praxair.com/services/
+industrial-gas-supply-and-management/small-onsite-production, last retrieved 10/22/2016.
+[24] Air Products and Chemicals Prism Hydrogen Genrator. http://www.airproducts.com/Company/
+news-center/2013/06/0624-air-products-extends-prism-hydrogen-generator-product-line.
+aspx, last retrieved 10/23/2016.
+[25] D. Wood and S. Mokhatab. Technology options for securing markets for remote gas. World Oil, 229
+(1):15, 2008.
+[26] C. Ogugbue, G. Chukwu, and S. Khataniar. Economics of GTL technology for gas utilization.
+In
+Hydrocarbon Economics and Evaluation Symposium, 2007.
+[27] L. Van Bibber, E. Shuster, J. Haslbeck, M. Rutkowski, S. Olsen, and S. Kramer. Technical and economic
+assessment of small-scale Fischer-Tropsch liquids facilities. US Dept. of Energy Report DOE/NETL-
+2007/1253, 2007.
+[28] K. Roberts. Modular design of smaller-scale GTL plants. Petroleum technol. quarterly, 18:101103,
+2013.
+[29] S. LeViness, S.R. Deshmukh, L.A. Richard, and H.J. Robota. Velocys Fischer-Tropsch synthesis tech-
+nology  New advances on state-of-the-art. Topics in Catalysis, 57(6-9):518525, 2014.
+[30] Velocys microchannel reactors.
+http://www.velocys.com/our_technology_core_technologies_
+reactors.php, last retrieved 2/24/2017.
+[31] P. Lamers, M. S. Roni, J. S. Tumuluru, J. J. Jacobson, K. G. Caﬀerty, J. K. Hansen, K. Kenney, F. Tey-
+mouri, and B. Bals. Techno-economic analysis of decentralized biomass processing depots. Bioresource
+technology, 194:205213, 2015.
+[32] M. E. Bruins and J. P. M. Sanders. Small-scale processing of biomass for bioreﬁnery. Biofuels, Bioprod-
+ucts and Bioreﬁning, 6(2):135145, 2012.
+[33] P. Daoutidis, W. A. Marvin, S. Rangarajan, and A. I. Torres. Engineering biomass conversion processes:
+a systems perspective. AIChE J., 59(1):318, 2013.
+[34] L. Dong, H. Liu, and S. Riﬀat.
+Development of small-scale and micro-scale biomass-fuelled CHP
+systemsa literature review. Applied thermal engineering, 29(11):21192126, 2009.
+[35] A. K. Boal. On-site generation of disinfectants. The National Environmental Services Center at West
+Virginia University Technical Brief, 9(1), 2009.
+[36] OSEQ B Chlorine generation system. http://www.evoqua.com/en/brands/Wallace_and_Tiernan/
+Pages/OSEC-B.aspx, last retrieved 10/25/2016.
+[37] De Nora water technologies. http://www.denora.com/company/water-technologies.html, last re-
+trieved 10/26/2016.
+[38] Akzonobel
+small-scale
+chlorine
+plants.
+https://www.akzonobel.com/ic/products/remote_
+controlled_chlorine_production/small_scale_units/, last retrieved 6/5/2017.
+16
+--- Page 18 ---
+[39] A. M. Barrett. Cost eﬀectiveness of on-site chlorine generation for chlorine truck attack prevention.
+Decision Analysis, 7(4):366377, 2010.
+[40] D. G. Lippmann. Evaluation of risks related to the transport of anhydrous ammonia and their mitigation
+by localized small scale production. In Proceedings of 2012 AIChE Ammonia Safety Symposium, page
+Paper 1b, Chicago, IL, 2012.
+[41] D.T. Allen and D. R. Shonnard.
+Green engineering: environmentally conscious design of chemical
+processes. Pearson Education, 2001.
+[42] L. Jacquemin, P. Y. Pontalier, and C. Sablayrolles. Life cycle assessment (LCA) applied to the process
+industry: a review. Int. J. Life Cycle Assessment, 17(8):10281041, 2012.
+[43] T. Bieringer, S. Buchholz, and N. Kockmann. Future production concepts in the chemical industry:
+Modularsmall-scalecontinuous. Chemical Engineering & Technology, 36(6):900910, 2013.
+[44] D.E. Seborg, T.F. Edgar, D.A. Mellichamp, and F.J. Doyle III. Process dynamics and control, fourth
+edition. Wiley, 2016.
+[45] J.B. Rawlings and B.T. Stewart. Coordinating multiple optimization-based controllers: New opportu-
+nities and challenges. J. Proc. Contr., 18(9):839845, 2008.
+[46] M. Baldea and I. Harjunkoski. Integrated production scheduling and process control: A systematic
+review. Comput. Chem. Eng., 71:377390, 2014.
+[47] A
+revolutionary
+automation
+solution
+from
+WAGO
+for
+the
+process
+industry.
+http://
+www.automationinside.com/2015/01/a-revolutionary-automation-solution.html, last retrieved
+6/5/2017.
+[48] A. A. Kiss and C. S. Bildea. A control perspective on process intensiﬁcation in dividing-wall columns.
+Chem. Eng. Proc.: Process Intensiﬁcation, 50(3):281292, 2011.
+[49] N. M. Nikaˇcevic, A. E. M. Huesman, P. M. J. Van den Hof, and A. I. Stankiewicz. Opportunities and
+challenges for process control in process intensiﬁcation. Chem. Eng. Proc.: Process Intensiﬁcation, 52:
+115, 2012.
+[50] M. Baldea. From process integration to process intensiﬁcation. Comput. Chem. Eng., 81:104114, 2015.
+[51] M. Baldea. Multum in parvo: A process intensiﬁcation retrospective and outlook. In M.R. Eden, J.D.
+Siirola, and G.P. Towler, editors, Foundations of Computer Aided Process Design (FOCAPD), pages
+1524, Cle Elum, WA, 2014. Elsevier.
+[52] M. Forstmeier, F. Mannerheim, F. DAmato, M. Shah, Y. Liu, M. Baldea, and A. Stella. Feasibility
+study on wind-powered desalination. Desalination, 203(1):463470, 2007.
+17
+View publication stats

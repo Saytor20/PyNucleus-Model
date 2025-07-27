@@ -1,0 +1,48 @@
+{
+  "title": "Chemical reaction",
+  "url": "https://en.wikipedia.org/wiki/Chemical_reaction",
+  "content": "The substance (or substances) initially involved in a chemical reaction are called reactants or reagents. Chemical reactions are usually characterized by a chemical change, and they yield one or more products, which usually have properties different from the reactants. Reactions often consist of a sequence of individual sub-steps, the so-called elementary reactions, and the information on the precise course of action is part of the reaction mechanism. Chemical reactions are described with chemical equations, which symbolically present the starting materials, end products, and sometimes intermediate products and reaction conditions.\nChemical reactions happen at a characteristic reaction rate at a given temperature and chemical concentration. Some reactions produce heat and are called exothermic reactions, while others may require heat to enable the reaction to occur, which are called endothermic reactions. Typically, reaction rates increase with increasing temperature because there is more thermal energy available to reach the activation energy necessary for breaking bonds between atoms.\nA reaction may be classified as redox in which oxidation and reduction occur or non-redox in which there is no oxidation and reduction occurring. Most simple redox reactions may be classified as a combination, decomposition, or single displacement reaction.\nDifferent chemical reactions are used during chemical synthesis in order to obtain the desired product. In biochemistry, a consecutive series of chemical reactions (where the product of one reaction is the reactant of the next reaction) form metabolic pathways. These reactions are often catalyzed by protein enzymes. Enzymes increase the rates of biochemical reactions, so that metabolic syntheses and decompositions impossible under ordinary conditions can occur at the temperature and concentrations present within a cell.\nThe general concept of a chemical reaction has been extended to reactions between entities smaller than atoms, including nuclear reactions, radioactive decays and reactions between elementary particles, as described by quantum field theory.\n\n\"Chemical Action\" . Encyclopædia Britannica. Vol. 6 (11th ed.). 1911. pp. 26–33.",
+  "summary": "The substance (or substances) initially involved in a chemical reaction are called reactants or reagents. Chemical reactions are usually characterized by a chemical change, and they yield one or more products, which usually have properties different from the reactants. Reactions often consist of a sequence of individual sub-steps, the so-called elementary reactions, and the information on the precise course of action is part of the reaction mechanism. Chemical reactions are described with chemical equations, which symbolically present the starting materials, end products, and sometimes intermediate products and reaction conditions.\nChemical reactions happen at a characteristic reaction rate at a given temperature and chemical concentration. Some reactions produce heat and are called exothermic reactions, while others may require heat to enable the reaction to occur, which are called endothermic reactions. Typically, reaction rates increase with increasing temperature because there is more thermal energy available to reach the activation energy necessary for breaking bonds between atoms.\nA reaction may be classified as redox in which oxidation and reduction occur or non-redox in which there is no oxidation and reduction occurring. Most simple redox reactions may be classified as a combination, decomposition, or single displacement reaction.\nDifferent chemical reactions are used during chemical synthesis in order to obtain the desired product. In biochemistry, a consecutive series of chemical reactions (where the product of one reaction is the reactant of the next reaction) form metabolic pathways. These reactions are often catalyzed by protein enzymes. Enzymes increase the rates of biochemical reactions, so that metabolic syntheses and decompositions impossible under ordinary conditions can occur at the temperature and concentrations present within a cell.\nThe general concept of a chemical reaction has been extended to reactions between entities smaller than atoms, including nuclear reactions, radioactive decays and reactions between elementary particles, as described by quantum field theory.",
+  "categories": [
+    "All articles to be expanded",
+    "Articles to be expanded from November 2020",
+    "Articles with short description",
+    "CS1 German-language sources (de)",
+    "CS1 errors: ISBN date",
+    "CS1 maint: multiple names: authors list",
+    "Change",
+    "Chemical reactions",
+    "Chemistry",
+    "Short description matches Wikidata"
+  ],
+  "references": [
+    "http://www.aiche-cf.org/Clearwater/2008/Paper2/8.2.7.pdf",
+    "https://books.google.com/books?id=VJIztvolC8cC&pg=PA170",
+    "https://books.google.com/books?id=udSCHPq5Ii0C&pg=PA56",
+    "http://utahscience.oremjr.alpine.k12.ut.us/sciber99/8th/matter/sciber/chemtype.htm",
+    "https://books.google.com/books?id=HvARsi6S-b0C&pg=PA7",
+    "https://books.google.com/books?id=qnRkjATn0YUC&pg=PA359",
+    "https://books.google.com/books?id=HwY4be5bH_sC&pg=PA171",
+    "https://books.google.com/books?id=3qJOw5Gh_UMC&pg=PA179",
+    "http://www.chem.ucalgary.ca/courses/351/Carey5th/Ch18/ch18-4-3.html",
+    "https://books.google.com/books?id=xx_uIP5LgO8C&pg=PA699"
+  ],
+  "scraped_at": "2025-06-19 15:52:06",
+  "word_count": 313,
+  "char_count": 2210,
+  "original_length": 55895,
+  "cleaning_efficiency": "4.0%",
+  "text_cleaning_stats": {
+    "files_processed": 0,
+    "lines_removed": 10,
+    "blank_lines_removed": 1,
+    "single_letters_removed": 0,
+    "metadata_lines_removed": 10,
+    "words_rejoined": 0
+  },
+  "keyword": "chemical reactor",
+  "files_created": {
+    "txt_file": "wikipedia/chemical_reactor/Chemical_reaction.txt",
+    "json_file": "wikipedia/chemical_reactor/Chemical_reaction_metadata.json"
+  }
+}

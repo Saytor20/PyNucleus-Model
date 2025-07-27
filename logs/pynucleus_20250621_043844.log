@@ -1,7 +1,0 @@
-2025-06-21 04:38:44,655 | pynucleus.api.app | INFO | app.py:166 | Processing question: What is chemical engineering?...
-2025-06-21 04:38:44,697 | pynucleus.rag.vector_store | INFO | vector_store.py:601 | ChromaDB client initialized successfully in vector store
-2025-06-21 04:38:44,697 | pynucleus.rag.vector_store | INFO | vector_store.py:630 | Loaded existing ChromaDB collection: pynucleus_documents
-2025-06-21 04:38:44,757 | pynucleus.rag.vector_store | INFO | vector_store.py:635 | ChromaDB collection contains 3588 documents
-2025-06-21 04:38:44,863 | pynucleus.rag.vector_store | INFO | vector_store.py:712 | ChromaDB search for 'What is chemical engineering?...' returned 5 results
-2025-06-21 04:38:45,493 | pynucleus | WARNING | model_loader.py:80 | Model generation failed: Empty or too short response. Using fallback.
-2025-06-21 04:38:45,494 | pynucleus.api.app | INFO | app.py:191 | Question processed successfully in 0.84s

@@ -1,0 +1,43 @@
+{
+  "title": "Process safety management",
+  "url": "https://en.wikipedia.org/wiki/Process_safety_management",
+  "content": "Process safety management (PSM) is a practice to manage business operations critical to process safety. It can be implemented using the established OSHA scheme or others made available by the EPA, AIChE's Center for Chemical Process Safety, or the Energy Institute.\nPSM schemes are organized in 'elements'. Different schemes are based on different lists of elements. This is a typical list of elements that may be reconciled with most established PSM schemes:\n\nCommit to process safety\nProcess safety culture\nCompliance with standards\nProcess safety competency\nWorkforce involvement\nStakeholder outreach\nUnderstand hazards and risks\nProcess knowledge and documentation management\nHazard identification and risk analysis\nManage risk\nOperating procedures\nSafe work practices (e.g. a permit-to-work system)\nAsset integrity management\nContractor management\nTraining and performance assurance\nManagement of change\nOperational readiness\nConduct of operations\nEmergency management\nLearn from experience\nIncident investigation\nProcess safety metrics and performance measurement\nAuditing\nManagement review and continuous improvement",
+  "summary": "Process safety management (PSM) is a practice to manage business operations critical to process safety. It can be implemented using the established OSHA scheme or others made available by the EPA, AIChE's Center for Chemical Process Safety, or the Energy Institute.\nPSM schemes are organized in 'elements'. Different schemes are based on different lists of elements. This is a typical list of elements that may be reconciled with most established PSM schemes:\n\nCommit to process safety\nProcess safety culture\nCompliance with standards\nProcess safety competency\nWorkforce involvement\nStakeholder outreach\nUnderstand hazards and risks\nProcess knowledge and documentation management\nHazard identification and risk analysis\nManage risk\nOperating procedures\nSafe work practices (e.g. a permit-to-work system)\nAsset integrity management\nContractor management\nTraining and performance assurance\nManagement of change\nOperational readiness\nConduct of operations\nEmergency management\nLearn from experience\nIncident investigation\nProcess safety metrics and performance measurement\nAuditing\nManagement review and continuous improvement",
+  "categories": [
+    "All pages needing cleanup",
+    "All stub articles",
+    "Articles needing cleanup from January 2024",
+    "Articles with sections that need to be turned into prose from January 2024",
+    "Articles with short description",
+    "Management by type",
+    "Management stubs",
+    "Process safety",
+    "Short description matches Wikidata"
+  ],
+  "references": [
+    "https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-H/section-1910.119",
+    "https://web.archive.org/web/20230618013713/https://www.epa.gov/rmp/risk-management-program-rmp-rule-overview",
+    "https://www.epa.gov/rmp/risk-management-program-rmp-rule-overview",
+    "https://doi.org/10.1016%2Fj.jlp.2020.104171",
+    "https://pure.coventry.ac.uk/ws/files/42062448/Binder1.pdf",
+    "https://api.semanticscholar.org/CorpusID:219495043"
+  ],
+  "scraped_at": "2025-06-19 15:52:33",
+  "word_count": 150,
+  "char_count": 1123,
+  "original_length": 1450,
+  "cleaning_efficiency": "77.4%",
+  "text_cleaning_stats": {
+    "files_processed": 0,
+    "lines_removed": 87,
+    "blank_lines_removed": 170,
+    "single_letters_removed": 44,
+    "metadata_lines_removed": 11,
+    "words_rejoined": 0
+  },
+  "keyword": "process safety",
+  "files_created": {
+    "txt_file": "wikipedia/process_safety/Process_safety_management.txt",
+    "json_file": "wikipedia/process_safety/Process_safety_management_metadata.json"
+  }
+}

@@ -10,7 +10,13 @@ from transformers import logging as hf_logging
 from ..settings import settings
 from ..utils.logger import logger
 from .document_processor import DocumentProcessor  # Import enhanced document processor
-from ..metrics import Metrics, inc
+# Metrics removed for pipeline cleanup - using no-op stubs
+class NoOpMetrics:
+    def __getattr__(self, name):
+        return lambda *args, **kwargs: None
+
+Metrics = NoOpMetrics()
+inc = lambda *args, **kwargs: None
 
 # disable HF user warnings
 hf_logging.set_verbosity_error()
@@ -359,7 +365,7 @@ def ingest(source_dir: str):
                         "index_page_numbers": getattr(settings, 'INDEX_PAGE_NUMBERS', True),
                         "index_technical_terms": getattr(settings, 'INDEX_TECHNICAL_TERMS', True),
                         
-                        # Advanced retrieval optimization metadata
+                        # Retrieval optimization metadata
                         "content_density": len(chunk_text) / max(1, chunk_data.get("word_count", 1)),
                         "semantic_coherence_score": chunk_data.get("readability_score", 0.0),
                         "chunk_position_in_document": chunk_data.get("section_index", 0),

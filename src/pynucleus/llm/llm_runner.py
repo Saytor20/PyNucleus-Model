@@ -9,7 +9,7 @@ from datetime import datetime
 class LLMRunner:
     """Run LLM models using HuggingFace transformers."""
     
-    def __init__(self, model_id: str = "Qwen/Qwen2.5-1.5B-Instruct", device: str = "auto"):
+    def __init__(self, model_id: str = "HuggingFaceTB/SmolLM2-1.7B-Instruct", device: str = "auto"):
         self.model_id = model_id
         self.device = device
         self.model = None

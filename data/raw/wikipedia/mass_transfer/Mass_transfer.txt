@@ -1,0 +1,40 @@
+Title: Mass transfer
+Source: Wikipedia - https://en.wikipedia.org/wiki/Mass_transfer
+Scraped: 2025-06-19 15:52:14
+Word Count: 207
+Character Count: 1473
+Keywords: mass transfer
+--------------------------------------------------------------------------------
+
+SUMMARY:
+Mass transfer is the net movement of mass from one location (usually meaning  stream, phase, fraction, or component) to another. Mass transfer occurs in many processes, such as absorption, evaporation, drying, precipitation, membrane filtration, and distillation. Mass transfer is used by different scientific disciplines for different processes and mechanisms. The phrase is commonly used in engineering for physical processes that involve diffusive and convective transport of chemical species within physical systems.
+Some common examples of mass transfer processes are the evaporation of water from a pond to the atmosphere, the purification of blood in the kidneys and liver, and the distillation of alcohol. In industrial processes, mass transfer operations include separation of chemical components in distillation columns, absorbers such as scrubbers or stripping, adsorbers such as activated carbon beds, and liquid-liquid extraction. Mass transfer is often coupled to additional transport processes, for instance in industrial cooling towers. These towers couple heat transfer to mass transfer by allowing hot water to flow in contact with air. The water is cooled by expelling some of its content in the form of water vapour.
+
+================================================================================
+
+CONTENT:
+Mass transfer is the net movement of mass from one location (usually meaning  stream, phase, fraction, or component) to another. Mass transfer occurs in many processes, such as absorption, evaporation, drying, precipitation, membrane filtration, and distillation. Mass transfer is used by different scientific disciplines for different processes and mechanisms. The phrase is commonly used in engineering for physical processes that involve diffusive and convective transport of chemical species within physical systems.
+Some common examples of mass transfer processes are the evaporation of water from a pond to the atmosphere, the purification of blood in the kidneys and liver, and the distillation of alcohol. In industrial processes, mass transfer operations include separation of chemical components in distillation columns, absorbers such as scrubbers or stripping, adsorbers such as activated carbon beds, and liquid-liquid extraction. Mass transfer is often coupled to additional transport processes, for instance in industrial cooling towers. These towers couple heat transfer to mass transfer by allowing hot water to flow in contact with air. The water is cooled by expelling some of its content in the form of water vapour.
+
+Crystal growth
+Heat transfer
+Fick's laws of diffusion
+Fractionating column
+McCabe–Thiele method
+Vapor–liquid equilibrium
+Liquid–liquid extraction
+Separation process
+Binary star
+Type Ia supernova
+Thermodiffusion
+Accretion (astrophysics)
+
+----------------------------------------
+CATEGORIES:
+• All articles needing additional references
+• Articles needing additional references from December 2009
+• Articles with short description
+• Heating, ventilation, and air conditioning
+• Mechanical engineering
+• Short description is different from Wikidata
+• Transport phenomena

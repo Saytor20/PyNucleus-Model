@@ -1,3 +1,0 @@
-case_name,temperature,pressure,feed_rate,catalyst_type,process_type
-dev_test_case_1,350.0,2.5,100.0,Pt/Al2O3,distillation
-dev_test_case_2,375.0,3.0,120.0,Pd/C,reaction

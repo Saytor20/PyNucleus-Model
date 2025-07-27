@@ -1,0 +1,31 @@
+Title: Plate heat exchanger
+Source: Wikipedia - https://en.wikipedia.org/wiki/Plate_heat_exchanger
+Scraped: 2025-06-19 15:52:01
+Word Count: 361
+Character Count: 2244
+Keywords: heat exchanger
+--------------------------------------------------------------------------------
+
+SUMMARY:
+A plate heat exchanger is a  type of heat exchanger that uses metal plates to transfer heat between two fluids. This has a major advantage over a conventional heat exchanger in that the fluids are exposed to a much larger surface area because the fluids are spread out over the plates. This facilitates the transfer of heat, and greatly increases the speed of the temperature change. Plate heat exchangers are now common and very small brazed versions are used in the hot-water sections of millions of combination boilers.  The high heat transfer efficiency for such a small physical size has increased the domestic hot water (DHW) flowrate of combination boilers.  The small plate heat exchanger has made a great impact in domestic heating and hot-water.  Larger commercial versions use gaskets between the plates, whereas smaller versions tend to be brazed.
+The concept behind a heat exchanger is the use of pipes or other containment vessels to heat or cool one fluid by transferring heat between it and another fluid. In most cases, the exchanger consists of a coiled pipe containing one fluid that passes through a chamber containing another fluid. The walls of the pipe are usually made of metal, or another substance with a high thermal conductivity, to facilitate the interchange, whereas the outer casing of the larger chamber is made of a plastic or coated with thermal insulation, to discourage heat from escaping from the exchanger.
+The world's first commercially viable plate heat exchanger (PHE) was invented by Dr Richard Seligman in 1923 and revolutionized methods of indirect heating and cooling of fluids. Dr Richard Seligman founded APV in 1910 as the Aluminum Plant & Vessel Company Limited, a specialist fabricating firm supplying welded vessels to the brewery and vegetable oil trades. Also, it set the norm for today's computer-designed thin metal plate Heat Exchangers that are used all over the world.
+
+================================================================================
+
+CONTENT:
+A plate heat exchanger is a  type of heat exchanger that uses metal plates to transfer heat between two fluids. This has a major advantage over a conventional heat exchanger in that the fluids are exposed to a much larger surface area because the fluids are spread out over the plates. This facilitates the transfer of heat, and greatly increases the speed of the temperature change. Plate heat exchangers are now common and very small brazed versions are used in the hot-water sections of millions of combination boilers.  The high heat transfer efficiency for such a small physical size has increased the domestic hot water (DHW) flowrate of combination boilers.  The small plate heat exchanger has made a great impact in domestic heating and hot-water.  Larger commercial versions use gaskets between the plates, whereas smaller versions tend to be brazed.
+The concept behind a heat exchanger is the use of pipes or other containment vessels to heat or cool one fluid by transferring heat between it and another fluid. In most cases, the exchanger consists of a coiled pipe containing one fluid that passes through a chamber containing another fluid. The walls of the pipe are usually made of metal, or another substance with a high thermal conductivity, to facilitate the interchange, whereas the outer casing of the larger chamber is made of a plastic or coated with thermal insulation, to discourage heat from escaping from the exchanger.
+The world's first commercially viable plate heat exchanger (PHE) was invented by Dr Richard Seligman in 1923 and revolutionized methods of indirect heating and cooling of fluids. Dr Richard Seligman founded APV in 1910 as the Aluminum Plant & Vessel Company Limited, a specialist fabricating firm supplying welded vessels to the brewery and vegetable oil trades. Also, it set the norm for today's computer-designed thin metal plate Heat Exchangers that are used all over the world.
+
+A screening method for the optimal selection of plate heat exchanger configurations by J.M.Pinto and J.A.W.Gut, University of São Paulo, Brazil.
+Seeking the optimal design of a typical plate heat exchanger (PHE) by Athanasios G. Kanaris, Aikaterini A. Mouza and Spiros V. Paras, Aristotle University of Thessaloniki.
+
+----------------------------------------
+CATEGORIES:
+• All articles with unsourced statements
+• Articles with short description
+• Articles with unsourced statements from July 2020
+• Commons category link is on Wikidata
+• Heat exchangers
+• Short description is different from Wikidata

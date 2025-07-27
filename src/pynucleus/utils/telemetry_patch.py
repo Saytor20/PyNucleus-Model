@@ -77,7 +77,7 @@ def disable_chromadb_telemetry():
         for attr_name in dir(posthog_module):
             attr = getattr(posthog_module, attr_name)
             if hasattr(attr, '__call__') and hasattr(attr, 'capture'):
-                # This is likely a PostHog client class
+                # PostHog client class
                 attr.capture = noop_capture
     except ImportError:
         pass

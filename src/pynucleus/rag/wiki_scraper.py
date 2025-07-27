@@ -64,7 +64,7 @@ class WikipediaScraper:
             "environmental engineering", "pollution control",
             "waste treatment", "sustainability",
             
-            # Advanced Topics
+            # Additional topics
             "process intensification", "green chemistry", "biotechnology",
             "nanotechnology", "catalysis", "electrochemistry",
             "materials science", "polymer engineering"

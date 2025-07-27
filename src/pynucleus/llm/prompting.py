@@ -36,69 +36,59 @@ def build_enhanced_rag_prompt(context: str, question: str, max_context_chars=Non
     question_type = _detect_question_type(question)
     
     if is_complex:
-        # Enhanced prompt for complex questions with domain expertise
-        prompt = f"""You are a senior chemical engineer providing a comprehensive explanation.
+        # Optimized prompt for complex questions - concise but comprehensive
+        prompt = f"""You are a chemical engineer providing a clear, focused explanation.
 
 ### QUESTION:
 {question}
 
-### TECHNICAL INFORMATION PROVIDED:
+### CONTEXT:
 {context}
 
-### CRITICAL REQUIREMENTS:
-- Write your OWN comprehensive explanation using your chemical engineering expertise
-- DO NOT copy document headers, section numbers, page references, or formatting
-- DO NOT copy any author names, contact information, or university affiliations
-- DO NOT include phone numbers, emails, or personal details
-- DO NOT start with "Technical Information" or any document markers
-- SYNTHESIZE the information into a clear, professional explanation
-- STRUCTURE your response with proper paragraphs and flow
-- INCLUDE technical details, principles, and practical considerations
-- WRITE as if explaining to a fellow engineer in plain professional language
-- ONLY use the technical content, completely ignore any personal/contact information
+### REQUIREMENTS:
+- Provide a clear, structured answer in 150-200 words
+- Include essential technical details and principles
+- Use professional engineering language
+- Synthesize information, don't copy directly
+- Focus on practical, actionable information
+- Cite sources as [Doc-XX] when appropriate
 
-### YOUR EXPLANATION:"""
+### ANSWER:"""
     
     elif question_type == "process":
-        prompt = f"""You are a process engineer explaining chemical engineering processes. Using the context provided, synthesize a clear explanation of the process.
+        prompt = f"""You are a process engineer. Provide a clear process explanation in 100-150 words.
 
 ### QUESTION:
 {question}
 
-### CONTEXT FROM DOCUMENTS:
+### CONTEXT:
 {context}
 
-### INSTRUCTIONS:
-- SYNTHESIZE your own explanation using the context as reference
-- DO NOT copy text directly - explain in your own professional words
-- DESCRIBE the process steps clearly and logically
-- INCLUDE key operating conditions and principles
-- EXPLAIN the chemical/physical mechanisms involved
-- CITE sources using [Doc-XX] format appropriately
-- WRITE as a process engineering explanation
+### REQUIREMENTS:
+- Explain the process steps clearly and logically
+- Include key operating conditions and principles
+- Use concise, professional language
+- Cite sources as [Doc-XX] when relevant
 
-### YOUR PROCESS EXPLANATION:
+### PROCESS EXPLANATION:
 """
         
     elif question_type == "equipment":
-        prompt = f"""You are an equipment design engineer. Using the provided context, synthesize a technical explanation about the equipment.
+        prompt = f"""You are an equipment design engineer. Provide a focused equipment explanation in 100-150 words.
 
 ### QUESTION:
 {question}
 
-### CONTEXT FROM DOCUMENTS:
+### CONTEXT:
 {context}
 
-### INSTRUCTIONS:
-- SYNTHESIZE your own explanation using the context as reference
-- DO NOT copy text directly from documents
-- EXPLAIN equipment function and design principles clearly
-- INCLUDE key design parameters and considerations
-- DESCRIBE operating principles and applications
-- ADD citations using [Doc-XX] format where appropriate
-- WRITE as a technical equipment explanation
+### REQUIREMENTS:
+- Explain equipment function and design principles
+- Include key parameters and considerations
+- Use professional, concise language
+- Cite sources as [Doc-XX] when relevant
 
-### YOUR EQUIPMENT EXPLANATION:
+### EQUIPMENT EXPLANATION:
 """
     else:
         # Concise general chemical engineering prompt

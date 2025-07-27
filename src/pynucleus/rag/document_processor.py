@@ -107,7 +107,7 @@ class DocumentProcessor:
             with open(file_path, 'r', encoding='utf-8') as f:
                 return f.read()
         else:
-            # For other file types, return a placeholder
+            # Unsupported file type
             return f"Document: {file_path.name}\n[Content processing not implemented for {suffix} files]"
     
     def _save_cleaned_text(self, content: str, file_path: Path) -> None:

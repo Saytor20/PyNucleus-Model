@@ -1,0 +1,29 @@
+Title: Process safety
+Source: Wikipedia - https://en.wikipedia.org/wiki/Process_safety
+Scraped: 2025-06-19 15:52:29
+Word Count: 92
+Character Count: 649
+Keywords: process safety
+--------------------------------------------------------------------------------
+
+SUMMARY:
+Process safety is an interdisciplinary engineering domain focusing on the study, prevention, and management of large-scale fires, explosions and chemical accidents (such as toxic gas clouds) in process plants or other facilities dealing with hazardous materials, such as refineries and oil and gas (onshore and offshore) production installations. Thus, process safety is generally concerned with the prevention of, control of, mitigation of and recovery from unintentional hazardous materials releases that can have a serious effect to people (onsite and offsite), plant and/or the environment.
+
+================================================================================
+
+CONTENT:
+Process safety is an interdisciplinary engineering domain focusing on the study, prevention, and management of large-scale fires, explosions and chemical accidents (such as toxic gas clouds) in process plants or other facilities dealing with hazardous materials, such as refineries and oil and gas (onshore and offshore) production installations. Thus, process safety is generally concerned with the prevention of, control of, mitigation of and recovery from unintentional hazardous materials releases that can have a serious effect to people (onsite and offsite), plant and/or the environment.
+
+ Media related to Process safety at Wikimedia Commons
+
+----------------------------------------
+CATEGORIES:
+• Articles with short description
+• CS1: long volume value
+• Chemical engineering
+• Chemical industry
+• Commons category link from Wikidata
+• Hazardous materials
+• Process safety
+• Safety
+• Short description is different from Wikidata

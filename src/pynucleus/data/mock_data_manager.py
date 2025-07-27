@@ -323,7 +323,7 @@ class MockDataManager:
         return self._data is not None and len(self._data.get('plant_templates', [])) > 0
 
 
-# Global instance for easy access
+# Global instance
 _mock_data_manager = None
 
 def get_mock_data_manager() -> MockDataManager:

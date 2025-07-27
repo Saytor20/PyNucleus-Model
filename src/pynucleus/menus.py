@@ -1,176 +1,77 @@
 """
-PyNucleus Interactive Menu System
-Enhanced UX with clear post-command navigation options
+Minimal menu system for PyNucleus CLI - pipeline cleanup version
 """
 
-import sys
-from typing import Callable, Optional
 from rich.console import Console
 
-# Initialize console for rich formatting
 console = Console()
 
-# Import the enhanced error handler
-from pynucleus.utils.error_handler import error_handler
-
-@error_handler
-def post_command_options(context_menu_func: Callable[[], None]):
-    """
-    Provide intuitive navigation after command execution.
+def enhanced_context_menu(title: str, menu_options: list, command_executor):
+    """Enhanced context menu with navigation"""
+    console.print(f"\n🔧 [bold blue]{title} Options[/bold blue]")
     
-    Args:
-        context_menu_func: Function to call when user chooses to repeat context menu
-    """
-    console.print("\n[bold blue]" + "─" * 60 + "[/bold blue]")
-    console.print("[bold cyan]🎯 Post-Command Navigation[/bold cyan]")
-    console.print("[bold blue]" + "─" * 60 + "[/bold blue]")
-    console.print("[bold green]m[/bold green]: Return to Main Menu")
-    console.print("[bold green]r[/bold green]: Repeat Context Menu")
-    console.print("[bold green]q[/bold green]: Exit")
-    console.print()
+    if not menu_options:
+        console.print("[yellow]No options available for this context[/yellow]")
+        return 'main'
     
-    max_attempts = 3
-    attempts = 0
+    # Display options
+    for i, (option, description, command) in enumerate(menu_options, 1):
+        console.print(f"[bold cyan]{i:>2}[/bold cyan]  {description}")
     
-    while attempts < max_attempts:
-        try:
-            choice = console.input("[bold cyan]Select option: [/bold cyan]").lower().strip()
-            
-            if choice == 'm':
-                console.print("[yellow]🔄 Returning to Main Menu...[/yellow]")
-                # Import here to avoid circular import
-                import importlib
-                cli_module = importlib.import_module('pynucleus.cli')
-                cli_module.show_interactive_menu()
-                return
-            elif choice == 'r':
-                console.print("[yellow]🔄 Repeating Context Menu...[/yellow]")
-                context_menu_func()
-                return
-            elif choice == 'q':
-                console.print("[yellow]👋 Goodbye![/yellow]")
-                sys.exit(0)
-            else:
-                console.print(f"[red]❌ Invalid choice: '{choice}'. Please enter 'm', 'r', or 'q'[/red]")
-                attempts += 1
-                
-        except (KeyboardInterrupt, EOFError):
-            console.print("\n[yellow]👋 Goodbye![/yellow]")
-            sys.exit(0)
-        except Exception as e:
-            console.print(f"[red]❌ Error: {e}[/red]")
-            attempts += 1
-    
-    # If too many invalid attempts, default to main menu
-    console.print("[yellow]⚠️  Too many invalid attempts. Returning to main menu.[/yellow]")
-    # Import here to avoid circular import
-    import importlib
-    cli_module = importlib.import_module('pynucleus.cli')
-    cli_module.show_interactive_menu()
-
-@error_handler
-def enhanced_context_menu(context_name: str, menu_options: list, command_executor: Callable[[str], None]):
-    """
-    Enhanced context menu with integrated post-command navigation.
-    
-    Args:
-        context_name: Name of the context (e.g., "Ingest", "Health Check")
-        menu_options: List of tuples (option_key, description, command)
-        command_executor: Function to execute the selected command
-    """
-    console.print(f"\n[bold blue]🧪 PyNucleus - {context_name}[/bold blue]")
-    console.print("Choose an option:\n")
-    
-    # Display menu options
-    for option_key, description, _ in menu_options:
-        console.print(f"[bold cyan]{option_key:>2}[/bold cyan]  {description}")
-    
-    # Add standard navigation options
-    console.print(f"[bold cyan] m[/bold cyan]  Return to main menu")
-    console.print(f"[bold cyan] q[/bold cyan]  Exit")
-    console.print("\n" + "─" * 80)
-    
-    max_attempts = 5
-    attempts = 0
-    
-    while attempts < max_attempts:
-        try:
-            choice = console.input(f"[bold green]Enter your choice: [/bold green]").strip().lower()
-            
-            if choice in ['q', 'quit']:
-                console.print("👋 [yellow]Goodbye![/yellow]")
-                sys.exit(0)
-            elif choice in ['m', 'main']:
-                console.print("[yellow]🔄 Returning to Main Menu...[/yellow]")
-                # Import here to avoid circular import
-                import importlib
-                cli_module = importlib.import_module('pynucleus.cli')
-                cli_module.show_interactive_menu()
-                return
-            
-            # Check if it's a valid context command
-            for option_key, description, command in menu_options:
-                if choice == option_key:
-                    console.print(f"\n[yellow]🔄 Executing: {description}[/yellow]")
-                    console.print("─" * 80)
-                    
-                    # Execute the command
-                    command_executor(command)
-                    
-                    # Show post-command options with current context
-                    post_command_options(lambda: enhanced_context_menu(context_name, menu_options, command_executor))
-                    return
-            
-            console.print(f"[red]❌ Invalid choice: '{choice}'. Please enter a valid option.[/red]")
-            attempts += 1
-                
-        except (KeyboardInterrupt, EOFError):
-            console.print("\n👋 [yellow]Goodbye![/yellow]")
-            sys.exit(0)
-        except Exception as e:
-            console.print(f"[red]❌ Error: {e}[/red]")
-            attempts += 1
-            
-    # If we've exceeded max attempts, return to main menu
-    console.print("[yellow]⚠️  Too many invalid attempts. Returning to main menu.[/yellow]")
-    # Import here to avoid circular import
-    import importlib
-    cli_module = importlib.import_module('pynucleus.cli')
-    cli_module.show_interactive_menu()
-
-@error_handler
-def simple_command_wrapper(command_name: str, command_executor: Callable[[], None]):
-    """
-    Wrapper for simple commands that don't have sub-menus.
-    Executes the command and shows post-command options.
-    
-    Args:
-        command_name: Name of the command for display
-        command_executor: Function to execute the command
-    """
-    console.print(f"\n[yellow]🔄 Executing: {command_name}[/yellow]")
-    console.print("─" * 80)
+    console.print(f"[bold cyan] 0[/bold cyan]  Return to main menu")
     
     try:
-        # Execute the command
+        choice = input(f"\nEnter your choice (0-{len(menu_options)}): ").strip()
+        
+        if choice == '0' or choice.lower() in ['back', 'main', 'menu']:
+            return 'main'
+        
+        try:
+            choice_num = int(choice)
+            if 1 <= choice_num <= len(menu_options):
+                option_key = menu_options[choice_num - 1][2]  # Use the command (third element)
+                command_executor(option_key)
+                return 'main'
+            else:
+                console.print(f"[red]❌ Invalid choice. Please select 0-{len(menu_options)}[/red]")
+                return 'main'
+        except ValueError:
+            console.print("[red]❌ Please enter a valid number[/red]")
+            return 'main'
+            
+    except KeyboardInterrupt:
+        console.print("\n👋 [yellow]Returning to main menu...[/yellow]")
+        return 'main'
+
+def simple_command_wrapper(command_name: str, command_executor):
+    """Simple wrapper for commands that don't need sub-menus"""
+    try:
+        console.print(f"\n🚀 [bold blue]Executing {command_name}...[/bold blue]")
         command_executor()
         
-        # Show post-command options - for simple commands, context menu returns to main
-        def return_to_main():
-            # Import here to avoid circular import
-            import importlib
-            cli_module = importlib.import_module('pynucleus.cli')
-            cli_module.show_interactive_menu()
-            
-        post_command_options(return_to_main)
+        # After command execution, offer navigation
+        console.print("\n" + "─" * 60)
+        console.print("🧭 [bold cyan]What would you like to do next?[/bold cyan]")
+        console.print("   [cyan]1.[/cyan] Run another command")
+        console.print("   [cyan]2.[/cyan] Return to main menu") 
+        console.print("   [cyan]3.[/cyan] Exit PyNucleus")
+        console.print("─" * 60)
         
+        choice = input("\nEnter your choice (1-3): ").strip()
+        
+        if choice == '1':
+            return 'main'  # Return to main menu to select another command
+        elif choice == '2':
+            return 'main'  # Return to main menu
+        elif choice == '3':
+            return 'quit'  # Exit the application
+        else:
+            console.print("[yellow]Invalid choice, returning to main menu...[/yellow]")
+            return 'main'
+            
+    except KeyboardInterrupt:
+        console.print("\n👋 [yellow]Returning to main menu...[/yellow]")
+        return 'main'
     except Exception as e:
         console.print(f"[red]❌ Command failed: {e}[/red]")
-        # Still show post-command options even if command failed
-        def return_to_main():
-            # Import here to avoid circular import
-            import importlib
-            cli_module = importlib.import_module('pynucleus.cli')
-            cli_module.show_interactive_menu()
-            
-        post_command_options(return_to_main) 
+        return 'main'

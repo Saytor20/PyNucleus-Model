@@ -16,7 +16,18 @@ from .answer_processing import process_answer_quality, should_retry_generation, 
 from ..llm.prompting import build_enhanced_rag_prompt
 import re
 
-from ..metrics import Metrics, inc, start, stop
+# Safe import of metrics with fallback
+try:
+    from ..metrics import Metrics, inc, start, stop
+except ImportError:
+    # Fallback no-op functions if metrics module is not available
+    class NoOpMetrics:
+        def __getattr__(self, name):
+            return lambda *args, **kwargs: None
+    Metrics = NoOpMetrics()
+    inc = lambda *args, **kwargs: None
+    start = lambda *args, **kwargs: None
+    stop = lambda *args, **kwargs: None
 from typing import Optional, Dict
 
 # Confidence calibration integration
@@ -554,16 +565,22 @@ def ask(question: str, max_retries: int = 2) -> dict:
                 calibrated_confidence = max(0.0, min(1.0, calibrated_confidence))
                 
                 # Record metrics
-                from ..metrics.prometheus import record_confidence_calibration
-                record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
+                try:
+                    from ..metrics.prometheus import record_confidence_calibration
+                    record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
+                except ImportError:
+                    pass  # Metrics module not available
                 
             except Exception as e:
                 logger.warning(f"Failed to apply confidence calibration for empty result: {e}")
                 calibrated_confidence = raw_confidence
                 
                 # Record failure metrics
-                from ..metrics.prometheus import record_confidence_calibration
-                record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
+                try:
+                    from ..metrics.prometheus import record_confidence_calibration
+                    record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
+                except ImportError:
+                    pass  # Metrics module not available
             
             return {
                 "answer": "I don't have enough information to provide a complete answer.",
@@ -653,16 +670,22 @@ def ask(question: str, max_retries: int = 2) -> dict:
             calibrated_confidence = max(0.0, min(1.0, calibrated_confidence))
             
             # Record metrics
-            from ..metrics.prometheus import record_confidence_calibration
-            record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
+            try:
+                from ..metrics.prometheus import record_confidence_calibration
+                record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
+            except ImportError:
+                pass  # Metrics module not available
             
         except Exception as e:
             logger.warning(f"Failed to apply confidence calibration: {e}")
             calibrated_confidence = raw_confidence
             
             # Record failure metrics
-            from ..metrics.prometheus import record_confidence_calibration
-            record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
+            try:
+                from ..metrics.prometheus import record_confidence_calibration
+                record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
+            except ImportError:
+                pass  # Metrics module not available
         
         # Check if the answer was rejected during processing
         processed_answer = quality_result["processed_answer"]
@@ -722,14 +745,20 @@ def ask(question: str, max_retries: int = 2) -> dict:
             calibrated_confidence = max(0.0, min(1.0, calibrated_confidence))
             
             # Record metrics
-            from ..metrics.prometheus import record_confidence_calibration
-            record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
+            try:
+                from ..metrics.prometheus import record_confidence_calibration
+                record_confidence_calibration(raw_confidence, calibrated_confidence, 'success')
+            except ImportError:
+                pass  # Metrics module not available
         except:
             calibrated_confidence = raw_confidence
             
             # Record failure metrics  
-            from ..metrics.prometheus import record_confidence_calibration
-            record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
+            try:
+                from ..metrics.prometheus import record_confidence_calibration
+                record_confidence_calibration(raw_confidence, raw_confidence, 'failure')
+            except ImportError:
+                pass  # Metrics module not available
         
         return {
             "answer": f"An error occurred while processing your question: {str(e)}",

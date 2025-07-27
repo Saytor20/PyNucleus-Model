@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "timestamp": "2025-07-24T15:42:44.877779",
+  "output_dir": "data/05_output/final_cli_validation",
+  "settings": {
+    "MODEL_ID": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+    "EMB_MODEL": "BAAI/bge-small-en-v1.5",
+    "MAX_TOKENS": 200,
+    "RETRIEVE_TOP_K": 3,
+    "USE_CUDA": false,
+    "LOG_LEVEL": "INFO",
+    "CHROMA_PATH": "data/03_intermediate/vector_db"
+  },
+  "summary": "Pipeline completed successfully (mock implementation)"
+}
