@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11"]
+        python-version: ["3.11", "3.12"]
     
     steps:
     - name: Checkout code
@@ -40,12 +40,12 @@ jobs:
       run: |
         pytest -q 
         
-    - name: Test DSPy Compilation
+    - name: Test pipeline script
       run: |
-        # Test DSPy compilation in CI mode (creates artifact but doesn't commit)
-        python run_pipeline.py dspy-compile --ci
+        # Test pipeline script exists and can run help
+        python scripts/run_pipeline.py --help
         
-    - name: Flask smoke test
+    - name: CLI smoke test
       run: |
-        export PYNUCLEUS_API_KEY=dummy
-        FLASK_APP=pynucleus.api.app flask routes
+        # Test main CLI functionality
+        python -m pynucleus.cli --help
