@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-# Add src to path for imports
+# Need this for module imports to work properly
 sys.path.append('src')
 
 def run_check(name: str, check_func) -> Tuple[bool, str]:
@@ -27,7 +27,7 @@ def check_python_environment() -> str:
     python_version = sys.version
     venv_path = os.environ.get('VIRTUAL_ENV', 'Not in virtual environment')
     
-    # Check if we're in the expected virtual environment
+    # Make sure we're using the right virtual environment
     expected_venv = str(Path.cwd() / '.venv')
     if venv_path != 'Not in virtual environment':
         if Path(venv_path).resolve() == Path(expected_venv).resolve():
@@ -41,6 +41,7 @@ def check_python_environment() -> str:
 
 def check_critical_packages() -> str:
     """Check if critical packages are installed and importable."""
+    # These are the packages we absolutely need for the system to work
     critical_packages = [
         'torch', 'transformers', 'chromadb', 'bitsandbytes', 
         'sentence_transformers', 'pynucleus'
@@ -50,7 +51,7 @@ def check_critical_packages() -> str:
     for package in critical_packages:
         try:
             if package == 'pynucleus':
-                # Special handling for pynucleus
+                # Our own package needs special import handling
                 from pynucleus import __version__
                 version = __version__
             else:

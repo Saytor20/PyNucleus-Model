@@ -14,16 +14,16 @@ from typing import Any, Callable, TypeVar, Union
 from rich.console import Console
 from rich.traceback import install as rich_install_traceback
 
-# Configure rich traceback for better error display
+# Rich tracebacks are much prettier than standard Python ones
 rich_install_traceback(show_locals=True)
 
-# Global console instance for error display
+# Single console instance for consistent formatting
 console = Console()
 
 # Type hint for decorated functions
 F = TypeVar('F', bound=Callable[..., Any])
 
-# Check if we're in debug mode
+# Debug mode shows full stack traces
 DEBUG = os.getenv('DEBUG', '').lower() in ('true', '1', 'yes', 'on')
 
 def error_handler(func: F) -> F:

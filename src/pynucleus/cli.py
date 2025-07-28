@@ -14,16 +14,16 @@ Usage:
     pynucleus auto-ingest --watch-dir data/01_raw
 """
 
-# Apply telemetry patch before any imports
+# Need to disable telemetry before ChromaDB loads - learned this the hard way
 import sys
 from pathlib import Path
 
-# Add src to Python path if needed
+# Had issues with imports, this fixes the path resolution
 src_path = str(Path(__file__).parent.parent.parent)
 if src_path not in sys.path:
     sys.path.insert(0, src_path)
 
-# Apply telemetry patch before any ChromaDB imports
+# ChromaDB telemetry was causing issues in production, patch it early
 from pynucleus.utils.telemetry_patch import apply_telemetry_patch
 apply_telemetry_patch()
 
@@ -44,17 +44,17 @@ from rich.text import Text
 from typer import Typer, Option, Argument, Context, Exit, echo
 from typer.rich_utils import _get_rich_console
 
-# Check if rich is available for enhanced formatting
+# Simple check for rich availability - fallback to basic output if needed
 try:
     RICH_AVAILABLE = True
 except ImportError:
     RICH_AVAILABLE = False
 
-# Configure rich traceback for better error display
+# Rich tracebacks are much nicer for debugging
 rich_install_traceback(show_locals=True)
 console = Console()
 
-# Add src to Python path if needed
+# Duplicate path check - sometimes needed depending on how CLI is called
 src_path = str(Path(__file__).parent.parent.parent)
 if src_path not in sys.path:
     sys.path.insert(0, src_path)
@@ -77,27 +77,27 @@ def typewriter_effect(result, delay: float = 0.03, style: str = "bold green"):
     if isinstance(result, dict):
         answer = result.get('answer', '')
         
-        # Import answer processing
+        # Clean up the response - remove any meta text that looks weird
         try:
             from pynucleus.rag.answer_processing import clean_and_format_answer, remove_meta_commentary, filter_irrelevant_content
             answer = remove_meta_commentary(answer)
             answer = filter_irrelevant_content(answer)
             answer = clean_and_format_answer(answer)
         except ImportError:
-            pass
+            pass  # No big deal if processing isn't available
         
-        # Typewriter effect for answer content with console flushing
+        # Word-by-word typewriter effect looks more natural
         if RICH_AVAILABLE:
             words = answer.split()
             for i, word in enumerate(words):
                 if i > 0:
                     console.print(" ", end="", style=style)
                 console.print(word, end="", style=style)
-                # Force console flush for real-time display
+                # Console flush is critical for real-time display
                 try:
                     console.file.flush()
                 except:
-                    pass
+                    pass  # Some terminals don't support flush
                 if i < len(words) - 1:
                     time.sleep(delay)
             

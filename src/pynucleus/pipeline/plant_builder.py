@@ -28,11 +28,11 @@ class PlantBuilder:
     
     def validate_parameters(self, template: Dict[str, Any], custom_parameters: Dict[str, Any]) -> None:
         """Validate custom parameters against template constraints."""
-        # Validate feedstock
+        # Check feedstock compatibility
         if custom_parameters.get("feedstock") not in template.get("feedstock_options", []):
             raise ValueError(f"Invalid feedstock. Must be one of: {template['feedstock_options']}")
         
-        # Validate production capacity
+        # Capacity validation - important for economic calculations
         capacity = custom_parameters.get("production_capacity")
         valid_ranges = template.get("valid_ranges", {})
         if "production_capacity" in valid_ranges:
@@ -41,7 +41,7 @@ class PlantBuilder:
             if not min_cap <= capacity <= max_cap:
                 raise ValueError(f"Production capacity must be between {min_cap} and {max_cap} tons/year")
         
-        # Validate operating hours
+        # Operating hours affect economics significantly
         hours = custom_parameters.get("operating_hours")
         if "operating_hours" in valid_ranges:
             min_hours = valid_ranges["operating_hours"]["min"]
@@ -54,7 +54,7 @@ class PlantBuilder:
         default_params = template["default_parameters"]
         location_factors = template.get("location_factors", {})
         
-        # Support both 'production_capacity' and 'production_capacity_tpd'
+        # Handle different naming conventions in templates
         default_capacity = default_params.get("production_capacity_tpd")
         if default_capacity is None:
             default_capacity = default_params.get("production_capacity")
@@ -62,19 +62,19 @@ class PlantBuilder:
         if custom_capacity is None:
             custom_capacity = custom_parameters.get("production_capacity")
         
-        # Get location factor
+        # Apply geographic cost adjustments
         location = custom_parameters.get("plant_location", "Texas, USA")
-        location_factor = location_factors.get(location, 1.0)
+        location_factor = location_factors.get(location, 1.0)  # Default to US baseline
         
-        # Calculate capacity scaling factor
+        # Economy of scale calculations - 0.6 factor is standard in chemical engineering
         if default_capacity is None or custom_capacity is None:
             scale_factor = 1.0
             capacity_ratio = 1.0
         else:
             capacity_ratio = custom_capacity / default_capacity
-            scale_factor = capacity_ratio ** 0.6
+            scale_factor = capacity_ratio ** 0.6  # Six-tenths rule for capital costs
         
-        # Calculate adjusted costs
+        # Final cost calculations
         adjusted_capital_cost = default_params["capital_cost"] * scale_factor * location_factor
         adjusted_operating_cost = default_params["operating_cost"] * capacity_ratio * location_factor
         

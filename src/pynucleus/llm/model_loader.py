@@ -17,21 +17,25 @@ class ModelLoader:
     _initialized = False
     
     def __new__(cls):
+        # Singleton pattern - prevents multiple model instances eating memory
         if cls._instance is None:
             cls._instance = super(ModelLoader, cls).__new__(cls)
         return cls._instance
     
     def __init__(self):
         if not self._initialized:
+            # Model storage
             self._tokenizer = None
             self._hf_model = None
             self._gguf_model = None
             self._loading_method = None
             self._pipeline = None
+            
+            # Cache setup - speeds up repeated queries significantly
             self._model_cache_dir = Path("cache/models")
             self._model_cache_dir.mkdir(parents=True, exist_ok=True)
             self._response_cache = {}
-            self._cache_max_size = 5000
+            self._cache_max_size = 5000  # Adjust based on available memory
             self._cache_stats = {"hits": 0, "misses": 0, "evictions": 0}
             self._initialized = True
             logger.info("Enhanced ModelLoader singleton initialized with persistent caching")
@@ -39,6 +43,7 @@ class ModelLoader:
     def _get_cache_key(self, prompt: str, max_tokens: int, temperature: float) -> str:
         """Generate cache key for response caching."""
         import hashlib
+        # Include loading method to avoid cache conflicts between model types
         cache_data = f"{prompt[:200]}_{max_tokens}_{temperature}_{self._loading_method}"
         return hashlib.md5(cache_data.encode()).hexdigest()
     
@@ -57,9 +62,8 @@ class ModelLoader:
         """Cache response with LRU eviction."""
         cache_key = self._get_cache_key(prompt, max_tokens, temperature)
         
-        # Implement LRU eviction if cache is full
+        # Simple FIFO eviction - could upgrade to proper LRU later
         if len(self._response_cache) >= self._cache_max_size:
-            # Remove oldest entry (simple FIFO for now)
             oldest_key = next(iter(self._response_cache))
             del self._response_cache[oldest_key]
             self._cache_stats["evictions"] += 1

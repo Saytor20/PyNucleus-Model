@@ -2,7 +2,7 @@
 Enhanced RAG Pipeline for PyNucleus with improved retrieval, metadata indexing, and citation enforcement.
 """
 
-# Apply telemetry patch before any ChromaDB imports
+# ChromaDB telemetry causes issues in some environments
 from ..utils.telemetry_patch import apply_telemetry_patch
 apply_telemetry_patch()
 
@@ -16,11 +16,11 @@ from .answer_processing import process_answer_quality, should_retry_generation, 
 from ..llm.prompting import build_enhanced_rag_prompt
 import re
 
-# Safe import of metrics with fallback
+# Metrics aren't always available - graceful degradation
 try:
     from ..metrics import Metrics, inc, start, stop
 except ImportError:
-    # Fallback no-op functions if metrics module is not available
+    # No-op fallbacks when metrics aren't available
     class NoOpMetrics:
         def __getattr__(self, name):
             return lambda *args, **kwargs: None
@@ -30,10 +30,10 @@ except ImportError:
     stop = lambda *args, **kwargs: None
 from typing import Optional, Dict
 
-# Confidence calibration integration
+# Global state for confidence calibration
 _confidence_calibrator = None
 
-# Simple in-memory cache for CLI usage
+# In-memory caching for better CLI performance
 _in_memory_cache = {}
 _cache_enabled = True
 
@@ -46,12 +46,12 @@ def _load_confidence_calibrator():
             _confidence_calibrator = load_latest_model()
             if _confidence_calibrator is None:
                 logger.info("No trained confidence calibration model found, using identity function")
-                _confidence_calibrator = lambda x: x  # Identity function
+                _confidence_calibrator = lambda x: x  # Just return input unchanged
             else:
                 logger.info("Confidence calibration model loaded successfully")
         except Exception as e:
             logger.warning(f"Failed to load confidence calibration model: {e}")
-            _confidence_calibrator = lambda x: x  # Fallback to identity
+            _confidence_calibrator = lambda x: x  # Safe fallback
     return _confidence_calibrator
 
 def _get_cached_response(question: str) -> Optional[Dict]:
@@ -59,20 +59,19 @@ def _get_cached_response(question: str) -> Optional[Dict]:
     if not _cache_enabled:
         return None
     
-    # Normalize question for caching
+    # Simple string normalization for better cache hits
     normalized_question = question.lower().strip()
     
-    # Check if we have a cached response
     if normalized_question in _in_memory_cache:
         cached_data = _in_memory_cache[normalized_question]
         
-        # Check if cache is still valid (1 hour TTL)
+        # 1 hour TTL - prevents stale answers but still speeds up repeated queries
         import time
-        if time.time() - cached_data.get('cached_at', 0) < 3600:  # 1 hour
+        if time.time() - cached_data.get('cached_at', 0) < 3600:
             logger.info(f"Cache hit for question: {question[:50]}...")
             return cached_data['response']
         else:
-            # Remove expired cache entry
+            # Clean up expired entries
             del _in_memory_cache[normalized_question]
     
     return None
