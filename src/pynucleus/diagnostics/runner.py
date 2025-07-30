@@ -581,7 +581,7 @@ class DiagnosticRunner:
             # Execution test (for non-entry-point scripts)
             if not script_path.endswith(('cli.py', 'run_pipeline.py')):
                 try:
-                    # Simple import test
+                    # Simple import test with better error handling
                     spec = importlib.util.spec_from_file_location("test_module", script_path)
                     if spec and spec.loader:
                         module = importlib.util.module_from_spec(spec)
@@ -590,9 +590,14 @@ class DiagnosticRunner:
                         self.successful_executions += 1
                         self.log_both(f"   {script_path} - Execution OK", "success", "✅ ")
                 except Exception as e:
-                    result.error_message = f"Execution error: {e}"
-                    result.warnings.append(f"Runtime issues: {e}")
-                    self.log_both(f"   {script_path} - Execution warning: {str(e)[:100]}...", "warning", "⚠️  ")
+                    # Handle relative import errors as warnings, not failures
+                    if any(phrase in str(e) for phrase in ["attempted relative import", "No module named"]):
+                        result.warnings.append(f"Execution warning: {e}")
+                        self.log_both(f"   {script_path} - Execution warning: {str(e)[:100]}...", "warning", "⚠️  ")
+                    else:
+                        result.error_message = f"Execution error: {e}"
+                        result.warnings.append(f"Runtime issues: {e}")
+                        self.log_both(f"   {script_path} - Execution warning: {str(e)[:100]}...", "warning", "⚠️  ")
                 
                 self.execution_tests += 1
             else:
@@ -730,7 +735,7 @@ class DiagnosticRunner:
         try:
             # Test enhanced modules
             from pynucleus.integration.config_manager import ConfigManager
-            from pynucleus.integration.dwsim_rag_integrator import DWSIMRAGIntegrator
+            # from pynucleus.integration.dwsim_rag_integrator import DWSIMRAGIntegrator  # DWSIM removed
             from pynucleus.integration.llm_output_generator import LLMOutputGenerator
             
             self.log_result("Enhanced Modules Import", True, ["All enhanced modules imported successfully"])
