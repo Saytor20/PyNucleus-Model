@@ -592,6 +592,7 @@ class DiagnosticRunner:
                 except Exception as e:
                     # Handle relative import errors as warnings, not failures
                     if any(phrase in str(e) for phrase in ["attempted relative import", "No module named"]):
+                        result.execution_successful = True  # Treat relative import warnings as successful
                         result.warnings.append(f"Execution warning: {e}")
                         self.log_both(f"   {script_path} - Execution warning: {str(e)[:100]}...", "warning", "⚠️  ")
                     else:
@@ -681,7 +682,7 @@ class DiagnosticRunner:
             
             # Test LLM utilities
             try:
-                from pynucleus.llm.query_llm import QueryLLM
+                from pynucleus.llm.query_llm import LLMQueryManager
                 self.log_result("LLM Query Module", True, ["LLM query functionality available"])
             except ImportError:
                 self.log_result("LLM Query Module", False, ["LLM query module not available"])

@@ -3,16 +3,16 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pysaytor"
+name = "PyNucleus"
 dynamic = ["version"]
 description = "Chemical process simulation and RAG system"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "PySaytor Contributors"}
+    {name = "PyNucleus Contributors"}
 ]
 maintainers = [
-    {name = "PySaytor Contributors"}
+    {name = "PyNucleus Contributors"}
 ]
 keywords = ["chemical", "simulation", "rag", "dwsim", "llm"]
 classifiers = [
@@ -84,12 +84,12 @@ test = [
 ]
 
 [project.scripts]
-pysaytor = "pynucleus.cli:main"
+PyNucleus = "pynucleus.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/mohammadalmusaiteer/PySaytor"
-Repository = "https://github.com/mohammadalmusaiteer/PySaytor"
-Issues = "https://github.com/mohammadalmusaiteer/PySaytor/issues"
+Homepage = "https://github.com/mohammadalmusaiteer/PyNucleus"
+Repository = "https://github.com/mohammadalmusaiteer/PyNucleus"
+Issues = "https://github.com/mohammadalmusaiteer/PyNucleus/issues"
 
 [tool.setuptools.dynamic]
 version = {attr = "pynucleus.__version__"}

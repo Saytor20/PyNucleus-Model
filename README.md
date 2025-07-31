@@ -1,12 +1,12 @@
-# PySaytor
+# PyNucleus
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Health Score](https://img.shields.io/badge/Health%20Score-100%25-brightgreen.svg)](https://github.com/mohammadalmusaiteer/PySaytor)
+[![Health Score](https://img.shields.io/badge/Health%20Score-100%25-brightgreen.svg)](https://github.com/mohammadalmusaiteer/PyNucleus)
 
-**PySaytor** is a production-ready Chemical Process Simulation & RAG System designed for African industrial markets. Combines advanced language models with chemical engineering expertise for intelligent Q&A, plant design simulation, and economic analysis.
+**PyNucleus** is a production-ready Chemical Process Simulation & RAG System designed for African industrial markets. Combines advanced language models with chemical engineering expertise for intelligent Q&A, plant design simulation, and economic analysis.
 
-📖 **[Complete System Documentation](PySaytor.md)** | 🏭 **54 Documents Indexed** | 🧠 **SmolLM2-1.7B Model**
+📖 **[Complete System Documentation](PyNucleus.md)** | 🏭 **54 Documents Indexed** | 🧠 **SmolLM2-1.7B Model**
 
 ## ⚡ Quick Start
 
@@ -14,12 +14,12 @@
 
 ```bash
 # Clone and install
-git clone https://github.com/mohammadalmusaiteer/PySaytor.git
-cd PySaytor
+git clone https://github.com/mohammadalmusaiteer/PyNucleus.git
+cd PyNucleus
 
 # Set up environment
-python -m venv pysaytor_env
-source pysaytor_env/bin/activate  # Windows: pysaytor_env\Scripts\activate
+python -m venv PyNucleus_env
+source PyNucleus_env/bin/activate  # Windows: PyNucleus_env\Scripts\activate
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -29,9 +29,9 @@ pip install -e .
 ### Verify Installation
 
 ```bash
-pysaytor --help           # Show available commands
-pysaytor health quick     # Run system health check
-pysaytor chat             # Start interactive chat
+PyNucleus --help           # Show available commands
+PyNucleus health quick     # Run system health check
+PyNucleus chat             # Start interactive chat
 ```
 
 ## 💬 Core Features
@@ -39,7 +39,7 @@ pysaytor chat             # Start interactive chat
 ### Interactive Chat
 ```bash
 # Chat with chemical engineering knowledge base
-pysaytor chat
+PyNucleus chat
 > What is mass transfer zone?
 > How do modular chemical plants work?
 ```
@@ -47,13 +47,13 @@ pysaytor chat
 ### Plant Design & Simulation
 ```bash
 # Build chemical plants with economic analysis
-pysaytor build --template 1 --feedstock natural_gas --capacity 1000 --location Nigeria
+PyNucleus build --template 1 --feedstock natural_gas --capacity 1000 --location Nigeria
 ```
 
 ### Document Processing
 ```bash
 # Process technical documents into knowledge base
-pysaytor ingest auto --source-dir data/raw/documents
+PyNucleus ingest auto --source-dir data/raw/documents
 ```
 
 ## 🏗️ System Architecture
@@ -70,19 +70,19 @@ pysaytor ingest auto --source-dir data/raw/documents
 cp configs/config_template.env .env
 ```
 
-**📖 [Complete Documentation](PySaytor.md)** - System architecture, components, and advanced configuration
+**📖 [Complete Documentation](PyNucleus.md)** - System architecture, components, and advanced configuration
 
 ## 🔧 Troubleshooting
 
 ```bash
 # System health check
-pysaytor health full
+PyNucleus health full
 
 # Check system diagnostics
 python scripts/comprehensive_health_check.py
 
 # View logs
-tail -f logs/pysaytor_*.log
+tail -f logs/PyNucleus_*.log
 ```
 
 **Common Issues:**
@@ -90,7 +90,7 @@ tail -f logs/pysaytor_*.log
 - Memory errors: Ensure 8GB+ RAM available
 - GPU issues: Set `USE_CUDA=false` in `.env` for CPU-only mode
 
-📋 [Report Issues](https://github.com/mohammadalmusaiteer/PySaytor/issues)
+📋 [Report Issues](https://github.com/mohammadalmusaiteer/PyNucleus/issues)
 
 ---
 
@@ -104,4 +104,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**PySaytor v2.0.0** - Built for African industrialization with ❤️
+**PyNucleus v2.0.0** - Built for African industrialization with ❤️

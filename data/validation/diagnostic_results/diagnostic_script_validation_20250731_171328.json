@@ -1,0 +1,535 @@
+{
+  "timestamp": "20250731_171328",
+  "total_scripts": 46,
+  "healthy_scripts": 46,
+  "categories": {
+    "Core Pipeline Scripts": {
+      "total": 23,
+      "healthy": 23
+    },
+    "Integration & LLM Scripts": {
+      "total": 21,
+      "healthy": 21
+    },
+    "Entry Point Scripts": {
+      "total": 1,
+      "healthy": 1
+    },
+    "Validation Scripts": {
+      "total": 1,
+      "healthy": 1
+    }
+  },
+  "results": [
+    {
+      "script_path": "src/pynucleus/pipeline/location_factor_analyzer.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.006256103515625,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/plant_builder.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0021347999572753906,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/results_exporter.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002087831497192383,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/pipeline_rag.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.006445884704589844,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/expert_review_system.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.004846811294555664,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/feedstock_validator.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.004492998123168945,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/quantitative_risk_assessor.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.00661015510559082,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/__init__.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0018589496612548828,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/economic_benchmarking.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.008409976959228516,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/financial_analyzer.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.008070945739746094,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/comprehensive_validation_system.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.004768848419189453,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/operational_hours_validator.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.006266117095947266,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/pipeline/pipeline_utils.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.003593921661376953,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/rag/vector_store_remote.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002223968505859375,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/vector_store.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.00557708740234375,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/wiki_scraper.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.07197070121765137,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/rag/embedding_monitor.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0022242069244384766,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/rag/document_processor.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.004336118698120117,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/rag/collector.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.004170894622802734,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/__init__.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0022068023681640625,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/rag_core.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002496004104614258,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/rag/engine.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.00551295280456543,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/rag/answer_processing.py",
+      "category": "Core Pipeline Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.024435997009277344,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/integration/config_manager.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.004044055938720703,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/integration/__init__.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.001950979232788086,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/integration/llm_output_generator.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.004301786422729492,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/answer_engine.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 1.023529052734375,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/retriever_adapter.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002457141876220703,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/prompting.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0022640228271484375,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/query_llm.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0027599334716796875,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/__init__.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0021140575408935547,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/simple_local_adapter.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 1.5848791599273682,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/llm/device_manager.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002655029296875,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/model_loader.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.00393986701965332,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/qwen_loader.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0018329620361328125,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/llm/llm_runner.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0036039352416992188,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/logging_config.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.002259969711303711,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/env.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0017049312591552734,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/__init__.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0016121864318847656,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: No module named 'test_module'"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/utils/logger.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0020380020141601562,
+      "error_message": "",
+      "warnings": [
+        "Execution warning: attempted relative import with no known parent package"
+      ]
+    },
+    {
+      "script_path": "src/pynucleus/utils/telemetry_patch.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.001924753189086914,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/error_handler.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.003197193145751953,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/pretty_formatter.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0031909942626953125,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/utils/token_utils.py",
+      "category": "Integration & LLM Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0019488334655761719,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "src/pynucleus/cli.py",
+      "category": "Entry Point Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.016284942626953125,
+      "error_message": "",
+      "warnings": []
+    },
+    {
+      "script_path": "scripts/validate_smol_primary.py",
+      "category": "Validation Scripts",
+      "syntax_valid": true,
+      "imports_valid": true,
+      "execution_successful": true,
+      "execution_time": 0.0025043487548828125,
+      "error_message": "",
+      "warnings": []
+    }
+  ]
+}
