@@ -230,20 +230,21 @@ def truncate_answer(text: str, max_length: int = None) -> str:
 
 def remove_meta_commentary(text: str) -> str:
     """Remove meta-commentary about the answer process"""
-    # Patterns that indicate meta-commentary
+    # Patterns that indicate meta-commentary - be more specific to avoid removing legitimate content
     meta_patterns = [
-        r"based on the (?:provided )?(?:reference )?information[,\s]*",
-        r"according to the (?:provided )?(?:reference )?(?:information|context)[,\s]*",
-        r"from the (?:provided )?(?:reference )?(?:information|context)[,\s]*",
-        r"the (?:provided )?(?:reference )?information (?:shows|indicates|suggests)[,\s]*",
+        r"based on the (?:provided )?reference information[,\s]*",  # More specific - keep general "based on the information"
+        r"according to the (?:provided )?reference (?:information|context)[,\s]*",
+        r"from the (?:provided )?reference (?:information|context)[,\s]*",
+        r"the (?:provided )?reference information (?:shows|indicates|suggests)[,\s]*",
         r"i cannot provide (?:more )?(?:specific )?details.*?(?:given|present|available)",
         r"therefore[,\s]*i cannot provide.*?(?:text|information)",
         r"there is no (?:additional|more|further) (?:technical )?detail.*?(?:above|described)",
         r"the key points? to address.*?remain:?",
         r"to answer (?:this )?(?:the )?question.*?(?:remains?|are?):?",
         r"in summary[,\s]*(?:the )?(?:key )?(?:points?|information)",
-        r"based on (?:this|the) information[,\s]*",
-        r"from (?:this|the) information[,\s]*",
+        # Remove the overly broad patterns that were removing legitimate content
+        # r"based on (?:this|the) information[,\s]*",  # Too broad - removes legitimate scientific language
+        # r"from (?:this|the) information[,\s]*",      # Too broad - removes legitimate scientific language
         r"not already present in the given text",
         r"beyond their definition as described above",
         r"beyond what (?:is|has been) (?:already )?(?:described|mentioned|stated)",
@@ -734,9 +735,14 @@ def clean_and_format_answer(text: str) -> str:
         if len(cleaned.strip()) < 10:
             return "I couldn't provide a meaningful answer to your question. Please try rephrasing it."
         
-        # Check for remaining artifacts (but keep valid citations)
-        artifacts = ['based on the', 'reference information', 'therefore, i cannot']
-        if any(artifact in cleaned.lower() for artifact in artifacts):
+        # Check for remaining problematic artifacts (be very specific to avoid false positives)
+        problematic_artifacts = [
+            'therefore, i cannot provide',
+            'based on the reference information',
+            'the reference information shows',
+            'i cannot provide more details beyond what is described'
+        ]
+        if any(artifact in cleaned.lower() for artifact in problematic_artifacts):
             return "I couldn't provide a clean answer to your question. Please try rephrasing it."
         
         return cleaned.strip()

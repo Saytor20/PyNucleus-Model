@@ -1,7 +1,0 @@
-# Processed Document
-# Processing Date: 2025-07-02 00:16:10
-# Content Length: 34 characters
-# Word Count: 6 words
-# ==================================================
-
-No tables extracted from this PDF.

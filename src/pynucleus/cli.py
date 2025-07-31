@@ -311,13 +311,16 @@ def interactive_chat(
         
         console.print("🔄 [yellow]Initializing RAG system...[/yellow]")
         
-        # Test RAG system
-        test_result = rag_ask("test connection")
-        if not test_result:
-            console.print("[red]❌ Failed to initialize RAG system[/red]")
+        # Test RAG system with a simple health check instead of a confusing query
+        try:
+            # Just test that the RAG system can be imported and initialized
+            # without actually running a query that might contaminate the cache
+            from pynucleus.llm.retriever_adapter import DocumentRetriever
+            retriever = DocumentRetriever()  # This will validate the system is working
+            console.print("✅ [green]RAG system ready[/green]\n")
+        except Exception as e:
+            console.print(f"[red]❌ Failed to initialize RAG system: {e}[/red]")
             raise Exit(1)
-            
-        console.print("✅ [green]RAG system ready[/green]\n")
         
         # Handle single question mode
         if single:
