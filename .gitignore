@@ -274,3 +274,6 @@ venv/
 pynucleus_env/
 .venv/
 .pytest_cache/
+
+# Claude tasks
+claude/tasks/
