@@ -341,6 +341,7 @@ class DiagnosticRunner:
             self._check_rag_system_health()
             self._check_dwsim_integration()
             self._check_llm_integration()
+            self._check_basic_integration()
             self._test_pipeline_components()
             
             # Enhanced Testing Features (from original SystemDiagnostic)
